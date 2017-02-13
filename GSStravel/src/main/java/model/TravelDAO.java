@@ -37,6 +37,7 @@ public class TravelDAO implements ITravelDAO {
 	private static final String insert = "insert into Travel(tra_Name, tra_Loc, tra_On, tra_Off, tra_Beg, tra_End, tra_Total, tra_Max, tra_Intr, tra_Con, tra_Atter, tra_File, tra_NO) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String UPDATE = "update Travel set tra_Name=?, tra_Loc=?, tra_On=?, tra_Off=?, tra_Beg=?, tra_End=?, tra_Total=?, tra_Max=?, tra_Intr=?, tra_Con=?, tra_Atter=?, tra_File=? where tra_NO=?";
 	private static final String DELETE = "delete from Travel where tra_NO=?";
+	private static final String SELECT_ALL_STMT = "SELECT * FROM Travel";
 
 	@Override
 	public boolean delete(String tra_NO) {
@@ -279,5 +280,34 @@ public class TravelDAO implements ITravelDAO {
 	@Override
 	public int[] Count(long tra_No) {
 		return null;
+	}
+	
+	public List<TravelVO> selectExcel() {
+		List<TravelVO> result = null;
+		try (Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(SELECT_ALL_STMT);
+				ResultSet rset = stmt.executeQuery();) {
+			result = new ArrayList<TravelVO>();
+			while (rset.next()) {
+				TravelVO bean = new TravelVO();
+				bean.setTra_NO(rset.getString("tra_No"));
+				bean.setTra_Name(rset.getString("tra_Name"));
+				bean.setTra_Loc(rset.getString("tra_Loc"));
+				bean.setTra_On(rset.getDate("tra_On"));
+				bean.setTra_Off(rset.getDate("tra_Off"));
+				bean.setTra_Beg(rset.getTimestamp("tra_Beg"));
+				bean.setTra_End(rset.getTimestamp("tra_End"));
+				bean.setTra_Total(rset.getInt("tra_Total"));
+				bean.setTra_Max(rset.getInt("tra_Max"));
+				bean.setTra_Intr(rset.getString("tra_Intr"));
+				bean.setTra_Con(rset.getString("tra_Con"));
+				bean.setTra_Atter(rset.getString("tra_Atter"));
+				bean.setTra_File(rset.getString("tra_File"));
+				result.add(bean);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

@@ -15,10 +15,20 @@ import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 
 public class writeExcel {
-	public static void excel(String traNo, String traName, String traLoc, String traOn, String traOff, String traBeg,
-			String traEnd, String traTotal, String traMax, String traIntr, String traCon, String traAttr, String traFile) {
+	static File saveFolder;
+
+	public writeExcel(File saveFolder) {
+		this.saveFolder = saveFolder;
+		if (!saveFolder.exists()) {
+			saveFolder.mkdirs();
+		}
+	}
+
+	public void excel(String traNo, String traName, String traLoc, String traOn, String traOff, String traBeg,
+			String traEnd, String traTotal, String traMax, String traIntr, String traCon, String traAttr,
+			String traFile) {
 		try {
-			WritableWorkbook workbook = Workbook.createWorkbook(new File("C:/travel/"+traFile+".xls"));
+			WritableWorkbook workbook = Workbook.createWorkbook(new File(saveFolder + "/" + traFile + ".xls"));
 			WritableSheet sheet = workbook.createSheet("MySheet", 0);
 			// WritableFont myFont = new
 			// WritableFont(WritableFont.createFont("標楷體"), 14);

@@ -147,6 +147,10 @@ public class TravelService {
 			result.add(temp);
 			return result;
 		}
+		public List<TravelVO> selectExcel(TravelVO bean) {
+			return travelDAO.selectExcel();
+		}		
+		
 		//信智
 		public TravelVO select(String tra_NO){
 			TravelVO result = null;

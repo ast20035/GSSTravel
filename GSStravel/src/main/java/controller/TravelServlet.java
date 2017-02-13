@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -59,11 +61,11 @@ public class TravelServlet extends HttpServlet {
 		String traCon = request.getParameter("edittraCon");
 		String traAtter = request.getParameter("edittraAtter");
 		String traFile = request.getParameter("edittraFile");
-
 		String itemNo = request.getParameter("edititemNo");
 		String itemName = request.getParameter("edititemName");
 		String itemMoney = request.getParameter("edititemMoney");
 		String inputerrors = request.getParameter("inputerrors");
+		String excel = request.getParameter("excel");
 		
 		// 驗證資料
 		Map<String, String> errors = new HashMap<String, String>();
@@ -78,6 +80,20 @@ public class TravelServlet extends HttpServlet {
 		// 3.轉換資料
 
 		/* 活動代碼 */ // 單筆測試用
+		
+		if ("匯出Excel".equals(excel)) {
+			TravelVO travelBean = new TravelVO();
+			List<TravelVO> tResult = travelService.selectExcel(travelBean);
+			File dir = new File("C:/travel");
+			writeExcel we = new writeExcel(dir);
+			for (int i = 0; i < tResult.size(); i++) {
+				we.excel(tResult.get(i).getTra_NO(), tResult.get(i).getTra_Name(), tResult.get(i).getTra_Loc(),
+						tResult.get(i).getTra_On().toString(), tResult.get(i).getTra_Off().toString(),
+						tResult.get(i).getTra_Beg().toString(), tResult.get(i).getTra_End().toString(),
+						tResult.get(i).getTra_Total() + "", tResult.get(i).getTra_Max() + "", tResult.get(i).getTra_Intr(),
+						tResult.get(i).getTra_Con(), tResult.get(i).getTra_Atter(), tResult.get(i).getTra_File());
+			}
+		}
 		
 		String edittraNO = "";
 		if (traNo != null && traNo.length() != 0) {
@@ -351,7 +367,7 @@ public class TravelServlet extends HttpServlet {
 				session.setAttribute("delete", 1);
 			}	
 		}
-		 request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response); //測試用
+		request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response); //測試用
 	}// doGet
 
 	@Override
