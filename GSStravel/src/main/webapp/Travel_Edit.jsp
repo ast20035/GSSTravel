@@ -195,7 +195,6 @@ li {list-style-type:none;}
 			<input type="submit" name="inputerrors" value="Update">
 			<input type="submit" name="inputerrors" value="Delete">
 			<input type="submit" name="" value="關閉">
-			<input type="submit" name="excel" value="匯出Excel" />
 		</td>
 		</tr>
 	</table>

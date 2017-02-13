@@ -281,11 +281,11 @@ public class TravelServlet extends HttpServlet {
 		 // 4.呼叫Model
 		/*---單頁測試用---*/
 		TravelVO travelview = travelService.select(traNo);
-		System.out.println("travelService位置 : "+travelview);
+//		System.out.println("travelService位置 : "+travelview);
 		List<ItemVO> itemview = itemService.select(traNo);	//list
 		request.setAttribute("params", travelview);
 		request.setAttribute("paramsi", itemview);
-		System.out.println("itemService資料數 : "+itemview.size());
+//		System.out.println("itemService資料數 : "+itemview.size());
 
 		// 5.根據Model執行結果，決定需要顯示的View元件
 		
@@ -308,7 +308,7 @@ public class TravelServlet extends HttpServlet {
 			travelview.setTra_Loc(traLoc);
 			travelview.setTra_File(traFile);
 			TravelVO resultnew = travelService.insert(travelview);
-			System.out.println("travelService資料 : "+travelview.getTra_On());
+//			System.out.println("travelService資料 : "+travelview.getTra_On());
 			
 			/*--item--*/
 			
@@ -342,9 +342,9 @@ public class TravelServlet extends HttpServlet {
 			 List<ItemVO> itemfor = new ArrayList<ItemVO>();  
 			 for(ItemVO v:itemview){
 				 v.setItem_Name(edititemName);
-				 System.out.println(edititemName);
+//				 System.out.println(edititemName);
 				 v.setItem_Money(edititemMoney);
-				 System.out.println(edititemMoney);
+//				 System.out.println(edititemMoney);
 				 ItemVO result1 = itemService.update(v);
 				 itemfor.add(result1);
 			}
@@ -367,7 +367,8 @@ public class TravelServlet extends HttpServlet {
 				session.setAttribute("delete", 1);
 			}	
 		}
-		request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response); //測試用
+		request.getRequestDispatcher("/search2.jsp").forward(request,response);
+		//request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response); //測試用
 	}// doGet
 
 	@Override

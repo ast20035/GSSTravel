@@ -117,7 +117,7 @@
  <script src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
 <%@include file="SelectBar.jsp" %>
 <h2>行程維護</h2>
-	<form>
+	 <form action="<c:url value='/Travel_Edit'/>" method="GET">		
 		活動代碼:<input type='text' id='id' value='' /><br> 活動名稱:<input
 			type='text' id='tra_name' value='' /><br> 開始日期:<input
 			type='date' id='Sdate' name='startDay' value='' /> ~ <input
@@ -134,6 +134,7 @@
         </select>
 		<br> <input
 			type="button" value="查詢" onclick="search()" /> <input type="reset"><button><a href="Travel_New.jsp">新增</a></button>
+		<input type="submit" name="excel" value="匯出Excel" />
 	</form>
 	<table class='table'  cellpadding="10">
 		<thead>
