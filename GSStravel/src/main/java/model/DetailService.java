@@ -234,22 +234,31 @@ public class DetailService {
 	public List<DetailBean> update(DetailBean bean) {
 		List<DetailBean> result = null;
 		if (bean != null) {
+			String Rel = detailDAO.Select_Rel(bean.getDet_No());
 			int emp_No = detailDAO.select_emp_No(bean.getDet_No());
-			String emp_SubTra = detailDAO.SELECT_emp_SubTra(emp_No);
-			String top1_Tra_No = detailDAO.SELECT_top1_Tra_No(emp_No);
-			String top2_Tra_No = detailDAO.SELECT_top2_Tra_No(emp_No);
-			String canTra_No = bean.getTra_NO();
-			if(canTra_No.equals(emp_SubTra)){
-				if (emp_SubTra.equals(top1_Tra_No)) {
-					if (top1_Tra_No.equals(top2_Tra_No)) {
-						detailDAO.UPDATE_emp_Sub(emp_No);
-					} else {
-						detailDAO.UPDATE_emp_SubTra(top2_Tra_No, emp_No);
+			if(Rel.equals("員工")){
+				String emp_SubTra = detailDAO.SELECT_emp_SubTra(emp_No);
+				String top1_Tra_No = detailDAO.SELECT_top1_Tra_No(emp_No);
+				String top2_Tra_No = detailDAO.SELECT_top2_Tra_No(emp_No);
+				String canTra_No = bean.getTra_NO();
+				if(canTra_No.equals(emp_SubTra)){
+					if (emp_SubTra.equals(top1_Tra_No)) {
+						if (top1_Tra_No.equals(top2_Tra_No)) {
+							detailDAO.UPDATE_emp_Sub(emp_No);
+						} else {
+							detailDAO.UPDATE_emp_SubTra(top2_Tra_No, emp_No);
+						}
 					}
 				}
+				detailDAO.DELETE_TA(canTra_No, emp_No);
+				result = detailDAO.update(emp_No, bean.getDet_canNote(), bean.getTra_NO());
+			}else{
+				detailDAO.update_FamCanDate(bean.getDet_No(), bean.getDet_canNote());	
+				String top1_Tra_No = detailDAO.SELECT_top1_Tra_No(emp_No);
+				detailDAO.UPDATE_emp_SubTra(top1_Tra_No, emp_No);
+				Float TA_money = detailDAO.select_TotalMoney(emp_No, bean.getTra_NO());
+				detailDAO.Update_TA(TA_money, emp_No, bean.getTra_NO());
 			}
-			detailDAO.DELETE_TA(canTra_No, emp_No);
-			result = detailDAO.update(emp_No, bean.getDet_canNote(), bean.getTra_NO());
 		}
 		return result;
 	}

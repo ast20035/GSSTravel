@@ -286,7 +286,7 @@ public class DetailDAO implements IDetailDAO {
 	}
 
 	// 找到員工所報名的所有旅費中花費最高的Tra_No
-	private static final String SELECT_top1_Tra_No = "SELECT  TOP 1 Tra_No FROM (SELECT TOP 1  Detail.Tra_No, Detail.emp_No,SUM(det_money) as totalMoney FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No full outer join Travel on Detail.tra_No = Travel.tra_No WHERE Detail.emp_No=? and ISNULL(fam_Rel,'員工') <> '親友' and det_CanDate is null and tra_On>GETDATE() GROUP BY  Detail.emp_No,Detail.Tra_No ORDER BY totalMoney DESC )temp1";
+	private static final String SELECT_top1_Tra_No = "SELECT  TOP 1 Tra_No FROM (SELECT TOP 1  Detail.Tra_No, Detail.emp_No,SUM(det_money) as totalMoney FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No full outer join Travel on Detail.tra_No = Travel.tra_No WHERE Detail.emp_No=? and ISNULL(fam_Rel,'員工') <> '親友' and det_CanDate is null and tra_End>GETDATE() GROUP BY  Detail.emp_No,Detail.Tra_No ORDER BY totalMoney DESC )temp1";
 
 	@Override
 	public String SELECT_top1_Tra_No(int Emp_No) {
@@ -305,7 +305,7 @@ public class DetailDAO implements IDetailDAO {
 	}
 
 	// 找到員工所報名的所有旅費中花費第二高的Tra_No
-	private static final String SELECT_top2_Tra_No = "SELECT  TOP 1 Tra_No FROM (SELECT TOP 2 Detail.Tra_No, Detail.emp_No,SUM(det_money) as totalMoney FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No full outer join Travel on Detail.tra_No = Travel.tra_No WHERE Detail.emp_No=? and ISNULL(fam_Rel,'員工') <> '親友' and det_CanDate is null and tra_On>GETDATE() GROUP BY  Detail.emp_No,Detail.Tra_No order by totalMoney DESC)temp1 ORDER BY totalMoney ";
+	private static final String SELECT_top2_Tra_No = "SELECT  TOP 1 Tra_No FROM (SELECT TOP 2 Detail.Tra_No, Detail.emp_No,SUM(det_money) as totalMoney FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No full outer join Travel on Detail.tra_No = Travel.tra_No WHERE Detail.emp_No=? and ISNULL(fam_Rel,'員工') <> '親友' and det_CanDate is null and tra_End>GETDATE() GROUP BY  Detail.emp_No,Detail.Tra_No order by totalMoney DESC)temp1 ORDER BY totalMoney ";
 
 	@Override
 	public String SELECT_top2_Tra_No(int Emp_No) {
@@ -323,7 +323,7 @@ public class DetailDAO implements IDetailDAO {
 		return result;
 	}
 
-	// 取消detail用，點選取消找到附屬的emp_No
+	// 取消員工的detail用，點選取消找到附屬的emp_No
 	private static final String SELECT_emp_No = "SELECT emp_No FROM Detail WHERE det_No=?";
 
 	@Override
@@ -340,6 +340,41 @@ public class DetailDAO implements IDetailDAO {
 		}
 		return result;
 	}
+	
+	// 查詢此det_No的人是員工or親屬
+		private static final String SELECT_Rel = "SELECT ISNULL(fam_Rel,'員工') as Rel FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No  WHERE det_No = ?";
+
+		@Override
+		public String Select_Rel(int det_No) {
+			String result = null;
+			try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(SELECT_Rel);) {
+				stmt.setInt(1, det_No);
+				ResultSet set = stmt.executeQuery();
+				while (set.next()) {
+					result = set.getString("Rel");	
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
+		
+		private static final String select_TotalMoney = "SELECT totalMoney FROM (SELECT Detail.Tra_No, Detail.emp_No,SUM(det_money) as totalMoney FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No full outer join Travel on Detail.tra_No = Travel.tra_No WHERE Detail.emp_No=? and Detail.Tra_No=? and ISNULL(fam_Rel,'員工') <> '親友' and det_CanDate is null GROUP BY  Detail.emp_No,Detail.Tra_No )temp1";
+		@Override
+		public float select_TotalMoney(int emp_No, String Tra_No) {
+			float result = 0;
+			try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(select_TotalMoney);) {
+				stmt.setInt(1, emp_No);
+				stmt.setString(2, Tra_No);
+				ResultSet set = stmt.executeQuery();
+				while (set.next()) {
+					result = set.getFloat("totalMoney");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
 
 	private static final String INSERT_Detail = "insert into Detail(emp_No,fam_No,tra_No,det_Date,det_money) values(?,?,?,GETDATE(),?)";
 
@@ -400,6 +435,21 @@ public class DetailDAO implements IDetailDAO {
 		}
 		return result;
 	}
+	
+	// 更新取消日期=點選當下的時間(親屬)
+		private static final String UPDATE_FamCanDate = "update Detail set det_CanDate=GETDATE(), det_canNote=? where det_No=? and det_CanDate is null";
+		@Override
+		public List<DetailBean> update_FamCanDate(int det_No, String det_canNote) {
+			List<DetailBean> result = null;
+			try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(UPDATE_FamCanDate);) {
+				stmt.setString(1, det_canNote);
+				stmt.setInt(2, det_No);
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
 
 	// 當員工沒有花費第二高的Tra_No時，將他的輔助金變回尚未使用，emp_SubTra=NULL
 	private static final String UPDATE_emp_Sub = "update Employee set emp_Sub=1, emp_SubTra=NULL where emp_No=?";
@@ -498,6 +548,23 @@ public class DetailDAO implements IDetailDAO {
 		return b;
 	}
 	
+		private static final String UPDATE_TA = "update TotalAmount set TA_money=? where emp_No=? and tra_No=?";
+
+		@Override
+		public boolean Update_TA(float TA_money, int Emp_No, String Tra_No) {
+			boolean b = true;
+			try (Connection conn = ds.getConnection()) {
+				PreparedStatement stmt = conn.prepareStatement(UPDATE_TA);
+				stmt.setFloat(1, TA_money);
+				stmt.setInt(2, Emp_No);
+				stmt.setString(3, Tra_No);
+				stmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				b = false;
+			}
+			return b;
+		}
 	private static final String DELETE_TA = "delete from TotalAmount where tra_No=? and emp_No=?";
 	@Override
 	public boolean DELETE_TA(String Tra_No, int Emp_No){
