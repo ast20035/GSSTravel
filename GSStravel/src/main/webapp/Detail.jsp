@@ -27,13 +27,13 @@
 				<th>性別</th>
 				<th>身份證字號</th>
 				<th>生日</th>
-				<th>電話</th>
+				<th>手機</th>
 				<th>用餐/車位</th>
 				<th>特殊身份</th>
 				<th>保險受益人</th>
 				<th>與受益人關係</th>
 				<th>緊急聯絡人</th>
-				<th>緊急聯絡人電話</th>
+				<th>緊急聯絡人手機</th>
 				<th>報名時間</th>
 				<th>取消日期</th>
 				<th>備註</th>
@@ -81,7 +81,7 @@
 						<td><input type="text" name="ID" class="TWID" value="${row.ID}" disabled></td>
 						<td><input type="date" name="Bdate" value="${row.bdate}"
 							disabled></td>
-						<td><input type="text" name="Phone" value="${row.phone}"
+						<td><input type="text" name="Phone" class="Phone" value="${row.phone}"
 							disabled></td>
 						<td><input type="text" name="teat" value="${row.eat}"
 							style="display: none"> <select name="eat" disabled>
@@ -142,8 +142,8 @@
 						<td><input type="text" class="ben" name="ben" value="${row.ben}" disabled></td>
 						<td><input type="text" class="ben_Rel" name="ben_Rel" value="${row.benRel}"
 							disabled></td>
-						<td><input type="text" name="emg" value="${row.emg}" disabled></td>
-						<td><input type="text" name="emg_Phone" id="emg_Phone"
+						<td><input type="text" class="emg" name="emg" value="${row.emg}" disabled></td>
+						<td><input type="text" name="emg_Phone" class="emg_Phone" 
 							value="${row.emgPhone}" disabled></td>
 						<td>${row.det_Date}</td>
 						<td>${row.det_CanDate}</td>
@@ -255,6 +255,7 @@ $(function(){
 				   
 				  } else {
 					$(this).css("border-color","red");
+					  thisTr.find(".save").attr("type","button");
 				  }
 				  // 找出第一個字母對應的數字，並轉換成兩位數數字。
 				  for (var i=0; i<26; i++) {
@@ -277,19 +278,87 @@ $(function(){
 				  // 和最後一個數字比對
 				  if ((10 - (total % 10))!= lastNum) {
 					  $(this).css("border-color","red");
+					  alert("身份證字號輸入錯誤！");
+					  thisTr.find(".save").attr("type","button");
 				  }else{
 				  $(this).css("border-color","green");
+				  thisTr.find(".save").attr("type","submit");
 				}})
 				
-		 
+				var cellPhone=/^09\d{2}-?\d{3}-?\d{3}$/;
+				thisTr.find(".Phone").on("blur",function(){
+					if(cellPhone.test($(this).val())){
+						$(this).css("border-color","green")
+						thisTr.find(".save").attr("type","submit");
+					}else{
+						$(this).css("border-color","red");
+						alert("手機輸入錯誤！");
+						thisTr.find(".save").attr("type","button");
+					}
+				});
+				thisTr.find(".emg_Phone").on("blur",function(){
+					if(cellPhone.test($(this).val())){
+						$(this).css("border-color","green")
+						 thisTr.find(".save").attr("type","submit");
+					}else{
+						$(this).css("border-color","red");
+						thisTr.find(".save").attr("type","button");
+						alert("緊急聯絡人手機輸入錯誤！");
+					}
+				});
+				
+				var thisName=/^.*\s*[^\s]/;
+				thisTr.find(".name").blur(function(){
+					if(thisName.test($(this).val())){
+						$(this).css("border-color","green")
+						thisTr.find(".save").attr("type","submit");
+					}else{
+						alert("姓名不能為空值！");
+						$(this).css("border-color","red");
+						thisTr.find(".save").attr("type","button");
+					}
+				});
+				thisTr.find(".ben").blur(function(){
+					if(thisName.test($(this).val())){
+						$(this).css("border-color","green")
+						thisTr.find(".save").attr("type","submit");
+					}else{
+						alert("保險受益人不能為空值！");
+						$(this).css("border-color","red");
+						thisTr.find(".save").attr("type","button");
+					}
+				});
+				thisTr.find(".ben_Rel").blur(function(){
+					if(thisName.test($(this).val())){
+						$(this).css("border-color","green")
+						thisTr.find(".save").attr("type","submit");
+					}else{
+						alert("與受益人關係不能為空值！");
+						$(this).css("border-color","red");
+						thisTr.find(".save").attr("type","button");
+					}
+				});
+				thisTr.find(".emg").blur(function(){
+					if(thisName.test($(this).val())){
+						$(this).css("border-color","green")
+						thisTr.find(".save").attr("type","submit");
+					}else{
+						alert("緊急聯絡人不能為空值！");
+						$(this).css("border-color","red");
+						thisTr.find(".save").attr("type","button");
+					}
+				});
+				
 		 $(this).parents("tr").find("p").hide();
 		 $(this).hide();
 		 $(".detEdit").prop("disabled",true);
      });
 	 
-	 
-	 
-	
+	 $(".save").click(function () {
+		 if(this.type=='button'){
+			 alert("儲存失敗！");
+		 }
+	 });
 });
 
 
