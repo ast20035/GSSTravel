@@ -42,7 +42,7 @@ public class Register extends HttpServlet {
 		req.setAttribute("empemgphone",empstart.getEmp_EmgPhone());
 		req.setAttribute("empeat",empstart.getEmp_Eat());
 		req.setAttribute("empnote",empstart.getEmp_Note());
-		
+		req.setAttribute("empemail",empstart.getEmp_Mail());
 
 		List<FamilyVO> famstart=familyservice.selectFam(emp_No.toString(),tra_No);
 		req.setAttribute("famstartsize", famstart.size());

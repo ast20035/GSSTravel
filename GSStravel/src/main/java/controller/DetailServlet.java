@@ -156,7 +156,6 @@ public class DetailServlet extends HttpServlet {
 					Fbean.setFam_Note(note);
 					Fbean.setFam_No(fam_No);
 					detailService.update_famData(Fbean);
-
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -180,7 +179,7 @@ public class DetailServlet extends HttpServlet {
 					Ebean.setEmp_Note(note);
 					Ebean.setEmp_No(emp_No);
 					detailService.update_empData(Ebean);
-
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

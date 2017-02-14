@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 public interface IEmployeeDAO {
 	public String selectEmp_Name(String emp_No);//找到員工姓名(報名明細使用)
 	public Integer selectEmp_Sub(String emp_No);//找尋補助金是否使用
@@ -7,5 +9,5 @@ public interface IEmployeeDAO {
 	public EmployeeVO select(int emp_NO);
 	public void updateEmp_SubTra(String tra_No,String emp_No);
 	public void update(EmployeeVO empVoUpdate);
-	
+	public List<EmployeeVO> selectFineEmail();
 }

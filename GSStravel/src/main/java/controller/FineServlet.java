@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +18,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.DetailService;
+import model.DetailVO;
+import model.EmployeeService;
+import model.EmployeeVO;
 import model.FineService;
 import model.FineVO;
 import model.ItemService;
@@ -29,6 +35,7 @@ public class FineServlet extends HttpServlet {
 	private FineService fineService = new FineService();
 	private TravelService travelService = new TravelService();
 	private ItemService itemService = new ItemService();
+	private EmployeeService employeeService = new EmployeeService();
 	int countI = 0;
 	int countJ = 0;
 
@@ -48,12 +55,13 @@ public class FineServlet extends HttpServlet {
 		String set = request.getParameter("FineSetting");
 		String save = request.getParameter("save");
 		String show = request.getParameter("FineShow");
+		String email = request.getParameter("FineEmail");
 		FineVO fineBean = new FineVO();
 		TravelVO travelBean = new TravelVO();
 		ItemVO itemBean = new ItemVO();
 
 		boolean power = true;
-		if ("儲存".equals(save)) {
+		if ("儲存罰則".equals(save)) {
 			power = false;
 			String[] temp1 = request.getParameterValues("day");
 			String[] temp2 = request.getParameterValues("percent");
@@ -74,7 +82,7 @@ public class FineServlet extends HttpServlet {
 			} else {
 				int count1 = 0;
 				int count2 = 0;
-				if ("儲存".equals(save)) {
+				if ("儲存罰則".equals(save)) {
 					for (int i = 0; i < temp1.length; i++) {
 						if (temp1[i] == "") {
 							count1 = 1;
@@ -84,7 +92,7 @@ public class FineServlet extends HttpServlet {
 						error.put("day", "請輸入取消日！");
 					}
 				}
-				if ("儲存".equals(save)) {
+				if ("儲存罰則".equals(save)) {
 					for (int i = 0; i < temp1.length; i++) {
 						if (temp2[i] == "") {
 							count2 = 1;
@@ -118,10 +126,10 @@ public class FineServlet extends HttpServlet {
 								}
 							}
 						}
-						if ("儲存".equals(save) && plus == 1) {
+						if ("儲存罰則".equals(save) && plus == 1) {
 							error.put("day", "取消日必須為正整數！");
 						}
-						if ("儲存".equals(save) && check == 1) {
+						if ("儲存罰則".equals(save) && check == 1) {
 							error.put("pk", "取消日已存在！");
 						}
 					} catch (NumberFormatException e) {
@@ -130,7 +138,7 @@ public class FineServlet extends HttpServlet {
 								count3 = 1;
 							}
 						}
-						if ("儲存".equals(save) && count3 == 1) {
+						if ("儲存罰則".equals(save) && count3 == 1) {
 							error.put("day", "取消日必須為正整數！");
 						}
 					}
@@ -145,7 +153,7 @@ public class FineServlet extends HttpServlet {
 								hundred = 1;
 							}
 						}
-						if ("儲存".equals(save) && hundred == 1) {
+						if ("儲存罰則".equals(save) && hundred == 1) {
 							error.put("percent", "扣款比例必須為小於100的正數！");
 						}
 					} catch (NumberFormatException e) {
@@ -154,13 +162,13 @@ public class FineServlet extends HttpServlet {
 								count4 = 1;
 							}
 						}
-						if ("儲存".equals(save) && count4 == 1) {
+						if ("儲存罰則".equals(save) && count4 == 1) {
 							error.put("percent", "扣款比例必須為小於100的正數！");
 						}
 					}
 				}
-				
-				if ("儲存".equals(save)) {
+
+				if ("儲存罰則".equals(save)) {
 					if (error != null && !error.isEmpty()) {
 						List<FineVO> result = fineService.select(fineBean);
 						request.setAttribute("select", result);
@@ -170,7 +178,7 @@ public class FineServlet extends HttpServlet {
 					}
 				}
 
-				if ("儲存".equals(save)) {
+				if ("儲存罰則".equals(save)) {
 					fineService.delete(fineBean);
 					for (int i = 0; i < temp1.length; i++) {
 						fineBean.setFine_Dates(day[i]);
@@ -179,47 +187,30 @@ public class FineServlet extends HttpServlet {
 					}
 					response.sendRedirect(request.getContextPath() + "/FineShowServlet");
 				}
-
-//				if ("刪除".equals(delete)) {
-//					if (checkbox != null) {
-//						int[] toggle = new int[checkbox.length];
-//						for (int i = 0; i < checkbox.length; i++) {
-//							toggle[i] = Integer.parseInt(checkbox[i]);
-//						}
-//						for (int i = 0; i < toggle.length; i++) {
-//							fineBean.setFine_Dates(toggle[i]);
-//							Boolean bResult = fineService.delete(fineBean);
-//							request.setAttribute("delete", bResult);
-//						}
-//						response.sendRedirect(request.getContextPath() + "/FineShowServlet");
-//					} else {
-//						error.put("delete", "尚未勾選欲刪除項目！");
-//						List<FineVO> result = fineService.select(fineBean);
-//						request.setAttribute("select", result);
-//						RequestDispatcher rd = request.getRequestDispatcher("/view/FineSetting.jsp");
-//						rd.forward(request, response);
-//						return;
-//					}
-//				}
-
-//				if ("儲存".equals(save)) {
-//					if (temp1.length != fineService.select(fineBean).size()) {
-//						for (int i = fineService.select(fineBean).size(); i < temp1.length; i++) {
-//							fineBean.setFine_Dates(day[i]);
-//							fineBean.setFine_Per(percent[i]);
-//							FineVO iResult = fineService.insert(fineBean);
-//							request.setAttribute("insert", iResult);
-//						}
-//					}
-//					for (int i = 0; i < temp1.length; i++) {
-//						fineBean.setFine_Dates(day[i]);
-//						fineBean.setFine_Per(percent[i]);
-//						FineVO uResult = fineService.update(fineBean);
-//						request.setAttribute("update", uResult);
-//					}
-//					response.sendRedirect(request.getContextPath() + "/FineShowServlet");
-//				}
 			}
+		}
+		if ("異動通知".equals(email)) {
+			power = true;
+			List<EmployeeVO> result = employeeService.selectEmp();
+			LinkedHashSet mailSet = new LinkedHashSet();	
+			String[] empMail = new String[result.size()];
+			email em = new email();
+			String[] mail = new String[result.size()];
+			Iterator mailIt = null;
+			for (int i = 0; i < result.size(); i++) {
+				empMail[i] = result.get(i).getEmp_Mail();
+				mailSet.add(empMail[i]);
+				mailIt = mailSet.iterator();
+			}
+			int i = 0;
+			String emp = "";
+			while (mailIt.hasNext()) {
+				mail[i] = mailIt.next().toString();
+				emp = emp + mail[i] + ",";
+				i++;
+			}
+			em.send(emp, "罰則異動通知！", "您好！\n罰則有些許的變更，請注意您所報名的行程，謝謝！\n祝您旅途愉快！");
+			response.sendRedirect(request.getContextPath() + "/FineShowServlet");
 		}
 		if ("罰則設定".equals(set)) {
 			power = false;
@@ -229,7 +220,7 @@ public class FineServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/view/FineSetting.jsp");
 			rd.forward(request, response);
 		}
-		if ("查看罰則".equals(show)) {
+		if ("罰則明細".equals(show)) {
 			power = true;
 			List<TravelVO> tResult = travelService.select(travelBean);
 			List<FineVO> fResult = fineService.select(fineBean);

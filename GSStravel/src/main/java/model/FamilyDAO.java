@@ -155,7 +155,7 @@ public class FamilyDAO implements IFamilyDAO {
 			state.setString(1, famvo.getFam_Name());
 			state.setString(2, famvo.getFam_Rel());
 //			state.setDate(3, famvo.getFambdate());
-			Long Fambdate = famvo.getFam_Bdate().getTime();		
+//			Long Fambdate = famvo.getFam_Bdate().getTime();		
 			state.setDate(3, new java.sql.Date(famvo.getFam_Bdate().getTime()));
 			state.setString(4, famvo.getFam_Sex());	
 			state.setString(5, famvo.getFam_Eat());

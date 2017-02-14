@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
 public class TravelService {
 	private ITravelDAO travelDAO=new TravelDAO();
 	private IDetailDAO detailDAO=new DetailDAO();
+	
 	public List<TravelVO> select() throws SQLException {		
 		return travelDAO.getAll();
 	}

@@ -7,6 +7,6 @@
 <title>報名取消</title>
 </head>
 <body onLoad="setTimeout(window.close, 1000)">
-已將該員工的所有名額取消成功！
+取消成功！
 </body>
 </html>
