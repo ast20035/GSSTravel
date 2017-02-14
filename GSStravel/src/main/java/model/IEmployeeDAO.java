@@ -9,5 +9,5 @@ public interface IEmployeeDAO {
 	public EmployeeVO select(int emp_NO);
 	public void updateEmp_SubTra(String tra_No,String emp_No);
 	public void update(EmployeeVO empVoUpdate);
-	public EmployeeVO selectFineEmail(int no);
+	public List<EmployeeVO> selectFineEmail();
 }
