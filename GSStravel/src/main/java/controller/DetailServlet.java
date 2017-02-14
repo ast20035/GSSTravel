@@ -182,7 +182,6 @@ public class DetailServlet extends HttpServlet {
 			} else {
 				try {
 					if (name.trim().length() == 0 || name == null) {
-						System.out.println("name");
 						session.setAttribute("CanError", "儲存失敗！");
 					} else if (ben.trim().length() == 0 || ben == null) {
 						session.setAttribute("CanError", "儲存失敗！");

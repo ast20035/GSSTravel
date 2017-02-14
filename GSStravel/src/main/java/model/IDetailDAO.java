@@ -20,6 +20,7 @@ public interface IDetailDAO {
 	public abstract int select_emp_No(int det_No);
 	public abstract boolean insert(DetailVO bean);
 	public abstract boolean insert_emp(DetailVO bean);
+	public abstract boolean INSERT_TA(String tra_No, int Emp_No, float TA_money);
 	public abstract String Select_Rel(int det_No);
 	public abstract float select_TotalMoney(int emp_No, String Tra_No);
 	public abstract List<DetailBean> update(int det_No, String det_canNote, String tra_No);

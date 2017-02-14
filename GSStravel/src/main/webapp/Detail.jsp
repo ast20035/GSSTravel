@@ -357,6 +357,8 @@ $(function(){
 		 if(this.type=='button'){
 			 alert("儲存失敗！");
 		 }
+		 
+		 
 	 });
 function open_Can(obj) {
     var CanUrl = '/GSStravel/Detail_Cancel.jsp?can_detNo=' + obj.value + "&can_traNo=" + document.getElementById("tra_no").value;
