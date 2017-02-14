@@ -295,9 +295,16 @@ $(function(){
 				  $("#save").attr("type","button");
 	// 			return false;
 			  }else{
-			  $(this).css("border-color","green");
-			  $("#save").attr("type","submit");
-	// 		  return true;
+				if($(this).val()=$("input[name*='famid']").val()){
+					 $(this).css("border-color","red");
+					  $("#famiderror").text("身分證格式錯誤");
+					  $("#save").attr("type","button");
+				}else{
+					 $(this).css("border-color","green");
+					  $("#save").attr("type","submit");
+			// 		  return true;
+				}
+			 
 			}})
 			var fambdate=/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
 			$(".repeat td").on("blur","input[name='fambdate']",function(){if(fambdate.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
