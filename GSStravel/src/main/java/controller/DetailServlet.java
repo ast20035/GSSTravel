@@ -1,8 +1,8 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +19,8 @@ import model.EmployeeVO;
 import model.FamilyVO;
 import model.ItemService;
 import model.ItemVO;
+import model.TravelVO;
+
 
 @WebServlet(urlPatterns = { ("/detail") })
 public class DetailServlet extends HttpServlet {
@@ -35,29 +37,42 @@ public class DetailServlet extends HttpServlet {
 		String prodaction = req.getParameter("prodaction");
 		String tra_no = req.getParameter("tra_no");
 		String can_detNo = req.getParameter("can_detNo");
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		DetailBean bean = new DetailBean();
+		TravelVO travelVO;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Map<String, String> DetCanError = new HashMap<String, String>();
 		req.setAttribute("DetCanError", DetCanError);
 		List<ItemVO> itemVO=null;
 		List<ItemVO> room=null;
 		if ("insert".equals(prodaction)) {
 			Long tra_No=Long.parseLong(tra_no);
-
-			int Count=detailService.tra_count(tra_No);
-			int NowCount=detailService.tra_count(tra_No);
-			itemVO=itemService.getFareMoney(tra_No);
-			room=itemService.getRoomMoney(tra_No);
-			float f=0;
-			for(ItemVO i:itemVO){
-				f=f+i.getItem_Money();
-			}	
-			req.setAttribute("tra_no", tra_no);
-			req.setAttribute("money",f);
-			req.setAttribute("room",room);
-			req.getRequestDispatcher("/Detail_Insert.jsp").forward(req, resp);
-			return;
+			travelVO=detailService.Count(tra_no);
+			if(travelVO != null){
+				System.out.println("aa"+travelVO.getTra_Total());
+				System.out.println("aa"+detailService.tra_count(tra_No));  //更改Detail的tra_count
+				if(travelVO.getTra_Total()>detailService.tra_count(tra_No)){
+					itemVO=itemService.getFareMoney(tra_No);
+					room=itemService.getRoomMoney(tra_No);
+					float f=0;
+					for(ItemVO i:itemVO){
+						f=f+i.getItem_Money();
+					}	
+					req.setAttribute("tra_no", tra_no);
+					req.setAttribute("money",f);
+					req.setAttribute("room",room);
+					req.getRequestDispatcher("/Detail_Insert.jsp").forward(req, resp);
+					return;
+				}else{
+					DetCanError.put("Msg","此報名總人數已額滿，是否要繼續新增?");
+					resp.sendRedirect("/GSStravel/detail?tra_no="+tra_no);
+					return;
+				}
+			}else{
+				DetCanError.put("CanError","此報名已結束");
+				req.getRequestDispatcher("/Detail.jsp?tra_no="+tra_no).forward(req, resp);
+				return;
+			}
 		}
 		// 點選取消按鈕，更新取消日期
 		if ("送出".equals(prodaction) && can_detNo != null) {
@@ -146,6 +161,8 @@ public class DetailServlet extends HttpServlet {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				resp.sendRedirect("/GSStravel/detail?tra_no="+tra_no);
+				return;
 			} else {
 				try {
 					EmployeeVO Ebean = new EmployeeVO();
@@ -169,13 +186,13 @@ public class DetailServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
-
+			resp.sendRedirect("/GSStravel/detail?tra_no="+tra_no);
+			return;
 		}
 		bean.setTra_NO(tra_no);
 		List<DetailBean> result = detailService.select(bean);
 		req.setAttribute("select", result);
 		req.getRequestDispatcher("/Detail.jsp").forward(req, resp);
-		
 	}
 
 	@Override

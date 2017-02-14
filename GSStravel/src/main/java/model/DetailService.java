@@ -265,6 +265,10 @@ public class DetailService {
 		}
 		return result;
 	}
+	public TravelVO Count(String tra_No){
+		travelDAO=new TravelDAO();
+		return travelDAO.Count(tra_No);
+	}
 	
 	public Boolean update_famData(FamilyVO bean) {
 		Boolean result = false;
