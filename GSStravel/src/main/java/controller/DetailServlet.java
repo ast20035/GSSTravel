@@ -161,6 +161,8 @@ public class DetailServlet extends HttpServlet {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+				resp.sendRedirect("/GSStravel/detail?tra_no="+tra_no);
+				return;
 			} else {
 				try {
 					EmployeeVO Ebean = new EmployeeVO();
@@ -184,7 +186,8 @@ public class DetailServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
-
+			resp.sendRedirect("/GSStravel/detail?tra_no="+tra_no);
+			return;
 		}
 		bean.setTra_NO(tra_no);
 		List<DetailBean> result = detailService.select(bean);
