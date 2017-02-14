@@ -20,7 +20,7 @@ td, input,table {
 
 </head>
 <body>
-<h1>行程內容</h1>
+	<h1>行程內容</h1>
 	<button><a href="<c:url value="/FeeTravel?tra_No=${traveResult.tra_NO}"/>" class="a">行程</a></button><button><a href="<c:url value="/FineShowOneServlet?tra_No=${traveResult.tra_NO}"/>" class="a">罰則</a></button>
 	<form action="<c:url value="/FineShowOneServlet" />" method="GET">
 		<c:if test="${countI+1 ne 0 && countJ+1 ne 0}">

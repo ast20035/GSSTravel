@@ -40,7 +40,25 @@ public class DetailDAO implements IDetailDAO {
 	private static final String UPDATE_DETAIL_FOR_FAM_NO = "update Detail set det_note=? , det_noteMoney=? where fam_No=? and tra_No=?";
 	private static final String selectFam_No = "select fam_No  from Detail where fam_No=? and tra_No=? and det_CanDate is null ";
 	private static final String selectFam_Rel = "select f.fam_Rel as fam_Rel from Detail d join Family f on d.fam_No=f.fam_No where d.det_CanDate is null and tra_No=? and d.emp_No=?";
+	private static final String Fine_Email = "SELECT emp_No FROM Detail WHERE det_CanDate IS NULL AND fam_No IS NULL";
 
+	public List<DetailVO> selectFineEmail(){
+		List<DetailVO> result=null;
+		try (Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(Fine_Email);
+				ResultSet rset = stmt.executeQuery();) {
+			result = new ArrayList<DetailVO>();
+			while (rset.next()) {
+				DetailVO bean = new DetailVO();
+				bean.setEmp_No(rset.getInt("emp_No"));
+				result.add(bean);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	@Override
 	public List<String> selectFam_Rel(int emp_No, long tra_No) {
 		List<String> fam_Rels = new ArrayList<>();

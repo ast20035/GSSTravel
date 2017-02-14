@@ -93,6 +93,7 @@ public class TravelServlet extends HttpServlet {
 						tResult.get(i).getTra_Total() + "", tResult.get(i).getTra_Max() + "", tResult.get(i).getTra_Intr(),
 						tResult.get(i).getTra_Con(), tResult.get(i).getTra_Atter(), tResult.get(i).getTra_File());
 			}
+			request.getRequestDispatcher("/search2.jsp").forward(request,response);
 		}
 		
 		String edittraNO = "";
@@ -367,8 +368,7 @@ public class TravelServlet extends HttpServlet {
 				session.setAttribute("delete", 1);
 			}	
 		}
-		request.getRequestDispatcher("/search2.jsp").forward(request,response);
-		//request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response); //測試用
+		request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response); //測試用
 	}// doGet
 
 	@Override

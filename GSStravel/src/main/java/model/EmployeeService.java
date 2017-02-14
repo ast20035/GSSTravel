@@ -1,9 +1,14 @@
 package model;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class EmployeeService {
 	private IEmployeeDAO employeeDAO=new EmployeeDAO();
+	
+	public EmployeeVO selectEmp(int no) {
+		return employeeDAO.selectFineEmail(no);
+	}
 	
 	public String getName(String emp_No){
 		return employeeDAO.selectEmp_Name(emp_No);
