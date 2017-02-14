@@ -215,20 +215,14 @@ public class DetailService {
 		return result;
 	}
 
-	public DetailVO insert(DetailVO bean) {
-		DetailVO result = null;
-		if (bean != null) {
-			result = detailDAO.insert(bean);
-		}
-		return result;
+	public boolean insert(DetailVO bean) {
+		detailDAO = new DetailDAO();
+		return detailDAO.insert(bean);
 	}
 
-	public DetailVO insert_emp(DetailVO bean) {
-		DetailVO result = null;
-		if (bean != null) {
-			result = detailDAO.insert_emp(bean);
-		}
-		return result;
+	public boolean insert_emp(DetailVO bean) {
+		detailDAO = new DetailDAO();
+		return detailDAO.insert_emp(bean);
 	}
 
 	public List<DetailBean> update(DetailBean bean) {

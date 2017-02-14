@@ -3,15 +3,14 @@ package controller;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.DetailBean;
 import model.DetailService;
@@ -41,16 +40,16 @@ public class DetailServlet extends HttpServlet {
 		DetailBean bean = new DetailBean();
 		TravelVO travelVO;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Map<String, String> DetCanError = new HashMap<String, String>();
-		req.setAttribute("DetCanError", DetCanError);
+		HttpSession session = req.getSession();
+		session.removeAttribute("DetCanError");
+		
 		List<ItemVO> itemVO=null;
 		List<ItemVO> room=null;
+		System.out.println("aa"+prodaction);
 		if ("insert".equals(prodaction)) {
 			Long tra_No=Long.parseLong(tra_no);
 			travelVO=detailService.Count(tra_no);
 			if(travelVO != null){
-				System.out.println("aa"+travelVO.getTra_Total());
-				System.out.println("aa"+detailService.tra_count(tra_No));  //更改Detail的tra_count
 				if(travelVO.getTra_Total()>detailService.tra_count(tra_No)){
 					itemVO=itemService.getFareMoney(tra_No);
 					room=itemService.getRoomMoney(tra_No);
@@ -64,12 +63,12 @@ public class DetailServlet extends HttpServlet {
 					req.getRequestDispatcher("/Detail_Insert.jsp").forward(req, resp);
 					return;
 				}else{
-					DetCanError.put("Msg","此報名總人數已額滿，是否要繼續新增?");
+					session.setAttribute("Msg","此報名總人數已額滿，是否要繼續新增?");
 					resp.sendRedirect("/GSStravel/detail?tra_no="+tra_no);
 					return;
 				}
 			}else{
-				DetCanError.put("CanError","此報名已結束");
+				session.setAttribute("CanError","此報名已結束");
 				req.getRequestDispatcher("/Detail.jsp?tra_no="+tra_no).forward(req, resp);
 				return;
 			}
@@ -88,7 +87,7 @@ public class DetailServlet extends HttpServlet {
 				req.getRequestDispatcher("/Detail_CanSuccess.jsp").forward(req, resp);
 				return;
 			} else {
-				DetCanError.put("CanError", "必須輸入取消原因！");
+				session.setAttribute("CanError", "必須輸入取消原因！");
 				req.getRequestDispatcher("/Detail_Cancel.jsp").forward(req, resp);
 				return;
 			}

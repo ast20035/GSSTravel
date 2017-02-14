@@ -344,44 +344,41 @@ public class DetailDAO implements IDetailDAO {
 	private static final String INSERT_Detail = "insert into Detail(emp_No,fam_No,tra_No,det_Date,det_money) values(?,?,?,GETDATE(),?)";
 
 	@Override
-	public DetailVO insert(DetailVO bean) {
-		DetailVO result = null;
-		try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(INSERT_Detail);) {
+	public boolean insert(DetailVO bean) {
+		boolean b =true;
+		try (Connection conn = ds.getConnection(); 
+			PreparedStatement stmt = conn.prepareStatement(INSERT_Detail);) {
 			if (bean != null) {
 				stmt.setInt(1, bean.getEmp_No());
 				stmt.setInt(2, bean.getFam_No());
 				stmt.setString(3, bean.getTra_No());
 				stmt.setDouble(4, bean.getDet_money());
-				int i = stmt.executeUpdate();
-				if (i == 1) {
-					result = bean;
-				}
+				stmt.executeUpdate();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			b=false;
 		}
-		return result;
+		return b;
 	}
 
 	private static final String INSERT_DetailEmp = "insert into Detail(emp_No,tra_No,det_Date,det_money) values(?,?,GETDATE(),?)";
 
 	@Override
-	public DetailVO insert_emp(DetailVO bean) {
-		DetailVO result = null;
+	public boolean insert_emp(DetailVO bean) {
+		boolean b = true;
 		try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(INSERT_DetailEmp);) {
 			if (bean != null) {
 				stmt.setInt(1, bean.getEmp_No());
 				stmt.setString(2, bean.getTra_No());
 				stmt.setFloat(3, bean.getDet_money());
-				int i = stmt.executeUpdate();
-				if (i == 1) {
-					result = bean;
-				}
+				stmt.executeUpdate();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			b=false;
 		}
-		return result;
+		return b;
 	}
 
 	// 更新取消日期=點選當下的時間

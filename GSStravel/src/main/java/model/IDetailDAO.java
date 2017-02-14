@@ -18,8 +18,8 @@ public interface IDetailDAO {
 	public abstract String SELECT_top1_Tra_No(int Emp_No);
 	public abstract String SELECT_top2_Tra_No(int Emp_No);
 	public abstract int select_emp_No(int det_No);
-	public abstract DetailVO insert(DetailVO bean);
-	public abstract DetailVO insert_emp(DetailVO bean);
+	public abstract boolean insert(DetailVO bean);
+	public abstract boolean insert_emp(DetailVO bean);
 	public abstract List<DetailBean> update(int det_No, String det_canNote, String tra_No);
 	public abstract boolean UPDATE_emp_Sub(int Emp_No);
 	public abstract boolean UPDATE_emp_SubTra(String Tra_No, int Emp_No);
