@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,10 +47,8 @@ public class TravelServlet extends HttpServlet {
 		String inputdate = "";
 		if (request.getParameter("inputdate") != "" && request.getParameter("inputdate") != null)
 		inputdate = request.getParameter("inputdate");
-
 //		String traNo = request.getParameter("edittraNO");//正式用
 		String traNo = request.getParameter("tra_no"); // 單頁更新測試用
-		System.out.println(traNo);
 		String traName = request.getParameter("edittraName");
 		String traLoc = request.getParameter("edittraLoc");
 		String traOn = request.getParameter("edittraOn");
@@ -61,11 +61,11 @@ public class TravelServlet extends HttpServlet {
 		String traCon = request.getParameter("edittraCon");
 		String traAtter = request.getParameter("edittraAtter");
 		String traFile = request.getParameter("edittraFile");
-
 		String itemNo = request.getParameter("edititemNo");
 		String itemName = request.getParameter("edititemName");
 		String itemMoney = request.getParameter("edititemMoney");
 		String inputerrors = request.getParameter("inputerrors");
+		String excel = request.getParameter("excel");
 		
 		// 驗證資料
 		Map<String, String> errors = new HashMap<String, String>();
@@ -80,6 +80,20 @@ public class TravelServlet extends HttpServlet {
 		// 3.轉換資料
 
 		/* 活動代碼 */ // 單筆測試用
+		
+		if ("匯出Excel".equals(excel)) {
+			TravelVO travelBean = new TravelVO();
+			List<TravelVO> tResult = travelService.selectExcel(travelBean);
+			File dir = new File("C:/travel");
+			writeExcel we = new writeExcel(dir);
+			for (int i = 0; i < tResult.size(); i++) {
+				we.excel(tResult.get(i).getTra_NO(), tResult.get(i).getTra_Name(), tResult.get(i).getTra_Loc(),
+						tResult.get(i).getTra_On().toString(), tResult.get(i).getTra_Off().toString(),
+						tResult.get(i).getTra_Beg().toString(), tResult.get(i).getTra_End().toString(),
+						tResult.get(i).getTra_Total() + "", tResult.get(i).getTra_Max() + "", tResult.get(i).getTra_Intr(),
+						tResult.get(i).getTra_Con(), tResult.get(i).getTra_Atter(), tResult.get(i).getTra_File());
+			}
+		}
 		
 		String edittraNO = "";
 		if (traNo != null && traNo.length() != 0) {
@@ -115,8 +129,6 @@ public class TravelServlet extends HttpServlet {
 			}
 
 		}
-		System.out.println(edittraName+","+request.getParameter("edittraName"));
-
 		/* 活動起始日 */
 		//java.util.Date edittraOn = new java.util.Date(edittraOn.getTime());  // sql -> util
 		java.util.Date edittraOn = null;
@@ -269,11 +281,11 @@ public class TravelServlet extends HttpServlet {
 		 // 4.呼叫Model
 		/*---單頁測試用---*/
 		TravelVO travelview = travelService.select(traNo);
-		System.out.println("travelService位置 : "+travelview);
+//		System.out.println("travelService位置 : "+travelview);
 		List<ItemVO> itemview = itemService.select(traNo);	//list
 		request.setAttribute("params", travelview);
 		request.setAttribute("paramsi", itemview);
-		System.out.println("itemService資料數 : "+itemview.size());
+//		System.out.println("itemService資料數 : "+itemview.size());
 
 		// 5.根據Model執行結果，決定需要顯示的View元件
 		
@@ -296,7 +308,7 @@ public class TravelServlet extends HttpServlet {
 			travelview.setTra_Loc(traLoc);
 			travelview.setTra_File(traFile);
 			TravelVO resultnew = travelService.insert(travelview);
-			System.out.println("travelService資料 : "+travelview.getTra_On());
+//			System.out.println("travelService資料 : "+travelview.getTra_On());
 			
 			/*--item--*/
 			
@@ -314,7 +326,6 @@ public class TravelServlet extends HttpServlet {
 		/*--Travel--*/	
 			travelview.setTra_Name(edittraName);
 			travelview.setTra_Loc(edittraLoc);
-			System.out.println(travelview);
 			travelview.setTra_On(new java.sql.Date(edittraOn.getTime()));
 			travelview.setTra_Off(new java.sql.Date(edittraOff.getTime()));
 			travelview.setTra_Beg(new java.sql.Timestamp(edittraBeg.getTime()));
@@ -331,9 +342,9 @@ public class TravelServlet extends HttpServlet {
 			 List<ItemVO> itemfor = new ArrayList<ItemVO>();  
 			 for(ItemVO v:itemview){
 				 v.setItem_Name(edititemName);
-				 System.out.println(edititemName);
+//				 System.out.println(edititemName);
 				 v.setItem_Money(edititemMoney);
-				 System.out.println(edititemMoney);
+//				 System.out.println(edititemMoney);
 				 ItemVO result1 = itemService.update(v);
 				 itemfor.add(result1);
 			}
@@ -356,7 +367,8 @@ public class TravelServlet extends HttpServlet {
 				session.setAttribute("delete", 1);
 			}	
 		}
-		 request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response); //測試用
+		request.getRequestDispatcher("/search2.jsp").forward(request,response);
+		//request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response); //測試用
 	}// doGet
 
 	@Override

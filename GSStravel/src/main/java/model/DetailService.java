@@ -202,8 +202,6 @@ public class DetailService {
 		detailDAO = new DetailDAO();
 		if (bean != null && bean.getTra_NO() != null) {
 			result = detailDAO.select(bean.getTra_NO());
-		} else {
-			// result = detailDAO.select("");
 		}
 		return result;
 	}
@@ -254,10 +252,28 @@ public class DetailService {
 		}
 		return result;
 	}
+	
+	public Boolean update_empData(EmployeeVO bean) {
+		Boolean result = false;
+		if (bean != null) {
+			result = detailDAO.UPDATE_empData(bean);
+		}
+		return result;
+	}
 	public TravelVO Count(String tra_No){
 		travelDAO=new TravelDAO();
 		return travelDAO.Count(tra_No);
 	}
+	
+	public Boolean update_famData(FamilyVO bean) {
+		Boolean result = false;
+		if (bean != null) {
+			detailDAO.UPDATE_famData(bean);
+			result = true;
+		}
+		return result;
+	}
+
 	// 雅婷
 	public List<TotalAmountFormBean> select(String tra_No) {
 		detailDAO = new DetailDAO();
