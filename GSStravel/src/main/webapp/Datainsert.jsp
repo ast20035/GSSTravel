@@ -80,7 +80,7 @@
 
 	<c:forEach var="start" items="${famstart}">
 	  <tr>
-		<td><input type="button" name ="delete" id="delete" value="刪除"></td>
+		<td><input type="submit" name ="delete" id="delete" value="刪除"></td>
 		<td>
 			<select name ="famrel" >	
 				<c:if test="${start.fam_Rel=='親友'}">				
