@@ -162,26 +162,18 @@ private FamilyService familyservice= new FamilyService();
 		 idlength = famid.length;
 //		 System.out.println(idlength);//3筆 前端輸入的親屬id筆數 (前端寫多少欄位近來)
 
-		 
 		 	//判斷 新增或是修改(親屬) 判斷前端欄位親屬id在資料庫有沒有   有id此欄未做修改 沒id此欄未做新增
 			//還是看看用fam_id[i]來判斷進來的是跟資料庫一樣的id還是不同 
 			//fam_id[i]那一筆   有   在資料庫 來判斷
-			 List<String> id = familyservice.selectid(emp_No);
-//			 for(String fam: famid){
-//				 if(id.contains(fam)==true){
-////					 familyservice.update(familyvo);
-//					 System.out.println("update "+fam);
-//				 }else{
-////					 familyservice.insert(familyvo);
-//					 System.out.println("insert "+fam);
-//				 }
-//			 }
-		 
-		 
+		 List<String> id = familyservice.selectid(emp_No);	 
 		 
 		 for(int i=0;i<idlength;i++){//0 1 2
 //			 System.out.println(i); //帶i=0之後就帶不下去了 找index size錯誤
 			FamilyVO familyvo = new FamilyVO();
+			
+			familyvo.setEmp_No(emp_No);
+			Integer famno=familyservice.selectfam_No(famname[i]);
+			familyvo.setFam_No(famno);
 			familyvo.setFam_Rel(famrel[i]);
 			familyvo.setFam_Name(famname[i]);
 			familyvo.setFam_Sex(famsex[i]);
@@ -271,42 +263,24 @@ private FamilyService familyservice= new FamilyService();
 			}else{
 				familyvo.setFam_Note(null);
 			}
-			familyvo.setEmp_No(emp_No);
+			
 			
 			if(id.contains(famid[i])==true){//可以insert進去 但不能update成功
 				familyservice.update(familyvo);
-				System.out.println("update" +famid[i]);
+				System.out.println("update " +famid[i]);
 			}else{ 
 				familyservice.insert(familyvo);
 				System.out.println("insert "+famid[i]);
 			}
-			
-			 
-//			 for(String x: famid){
-//			 System.out.println(x);
-//			 System.out.println(x=="Q250939543");
-//			 System.out.println(x.equals("Q250939543")); //only此為true
-//			 }
-			 //寫回圈帶入 SYs(famid[i]);帶一個值而已?
-			 
-			
-			 
-//				 for(String idid: id){	
-	//					if(famid.equals(idid)==true){
-	//						familyservice.update(familyvo); 
-	//						System.out.println("修改完畢");
-	//					 }else{
-	//						 familyservice.insert(familyvo);
-	//						 System.out.println("新增完畢");
-	//					 }
-//			 		}		
 		 }//回圈結束
 		 
-		 	
-			 
-
-		 req.getRequestDispatcher("Register").forward(req, res);
-		}
+		 	req.getRequestDispatcher("Register").forward(req, res);
+		}//按下save的執行動作
+		
+//		if("delete".equals(buttondelete)){//假如執行delete方法後 如果報名欄位是空白得?
+//			
+//		}
+		
 	}
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

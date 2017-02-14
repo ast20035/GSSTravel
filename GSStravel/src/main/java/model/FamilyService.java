@@ -20,4 +20,7 @@ public class FamilyService {
 	public List<String> selectid(Integer empno){
 		return familyDAO.selectid(empno);
 	} 
+	public Integer selectfam_No(String fam_Name){
+		return familyDAO.selectfam_No(fam_Name);
+	}
 }
