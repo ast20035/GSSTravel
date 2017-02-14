@@ -49,8 +49,6 @@ public class DetailServlet extends HttpServlet {
 			Long tra_No=Long.parseLong(tra_no);
 			travelVO=detailService.Count(tra_no);
 			if(travelVO != null){
-				System.out.println("aa"+travelVO.getTra_Total());
-				System.out.println("aa"+detailService.tra_count(tra_No));  //更改Detail的tra_count
 				if(travelVO.getTra_Total()>detailService.tra_count(tra_No)){
 					itemVO=itemService.getFareMoney(tra_No);
 					room=itemService.getRoomMoney(tra_No);
