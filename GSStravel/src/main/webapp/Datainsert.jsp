@@ -60,19 +60,19 @@
 <table id="familytable">
 <tr >
 	<th></th>
-	<th>*眷屬/親友</th>
-	<th>*姓名</th>
-	<th>*性別</th>
-	<th>*身份證字號</th>
-	<th>*生日</th>
-	<th>*手機</th>
+	<th><em style="color: red">*</em>眷屬/親友</th>
+	<th><em style="color: red">*</em>姓名</th>
+	<th><em style="color: red">*</em>性別</th>
+	<th><em style="color: red">*</em>身份證字號</th>
+	<th><em style="color: red">*</em>生日</th>
+	<th><em style="color: red">*</em>手機</th>
 	<th>用餐/車位</th>
 	<th>特殊身份</th>
-	<th>*保險受益人</th>
-	<th>*保險受益人關係</th>
-	<th>*緊急聯絡人</th>
-	<th>*緊急聯絡人電話</th>
-	<th>*緊急聯絡人關係</th>
+	<th><em style="color: red">*</em>保險受益人</th>
+	<th><em style="color: red">*</em>保險受益人關係</th>
+	<th><em style="color: red">*</em>緊急聯絡人</th>
+	<th><em style="color: red">*</em>緊急聯絡人電話</th>
+	<th><em style="color: red">*</em>緊急聯絡人關係</th>
 	<th>備註</th>
 </tr>
 		

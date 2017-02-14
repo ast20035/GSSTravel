@@ -36,13 +36,13 @@
 			<td></td>
 		</tr>
 		<tr>
-			<td>*活動名稱</td>
+			<td><em style="color: red">*</em>活動名稱</td>
 
 			<td><input type="text" name="edittraName" value="${params.tra_Name}" style="width:320px"></td>
 			<td></td>
 		</tr>
 				<tr>
-			<td>*活動地點</td>
+			<td><em style="color: red">*</em>活動地點</td>
  			<td><SELECT name="edittraLoc"> 
  			<OPTION selected>${params.tra_Loc}</OPTION> 
 			<!-- <option selected="selected" value="null">請選擇地點</option> --> 
@@ -91,42 +91,42 @@
 			<td></td>
 		</tr>
 		<tr>
-			<td>*活動日期</td>
+			<td><em style="color: red">*</em>活動日期</td>
 		
 			<td><input type="text" name="edittraOn" value="${params.tra_On}"><a> ~</a>
 			<input type="text" name="edittraOff" value="${params.tra_Off}"></td>
 		</tr>
 		<tr>
-			<td>*登記時間</td>
+			<td><em style="color: red">*</em>登記時間</td>
 		<td><input type="text" name="edittraBeg" value="${params.tra_Beg}"><a> ~</a>
 		<input type="text" name="edittraEnd" value="${params.tra_End}"></td>
 				
 			<td></td>
 		</tr>
 		<tr>
-			<td>*活動總人數上限</td>
+			<td><em style="color: red">*</em>活動總人數上限</td>
 
 				<td><input type="text" name="edittraTotal" value="${params.tra_Total}"></td>
 			<td></td>
 		</tr>
 		<tr>
-			<td>*本團人數上限</td>
+			<td><em style="color: red">*</em>本團人數上限</td>
 
 				<td><input type="text" name="edittraMax" value="${params.tra_Max}"></td>
 			<td></td>
 		</tr>
 		<tr>
-			<td >*活動說明</td>
+			<td ><em style="color: red">*</em>活動說明</td>
 				<td><textarea cols="50" rows="10" name="edittraIntr">${params.tra_Intr}</textarea></td>
 			<td></td>
 		</tr>
 		<tr>
-			<td>*活動內容</td>
+			<td><em style="color: red">*</em>活動內容</td>
 				<td><textarea cols="50" rows="10" name="edittraCon">${params.tra_Con}</textarea></td>
 			<td></td>
 		</tr>
 		<tr>
-			<td>*注意事項</td>
+			<td><em style="color: red">*</em>注意事項</td>
 
 				<td><input type="text" name="edittraAtter" value="${params.tra_Atter}"></td>
 			<td></td>
