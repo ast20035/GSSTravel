@@ -41,6 +41,7 @@ private FamilyService familyservice= new FamilyService();
 		String empemgphone= req.getParameter("empemgphone");		
 		String empeat = req.getParameter("empeat");
 		String empnote = req.getParameter("empnote");
+		String empemail =req.getParameter("empemail");
 		//親屬
 		String[] famrel = req.getParameterValues("famrel");
 		String[] famname = req.getParameterValues("famname");
@@ -49,10 +50,8 @@ private FamilyService familyservice= new FamilyService();
 		String[] fambdatedate= req.getParameterValues("fambdate");
 		String[] famphone=req.getParameterValues("famphone");
 		String[] fameat = req.getParameterValues("fameat");
-//		String famspa=req.getParameter("famspa");
+		String[] famcar=req.getParameterValues("famcar");
 		String[] famspa=req.getParameterValues("famspa");
-
-		
 		String[] famben = req.getParameterValues("famben");
 		String[] fambenrel = req.getParameterValues("fambenrel");
 		String[] famemg = req.getParameterValues("famemg");
@@ -60,7 +59,6 @@ private FamilyService familyservice= new FamilyService();
 		String[] famemgrel =req.getParameterValues("famemgrel");
 		String[] famnote = req.getParameterValues("famnote");
 		
-		String buttoninsert =req.getParameter("button");
 		String buttondelete =req.getParameter("button");
 		String buttonsave = req.getParameter("button");
 		
@@ -68,16 +66,14 @@ private FamilyService familyservice= new FamilyService();
 		Map<String,String> errormsg = new HashMap<String, String>();
 		req.setAttribute("error", errormsg);
 		
-//		System.out.println(i + "次"  + famspa[i]+"值");
-		
-		
-//		String[] items = loca.replaceAll("\\[", "").replaceAll("\"","")
-//                .replaceAll("\\]", "").split(",");
-//		if(famspa!=null){
-//			 String[] spa = famspa.replaceAll("\\[", "").replaceAll("\"","").replaceAll("\\]", "").split(",");
-//			 System.out.println(spa);
+//		try{
+//	           String orderId = req.getAttribute("selectvalue").toString();
+//	 
+//	           System.out.println(orderId);
+//	       
+//		}catch(Exception ex){
+//			System.out.println("aaaaa");
 //		}
-		
 		
 		
 		//員工 轉值
@@ -91,33 +87,28 @@ private FamilyService familyservice= new FamilyService();
 			errormsg.put("empbenrel", "員工保險受益人關係不能為空值");}
 		if(empemg ==null ||empemg.length()==0){
 			errormsg.put("empemg", "員工緊急聯絡人不能為空值");}
+		if(empemail==null ||empemail.length()==0){
+			errormsg.put("empemail", "原公信箱不能為空值");
+		}
+		
+//		String[] famcar=req.getParameterValues("famcar");
+//		for(String car:famcar){ //1筆   true  看要不要用前端判斷加值近來
+//		System.out.println(famcar.length);
+//		System.out.println(car);
+//		};
 		
 		
 		//親屬 轉值
-		
-//		System.out.println(famcarboolean[0]);
-//		System.out.println(famcarboolean.length);
-//		System.out.println(famcarboolean1);
-//		System.out.println(famcarboolean[1]);//超出陣列範圍  代表 第0筆 有值而已 其他都沒有[]裡面都沒有其他值 只有 [on]而已
-//		System.out.println(famcarboolean[2]);
-
-
 		List<Date> fambdate = new ArrayList<Date>();
 		SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
 				for(String bdate:fambdatedate){					
 					try {
 						fambdate.add(sdf.parse(bdate));
-//						(java.sql.Date)sdf.parse(bdate);
-						
-						
 					} catch (ParseException e) {
 						errormsg.put("fambdate","日期錯誤必須符合 年-月-日格式");
 						System.out.println("使用者輸入日期錯誤");
 					}
 				}
-			
-
-				
 				
 		if(famname==null || famname.length==0 ){
 			errormsg.put("famname", "親屬家人不能為空值");}
@@ -144,43 +135,9 @@ private FamilyService familyservice= new FamilyService();
 				System.out.println("親屬員工檢查完畢");
 			}
 			
-
-			//記得改VoDAO boolean 的地方
-			// 假如跟checkbox一樣只有抓到的值?
-			//看到一個bug就是新增兩三次之後 刪除欄位兩三次後刪不掉
-			List<Integer> spa = new ArrayList();
-			if(famspa!=null){
-				for(int i =1;i<=famname.length*4-3;i+=4){ //假如 一位親屬無特殊身份? 	
-					for(String xxx:famspa){//1234 5678 9101112 13 17  
-						if(xxx.equals("no")==true){spa.add(i,0);
-							spa.add(i+1, 0); spa.add(i+2, 0); spa.add(i+3, 0);}
-						if(xxx.equals("baby")==true){ spa.add(i, 1);}
-						if(xxx.equals("baby")==false){ spa.add(i, 0);}
-						if(xxx.equals("kid")==true){ spa.add(i+1, 1);}
-						if(xxx.equals("kid")==false){ spa.add(i+1, 0);}
-						if(xxx.equals("dis")==true){ spa.add(i+2, 1);}
-						if(xxx.equals("dis")==false){ spa.add(i+2, 0);}
-						if(xxx.equals("mom")==true){ spa.add(i+3, 1);}
-						if(xxx.equals("mom")==false){ spa.add(i+3, 0);}
-						
-					}
-				}
-				
-			}else{
-				for(int i =1;i<=famname.length*4-3;i+=4){
-//					spa.add(i, 0);//完全沒有時出現此行錯誤 
-					spa.add(0);
-//					System.out.println(spa);
-				}
-			}
-			
-			for(Integer yyy:spa){
-				System.out.print(yyy + "+");
-			}
-			
 	    	HttpSession session = req.getSession();
 			Integer emp_No = (Integer) session.getAttribute("emp_No");
-			
+//			System.out.println(emp_No);//102
 		//網路頁面上取值 
 		EmployeeVO employeevo = new EmployeeVO();
 		employeevo.setEmp_No(emp_No);
@@ -188,7 +145,8 @@ private FamilyService familyservice= new FamilyService();
 		employeevo.setEmp_Ben(empben);
 		employeevo.setEmp_BenRel(empbenrel);
 		employeevo.setEmp_Emg(empemg);
-		employeevo.setEmp_EmgPhone(empemgphone);      
+		employeevo.setEmp_EmgPhone(empemgphone); 
+		employeevo.setEmp_Mail(empemail);
 		employeevo.setEmp_Eat(empeat);
 		if(empnote!=null || empnote.length()!=0){
 			employeevo.setEmp_Note(empnote);
@@ -196,20 +154,28 @@ private FamilyService familyservice= new FamilyService();
 			employeevo.setEmp_Note(null);
 		}
 
-
 		
 		if("save".equals(buttonsave)){
 		 employeeservice.update(employeevo);
 
 		 int idlength=0;
 		 idlength = famid.length;
-//		 System.out.println(idlength);
+//		 System.out.println(idlength);//3筆 前端輸入的親屬id筆數 (前端寫多少欄位近來)
+
+		 	//判斷 新增或是修改(親屬) 判斷前端欄位親屬id在資料庫有沒有   有id此欄未做修改 沒id此欄未做新增
+			//還是看看用fam_id[i]來判斷進來的是跟資料庫一樣的id還是不同 
+			//fam_id[i]那一筆   有   在資料庫 來判斷
+		 List<String> id = familyservice.selectid(emp_No);	 
 		 
-		 for(int i=0;i<idlength;i++){
+		 for(int i=0;i<idlength;i++){//0 1 2 3
 //			 System.out.println(i); //帶i=0之後就帶不下去了 找index size錯誤
-		 FamilyVO familyvo = new FamilyVO();
-			familyvo.setFam_Rel(famrel[i]);
+			FamilyVO familyvo = new FamilyVO();
 			
+			familyvo.setEmp_No(emp_No);
+			Integer famno=familyservice.selectfam_No(famname[i]);
+//			System.out.println(familyservice.selectfam_No(famname[i]));// 4 5 6 7
+			familyvo.setFam_No(famno);
+			familyvo.setFam_Rel(famrel[i]);
 			familyvo.setFam_Name(famname[i]);
 			familyvo.setFam_Sex(famsex[i]);
 			familyvo.setFam_Id(famid[i]);
@@ -217,124 +183,40 @@ private FamilyService familyservice= new FamilyService();
 			familyvo.setFam_Phone(famphone[i]);
 			familyvo.setFam_Eat(fameat[i]);
 			
-//			if(famcar!=null){
-//				for(String car:famcarboolean){
-//					if(car.equals("on")){//{true}
-//						familyvo.setFam_Car(true);
-//					}
-//					if(car.equals("off")){
-//						familyvo.setFam_Car(false);
-//					}
-//				}
-//			}else{
-//				familyvo.setFam_Car(famcar.get(i).valueOf(false));
-//			}
+			//測試	
+			familyvo.setFam_Car(false);
+			familyvo.setFam_Bady(false);
+			familyvo.setFam_kid(false);
+			familyvo.setFam_Dis(false);
+			familyvo.setFam_Mom(false);
 			
-
-//			System.out.println(famcar.get(0).toString()+"xxxxxx");
-//			System.out.println(famcar.get(i).toString()+"yyyyyy");
-//			familyvo.setFam_Car(famcar.get(i));
-//			
-//			if(fambaby!=null){
-//				if(fambaby.get(i).equals(true)){
-//					familyvo.setFam_Bady(true);
-//				}else{
-//					familyvo.setFam_Bady(false);
-//				}
-//			}else{
-//				familyvo.setFam_Bady(fambaby.get(i).valueOf(false));
-//			}
-//			familyvo.setFam_Bady(fambaby.get(i));
-			
-//			if(famkid!=null){
-//				if(famkid.get(i).equals(true)){
-//					familyvo.setFam_kid(true);
-//				}else{
-//					familyvo.setFam_kid(false);
-//				}
-//			}else{
-//				familyvo.setFam_kid(famkid.get(i).valueOf(false));
-//			}
-//			familyvo.setFam_kid(famkid.get(i));
-			
-			
-//			if(famdis!=null){
-//				if(famdis.get(i).equals(true)){
-//					familyvo.setFam_Dis(true);
-//				}else{
-//					familyvo.setFam_Dis(false);
-//				}
-//			}else{
-//				familyvo.setFam_Dis(famdis.get(i).valueOf(false));
-//			}
-//			familyvo.setFam_Dis(famdis.get(i));
-			
-			
-//			if(fammom!=null){
-//				if(fammom.get(i).equals(true)){
-//					familyvo.setFam_Mom(true);
-//				}else{
-//					familyvo.setFam_Mom(false);
-//				}
-//			}else{
-//				familyvo.setFam_Mom(fammom.get(i).valueOf(false));
-//			}
-//			familyvo.setFam_Mom(fammom.get(i));
-//			
 			familyvo.setFam_Ben(famben[i]);
 			familyvo.setFam_BenRel(fambenrel[i]);
 			familyvo.setFam_Emg(famemg[i]);
 			familyvo.setFam_EmgPhone(famemgphpone[i]);
 			familyvo.setFam_EmgRel(famemgrel[i]);
-			if(famnote!=null || famnote.length!=0){
+			if(famnote[i]!=null){
 				familyvo.setFam_Note(famnote[i]);
 			}else{
 				familyvo.setFam_Note(null);
 			}
-			familyvo.setEmp_No(emp_No);
-//			//這邊用isFam_Car?? 看是做什麼用?xx servletid寫錯?xx familyvo值要加什麼?xx 
-//			//單單只會抓到 第一筆裡面的值? 動態空白欄位的關係?抓到空白值 並且進去db? {判斷沒正確 裡面原本famid有的一樣會insert進去}
-//			//單純抓到第一筆資料而已? 
 			
-			 List<String> id = familyservice.selectid(emp_No);
 			
-//			 for(String idid: id){
-//			 System.out.println(idid);
-//			 }
-//			 System.out.println(famid.equals("Q250939543"));
-//			 for(String x: famid){
-//			 System.out.println(x);
-//			 System.out.println(x=="Q250939543");
-//			 System.out.println(x.equals("Q250939543"));
-//			 
-//			 }
-//寫回圈帶入 SYs(famid[i]);帶一個值而已?
-			 
-
-//				 for(String y:id){
-//					if(famid[i].equals(y)==true){//帶3個y入跟一個值去比對
-//						System.out.println("xxxxx");//3 update
-//					}else{
-//						System.out.println("yyyyy");// 1-2 1-3 2-1 2-3 3-1 3-2
-//					}
-//					
-//				 }
-			 
-//				 for(String idid: id){	
-//					if(famid.equals(idid)==true){
-//						familyservice.update(familyvo); 
-//						System.out.println("修改完畢");
-//					 }else{
-//						 familyservice.insert(familyvo);
-//						 System.out.println("新增完畢");
-//					 }
-//			 	}	
-			 
-//			 System.out.println(idlength);
+			if(id.contains(famid[i])==true){//可以insert進去 但不能update成功
+				familyservice.update(familyvo);
+				System.out.println("update " +famid[i]+" famno="+famno );
+			}else{ 
+				familyservice.insert(familyvo);
+				System.out.println("insert "+famid[i]);
+			}
 		 }//回圈結束
-		 
-		 req.getRequestDispatcher("Register").forward(req, res);
-		}
+		 	req.getRequestDispatcher("Register").forward(req, res);
+		}//按下save的執行動作
+		
+//		if("delete".equals(buttondelete)){//假如執行delete方法後 如果報名欄位是空白得?
+//			
+//		}
+		
 	}
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

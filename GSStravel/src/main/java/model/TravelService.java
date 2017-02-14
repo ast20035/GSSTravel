@@ -13,6 +13,7 @@ import org.json.simple.JSONObject;
 public class TravelService {
 	private ITravelDAO travelDAO=new TravelDAO();
 	private IDetailDAO detailDAO=new DetailDAO();
+	
 	public List<TravelVO> select() throws SQLException {		
 		return travelDAO.getAll();
 	}
@@ -147,6 +148,10 @@ public class TravelService {
 			result.add(temp);
 			return result;
 		}
+		public List<TravelVO> selectExcel(TravelVO bean) {
+			return travelDAO.selectExcel();
+		}		
+		
 		//信智
 		public TravelVO select(String tra_NO){
 			TravelVO result = null;
