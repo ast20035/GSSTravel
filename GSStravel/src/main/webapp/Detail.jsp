@@ -206,8 +206,7 @@ $(function(){
 			}else{
 				document.getElementsByName("eat")[i].selectedIndex = 2;
 			}
-		 }
-	
+	}	
 	 $(".detEdit").click(function () {
 		 var thisTr = $(this).parents("tr")
 		 thisTr.find("input").removeAttr("disabled");
@@ -223,8 +222,7 @@ $(function(){
 		 });
 		 thisTr.find(".text_multiselect").val(thisTr.find("p").text());
 		 
-		 thisTr.find(".TWID").on("blur",
-					function (){
+		 thisTr.find(".TWID").on("blur",function (){
 				  // 依照字母的編號排列，存入陣列備用。
 				  var letters = new Array('A', 'B', 'C', 'D', 
 				      'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 
@@ -313,7 +311,7 @@ $(function(){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
-						alert("姓名不能為空值！");
+						alert("姓名不可為空白！");
 						$(this).css("border-color","red");
 						thisTr.find(".save").attr("type","button");
 					}
@@ -323,7 +321,7 @@ $(function(){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
-						alert("保險受益人不能為空值！");
+						alert("保險受益人不可為空白！");
 						$(this).css("border-color","red");
 						thisTr.find(".save").attr("type","button");
 					}
@@ -333,7 +331,7 @@ $(function(){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
-						alert("與受益人關係不能為空值！");
+						alert("與受益人關係不可為空白！");
 						$(this).css("border-color","red");
 						thisTr.find(".save").attr("type","button");
 					}
@@ -343,39 +341,41 @@ $(function(){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
-						alert("緊急聯絡人不能為空值！");
+						alert("緊急聯絡人不可為空白！");
 						$(this).css("border-color","red");
 						thisTr.find(".save").attr("type","button");
 					}
 				});
-				
-		 $(this).parents("tr").find("p").hide();
-		 $(this).hide();
-		 $(".detEdit").prop("disabled",true);
-     });
+				$(this).parents("tr").find("p").hide();
+				 $(this).hide();
+				 $(".detEdit").prop("disabled",true);
+			     });  
+			})
+
 	 
 	 $(".save").click(function () {
 		 if(this.type=='button'){
 			 alert("儲存失敗！");
 		 }
 	 });
-});
-
-
-
 function open_Can(obj) {
     var CanUrl = '/GSStravel/Detail_Cancel.jsp?can_detNo=' + obj.value + "&can_traNo=" + document.getElementById("tra_no").value;
     window.open(CanUrl, '_bank', 'width=300,height=250,top=100,left=400');
 };
 
-var Msg='${DetCanError.CanError}';
-if(Msg!=''){
-	alert(Msg);
+
+var CanError="<%=session.getAttribute("CanError")%>";
+<%session.removeAttribute("CanError");%>
+if(CanError!="null"){
+	console.log(CanError);
+	alert(CanError);
 }
-var Message='${DetCanError.Message}';
-if(Message!=''){
-	if(confirm(Message)){
-		//跳轉頁面至Detail_Insert
+var Msg="<%=session.getAttribute("DetMsg")%>";
+<%session.removeAttribute("DetMsg");%>
+if(Msg!="null"){
+	if(confirm(Msg)){
+		 var insert = "/GSStravel/Detail_Insert.jsp?tra_No=" + document.getElementById("tra_no").value;
+		 window.location=insert;
 	}
 }
 </script>

@@ -8,7 +8,7 @@
 </head>
 <body>
 <script>
-alert("請先登入!!");
+alert("請先登入在進行操作!");
 window.location.href="login.jsp";
 </script>
 </body>

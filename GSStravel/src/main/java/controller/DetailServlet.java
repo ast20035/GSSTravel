@@ -3,15 +3,14 @@ package controller;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.DetailBean;
 import model.DetailService;
@@ -40,8 +39,9 @@ public class DetailServlet extends HttpServlet {
 		DetailBean bean = new DetailBean();
 		TravelVO travelVO;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Map<String, String> DetCanError = new HashMap<String, String>();
-		req.setAttribute("DetCanError", DetCanError);
+		HttpSession session = req.getSession();
+		session.removeAttribute("DetCanError");
+
 		List<ItemVO> itemVO = null;
 		List<ItemVO> room = null;
 		if ("insert".equals(prodaction)) {
@@ -61,12 +61,12 @@ public class DetailServlet extends HttpServlet {
 					req.getRequestDispatcher("/Detail_Insert.jsp").forward(req, resp);
 					return;
 				} else {
-					DetCanError.put("Msg", "此報名總人數已額滿，是否要繼續新增?");
+					session.setAttribute("DetMsg", "此報名總人數已額滿，是否要繼續新增?");
 					resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_no);
 					return;
 				}
 			} else {
-				DetCanError.put("CanError", "此報名已結束");
+				session.setAttribute("CanError", "此報名已結束");
 				req.getRequestDispatcher("/Detail.jsp?tra_no=" + tra_no).forward(req, resp);
 				return;
 			}
@@ -85,7 +85,7 @@ public class DetailServlet extends HttpServlet {
 				req.getRequestDispatcher("/Detail_CanSuccess.jsp").forward(req, resp);
 				return;
 			} else {
-				DetCanError.put("CanError", "必須輸入取消原因！");
+				session.setAttribute("CanError", "必須輸入取消原因！");
 				req.getRequestDispatcher("/Detail_Cancel.jsp").forward(req, resp);
 				return;
 			}
@@ -108,14 +108,24 @@ public class DetailServlet extends HttpServlet {
 			String note = req.getParameter("note");
 			if (!rel.equals("員工")) {
 				try {
-					if (name.trim().length()==0 || name == null) {
+					if (name.trim().length() == 0 || name == null) {
 						System.out.println("name");
-						DetCanError.put("CanError", "姓名不可為空白！");
-					} else if (ben.trim().length()==0 || ben == null) {
-						DetCanError.put("CanError", "保險受益人不可為空白！");
-					} else if (ben_Rel.trim().length()==0 || ben_Rel == null) {
-						DetCanError.put("CanError", "與受益人關係不可為空白！");
-					} else {
+						session.setAttribute("CanError", "儲存失敗！");
+					} else if (ben.trim().length() == 0 || ben == null) {
+						session.setAttribute("CanError", "儲存失敗！");
+					} else if (ben_Rel.trim().length() == 0 || ben_Rel == null) {
+						session.setAttribute("CanError", "儲存失敗！");
+					} else if (emg.trim().length() == 0 || emg == null) {
+						session.setAttribute("CanError", "儲存失敗！");
+					} else if(!Phone.matches("^[09][0-9]{9}")){
+						session.setAttribute("CanError", "儲存失敗！");
+					}else if(!detailService.isValidTWPID(ID)){
+						session.setAttribute("CanError", "儲存失敗！");
+					}else if(sex.equals("男")&&!ID.substring(1, 2).equals("1")){
+						session.setAttribute("CanError", "儲存失敗！");
+					}else if(sex.equals("女")&&!ID.substring(1, 2).equals("2")){
+						session.setAttribute("CanError", "儲存失敗！");
+					}else {
 						String temp_FamNo = req.getParameter("fam_No");
 						String car = req.getParameter("car");
 						String spe = req.getParameter("text_multiselect");
@@ -162,6 +172,7 @@ public class DetailServlet extends HttpServlet {
 						Fbean.setFam_Note(note);
 						Fbean.setFam_No(fam_No);
 						detailService.update_famData(Fbean);
+						session.setAttribute("CanError", "儲存成功！");
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -170,22 +181,42 @@ public class DetailServlet extends HttpServlet {
 				return;
 			} else {
 				try {
-					EmployeeVO Ebean = new EmployeeVO();
-					Ebean.setEmp_Name(name);
-					Ebean.setEmp_Phone(Phone);
-					Ebean.setEmp_Sex(sex);
-					Ebean.setEmp_ID(ID);
-					java.util.Date JDate = sdf.parse(Bdate);
-					Date date = new Date(JDate.getTime());
-					Ebean.setEmp_Bdate(date);
-					Ebean.setEmp_Eat(eat);
-					Ebean.setEmp_Ben(ben);
-					Ebean.setEmp_BenRel(ben_Rel);
-					Ebean.setEmp_Emg(emg);
-					Ebean.setEmp_EmgPhone(emg_Phone);
-					Ebean.setEmp_Note(note);
-					Ebean.setEmp_No(emp_No);
-					detailService.update_empData(Ebean);
+					if (name.trim().length() == 0 || name == null) {
+						System.out.println("name");
+						session.setAttribute("CanError", "儲存失敗！");
+					} else if (ben.trim().length() == 0 || ben == null) {
+						session.setAttribute("CanError", "儲存失敗！");
+					} else if (ben_Rel.trim().length() == 0 || ben_Rel == null) {
+						session.setAttribute("CanError", "儲存失敗！");
+					} else if (emg.trim().length() == 0 || emg == null) {
+						session.setAttribute("CanError", "儲存失敗！");
+					} else if(!Phone.matches("^[09][0-9]{9}")){
+						session.setAttribute("CanError", "儲存失敗！");
+					}else if(!detailService.isValidTWPID(ID)){
+						session.setAttribute("CanError", "儲存失敗！");
+					}else if(sex.equals("男")&&!ID.substring(1, 2).equals("1")){
+						session.setAttribute("CanError", "儲存失敗！");
+					}else if(sex.equals("女")&&!ID.substring(1, 2).equals("2")){
+						session.setAttribute("CanError", "儲存失敗！");
+					} else {
+						EmployeeVO Ebean = new EmployeeVO();
+						Ebean.setEmp_Name(name);
+						Ebean.setEmp_Phone(Phone);
+						Ebean.setEmp_Sex(sex);
+						Ebean.setEmp_ID(ID);
+						java.util.Date JDate = sdf.parse(Bdate);
+						Date date = new Date(JDate.getTime());
+						Ebean.setEmp_Bdate(date);
+						Ebean.setEmp_Eat(eat);
+						Ebean.setEmp_Ben(ben);
+						Ebean.setEmp_BenRel(ben_Rel);
+						Ebean.setEmp_Emg(emg);
+						Ebean.setEmp_EmgPhone(emg_Phone);
+						Ebean.setEmp_Note(note);
+						Ebean.setEmp_No(emp_No);
+						detailService.update_empData(Ebean);
+						session.setAttribute("CanError", "儲存成功！");
+					}
 
 				} catch (Exception e) {
 					e.printStackTrace();

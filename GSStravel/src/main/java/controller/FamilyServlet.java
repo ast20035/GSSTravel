@@ -167,12 +167,13 @@ private FamilyService familyservice= new FamilyService();
 			//fam_id[i]那一筆   有   在資料庫 來判斷
 		 List<String> id = familyservice.selectid(emp_No);	 
 		 
-		 for(int i=0;i<idlength;i++){//0 1 2
+		 for(int i=0;i<idlength;i++){//0 1 2 3
 //			 System.out.println(i); //帶i=0之後就帶不下去了 找index size錯誤
 			FamilyVO familyvo = new FamilyVO();
 			
 			familyvo.setEmp_No(emp_No);
 			Integer famno=familyservice.selectfam_No(famname[i]);
+//			System.out.println(familyservice.selectfam_No(famname[i]));// 4 5 6 7
 			familyvo.setFam_No(famno);
 			familyvo.setFam_Rel(famrel[i]);
 			familyvo.setFam_Name(famname[i]);
@@ -181,70 +182,6 @@ private FamilyService familyservice= new FamilyService();
 			familyvo.setFam_Bdate(new java.sql.Date(fambdate.get(i).getTime()));
 			familyvo.setFam_Phone(famphone[i]);
 			familyvo.setFam_Eat(fameat[i]);
-			
-//			if(famcar!=null){
-//				for(String car:famcarboolean){
-//					if(car.equals("on")){//{true}
-//						familyvo.setFam_Car(true);
-//					}
-//					if(car.equals("off")){
-//						familyvo.setFam_Car(false);
-//					}
-//				}
-//			}else{
-//				familyvo.setFam_Car(famcar.get(i).valueOf(false));
-//			}
-			
-
-//			System.out.println(famcar.get(0).toString()+"xxxxxx");
-//			System.out.println(famcar.get(i).toString()+"yyyyyy");
-//			familyvo.setFam_Car(famcar.get(i));
-//			
-//			if(fambaby!=null){
-//				if(fambaby.get(i).equals(true)){
-//					familyvo.setFam_Bady(true);
-//				}else{
-//					familyvo.setFam_Bady(false);
-//				}
-//			}else{
-//				familyvo.setFam_Bady(fambaby.get(i).valueOf(false));
-//			}
-//			familyvo.setFam_Bady(fambaby.get(i));
-			
-//			if(famkid!=null){
-//				if(famkid.get(i).equals(true)){
-//					familyvo.setFam_kid(true);
-//				}else{
-//					familyvo.setFam_kid(false);
-//				}
-//			}else{
-//				familyvo.setFam_kid(famkid.get(i).valueOf(false));
-//			}
-//			familyvo.setFam_kid(famkid.get(i));
-			
-			
-//			if(famdis!=null){
-//				if(famdis.get(i).equals(true)){
-//					familyvo.setFam_Dis(true);
-//				}else{
-//					familyvo.setFam_Dis(false);
-//				}
-//			}else{
-//				familyvo.setFam_Dis(famdis.get(i).valueOf(false));
-//			}
-//			familyvo.setFam_Dis(famdis.get(i));
-			
-			
-//			if(fammom!=null){
-//				if(fammom.get(i).equals(true)){
-//					familyvo.setFam_Mom(true);
-//				}else{
-//					familyvo.setFam_Mom(false);
-//				}
-//			}else{
-//				familyvo.setFam_Mom(fammom.get(i).valueOf(false));
-//			}
-//			familyvo.setFam_Mom(fammom.get(i));
 			
 			//測試	
 			familyvo.setFam_Car(false);
@@ -258,7 +195,7 @@ private FamilyService familyservice= new FamilyService();
 			familyvo.setFam_Emg(famemg[i]);
 			familyvo.setFam_EmgPhone(famemgphpone[i]);
 			familyvo.setFam_EmgRel(famemgrel[i]);
-			if(famnote!=null){
+			if(famnote[i]!=null){
 				familyvo.setFam_Note(famnote[i]);
 			}else{
 				familyvo.setFam_Note(null);
@@ -267,13 +204,12 @@ private FamilyService familyservice= new FamilyService();
 			
 			if(id.contains(famid[i])==true){//可以insert進去 但不能update成功
 				familyservice.update(familyvo);
-				System.out.println("update " +famid[i]);
+				System.out.println("update " +famid[i]+" famno="+famno );
 			}else{ 
 				familyservice.insert(familyvo);
 				System.out.println("insert "+famid[i]);
 			}
 		 }//回圈結束
-		 
 		 	req.getRequestDispatcher("Register").forward(req, res);
 		}//按下save的執行動作
 		

@@ -18,10 +18,10 @@ public interface IDetailDAO {
 	public abstract String SELECT_top1_Tra_No(int Emp_No);
 	public abstract String SELECT_top2_Tra_No(int Emp_No);
 	public abstract int select_emp_No(int det_No);
+	public abstract boolean insert(DetailVO bean);
+	public abstract boolean insert_emp(DetailVO bean);
 	public abstract String Select_Rel(int det_No);
 	public abstract float select_TotalMoney(int emp_No, String Tra_No);
-	public abstract DetailVO insert(DetailVO bean);
-	public abstract DetailVO insert_emp(DetailVO bean);
 	public abstract List<DetailBean> update(int det_No, String det_canNote, String tra_No);
 	public abstract List<DetailBean> update_FamCanDate(int det_No, String det_canNote);
 	public abstract boolean UPDATE_emp_Sub(int Emp_No);
@@ -35,5 +35,4 @@ public interface IDetailDAO {
 	public boolean update_famNo(String det_note,float det_noteMoney, String tra_No , int fam_No);
 	public boolean selectFam_No(int fam_No,long tra_No);
 	public List<String> selectFam_Rel(int emp_No,long tra_No);
-	public List<DetailVO> selectFineEmail();
 	}

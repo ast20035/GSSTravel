@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class DetailService {
 	public IDetailDAO detailDAO;
@@ -17,10 +18,6 @@ public class DetailService {
 	public ITotalAmountDAO totalAmountDAO;
 	private EmployeeService employeeService = new EmployeeService();
 	private IDetailDAO idetailDao = new DetailDAO();
-	
-	public List<DetailVO> selectFineEmail(DetailVO bean){
-		return idetailDao.selectFineEmail();
-	}
 
 	public List<String> selectFam_Rel(int emp_No, long tra_No) {
 		detailDAO=new DetailDAO();
@@ -220,20 +217,14 @@ public class DetailService {
 		return result;
 	}
 
-	public DetailVO insert(DetailVO bean) {
-		DetailVO result = null;
-		if (bean != null) {
-			result = detailDAO.insert(bean);
-		}
-		return result;
+	public boolean insert(DetailVO bean) {
+		detailDAO = new DetailDAO();
+		return detailDAO.insert(bean);
 	}
 
-	public DetailVO insert_emp(DetailVO bean) {
-		DetailVO result = null;
-		if (bean != null) {
-			result = detailDAO.insert_emp(bean);
-		}
-		return result;
+	public boolean insert_emp(DetailVO bean) {
+		detailDAO = new DetailDAO();
+		return detailDAO.insert_emp(bean);
 	}
 
 	public List<DetailBean> update(DetailBean bean) {
@@ -344,4 +335,24 @@ public class DetailService {
 		b = detailDAO.update_famNo(det_note, det_noteMoney, tra_No, fam_No);
 		return b;
 	}
+	
+	  public final Pattern TWPID_PATTERN = Pattern
+		      .compile("[ABCDEFGHJKLMNPQRSTUVXYWZIO][12]\\d{8}");
+		  public boolean isValidTWPID(String twpid) {
+		    boolean result = false;
+		    String pattern = "ABCDEFGHJKLMNPQRSTUVXYWZIO";
+		    if (TWPID_PATTERN.matcher(twpid.toUpperCase()).matches()) {
+		      int code = pattern.indexOf(twpid.toUpperCase().charAt(0)) + 10;
+		      int sum = 0;
+		      sum = (int) (code / 10) + 9 * (code % 10) + 8 * (twpid.charAt(1) - '0')
+		          + 7 * (twpid.charAt(2) - '0') + 6 * (twpid.charAt(3) - '0')
+		          + 5 * (twpid.charAt(4) - '0') + 4 * (twpid.charAt(5) - '0')
+		          + 3 * (twpid.charAt(6) - '0') + 2 * (twpid.charAt(7) - '0')
+		          + 1 * (twpid.charAt(8) - '0') + (twpid.charAt(9) - '0');
+		      if ( (sum % 10) == 0) {
+		        result = true;
+		      }
+		    }
+		    return result;
+		  }
 }
