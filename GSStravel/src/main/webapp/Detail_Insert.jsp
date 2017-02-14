@@ -187,7 +187,6 @@ function clearName(){
 	$('.nofam').text('');
 	$("#select option").remove();
 	$(".div").hide();
-// 	$(".multiselect").removeAttr("id");
 }
 function insertnewfam(nofam){
 	if(confirm(nofam)){
