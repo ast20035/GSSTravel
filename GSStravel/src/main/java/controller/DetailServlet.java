@@ -85,7 +85,7 @@ public class DetailServlet extends HttpServlet {
 				req.getRequestDispatcher("/Detail_CanSuccess.jsp").forward(req, resp);
 				return;
 			} else {
-				session.setAttribute("CanError", "必須輸入取消原因！");
+				session.setAttribute("DetCanError", "必須輸入取消原因！");
 				req.getRequestDispatcher("/Detail_Cancel.jsp").forward(req, resp);
 				return;
 			}
