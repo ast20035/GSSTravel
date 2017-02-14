@@ -25,6 +25,7 @@ public interface IDetailDAO {
 	public abstract boolean UPDATE_emp_SubTra(String Tra_No, int Emp_No);
 	public abstract boolean UPDATE_empData(EmployeeVO bean);
 	public abstract boolean UPDATE_famData(FamilyVO bean); 
+	public abstract boolean DELETE_TA(String Tra_No, int Emp_No);
 	public List<TotalAmountFormBean> selectBean(String tra_No);
 	public boolean update_empNo( String det_note ,float det_noteMoney, String tra_No, int emp_No);
 	public boolean update_famNo(String det_note,float det_noteMoney, String tra_No , int fam_No);

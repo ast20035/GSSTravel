@@ -497,6 +497,22 @@ public class DetailDAO implements IDetailDAO {
 		}
 		return b;
 	}
+	
+	private static final String DELETE_TA = "delete from TotalAmount where tra_No=? and emp_No=?";
+	@Override
+	public boolean DELETE_TA(String Tra_No, int Emp_No){
+		boolean b = true;
+		try (Connection conn = ds.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(DELETE_TA);
+			stmt.setString(1, Tra_No);
+			stmt.setInt(2, Emp_No);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			b = false;
+		}
+		return b;
+	}
 
 	@Override
 	public List<TotalAmountFormBean> selectBean(String tra_No) {

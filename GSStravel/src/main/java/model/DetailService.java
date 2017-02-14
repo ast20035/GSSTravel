@@ -248,6 +248,7 @@ public class DetailService {
 					}
 				}
 			}
+			detailDAO.DELETE_TA(canTra_No, emp_No);
 			result = detailDAO.update(emp_No, bean.getDet_canNote(), bean.getTra_NO());
 		}
 		return result;
