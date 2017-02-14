@@ -176,7 +176,6 @@ function clearName(){
 	$("#multiselect").remove();
 }
 function insertnewfam(nofam){
-	var a;
 	if(confirm(nofam)){
 		$(".div").show();
 		$("#multiselect").kendoMultiSelect({autoClose: false});

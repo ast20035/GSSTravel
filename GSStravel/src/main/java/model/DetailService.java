@@ -254,6 +254,10 @@ public class DetailService {
 		}
 		return result;
 	}
+	public TravelVO Count(String tra_No){
+		travelDAO=new TravelDAO();
+		return travelDAO.Count(tra_No);
+	}
 	// 雅婷
 	public List<TotalAmountFormBean> select(String tra_No) {
 		detailDAO = new DetailDAO();

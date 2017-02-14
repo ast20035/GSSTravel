@@ -275,9 +275,23 @@ public class TravelDAO implements ITravelDAO {
 		}
 		return result;
 	}
+	private final String select_tra="select tra_End , tra_Total ,tra_Max from Travel where tra_no=? and tra_End > GETDATE()";
 	
 	@Override
-	public int[] Count(long tra_No) {
-		return null;
+	public TravelVO Count(String tra_No) {
+		TravelVO travelBean=null ;
+		try (Connection conn = ds.getConnection(); 
+			PreparedStatement stmt = conn.prepareStatement(select_tra);) {
+			stmt.setString(1,tra_No);
+			ResultSet rset = stmt.executeQuery();
+			while(rset.next()){
+				travelBean = new TravelVO();
+				travelBean.setTra_Total(rset.getInt("tra_Total"));
+				travelBean.setTra_Max(rset.getInt("tra_Max"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return travelBean;
 	}
 }
