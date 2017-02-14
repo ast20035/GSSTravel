@@ -6,8 +6,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,6 +20,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.DetailService;
+import model.DetailVO;
+import model.EmployeeService;
+import model.EmployeeVO;
 import model.FineService;
 import model.FineVO;
 import model.ItemService;
@@ -29,6 +37,8 @@ public class FineServlet extends HttpServlet {
 	private FineService fineService = new FineService();
 	private TravelService travelService = new TravelService();
 	private ItemService itemService = new ItemService();
+	private DetailService detailService = new DetailService();
+	private EmployeeService employeeService = new EmployeeService();
 	int countI = 0;
 	int countJ = 0;
 
@@ -48,12 +58,14 @@ public class FineServlet extends HttpServlet {
 		String set = request.getParameter("FineSetting");
 		String save = request.getParameter("save");
 		String show = request.getParameter("FineShow");
+		String email = request.getParameter("FineEmail");
 		FineVO fineBean = new FineVO();
 		TravelVO travelBean = new TravelVO();
 		ItemVO itemBean = new ItemVO();
+		DetailVO detailBean = new DetailVO();
 
 		boolean power = true;
-		if ("儲存".equals(save)) {
+		if ("儲存罰則".equals(save)) {
 			power = false;
 			String[] temp1 = request.getParameterValues("day");
 			String[] temp2 = request.getParameterValues("percent");
@@ -74,7 +86,7 @@ public class FineServlet extends HttpServlet {
 			} else {
 				int count1 = 0;
 				int count2 = 0;
-				if ("儲存".equals(save)) {
+				if ("儲存罰則".equals(save)) {
 					for (int i = 0; i < temp1.length; i++) {
 						if (temp1[i] == "") {
 							count1 = 1;
@@ -84,7 +96,7 @@ public class FineServlet extends HttpServlet {
 						error.put("day", "請輸入取消日！");
 					}
 				}
-				if ("儲存".equals(save)) {
+				if ("儲存罰則".equals(save)) {
 					for (int i = 0; i < temp1.length; i++) {
 						if (temp2[i] == "") {
 							count2 = 1;
@@ -118,10 +130,10 @@ public class FineServlet extends HttpServlet {
 								}
 							}
 						}
-						if ("儲存".equals(save) && plus == 1) {
+						if ("儲存罰則".equals(save) && plus == 1) {
 							error.put("day", "取消日必須為正整數！");
 						}
-						if ("儲存".equals(save) && check == 1) {
+						if ("儲存罰則".equals(save) && check == 1) {
 							error.put("pk", "取消日已存在！");
 						}
 					} catch (NumberFormatException e) {
@@ -130,7 +142,7 @@ public class FineServlet extends HttpServlet {
 								count3 = 1;
 							}
 						}
-						if ("儲存".equals(save) && count3 == 1) {
+						if ("儲存罰則".equals(save) && count3 == 1) {
 							error.put("day", "取消日必須為正整數！");
 						}
 					}
@@ -145,7 +157,7 @@ public class FineServlet extends HttpServlet {
 								hundred = 1;
 							}
 						}
-						if ("儲存".equals(save) && hundred == 1) {
+						if ("儲存罰則".equals(save) && hundred == 1) {
 							error.put("percent", "扣款比例必須為小於100的正數！");
 						}
 					} catch (NumberFormatException e) {
@@ -154,13 +166,13 @@ public class FineServlet extends HttpServlet {
 								count4 = 1;
 							}
 						}
-						if ("儲存".equals(save) && count4 == 1) {
+						if ("儲存罰則".equals(save) && count4 == 1) {
 							error.put("percent", "扣款比例必須為小於100的正數！");
 						}
 					}
 				}
 				
-				if ("儲存".equals(save)) {
+				if ("儲存罰則".equals(save)) {
 					if (error != null && !error.isEmpty()) {
 						List<FineVO> result = fineService.select(fineBean);
 						request.setAttribute("select", result);
@@ -170,7 +182,7 @@ public class FineServlet extends HttpServlet {
 					}
 				}
 
-				if ("儲存".equals(save)) {
+				if ("儲存罰則".equals(save)) {
 					fineService.delete(fineBean);
 					for (int i = 0; i < temp1.length; i++) {
 						fineBean.setFine_Dates(day[i]);
@@ -202,7 +214,7 @@ public class FineServlet extends HttpServlet {
 //					}
 //				}
 
-//				if ("儲存".equals(save)) {
+//				if ("儲存罰則".equals(save)) {
 //					if (temp1.length != fineService.select(fineBean).size()) {
 //						for (int i = fineService.select(fineBean).size(); i < temp1.length; i++) {
 //							fineBean.setFine_Dates(day[i]);
@@ -221,6 +233,40 @@ public class FineServlet extends HttpServlet {
 //				}
 			}
 		}
+		if ("異動通知".equals(email)) {
+			power = true;
+			List<DetailVO> dResult = detailService.selectFineEmail(detailBean);
+			LinkedHashSet nameSet = new LinkedHashSet();
+			LinkedHashSet mailSet = new LinkedHashSet();
+			int[] empNo = new int[dResult.size()];
+			String[] empName = new String[dResult.size()];
+			String[] empMail = new String[dResult.size()];
+			email em = new email();
+			String[]name = new String[dResult.size()];
+			String[]mail = new String[dResult.size()];
+			Iterator nameIt = null;
+			Iterator mailIt = null;
+			for (int i = 0; i < dResult.size(); i++) {
+				empNo[i] = dResult.get(i).getEmp_No();
+				EmployeeVO eResult = employeeService.selectEmp(empNo[i]);
+				empName[i] = eResult.getEmp_Name();
+				empMail[i] = eResult.getEmp_Mail();
+				nameSet.add(empName[i]);
+				mailSet.add(empMail[i]);
+				nameIt = nameSet.iterator();
+				mailIt = mailSet.iterator();
+			}
+			int i=0;
+			while(nameIt.hasNext()){
+				name[i] = nameIt.next().toString();
+				mail[i] = mailIt.next().toString();
+				System.out.println(name[i]);
+				System.out.println(mail[i]);
+				em.send(mail[i], "罰則異動通知！", name[i]+"，您好！\n罰則有些許的變更，請注意您所報名的行程，謝謝！\n祝您旅途愉快！");
+				i++;
+			}
+			response.sendRedirect(request.getContextPath() + "/FineShowServlet");
+		}
 		if ("罰則設定".equals(set)) {
 			power = false;
 			List<FineVO> result = fineService.select(fineBean);
@@ -229,7 +275,7 @@ public class FineServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/view/FineSetting.jsp");
 			rd.forward(request, response);
 		}
-		if ("查看罰則".equals(show)) {
+		if ("罰則明細".equals(show)) {
 			power = true;
 			List<TravelVO> tResult = travelService.select(travelBean);
 			List<FineVO> fResult = fineService.select(fineBean);

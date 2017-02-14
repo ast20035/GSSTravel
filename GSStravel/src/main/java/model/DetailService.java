@@ -16,6 +16,11 @@ public class DetailService {
 	public ITravelDAO travelDAO;
 	public ITotalAmountDAO totalAmountDAO;
 	private EmployeeService employeeService = new EmployeeService();
+	private IDetailDAO idetailDao = new DetailDAO();
+	
+	public List<DetailVO> selectFineEmail(DetailVO bean){
+		return idetailDao.selectFineEmail();
+	}
 
 	public List<String> selectFam_Rel(int emp_No, long tra_No) {
 		detailDAO=new DetailDAO();
