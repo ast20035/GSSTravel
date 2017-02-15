@@ -8,8 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -91,10 +93,10 @@ public class DetailDAO implements IDetailDAO {
 	}
 
 	@Override
-	public List<String> detail_Emp_No(long tra_No) {
-		List<String> result = null;
+	public Set<String> detail_Emp_No(long tra_No) {
+		Set<String> result = null;
 		try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(detail_Emp_No);) {
-			result = new ArrayList<>();
+			result = new HashSet<>();
 			stmt.setLong(1, tra_No);
 			ResultSet rset = stmt.executeQuery();
 			while (rset.next()) {
@@ -415,6 +417,24 @@ public class DetailDAO implements IDetailDAO {
 		}
 		return b;
 	}
+	
+	private static final String INSERT_TA = "INSERT INTO TotalAmount(tra_No,emp_No,TA_money) values(?,?,?)";
+
+	@Override
+	public boolean INSERT_TA(String Tra_No, int Emp_No, float TA_money) {
+		boolean b = true;
+		try (Connection conn = ds.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(INSERT_TA);
+			stmt.setString(1, Tra_No);
+			stmt.setInt(2, Emp_No);
+			stmt.setFloat(3, TA_money);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			b = false;
+		}
+		return b;
+	}
 
 	// 更新取消日期=點選當下的時間
 	private static final String UPDATE_CanDate = "update Detail set det_CanDate=GETDATE(), det_canNote=? where emp_No=? and tra_No=? and det_CanDate is null";
@@ -466,7 +486,7 @@ public class DetailDAO implements IDetailDAO {
 	}
 
 	// 當員工有花費第二高的Tra_No時，將他的輔助金套用至該Tra_No
-	private static final String UPDATE_emp_SubTra = "update Employee set emp_SubTra=? where emp_No=?";
+	private static final String UPDATE_emp_SubTra = "update Employee set emp_Sub=0, emp_SubTra=? where emp_No=?";
 
 	@Override
 	public boolean UPDATE_emp_SubTra(String Tra_No, int Emp_No) {

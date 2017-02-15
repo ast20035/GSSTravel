@@ -14,8 +14,8 @@ public class FamilyService {
 	public void update(FamilyVO famvo){
 		familyDAO.update(famvo);
 	}
-	public void delete(FamilyVO famvo){
-		familyDAO.delete(famvo);
+	public void delete(Integer famno){
+		familyDAO.delete(famno);
 	}
 	public List<String> selectid(Integer empno){
 		return familyDAO.selectid(empno);

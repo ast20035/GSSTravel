@@ -5,6 +5,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src='js/jquery-3.1.1.min.js'></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
 <title>Insert title here</title>
 
 <script>
@@ -13,13 +26,15 @@
 		var tra_name = document.getElementById('tra_name');
 		var Sdate = document.getElementById('Sdate');
 		var Edate = document.getElementById('Edate');
-		$(".multiselect").kendoMultiSelect({autoClose: false});
- 		search();
+		$(".multiselect").kendoMultiSelect({
+			autoClose : false
+		});
+		searchGO();
 	};
 	var xh = new XMLHttpRequest();
-	function search() {
+	function searchGO() {
 		if (xh != null) {
-			var selectedValues = $('select[name="loca"]').val() ;
+			var selectedValues = $('select[name="loca"]').val();
 			var pathName = document.location.pathname;
 			var index = pathName.substr(1).indexOf("/");
 			var result = pathName.substr(0, index + 1);
@@ -36,8 +51,9 @@
 			if (Edate.value != undefined && Edate.value != '') {
 				url = url + "endDay=" + Edate.value + "&";
 			}
-			if (selectedValues!= undefined) {
+			if (selectedValues != undefined &&  selectedValues!='') {
 				url = url + "loc=" + JSON.stringify(selectedValues);
+				alert(selectedValues);
 			}
 			xh.addEventListener("readystatechange", ajaxReturn)
 			xh.open("GET", url);
@@ -62,7 +78,8 @@
 					tr = document.createElement('tr');
 					td = document.createElement('td');
 					a = document.createElement('a');
-					a.setAttribute("href",result+"/detail?tra_no="+travel[i].id);
+					a.setAttribute("href", result + "/detail?tra_no="
+							+ travel[i].id);
 					a.appendChild(document.createTextNode(travel[i].id));
 					td.appendChild(a);
 					tr.appendChild(td);
@@ -88,13 +105,15 @@
 					tr.appendChild(td);
 
 					td = document.createElement('td');
-					td.setAttribute("align","center");
+					td.setAttribute("align", "center");
 					td.appendChild(document.createTextNode(travel[i].people));
 					tr.appendChild(td);
-					
+
 					td = document.createElement('td');
-					td.setAttribute("align","center");
-					td.appendChild(document.createTextNode(travel[i].peopleNow));
+					td.setAttribute("align", "center");
+					td
+							.appendChild(document
+									.createTextNode(travel[i].peopleNow));
 					tr.appendChild(td);
 
 					td = document.createElement('td');
@@ -110,47 +129,52 @@
 </head>
 
 <body>
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
- <script src="js/jquery-1.12.3.min.js"></script>
- <script src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
-<%@include file="SelectBar.jsp" %>
-<h2>報名維護</h2>
-	<form>
-		活動代碼:<input type='text' id='id' value='' /><br> 活動名稱:<input
-			type='text' id='tra_name' value='' /><br> 開始日期:<input
-			type='date' id='Sdate' name='startDay' value='' /> ~ <input
-			type='date' id='Edate' name='endDay' value='' /> <br>活動地點:
-<!-- 			 <input -->
-<!-- 			type="checkbox" name="loc" value="東" />東 <input type="checkbox" -->
-<!-- 			name="loc" value="西" />西 <input type="checkbox" name="loc" value="南" />南 -->
-<!-- 		<input type="checkbox" name="loc" value="北" />北  -->
-        <select class="multiselect" name ="loca" multiple="multiple" data-placeholder="請選擇" style="width: 350px;">
-        <option>東</option>
-        <option>西</option>
-        <option>南</option>
-        <option>北</option>
-        </select>
-		<br> <input
-			type="button" value="查詢" onclick="search()" /> <input type="reset">
-	</form>
-	<table class='table'  cellpadding="10">
-		<thead>
-			<tr>
-				<th>活動代碼</th>
-				<th>活動名稱</th>
-				<th>活動開始</th>
-				<th>活動結束</th>
-				<th>登記開始</th>
-				<th>登記結束</th>
-				<th>人數上限</th>
-				<th>已報名人數</th>
-				<th>活動地點</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
+	<div class='container-fluid'>
+		<link rel="stylesheet"
+			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
+		<link rel="stylesheet"
+			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
+		<link rel="stylesheet"
+			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
+		<script
+			src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
+		<%@include file="SelectBar.jsp"%>
+		<h2>報名維護</h2>
+		<form>
+			活動代碼:<input type='text' id='id' value='' /><br> 活動名稱:<input
+				type='text' id='tra_name' value='' /><br> 開始日期:<input
+				type='date' id='Sdate' name='startDay' value='' /> ~ <input
+				type='date' id='Edate' name='endDay' value='' /> <br>活動地點:
+			<!-- 			 <input -->
+			<!-- 			type="checkbox" name="loc" value="東" />東 <input type="checkbox" -->
+			<!-- 			name="loc" value="西" />西 <input type="checkbox" name="loc" value="南" />南 -->
+			<!-- 		<input type="checkbox" name="loc" value="北" />北  -->
+			<select class="multiselect" name="loca" multiple="multiple"
+				data-placeholder="請選擇" style="width: 350px;">
+				<option>東</option>
+				<option>西</option>
+				<option>南</option>
+				<option>北</option>
+			</select> <br> <input type="button" value="查詢" onclick="search()" /> <input
+				type="reset">
+		</form>
+		<table class='table' cellpadding="10">
+			<thead>
+				<tr>
+					<th>活動代碼</th>
+					<th>活動名稱</th>
+					<th>活動開始</th>
+					<th>活動結束</th>
+					<th>登記開始</th>
+					<th>登記結束</th>
+					<th>人數上限</th>
+					<th>已報名人數</th>
+					<th>活動地點</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>

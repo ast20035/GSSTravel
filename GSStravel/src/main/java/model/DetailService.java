@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class DetailService {
@@ -48,7 +49,7 @@ public class DetailService {
 		Map<String, Integer> mp = new HashMap<>();
 		detailDAO = new DetailDAO();
 		employeeDAO = new EmployeeDAO();
-		List<String> detail_Emp_No = detailDAO.detail_Emp_No(tra_No);
+		Set<String> detail_Emp_No = detailDAO.detail_Emp_No(tra_No);
 		for (String emp_No : detail_Emp_No) {
 			int count = detailDAO.detail_Count(emp_No, tra_No) + 1;
 			String name = employeeDAO.selectEmp_Name(emp_No);
@@ -61,7 +62,7 @@ public class DetailService {
 		List<String> result = new ArrayList<>();
 		detailDAO = new DetailDAO();
 		employeeDAO = new EmployeeDAO();
-		List<String> detail_Emp_No = detailDAO.detail_Emp_No(tra_No);
+		Set<String> detail_Emp_No = detailDAO.detail_Emp_No(tra_No);
 		for (String emp_No : detail_Emp_No) {
 			String name = employeeDAO.selectEmp_Name(emp_No);
 			result.add(name);
@@ -87,7 +88,6 @@ public class DetailService {
 				money += Float.parseFloat(room);
 			}
 		}
-		System.out.println(money);
 		if (fams == null) {
 			detailDAO.tra_Enter(Integer.parseInt(emp_No), null, tra_No, date, money);
 			return false;
@@ -99,17 +99,14 @@ public class DetailService {
 			if ((x + fams.length + 1) <= total) {
 				if (fams.length + 1 <= max) {
 					detailDAO.tra_Enter(Integer.parseInt(emp_No), null, tra_No, date, money);
-					for (String fam : fams) {
-						detailDAO.tra_Enter(Integer.parseInt(emp_No), familyDAO.selectfam_No(fam).toString(), tra_No,
-								date, money);
+					for (String fam : fams) {						
+						detailDAO.tra_Enter(Integer.parseInt(emp_No), familyDAO.selectfam_No(fam).toString(), tra_No,date, money);						
 					}
-
 					return false;
-
-				} else {
+				}else {
 					return true;
 				}
-			} else {
+			}else {
 				return true;
 			}
 		}
@@ -219,12 +216,30 @@ public class DetailService {
 
 	public boolean insert(DetailVO bean) {
 		detailDAO = new DetailDAO();
-		return detailDAO.insert(bean);
+		if (bean != null) {
+			detailDAO.insert(bean);
+			Float TA_money = detailDAO.select_TotalMoney(bean.getEmp_No(), bean.getTra_No());
+			String top1_Tra_No = detailDAO.SELECT_top1_Tra_No(bean.getEmp_No());
+			detailDAO.Update_TA(TA_money, bean.getEmp_No(), bean.getTra_No());
+			detailDAO.UPDATE_emp_SubTra(top1_Tra_No, bean.getEmp_No());
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public boolean insert_emp(DetailVO bean) {
 		detailDAO = new DetailDAO();
-		return detailDAO.insert_emp(bean);
+		if (bean != null) {
+			detailDAO.insert_emp(bean);
+			Float TA_money = detailDAO.select_TotalMoney(bean.getEmp_No(), bean.getTra_No());
+			String top1_Tra_No = detailDAO.SELECT_top1_Tra_No(bean.getEmp_No());
+			detailDAO.INSERT_TA(bean.getTra_No(), bean.getEmp_No(), TA_money);
+			detailDAO.UPDATE_emp_SubTra(top1_Tra_No, bean.getEmp_No());
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public List<DetailBean> update(DetailBean bean) {
@@ -356,9 +371,10 @@ public class DetailService {
 		}
 		return result;
 	}
-	//雅婷
+
+	// 雅婷
 	public int detail_Count(String emp_No, long tra_No) {
-		detailDAO =new DetailDAO();
+		detailDAO = new DetailDAO();
 		return detailDAO.detail_Count(emp_No, tra_No);
 	}
 }

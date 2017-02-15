@@ -5,6 +5,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src='js/jquery-3.1.1.min.js'></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
 <title>報名取消</title>
 
 <style>
@@ -17,25 +30,24 @@ fieldset {
 
 </head>
 <body onunload=unLoad();>
+	<div class='container-fluid'>
+		<br />
+		<form action=<c:url value="/detail"/> method="get"
+			enctype="multipart/form-data">
+			<fieldset>
+				請輸入取消原因： <br />
+				<textarea style="width: 250px; height: 100px; resize: none"
+					name="det_CanNote"></textarea>
+				<br /> <input type="text" id="can_detNo" name="can_detNo"
+					style="display: none"> <input type="text" id="can_traNo"
+					name="can_traNo" style="display: none"> <br /> <input
+					name="prodaction" type="submit" value="送出">
+				<button name="canClose" type="button" onclick="window.close()">關閉</button>
 
-	<br />
-	<form action=<c:url value="/detail"/> method="get" enctype="multipart/form-data">
-		<fieldset>
-			請輸入取消原因：
-			<br />
-			<textarea style="width:250px; height:100px; resize:none" name="det_CanNote"></textarea>
-			<br />
-			<input type="text" id="can_detNo" name="can_detNo" style="display:none">
-			<input type="text" id="can_traNo" name="can_traNo" style="display:none">
-			<br />
-			<input name="prodaction" type="submit" value="送出">
-			<button name="canClose" type="button" onclick="window.close()">關閉</button>
-			<p style="color:red ">${DetCanError.CanError}</p>
-		</fieldset>
-	</form>
-	
-	<script src="js/jquery-1.12.3.min.js"></script>
-<script  type="text/javascript">
+				<p style="color: red" hidden><%=session.getAttribute("DetCanError")%></p>
+			</fieldset>
+		</form>
+		<script type="text/javascript">
 
 $(function () {
 	var temp = location.search;
@@ -60,11 +72,19 @@ $(function () {
 	}else{
 		$("#can_traNo").attr("value",tra_No);
 	}
+	
 });
+
+var DetCanError="<%=session.getAttribute("DetCanError")%>";
+<%session.removeAttribute("DetCanError");%>
+if(DetCanError!="null"){
+	$("p").show();
+}
 
 function unLoad(){
     window.opener.location.href = window.opener.location.href;
 }
 </script>
+	</div>
 </body>
 </html>

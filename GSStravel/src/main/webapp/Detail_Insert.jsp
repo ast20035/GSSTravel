@@ -22,12 +22,14 @@
 	outline: none;
 }
 </style>
-
+<script src="js/jquery-1.12.3.min.js"></script>
+<script type="text/javascript">
+</script>
 </head>
 <body>
 <h2>－報名明細新增－</h2>
 <form action=<c:url value="/detail_insert"/> method="post">
-<p>報名活動代碼：${tra_no}	</p>
+<p>報名活動代碼：${tra_no}</p>
 <input type="hidden" name="tra_no" class="tra_no" value="${tra_no}">
 <table border="1">
 		<tr>
@@ -117,8 +119,8 @@
 		</tr>
 		<c:forEach var="list" items="${room}">
 		<tr>
-			<td><input type="checkbox" class="checkbox ${list.item_No}" onclick="change()"></td>
-			<td><input type="text" class="line ${list.item_No}" value="${list.item_Name}" readonly></td>
+			<td><input type="checkbox" class="checkbox" value="${list.item_No}" onclick="checkedA()"></td>
+			<td><input type="text" class="line" value="${list.item_Name}" readonly></td>
 			<td><input type="text" class="line ${list.item_No}" value="${list.item_Money}" readonly></td>
 		</tr>
 		</c:forEach>
@@ -135,8 +137,9 @@
 <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
 <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
 <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
+
 <script src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
-<script src="js/jquery-1.12.3.min.js"></script>
+	
 <script>
 $(".multiselect").kendoMultiSelect({autoClose: false});
 function select_emp_No(){
@@ -181,8 +184,15 @@ function insertnewfam(nofam){
 		$(".multiselect").prop("id","multiselect");
 	}
 }
-function checkbox(){
-	
+function checkedA(){
+	var money=Number(${money});
+	var $checkbox = $(".checkbox:checked");
+	var sum=Number(0);
+	$.each($checkbox, function(key,value){
+		sum=sum+Number($("."+$checkbox[key].value).val());
+	});
+	money=money+sum;
+	$(".money").val(money);
 }
 </script>
 </html>

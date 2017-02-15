@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
 import java.util.List;
@@ -12,9 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
 import model.DetailBean;
 import model.DetailService;
@@ -32,7 +28,6 @@ public class DetailServlet extends HttpServlet {
 	private ItemService itemService = new ItemService();
 	String test;
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html; charset=UTF-8");
@@ -56,7 +51,6 @@ public class DetailServlet extends HttpServlet {
 			travelVO = detailService.Count(tra_no);
 			if (travelVO != null) {
 				if (travelVO.getTra_Total() > detailService.tra_count(tra_No)||("1").equals(doInsert)) {
-					System.out.println("0");
 					room = itemService.getRoomMoney(tra_No);
 					itemVO = itemService.getFareMoney(tra_No);
 					float f = 0;
@@ -69,13 +63,11 @@ public class DetailServlet extends HttpServlet {
 					req.getRequestDispatcher("/Detail_Insert.jsp").forward(req, resp);
 					return;
 				} else {
-					System.out.println("1");
 					session.setAttribute("DetMsg", "此報名總人數已額滿，是否要繼續新增?");
 					resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_no);
 					return;
 				}
 			} else {
-				System.out.println("2");
 				session.setAttribute("CanError", "此報名已結束");
 				req.getRequestDispatcher("/Detail.jsp?tra_no=" + tra_no).forward(req, resp);
 				return;
@@ -95,7 +87,7 @@ public class DetailServlet extends HttpServlet {
 				req.getRequestDispatcher("/Detail_CanSuccess.jsp").forward(req, resp);
 				return;
 			} else {
-				session.setAttribute("CanError", "必須輸入取消原因！");
+				session.setAttribute("DetCanError", "必須輸入取消原因！");
 				req.getRequestDispatcher("/Detail_Cancel.jsp").forward(req, resp);
 				return;
 			}
@@ -119,7 +111,6 @@ public class DetailServlet extends HttpServlet {
 			if (!rel.equals("員工")) {
 				try {
 					if (name.trim().length() == 0 || name == null) {
-						System.out.println("name");
 						session.setAttribute("CanError", "儲存失敗！");
 					} else if (ben.trim().length() == 0 || ben == null) {
 						session.setAttribute("CanError", "儲存失敗！");
@@ -186,13 +177,13 @@ public class DetailServlet extends HttpServlet {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					session.setAttribute("CanError", "儲存失敗！");
 				}
 				resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_no);
 				return;
 			} else {
 				try {
 					if (name.trim().length() == 0 || name == null) {
-						System.out.println("name");
 						session.setAttribute("CanError", "儲存失敗！");
 					} else if (ben.trim().length() == 0 || ben == null) {
 						session.setAttribute("CanError", "儲存失敗！");
@@ -230,6 +221,7 @@ public class DetailServlet extends HttpServlet {
 
 				} catch (Exception e) {
 					e.printStackTrace();
+					session.setAttribute("CanError", "儲存失敗！");
 				}
 			}
 			resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_no);

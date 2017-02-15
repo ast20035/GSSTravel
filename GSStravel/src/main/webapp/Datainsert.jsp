@@ -7,6 +7,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src='js/jquery-3.1.1.min.js'></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -14,9 +27,8 @@
 	<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
-	<script src="js/jquery-3.1.1.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
-
+<div class='container-fluid'>
 
 <%@include file="SelectBar.jsp" %>
 <form  action=<c:url value="/FamilyServlet"/>  method="post">
@@ -80,7 +92,7 @@
 
 	<c:forEach var="start" items="${famstart}">
 	  <tr>
-		<td><input type="submit" name ="delete" id="delete" value="刪除"></td>
+		<td><input type="submit" name ="delete" id="delete" value="delete"></td>
 		<td>
 			<select name ="famrel" >	
 				<c:if test="${start.fam_Rel=='親友'}">				
@@ -94,7 +106,7 @@
 			</select>
 			</td>
 		<td><input type="text" name ="famname" id="famname" value="${start.fam_Name}" ><div  class="famnameerror">${error.famneme}</div></td>
-		<td><select name ="famsex">  <!--  servlet抓name db抓值會抓進value值進去-->
+		<td><select name ="famsex" >  <!--  servlet抓name db抓值會抓進value值進去-->
 		<c:if test="${start.fam_Sex=='男'}">
 			<option value="女" >女</option>
 			<option value="男" selected>男<option>
@@ -105,7 +117,7 @@
 		</c:if>
 		</select></td>
 		
-		<td><input type="text" name ="famid" id="famid" value="${start.fam_Id}"><div class="famiderror">${error.famid}</div></td><!-- getfamid()會抓到value值 -->
+		<td><input type="text" name ="famid" class="famid" value="${start.fam_Id}"><div class="famiderror">${error.famid}</div></td><!-- getfamid()會抓到value值 -->
 		<td><input type="date" id="fambdate" name="fambdate" class="fambdate" value="${start.fam_Bdate}" /><div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div></td>
 		<td><input type="text" name ="famphone" id="famphone"  value="${start.fam_Phone}"><div class=famphoneerror>${error.famphone}</div></td>
 		<td ><select name ="fameat" >  <!-- 今天的日期 減去 他的生日 < 三歲  (剩幾天?) (看年底還是年初)  看年?  -->
@@ -179,13 +191,12 @@
 <input type="button" value="insert" id="insert" name ="button"><br>
 <input type="submit" value ="save" id="save" name="button"><br>
 
-
 </form>
 
 	<table>
 	<!-- 空白欄位 -->
 	<tr name="repeat">
-		<td><input type="button" name ="delete" id="delete" value="刪除"></td>
+		<td><input type="submit" name ="delete" id="delete" value="delete"></td>
 		<td>
 			<select name ="famrel" >		
 					<option value="眷屬" >眷屬</option>
@@ -197,7 +208,7 @@
 			<option value="女" >女</option>
 			<option value="男" >男<option>
 		</select></td>
-		<td><input type="text" name ="famid" id="famid" ><div class="famiderror">${error.famid}</div></td>
+		<td><input type="text" name ="famid"  class="famid"><div class="famiderror">${error.famid}</div></td>
 		<td><input type="date" id="fambdate" name="fambdate" class="fambdate" /><div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div></td>
 		<td><input type="text" name ="famphone" id="famphone"  >  <div class=famphoneerror>${error.famphone}</div></td> 
 		<td><select name ="fameat">
@@ -224,18 +235,18 @@
 	</tr>
 	</table>
 
-
 <script>
+
 $(function(){
 	$(".multiselect").kendoMultiSelect({autoClose: false});
 	$("tr[name='repeat']").hide();
 	$("#familytable").attr("width","1200px").attr("border","3px").attr("border-collapse","collapse");
+	
 	$("#insert").click(
-		function(){
+		function(event){
 			$("#familytable").append('<tr class=repeat>'+ $("tr[name='repeat']").html()+'</tr>');
 			$(".repeat:last #multiselect").kendoMultiSelect({autoClose: false});
-			
-			//新增的欄位作正規劃
+// 			新增的欄位作正規劃
 			var famname=/^.*\s*[^\s]/;
 			$(".repeat td").on("blur","input[name='famname']",function(){if(famname.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
 			//id
@@ -255,7 +266,22 @@ $(function(){
 			  var total = 0;
 			  // 撰寫「正規表達式」。第一個字為英文字母，
 			  // 第二個字為1或2，後面跟著8個數字，不分大小寫。
-			  var regExpID=/^[a-z](1|2)\d{8}$/i; 
+// 			  var sex = thisTr.find(".sex").val();
+// 			  if(sex == "男"){
+// 			  var regExpID=/^[a-z](1)\d{8}$/i;
+// 			  }else{
+// 				  var regExpID=/^[a-z](2)\d{8}$/i;
+// 			  }
+			 
+// 			  var sex=$(".repeat select[name='famsex']").val();
+// 			  console.log(sex);
+// 			  if(sex =="男"){
+// 				  var regExpID=/^[a-z](1)\d{8}$/i;
+// 			  }else{
+// 				  var regExpID=/^[a-z](2)\d{8}$/i;
+// 			  }
+
+			  var regExpID=/^[a-z](1|2)\d{8}$/i;
 			  // 使用「正規表達式」檢驗格式
 			  if (regExpID.test($("input[name*='famid']").val())){
 			    
@@ -295,16 +321,9 @@ $(function(){
 				  $("#save").attr("type","button");
 	// 			return false;
 			  }else{
-				if($(this).val()=$("input[name*='famid']").val()){
-					 $(this).css("border-color","red");
-					  $("#famiderror").text("身分證格式錯誤");
-					  $("#save").attr("type","button");
-				}else{
 					 $(this).css("border-color","green");
 					  $("#save").attr("type","submit");
 			// 		  return true;
-				}
-			 
 			}})
 			var fambdate=/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
 			$(".repeat td").on("blur","input[name='fambdate']",function(){if(fambdate.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
@@ -320,16 +339,61 @@ $(function(){
 			$(".repeat td").on("blur","input[name='famemgphpone']",function(){if(famemgphpone.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
 			var famemgrel=/^.*\s*[^\s]/;
 			$(".repeat td").on("blur","input[name='famemgrel']",function(){if(famemgrel.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
+			
+			//在commit按下後內 判斷把全部欄未能不能不要是空白  
+			$("#save").click(function(){
+				if($(".repeat td input[name='famname']").val()==""){
+					alert("請輸入親屬名稱");
+					return false;}
+				if($(".repeat td input[name='famid']").val()==""){
+					alert("請輸入親屬身份證");
+					return false;}
+				if($(".repeat td input[name='fambdate']").val()==""){
+					alert("請輸入親屬生日");
+					return false;}
+				if($(".repeat td input[name='famphone']").val()==""){
+					alert("請輸入親屬手機");
+					return false;}
+				if($(".repeat td input[name='famben']").val()==""){
+					alert("請輸入親屬保險受益人");
+					return false;}
+				if($(".repeat td input[name='fambenrel']").val()==""){
+					alert("請輸入親屬保險受益人關係");
+					return false;}
+				if($(".repeat td input[name='famemg']").val()==""){
+					alert("請輸入親屬緊急聯絡人");
+					return false;}
+				if($(".repeat td input[name='famemgphone']").val()==""){
+					alert("請輸入親屬緊急聯絡人電話");
+					return false;}
+				if($(".repeat td input[name='famemgrel']").val()==""){
+					alert("請輸入親屬緊急聯絡人關係");
+					return false;}
+			});
+			
 		}
 	);	
-	$("#familytable").on("click","input[name*='delete']",function(){
-// 		$("input[name*='delete']").parents("tr:last").remove();
-		$(this).parents("tr").remove();
-		
+	//刪除鍵按下後
+	$("#familytable").on("click","input[name='delete']",function(){
+// 		var keyCode = e.keyCode || e.which;
+// 		 if (keyCode == 13) {
+// 		        return false;
+// 		    }//看能不能用
+		 $("#familytable input[name='delete']").submit(function(){ $(this).parents("tr").remove();});
+		//on事件要綁定動態之後 還得要綁定 submit才可以抓的到值
 	});	
-	
+
+	//想改把enter後submit的功能去消            施工中
+	$("#save").keypress(function(e){
+		var keyCode = e.keyCode || e.which;
+		 if (keyCode == 13) {
+		        return false;
+		    }
+	});
 	
 
+			
+			
 // 	看一下 假如要找到這幾個 的值  根據他的不同的famno的值來判斷是不是true 或是  false (抓checkbox的值)
 // 		$("#save").click(
 // 				alert( $("input[name='famcar']:checked").length)
@@ -343,8 +407,7 @@ $(function(){
 //			};
 // 		);
 		 
-	
-	  
+	//抓前端的欄位來送去資料庫比對 看看有沒有重複 或是用新增跟原本的設兩個name來比對看看
 // 		  for(i=0;i<=;i++){
 // 		  var fambdate =$(".repeat input[name*='fambdate']").
 // 		  }
@@ -356,25 +419,31 @@ $(function(){
 	
 // 	function search() {
 // 		if (xh != null) {
-	
-// 		var selectedValues = $('select[name="famspa"]').serialize() ;
+		
+// // 		var famidvaule = $(".famid").val();
+// 		 var famidvaule= $(".famid").map(function() { 
+// 			return $(this).val(); 
+// 			}).get();
+		
+// 		console.log(famidvaule);//["Q250939543","F199131438","F218757856",""]
 		
 // 		var pathName = document.location.pathname;
 // 		var index = pathName.substr(1).indexOf("/");
 // 		var result = pathName.substr(0, index + 1);
-// 		var url = result + "/controller/Datainsert.do?";
-		
-// 		if (selectedValues!= undefined) {
-// 			var selectvalues =JSON.stringify(selectedValues);
+// 		var url = result + "/controller/FamilyServlet.do?";
+// // 		var url = "FamilyServlet.do?"
+// 		if(typeof famidvaule != "undefined"){
+// 		var famid =JSON.stringify(famidvaule);
+// 		console.log(famid);//["Q250939543","F199131438","F218757856",""]
 // 		}
-	
+		
 // 		//轉json 格式? 字串證列  console.log() 輸出   h
 				
 // 		xh.addEventListener("readystatechange", ajaxReturn);
-// 		xh.open("POST","FamilyServlet");
+// 		xh.open("POST",url);
 // 		xh.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-// 		xh.send(selectvalues);
-// 		console.log(selectedValues);
+// 		xh.send("id="+famid);
+		
 // 		}else {
 // 			alert("Your browser doesn't support JSON!");
 // 		}
@@ -382,7 +451,7 @@ $(function(){
 // 	function ajaxReturn() {
 // 		if (xh.readyState == 4){
 // 			if (xh.status == 200) {
-// 			 	alert(selectedValues);
+// 			 	alert(famid);
 			 	
 // 			}
 // 		}
@@ -395,7 +464,8 @@ $(function(){
 			$("#empphoneerror").text("");
 			$("#save").attr("type","submit");
 		}else{
-			$("#empphoneerror").text("不符合手機規則");
+			$("#empphoneerror").text("手機輸入錯誤");
+// 			setTimeout(function(){$(this).css("border-color","red");},2000);	
 			$(this).css("border-color","red");
 			$("#save").attr("type","button");
 		}
@@ -643,11 +713,13 @@ $(function(){
 		}
 	});
 	
+	
+	
 });
 
 	
 </script>
 
-
+</div>
 </body>
 </html>
