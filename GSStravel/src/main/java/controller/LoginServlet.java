@@ -58,7 +58,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("emp_No", result.getEmp_No());
 			session.setAttribute("emp_Name", result.getEmp_Name());
 			session.setAttribute("emp_Role", result.isEmp_Role());
-			response.sendRedirect("/ALLTravel");
+			request.getRequestDispatcher("/AllTravel").forward(request, response);
 		}
 
 	}
