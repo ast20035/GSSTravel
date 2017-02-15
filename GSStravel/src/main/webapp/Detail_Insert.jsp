@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>報名明細新增</title>
-</head>
+
 <style>
 *,div{
 	text-align: center;
@@ -23,24 +22,13 @@
 	outline: none;
 }
 </style>
+
+</head>
 <body>
 <h2>－報名明細新增－</h2>
 <form action=<c:url value="/detail_insert"/> method="post">
-<p>報名活動代碼：${tra_no}
-<%
-	String tra_No= request.getParameter("tra_No");
-	if(tra_No!=null){
-		out.println(tra_No);
-%>	
-</p>
-<input type="hidden" name="tra_no" class="tra_no" value="<%=tra_No%>">
-<%
-	}else{
-%>
+<p>報名活動代碼：${tra_no}	</p>
 <input type="hidden" name="tra_no" class="tra_no" value="${tra_no}">
-<% }
-%>
-
 <table border="1">
 		<tr>
 			<th>員工編號</th>
@@ -49,10 +37,11 @@
 		</tr>
 		<tr>
 			<td><input type="text" id="emp_No" name="emp_No" onblur="select_emp_No()" onfocus="clearName()"></td>
-			<td><select id="select" name="select"></select></td>
+			<td><select id="select" name="select" onchange="checkbox()"></select></td>
 			<td><input type="text" id="money" name="money" class="money" value="${money}" readonly></td>
 		</tr>
 </table>
+<p class="p"></p>
 <br />
 <div class="div" style="display:none">
 	<table border="1" style="test-font:10px" width="150%">
@@ -146,13 +135,10 @@
 <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
 <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
 <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
-<script src="js/jquery-1.12.3.min.js"></script>
 <script src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
-	
+<script src="js/jquery-1.12.3.min.js"></script>
 <script>
-
 $(".multiselect").kendoMultiSelect({autoClose: false});
-
 function select_emp_No(){
 	$.ajax({
 		type:"post",
@@ -167,8 +153,6 @@ function select_emp_No(){
 			if(Msg.emp_Name!=null){
 				$("#select").append($("<option></option>").attr("class", 'emp_name').text(Msg.emp_Name));
 			}
-			console.log(Msg.fam_No);
-			console.log(typeof Msg.fam_No);
 			if(Msg.fam_No){
 				insertnewfam(Msg.fam_No);
 			}
@@ -178,6 +162,9 @@ function select_emp_No(){
 				$.each(fam_Name,function(key,value){
 					$("#select").append($("<option></option>").attr("class",'fam_name').text(fam_Name[key]));
 				});
+			}
+			if(Msg.emp_Max){
+				alert(Msg.emp_Max);				
 			}
 		}
 	})
@@ -193,6 +180,9 @@ function insertnewfam(nofam){
 		$(".div").show();
 		$(".multiselect").prop("id","multiselect");
 	}
+}
+function checkbox(){
+	
 }
 </script>
 </html>

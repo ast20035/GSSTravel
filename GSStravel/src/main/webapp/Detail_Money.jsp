@@ -97,8 +97,8 @@ td {
 		</table>
 		<br />
 		<div>
-			<input type="submit" id="submit" value="儲存" /> 
-			<input type="submit" id="excel" value="匯出Excel" />
+			<button type="submit" name="prodaction" value="save">儲存</button>
+			<button type="submit" value="excel">匯出Excel</button>
 		</div>
 	</form>
 	<c:if test="${session!=null}">

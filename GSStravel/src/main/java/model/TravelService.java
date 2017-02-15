@@ -185,4 +185,7 @@ public class TravelService {
 			}
 			return result;
 		}
+		public TravelVO Count(String tra_No){
+			return travelDAO.Count(tra_No);
+		}
 }

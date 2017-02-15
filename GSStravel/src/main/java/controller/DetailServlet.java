@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
 import java.util.List;
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import model.DetailBean;
 import model.DetailService;
@@ -28,6 +32,7 @@ public class DetailServlet extends HttpServlet {
 	private ItemService itemService = new ItemService();
 	String test;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html; charset=UTF-8");
@@ -35,22 +40,25 @@ public class DetailServlet extends HttpServlet {
 		String prodaction = req.getParameter("prodaction");
 		String tra_no = req.getParameter("tra_no");
 		String can_detNo = req.getParameter("can_detNo");
+		String doInsert = req.getParameter("doInsert");
 
 		DetailBean bean = new DetailBean();
-		TravelVO travelVO;
+		TravelVO travelVO = new TravelVO();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
 		HttpSession session = req.getSession();
 		session.removeAttribute("DetCanError");
 
 		List<ItemVO> itemVO = null;
 		List<ItemVO> room = null;
-		if ("insert".equals(prodaction)) {
+		if ("insert".equals(prodaction)||("1").equals(doInsert)) {
 			Long tra_No = Long.parseLong(tra_no);
 			travelVO = detailService.Count(tra_no);
 			if (travelVO != null) {
-				if (travelVO.getTra_Total() > detailService.tra_count(tra_No)) {
-					itemVO = itemService.getFareMoney(tra_No);
+				if (travelVO.getTra_Total() > detailService.tra_count(tra_No)||("1").equals(doInsert)) {
+					System.out.println("0");
 					room = itemService.getRoomMoney(tra_No);
+					itemVO = itemService.getFareMoney(tra_No);
 					float f = 0;
 					for (ItemVO i : itemVO) {
 						f = f + i.getItem_Money();
@@ -61,11 +69,13 @@ public class DetailServlet extends HttpServlet {
 					req.getRequestDispatcher("/Detail_Insert.jsp").forward(req, resp);
 					return;
 				} else {
+					System.out.println("1");
 					session.setAttribute("DetMsg", "此報名總人數已額滿，是否要繼續新增?");
 					resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_no);
 					return;
 				}
 			} else {
+				System.out.println("2");
 				session.setAttribute("CanError", "此報名已結束");
 				req.getRequestDispatcher("/Detail.jsp?tra_no=" + tra_no).forward(req, resp);
 				return;
@@ -117,15 +127,15 @@ public class DetailServlet extends HttpServlet {
 						session.setAttribute("CanError", "儲存失敗！");
 					} else if (emg.trim().length() == 0 || emg == null) {
 						session.setAttribute("CanError", "儲存失敗！");
-					} else if(!Phone.matches("^[09][0-9]{9}")){
+					} else if (!Phone.matches("^[09][0-9]{9}")) {
 						session.setAttribute("CanError", "儲存失敗！");
-					}else if(!detailService.isValidTWPID(ID)){
+					} else if (!detailService.isValidTWPID(ID)) {
 						session.setAttribute("CanError", "儲存失敗！");
-					}else if(sex.equals("男")&&!ID.substring(1, 2).equals("1")){
+					} else if (sex.equals("男") && !ID.substring(1, 2).equals("1")) {
 						session.setAttribute("CanError", "儲存失敗！");
-					}else if(sex.equals("女")&&!ID.substring(1, 2).equals("2")){
+					} else if (sex.equals("女") && !ID.substring(1, 2).equals("2")) {
 						session.setAttribute("CanError", "儲存失敗！");
-					}else {
+					} else {
 						String temp_FamNo = req.getParameter("fam_No");
 						String car = req.getParameter("car");
 						String spe = req.getParameter("text_multiselect");
@@ -190,13 +200,13 @@ public class DetailServlet extends HttpServlet {
 						session.setAttribute("CanError", "儲存失敗！");
 					} else if (emg.trim().length() == 0 || emg == null) {
 						session.setAttribute("CanError", "儲存失敗！");
-					} else if(!Phone.matches("^[09][0-9]{9}")){
+					} else if (!Phone.matches("^[09][0-9]{9}")) {
 						session.setAttribute("CanError", "儲存失敗！");
-					}else if(!detailService.isValidTWPID(ID)){
+					} else if (!detailService.isValidTWPID(ID)) {
 						session.setAttribute("CanError", "儲存失敗！");
-					}else if(sex.equals("男")&&!ID.substring(1, 2).equals("1")){
+					} else if (sex.equals("男") && !ID.substring(1, 2).equals("1")) {
 						session.setAttribute("CanError", "儲存失敗！");
-					}else if(sex.equals("女")&&!ID.substring(1, 2).equals("2")){
+					} else if (sex.equals("女") && !ID.substring(1, 2).equals("2")) {
 						session.setAttribute("CanError", "儲存失敗！");
 					} else {
 						EmployeeVO Ebean = new EmployeeVO();
