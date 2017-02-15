@@ -155,7 +155,7 @@ public class FamilyDAO implements IFamilyDAO {
 			state.setString(1, famvo.getFam_Name());
 			state.setString(2, famvo.getFam_Rel());
 //			state.setDate(3, famvo.getFambdate());
-			Long Fambdate = famvo.getFam_Bdate().getTime();		
+//			Long Fambdate = famvo.getFam_Bdate().getTime();		
 			state.setDate(3, new java.sql.Date(famvo.getFam_Bdate().getTime()));
 			state.setString(4, famvo.getFam_Sex());	
 			state.setString(5, famvo.getFam_Eat());
@@ -212,5 +212,22 @@ public class FamilyDAO implements IFamilyDAO {
 				e.printStackTrace();
 			}
 		return famid;
+	}
+	
+	private final String select_byname="select fam_No from family where fam_Name=? and emp_No=?";
+	public int select_byname(int emp_No ,String fam_Name){
+		int fam_No = 0;
+		try(Connection conn=ds.getConnection();
+			PreparedStatement stmt=conn.prepareStatement(select_byname);){
+				stmt.setString(1,fam_Name);
+				stmt.setInt(2,emp_No);
+				ResultSet rset = stmt.executeQuery();
+				while(rset.next()){
+					fam_No=rset.getInt("fam_No");
+				}
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		return fam_No;
 	}
 }

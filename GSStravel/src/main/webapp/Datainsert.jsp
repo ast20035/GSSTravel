@@ -30,6 +30,7 @@
 		<tr>  <td>與受益人關係</td> <td><input type="text" name ="empbenrel" id="empbenrel" value = "${empbenrel}"><div id=empbenrelerror>${error.empbenrel}</div> </td></tr>
 		<tr>  <td>緊急聯絡人</td> <td><input type="text" name ="empemg" id="empemg" value = "${empemg}" ><div id=empemgerror>${error.empemg}</div> </td></tr>
 		<tr>  <td>緊急聯絡人電話</td> <td><input type="text" name ="empemgphone" id="empemgphone" value="${empemgphone}"><div id=empemgphoneerror>${error.empemgphone}</div> </td></tr>
+		<tr>  <td>信箱</td><td><input type="text" name="empemail" id="empemail" value="${empemail}"><div id=empemailerror>${error.empemailerror}</div></td></tr>
 		<tr>  <td>用餐</td>
 			<td><select name ="empeat">
 				<c:if test="${empeat=='葷'}">
@@ -59,19 +60,19 @@
 <table id="familytable">
 <tr >
 	<th></th>
-	<th>*眷屬/親友</th>
-	<th>*姓名</th>
-	<th>*性別</th>
-	<th>*身份證字號</th>
-	<th>*生日</th>
-	<th>*手機</th>
+	<th><em style="color: red">*</em>眷屬/親友</th>
+	<th><em style="color: red">*</em>姓名</th>
+	<th><em style="color: red">*</em>性別</th>
+	<th><em style="color: red">*</em>身份證字號</th>
+	<th><em style="color: red">*</em>生日</th>
+	<th><em style="color: red">*</em>手機</th>
 	<th>用餐/車位</th>
 	<th>特殊身份</th>
-	<th>*保險受益人</th>
-	<th>*保險受益人關係</th>
-	<th>*緊急聯絡人</th>
-	<th>*緊急聯絡人電話</th>
-	<th>*緊急聯絡人關係</th>
+	<th><em style="color: red">*</em>保險受益人</th>
+	<th><em style="color: red">*</em>保險受益人關係</th>
+	<th><em style="color: red">*</em>緊急聯絡人</th>
+	<th><em style="color: red">*</em>緊急聯絡人電話</th>
+	<th><em style="color: red">*</em>緊急聯絡人關係</th>
 	<th>備註</th>
 </tr>
 		
@@ -79,7 +80,7 @@
 
 	<c:forEach var="start" items="${famstart}">
 	  <tr>
-		<td><input type="button" name ="delete" id="delete" value="刪除"></td>
+		<td><input type="submit" name ="delete" id="delete" value="刪除"></td>
 		<td>
 			<select name ="famrel" >	
 				<c:if test="${start.fam_Rel=='親友'}">				
@@ -92,7 +93,7 @@
 				</c:if>
 			</select>
 			</td>
-		<td><input type="text" name ="famname" id="famname" value="${start.fam_Name}" ><div name="famnameerror" name="famnameerror">${error.famneme}</div></td>
+		<td><input type="text" name ="famname" id="famname" value="${start.fam_Name}" ><div  class="famnameerror">${error.famneme}</div></td>
 		<td><select name ="famsex">  <!--  servlet抓name db抓值會抓進value值進去-->
 		<c:if test="${start.fam_Sex=='男'}">
 			<option value="女" >女</option>
@@ -119,12 +120,12 @@
 			</select>
  			
 	 			<c:if test="${start.fam_Car=='true'}">
-					<input name="check1" type="checkbox" value="true" checked><div>占車位</div>
+					<input id="${start.fam_No}_car" name="famcar" type="checkbox" value="true"  checked><div>占車位</div>
 				</c:if>
 				<c:if test="${start.fam_Car=='false'}">
-					<input name="check1" type="checkbox" value="true" ><div>占車位</div>
+					<input id="${start.fam_No}_car" name="famcar" type="checkbox" value="true" ><div>占車位</div>
 				</c:if>
- 			
+				
 			</td>
 		
 		<td><select class="multiselect aaa" name ="famspa"  multiple="multiple" data-placeholder="請選擇" style="width: 200px;">
@@ -165,7 +166,7 @@
 		<td><input type="text" name ="fambenrel" id="fambenrel" value="${start.fam_BenRel}" ><div class="fambenrelerror">${error.fambenrel}</div></td>
 		<td><input type="text" name ="famemg" id="famemg" value="${start.fam_Emg}"><div class="famemgerror">${error.famemg}</div></td>
 		<td><input type="text" name ="famemgphpone" id="famemgphone" value="${start.fam_EmgPhone}"><div class="famemgphoneerror">${error.famemgphone}</div></td>
-		<td><input type="text" name ="famemgrel" id="famemgrel" value="${start.fam_EmgRel}"><div nameclass"famemgrelerror">${error.famemgrel}</div ></td>
+		<td><input type="text" name ="famemgrel" id="famemgrel" value="${start.fam_EmgRel}"><div class="famemgrelerror">${error.famemgrel}</div ></td>
 		<td><input type="text" name ="famnote" id="famnote" value="${start.fam_Note}"><div class="famnoteerror"></div></td>
 	</tr> 
 	</c:forEach>
@@ -231,16 +232,118 @@ $(function(){
 	$("#familytable").attr("width","1200px").attr("border","3px").attr("border-collapse","collapse");
 	$("#insert").click(
 		function(){
-			$("#familytable").append('<tr class=repeat >'+ $("tr[name='repeat']").html()+'</tr>');
+			$("#familytable").append('<tr class=repeat>'+ $("tr[name='repeat']").html()+'</tr>');
 			$(".repeat:last #multiselect").kendoMultiSelect({autoClose: false});
 			
-			}
+			//新增的欄位作正規劃
+			var famname=/^.*\s*[^\s]/;
+			$(".repeat td").on("blur","input[name='famname']",function(){if(famname.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
+			//id
+			$(".repeat td").on("blur","input[name='famid']",function (){
+			  // 依照字母的編號排列，存入陣列備用。
+			  var letters = new Array('A', 'B', 'C', 'D', 
+			      'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 
+			      'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 
+			      'X', 'Y', 'W', 'Z', 'I', 'O');
+			  // 儲存各個乘數
+			  var multiply = new Array(1, 9, 8, 7, 6, 5, 
+			                           4, 3, 2, 1);
+			  var nums = new Array(2);
+			  var firstChar;
+			  var firstNum;
+			  var lastNum;
+			  var total = 0;
+			  // 撰寫「正規表達式」。第一個字為英文字母，
+			  // 第二個字為1或2，後面跟著8個數字，不分大小寫。
+			  var regExpID=/^[a-z](1|2)\d{8}$/i; 
+			  // 使用「正規表達式」檢驗格式
+			  if (regExpID.test($("input[name*='famid']").val())){
+			    
+				// 取出第一個字元和最後一個數字。
+					firstChar = $(this).val().charAt(0).toUpperCase();
+					lastNum = $(this).val().charAt(9);
+			   
+			  } else {
+				
+				$(this).css("border-color","red");
+				$("#famiderror").text("身分證格式錯誤");
+				$("#save").attr("type","button");
+	// 			return false;
+			  }
+			  // 找出第一個字母對應的數字，並轉換成兩位數數字。
+			  for (var i=0; i<26; i++) {
+				if (firstChar == letters[i]) {
+				  firstNum = i + 10;
+				  nums[0] = Math.floor(firstNum / 10);
+				  nums[1] = firstNum - (nums[0] * 10);
+				  break;
+				} 
+			  }
+			  // 執行加總計算
+			  for(var i=0; i<multiply.length; i++){
+			    if (i<2) {
+			      total += nums[i] * multiply[i];
+			    } else {
+			      total += parseInt( $(this).val().charAt(i-1)) * 
+			               multiply[i];
+			    }
+			  }
+			  // 和最後一個數字比對
+			  if ((10 - (total % 10))!= lastNum) {
+				  $(this).css("border-color","red");
+				  $("#famiderror").text("身分證格式錯誤");
+				  $("#save").attr("type","button");
+	// 			return false;
+			  }else{
+				if($(this).val()=$("input[name*='famid']").val()){
+					 $(this).css("border-color","red");
+					  $("#famiderror").text("身分證格式錯誤");
+					  $("#save").attr("type","button");
+				}else{
+					 $(this).css("border-color","green");
+					  $("#save").attr("type","submit");
+			// 		  return true;
+				}
+			 
+			}})
+			var fambdate=/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
+			$(".repeat td").on("blur","input[name='fambdate']",function(){if(fambdate.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
+			var famphone=/^09\d{2}-?\d{3}-?\d{3}$/;
+			$(".repeat td").on("blur","input[name='famphone']",function(){if(famphone.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
+			var famben=/^.*\s*[^\s]/;
+			$(".repeat td").on("blur","input[name='famben']",function(){if(famben.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
+			var fambenrel=/^.*\s*[^\s]/;
+			$(".repeat td").on("blur","input[name='fambenrel']",function(){if(fambenrel.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
+			var famemg=/^.*\s*[^\s]/;
+			$(".repeat td").on("blur","input[name='famemg']",function(){if(famemg.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
+			var famemgphpone=/^09\d{2}-?\d{3}-?\d{3}$/;
+			$(".repeat td").on("blur","input[name='famemgphpone']",function(){if(famemgphpone.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
+			var famemgrel=/^.*\s*[^\s]/;
+			$(".repeat td").on("blur","input[name='famemgrel']",function(){if(famemgrel.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
+		}
 	);	
 	$("#familytable").on("click","input[name*='delete']",function(){
 // 		$("input[name*='delete']").parents("tr:last").remove();
 		$(this).parents("tr").remove();
 		
 	});	
+	
+	
+
+// 	看一下 假如要找到這幾個 的值  根據他的不同的famno的值來判斷是不是true 或是  false (抓checkbox的值)
+// 		$("#save").click(
+// 				alert( $("input[name='famcar']:checked").length)
+//			while(i<10){
+//	 				if($("#"+i+"_car").attr("checked")=="true"){
+//	 					console.log("xxxx")
+//	 				}else{
+//	 					console.log("yyyyy");
+//					}
+//	 				i++
+//			};
+// 		);
+		 
+	
 	  
 // 		  for(i=0;i<=;i++){
 // 		  var fambdate =$(".repeat input[name*='fambdate']").
@@ -290,9 +393,11 @@ $(function(){
 		if(empphone.test($(this).val())){
 			$(this).css("border-color","green")
 			$("#empphoneerror").text("");
+			$("#save").attr("type","submit");
 		}else{
 			$("#empphoneerror").text("不符合手機規則");
 			$(this).css("border-color","red");
+			$("#save").attr("type","button");
 		}
 	});
 	
@@ -301,9 +406,12 @@ $(function(){
 		if(empben.test($(this).val())){
 			$(this).css("border-color","green")
 			$("#empbenerror").text("");
+			$("#save").attr("type","submit");
+			
 		}else{
 			$("#empbenerror").text("不能為空值");
 			$(this).css("border-color","red");
+			$("#save").attr("type","button");
 		}
 	});
 	
@@ -312,9 +420,12 @@ $(function(){
 		if(empbenrel.test($(this).val())){
 			$(this).css("border-color","green")
 			$("#empbenrelerror").text("");
+			$("#save").attr("type","submit");
+			
 		}else{
 			$("#empbenrelerror").text("不能為空值");
 			$(this).css("border-color","red");
+			$("#save").attr("type","button");
 		}
 	});
 	
@@ -323,9 +434,12 @@ $(function(){
 		if(empemg.test($(this).val())){
 			$(this).css("border-color","green")
 			$("#empemgerror").text("");
+			$("#save").attr("type","submit");
+			
 		}else{
 			$("#empemgerror").text("不能為空值");
 			$(this).css("border-color","red");
+			$("#save").attr("type","button");
 		}
 	});
 	
@@ -334,33 +448,46 @@ $(function(){
 		if(empemgphone.test($(this).val())){
 			$(this).css("border-color","green")
 			$("#empemgphoneerror").text("");
+			$("#save").attr("type","submit");
+			
 		}else{
 			$("#empemgphoneerror").text("不符合手機規則");
 			$(this).css("border-color","red");
+			$("#save").attr("type","button");
 		}
 	});
 	
+	var empemail=/([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})/;
+	$("#empemail").blur(function(){
+		if(empemail.test($(this).val())){
+			$(this).css("border-color","green")
+			$("#empemailerror").text("");
+			$("#save").attr("type","submit");
+			
+		}else{
+			$("#empemailerror").text("不符合手機規則");
+			$(this).css("border-color","red");
+			$("#save").attr("type","button");
+		}
+	})
 	
 	var famname=/^.*\s*[^\s]/;
 	$("input[name*='famname']").on("blur",function(){
 		if(famname.test($(this).val())){
 			$(this).css("border-color","green")
-			$("#famnameerror").text("");
+			$(".famnameerror").text("");
+			$("#save").attr("type","submit");
+			
 		}else{
 			//後面用append加一個h4 或什麼 來顯示錯誤訊息  新增的抓不到正規劃  正規劃錯誤後要不能新增進去
 			$(this).css("border-color","red");
+			$("#save").attr("type","button");
+// 			$(".famnameerror").text("錯誤");
+// 			$(this).after("<div>錯誤</div>"); //多按一次新增一次
+			
 		}
 	});
-	$(".repeat td").on("blur","input[name='famname']",function(){
-		if(famname.test($(this).val())){
-			$(this).css("border-color","green")
-		}else{
-			$(this).css("border-color","red");
-		}
-	});
-// 	$("tr[name='repeat']>input[name*='famname]").on("blur",x);
-// 	$("input[name*='famname']").css("border-color","red");
-// 	$("input[name*='famname']").css("border-color","green")
+
 	
 	$("input[name*='famid']").on("blur",
 			function (){
@@ -391,6 +518,7 @@ $(function(){
 			
 			$(this).css("border-color","red");
 			$("#famiderror").text("身分證格式錯誤");
+			$("#save").attr("type","button");
 // 			return false;
 		  }
 		  // 找出第一個字母對應的數字，並轉換成兩位數數字。
@@ -415,21 +543,25 @@ $(function(){
 		  if ((10 - (total % 10))!= lastNum) {
 			  $(this).css("border-color","red");
 			  $("#famiderror").text("身分證格式錯誤");
+			  $("#save").attr("type","button");
 // 			return false;
 		  }else{
-		  $(this).css("border-color","green")
+		  $(this).css("border-color","green");
+		  $("#save").attr("type","submit");
 // 		  return true;
-		}});
-
+		}})
+	
 	
 	var fambdate=/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
 	$("input[name*='fambdate']").on("blur",function(){
 		if(fambdate.test($(this).val())){
 			$(this).css("border-color","green")
 			$("#fambdateerror").text("");
+			$("#save").attr("type","submit");
 		}else{
 // 			$("#fambdateerror").text("需要為年-月-日的規格");
 			$(this).css("border-color","red");
+			$("#save").attr("type","button");
 		}
 	});
 	
@@ -438,9 +570,11 @@ $(function(){
 		if(famphone.test($(this).val())){
 			$(this).css("border-color","green")
 			$("#famnameerrror").text("");
+			$("#save").attr("type","submit");
 		}else{
 // 			$("#famnameerror").text("不符和手機規則");
 			$(this).css("border-color","red");
+			$("#save").attr("type","button");
 		}
 	});
 	
@@ -449,9 +583,11 @@ $(function(){
 		if(famben.test($(this).val())){
 			$(this).css("border-color","green")
 			$("#fambenerror").text("");
+			$("#save").attr("type","submit");
 		}else{
 // 			$("#fambenerror").text("需要為中文");
 			$(this).css("border-color","red");
+			$("#save").attr("type","button");
 		}
 	});
 	
@@ -460,9 +596,11 @@ $(function(){
 		if(fambenrel.test($(this).val())){
 			$(this).css("border-color","green")
 			$("#fambenrelerror").text("");
+			$("#save").attr("type","submit");
 		}else{
 // 			$("#fambenrelerror").text("需要為中文");
 			$(this).css("border-color","red");
+			$("#save").attr("type","button");
 		}
 	});
 	
@@ -471,9 +609,11 @@ $(function(){
 		if(famemg.test($(this).val())){
 			$(this).css("border-color","green")
 			$("#famemgerror").text("");
+			$("#save").attr("type","submit");
 		}else{
 // 			$("#famemgerror").text("需要為中文");
 			$(this).css("border-color","red");
+			$("#save").attr("type","button");
 		}
 	});
 	
@@ -482,9 +622,11 @@ $(function(){
 		if(famemgphpone.test($(this).val())){
 			$(this).css("border-color","green")
 			$("#famemgphoneerror").text("");
+			$("#save").attr("type","submit");
 		}else{
 // 			$("#famemgphoneerror").text("不符合手機規則");
 			$(this).css("border-color","red");
+			$("#save").attr("type","button");
 		}
 	});
 	
@@ -493,9 +635,11 @@ $(function(){
 		if(famemgrel.test($(this).val())){
 			$(this).css("border-color","green")
 			$("#famemgrel").text("");
+			$("#save").attr("type","submit");
 		}else{
 // 			$("#famemgrel").text("不符合手機規則");
 			$(this).css("border-color","red");
+			$("#save").attr("type","button");
 		}
 	});
 	
