@@ -61,7 +61,10 @@ private FamilyService familyservice= new FamilyService();
 		
 		String buttondelete =req.getParameter("delete");
 		String buttonsave = req.getParameter("button");
-		
+//		System.out.println(buttondelete);
+//		System.out.println(famname);
+		//可能delete沒有傳進來servlet 值?
+		//日期輸入錯誤? 以前會過現在不會過?  多一個的空白欄位?  form 表單不能放進去要藏起來的table 一樣會被抓進去
 		
 		
 		
@@ -90,7 +93,7 @@ private FamilyService familyservice= new FamilyService();
 		if(empemg ==null ||empemg.length()==0){
 			errormsg.put("empemg", "員工緊急聯絡人不能為空值");}
 		if(empemail==null ||empemail.length()==0){
-			errormsg.put("empemail", "原公信箱不能為空值");
+			errormsg.put("empemail", "員工信箱不能為空值");
 		}
 		
 //		String[] famcar=req.getParameterValues("famcar");
@@ -101,8 +104,7 @@ private FamilyService familyservice= new FamilyService();
 		
 		//親屬 轉值  家屬為null?
 		List<Date> fambdate=new ArrayList<Date>();
-		if(famname!=null){//原本為檔全部空值//判斷如果 有一筆 空白 有一筆 有填寫好的家屬欄的話應該怎麼做
-								//如果 抓到空白欄位的跨日期會出錯 (null轉換為日期)
+		if(famname!=null){
 			SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
 					for(String bdate:fambdatedate){					
 						try {

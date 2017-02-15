@@ -191,6 +191,7 @@
 <input type="button" value="insert" id="insert" name ="button"><br>
 <input type="submit" value ="save" id="save" name="button"><br>
 
+</form>
 
 	<table>
 	<!-- 空白欄位 -->
@@ -234,13 +235,7 @@
 	</tr>
 	</table>
 
-</form>
-
-
-
 <script>
-
-
 
 $(function(){
 	$(".multiselect").kendoMultiSelect({autoClose: false});
@@ -379,15 +374,16 @@ $(function(){
 		}
 	);	
 	//刪除鍵按下後
-	$("#familytable").on("click","input[name='delete']",function(e){
-		var keyCode = e.keyCode || e.which;
-		 if (keyCode == 13) {
-		        return false;
-		    }//看能不能用
-		 $(this).parents("tr").remove();
+	$("#familytable").on("click","input[name='delete']",function(){
+// 		var keyCode = e.keyCode || e.which;
+// 		 if (keyCode == 13) {
+// 		        return false;
+// 		    }//看能不能用
+		 $("#familytable input[name='delete']").submit(function(){ $(this).parents("tr").remove();});
+		//on事件要綁定動態之後 還得要綁定 submit才可以抓的到值
 	});	
 
-	//想改把enter後submit的功能去消
+	//想改把enter後submit的功能去消            施工中
 	$("#save").keypress(function(e){
 		var keyCode = e.keyCode || e.which;
 		 if (keyCode == 13) {
@@ -395,9 +391,6 @@ $(function(){
 		    }
 	});
 	
-// 	$("#save").click(function(){
-		
-// 	});
 // }o
 			
 			
