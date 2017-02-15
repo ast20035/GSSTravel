@@ -65,9 +65,6 @@ private FamilyService familyservice= new FamilyService();
 //		System.out.println(famname);
 		//可能delete沒有傳進來servlet 值?
 		//日期輸入錯誤? 以前會過現在不會過?  多一個的空白欄位?  form 表單不能放進去要藏起來的table 一樣會被抓進去
-		
-		
-		
 		Map<String,String> errormsg = new HashMap<String, String>();
 		req.setAttribute("error", errormsg);
 		

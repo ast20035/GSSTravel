@@ -26,6 +26,7 @@
 <style>
 </style>
 <body>
+<div class='container-fluid'>
 	<%@include file="SelectBar.jsp"%>
 	<h2>－報名明細－</h2>
 	<form action=<c:url value="/detail"/> method="post">
@@ -398,6 +399,7 @@ if(Msg!="null"){
 	}
 }
 </script>
+</div>
 </body>
 </html>
 
