@@ -8,8 +8,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -91,10 +93,10 @@ public class DetailDAO implements IDetailDAO {
 	}
 
 	@Override
-	public List<String> detail_Emp_No(long tra_No) {
-		List<String> result = null;
+	public Set<String> detail_Emp_No(long tra_No) {
+		Set<String> result = null;
 		try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(detail_Emp_No);) {
-			result = new ArrayList<>();
+			result = new HashSet<>();
 			stmt.setLong(1, tra_No);
 			ResultSet rset = stmt.executeQuery();
 			while (rset.next()) {
