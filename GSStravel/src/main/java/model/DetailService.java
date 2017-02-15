@@ -99,9 +99,9 @@ public class DetailService {
 				if (fams.length + 1 <= max) {
 					detailDAO.tra_Enter(Integer.parseInt(emp_No), null, tra_No, date, money);
 					for (String fam : fams) {
-						detailDAO.tra_Enter(Integer.parseInt(emp_No), familyDAO.selectfam_No(fam).toString(), tra_No,date, money);
-						return false;
-					}				
+						detailDAO.tra_Enter(Integer.parseInt(emp_No), familyDAO.selectfam_No(fam).toString(), tra_No,date, money);						
+					}
+					return false;
 				}else {
 					return true;
 				}
@@ -109,7 +109,7 @@ public class DetailService {
 				return true;
 			}
 		}	
-		return true;
+		
 	}// false報名成功true報名失敗
 
 	public List<Float> drtail(String emp_No, String tra_No, String[] fams, String room[])
