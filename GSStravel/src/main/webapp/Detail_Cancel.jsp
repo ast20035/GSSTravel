@@ -43,7 +43,8 @@ fieldset {
 			<br />
 			<input name="prodaction" type="submit" value="送出">
 			<button name="canClose" type="button" onclick="window.close()">關閉</button>
-			<p style="color:red ">${DetCanError.CanError}</p>
+			
+			<p style="color:red "hidden><%=session.getAttribute("DetCanError")%></p>
 		</fieldset>
 	</form>
 <script  type="text/javascript">
@@ -71,7 +72,14 @@ $(function () {
 	}else{
 		$("#can_traNo").attr("value",tra_No);
 	}
+	
 });
+
+var DetCanError="<%=session.getAttribute("DetCanError")%>";
+<%session.removeAttribute("DetCanError");%>
+if(DetCanError!="null"){
+	$("p").show();
+}
 
 function unLoad(){
     window.opener.location.href = window.opener.location.href;

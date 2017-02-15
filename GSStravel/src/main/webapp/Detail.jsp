@@ -40,13 +40,13 @@
 				<th>性別</th>
 				<th>身份證字號</th>
 				<th>生日</th>
-				<th>電話</th>
+				<th>手機</th>
 				<th>用餐/車位</th>
 				<th>特殊身份</th>
 				<th>保險受益人</th>
 				<th>與受益人關係</th>
 				<th>緊急聯絡人</th>
-				<th>緊急聯絡人電話</th>
+				<th>緊急聯絡人手機</th>
 				<th>報名時間</th>
 				<th>取消日期</th>
 				<th>備註</th>
@@ -94,7 +94,7 @@
 						<td><input type="text" name="ID" class="TWID" value="${row.ID}" disabled></td>
 						<td><input type="date" name="Bdate" value="${row.bdate}"
 							disabled></td>
-						<td><input type="text" name="Phone" value="${row.phone}"
+						<td><input type="text" name="Phone" class="Phone" value="${row.phone}"
 							disabled></td>
 						<td><input type="text" name="teat" value="${row.eat}"
 							style="display: none"> <select name="eat" disabled>
@@ -155,8 +155,8 @@
 						<td><input type="text" class="ben" name="ben" value="${row.ben}" disabled></td>
 						<td><input type="text" class="ben_Rel" name="ben_Rel" value="${row.benRel}"
 							disabled></td>
-						<td><input type="text" name="emg" value="${row.emg}" disabled></td>
-						<td><input type="text" name="emg_Phone" id="emg_Phone"
+						<td><input type="text" class="emg" name="emg" value="${row.emg}" disabled></td>
+						<td><input type="text" name="emg_Phone" class="emg_Phone" 
 							value="${row.emgPhone}" disabled></td>
 						<td>${row.det_Date}</td>
 						<td>${row.det_CanDate}</td>
@@ -218,8 +218,7 @@ $(function(){
 			}else{
 				document.getElementsByName("eat")[i].selectedIndex = 2;
 			}
-		 }
-	
+	}	
 	 $(".detEdit").click(function () {
 		 var thisTr = $(this).parents("tr")
 		 thisTr.find("input").removeAttr("disabled");
@@ -235,8 +234,7 @@ $(function(){
 		 });
 		 thisTr.find(".text_multiselect").val(thisTr.find("p").text());
 		 
-		 thisTr.find(".TWID").on("blur",
-					function (){
+		 thisTr.find(".TWID").on("blur",function (){
 				  // 依照字母的編號排列，存入陣列備用。
 				  var letters = new Array('A', 'B', 'C', 'D', 
 				      'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 
@@ -267,6 +265,7 @@ $(function(){
 				   
 				  } else {
 					$(this).css("border-color","red");
+					  thisTr.find(".save").attr("type","button");
 				  }
 				  // 找出第一個字母對應的數字，並轉換成兩位數數字。
 				  for (var i=0; i<26; i++) {
@@ -289,36 +288,108 @@ $(function(){
 				  // 和最後一個數字比對
 				  if ((10 - (total % 10))!= lastNum) {
 					  $(this).css("border-color","red");
+					  alert("身份證字號輸入錯誤！");
+					  thisTr.find(".save").attr("type","button");
 				  }else{
 				  $(this).css("border-color","green");
+				  thisTr.find(".save").attr("type","submit");
 				}})
 				
+				var cellPhone=/^09\d{2}-?\d{3}-?\d{3}$/;
+				thisTr.find(".Phone").on("blur",function(){
+					if(cellPhone.test($(this).val())){
+						$(this).css("border-color","green")
+						thisTr.find(".save").attr("type","submit");
+					}else{
+						$(this).css("border-color","red");
+						alert("手機輸入錯誤！");
+						thisTr.find(".save").attr("type","button");
+					}
+				});
+				thisTr.find(".emg_Phone").on("blur",function(){
+					if(cellPhone.test($(this).val())){
+						$(this).css("border-color","green")
+						 thisTr.find(".save").attr("type","submit");
+					}else{
+						$(this).css("border-color","red");
+						thisTr.find(".save").attr("type","button");
+						alert("緊急聯絡人手機輸入錯誤！");
+					}
+				});
+				
+				var thisName=/^.*\s*[^\s]/;
+				thisTr.find(".name").blur(function(){
+					if(thisName.test($(this).val())){
+						$(this).css("border-color","green")
+						thisTr.find(".save").attr("type","submit");
+					}else{
+						alert("姓名不可為空白！");
+						$(this).css("border-color","red");
+						thisTr.find(".save").attr("type","button");
+					}
+				});
+				thisTr.find(".ben").blur(function(){
+					if(thisName.test($(this).val())){
+						$(this).css("border-color","green")
+						thisTr.find(".save").attr("type","submit");
+					}else{
+						alert("保險受益人不可為空白！");
+						$(this).css("border-color","red");
+						thisTr.find(".save").attr("type","button");
+					}
+				});
+				thisTr.find(".ben_Rel").blur(function(){
+					if(thisName.test($(this).val())){
+						$(this).css("border-color","green")
+						thisTr.find(".save").attr("type","submit");
+					}else{
+						alert("與受益人關係不可為空白！");
+						$(this).css("border-color","red");
+						thisTr.find(".save").attr("type","button");
+					}
+				});
+				thisTr.find(".emg").blur(function(){
+					if(thisName.test($(this).val())){
+						$(this).css("border-color","green")
+						thisTr.find(".save").attr("type","submit");
+					}else{
+						alert("緊急聯絡人不可為空白！");
+						$(this).css("border-color","red");
+						thisTr.find(".save").attr("type","button");
+					}
+				});
+				$(this).parents("tr").find("p").hide();
+				 $(this).hide();
+				 $(".detEdit").prop("disabled",true);
+			     });  
+			})
+
+	 
+	 $(".save").click(function () {
+		 if(this.type=='button'){
+			 alert("儲存失敗！");
+		 }
 		 
-		 $(this).parents("tr").find("p").hide();
-		 $(this).hide();
-		 $(".detEdit").prop("disabled",true);
-     });
-	 
-	 
-	 
-	
-});
-
-
-
+		 
+	 });
 function open_Can(obj) {
     var CanUrl = '/GSStravel/Detail_Cancel.jsp?can_detNo=' + obj.value + "&can_traNo=" + document.getElementById("tra_no").value;
     window.open(CanUrl, '_bank', 'width=300,height=250,top=100,left=400');
 };
 
-var Msg='${DetCanError.CanError}';
-if(Msg!=''){
-	alert(Msg);
+
+var CanError="<%=session.getAttribute("CanError")%>";
+<%session.removeAttribute("CanError");%>
+if(CanError!="null"){
+	console.log(CanError);
+	alert(CanError);
 }
-var Message='${DetCanError.Message}';
-if(Message!=''){
-	if(confirm(Message)){
-		//跳轉頁面至Detail_Insert
+var Msg="<%=session.getAttribute("DetMsg")%>";
+<%session.removeAttribute("DetMsg");%>
+if(Msg!="null"){
+	if(confirm(Msg)){
+		 var insert = "/GSStravel/Detail_Insert.jsp?tra_No=" + document.getElementById("tra_no").value;
+		 window.location=insert;
 	}
 }
 </script>

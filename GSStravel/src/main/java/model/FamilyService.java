@@ -14,12 +14,16 @@ public class FamilyService {
 	public void update(FamilyVO famvo){
 		familyDAO.update(famvo);
 	}
-	public void delete(FamilyVO famvo){
-		familyDAO.delete(famvo);
+	public void delete(Integer famno){
+		familyDAO.delete(famno);
 	}
 	public List<String> selectid(Integer empno){
 		return familyDAO.selectid(empno);
 	} 
+
+	public int select_byname(int emp_No ,String fam_Name){
+		return familyDAO.select_byname(emp_No,fam_Name);
+	}
 	public Integer selectfam_No(String fam_Name){
 		return familyDAO.selectfam_No(fam_Name);
 	}

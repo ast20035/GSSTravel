@@ -180,12 +180,13 @@ public class FamilyDAO implements IFamilyDAO {
 	}
 
 	@Override
-	public void delete(FamilyVO famvo) {
+	public void delete(Integer famno) {
 		try(
 			Connection connection = ds.getConnection();
 			PreparedStatement state = connection.prepareStatement(delete);)
 		{
-			state.setInt(1,famvo.getFam_No());
+			
+			state.setInt(1,famno);
 			state.executeUpdate();
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -212,5 +213,22 @@ public class FamilyDAO implements IFamilyDAO {
 				e.printStackTrace();
 			}
 		return famid;
+	}
+	
+	private final String select_byname="select fam_No from family where fam_Name=? and emp_No=?";
+	public int select_byname(int emp_No ,String fam_Name){
+		int fam_No = 0;
+		try(Connection conn=ds.getConnection();
+			PreparedStatement stmt=conn.prepareStatement(select_byname);){
+				stmt.setString(1,fam_Name);
+				stmt.setInt(2,emp_No);
+				ResultSet rset = stmt.executeQuery();
+				while(rset.next()){
+					fam_No=rset.getInt("fam_No");
+				}
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		return fam_No;
 	}
 }

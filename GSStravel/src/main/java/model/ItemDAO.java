@@ -15,7 +15,7 @@ public class ItemDAO implements IItemDAO {
 	private DataSource ds;
 	private static final String feeTravel = "select item_Name,item_Money from Item  where tra_No = ?";
 	private static final String SELECT_ONE_STMT = "SELECT item_Money FROM Item WHERE item_No=1 ORDER BY tra_No";
-	private static final String roomMoney = "select item_Name,item_Money from Item where tra_No=? and item_name like '%住宿%'";
+	private static final String roomMoney = "select item_No,item_Name,item_Money from Item where tra_No=? and item_name like '%住宿%'";
 	private static final String fareMoney = "select item_Name,item_Money from Item  where tra_No = ? and item_name not like '%住宿%'";
 	private static final String SELECT = "select * from Item where tra_No =?";
 	private static final String insert = "insert into Item(item_No, item_Name, item_Money) values (?,?,?)";
@@ -155,6 +155,7 @@ public class ItemDAO implements IItemDAO {
 			result = new ArrayList<ItemVO>();
 			while (rset.next()) {
 				ItemVO vo = new ItemVO();
+				vo.setItem_No(rset.getInt("item_No"));
 				vo.setItem_Name(rset.getString("item_Name"));
 				vo.setItem_Money(rset.getFloat("item_Money"));
 				result.add(vo);
