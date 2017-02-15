@@ -29,10 +29,10 @@
 		$(".multiselect").kendoMultiSelect({
 			autoClose : false
 		});
-		searchGO();
+		search();
 	};
 	var xh = new XMLHttpRequest();
-	function searchGO() {
+	function search() {
 		if (xh != null) {
 			var selectedValues = $('select[name="loca"]').val();
 			var pathName = document.location.pathname;
