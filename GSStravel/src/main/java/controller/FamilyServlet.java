@@ -97,43 +97,49 @@ private FamilyService familyservice= new FamilyService();
 //		System.out.println(car);
 //		};
 		
-		
-		//親屬 轉值
-		List<Date> fambdate = new ArrayList<Date>();
-		SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
-				for(String bdate:fambdatedate){					
-					try {
-						fambdate.add(sdf.parse(bdate));
-					} catch (ParseException e) {
-						errormsg.put("fambdate","日期錯誤必須符合 年-月-日格式");
-						System.out.println("使用者輸入日期錯誤");
+//		fambdate = new ArrayList<Date>();
+		//親屬 轉值  家屬為null?
+			List<Date> fambdate=new ArrayList<Date>();
+		if(famname!=null){
+
+			SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
+					for(String bdate:fambdatedate){					
+						try {
+							fambdate.add(sdf.parse(bdate));
+						} catch (ParseException e) {
+							errormsg.put("fambdate","日期錯誤必須符合 年-月-日格式");
+							System.out.println("使用者輸入日期錯誤");
+						}
 					}
-				}
-				
-		if(famname==null || famname.length==0 ){
-			errormsg.put("famname", "親屬家人不能為空值");}
-		if( famid ==null ||famid.length==0){
-			errormsg.put("famid", "親屬身分證不能為空值");}
-		if(famphone==null || famphone.length==0){
-			errormsg.put("famphone", "親屬電話不能為空值");}
-		if(famben ==null ||famben.length==0){
-			errormsg.put("famben", "親屬保險受益人不能為空值");}
-		if(fambenrel ==null ||fambenrel.length==0){
-			errormsg.put("fambenrel", "親屬保險受益人關係不能為空值");}
-		if(famemg ==null ||famemg.length==0){
-			errormsg.put("famemg", "親屬緊急聯絡人不能為空值");}
-		if(famemgphpone ==null ||famemgphpone.length==0){
-			errormsg.put("famemgphpone", "親屬緊急聯絡人電話不能為空值");}
-		if(famemgrel==null || famemgrel.length==0){
-			errormsg.put("famemgrel", "親屬緊急聯絡人關係不能為空值");}
+					
+			if(famname==null || famname.length==0 ){
+				errormsg.put("famname", "親屬家人不能為空值");}
+			if( famid ==null ||famid.length==0){
+				errormsg.put("famid", "親屬身分證不能為空值");}
+			if(famphone==null || famphone.length==0){
+				errormsg.put("famphone", "親屬電話不能為空值");}
+			if(famben ==null ||famben.length==0){
+				errormsg.put("famben", "親屬保險受益人不能為空值");}
+			if(fambenrel ==null ||fambenrel.length==0){
+				errormsg.put("fambenrel", "親屬保險受益人關係不能為空值");}
+			if(famemg ==null ||famemg.length==0){
+				errormsg.put("famemg", "親屬緊急聯絡人不能為空值");}
+			if(famemgphpone ==null ||famemgphpone.length==0){
+				errormsg.put("famemgphpone", "親屬緊急聯絡人電話不能為空值");}
+			if(famemgrel==null || famemgrel.length==0){
+				errormsg.put("famemgrel", "親屬緊急聯絡人關係不能為空值");}
+		}	
 		
-			if(errormsg!=null && !errormsg.isEmpty()){
-				System.out.println("親屬員工檢查錯誤");
-				req.getRequestDispatcher("register").forward(req, res);
-				return;	
-			}else{
-				System.out.println("親屬員工檢查完畢");
-			}
+		
+		
+				if(errormsg!=null && !errormsg.isEmpty()){
+					System.out.println("親屬員工檢查錯誤");
+					req.getRequestDispatcher("Register").forward(req, res);
+					return;	
+				}else{
+					System.out.println("親屬員工檢查完畢");
+				}
+		
 			
 	    	HttpSession session = req.getSession();
 			Integer emp_No = (Integer) session.getAttribute("emp_No");
@@ -158,63 +164,65 @@ private FamilyService familyservice= new FamilyService();
 		if("save".equals(buttonsave)){
 		 employeeservice.update(employeevo);
 
-		 int idlength=0;
-		 idlength = famid.length;
-//		 System.out.println(idlength);//3筆 前端輸入的親屬id筆數 (前端寫多少欄位近來)
-
-		 	//判斷 新增或是修改(親屬) 判斷前端欄位親屬id在資料庫有沒有   有id此欄未做修改 沒id此欄未做新增
-			//還是看看用fam_id[i]來判斷進來的是跟資料庫一樣的id還是不同 
-			//fam_id[i]那一筆   有   在資料庫 來判斷
-		 List<String> id = familyservice.selectid(emp_No);	 
-		 
-		 for(int i=0;i<idlength;i++){//0 1 2 3
-//			 System.out.println(i); //帶i=0之後就帶不下去了 找index size錯誤
-			FamilyVO familyvo = new FamilyVO();
-			
-			familyvo.setEmp_No(emp_No);
-			Integer famno=familyservice.selectfam_No(famname[i]);
-//			System.out.println(familyservice.selectfam_No(famname[i]));// 4 5 6 7
-			familyvo.setFam_No(famno);
-			familyvo.setFam_Rel(famrel[i]);
-			familyvo.setFam_Name(famname[i]);
-			familyvo.setFam_Sex(famsex[i]);
-			familyvo.setFam_Id(famid[i]);
-			familyvo.setFam_Bdate(new java.sql.Date(fambdate.get(i).getTime()));
-			familyvo.setFam_Phone(famphone[i]);
-			familyvo.setFam_Eat(fameat[i]);
-			
-			//測試	
-			familyvo.setFam_Car(false);
-			familyvo.setFam_Bady(false);
-			familyvo.setFam_kid(false);
-			familyvo.setFam_Dis(false);
-			familyvo.setFam_Mom(false);
-			
-			familyvo.setFam_Ben(famben[i]);
-			familyvo.setFam_BenRel(fambenrel[i]);
-			familyvo.setFam_Emg(famemg[i]);
-			familyvo.setFam_EmgPhone(famemgphpone[i]);
-			familyvo.setFam_EmgRel(famemgrel[i]);
-			if(famnote[i]!=null){
-				familyvo.setFam_Note(famnote[i]);
-			}else{
-				familyvo.setFam_Note(null);
-			}
-			
-			
-			if(id.contains(famid[i])==true){//可以insert進去 但不能update成功
-				familyservice.update(familyvo);
-				System.out.println("update " +famid[i]+" famno="+famno );
-			}else{ 
-				familyservice.insert(familyvo);
-				System.out.println("insert "+famid[i]);
-			}
-		 }//回圈結束
+		 if(famname!=null){
+			 int idlength=0;
+			 idlength = famid.length;
+	//		 System.out.println(idlength);//3筆 前端輸入的親屬id筆數 (前端寫多少欄位近來)
+	
+			 	//判斷 新增或是修改(親屬) 判斷前端欄位親屬id在資料庫有沒有   有id此欄未做修改 沒id此欄未做新增
+				//還是看看用fam_id[i]來判斷進來的是跟資料庫一樣的id還是不同 
+				//fam_id[i]那一筆   有   在資料庫 來判斷
+			 List<String> id = familyservice.selectid(emp_No);	 
+			 
+			 for(int i=0;i<idlength;i++){//0 1 2 3
+				FamilyVO familyvo = new FamilyVO();
+				familyvo.setEmp_No(emp_No);
+				Integer famno=familyservice.selectfam_No(famname[i]);
+	//			System.out.println(familyservice.selectfam_No(famname[i]));// 4 5 6 7
+				familyvo.setFam_No(famno);
+				familyvo.setFam_Rel(famrel[i]);
+				familyvo.setFam_Name(famname[i]);
+				familyvo.setFam_Sex(famsex[i]);
+				familyvo.setFam_Id(famid[i]);
+				familyvo.setFam_Bdate(new java.sql.Date(fambdate.get(i).getTime()));
+				familyvo.setFam_Phone(famphone[i]);
+				familyvo.setFam_Eat(fameat[i]);
+				
+				//測試	
+				familyvo.setFam_Car(false);
+				familyvo.setFam_Bady(false);
+				familyvo.setFam_kid(false);
+				familyvo.setFam_Dis(false);
+				familyvo.setFam_Mom(false);
+				
+				familyvo.setFam_Ben(famben[i]);
+				familyvo.setFam_BenRel(fambenrel[i]);
+				familyvo.setFam_Emg(famemg[i]);
+				familyvo.setFam_EmgPhone(famemgphpone[i]);
+				familyvo.setFam_EmgRel(famemgrel[i]);
+				if(famnote[i]!=null){
+					familyvo.setFam_Note(famnote[i]);
+				}else{
+					familyvo.setFam_Note(null);
+				}
+				
+				
+				if(id.contains(famid[i])==true){//可以insert進去 但不能update成功
+					
+					familyservice.update(familyvo);
+					System.out.println("update " +famid[i]+" famno="+famno );
+				}else{ 
+					familyservice.insert(familyvo);
+					System.out.println("insert "+famid[i]);
+				}
+			 }//回圈結束
+			 	req.getRequestDispatcher("Register").forward(req, res);
+		 }//判斷此員工有沒有家屬
 		 	req.getRequestDispatcher("Register").forward(req, res);
 		}//按下save的執行動作
 		
-//		if("delete".equals(buttondelete)){//假如執行delete方法後 如果報名欄位是空白得?
-//			
+//		if("delete".equals(buttondelete)){//假如執行delete方法後 如果報名欄位是空白得?  ajax?
+//			familyservice.delete(famno);
 //		}
 		
 	}
