@@ -43,6 +43,7 @@ public class Sign_in extends HttpServlet {
 			String[] room = req.getParameterValues("room");
 			String emp_No = req.getParameter("emp_No");
 			String tra_No = req.getParameter("tra_No");
+			System.out.println(fams.length);
 			bl = detailService.tra_Enter(fams, emp_No, tra_No,room);
 			String Emp_SubTra = null;//使用補助金的旅遊編號
 			String tra_Name = null;//使用補助金的旅遊名稱
