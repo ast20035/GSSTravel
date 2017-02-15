@@ -59,8 +59,10 @@ private FamilyService familyservice= new FamilyService();
 		String[] famemgrel =req.getParameterValues("famemgrel");
 		String[] famnote = req.getParameterValues("famnote");
 		
-		String buttondelete =req.getParameter("button");
+		String buttondelete =req.getParameter("delete");
 		String buttonsave = req.getParameter("button");
+		
+		
 		
 		
 		Map<String,String> errormsg = new HashMap<String, String>();
@@ -97,11 +99,10 @@ private FamilyService familyservice= new FamilyService();
 //		System.out.println(car);
 //		};
 		
-//		fambdate = new ArrayList<Date>();
 		//親屬 轉值  家屬為null?
-			List<Date> fambdate=new ArrayList<Date>();
-		if(famname!=null){
-
+		List<Date> fambdate=new ArrayList<Date>();
+		if(famname!=null){//原本為檔全部空值//判斷如果 有一筆 空白 有一筆 有填寫好的家屬欄的話應該怎麼做
+								//如果 抓到空白欄位的跨日期會出錯 (null轉換為日期)
 			SimpleDateFormat sdf =new SimpleDateFormat("yyyy-MM-dd");
 					for(String bdate:fambdatedate){					
 						try {
@@ -159,11 +160,27 @@ private FamilyService familyservice= new FamilyService();
 		}else{
 			employeevo.setEmp_Note(null);
 		}
+		
+		//假如執行delete方法後 如果報名欄位是空白得?  ajax?
 
+		//抓delete放事件進去
+		System.out.println(buttondelete);
+		if("delete".equals(buttondelete)){
+			System.out.println("xxxxxx");
+		};
+		
+//		if(buttondelete!=null){
+//			if(buttondelete.equals("delete")){
+//				System.out.println("yyyyy");
+//			};
+//		};
+		
+		
 		
 		if("save".equals(buttonsave)){
 		 employeeservice.update(employeevo);
-
+		 System.out.println("員工資料更改完畢");
+		 
 		 if(famname!=null){
 			 int idlength=0;
 			 idlength = famid.length;
@@ -175,55 +192,54 @@ private FamilyService familyservice= new FamilyService();
 			 List<String> id = familyservice.selectid(emp_No);	 
 			 
 			 for(int i=0;i<idlength;i++){//0 1 2 3
-				FamilyVO familyvo = new FamilyVO();
-				familyvo.setEmp_No(emp_No);
-				Integer famno=familyservice.selectfam_No(famname[i]);
-	//			System.out.println(familyservice.selectfam_No(famname[i]));// 4 5 6 7
-				familyvo.setFam_No(famno);
-				familyvo.setFam_Rel(famrel[i]);
-				familyvo.setFam_Name(famname[i]);
-				familyvo.setFam_Sex(famsex[i]);
-				familyvo.setFam_Id(famid[i]);
-				familyvo.setFam_Bdate(new java.sql.Date(fambdate.get(i).getTime()));
-				familyvo.setFam_Phone(famphone[i]);
-				familyvo.setFam_Eat(fameat[i]);
-				
-				//測試	
-				familyvo.setFam_Car(false);
-				familyvo.setFam_Bady(false);
-				familyvo.setFam_kid(false);
-				familyvo.setFam_Dis(false);
-				familyvo.setFam_Mom(false);
-				
-				familyvo.setFam_Ben(famben[i]);
-				familyvo.setFam_BenRel(fambenrel[i]);
-				familyvo.setFam_Emg(famemg[i]);
-				familyvo.setFam_EmgPhone(famemgphpone[i]);
-				familyvo.setFam_EmgRel(famemgrel[i]);
-				if(famnote[i]!=null){
-					familyvo.setFam_Note(famnote[i]);
-				}else{
-					familyvo.setFam_Note(null);
-				}
-				
-				
-				if(id.contains(famid[i])==true){//可以insert進去 但不能update成功
+					FamilyVO familyvo = new FamilyVO();
+					familyvo.setEmp_No(emp_No);
+					Integer famno=familyservice.selectfam_No(famname[i]);
+		//			System.out.println(familyservice.selectfam_No(famname[i]));// 4 5 6 7
+					familyvo.setFam_No(famno);
+					familyvo.setFam_Rel(famrel[i]);
+					familyvo.setFam_Name(famname[i]);
+					familyvo.setFam_Sex(famsex[i]);
+					familyvo.setFam_Id(famid[i]);
+					familyvo.setFam_Bdate(new java.sql.Date(fambdate.get(i).getTime()));
+					familyvo.setFam_Phone(famphone[i]);
+					familyvo.setFam_Eat(fameat[i]);
 					
-					familyservice.update(familyvo);
-					System.out.println("update " +famid[i]+" famno="+famno );
-				}else{ 
-					familyservice.insert(familyvo);
-					System.out.println("insert "+famid[i]);
-				}
-			 }//回圈結束
+					//測試	
+					familyvo.setFam_Car(false);
+					familyvo.setFam_Bady(false);
+					familyvo.setFam_kid(false);
+					familyvo.setFam_Dis(false);
+					familyvo.setFam_Mom(false);
+					
+					familyvo.setFam_Ben(famben[i]);
+					familyvo.setFam_BenRel(fambenrel[i]);
+					familyvo.setFam_Emg(famemg[i]);
+					familyvo.setFam_EmgPhone(famemgphpone[i]);
+					familyvo.setFam_EmgRel(famemgrel[i]);
+					if(famnote[i]!=null){
+						familyvo.setFam_Note(famnote[i]);
+					}else{
+						familyvo.setFam_Note(null);
+					}
+					
+					
+					if(id.contains(famid[i])==true){//可以insert進去 但不能update成功
+						
+						familyservice.update(familyvo);
+						System.out.println("update " +famid[i]+" famno="+famno );
+						
+					}else{ 
+						familyservice.insert(familyvo);
+						System.out.println("insert "+famid[i]);
+					}
+			 	}//回圈結束
 			 	req.getRequestDispatcher("Register").forward(req, res);
-		 }//判斷此員工有沒有家屬
-		 	req.getRequestDispatcher("Register").forward(req, res);
+		 }else{//判斷此員工有沒有家屬
+			 req.getRequestDispatcher("Register").forward(req, res);
+		 }
+		 	
 		}//按下save的執行動作
-		
-//		if("delete".equals(buttondelete)){//假如執行delete方法後 如果報名欄位是空白得?  ajax?
-//			familyservice.delete(famno);
-//		}
 		
 	}
 	
