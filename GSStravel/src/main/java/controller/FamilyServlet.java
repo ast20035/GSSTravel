@@ -169,6 +169,8 @@ private FamilyService familyservice= new FamilyService();
 		System.out.println(buttondelete);
 		if("delete".equals(buttondelete)){
 			System.out.println("xxxxxx");
+			//這邊按下之後會跑servlet的值 記得要做判斷不要跑到下面update 會讓他抓到下面直接吳經過save click的
+				//方法傳進來 要黨掉以及
 		};
 		
 //		if(buttondelete!=null){
