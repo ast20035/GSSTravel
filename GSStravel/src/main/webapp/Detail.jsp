@@ -79,7 +79,7 @@
 								<option>女</option>
 						</select></td>
 						<td><input type="text" name="ID" class="TWID" value="${row.ID}" disabled></td>
-						<td><input type="date" name="Bdate" value="${row.bdate}"
+						<td><input type="date" name="Bdate" class="Bdate" value="${row.bdate}"
 							disabled></td>
 						<td><input type="text" name="Phone" class="Phone" value="${row.phone}"
 							disabled></td>
@@ -273,10 +273,10 @@ $(function(){
 				               multiply[i];
 				    }
 				  }
+				  var a = (10 - (total % 10));
 				  // 和最後一個數字比對
-				  if ((10 - (total % 10))!= lastNum) {
+				  if ( a != lastNum && (a-10) != lastNum) {
 					  $(this).css("border-color","red");
-					  alert("身份證字號輸入錯誤！");
 					  thisTr.find(".save").attr("type","button");
 				  }else{
 				  $(this).css("border-color","green");
@@ -290,7 +290,6 @@ $(function(){
 						thisTr.find(".save").attr("type","submit");
 					}else{
 						$(this).css("border-color","red");
-						alert("手機輸入錯誤！");
 						thisTr.find(".save").attr("type","button");
 					}
 				});
@@ -301,7 +300,6 @@ $(function(){
 					}else{
 						$(this).css("border-color","red");
 						thisTr.find(".save").attr("type","button");
-						alert("緊急聯絡人手機輸入錯誤！");
 					}
 				});
 				
@@ -311,7 +309,6 @@ $(function(){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
-						alert("姓名不可為空白！");
 						$(this).css("border-color","red");
 						thisTr.find(".save").attr("type","button");
 					}
@@ -321,7 +318,6 @@ $(function(){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
-						alert("保險受益人不可為空白！");
 						$(this).css("border-color","red");
 						thisTr.find(".save").attr("type","button");
 					}
@@ -331,7 +327,6 @@ $(function(){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
-						alert("與受益人關係不可為空白！");
 						$(this).css("border-color","red");
 						thisTr.find(".save").attr("type","button");
 					}
@@ -341,11 +336,21 @@ $(function(){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
-						alert("緊急聯絡人不可為空白！");
 						$(this).css("border-color","red");
 						thisTr.find(".save").attr("type","button");
 					}
 				});
+				
+				
+				var fambdate=/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
+				thisTr.find(".Bdate").on("blur",function(){
+					if(fambdate.test($(this).val())){
+						thisTr.find(".save").attr("type","submit");
+					}else{
+						thisTr.find(".save").attr("type","button");
+					}
+				});
+				
 				$(this).parents("tr").find("p").hide();
 				 $(this).hide();
 				 $(".detEdit").prop("disabled",true);
