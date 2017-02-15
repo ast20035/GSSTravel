@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -26,6 +26,7 @@ tr, td {
 	border: 1px solid black;
 	text-align: center;
 }
+
 .error {
 	color: red;
 }
@@ -33,47 +34,57 @@ tr, td {
 <script src="/GSStravel/js/jquery-3.1.1.min.js"></script>
 
 <script>
-	$(document).ready(function() {
-		$("#add").click(function() {
-      		$("#fineTable").append("<tr><td><input type='button' class='remove' value='－' /></td><td><input name='day' type='text' value='${row.fine_Dates}' autocomplete='off' /></td><td><input name='percent' type='text' value='${row.fine_Per}' autocomplete='off' /></td></tr>");
-    	});
-		
-		$(document).on('click', '.remove', function(){
-// 			var num = document.getElementById("fineTable").rows.length;
-// 			if(num > 2){
-				$(this).parents("tr").remove();
-// 			}
-// 			else{
-// 				alert("The last row can't be deleted !!");
-// 			}
-		});
-	});
+	$(document)
+			.ready(
+					function() {
+						$("#add")
+								.click(
+										function() {
+											$("#fineTable")
+													.append(
+															"<tr><td><input type='button' class='remove' value='－' /></td><td><input name='day' type='text' value='${row.fine_Dates}' autocomplete='off' /></td><td><input name='percent' type='text' value='${row.fine_Per}' autocomplete='off' /></td></tr>");
+										});
+
+						$(document).on('click', '.remove', function() {
+							// 			var num = document.getElementById("fineTable").rows.length;
+							// 			if(num > 2){
+							$(this).parents("tr").remove();
+							// 			}
+							// 			else{
+							// 				alert("The last row can't be deleted !!");
+							// 			}
+						});
+					});
 </script>
 </head>
 
 <body>
-	<%@include file="../SelectBar.jsp" %>
-	<h2>罰則設定</h2>
-	<form action="<c:url value="/FineServlet" />" method="GET">
-		<table id="fineTable">
-			<tr>
-				<td><input type="button" value="＋" id="add" /></td>
-				<td><em style="color: red">*</em>取消日<br>(旅遊前 n 天通知)</td>
-				<td><em style="color: red">*</em>罰款扣款比例 (%)</td>
-			</tr>
-			<c:forEach var="row" items="${select}">
+	<div class='container-fluid'>
+		<%@include file="../SelectBar.jsp"%>
+		<h2>罰則設定</h2>
+		<form action="<c:url value="/FineServlet" />" method="GET">
+			<table id="fineTable">
 				<tr>
-					<td><input type="button" class="remove" value="－" /></td>
-					<td><input name="day" type="text" value="${row.fine_Dates}" autocomplete="off" /></td>
-					<td><input name="percent" type="text" value="${row.fine_Per}" autocomplete="off" /></td>
+					<td><input type="button" value="＋" id="add" /></td>
+					<td><em style="color: red">*</em>取消日<br>(旅遊前 n 天通知)</td>
+					<td><em style="color: red">*</em>罰款扣款比例 (%)</td>
 				</tr>
-			</c:forEach>
-		</table>
-		<input type="submit" name="FineShow" value="罰則明細" />
-		<input type="submit" name="save" value="儲存罰則" />
-		<div class="error">${error.day}</div>
-		<div class="error">${error.percent}</div>
-		<div class="error">${error.pk}</div>
-	</form>
+				<c:forEach var="row" items="${select}">
+					<tr>
+						<td><input type="button" class="remove" value="－" /></td>
+						<td><input name="day" type="text" value="${row.fine_Dates}"
+							autocomplete="off" /></td>
+						<td><input name="percent" type="text" value="${row.fine_Per}"
+							autocomplete="off" /></td>
+					</tr>
+				</c:forEach>
+			</table>
+			<input type="submit" name="FineShow" value="罰則明細" /> <input
+				type="submit" name="save" value="儲存罰則" />
+			<div class="error">${error.day}</div>
+			<div class="error">${error.percent}</div>
+			<div class="error">${error.pk}</div>
+		</form>
+	</div>
 </body>
 </html>

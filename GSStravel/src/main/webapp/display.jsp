@@ -6,7 +6,7 @@
 <!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
 <meta http-equiv="refresh"
 	content="0;url=http://localhost:8080/GSStravel/AllTravel" />
-	<script src='js/jquery-3.1.1.min.js'></script>
+<script src='js/jquery-3.1.1.min.js'></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -23,8 +23,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-${bl}
-${bl1}
+	<div class='container-fluid'>${bl} ${bl1}</div>
 </body>
 <script type="text/javascript">
 if(${bl}){
