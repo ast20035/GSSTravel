@@ -106,6 +106,7 @@ public class DetailServlet extends HttpServlet {
 			String emg = req.getParameter("emg");
 			String emg_Phone = req.getParameter("emg_Phone");
 			String note = req.getParameter("note");
+			System.out.println(Bdate);
 			if (!rel.equals("員工")) {
 				try {
 					if (name.trim().length() == 0 || name == null) {
@@ -125,7 +126,7 @@ public class DetailServlet extends HttpServlet {
 						session.setAttribute("CanError", "儲存失敗！");
 					}else if(sex.equals("女")&&!ID.substring(1, 2).equals("2")){
 						session.setAttribute("CanError", "儲存失敗！");
-					}else {
+					}else{
 						String temp_FamNo = req.getParameter("fam_No");
 						String car = req.getParameter("car");
 						String spe = req.getParameter("text_multiselect");
@@ -176,6 +177,7 @@ public class DetailServlet extends HttpServlet {
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+					session.setAttribute("CanError", "儲存失敗！");
 				}
 				resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_no);
 				return;
@@ -219,6 +221,7 @@ public class DetailServlet extends HttpServlet {
 
 				} catch (Exception e) {
 					e.printStackTrace();
+					session.setAttribute("CanError", "儲存失敗！");
 				}
 			}
 			resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_no);
