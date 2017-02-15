@@ -7,6 +7,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src='js/jquery-3.1.1.min.js'></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
 <title>報名明細</title>
 </head>
 
@@ -79,7 +92,7 @@
 								<option>女</option>
 						</select></td>
 						<td><input type="text" name="ID" class="TWID" value="${row.ID}" disabled></td>
-						<td><input type="date" name="Bdate" value="${row.bdate}"
+						<td><input type="date" name="Bdate" class="Bdate" value="${row.bdate}"
 							disabled></td>
 						<td><input type="text" name="Phone" class="Phone" value="${row.phone}"
 							disabled></td>
@@ -166,7 +179,6 @@
 		href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
 	<link rel="stylesheet"
 		href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
-	<script src="js/jquery-1.12.3.min.js"></script>
 	<script
 		src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
 
@@ -273,10 +285,10 @@ $(function(){
 				               multiply[i];
 				    }
 				  }
+				  var a = (10 - (total % 10));
 				  // 和最後一個數字比對
-				  if ((10 - (total % 10))!= lastNum) {
+				  if ( a != lastNum && (a-10) != lastNum) {
 					  $(this).css("border-color","red");
-					  alert("身份證字號輸入錯誤！");
 					  thisTr.find(".save").attr("type","button");
 				  }else{
 				  $(this).css("border-color","green");
@@ -290,7 +302,6 @@ $(function(){
 						thisTr.find(".save").attr("type","submit");
 					}else{
 						$(this).css("border-color","red");
-						alert("手機輸入錯誤！");
 						thisTr.find(".save").attr("type","button");
 					}
 				});
@@ -301,7 +312,6 @@ $(function(){
 					}else{
 						$(this).css("border-color","red");
 						thisTr.find(".save").attr("type","button");
-						alert("緊急聯絡人手機輸入錯誤！");
 					}
 				});
 				
@@ -311,7 +321,6 @@ $(function(){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
-						alert("姓名不可為空白！");
 						$(this).css("border-color","red");
 						thisTr.find(".save").attr("type","button");
 					}
@@ -321,7 +330,6 @@ $(function(){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
-						alert("保險受益人不可為空白！");
 						$(this).css("border-color","red");
 						thisTr.find(".save").attr("type","button");
 					}
@@ -331,7 +339,6 @@ $(function(){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
-						alert("與受益人關係不可為空白！");
 						$(this).css("border-color","red");
 						thisTr.find(".save").attr("type","button");
 					}
@@ -341,11 +348,21 @@ $(function(){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
-						alert("緊急聯絡人不可為空白！");
 						$(this).css("border-color","red");
 						thisTr.find(".save").attr("type","button");
 					}
 				});
+				
+				
+				var fambdate=/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
+				thisTr.find(".Bdate").on("blur",function(){
+					if(fambdate.test($(this).val())){
+						thisTr.find(".save").attr("type","submit");
+					}else{
+						thisTr.find(".save").attr("type","button");
+					}
+				});
+				
 				$(this).parents("tr").find("p").hide();
 				 $(this).hide();
 				 $(".detEdit").prop("disabled",true);
