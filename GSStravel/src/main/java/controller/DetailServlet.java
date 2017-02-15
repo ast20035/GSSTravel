@@ -221,6 +221,7 @@ public class DetailServlet extends HttpServlet {
 
 				} catch (Exception e) {
 					e.printStackTrace();
+					session.setAttribute("CanError", "儲存失敗！");
 				}
 			}
 			resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_no);

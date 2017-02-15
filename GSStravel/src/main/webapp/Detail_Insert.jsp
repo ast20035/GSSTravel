@@ -163,7 +163,7 @@
 		<p style="color: red" class="Error"></p>
 		<p class="nofam"></p>
 		<br /> 
-		<input type="button" class="insertSave" id="insertSave" name="prodaction" value="儲存" onclick="saveData()"> 
+		<input type="submit" class="insertSave" id="insertSave" name="prodaction" value="儲存" onclick="saveData()"> 
 			<input type="submit" name="prodaction"value="回前頁">
 	</form>
 </body>

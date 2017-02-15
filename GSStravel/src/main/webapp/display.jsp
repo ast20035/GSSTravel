@@ -42,11 +42,9 @@ if(${bl}){
 				subMoney=(subMoney/12)*${drtail[4]};
 			}
 			alert("報名成功!!"+"\n"+"團費試算  年度可使用補助金額:"+subMoney+";個人團費:${drtail[1]}*${drtail[2]}=${drtail[1]*drtail[2]}"+"\n"+"個人補助金:"+subMoney+";應補團費:"+money+"\n"+"PS:團費試算僅供參考，需繳納費用以福委會通知為主"+"\n"+"補助金轉移!!!!!"+"\n"+"從原本旅遊編碼:${decide[0]};旅遊名稱:${decide[1]}"+"\n"+"轉移至"+"\n"+"旅遊編碼:${decide[2]};旅遊名稱:${decide[3]}");
-		
 		}else{
-		    alert("報名成功!!"+"\n"+"團費試算  年度可使用補助金額:${drtail[0]};個人團費:${drtail[1]}*${drtail[2]}=${drtail[1]*drtail[2]}"+"\n"+"個人補助金:${drtail[0]};應補團費:${drtail[3]}"+"\n"+"PS:團費試算僅供參考，需繳納費用以福委會通知為主");  			
+		        alert("報名成功!!"+"\n"+"團費試算  年度可使用補助金額:${drtail[0]};個人團費:${drtail[1]}*${drtail[2]}=${drtail[1]*drtail[2]}"+"\n"+"個人補助金:${drtail[0]};應補團費:${drtail[3]}"+"\n"+"PS:團費試算僅供參考，需繳納費用以福委會通知為主");  					
 		}
-		
 }
 </script>
 </html>
