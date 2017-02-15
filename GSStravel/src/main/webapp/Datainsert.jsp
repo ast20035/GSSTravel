@@ -391,7 +391,7 @@ $(function(){
 		    }
 	});
 	
-// }o
+
 			
 			
 // 	看一下 假如要找到這幾個 的值  根據他的不同的famno的值來判斷是不是true 或是  false (抓checkbox的值)
