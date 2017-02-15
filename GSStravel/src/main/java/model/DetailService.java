@@ -100,8 +100,7 @@ public class DetailService {
 					for (String fam : fams) {
 						detailDAO.tra_Enter(Integer.parseInt(emp_No), familyDAO.selectfam_No(fam).toString(), tra_No,
 								date, money);
-					}
-					
+					}				
 					return false;
 					
 				} else {

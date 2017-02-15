@@ -10,7 +10,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+${bl}
+${bl1}
 </body>
 <script type="text/javascript">
 if(${bl}){
