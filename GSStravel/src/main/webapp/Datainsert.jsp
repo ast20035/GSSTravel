@@ -7,6 +7,19 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src='js/jquery-3.1.1.min.js'></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -14,7 +27,6 @@
 	<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
-	<script src="js/jquery-3.1.1.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
 
 
@@ -80,7 +92,7 @@
 
 	<c:forEach var="start" items="${famstart}">
 	  <tr>
-		<td><input type="submit" name ="delete" id="delete" value="刪除"></td>
+		<td><input type="submit" name ="delete" id="delete" value="delete"></td>
 		<td>
 			<select name ="famrel" >	
 				<c:if test="${start.fam_Rel=='親友'}">				
@@ -180,12 +192,10 @@
 <input type="submit" value ="save" id="save" name="button"><br>
 
 
-</form>
-
 	<table>
 	<!-- 空白欄位 -->
 	<tr name="repeat">
-		<td><input type="button" name ="delete" id="delete" value="刪除"></td>
+		<td><input type="submit" name ="delete" id="delete" value="delete"></td>
 		<td>
 			<select name ="famrel" >		
 					<option value="眷屬" >眷屬</option>
@@ -223,6 +233,9 @@
 		<td><input type="text" name ="famnote" id="famnote"><div class="famnoteerror"></div></td>
 	</tr>
 	</table>
+
+</form>
+
 
 
 <script>
@@ -332,28 +345,62 @@ $(function(){
 			var famemgrel=/^.*\s*[^\s]/;
 			$(".repeat td").on("blur","input[name='famemgrel']",function(){if(famemgrel.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
 			
-			    
+			//在commit按下後內 判斷把全部欄未能不能不要是空白  
+			$("#save").click(function(){
+				if($(".repeat td input[name='famname']").val()==""){
+					alert("請輸入親屬名稱");
+					return false;}
+				if($(".repeat td input[name='famid']").val()==""){
+					alert("請輸入親屬身份證");
+					return false;}
+				if($(".repeat td input[name='fambdate']").val()==""){
+					alert("請輸入親屬生日");
+					return false;}
+				if($(".repeat td input[name='famphone']").val()==""){
+					alert("請輸入親屬手機");
+					return false;}
+				if($(".repeat td input[name='famben']").val()==""){
+					alert("請輸入親屬保險受益人");
+					return false;}
+				if($(".repeat td input[name='fambenrel']").val()==""){
+					alert("請輸入親屬保險受益人關係");
+					return false;}
+				if($(".repeat td input[name='famemg']").val()==""){
+					alert("請輸入親屬緊急聯絡人");
+					return false;}
+				if($(".repeat td input[name='famemgphone']").val()==""){
+					alert("請輸入親屬緊急聯絡人電話");
+					return false;}
+				if($(".repeat td input[name='famemgrel']").val()==""){
+					alert("請輸入親屬緊急聯絡人關係");
+					return false;}
+			});
+			
 		}
 	);	
-	$("#familytable").on("keypress","input[name*='delete']",function(){
-//  		$("input[name*='delete']").parents("tr:last").remove();
-		code = e.keyCode ? e.keyCode : e.which;
-		if(code == 13){
-			return false;
-		}
-		$(this).parents("tr").remove();
-		
+	//刪除鍵按下後
+	$("#familytable").on("click","input[name='delete']",function(e){
+		var keyCode = e.keyCode || e.which;
+		 if (keyCode == 13) {
+		        return false;
+		    }//看能不能用
+		 $(this).parents("tr").remove();
 	});	
-	$('input[name="button"] input[value="name"]').on('keyup keypress', function(e) {
-		  var keyCode = e.keyCode || e.which;
-		  if (keyCode === 13) { 
-		    e.preventDefault();
-		    return false;
-		  }
-		});
+
+	//想改把enter後submit的功能去消
+	$("#save").keypress(function(e){
+		var keyCode = e.keyCode || e.which;
+		 if (keyCode == 13) {
+		        return false;
+		    }
+	});
 	
-
-
+// 	$("#save").click(function(){
+		
+// 	});
+// }o
+			
+			
 // 	看一下 假如要找到這幾個 的值  根據他的不同的famno的值來判斷是不是true 或是  false (抓checkbox的值)
 // 		$("#save").click(
 // 				alert( $("input[name='famcar']:checked").length)
@@ -367,55 +414,55 @@ $(function(){
 //			};
 // 		);
 		 
-	
+	//抓前端的欄位來送去資料庫比對 看看有沒有重複 或是用新增跟原本的設兩個name來比對看看
 // 		  for(i=0;i<=;i++){
 // 		  var fambdate =$(".repeat input[name*='fambdate']").
 // 		  }
 // 		  console.log(fambdate);
 // 		  $.post("Register",{})
 	  
-	var xh = new XMLHttpRequest();
-	search();
+// 	var xh = new XMLHttpRequest();
+// 	search();
 	
-	function search() {
-		if (xh != null) {
+// 	function search() {
+// 		if (xh != null) {
 		
-// 		var famidvaule = $(".famid").val();
-		 var famidvaule= $(".famid").map(function() { 
-			return $(this).val(); 
-			}).get();
+// // 		var famidvaule = $(".famid").val();
+// 		 var famidvaule= $(".famid").map(function() { 
+// 			return $(this).val(); 
+// 			}).get();
 		
-		console.log(famidvaule);//["Q250939543","F199131438","F218757856",""]
+// 		console.log(famidvaule);//["Q250939543","F199131438","F218757856",""]
 		
-		var pathName = document.location.pathname;
-		var index = pathName.substr(1).indexOf("/");
-		var result = pathName.substr(0, index + 1);
-		var url = result + "/controller/FamilyServlet.do?";
-// 		var url = "FamilyServlet.do?"
-		if(typeof famidvaule != "undefined"){
-		var famid =JSON.stringify(famidvaule);
-		console.log(famid);//["Q250939543","F199131438","F218757856",""]
-		}
+// 		var pathName = document.location.pathname;
+// 		var index = pathName.substr(1).indexOf("/");
+// 		var result = pathName.substr(0, index + 1);
+// 		var url = result + "/controller/FamilyServlet.do?";
+// // 		var url = "FamilyServlet.do?"
+// 		if(typeof famidvaule != "undefined"){
+// 		var famid =JSON.stringify(famidvaule);
+// 		console.log(famid);//["Q250939543","F199131438","F218757856",""]
+// 		}
 		
-		//轉json 格式? 字串證列  console.log() 輸出   h
+// 		//轉json 格式? 字串證列  console.log() 輸出   h
 				
-		xh.addEventListener("readystatechange", ajaxReturn);
-		xh.open("POST",url);
-		xh.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-		xh.send("id="+famid);
+// 		xh.addEventListener("readystatechange", ajaxReturn);
+// 		xh.open("POST",url);
+// 		xh.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+// 		xh.send("id="+famid);
 		
-		}else {
-			alert("Your browser doesn't support JSON!");
-		}
-	}
-	function ajaxReturn() {
-		if (xh.readyState == 4){
-			if (xh.status == 200) {
-			 	alert(famid);
+// 		}else {
+// 			alert("Your browser doesn't support JSON!");
+// 		}
+// 	}
+// 	function ajaxReturn() {
+// 		if (xh.readyState == 4){
+// 			if (xh.status == 200) {
+// 			 	alert(famid);
 			 	
-			}
-		}
-	}
+// 			}
+// 		}
+// 	}
 	
 	var empphone=/^09\d{2}-?\d{3}-?\d{3}$/;
 	$("#empphone").blur(function(){
@@ -424,7 +471,7 @@ $(function(){
 			$("#empphoneerror").text("");
 			$("#save").attr("type","submit");
 		}else{
-			$("#empphoneerror").text("不符合手機規則");
+			$("#empphoneerror").text("手機輸入錯誤");
 // 			setTimeout(function(){$(this).css("border-color","red");},2000);	
 			$(this).css("border-color","red");
 			$("#save").attr("type","button");
