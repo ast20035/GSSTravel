@@ -180,12 +180,13 @@ public class FamilyDAO implements IFamilyDAO {
 	}
 
 	@Override
-	public void delete(FamilyVO famvo) {
+	public void delete(Integer famno) {
 		try(
 			Connection connection = ds.getConnection();
 			PreparedStatement state = connection.prepareStatement(delete);)
 		{
-			state.setInt(1,famvo.getFam_No());
+			
+			state.setInt(1,famno);
 			state.executeUpdate();
 		}catch(SQLException e){
 			e.printStackTrace();

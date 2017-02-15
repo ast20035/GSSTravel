@@ -203,6 +203,7 @@ private FamilyService familyservice= new FamilyService();
 			
 			
 			if(id.contains(famid[i])==true){//可以insert進去 但不能update成功
+				
 				familyservice.update(familyvo);
 				System.out.println("update " +famid[i]+" famno="+famno );
 			}else{ 
@@ -213,8 +214,8 @@ private FamilyService familyservice= new FamilyService();
 		 	req.getRequestDispatcher("Register").forward(req, res);
 		}//按下save的執行動作
 		
-//		if("delete".equals(buttondelete)){//假如執行delete方法後 如果報名欄位是空白得?
-//			
+//		if("delete".equals(buttondelete)){//假如執行delete方法後 如果報名欄位是空白得?  ajax?
+//			familyservice.delete(famno);
 //		}
 		
 	}
