@@ -59,7 +59,7 @@ var Error="<%=session.getAttribute("nopeople")%>
 			if (Edate.value != undefined && Edate.value != '') {
 				url = url + "endDay=" + Edate.value + "&";
 			}
-			if (selectedValues != undefined) {
+			if (selectedValues != undefined &&  &&  selectedValues!='') {
 				url = url + "loc=" + JSON.stringify(selectedValues);
 			}
 			xh.addEventListener("readystatechange", ajaxReturn)

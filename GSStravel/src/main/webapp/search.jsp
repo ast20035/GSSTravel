@@ -29,10 +29,10 @@
 		$(".multiselect").kendoMultiSelect({
 			autoClose : false
 		});
-		search();
+		searchGO();
 	};
 	var xh = new XMLHttpRequest();
-	function search() {
+	function searchGO() {
 		if (xh != null) {
 			var selectedValues = $('select[name="loca"]').val();
 			var pathName = document.location.pathname;
@@ -51,8 +51,9 @@
 			if (Edate.value != undefined && Edate.value != '') {
 				url = url + "endDay=" + Edate.value + "&";
 			}
-			if (selectedValues != undefined) {
+			if (selectedValues != undefined &&  selectedValues!='') {
 				url = url + "loc=" + JSON.stringify(selectedValues);
+				alert(selectedValues);
 			}
 			xh.addEventListener("readystatechange", ajaxReturn)
 			xh.open("GET", url);
