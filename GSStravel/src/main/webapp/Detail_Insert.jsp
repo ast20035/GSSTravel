@@ -29,7 +29,7 @@
 
 .center_a {
 	text-align: center;
-	border: 0;
+	border-width: 0;
 	resize: none;
 	font-size: 15px;
 	overflow-y: visible;
@@ -37,150 +37,369 @@
 }
 </style>
 <body>
-	<div class='container-fluid'>
-		<h2>－報名明細新增－</h2>
-		<form action=<c:url value="/detail_insert"/> method="post">
-			<p>
-				報名活動代碼：${tra_no}
-				<%
-					String tra_No = request.getParameter("tra_No");
-					if (tra_No != null) {
-						out.println(tra_No);
-				%>
-			</p>
-			<input type="hidden" name="tra_no" class="tra_no" value="<%=tra_No%>">
+	<h2>－報名明細新增－</h2>
+	<form action=<c:url value="/detail_insert"/> method="post">
+		<p>
+			報名活動代碼：${tra_no}
 			<%
-				} else {
+				String tra_No = request.getParameter("tra_No");
+				if (tra_No != null) {
+					out.println(tra_No);
 			%>
-			<input type="hidden" name="tra_no" class="tra_no" value="${tra_no}">
-			<%
-				}
-			%>
+		</p>
+		<input type="hidden" name="tra_no" class="tra_no" value="<%=tra_No%>">
+		<%
+			} else {
+		%>
+		<input type="hidden" name="tra_no" class="tra_no" value="${tra_no}">
+		<%
+			}
+		%>
 
-			<table border="1">
+		<table border="1">
+			<tr>
+				<th>員工編號</th>
+				<th>報名人姓名</th>
+				<th>報名總金額</th>
+			</tr>
+			<tr>
+				<td><input type="text" id="emp_No" name="emp_No"
+					onblur="select_emp_No()" onfocus="clearName()"></td>
+				<td><select id="select" name="select"></select></td>
+				<td><input type="text" id="money" name="money" class="money"
+					value="${money}" readonly></td>
+			</tr>
+		</table>
+		<br />
+		<div class="div" style="display: none">
+			<table border="1" style="test-font: 10px" width="150%">
 				<tr>
-					<th>員工編號</th>
-					<th>報名人姓名</th>
-					<th>報名總金額</th>
+					<th><em style="color: red">*</em>眷屬/親友</th>
+					<th><em style="color: red">*</em>姓名</th>
+					<th><em style="color: red">*</em>性別</th>
+					<th><em style="color: red">*</em>身份證字號</th>
+					<th><em style="color: red">*</em>生日</th>
+					<th><em style="color: red">*</em>手機</th>
+					<th>用餐/車位</th>
+					<th>特殊身份</th>
+					<th><em style="color: red">*</em>保險受益人</th>
+					<th><em style="color: red">*</em>保險受益人關係</th>
+					<th><em style="color: red">*</em>緊急聯絡人</th>
+					<th><em style="color: red">*</em>緊急聯絡人手機</th>
+					<th><em style="color: red">*</em>緊急聯絡人關係</th>
+					<th>備註</th>
 				</tr>
 				<tr>
-					<td><input type="text" id="emp_No" name="emp_No"
-						onblur="select_emp_No()" onfocus="clearName()"></td>
-					<td><select id="select" name="select"></select></td>
-					<td><input type="text" id="money" name="money" class="money"
-						value="${money}" readonly></td>
+					<td><select name="fam_Rel" class="center_a">
+							<option>眷屬</option>
+							<option>親友</option>
+					</select></td>
+					<td><input type="text" id="fam_Name" name="fam_Name"
+						class="fam_Name center_a" placeholder="請填寫">
+					<td><select name="fam_Sex" class="fam_Sex">
+							<option>男</option>
+							<option>女</option>
+					</select></td>
+					<td><input type="text" name="fam_Id" class="fam_Id center_a"
+						placeholder="請填寫"></td>
+					<td><input type="date" name="fam_Bdate" class="fam_Bdate center_a"
+						placeholder="請填寫"></td>
+					<td><input type="text" name="fam_Phone"
+						class="fam_Phone center_a" placeholder="請填寫"></td>
+					<td><select name="fam_Eat" class="center_a">
+							<option>葷</option>
+							<option>素</option>
+							<option>不佔餐</option>
+					</select>
+						<div style="font-size: 13px;" class="center_a" placeholder="請填寫">
+							<input name="fam_Car" type="checkbox" value="不占車位"
+								style="vertical-align: middle;">不占車位
+						</div></td>
+					<td><select class="multiselect center_a" name="fam_spa"
+						id="multiselect" data-placeholder="請選擇" multiple="multiple"
+						style="width: 200px;">
+							<option>幼童(0~3歲)</option>
+							<option>兒童(4~11歲)</option>
+							<option>持身心障礙手冊</option>
+							<option>孕婦(媽媽手冊)</option>
+					</select></td>
+					<td><input type="text" name="fam_Ben" class="fam_Ben center_a"
+						placeholder="請填寫"></td>
+					<td><input type="text" name="fam_BenRel" class="fam_BenRel center_a"
+						placeholder="請填寫"></td>
+					<td><input type="text" name="fam_Emg" class="fam_Emg center_a"
+						placeholder="請填寫"></td>
+					<td><input type="text" name="fam_EmgPhone"
+						class="fam_EmgPhone center_a" placeholder="請填寫"></td>
+					<td><input type="text" name="fam_EmgRel" class="fam_EmgRel center_a"
+						placeholder="請填寫"></td>
+					<td><input type="text" name="fam_note" class="center_a" placeholder="請填寫"></td>
 				</tr>
+
 			</table>
-			<br />
-			<div class="div" style="display: none">
-				<table border="1" style="test-font: 10px" width="150%">
+		</div>
+		<br />
+		<c:if test="${fn:length(room)!=0}">
+			<div>
+				<table border="1">
 					<tr>
-						<th><em style="color: red">*</em>眷屬/親友</th>
-						<th><em style="color: red">*</em>姓名</th>
-						<th><em style="color: red">*</em>性別</th>
-						<th><em style="color: red">*</em>身份證字號</th>
-						<th><em style="color: red">*</em>生日</th>
-						<th><em style="color: red">*</em>手機</th>
-						<th>用餐/車位</th>
-						<th>特殊身份</th>
-						<th><em style="color: red">*</em>保險受益人</th>
-						<th><em style="color: red">*</em>保險受益人關係</th>
-						<th><em style="color: red">*</em>緊急聯絡人</th>
-						<th><em style="color: red">*</em>緊急聯絡人電話</th>
-						<th><em style="color: red">*</em>緊急聯絡人關係</th>
-						<th>備註</th>
+						<th>請選擇</th>
+						<th>房型</th>
+						<th>費用</th>
 					</tr>
-					<tr>
-						<td><select name="fam_Rel" class="center_a">
-								<option>眷屬</option>
-								<option>親友</option>
-						</select></td>
-						<td><input type="text" id="fam_Name" name="fam_Name"
-							class="center_a" placeholder="請填寫">
-						<td><select name="fam_Sex">
-								<option>男</option>
-								<option>女</option>
-						</select></td>
-						<td><input type="text" name="fam_Id" class="center_a"
-							placeholder="請填寫"></td>
-						<td><input type="date" name="fam_Bdate" class="center_a"
-							placeholder="請填寫"></td>
-						<td><input type="text" name="fam_Phone" class="center_a"
-							placeholder="請填寫"></td>
-						<td><select name="fam_Eat" class="center_a">
-								<option>葷</option>
-								<option>素</option>
-								<option>不佔餐</option>
-						</select>
-							<div style="font-size: 13px;" class="center_a" placeholder="請填寫">
-								<input name="fam_Car" type="checkbox" value="不占車位"
-									style="vertical-align: middle;">不占車位
-							</div></td>
-						<td><select class="multiselect center_a" name="fam_spa"
-							id="multiselect" data-placeholder="請選擇" multiple="multiple"
-							style="width: 200px;">
-								<option>幼童(0~3歲)</option>
-								<option>兒童(4~11歲)</option>
-								<option>持身心障礙手冊</option>
-								<option>孕婦(媽媽手冊)</option>
-						</select></td>
-						<td><input type="text" name="fam_Ben" class="center_a"
-							placeholder="請填寫"></td>
-						<td><input type="text" name="fam_BenRel" class="center_a"
-							placeholder="請填寫"></td>
-						<td><input type="text" name="fam_Emg" class="center_a"
-							placeholder="請填寫"></td>
-						<td><input type="text" name="fam_EmgPhone" class="center_a"
-							placeholder="請填寫"></td>
-						<td><input type="text" name="fam_EmgRel" class="center_a"
-							placeholder="請填寫"></td>
-						<td><input type="text" name="fam_note" class="center_a"></td>
-					</tr>
-
+					<c:forEach var="list" items="${room}">
+						<tr>
+							<td><input type="checkbox" class="checkbox ${list.item_No}"
+								onclick="change()"></td>
+							<td><input type="text" class="line ${list.item_No}"
+								value="${list.item_Name}" readonly></td>
+							<td><input type="text" class="line ${list.item_No}"
+								value="${list.item_Money}" readonly></td>
+						</tr>
+					</c:forEach>
 				</table>
 			</div>
-			<br />
-			<c:if test="${fn:length(room)!=0}">
-				<div>
-					<table border="1">
-						<tr>
-							<th>請選擇</th>
-							<th>房型</th>
-							<th>費用</th>
-						</tr>
-						<c:forEach var="list" items="${room}">
-							<tr>
-								<td><input type="checkbox" class="checkbox ${list.item_No}"
-									onclick="change()"></td>
-								<td><input type="text" class="line ${list.item_No}"
-									value="${list.item_Name}" readonly></td>
-								<td><input type="text" class="line ${list.item_No}"
-									value="${list.item_Money}" readonly></td>
-							</tr>
-						</c:forEach>
-					</table>
-				</div>
-			</c:if>
-			<p style="color: red" class="Error"></p>
-			<p class="nofam"></p>
-			<br /> <input type="submit" name="prodaction" value="儲存"> <input
-				type="submit" name="prodaction" value="回前頁">
-		</form>
-	</div>
+		</c:if>
+		<p style="color: red" class="Error"></p>
+		<p class="nofam"></p>
+		<br /> 
+		<input type="submit" class="insertSave" id="insertSave" name="prodaction" value="儲存" onclick="saveData()"> 
+			<input type="submit" name="prodaction"value="回前頁">
+	</form>
 </body>
-<link rel="stylesheet"
-	href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
-<link rel="stylesheet"
-	href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
-<link rel="stylesheet"
-	href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
-<script
-	src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
+
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
+<script src="js/jquery-1.12.3.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
 
 <script>
 	$(".multiselect").kendoMultiSelect({
 		autoClose : false
 	});
+	var a1 = a2 =  a3 = a4 = a5 = a6 = a7 = a8 = a9 = false;
+	$(function() {
+		$(".fam_Id").on(
+				"blur",
+				function() {
+					// 依照字母的編號排列，存入陣列備用。
+					var letters = new Array('A', 'B', 'C', 'D', 'E', 'F', 'G',
+							'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S',
+							'T', 'U', 'V', 'X', 'Y', 'W', 'Z', 'I', 'O');
+					// 儲存各個乘數
+					var multiply = new Array(1, 9, 8, 7, 6, 5, 4, 3, 2, 1);
+					var nums = new Array(2);
+					var firstChar;
+					var firstNum;
+					var lastNum;
+					var total = 0;
+					// 撰寫「正規表達式」。第一個字為英文字母，
+					// 第二個字為1或2，後面跟著8個數字，不分大小寫。
+					var sex = $(".fam_Sex").val();
+					if (sex == "男") {
+						var regExpID = /^[a-z](1)\d{8}$/i;
+					} else {
+						var regExpID = /^[a-z](2)\d{8}$/i;
+					}
+					// 使用「正規表達式」檢驗格式
+					if (regExpID.test($(this).val())) {
+
+						// 取出第一個字元和最後一個數字。
+						firstChar = $(this).val().charAt(0).toUpperCase();
+						lastNum = $(this).val().charAt(9);
+
+					} else {
+						$(this).css("border-width", "1px");
+						$(this).css("border-color", "red");
+						$(".insertSave").attr("type","button");
+					}
+					// 找出第一個字母對應的數字，並轉換成兩位數數字。
+					for (var i = 0; i < 26; i++) {
+						if (firstChar == letters[i]) {
+							firstNum = i + 10;
+							nums[0] = Math.floor(firstNum / 10);
+							nums[1] = firstNum - (nums[0] * 10);
+							break;
+						}
+					}
+					// 執行加總計算
+					for (var i = 0; i < multiply.length; i++) {
+						if (i < 2) {
+							total += nums[i] * multiply[i];
+						} else {
+							total += parseInt($(this).val().charAt(i - 1))
+									* multiply[i];
+						}
+					}
+					// 和最後一個數字比對
+					if (((10 - (total % 10)) != lastNum) && ((10 - (total % 10)-10) != lastNum)) {
+						$(this).css("border-width", "1px");
+						$(this).css("border-color", "red");
+						$(".insertSave").attr("type","button");
+					} else {
+						$(this).css({
+							'border-width' : '0'
+						});
+						a1 = true;
+						if(!(a1&&a2&&a3&&a4&&a5&&a6&&a7&&a8&a9)){
+							$(".insertSave").attr("type","button");
+						}else{
+							$(".insertSave").attr("type","submit");
+						}
+					}
+			
+				})
+
+		var cellPhone = /^09\d{2}-?\d{3}-?\d{3}$/;
+		$(".fam_Phone").on("blur", function() {
+			if (cellPhone.test($(this).val())) {
+				$(this).css({
+					'border-width' : '0'
+				});
+				a2 = true;
+				if(!(a1&&a2&&a3&&a4&&a5&&a6&&a7&&a8&a9)){
+					$(".insertSave").attr("type","button");
+				}else{
+					$(".insertSave").attr("type","submit");
+				}
+			} else {
+				$(this).css("border-width", "1px");
+				$(this).css("border-color", "red");
+				$(".insertSave").attr("type","button");
+			}
+
+		});
+		$(".fam_EmgPhone").on("blur", function() {
+			if (cellPhone.test($(this).val())) {
+				$(this).css({
+					'border-width' : '0'
+				});
+				a3 = true;
+				if(!(a1&&a2&&a3&&a4&&a5&&a6&&a7&&a8&a9)){
+					$(".insertSave").attr("type","button");
+				}else{
+					$(".insertSave").attr("type","submit");
+				}
+			} else {
+				$(this).css("border-width", "1px");
+				$(this).css("border-color", "red");
+				$(".insertSave").attr("type","button");
+			}
+
+		});
+		
+		var thisName=/^.*\s*[^\s]/;
+		$(".fam_Name").blur(function(){
+			if(thisName.test($(this).val())){
+				$(this).css({
+					'border-width' : '0'
+				});
+				a4 = true;
+				if(!(a1&&a2&&a3&&a4&&a5&&a6&&a7&&a8&a9)){
+					$(".insertSave").attr("type","button");
+				}else{
+					$(".insertSave").attr("type","submit");
+				}
+			}else{
+				$(this).css("border-width", "1px");
+				$(this).css("border-color", "red");
+				$(".insertSave").attr("type","button");
+			}
+			
+		});
+		$(".fam_Ben").blur(function(){
+			if(thisName.test($(this).val())){
+				$(this).css({
+					'border-width' : '0'
+				});
+				a5 = true;
+				if(!(a1&&a2&&a3&&a4&&a5&&a6&&a7&&a8&a9)){
+					$(".insertSave").attr("type","button");
+				}else{
+					$(".insertSave").attr("type","submit");
+				}
+			}else{
+				$(this).css("border-width", "1px");
+				$(this).css("border-color", "red");
+				$(".insertSave").attr("type","button");
+			}
+		});
+		$(".fam_BenRel").blur(function(){
+			if(thisName.test($(this).val())){
+				$(this).css({
+					'border-width' : '0'
+				});
+				a6 = true;
+				if(!(a1&&a2&&a3&&a4&&a5&&a6&&a7&&a8&a9)){
+					$(".insertSave").attr("type","button");
+				}else{
+					$(".insertSave").attr("type","submit");
+				}
+			}else{
+				$(this).css("border-width", "1px");
+				$(this).css("border-color", "red");
+				$(".insertSave").attr("type","button");
+			}
+		});
+		$(".fam_Emg").blur(function(){
+			if(thisName.test($(this).val())){
+				$(this).css({
+					'border-width' : '0'
+				});
+				a7 = true;
+				if(!(a1&&a2&&a3&&a4&&a5&&a6&&a7&&a8&a9)){
+					$(".insertSave").attr("type","button");
+				}else{
+					$(".insertSave").attr("type","submit");
+				}
+			}else{
+				$(this).css("border-width", "1px");
+				$(this).css("border-color", "red");
+				$(".insertSave").attr("type","button");
+			}
+		});
+		$(".fam_EmgRel").blur(function(){
+			if(thisName.test($(this).val())){
+				$(this).css({
+					'border-width' : '0'
+				});
+				a8 = true;
+				if(!(a1&&a2&&a3&&a4&&a5&&a6&&a7&&a8&a9)){
+					$(".insertSave").attr("type","button");
+				}else{
+					$(".insertSave").attr("type","submit");
+				}
+			}else{
+				$(this).css("border-width", "1px");
+				$(this).css("border-color", "red");
+				$(".insertSave").attr("type","button");
+			}
+		});
+		
+		var fambdate=/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
+		$(".fam_Bdate").on("blur",function(){
+			if(fambdate.test($(this).val())){
+				a9 = true;
+				if(!(a1&&a2&&a3&&a4&&a5&&a6&&a7&&a8&a9)){
+					$(".insertSave").attr("type","button");
+				}else{
+					$(".insertSave").attr("type","submit");
+				}
+			}else{
+				$(".insertSave").attr("type","button");
+			}
+		});
+		
+	});
+	
+	
+	function saveData(){
+
+		if(document.getElementById("insertSave").type=='button'){
+		 alert("儲存失敗！");
+		}
+	}
 
 	function select_emp_No() {
 		$.ajax({
