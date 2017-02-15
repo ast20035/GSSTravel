@@ -39,8 +39,9 @@
 	padding-bottom: 2px;
 	padding-top: 2px;
 }
-.container-fluid{
-margin-top: 2%;
+
+.container-fluid {
+	margin-top: 2%;
 }
 </style>
 <title>Insert title here</title>
@@ -53,9 +54,13 @@ margin-top: 2%;
 				<div class='col-lg-2'></div>
 				<div class='col-lg-3'>
 					<h1 class='alert alert-info'>-本團報名資訊-</h1>
-					<h3>活動名稱:${tra_Vo.tra_Name}</h3>
+<%-- 					<h3>活動名稱:${tra_Vo.tra_Name}</h3> --%>
 					<h3>
-						活動代碼:<input style="border: none; font-size: 14pt; width: 200px"
+						活動名稱:<input style="border-style: none; color: #7700BB; width:600px;"
+							type="text" value="${tra_Vo.tra_Name}" name="tra_Name" readonly>
+					</h3>
+					<h3>
+						活動代碼:<input style="border-style: none; color: #7700BB;"
 							type="text" value="${tra_Vo.tra_NO}" name="tra_No" readonly>
 					</h3>
 					<h3>已報名人數 ${tra_count}人依報名順序為:</h3>
@@ -69,9 +74,13 @@ margin-top: 2%;
 				<div class='col-lg-3'>
 					<h1 class='alert alert-info'>-報名人員-</h1>
 
-					<h2>
-						員編:<input style="border: none; font-size: 18pt; width: 40px"
-							type="text" value="${emp_No}" name="emp_No" readonly>;姓名:${myName}
+					<h2> 
+						員編:<input  style="border-style: none; color: #7700BB"
+							type="text" value="${emp_No}" name="emp_No" readonly>
+					</h2>
+					<h2> 
+						姓名:<input  style="border-style: none; color: #7700BB"
+							type="text" value="${myName}" name="emp_No" readonly>
 					</h2>
 
 					<c:if test="${familySize>0}">
@@ -108,11 +117,16 @@ margin-top: 2%;
 								</tr>
 							</table>
 						</c:forEach>
-					</c:if>
-					<button class='btn  btn-primary'>
-						<a href="<c:url value="/AllTravel"></c:url>" class="a">回上一頁</a>
-					</button>
-					<input type="submit" value="確定報名" class='btn  btn-primary'>
+					</c:if><br>
+					<!-- 					<button class='btn  btn-primary'> -->
+					<%-- 						<a href="<c:url value="/AllTravel"></c:url>" class="a">回上一頁</a> --%>
+					<!-- 					</button> -->
+					<script>
+						var GSS = '<c:url value="/AllTravel" />'
+					</script>
+					<input type="button" value='回上一頁' class='btn  btn-primary'
+						onclick="window.location.href=GSS;" /> <input type="submit"
+						value="確定報名" class='btn  btn-primary'>
 				</div>
 			</div>
 		</form>
