@@ -12,7 +12,9 @@
 	text-align: center;
 	margin:0 auto;
 }
-
+input{
+width:150px;
+}
 .center_a{
 	text-align: center;
 	border: 0;

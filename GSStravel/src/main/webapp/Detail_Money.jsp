@@ -27,6 +27,7 @@
 
 tr, input {
 	text-align: center;
+	width:100px;
 }
 
 textarea {
@@ -52,18 +53,18 @@ td {
 			<div><textarea name="tra_Name" readonly>${tra_Name}</textarea></div>
 			<input type="hidden" name="tra_No" value="${tra_No}">
 			
-			<table border="1" id="table">
+			<table border="1" class="table" id="table">
 				<thead>
 					<tr>
-						<td>部門代碼</td>
-						<td>員工(/眷屬親友)編號</td>
-						<td>姓名(/隸屬於哪位員工)</td>
-						<td>年度可補助金額<br /> <span style="color: red; font-size: 10px">未到職一年者按比例給予計算</span></td>
-						<td>個人可補助金額</td>
-						<td>個人團費</td>
-						<td>其他增減費用明細說明</td>
-						<td>其他增減費用總額</td>
-						<td>應補團費</td>
+						<td scope="row">部門代碼</td>
+						<td scope="row">員工(/眷屬親友)編號</td>
+						<td scope="row">姓名(/隸屬於哪位員工)</td>
+						<td scope="row">年度可補助金額<br /> <span style="color: red; font-size: 10px">未到職一年者按比例給予計算</span></td>
+						<td scope="row">個人可補助金額</td>
+						<td scope="row">個人團費</td>
+						<td scope="row">其他增減費用明細說明</td>
+						<td scope="row">其他增減費用總額</td>
+						<td scope="row">應補團費</td>
 					</tr>
 				</thead>
 				<c:forEach var="list" items="${list}">
