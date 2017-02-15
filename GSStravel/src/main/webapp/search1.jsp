@@ -20,12 +20,13 @@
 	crossorigin="anonymous"></script>
 <title>Insert title here</title>
 <script>
-var Error="<%=session.getAttribute("nopeople")%>";
-<% session.removeAttribute("nopeople");%>
-if(Error!='null'){
-	alert(Error);
-	Error='null';
-}
+var Error="<%=session.getAttribute("nopeople")%>
+	";
+<%session.removeAttribute("nopeople");%>
+	if (Error != 'null') {
+		alert(Error);
+		Error = 'null';
+	}
 </script>
 <script>
 	window.onload = function() {
@@ -33,13 +34,15 @@ if(Error!='null'){
 		var tra_name = document.getElementById('tra_name');
 		var Sdate = document.getElementById('Sdate');
 		var Edate = document.getElementById('Edate');
-		$(".multiselect").kendoMultiSelect({autoClose: false});
- 		search();
+		$(".multiselect").kendoMultiSelect({
+			autoClose : false
+		});
+		search();
 	};
 	var xh = new XMLHttpRequest();
 	function search() {
 		if (xh != null) {
-			var selectedValues = $('select[name="loca"]').val() ;
+			var selectedValues = $('select[name="loca"]').val();
 			var pathName = document.location.pathname;
 			var index = pathName.substr(1).indexOf("/");
 			var result = pathName.substr(0, index + 1);
@@ -56,7 +59,7 @@ if(Error!='null'){
 			if (Edate.value != undefined && Edate.value != '') {
 				url = url + "endDay=" + Edate.value + "&";
 			}
-			if (selectedValues!= undefined) {
+			if (selectedValues != undefined) {
 				url = url + "loc=" + JSON.stringify(selectedValues);
 			}
 			xh.addEventListener("readystatechange", ajaxReturn)
@@ -82,7 +85,8 @@ if(Error!='null'){
 					tr = document.createElement('tr');
 					td = document.createElement('td');
 					a = document.createElement('a');
-					a.setAttribute("href",result+"/TravelDetail?tra_no="+travel[i].id);
+					a.setAttribute("href", result + "/TravelDetail?tra_no="
+							+ travel[i].id);
 					a.appendChild(document.createTextNode(travel[i].id));
 					td.appendChild(a);
 					tr.appendChild(td);
@@ -108,15 +112,16 @@ if(Error!='null'){
 					tr.appendChild(td);
 
 					td = document.createElement('td');
-					td.setAttribute("align","center");
+					td.setAttribute("align", "center");
 					td.appendChild(document.createTextNode(travel[i].people));
 					tr.appendChild(td);
-					
-					td = document.createElement('td');
-					td.setAttribute("align","center");
-					td.appendChild(document.createTextNode(travel[i].peopleNow));
-					tr.appendChild(td);
 
+					td = document.createElement('td');
+					td.setAttribute("align", "center");
+					td
+							.appendChild(document
+									.createTextNode(travel[i].peopleNow));
+					tr.appendChild(td);
 
 					td = document.createElement('td');
 					td.appendChild(document.createTextNode(travel[i].location));
@@ -132,46 +137,52 @@ if(Error!='null'){
 </head>
 
 <body>
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
-    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
- <script src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
-<%@include file="SelectBar.jsp" %>
-<h2>旅費統計</h2>
-	<form>
-		活動代碼:<input type='text' id='id' value='' /><br> 活動名稱:<input
-			type='text' id='tra_name' value='' /><br> 開始日期:<input
-			type='date' id='Sdate' name='startDay' value='' /> ~ <input
-			type='date' id='Edate' name='endDay' value='' /> <br>活動地點:
-<!-- 			 <input -->
-<!-- 			type="checkbox" name="loc" value="東" />東 <input type="checkbox" -->
-<!-- 			name="loc" value="西" />西 <input type="checkbox" name="loc" value="南" />南 -->
-<!-- 		<input type="checkbox" name="loc" value="北" />北  -->
-        <select class="multiselect" name ="loca" multiple="multiple" data-placeholder="請選擇" style="width: 350px;">
-        <option>東</option>
-        <option>西</option>
-        <option>南</option>
-        <option>北</option>
-        </select>
-		<br> <input
-			type="button" value="查詢" onclick="search()" /> <input type="reset">
-	</form>
-	<table class='table'  cellpadding="10">
-		<thead>
-			<tr>
-				<th>活動代碼</th>
-				<th>活動名稱</th>
-				<th>活動開始</th>
-				<th>活動結束</th>
-				<th>登記開始</th>
-				<th>登記結束</th>
-				<th>人數上限</th>
-				<th>已報名人數</th>
-				<th>活動地點</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
+	<div class='container-fluid'>
+		<link rel="stylesheet"
+			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
+		<link rel="stylesheet"
+			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
+		<link rel="stylesheet"
+			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
+		<script
+			src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
+		<%@include file="SelectBar.jsp"%>
+		<h2>旅費統計</h2>
+		<form>
+			活動代碼:<input type='text' id='id' value='' /><br> 活動名稱:<input
+				type='text' id='tra_name' value='' /><br> 開始日期:<input
+				type='date' id='Sdate' name='startDay' value='' /> ~ <input
+				type='date' id='Edate' name='endDay' value='' /> <br>活動地點:
+			<!-- 			 <input -->
+			<!-- 			type="checkbox" name="loc" value="東" />東 <input type="checkbox" -->
+			<!-- 			name="loc" value="西" />西 <input type="checkbox" name="loc" value="南" />南 -->
+			<!-- 		<input type="checkbox" name="loc" value="北" />北  -->
+			<select class="multiselect" name="loca" multiple="multiple"
+				data-placeholder="請選擇" style="width: 350px;">
+				<option>東</option>
+				<option>西</option>
+				<option>南</option>
+				<option>北</option>
+			</select> <br> <input type="button" value="查詢" onclick="search()" /> <input
+				type="reset">
+		</form>
+		<table class='table' cellpadding="10">
+			<thead>
+				<tr>
+					<th>活動代碼</th>
+					<th>活動名稱</th>
+					<th>活動開始</th>
+					<th>活動結束</th>
+					<th>登記開始</th>
+					<th>登記結束</th>
+					<th>人數上限</th>
+					<th>已報名人數</th>
+					<th>活動地點</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>

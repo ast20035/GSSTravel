@@ -30,24 +30,24 @@ fieldset {
 
 </head>
 <body onunload=unLoad();>
+	<div class='container-fluid'>
+		<br />
+		<form action=<c:url value="/detail"/> method="get"
+			enctype="multipart/form-data">
+			<fieldset>
+				請輸入取消原因： <br />
+				<textarea style="width: 250px; height: 100px; resize: none"
+					name="det_CanNote"></textarea>
+				<br /> <input type="text" id="can_detNo" name="can_detNo"
+					style="display: none"> <input type="text" id="can_traNo"
+					name="can_traNo" style="display: none"> <br /> <input
+					name="prodaction" type="submit" value="送出">
+				<button name="canClose" type="button" onclick="window.close()">關閉</button>
 
-	<br />
-	<form action=<c:url value="/detail"/> method="get" enctype="multipart/form-data">
-		<fieldset>
-			請輸入取消原因：
-			<br />
-			<textarea style="width:250px; height:100px; resize:none" name="det_CanNote"></textarea>
-			<br />
-			<input type="text" id="can_detNo" name="can_detNo" style="display:none">
-			<input type="text" id="can_traNo" name="can_traNo" style="display:none">
-			<br />
-			<input name="prodaction" type="submit" value="送出">
-			<button name="canClose" type="button" onclick="window.close()">關閉</button>
-			
-			<p style="color:red "hidden><%=session.getAttribute("DetCanError")%></p>
-		</fieldset>
-	</form>
-<script  type="text/javascript">
+				<p style="color: red" hidden><%=session.getAttribute("DetCanError")%></p>
+			</fieldset>
+		</form>
+		<script type="text/javascript">
 
 $(function () {
 	var temp = location.search;
@@ -85,5 +85,6 @@ function unLoad(){
     window.opener.location.href = window.opener.location.href;
 }
 </script>
+	</div>
 </body>
 </html>
