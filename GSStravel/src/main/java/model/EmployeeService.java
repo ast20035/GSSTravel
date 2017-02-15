@@ -6,8 +6,8 @@ import java.util.List;
 public class EmployeeService {
 	private IEmployeeDAO employeeDAO=new EmployeeDAO();
 	
-	public EmployeeVO selectEmp(int no) {
-		return employeeDAO.selectFineEmail(no);
+	public List<EmployeeVO> selectEmp() {
+		return employeeDAO.selectFineEmail();
 	}
 	
 	public String getName(String emp_No){

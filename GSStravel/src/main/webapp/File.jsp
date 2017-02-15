@@ -4,7 +4,7 @@
 
 	String tra_Name=request.getParameter("tra_Name");
     String path = "C:\\travel\\";                    //檔案主要放置目錄
-    String filename = tra_Name+".txt";                   //檔案名
+    String filename = tra_Name+".xls";                   //檔案名
     filename = new String(filename.getBytes("UTF-8"),"UTF-8");
    
     File file = new File(path+filename);

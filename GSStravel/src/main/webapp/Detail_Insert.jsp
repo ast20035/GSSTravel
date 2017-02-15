@@ -26,8 +26,20 @@
 <body>
 <h2>－報名明細新增－</h2>
 <form action=<c:url value="/detail_insert"/> method="post">
-<p>報名活動代碼：${tra_no}</p>
+<p>報名活動代碼：${tra_no}
+<%
+	String tra_No= request.getParameter("tra_No");
+	if(tra_No!=null){
+		out.println(tra_No);
+%>	
+</p>
+<input type="hidden" name="tra_no" class="tra_no" value="<%=tra_No%>">
+<%
+	}else{
+%>
 <input type="hidden" name="tra_no" class="tra_no" value="${tra_no}">
+<% }
+%>
 
 <table border="1">
 		<tr>
@@ -36,9 +48,9 @@
 			<th>報名總金額</th>
 		</tr>
 		<tr>
-			<td><input type="text" id="emp_No" onblur="select_emp_No()" onfocus="clearName()"></td>
-			<td><select id="select"></select></td>
-			<td><input type="text" id="money" class="money" value="${money}" readonly></td>
+			<td><input type="text" id="emp_No" name="emp_No" onblur="select_emp_No()" onfocus="clearName()"></td>
+			<td><select id="select" name="select"></select></td>
+			<td><input type="text" id="money" name="money" class="money" value="${money}" readonly></td>
 		</tr>
 </table>
 <br />
@@ -62,46 +74,45 @@
 		</tr>
 		<tr>
 			<td>
-				<select class="center_a">
+				<select name="fam_Rel" class="center_a">
 					<option>眷屬</option>
 					<option>親友</option>
 				</select>
 			</td>
-			<td><input type="text" id="name" class="center_a" placeholder="請填寫">
+			<td><input type="text" id="fam_Name" name="fam_Name" class="center_a" placeholder="請填寫">
 			<td>
-				<select>
+				<select name="fam_Sex" >
 					<option>男</option>
 					<option>女</option>
 				</select>
 			</td>
-			<td><input type="text" class="center_a" placeholder="請填寫"></td>
-			<td><input type="date" class="center_a" placeholder="請填寫"></td>
-			<td><input type="text" class="center_a" placeholder="請填寫"></td>
+			<td><input type="text" name="fam_Id" class="center_a" placeholder="請填寫"></td>
+			<td><input type="date" name="fam_Bdate" class="center_a" placeholder="請填寫"></td>
+			<td><input type="text" name="fam_Phone" class="center_a" placeholder="請填寫"></td>
 			<td>
-				<select class="center_a">
+				<select name="fam_Eat" class="center_a">
 					<option>葷</option>
 					<option>素</option>
 					<option>不佔餐</option>
 				</select>
 				<div style="font-size: 13px;" class="center_a" placeholder="請填寫" >
-					<input type="checkbox" value="不占車位" style="vertical-align:middle;">不占車位
+					<input name="fam_Car" type="checkbox" value="不占車位" style="vertical-align:middle;">不占車位
 				</div>
 			</td>
 			<td>
-				 <select class="multiselect center_a" name ="spe" id="multiselect" multiple="multiple" data-placeholder="請選擇" style="width: 200px;">
+				 <select class="multiselect center_a" name ="fam_spa" id="multiselect" data-placeholder="請選擇" multiple="multiple" style="width: 200px;">
 			     	<option>幼童(0~3歲)</option>
 				 	 <option>兒童(4~11歲)</option>
 					 <option>持身心障礙手冊</option>
 				     <option>孕婦(媽媽手冊)</option>
 				</select>
 			</td>
-			<td><input type="text" class="center_a" placeholder="請填寫"></td>
-			<td><input type="text" class="center_a" placeholder="請填寫"></td>
-			<td><input type="text" class="center_a" placeholder="請填寫"></td>
-			<td><input type="text" class="center_a" placeholder="請填寫"></td>
-			<td><input type="text" class="center_a" placeholder="請填寫"></td>
-			<td><input type="text" class="center_a" ></td>
-			
+			<td><input type="text" name="fam_Ben" class="center_a" placeholder="請填寫"></td>
+			<td><input type="text" name="fam_BenRel" class="center_a" placeholder="請填寫"></td>
+			<td><input type="text" name="fam_Emg" class="center_a" placeholder="請填寫"></td>
+			<td><input type="text" name="fam_EmgPhone" class="center_a" placeholder="請填寫"></td>
+			<td><input type="text" name="fam_EmgRel" class="center_a" placeholder="請填寫"></td>
+			<td><input type="text" name="fam_note" class="center_a" ></td>
 		</tr>
 		
 	</table>
@@ -117,9 +128,9 @@
 		</tr>
 		<c:forEach var="list" items="${room}">
 		<tr>
-			<td><input type="checkbox" class="checkbox" onclick="change()"></td>
-			<td><input type="text" class="line" value="${list.item_Name}" readonly></td>
-			<td><input type="text" class="line" value="${list.item_Money}" readonly></td>
+			<td><input type="checkbox" class="checkbox ${list.item_No}" onclick="change()"></td>
+			<td><input type="text" class="line ${list.item_No}" value="${list.item_Name}" readonly></td>
+			<td><input type="text" class="line ${list.item_No}" value="${list.item_Money}" readonly></td>
 		</tr>
 		</c:forEach>
 	</table>
@@ -139,6 +150,9 @@
 <script src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
 	
 <script>
+
+$(".multiselect").kendoMultiSelect({autoClose: false});
+
 function select_emp_No(){
 	$.ajax({
 		type:"post",
@@ -173,12 +187,11 @@ function clearName(){
 	$('.nofam').text('');
 	$("#select option").remove();
 	$(".div").hide();
-	$("#multiselect").remove();
 }
 function insertnewfam(nofam){
 	if(confirm(nofam)){
 		$(".div").show();
-		$("#multiselect").kendoMultiSelect({autoClose: false});
+		$(".multiselect").prop("id","multiselect");
 	}
 }
 </script>
