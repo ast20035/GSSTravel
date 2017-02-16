@@ -53,7 +53,7 @@ td {
 			<div><textarea name="tra_Name" readonly>${tra_Name}</textarea></div>
 			<input type="hidden" name="tra_No" value="${tra_No}">
 			
-			<table border="1" class="table" id="table">
+			<table border="1" class="table table-bordereds" id="table">
 				<thead>
 					<tr>
 						<td scope="row">³¡ªù¥N½X</td>
