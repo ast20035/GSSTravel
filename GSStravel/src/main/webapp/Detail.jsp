@@ -380,7 +380,6 @@ function open_Can(obj) {
 var CanError="<%=session.getAttribute("CanError")%>";
 <%session.removeAttribute("CanError");%>
 if(CanError!="null"){
-	console.log(CanError);
 	alert(CanError);
 }
 var Msg="<%=session.getAttribute("DetMsg")%>";
