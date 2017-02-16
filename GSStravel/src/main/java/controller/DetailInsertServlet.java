@@ -163,7 +163,6 @@ public class DetailInsertServlet extends HttpServlet {
 					}	
 				}
 			}else{
-				System.out.println("aaaa");
 				resp.sendRedirect("/GSStravel/detail?tra_no="+tra_No+"&doInsert=1");
 				return;
 			}
