@@ -56,9 +56,26 @@ public class FamilyServlet extends HttpServlet {
 		String[] famemgphpone = req.getParameterValues("famemgphpone");
 		String[] famemgrel = req.getParameterValues("famemgrel");
 		String[] famnote = req.getParameterValues("famnote");
+		String ajaxid = req.getParameter("id");// 接到前端json格式資料
+		System.out.println(ajaxid);//["Q250939543","F261403341","F218757856",""]
 
 		String buttondelete = req.getParameter("delete");
 		String buttonsave = req.getParameter("button");
+
+		HttpSession session = req.getSession();
+		Integer emp_No = (Integer) session.getAttribute("emp_No");
+		List<String> id = familyservice.selectid(emp_No);
+
+		if (ajaxid != null) {// 轉成string[] 格式
+			String[] items = ajaxid.replaceAll("\\[", "").replaceAll("\"", "").replaceAll("\\]", "").split(",");
+			for (String dataid : items) {// 輸出
+				System.out.println(dataid);// Q250939543 F261403341 F218757856
+				if (id.contains(dataid)) {//
+//					System.out.println("xxxxxxxxxxxxxxxxxxxxx");
+					req.setAttribute("idrepeat", "親屬身分證字號重複");
+				}
+			}
+		}
 
 		if ("delete".equals(buttondelete)) {
 			// familyservice.delete();//ajax傳值近來他的val來抓他的值? 前端配合把欄位remove掉
@@ -99,13 +116,8 @@ public class FamilyServlet extends HttpServlet {
 				errormsg.put("empemail", "員工信箱不能為空值");
 			}
 
-			// System.out.println(!famid.equals(""));
-			// System.out.println(famid!=null);
-			// System.out.println(famid.length!=0);
-
-			HttpSession session = req.getSession();
-			Integer emp_No = (Integer) session.getAttribute("emp_No");
-			// System.out.println(emp_No);//102
+			// HttpSession session = req.getSession();
+			// Integer emp_No = (Integer) session.getAttribute("emp_No");
 
 			// 親屬 轉值 家屬為null?
 			// 判斷 假如只有一行空白刪除空白欄位 跟 兩行以上 一行有一行空白 把空白判斷掉
@@ -186,13 +198,13 @@ public class FamilyServlet extends HttpServlet {
 				employeevo.setEmp_Note(null);
 			}
 
-			List<String> id = familyservice.selectid(emp_No);
+			// List<String> id = familyservice.selectid(emp_No);
 
 			employeeservice.update(employeevo);
 			System.out.println("員工資料更改完畢");
 
 			if (famid != null) {// 這邊判斷匯錯 因為空值也算一筆?
-				
+
 				idlength = famid.length;
 				for (int i = 0; i < idlength; i++) {// 0 1 2 3
 
@@ -203,13 +215,13 @@ public class FamilyServlet extends HttpServlet {
 					// 假如 name抓不到改成用其他直抓famno 4 5 6
 					Integer famno = familyservice.selectfam_No(famname[i]);
 					Integer famnobyid = familyservice.selectfam_byid(famid[i]);
-					if(famno!=0){
+					if (famno != 0) {
 						familyvo.setFam_No(famno);
 						familyvo.setFam_Name(famname[i]);
-					}else{
-//						System.out.println(famid[i]);
-//						System.out.println(famname[i]);
-//						System.out.println(famnobyid);  
+					} else {
+						// System.out.println(famid[i]);
+						// System.out.println(famname[i]);
+						// System.out.println(famnobyid);
 						familyvo.setFam_No(famnobyid);
 						familyvo.setFam_Name(famname[i]);
 					}

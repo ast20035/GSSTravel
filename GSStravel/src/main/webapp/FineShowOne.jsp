@@ -69,7 +69,7 @@ td, input, table {
 								<td>報名截止日 ～ ${totalDays[0][j]}<br><fmt:formatNumber value="${iSelect[0].item_Money}" groupingUsed="true" type="currency" maxFractionDigits="0"/> * ${fSelect[j].fine_Per}% ＝ <fmt:formatNumber value="${iSelect[0].item_Money*fSelect[j].fine_Per/100}" groupingUsed="true" type="currency" maxFractionDigits="0"/></td>
 							</c:if>
 							<c:if test="${statusJ.count!=1}">
-								<td>${afterDay[0][j-1]} ～ <fmt:formatNumber value="${totalDays[0][j]}" groupingUsed="true" type="currency" maxFractionDigits="0"/><br><fmt:formatNumber value="${iSelect[0].item_Money}" groupingUsed="true" type="currency" maxFractionDigits="0"/> * ${fSelect[j].fine_Per}% ＝ <fmt:formatNumber value="${iSelect[0].item_Money*fSelect[j].fine_Per/100}" groupingUsed="true" type="currency" maxFractionDigits="0"/></td>
+								<td>${afterDay[0][j-1]} ～ ${totalDays[0][j]}<br><fmt:formatNumber value="${iSelect[0].item_Money}" groupingUsed="true" type="currency" maxFractionDigits="0"/> * ${fSelect[j].fine_Per}% ＝ <fmt:formatNumber value="${iSelect[0].item_Money*fSelect[j].fine_Per/100}" groupingUsed="true" type="currency" maxFractionDigits="0"/></td>
 							</c:if>
 						</c:forEach>
 					<td>${totalDays[0][countI+1]}<br><fmt:formatNumber value="${iSelect[0].item_Money}" groupingUsed="true" type="currency" maxFractionDigits="0"/></td>
