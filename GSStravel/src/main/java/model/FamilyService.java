@@ -30,4 +30,7 @@ public class FamilyService {
 	public boolean insert_fam(FamilyVO famvo){
 		return familyDAO.insert_fam(famvo);
 	}
+	public Integer selectfam_byid(String famid){
+		return familyDAO.selectfam_byid(famid);
+	}
 }
