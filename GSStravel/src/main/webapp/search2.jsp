@@ -130,8 +130,8 @@
 <body>
 		<%@include file="SelectBar.jsp"%>
 		<script>
-			$('li').removeClass('active');
-			$('li:eq(2)').addClass('active');
+			$('li').removeClass('now');
+			$('li:eq(2)').addClass('now');
 		</script>
 	<div class='container-fluid'>
 		<link rel="stylesheet"

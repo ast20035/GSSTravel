@@ -169,8 +169,8 @@ input {
 <body>
 		<%@include file="SelectBar.jsp"%>
 		<script>
-			$('li').removeClass('active');
-			$('li:eq(4)').addClass('active');
+			$('li').removeClass('now');
+			$('li:eq(4)').addClass('now');
 		</script>
 	<div class='container-fluid'>
 		<h2>罰則設定</h2>
