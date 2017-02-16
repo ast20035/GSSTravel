@@ -188,7 +188,7 @@
 </table>
 
 <!--新增、儲存 -->
-<input type="button" value="insert" id="insert" name ="button"><br>
+<input type="button" value="insert" id="insert" name ="button"><br><span>${error.famblock}</span>
 <input type="submit" value ="save" id="save" name="button"><br>
 
 </form>
@@ -414,48 +414,47 @@ $(function(){
 // 		  console.log(fambdate);
 // 		  $.post("Register",{})
 	  
-// 	var xh = new XMLHttpRequest();
-// 	search();
+	var xh = new XMLHttpRequest();
+	search();
 	
-// 	function search() {
-// 		if (xh != null) {
+	function search() {
+		if (xh != null) {
+// 		var famidvaule = $(".famid").val();
+		 var famidvaule= $(".famid").map(function() { 
+			return $(this).val(); 
+			}).get();
 		
-// // 		var famidvaule = $(".famid").val();
-// 		 var famidvaule= $(".famid").map(function() { 
-// 			return $(this).val(); 
-// 			}).get();
+		console.log(famidvaule);//["Q250939543","F199131438","F218757856",""]
 		
-// 		console.log(famidvaule);//["Q250939543","F199131438","F218757856",""]
+		var pathName = document.location.pathname;
+		var index = pathName.substr(1).indexOf("/");
+		var result = pathName.substr(0, index + 1);
+		var url = result + "/controller/FamilyServlet";
+// 		var url = "FamilyServlet.do?"
+		if(typeof famidvaule != "undefined"){
+		var famid =JSON.stringify(famidvaule);
+		console.log(famid);//["Q250939543","F199131438","F218757856",""]
+		}
 		
-// 		var pathName = document.location.pathname;
-// 		var index = pathName.substr(1).indexOf("/");
-// 		var result = pathName.substr(0, index + 1);
-// 		var url = result + "/controller/FamilyServlet.do?";
-// // 		var url = "FamilyServlet.do?"
-// 		if(typeof famidvaule != "undefined"){
-// 		var famid =JSON.stringify(famidvaule);
-// 		console.log(famid);//["Q250939543","F199131438","F218757856",""]
-// 		}
-		
-// 		//轉json 格式? 字串證列  console.log() 輸出   h
+		//轉json 格式? 字串證列  console.log() 輸出   h
 				
-// 		xh.addEventListener("readystatechange", ajaxReturn);
-// 		xh.open("POST",url);
-// 		xh.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-// 		xh.send("id="+famid);
+		xh.addEventListener("readystatechange", ajaxReturn);
+		xh.open("POST",url);
+		xh.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+		xh.send("id="+famid);
 		
-// 		}else {
-// 			alert("Your browser doesn't support JSON!");
-// 		}
-// 	}
-// 	function ajaxReturn() {
-// 		if (xh.readyState == 4){
-// 			if (xh.status == 200) {
-// 			 	alert(famid);
+		}else {
+			alert("Your browser doesn't support JSON!");
+		}
+	}
+	function ajaxReturn() {
+		if (xh.readyState == 4){
+			if (xh.status == 200) {
+			 	alert(famid);
 			 	
-// 			}
-// 		}
-// 	}
+			}
+		}
+	}
 	
 	var empphone=/^09\d{2}-?\d{3}-?\d{3}$/;
 	$("#empphone").blur(function(){

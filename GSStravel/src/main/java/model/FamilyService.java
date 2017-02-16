@@ -27,4 +27,7 @@ public class FamilyService {
 	public Integer selectfam_No(String fam_Name){
 		return familyDAO.selectfam_No(fam_Name);
 	}
+	public Integer selectfam_byid(String famid){
+		return familyDAO.selectfam_byid(famid);
+	}
 }

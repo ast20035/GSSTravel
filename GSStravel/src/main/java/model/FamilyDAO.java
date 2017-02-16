@@ -24,6 +24,7 @@ public class FamilyDAO implements IFamilyDAO {
 	}
 	private static final String selectFam="select * from Family where emp_No=?";
 	private static final String selectfam_No="select fam_No from Family where fam_Name=?";
+	private static final String selectfam_byid="select fam_NO from Family where fam_ID=?";
 	private static final String selectfam_Rel="select fam_Rel from Family where emp_No=? and fam_Name=?";
 	
 //	private static final String selectall= "select * from Family where fam_No =?";
@@ -152,6 +153,7 @@ public class FamilyDAO implements IFamilyDAO {
 		try(Connection connection = ds.getConnection();
 				PreparedStatement state = connection.prepareStatement(update);)
 		{	
+			
 			state.setString(1, famvo.getFam_Name());
 			state.setString(2, famvo.getFam_Rel());
 //			state.setDate(3, famvo.getFambdate());
@@ -230,5 +232,24 @@ public class FamilyDAO implements IFamilyDAO {
 				e.printStackTrace();
 			}
 		return fam_No;
+	}
+
+	@Override
+	public int selectfam_byid(String famid) {
+			Integer fam_No = 0;
+			try( Connection conn=ds.getConnection();
+				 PreparedStatement stem=conn.prepareStatement(selectfam_byid);
+					 	){
+					stem.setString(1,famid);
+					ResultSet rset = stem.executeQuery();
+					while(rset.next()){
+						fam_No=Integer.parseInt(rset.getString("fam_No"));
+					}
+			}
+			catch(SQLException e){
+				e.printStackTrace();
+			}
+			return fam_No;
+		
 	}
 }
