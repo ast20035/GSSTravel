@@ -17,7 +17,7 @@ width:150px;
 }
 .center_a{
 	text-align: center;
-	border: 0;
+	border-width: 0;
 	resize: none;
 	font-size: 15px;
 	overflow-y: visible;
@@ -72,16 +72,16 @@ width:150px;
 					<option>親友</option>
 				</select>
 			</td>
-			<td><input type="text" id="fam_Name" name="fam_Name" class="center_a" placeholder="請填寫">
+			<td><input type="text" id="fam_Name" name="fam_Name" class="fam_Name center_a" placeholder="請填寫">
 			<td>
-				<select name="fam_Sex" >
+				<select name="fam_Sex" class="fam_Sex">
 					<option>男</option>
 					<option>女</option>
 				</select>
 			</td>
-			<td><input type="text" name="fam_Id" class="center_a" placeholder="請填寫"></td>
-			<td><input type="date" name="fam_Bdate" class="center_a" placeholder="請填寫"></td>
-			<td><input type="text" name="fam_Phone" class="center_a" placeholder="請填寫"></td>
+			<td><input type="text" name="fam_Id" class="fam_Id center_a" placeholder="請填寫"></td>
+			<td><input type="date" name="fam_Bdate" class="fam_Bdate center_a" placeholder="請填寫"></td>
+			<td><input type="text" name="fam_Phone" class="fam_Phone center_a" placeholder="請填寫"></td>
 			<td>
 				<select name="fam_Eat" class="center_a">
 					<option>葷</option>
@@ -100,12 +100,12 @@ width:150px;
 				     <option>孕婦(媽媽手冊)</option>
 				</select>
 			</td>
-			<td><input type="text" name="fam_Ben" class="center_a" placeholder="請填寫"></td>
-			<td><input type="text" name="fam_BenRel" class="center_a" placeholder="請填寫"></td>
-			<td><input type="text" name="fam_Emg" class="center_a" placeholder="請填寫"></td>
-			<td><input type="text" name="fam_EmgPhone" class="center_a" placeholder="請填寫"></td>
-			<td><input type="text" name="fam_EmgRel" class="center_a" placeholder="請填寫"></td>
-			<td><input type="text" name="fam_note" class="center_a" ></td>
+			<td><input type="text" name="fam_Ben" class="fam_Ben center_a" placeholder="請填寫"></td>
+			<td><input type="text" name="fam_BenRel" class="fam_BenRel center_a" placeholder="請填寫"></td>
+			<td><input type="text" name="fam_Emg" class="fam_Emg center_a" placeholder="請填寫"></td>
+			<td><input type="text" name="fam_EmgPhone" class="fam_EmgPhone center_a" placeholder="請填寫"></td>
+			<td><input type="text" name="fam_EmgRel" class="fam_EmgRel center_a" placeholder="請填寫"></td>
+			<td><input type="text" name="fam_note" class="center_a" placeholder="請填寫"></td>
 		</tr>
 		
 	</table>
@@ -132,7 +132,7 @@ width:150px;
 <p style="color:red" class="Error"></p>
 <p class="nofam"></p>
 <br />
-<input type="submit" name="prodaction" value="儲存">
+<input type="submit" class="insertSave" id="insertSave" name="prodaction" value="儲存" onclick="saveData()"> 
 <input type="submit" name="prodaction" value="回前頁">
 </form>
 </body>
@@ -144,6 +144,231 @@ width:150px;
 	
 <script>
 $(".multiselect").kendoMultiSelect({autoClose: false});
+
+var a1 = a2 =  a3 = a4 = a5 = a6 = a7 = a8 = a9 = false;
+$(function() {
+	$(".fam_Id").on(
+			"blur",
+			function() {
+				// 依照字母的編號排列，存入陣列備用。
+				var letters = new Array('A', 'B', 'C', 'D', 'E', 'F', 'G',
+						'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S',
+						'T', 'U', 'V', 'X', 'Y', 'W', 'Z', 'I', 'O');
+				// 儲存各個乘數
+				var multiply = new Array(1, 9, 8, 7, 6, 5, 4, 3, 2, 1);
+				var nums = new Array(2);
+				var firstChar;
+				var firstNum;
+				var lastNum;
+				var total = 0;
+				// 撰寫「正規表達式」。第一個字為英文字母，
+				// 第二個字為1或2，後面跟著8個數字，不分大小寫。
+				var sex = $(".fam_Sex").val();
+				if (sex == "男") {
+					var regExpID = /^[a-z](1)\d{8}$/i;
+				} else {
+					var regExpID = /^[a-z](2)\d{8}$/i;
+				}
+				// 使用「正規表達式」檢驗格式
+				if (regExpID.test($(this).val())) {
+					// 取出第一個字元和最後一個數字。
+					firstChar = $(this).val().charAt(0).toUpperCase();
+					lastNum = $(this).val().charAt(9);
+				} else {
+					$(this).css("border-width", "1px");
+					$(this).css("border-color", "red");
+					$(".insertSave").attr("type","button");
+				}
+				// 找出第一個字母對應的數字，並轉換成兩位數數字。
+				for (var i = 0; i < 26; i++) {
+					if (firstChar == letters[i]) {
+						firstNum = i + 10;
+						nums[0] = Math.floor(firstNum / 10);
+						nums[1] = firstNum - (nums[0] * 10);
+						break;
+					}
+				}
+				// 執行加總計算
+				for (var i = 0; i < multiply.length; i++) {
+					if (i < 2) {
+						total += nums[i] * multiply[i];
+					} else {
+						total += parseInt($(this).val().charAt(i - 1))
+								* multiply[i];
+					}
+				}
+				// 和最後一個數字比對
+				if (((10 - (total % 10)) != lastNum) && ((10 - (total % 10)-10) != lastNum)) {
+					$(this).css("border-width", "1px");
+					$(this).css("border-color", "red");
+					$(".insertSave").attr("type","button");
+				} else {
+					$(this).css({
+						'border-width' : '0'
+					});
+					a1 = true;
+					if(!(a1&&a2&&a3&&a4&&a5&&a6&&a7&&a8&a9)){
+						$(".insertSave").attr("type","button");
+					}else{
+						$(".insertSave").attr("type","submit");
+					}
+				}
+		
+			})
+	var cellPhone = /^09\d{2}-?\d{3}-?\d{3}$/;
+	$(".fam_Phone").on("blur", function() {
+		if (cellPhone.test($(this).val())) {
+			$(this).css({
+				'border-width' : '0'
+			});
+			a2 = true;
+			if(!(a1&&a2&&a3&&a4&&a5&&a6&&a7&&a8&a9)){
+				$(".insertSave").attr("type","button");
+			}else{
+				$(".insertSave").attr("type","submit");
+			}
+		} else {
+			$(this).css("border-width", "1px");
+			$(this).css("border-color", "red");
+			$(".insertSave").attr("type","button");
+		}
+	});
+	$(".fam_EmgPhone").on("blur", function() {
+		if (cellPhone.test($(this).val())) {
+			$(this).css({
+				'border-width' : '0'
+			});
+			a3 = true;
+			if(!(a1&&a2&&a3&&a4&&a5&&a6&&a7&&a8&a9)){
+				$(".insertSave").attr("type","button");
+			}else{
+				$(".insertSave").attr("type","submit");
+			}
+		} else {
+			$(this).css("border-width", "1px");
+			$(this).css("border-color", "red");
+			$(".insertSave").attr("type","button");
+		}
+	});
+	
+	var thisName=/^.*\s*[^\s]/;
+	$(".fam_Name").blur(function(){
+		if(thisName.test($(this).val())){
+			$(this).css({
+				'border-width' : '0'
+			});
+			a4 = true;
+			if(!(a1&&a2&&a3&&a4&&a5&&a6&&a7&&a8&a9)){
+				$(".insertSave").attr("type","button");
+			}else{
+				$(".insertSave").attr("type","submit");
+			}
+		}else{
+			$(this).css("border-width", "1px");
+			$(this).css("border-color", "red");
+			$(".insertSave").attr("type","button");
+		}
+		
+	});
+	$(".fam_Ben").blur(function(){
+		if(thisName.test($(this).val())){
+			$(this).css({
+				'border-width' : '0'
+			});
+			a5 = true;
+			if(!(a1&&a2&&a3&&a4&&a5&&a6&&a7&&a8&a9)){
+				$(".insertSave").attr("type","button");
+			}else{
+				$(".insertSave").attr("type","submit");
+			}
+		}else{
+			$(this).css("border-width", "1px");
+			$(this).css("border-color", "red");
+			$(".insertSave").attr("type","button");
+		}
+	});
+	$(".fam_BenRel").blur(function(){
+		if(thisName.test($(this).val())){
+			$(this).css({
+				'border-width' : '0'
+			});
+			a6 = true;
+			if(!(a1&&a2&&a3&&a4&&a5&&a6&&a7&&a8&a9)){
+				$(".insertSave").attr("type","button");
+			}else{
+				$(".insertSave").attr("type","submit");
+			}
+		}else{
+			$(this).css("border-width", "1px");
+			$(this).css("border-color", "red");
+			$(".insertSave").attr("type","button");
+		}
+	});
+	$(".fam_Emg").blur(function(){
+		if(thisName.test($(this).val())){
+			$(this).css({
+				'border-width' : '0'
+			});
+			a7 = true;
+			if(!(a1&&a2&&a3&&a4&&a5&&a6&&a7&&a8&a9)){
+				$(".insertSave").attr("type","button");
+			}else{
+				$(".insertSave").attr("type","submit");
+			}
+		}else{
+			$(this).css("border-width", "1px");
+			$(this).css("border-color", "red");
+			$(".insertSave").attr("type","button");
+		}
+	});
+	$(".fam_EmgRel").blur(function(){
+		if(thisName.test($(this).val())){
+			$(this).css({
+				'border-width' : '0'
+			});
+			a8 = true;
+			if(!(a1&&a2&&a3&&a4&&a5&&a6&&a7&&a8&a9)){
+				$(".insertSave").attr("type","button");
+			}else{
+				$(".insertSave").attr("type","submit");
+			}
+		}else{
+			$(this).css("border-width", "1px");
+			$(this).css("border-color", "red");
+			$(".insertSave").attr("type","button");
+		}
+	});
+	
+	var fambdate=/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
+	$(".fam_Bdate").on("blur",function(){
+		if(fambdate.test($(this).val())){
+			a9 = true;
+			$(this).css({
+				'border-width' : '0'
+			});
+			if(!(a1&&a2&&a3&&a4&&a5&&a6&&a7&&a8&a9)){
+				$(".insertSave").attr("type","button");
+		
+			}else{
+				$(".insertSave").attr("type","submit");
+			}
+		}else{
+			$(this).css("border-width", "1px");
+			$(this).css("border-color", "red");
+			$(".insertSave").attr("type","button");
+		}
+	});
+	
+});
+
+
+function saveData(){
+	if(document.getElementById("insertSave").type=='button'){
+	 alert("儲存失敗！");
+	}
+}
+
+
 function select_emp_No(){
 	$.ajax({
 		type:"post",

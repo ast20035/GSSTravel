@@ -89,7 +89,6 @@ public class DetailInsertServlet extends HttpServlet {
 					String fam_EmgPhone=req.getParameter("fam_EmgPhone");	//緊急聯絡人電話
 					String fam_EmgRel=req.getParameter("fam_EmgRel");		//緊急聯絡人關係
 					String fam_Note=req.getParameter("fam_note");			//備註
-					System.out.println(fam_Sex);
 					familyVO.setEmp_No(emp_no);
 					familyVO.setFam_Rel(fam_Rel);
 					familyVO.setFam_Name(fam_Name);
@@ -130,7 +129,7 @@ public class DetailInsertServlet extends HttpServlet {
 					familyVO.setFam_Note(fam_Note);
 					familyService.insert(familyVO);
 					
-					int fam_no=familyService.select_byname(emp_no, name);
+					int fam_no=familyService.select_byname(emp_no, name);					
 					detailVO.setEmp_No(emp_no);
 					detailVO.setTra_No(tra_No);
 					detailVO.setDet_money(det_money);
