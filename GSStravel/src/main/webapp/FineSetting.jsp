@@ -121,6 +121,7 @@ input {
 
 	function check() {
 		var pk = 0;
+		var step=0;
 		var day = document.getElementsByName("day");
 		var percent = document.getElementsByName("percent");
 		var regDay = new RegExp("^[0-9]{1,2}$");
@@ -129,6 +130,7 @@ input {
 			for (var j = i + 1; j < day.length; j++) {
 				if (day[i].value == day[j].value) {
 					pk = 1;
+					step=i;
 				}
 			}
 		}
@@ -146,7 +148,7 @@ input {
 			} else if (!regDay.test(day[i].value)) {
 				alert("取消日必須為正整數！");
 				break;
-			} else if (pk == 1) {
+			} else if (i==step&&pk==1) {
 				alert("取消日已存在！");
 				break;
 			} else if (!regDay.test(percent[i].value)) {
