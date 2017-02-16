@@ -27,4 +27,7 @@ public class FamilyService {
 	public Integer selectfam_No(String fam_Name){
 		return familyDAO.selectfam_No(fam_Name);
 	}
+	public boolean insert_fam(FamilyVO famvo){
+		return familyDAO.insert_fam(famvo);
+	}
 }

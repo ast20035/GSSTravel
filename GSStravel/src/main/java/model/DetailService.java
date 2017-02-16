@@ -109,8 +109,7 @@ public class DetailService {
 			}else {
 				return true;
 			}
-		}	
-
+		}
 	}// false報名成功true報名失敗
 
 	public List<Float> drtail(String emp_No, String tra_No, String[] fams, String room[])
@@ -371,5 +370,11 @@ public class DetailService {
 			}
 		}
 		return result;
+	}
+
+	// 雅婷
+	public int detail_Count(String emp_No, long tra_No) {
+		detailDAO = new DetailDAO();
+		return detailDAO.detail_Count(emp_No, tra_No);
 	}
 }
