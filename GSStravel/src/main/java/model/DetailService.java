@@ -49,8 +49,9 @@ public class DetailService {
 		Map<String, Integer> mp = new HashMap<>();
 		detailDAO = new DetailDAO();
 		employeeDAO = new EmployeeDAO();
-		Set<String> detail_Emp_No = detailDAO.detail_Emp_No(tra_No);
+		List<String> detail_Emp_No = detailDAO.detail_Emp_No(tra_No);
 		for (String emp_No : detail_Emp_No) {
+			System.out.println(emp_No);
 			int count = detailDAO.detail_Count(emp_No, tra_No) + 1;
 			String name = employeeDAO.selectEmp_Name(emp_No);
 			mp.put(name, count);
@@ -62,7 +63,7 @@ public class DetailService {
 		List<String> result = new ArrayList<>();
 		detailDAO = new DetailDAO();
 		employeeDAO = new EmployeeDAO();
-		Set<String> detail_Emp_No = detailDAO.detail_Emp_No(tra_No);
+		List<String> detail_Emp_No = detailDAO.detail_Emp_No(tra_No);
 		for (String emp_No : detail_Emp_No) {
 			String name = employeeDAO.selectEmp_Name(emp_No);
 			result.add(name);
@@ -110,7 +111,6 @@ public class DetailService {
 				return true;
 			}
 		}	
-
 	}// false報名成功true報名失敗
 
 	public List<Float> drtail(String emp_No, String tra_No, String[] fams, String room[])

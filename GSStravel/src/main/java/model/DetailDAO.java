@@ -93,10 +93,10 @@ public class DetailDAO implements IDetailDAO {
 	}
 
 	@Override
-	public Set<String> detail_Emp_No(long tra_No) {
-		Set<String> result = null;
+	public List<String> detail_Emp_No(long tra_No) {
+		List<String> result = null;
 		try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(detail_Emp_No);) {
-			result = new HashSet<>();
+			result = new ArrayList<>();
 			stmt.setLong(1, tra_No);
 			ResultSet rset = stmt.executeQuery();
 			while (rset.next()) {
