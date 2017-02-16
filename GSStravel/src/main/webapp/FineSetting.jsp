@@ -166,33 +166,36 @@ input {
 </script>
 </head>
 <body>
-	<%@include file="SelectBar.jsp"%>
-	<script>
+	<div class='container-fluid'>
+		<%@include file="SelectBar.jsp"%>
+		<script>
 			$('li').removeClass('active');
 			$('li:eq(4)').addClass('active');
 		</script>
-	<h2>罰則設定</h2>
-	<form id="DataForm" action="<c:url value="/FineServlet" />" method="GET">
-		<em style="color: red">*</em>為必填欄位 
-		<table id="fineTable">
-			<thead>
-				<tr>
-					<th><input type="button" value="＋" id="add" /></th>
-					<th><em style="color: red">*</em>取消日<br>(旅遊前 n 天通知)</th>
-					<th><em style="color: red">*</em>罰款扣款比例 (%)</th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
-		<input type="hidden" id="FineSave" name="FineSave" value=""/>
-		<input type="button" value="儲存罰則" onclick="check()" />
-		<input type="button" value="罰則明細" name="FineShow" onclick="window.location.href=resultjs+'/FineShowServlet'" />
-			
-		<div class="error">${error.day}</div>
-		<div class="error">${error.percent}</div>
-		<div class="error">${error.pk}</div>
-	</form>
+		<h2>罰則設定</h2>
+		<form id="DataForm" action="<c:url value="/FineServlet" />"
+			method="GET">
+			<em style="color: red">*</em>為必填欄位
+			<table id="fineTable">
+				<thead>
+					<tr>
+						<th><input type="button" value="＋" id="add" /></th>
+						<th><em style="color: red">*</em>取消日<br>(旅遊前 n 天通知)</th>
+						<th><em style="color: red">*</em>罰款扣款比例 (%)</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<input type="hidden" id="FineSave" name="FineSave" value="" /> <input
+				type="button" value="儲存罰則" onclick="check()" /> <input
+				type="button" value="罰則明細" name="FineShow"
+				onclick="window.location.href=resultjs+'/FineShowServlet'" />
+
+			<div class="error">${error.day}</div>
+			<div class="error">${error.percent}</div>
+			<div class="error">${error.pk}</div>
+		</form>
 	</div>
 </body>
 </html>
