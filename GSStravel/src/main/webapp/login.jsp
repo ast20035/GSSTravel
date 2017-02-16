@@ -50,7 +50,7 @@ form {
 </style>
 </head>
 <body>
-	<div class='container-fluid'>
+	<div class='container-fluid active in'>
 		<div class='row' id='title'>
 		<div class='col-lg-4' ></div>
 			<div class='col-lg-2' >
