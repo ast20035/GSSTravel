@@ -23,8 +23,12 @@
 <style>
 </style>
 <body>
-<div class='container-fluid'>
 	<%@include file="SelectBar.jsp"%>
+	<script>
+			$('li').removeClass('active');
+			$('li:eq(3)').addClass('active');
+		</script>
+<div class='container-fluid'>
 	<h2>－報名明細－</h2>
 	<form action=<c:url value="/detail"/> method="post">
 		<p>活動代碼：${param.tra_no}</p>

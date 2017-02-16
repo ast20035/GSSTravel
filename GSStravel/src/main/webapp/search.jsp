@@ -129,6 +129,11 @@
 </head>
 
 <body>
+		<%@include file="SelectBar.jsp"%>
+		<script>
+			$('li').removeClass('active');
+			$('li:eq(3)').addClass('active');
+		</script>
 	<div class='container-fluid'>
 		<link rel="stylesheet"
 			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
@@ -138,11 +143,6 @@
 			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
 		<script
 			src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
-		<%@include file="SelectBar.jsp"%>
-		<script>
-			$('li').removeClass('active');
-			$('li:eq(3)').addClass('active');
-		</script>
 		<h2>報名維護</h2>
 		<form>
 			活動代碼:<input type='text' id='id' value='' /><br> 活動名稱:<input

@@ -34,6 +34,7 @@ input {
 .error {
 	color: red;
 }
+
 </style>
 
 <script>
@@ -166,12 +167,12 @@ input {
 </script>
 </head>
 <body>
-	<div class='container-fluid'>
 		<%@include file="SelectBar.jsp"%>
 		<script>
 			$('li').removeClass('active');
 			$('li:eq(4)').addClass('active');
 		</script>
+	<div class='container-fluid'>
 		<h2>罰則設定</h2>
 		<form id="DataForm" action="<c:url value="/FineServlet" />"
 			method="GET">

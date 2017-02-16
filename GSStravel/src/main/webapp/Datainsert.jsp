@@ -33,12 +33,12 @@
 	<script
 		src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
 
-	<div class='container-fluid'>
 		<%@include file="SelectBar.jsp"%>
 		<script>
 			$('li').removeClass('active');
 			$('li:eq(1)').addClass('active');
 		</script>
+	<div class='container-fluid'>
 
 		<form action=<c:url value="/FamilyServlet"/> method="post">
 
@@ -62,31 +62,31 @@
 					<td>保險受益人</td>
 					<td><input type="text" name="empben" id="empben"
 						value="${empben}">
-					<div id=empbenerror>${error.empben}</div></td>
+						<div id=empbenerror>${error.empben}</div></td>
 				</tr>
 				<tr>
 					<td>與受益人關係</td>
 					<td><input type="text" name="empbenrel" id="empbenrel"
 						value="${empbenrel}">
-					<div id=empbenrelerror>${error.empbenrel}</div></td>
+						<div id=empbenrelerror>${error.empbenrel}</div></td>
 				</tr>
 				<tr>
 					<td>緊急聯絡人</td>
 					<td><input type="text" name="empemg" id="empemg"
 						value="${empemg}">
-					<div id=empemgerror>${error.empemg}</div></td>
+						<div id=empemgerror>${error.empemg}</div></td>
 				</tr>
 				<tr>
 					<td>緊急聯絡人電話</td>
 					<td><input type="text" name="empemgphone" id="empemgphone"
 						value="${empemgphone}">
-					<div id=empemgphoneerror>${error.empemgphone}</div></td>
+						<div id=empemgphoneerror>${error.empemgphone}</div></td>
 				</tr>
 				<tr>
 					<td>信箱</td>
 					<td><input type="text" name="empemail" id="empemail"
 						value="${empemail}">
-					<div id=empemailerror>${error.empemailerror}</div></td>
+						<div id=empemailerror>${error.empemailerror}</div></td>
 				</tr>
 				<tr>
 					<td>用餐</td>
@@ -106,7 +106,7 @@
 					<td>備註</td>
 					<td><input type="text" name="empnote" id="empnote"
 						value="${empnote}">
-					<div id=empnoteerror></div></td>
+						<div id=empnoteerror></div></td>
 				</tr>
 
 			</table>
@@ -156,7 +156,7 @@
 							</select></td>
 							<td><input type="text" name="famname" id="famname"
 								value="${start.fam_Name}">
-							<div class="famnameerror">${error.famneme}</div></td>
+								<div class="famnameerror">${error.famneme}</div></td>
 							<td><select name="famsex">
 									<!--  servlet抓name db抓值會抓進value值進去-->
 									<c:if test="${start.fam_Sex=='男'}">
@@ -173,14 +173,14 @@
 
 							<td><input type="text" name="famid" class="famid"
 								value="${start.fam_Id}">
-							<div class="famiderror">${error.famid}</div></td>
+								<div class="famiderror">${error.famid}</div></td>
 							<!-- getfamid()會抓到value值 -->
 							<td><input type="date" id="fambdate" name="fambdate"
 								class="fambdate" value="${start.fam_Bdate}" />
-							<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div></td>
+								<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div></td>
 							<td><input type="text" name="famphone" id="famphone"
 								value="${start.fam_Phone}">
-							<div class=famphoneerror>${error.famphone}</div></td>
+								<div class=famphoneerror>${error.famphone}</div></td>
 							<td><select name="fameat">
 									<!-- 今天的日期 減去 他的生日 < 三歲  (剩幾天?) (看年底還是年初)  看年?  -->
 									<c:if test="${start.fam_Eat=='葷'}">
@@ -237,22 +237,22 @@
 
 							<td><input type="text" name="famben" id="famben"
 								value="${start.fam_Ben}">
-							<div class="fambenerror">${error.famben}</div></td>
+								<div class="fambenerror">${error.famben}</div></td>
 							<td><input type="text" name="fambenrel" id="fambenrel"
 								value="${start.fam_BenRel}">
-							<div class="fambenrelerror">${error.fambenrel}</div></td>
+								<div class="fambenrelerror">${error.fambenrel}</div></td>
 							<td><input type="text" name="famemg" id="famemg"
 								value="${start.fam_Emg}">
-							<div class="famemgerror">${error.famemg}</div></td>
+								<div class="famemgerror">${error.famemg}</div></td>
 							<td><input type="text" name="famemgphpone" id="famemgphone"
 								value="${start.fam_EmgPhone}">
-							<div class="famemgphoneerror">${error.famemgphone}</div></td>
+								<div class="famemgphoneerror">${error.famemgphone}</div></td>
 							<td><input type="text" name="famemgrel" id="famemgrel"
 								value="${start.fam_EmgRel}">
-							<div class="famemgrelerror">${error.famemgrel}</div></td>
+								<div class="famemgrelerror">${error.famemgrel}</div></td>
 							<td><input type="text" name="famnote" id="famnote"
 								value="${start.fam_Note}">
-							<div class="famnoteerror"></div></td>
+								<div class="famnoteerror"></div></td>
 						</tr>
 					</c:forEach>
 
@@ -278,7 +278,7 @@
 						<option>
 				</select></td>
 				<td><input type="text" name="famname" id="famname">
-				<div class="famnameerror">${error.famneme}</div></td>
+					<div class="famnameerror">${error.famneme}</div></td>
 				<td><select name="famsex">
 						<!--  servlet抓name db抓值會抓進value值進去-->
 						<option value="女">女</option>
@@ -286,17 +286,17 @@
 						<option>
 				</select></td>
 				<td><input type="text" name="famid" class="famid">
-				<div class="famiderror">${error.famid}</div></td>
+					<div class="famiderror">${error.famid}</div></td>
 				<td><input type="date" id="fambdate" name="fambdate"
 					class="fambdate" />
-				<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div></td>
+					<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div></td>
 				<td><input type="text" name="famphone" id="famphone">
 					<div class=famphoneerror>${error.famphone}</div></td>
 				<td><select name="fameat">
 						<option value="葷">葷</option>
 						<option value="素">素</option>
 				</select> <input name="check1" type="checkbox" value="true">
-				<div>占車位</div></td>
+					<div>占車位</div></td>
 				<td><select name="famspa" id="multiselect" multiple="multiple"
 					data-placeholder="請選擇" style="width: 200px;">
 						<option>幼童(0~3歲)</option>
@@ -306,17 +306,17 @@
 				</select></td>
 				<!-- 		class="multiselect"   id="multiselect"-->
 				<td><input type="text" name="famben" id="famben">
-				<div class="fambenerror">${error.famben}</div></td>
+					<div class="fambenerror">${error.famben}</div></td>
 				<td><input type="text" name="fambenrel" id="fambenrel">
-				<div class="fambenrelerror">${error.fambenrel}</div></td>
+					<div class="fambenrelerror">${error.fambenrel}</div></td>
 				<td><input type="text" name="famemg" id="famemg">
-				<div class="famemgerror">${error.famemg}</div></td>
+					<div class="famemgerror">${error.famemg}</div></td>
 				<td><input type="text" name="famemgphpone" id="famemgphone">
-				<div class="famemgphoneerror">${error.famemgphone}</div></td>
+					<div class="famemgphoneerror">${error.famemgphone}</div></td>
 				<td><input type="text" name="famemgrel" id="famemgrel">
-				<div class="famemgrelerror">${error.famemgrel}</div></td>
+					<div class="famemgrelerror">${error.famemgrel}</div></td>
 				<td><input type="text" name="famnote" id="famnote">
-				<div class="famnoteerror"></div></td>
+					<div class="famnoteerror"></div></td>
 			</tr>
 		</table>
 

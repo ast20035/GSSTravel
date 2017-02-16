@@ -29,18 +29,19 @@ tr, td {
 .error {
 	color: blue;
 }
+
 </style>
 
 
 
 </head>
 <body>
-	<div class='container-fluid'>
 		<%@include file="SelectBar.jsp"%>
 		<script>
 			$('li').removeClass('active');
 			$('li:eq(4)').addClass('active');
 		</script>
+	<div class='container-fluid'>
 		<h2>罰則明細</h2>
 		<form action="<c:url value="/FineServlet" />" method="GET">
 			<c:if test="${power==true}">

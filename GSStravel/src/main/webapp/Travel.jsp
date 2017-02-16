@@ -34,12 +34,13 @@ table {
 </head>
 
 <body>
-	<div class='container-fluid active in'>
-		<%@include file="SelectBar.jsp"%>
-		<script>
+	<%@include file="SelectBar.jsp"%>
+	<script>
 		$('li').removeClass('active');
 		$('li:eq(0)').addClass('active');
-		</script>
+	</script>
+	<div class='container-fluid'>
+
 		<div class='row'>
 			<div class='col-lg-1'></div>
 			<div class='col-lg-11'>

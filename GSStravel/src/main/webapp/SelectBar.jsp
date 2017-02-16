@@ -10,11 +10,14 @@
 .topBar {
 	padding-bottom: 5%;
 }
+.container-fluid{
+padding-top: 3%;
+}
 </style>
 <ul class="nav nav-pills">
 
 </ul>
-<div class='row-fluid topBar'>
+<div class='row-fluid topBar navbar-fixed-top'>
 	<div class='col-md-11'>
 		<ul class="nav nav-pills">
 			<!-- 			<input type='button' value='報名/查詢' class="btn btn-primary btn-lg" -->
