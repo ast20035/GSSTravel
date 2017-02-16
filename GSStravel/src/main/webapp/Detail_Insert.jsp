@@ -421,5 +421,10 @@ function checkedA(){
 	money=money+sum;
 	$(".money").val(money);
 }
+var Error =<%=session.getAttribute("DataError")%>;
+<% session.removeAttribute("DataError");%>
+if(Error!="null"){
+	$(".Error").html(Msg.Error);
+}
 </script>
 </html>

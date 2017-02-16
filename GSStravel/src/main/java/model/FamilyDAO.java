@@ -116,7 +116,6 @@ public class FamilyDAO implements IFamilyDAO {
 
 	@Override
 	public void insert(FamilyVO famvo) {
-		
 		try(Connection connection = ds.getConnection();
 				PreparedStatement state = connection.prepareStatement(insert);)
 		{
@@ -230,5 +229,38 @@ public class FamilyDAO implements IFamilyDAO {
 				e.printStackTrace();
 			}
 		return fam_No;
+	}
+	public boolean insert_fam(FamilyVO famvo) {
+		boolean b= true;
+		try(Connection connection = ds.getConnection();
+				PreparedStatement state = connection.prepareStatement(insert);){
+			
+			state.setInt(1, famvo.getEmp_No());
+//			state.setInt(2, famvo.getFamno());  famno 流水號新增時會直接帶進去
+			state.setString(2, famvo.getFam_Name());
+			state.setString(3, famvo.getFam_Rel());
+			Long Fambdate = famvo.getFam_Bdate().getTime();		
+			state.setDate(4, new java.sql.Date(Fambdate));//?
+			state.setString(5, famvo.getFam_Sex());	
+			state.setString(6, famvo.getFam_Eat());
+			state.setString(7, famvo.getFam_Id());
+			state.setString(8, famvo.getFam_Phone());
+			state.setString(9, famvo.getFam_Note());
+			state.setString(10, famvo.getFam_Ben());
+			state.setString(11, famvo.getFam_BenRel());
+			state.setBoolean(12, famvo.isFam_Car());
+			state.setString(13, famvo.getFam_Emg());
+			state.setString(14, famvo.getFam_EmgPhone());
+			state.setString(15, famvo.getFam_EmgRel());
+			state.setBoolean(16, famvo.isFam_Bady());
+			state.setBoolean(17, famvo.isFam_kid());
+			state.setBoolean(18, famvo.isFam_Dis());
+			state.setBoolean(19, famvo.isFam_Mom());
+			state.executeUpdate();
+		}catch(SQLException e){
+			e.printStackTrace();
+			b=false;
+		}
+		return b;
 	}
 }
