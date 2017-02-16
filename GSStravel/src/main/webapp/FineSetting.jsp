@@ -167,6 +167,10 @@ input {
 </head>
 <body>
 	<%@include file="SelectBar.jsp"%>
+	<script>
+			$('li').removeClass('active');
+			$('li:eq(4)').addClass('active');
+		</script>
 	<h2>罰則設定</h2>
 	<form id="DataForm" action="<c:url value="/FineServlet" />" method="GET">
 		<em style="color: red">*</em>為必填欄位 

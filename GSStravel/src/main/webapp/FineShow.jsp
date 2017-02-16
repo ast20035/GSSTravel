@@ -37,6 +37,10 @@ tr, td {
 <body>
 
 	<%@include file="SelectBar.jsp" %>
+	<script>
+			$('li').removeClass('active');
+			$('li:eq(4)').addClass('active');
+		</script>
 	<h2>罰則明細</h2>
 	<form action="<c:url value="/FineServlet" />" method="GET">
 		<c:if test="${power==true}">
