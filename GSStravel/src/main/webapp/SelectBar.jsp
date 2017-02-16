@@ -32,14 +32,14 @@
 			<!-- 					onclick="window.location.href=resultjs+'/search1.jsp';" /> -->
 			<%-- 			</c:if> --%>
 <%-- 			<c:url value='/FineServlet?FineSetting=罰則設定'/> --%>
-			<li role="presentation" ><a 
+			<li role="presentation" class='active'><a 
 				href="<c:url value='/AllTravel'/>" >報名/查詢</a></li>
 			<li role="presentation"><a href="<c:url value='/Register'/>" >資料輸入</a></li>
 			<c:if test='${sessionScope.emp_Role==true}'>
 				<li role="presentation"><a href="<c:url value='/search2.jsp'/>" >行程維護</a></li>
 				<li role="presentation"><a href="<c:url value='/search.jsp'/>" >報名維護</a></li>
 				<li role="presentation"><a
-					href="<c:url value='/FineServlet?FineSetting=罰則設定'/>" >罰則維護</a></li>
+					href="<c:url value='/FineSetting.jsp'/>" >罰則維護</a></li>
 				<li role="presentation"><a href="<c:url value='/search1.jsp'/>" >旅費統計</a></li>
 			</c:if>
 		</ul>
