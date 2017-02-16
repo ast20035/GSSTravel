@@ -20,7 +20,6 @@ import model.HibernateUtil;
 
 @WebFilter("/*")
 public class loginCheck implements Filter {
-	private SessionFactory factory = null;
 
 	public loginCheck() {
 
@@ -47,20 +46,12 @@ public class loginCheck implements Filter {
 			servletResponse.sendRedirect(pro + "/notlogin.jsp");
 			return;
 		} 
-		Transaction tx = null;
-		try {
-			tx = factory.getCurrentSession().beginTransaction();
 			chain.doFilter(request, response);
-			tx.commit();
-		} catch (Exception e) {
-			tx.rollback();
-		}
 		
 	}
 
 
 	public void init(FilterConfig fConfig) throws ServletException {
-		factory = HibernateUtil.getSessionFactory();
 	}
 
 }
