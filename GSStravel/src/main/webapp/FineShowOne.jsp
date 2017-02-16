@@ -18,6 +18,19 @@ td, input,table {
 }
 </style>
 
+<script src="/GSStravel/js/jquery-3.1.1.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
 </head>
 <body>
 	<h1>行程內容</h1>
@@ -44,7 +57,7 @@ td, input,table {
 								<td>報名截止日 ～ ${totalDays[0][j]}<br><fmt:formatNumber value="${iSelect[0].item_Money}" groupingUsed="true" type="currency" maxFractionDigits="0"/> * ${fSelect[j].fine_Per}% ＝ <fmt:formatNumber value="${iSelect[0].item_Money*fSelect[j].fine_Per/100}" groupingUsed="true" type="currency" maxFractionDigits="0"/></td>
 							</c:if>
 							<c:if test="${statusJ.count!=1}">
-								<td>${afterDay[0][j-1]} ～ <fmt:formatNumber value="${totalDays[0][j]}" groupingUsed="true" type="currency" maxFractionDigits="0"/><br><fmt:formatNumber value="${iSelect[0].item_Money}" groupingUsed="true" type="currency" maxFractionDigits="0"/> * ${fSelect[j].fine_Per}% ＝ <fmt:formatNumber value="${iSelect[0].item_Money*fSelect[j].fine_Per/100}" groupingUsed="true" type="currency" maxFractionDigits="0"/></td>
+								<td>${afterDay[0][j-1]} ～ ${totalDays[0][j]}<br><fmt:formatNumber value="${iSelect[0].item_Money}" groupingUsed="true" type="currency" maxFractionDigits="0"/> * ${fSelect[j].fine_Per}% ＝ <fmt:formatNumber value="${iSelect[0].item_Money*fSelect[j].fine_Per/100}" groupingUsed="true" type="currency" maxFractionDigits="0"/></td>
 							</c:if>
 						</c:forEach>
 					<td>${totalDays[0][countI+1]}<br><fmt:formatNumber value="${iSelect[0].item_Money}" groupingUsed="true" type="currency" maxFractionDigits="0"/></td>

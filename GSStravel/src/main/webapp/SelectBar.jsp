@@ -24,7 +24,7 @@ padding-bottom: 5%;
 				<input type='button' value='報名維護' class="btn btn-primary btn-lg"
 					onclick="window.location.href=resultjs+'/search.jsp';" />
 				<input type='button' value='罰則維護' class="btn btn-primary btn-lg"
-					onclick="window.location.href=resultjs+'/FineServlet?FineSetting=罰則設定';" />
+					onclick="window.location.href=resultjs+'/FineSetting.jsp';" />
 				<input type='button' value='旅費統計' class="btn btn-primary btn-lg"
 					onclick="window.location.href=resultjs+'/search1.jsp';" />
 			</c:if>
