@@ -52,7 +52,8 @@ form {
 <body>
 	<div class='container-fluid'>
 		<div class='row' id='title'>
-			<div class='col-lg-12' align="center">
+		<div class='col-lg-4' ></div>
+			<div class='col-lg-2' >
 				<h1>叡揚旅遊報名系統</h1>
 			</div>
 			<!-- 			<div class='col-lg-10'></div> -->
@@ -61,20 +62,20 @@ form {
 		<form method="POST" action=<c:url value="/controller/login.do" />
 			id="login.do" role='form' class='form-horizontal'>
 			<div class='form-group'>
-				<label for='account' class='control-label col-lg-5'>帳號:</label>
+				<label for='account' class='control-label col-lg-4'>帳號:</label>
 				<div class='col-lg-3'>
 					<input type="text" name='account' id='account' value=""
 						class='form-control' />
 				</div>
 			</div>
 			<div class='form-group'>
-				<label for='pwd' class='control-label col-lg-5'>密碼:</label>
+				<label for='pwd' class='control-label col-lg-4'>密碼:</label>
 				<div class='col-lg-3'>
 					<input type="password" name='pwd' id='pwd' class='form-control' />
 				</div>
 			</div>
 			<div class='form-group'>
-				<div class='col-lg-5'></div>
+				<div class='col-lg-4'></div>
 				<div class='col-lg-7'>
 					<input id='sub' type="button" value='登入' onclick='check()'
 						class='btn btn-primary' /> <input type='reset'

@@ -30,99 +30,107 @@
 	text-decoration: none;
 	color: white;
 }
+
 .col-lg-2 {
 	text-align: center;
 }
 
-.jumbotron{
-padding-bottom: 2px;
-padding-top: 2px;
+.jumbotron {
+	padding-bottom: 2px;
+	padding-top: 2px;
+}
+
+.container-fluid {
+	margin-top: 2%;
 }
 </style>
 <title>Insert title here</title>
 </head>
 <body>
 	<div class='container-fluid'>
-		<div class='row'>
-			<div class='col-lg-4'></div>
-			<div class='col-lg-2'>
-				<form action="<c:url value="/Sign_in"/>" method="get">
+
+		<form action="<c:url value="/Sign_in"/>" method="get">
+			<div class='row'>
+				<div class='col-lg-2'></div>
+				<div class='col-lg-3'>
 					<h1 class='alert alert-info'>-本團報名資訊-</h1>
-			</div>
-		</div>
-		<br>
-		<div class='row'>
-			<div class='col-lg-4'></div>
-			<div class='col-lg-3 jumbotron'>
-				<h3>活動名稱:${tra_Vo.tra_Name}</h3>
-				<h3>
-					活動代碼:<input style="border: none; font-size: 14pt; width: 200px"
-						type="text" value="${tra_Vo.tra_NO}" name="tra_No" readonly>
-				</h3>
-				<h3>已報名人數 ${tra_count}人依報名順序為:</h3>
-				<c:forEach var="names" items="${name}">
-					<c:set var="nameKey" value="${names}" />
-					<h3>${names}(共${mp[nameKey]}人)</h3>
-				</c:forEach>
-			</div>
-		</div>
-		<div class='row'>
-			<div class='col-lg-4'></div>
-			<div class='col-lg-2'>
-				<h1 class='alert alert-info'>-報名人員-</h1>
-			</div>
-		</div>
+<%-- 					<h3>活動名稱:${tra_Vo.tra_Name}</h3> --%>
+					<h3>
+						活動名稱:<input style="border-style: none; color: #7700BB; width:600px;"
+							type="text" value="${tra_Vo.tra_Name}" name="tra_Name" readonly>
+					</h3>
+					<h3>
+						活動代碼:<input style="border-style: none; color: #7700BB;"
+							type="text" value="${tra_Vo.tra_NO}" name="tra_No" readonly>
+					</h3>
+					<h3>已報名人數 ${tra_count}人依報名順序為:</h3>
+					<c:forEach var="names" items="${name}">
+						<c:set var="nameKey" value="${names}" />
+						<h3>${names}(共${mp[nameKey]}人)</h3>
+					</c:forEach>
 
-		<div class='row'>
-			<div class='col-lg-4'></div>
-			<div class='col-lg-3 jumbotron'>
-				<h2>
-					員編:<input style="border: none; font-size: 18pt; width: 40px"
-						type="text" value="${emp_No}" name="emp_No" readonly>;姓名:${myName}
-				</h2>
+				</div>
+				<div class='col-lg-1'></div>
+				<div class='col-lg-3'>
+					<h1 class='alert alert-info'>-報名人員-</h1>
 
-				<c:if test="${familySize>0}">
-					<table class="t">
-						<tr class="t">
-							<th class="t">報名</th>
-							<th class="t">眷屬/親友</th>
-							<th class="t">姓名</th>
-						</tr>
-						<c:forEach var="row" items="${familyVO}">
-							<tr class="t">
-								<td class="t"><input type=checkbox value="${row.fam_Name}"
-									name="fam"></td>
-								<td class="t">${row.fam_Rel}</td>
-								<td class="t">${row.fam_Name}</td>
-							</tr>
-						</c:forEach>
-					</table>
-				</c:if>
-				<br> <br> <br>
-				<c:if test="${tra_Vo.tra_On!=tra_Vo.tra_Off}">
-					<c:forEach var="room" items="${itemVo}">
+					<h2> 
+						員編:<input  style="border-style: none; color: #7700BB"
+							type="text" value="${emp_No}" name="emp_No" readonly>
+					</h2>
+					<h2> 
+						姓名:<input  style="border-style: none; color: #7700BB"
+							type="text" value="${myName}" name="emp_No" readonly>
+					</h2>
+
+					<c:if test="${familySize>0}">
 						<table class="t">
 							<tr class="t">
-								<th class="t"></th>
-								<th class="t">房型</th>
-								<th class="t">費用</th>
+								<th class="t">報名</th>
+								<th class="t">眷屬/親友</th>
+								<th class="t">姓名</th>
 							</tr>
-							<tr>
-								<td class="t"><input type=checkbox
-									value="${room.item_Money}" name="room"></td>
-								<td class="t" width='150px'>${room.item_Name}</td>
-								<td class="t" width='70px'>${room.item_Money}</td>
-							</tr>
+							<c:forEach var="row" items="${familyVO}">
+								<tr class="t">
+									<td class="t"><input type=checkbox value="${row.fam_Name}"
+										name="fam"></td>
+									<td class="t">${row.fam_Rel}</td>
+									<td class="t">${row.fam_Name}</td>
+								</tr>
+							</c:forEach>
 						</table>
-					</c:forEach>
-				</c:if>
-				<button class='btn  btn-primary'>
-					<a href="<c:url value="/AllTravel"></c:url>" class="a">回上一頁</a>
-				</button>
-				<input type="submit" value="確定報名" class='btn  btn-primary'>
-				</form>
+					</c:if>
+					<br> <br> <br>
+					<c:if test="${tra_Vo.tra_On!=tra_Vo.tra_Off}">
+						<c:forEach var="room" items="${itemVo}">
+							<table class="t">
+								<tr class="t">
+									<th class="t"></th>
+									<th class="t">房型</th>
+									<th class="t">費用</th>
+								</tr>
+								<tr>
+									<td class="t"><input type=checkbox
+										value="${room.item_Money}" name="room"></td>
+									<td class="t" width='150px'>${room.item_Name}</td>
+									<td class="t" width='70px'>${room.item_Money}</td>
+								</tr>
+							</table>
+						</c:forEach>
+					</c:if><br>
+					<!-- 					<button class='btn  btn-primary'> -->
+					<%-- 						<a href="<c:url value="/AllTravel"></c:url>" class="a">回上一頁</a> --%>
+					<!-- 					</button> -->
+					<script>
+						var GSS = '<c:url value="/AllTravel" />'
+					</script>
+					<input type="button" value='回上一頁' class='btn  btn-primary'
+						onclick="window.location.href=GSS;" /> <input type="submit"
+						value="確定報名" class='btn  btn-primary'>
+				</div>
 			</div>
-		</div>
+		</form>
+	</div>
 </body>
 
 </html>

@@ -6,6 +6,7 @@
 <!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
 <meta http-equiv="refresh"
 	content="0;url=http://localhost:8080/GSStravel/AllTravel" />
+
 <script src='js/jquery-3.1.1.min.js'></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -23,8 +24,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class='container-fluid'>${bl} ${bl1}</div>
+	<div class='container-fluid'></div>
 </body>
+
 <script type="text/javascript">
 if(${bl}){
  		alert("報名失敗!!報名人數超過可參加人數!!");  

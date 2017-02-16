@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,7 +20,6 @@
 	crossorigin="anonymous"></script>
 <title>報名明細</title>
 </head>
-
 <style>
 </style>
 <body>
@@ -171,20 +168,16 @@
 		<br />
 		<button type="submit" name="prodaction" value="insert">新增</button>
 		<input type="button" value="匯出Excel">
+
 	</form>
 
 
-	<link rel="stylesheet"
-		href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
-	<link rel="stylesheet"
-		href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
-	<link rel="stylesheet"
-		href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
-	<script
-		src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
-
-	<script type="text/javascript">
-
+	<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
+	<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
+	<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
+	<script src="js/jquery-1.12.3.min.js"></script>
+	<script	src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
+<script type="text/javascript">
 $(function(){ 	
 	 //多選下拉式選單
 	 
@@ -387,17 +380,17 @@ function open_Can(obj) {
 var CanError="<%=session.getAttribute("CanError")%>";
 <%session.removeAttribute("CanError");%>
 if(CanError!="null"){
-	console.log(CanError);
 	alert(CanError);
 }
 var Msg="<%=session.getAttribute("DetMsg")%>";
 <%session.removeAttribute("DetMsg");%>
 if(Msg!="null"){
 	if(confirm(Msg)){
-		 var insert = "/GSStravel/Detail_Insert.jsp?tra_No=" + document.getElementById("tra_no").value;
-		 window.location=insert;
+		var insert="/GSStravel/detail?tra_no="+$('#tra_no').val()+"&doInsert=1";
+		window.location=insert;
 	}
 }
+
 </script>
 </div>
 </body>

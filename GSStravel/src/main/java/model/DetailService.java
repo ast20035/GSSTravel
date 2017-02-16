@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class DetailService {
@@ -48,7 +49,7 @@ public class DetailService {
 		Map<String, Integer> mp = new HashMap<>();
 		detailDAO = new DetailDAO();
 		employeeDAO = new EmployeeDAO();
-		List<String> detail_Emp_No = detailDAO.detail_Emp_No(tra_No);
+		Set<String> detail_Emp_No = detailDAO.detail_Emp_No(tra_No);
 		for (String emp_No : detail_Emp_No) {
 			int count = detailDAO.detail_Count(emp_No, tra_No) + 1;
 			String name = employeeDAO.selectEmp_Name(emp_No);
@@ -61,7 +62,7 @@ public class DetailService {
 		List<String> result = new ArrayList<>();
 		detailDAO = new DetailDAO();
 		employeeDAO = new EmployeeDAO();
-		List<String> detail_Emp_No = detailDAO.detail_Emp_No(tra_No);
+		Set<String> detail_Emp_No = detailDAO.detail_Emp_No(tra_No);
 		for (String emp_No : detail_Emp_No) {
 			String name = employeeDAO.selectEmp_Name(emp_No);
 			result.add(name);
@@ -98,18 +99,17 @@ public class DetailService {
 			if ((x + fams.length + 1) <= total) {
 				if (fams.length + 1 <= max) {
 					detailDAO.tra_Enter(Integer.parseInt(emp_No), null, tra_No, date, money);
-					for (String fam : fams) {
-						detailDAO.tra_Enter(Integer.parseInt(emp_No), familyDAO.selectfam_No(fam).toString(), tra_No,date, money);
-						return false;
-					}				
+					for (String fam : fams) {						
+						detailDAO.tra_Enter(Integer.parseInt(emp_No), familyDAO.selectfam_No(fam).toString(), tra_No,date, money);						
+					}
+					return false;
 				}else {
 					return true;
 				}
 			}else {
 				return true;
 			}
-		}	
-		return true;
+		}
 	}// false報名成功true報名失敗
 
 	public List<Float> drtail(String emp_No, String tra_No, String[] fams, String room[])
@@ -370,5 +370,11 @@ public class DetailService {
 			}
 		}
 		return result;
+	}
+
+	// 雅婷
+	public int detail_Count(String emp_No, long tra_No) {
+		detailDAO = new DetailDAO();
+		return detailDAO.detail_Count(emp_No, tra_No);
 	}
 }
