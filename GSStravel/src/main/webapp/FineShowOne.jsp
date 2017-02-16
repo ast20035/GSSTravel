@@ -1,7 +1,7 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -30,7 +30,9 @@ td, input, table {
 	text-decoration: none;
 	color: black;
 }
+
 </style>
+
 
 </head>
 <body>
@@ -46,50 +48,38 @@ td, input, table {
 				class="a">罰則</a>
 		</button>
 		<form action="<c:url value="/FineShowOneServlet" />" method="GET">
-			<c:if test="${countI+1 ne 0 && countJ+1 ne 0}">
-				<table id="resultTable">
-					<tr>
-						<td>行程 ＼ 罰則</td>
-						<c:forEach var="i" varStatus="statusI" begin="0" end="${countI}">
-							<c:if test="${statusI.count==1}">
-								<td>旅遊前${fSelect[i].fine_Dates}天通知<br>扣款總費用 *
-									${fSelect[i].fine_Per}%
-								</td>
-							</c:if>
-							<c:if test="${statusI.count>1}">
-								<td>旅遊前${fSelect[i].fine_Dates} ~
-									${fSelect[i-1].fine_Dates-1}天通知<br>扣款總費用 *
-									${fSelect[i].fine_Per}%
-								</td>
-							</c:if>
-						</c:forEach>
-						<td>旅遊開始日<br>扣款總費用 * 100%
-						</td>
-					</tr>
-					<tr>
-						<td>${tSelect[0].tra_Name}<br>${totalDays[0][countI+1]}</td>
+		<c:if test="${countI+1 ne 0 && countJ+1 ne 0}">
+			<table id="resultTable">
+				<tr>
+					<td>行程 ＼ 罰則</td>
+					<c:forEach var="i" varStatus="statusI" begin="0" end="${countI}">
+						<c:if test="${statusI.count==1}">
+							<td>旅遊前${fSelect[i].fine_Dates}天通知<br>扣款總費用 * ${fSelect[i].fine_Per}%</td>
+						</c:if>
+						<c:if test="${statusI.count>1}">
+							<td>旅遊前${fSelect[i].fine_Dates} ～ ${fSelect[i-1].fine_Dates-1}天通知<br>扣款總費用 * ${fSelect[i].fine_Per}%</td>
+						</c:if>
+					</c:forEach>
+					<td>旅遊開始日<br>扣款總費用 * 100%</td>
+				</tr>
+				<tr>
+					<td>${tSelect[0].tra_Name}<br>${totalDays[0][countI+1]}</td>
 						<c:forEach var="j" varStatus="statusJ" begin="0" end="${countI}">
 							<c:if test="${statusJ.count==1}">
-								<td>報名截止日 ~ ${totalDays[0][j]}<br>${iSelect[0].item_Money}
-									* ${fSelect[j].fine_Per}% =
-									${iSelect[0].item_Money*fSelect[j].fine_Per/100}
-								</td>
+								<td>報名截止日 ～ ${totalDays[0][j]}<br><fmt:formatNumber value="${iSelect[0].item_Money}" groupingUsed="true" type="currency" maxFractionDigits="0"/> * ${fSelect[j].fine_Per}% ＝ <fmt:formatNumber value="${iSelect[0].item_Money*fSelect[j].fine_Per/100}" groupingUsed="true" type="currency" maxFractionDigits="0"/></td>
 							</c:if>
 							<c:if test="${statusJ.count!=1}">
-								<td>${afterDay[0][j-1]}~${totalDays[0][j]}<br>${iSelect[0].item_Money}
-									* ${fSelect[j].fine_Per}% =
-									${iSelect[0].item_Money*fSelect[j].fine_Per/100}
-								</td>
+								<td>${afterDay[0][j-1]} ～ ${totalDays[0][j]}<br><fmt:formatNumber value="${iSelect[0].item_Money}" groupingUsed="true" type="currency" maxFractionDigits="0"/> * ${fSelect[j].fine_Per}% ＝ <fmt:formatNumber value="${iSelect[0].item_Money*fSelect[j].fine_Per/100}" groupingUsed="true" type="currency" maxFractionDigits="0"/></td>
 							</c:if>
 						</c:forEach>
-						<td>${totalDays[0][countI+1]}<br>${iSelect[0].item_Money}</td>
-					</tr>
-				</table>
-			</c:if>
-			<c:if test="${countI+1 eq 0 && countJ+1 eq 0}">
+					<td>${totalDays[0][countI+1]}<br><fmt:formatNumber value="${iSelect[0].item_Money}" groupingUsed="true" type="currency" maxFractionDigits="0"/></td>
+				</tr>
+			</table>
+		</c:if>
+		<c:if test="${countI+1 eq 0 && countJ+1 eq 0}">
 				<h1>目前尚無行程或罰則資訊！</h1>
-			</c:if>
-		</form>
+		</c:if>
+	</form>
 		<button>
 			<a href="<c:url value="/AllTravel"></c:url>" class="a">回到報名/查詢</a>
 		</button>

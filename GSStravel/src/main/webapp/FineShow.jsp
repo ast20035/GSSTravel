@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -29,11 +29,19 @@ tr, td {
 .error {
 	color: blue;
 }
+
 </style>
+
+
+
 </head>
 <body>
+		<%@include file="SelectBar.jsp"%>
+		<script>
+			$('li').removeClass('active');
+			$('li:eq(4)').addClass('active');
+		</script>
 	<div class='container-fluid'>
-		<%@include file="../SelectBar.jsp"%>
 		<h2>罰則明細</h2>
 		<form action="<c:url value="/FineServlet" />" method="GET">
 			<c:if test="${power==true}">
@@ -48,7 +56,7 @@ tr, td {
 									</td>
 								</c:if>
 								<c:if test="${statusI.count>1}">
-									<td>旅遊前${fSelect[i].fine_Dates} ~
+									<td>旅遊前${fSelect[i].fine_Dates} ～
 										${fSelect[i-1].fine_Dates-1}天通知<br>扣款總費用 *
 										${fSelect[i].fine_Per}%
 									</td>
@@ -62,25 +70,32 @@ tr, td {
 								<td>${tSelect[i].tra_Name}<br>${totalDays[i][countI+1]}</td>
 								<c:forEach var="j" varStatus="statusJ" begin="0" end="${countI}">
 									<c:if test="${statusJ.count==1}">
-										<td>報名截止日 ~ ${totalDays[i][j]}<br>${iSelect[i].item_Money}
-											* ${fSelect[j].fine_Per}% =
-											${iSelect[i].item_Money*fSelect[j].fine_Per/100}
-										</td>
+										<td>報名截止日 ～ ${totalDays[i][j]}<br>
+										<fmt:formatNumber value="${iSelect[i].item_Money}"
+												groupingUsed="true" type="currency" maxFractionDigits="0" />
+											* ${fSelect[j].fine_Per}% ＝ <fmt:formatNumber
+												value="${iSelect[i].item_Money*fSelect[j].fine_Per/100}"
+												groupingUsed="true" type="currency" maxFractionDigits="0" /></td>
 									</c:if>
 									<c:if test="${statusJ.count!=1}">
-										<td>${afterDay[i][j-1]}~${totalDays[i][j]}<br>${iSelect[i].item_Money}
-											* ${fSelect[j].fine_Per}% =
-											${iSelect[i].item_Money*fSelect[j].fine_Per/100}
-										</td>
+										<td>${afterDay[i][j-1]}～ ${totalDays[i][j]}<br>
+										<fmt:formatNumber value="${iSelect[i].item_Money}"
+												groupingUsed="true" type="currency" maxFractionDigits="0" />
+											* ${fSelect[j].fine_Per}% ＝ <fmt:formatNumber
+												value="${iSelect[i].item_Money*fSelect[j].fine_Per/100}"
+												groupingUsed="true" type="currency" maxFractionDigits="0" /></td>
 									</c:if>
 								</c:forEach>
-								<td>${totalDays[i][countI+1]}<br>${iSelect[i].item_Money}</td>
+								<td>${totalDays[i][countI+1]}<br>
+								<fmt:formatNumber value="${iSelect[i].item_Money}"
+										groupingUsed="true" type="currency" maxFractionDigits="0" /></td>
 							</tr>
 						</c:forEach>
 					</table>
 				</c:if>
 			</c:if>
-			<input type="submit" name="FineSetting" value="罰則設定" /> <input
+			<input type="button" value="罰則設定" name="FineSetting"
+				onclick="window.location.href=resultjs+'/FineSetting.jsp'" /> <input
 				type="submit" name="FineEmail" value="異動通知" />
 			<c:choose>
 				<c:when test="${countI+1 eq 0 && countJ+1 eq 0}">

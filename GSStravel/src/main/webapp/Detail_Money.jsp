@@ -27,6 +27,7 @@
 
 tr, input {
 	text-align: center;
+	width:100px;
 }
 
 textarea {
@@ -46,25 +47,28 @@ td {
 </style>
 
 <body>
-	<div class='container-fluid'>
 		<%@include file="SelectBar.jsp"%>
+		<script>
+			$('li').removeClass('active');
+			$('li:eq(5)').addClass('active');
+		</script>
+	<div class='container-fluid'>
 		<form action="<c:url value='/TotalAmountServlet' />" method="GET">
-			<div>
-				<textarea name="tra_Name" readonly>${tra_Name}</textarea>
-			</div>
+			<div><textarea name="tra_Name" readonly>${tra_Name}</textarea></div>
 			<input type="hidden" name="tra_No" value="${tra_No}">
-			<table border="1" id="table">
+			
+			<table border="1" class="table table-bordereds" id="table">
 				<thead>
 					<tr>
-						<td>部門代碼</td>
-						<td>員工(/眷屬親友)編號</td>
-						<td>姓名(/隸屬於哪位員工)</td>
-						<td>年度可補助金額<br /> <span style="color: red; font-size: 10px">未到職一年者按比例給予計算</span></td>
-						<td>個人可補助金額</td>
-						<td>個人團費</td>
-						<td>其他增減費用明細說明</td>
-						<td>其他增減費用總額</td>
-						<td>應補團費</td>
+						<td scope="row">部門代碼</td>
+						<td scope="row">員工(/眷屬親友)編號</td>
+						<td scope="row">姓名(/隸屬於哪位員工)</td>
+						<td scope="row">年度可補助金額<br /> <span style="color: red; font-size: 10px">未到職一年者按比例給予計算</span></td>
+						<td scope="row">個人可補助金額</td>
+						<td scope="row">個人團費</td>
+						<td scope="row">其他增減費用明細說明</td>
+						<td scope="row">其他增減費用總額</td>
+						<td scope="row">應補團費</td>
 					</tr>
 				</thead>
 				<c:forEach var="list" items="${list}">
@@ -75,8 +79,7 @@ td {
 								<input type="text" name="emp_No" class="emp"
 									value="${list.emp_No}" readonly>
 								<input type="hidden" name="empfam" value="${list.emp_No}">
-							</c:if>
-							<c:if test="${list.fam_No!=0}">
+							</c:if> <c:if test="${list.fam_No!=0}">
 								<input type="text" name="empfam" class="fam"
 									value="${list.emp_No}/${list.fam_No}" readonly>
 							</c:if></td>
@@ -98,7 +101,7 @@ td {
 							<td><c:if test="${list.fam_sub}">
 									<input type="text" class="personfam_money" value="0.0" readonly>
 									<input type="hidden" class="person" value="${list.emp_No}">
-								</c:if> <c:if test="${!list.fam_sub}">
+								</c:if><c:if test="${!list.fam_sub}">
 									<input type="text" class="onmoney" value="0.0" readonly>
 								</c:if></td>
 						</c:if>
@@ -118,8 +121,8 @@ td {
 			</table>
 			<br />
 			<div>
-				<input type="submit" id="submit" value="儲存" /> <input type="submit"
-					id="excel" value="匯出Excel" />
+				<button type="submit" name="prodaction" value="save">儲存</button>
+				<button type="submit" value="excel">匯出Excel</button>
 			</div>
 		</form>
 		<c:if test="${session!=null}">

@@ -20,8 +20,7 @@
 	crossorigin="anonymous"></script>
 <title>Insert title here</title>
 <script>
-var Error="<%=session.getAttribute("nopeople")%>
-	";
+var Error="<%=session.getAttribute("nopeople")%>";
 <%session.removeAttribute("nopeople");%>
 	if (Error != 'null') {
 		alert(Error);
@@ -59,7 +58,7 @@ var Error="<%=session.getAttribute("nopeople")%>
 			if (Edate.value != undefined && Edate.value != '') {
 				url = url + "endDay=" + Edate.value + "&";
 			}
-			if (selectedValues != undefined) {
+			if (selectedValues != undefined && selectedValues!='') {
 				url = url + "loc=" + JSON.stringify(selectedValues);
 			}
 			xh.addEventListener("readystatechange", ajaxReturn)
@@ -137,6 +136,11 @@ var Error="<%=session.getAttribute("nopeople")%>
 </head>
 
 <body>
+		<%@include file="SelectBar.jsp"%>
+		<script>
+			$('li').removeClass('active');
+			$('li:eq(5)').addClass('active');
+		</script>
 	<div class='container-fluid'>
 		<link rel="stylesheet"
 			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
@@ -146,7 +150,6 @@ var Error="<%=session.getAttribute("nopeople")%>
 			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
 		<script
 			src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
-		<%@include file="SelectBar.jsp"%>
 		<h2>旅費統計</h2>
 		<form>
 			活動代碼:<input type='text' id='id' value='' /><br> 活動名稱:<input
