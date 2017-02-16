@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
     <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
     <script src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
-<div class='container'>
+<div class='container-fluid'>
 
 <%@include file="SelectBar.jsp" %>
 <form  action=<c:url value="/FamilyServlet"/>  method="post">
