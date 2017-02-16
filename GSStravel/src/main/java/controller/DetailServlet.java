@@ -35,22 +35,24 @@ public class DetailServlet extends HttpServlet {
 		String prodaction = req.getParameter("prodaction");
 		String tra_no = req.getParameter("tra_no");
 		String can_detNo = req.getParameter("can_detNo");
+		String doInsert = req.getParameter("doInsert");
 
 		DetailBean bean = new DetailBean();
-		TravelVO travelVO;
+		TravelVO travelVO = new TravelVO();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
 		HttpSession session = req.getSession();
 		session.removeAttribute("DetCanError");
 
 		List<ItemVO> itemVO = null;
 		List<ItemVO> room = null;
-		if ("insert".equals(prodaction)) {
+		if ("insert".equals(prodaction)||("1").equals(doInsert)) {
 			Long tra_No = Long.parseLong(tra_no);
 			travelVO = detailService.Count(tra_no);
 			if (travelVO != null) {
-				if (travelVO.getTra_Total() > detailService.tra_count(tra_No)) {
-					itemVO = itemService.getFareMoney(tra_No);
+				if (travelVO.getTra_Total() > detailService.tra_count(tra_No)||("1").equals(doInsert)) {
 					room = itemService.getRoomMoney(tra_No);
+					itemVO = itemService.getFareMoney(tra_No);
 					float f = 0;
 					for (ItemVO i : itemVO) {
 						f = f + i.getItem_Money();
@@ -106,11 +108,9 @@ public class DetailServlet extends HttpServlet {
 			String emg = req.getParameter("emg");
 			String emg_Phone = req.getParameter("emg_Phone");
 			String note = req.getParameter("note");
-			System.out.println(Bdate);
 			if (!rel.equals("員工")) {
 				try {
 					if (name.trim().length() == 0 || name == null) {
-						System.out.println("name");
 						session.setAttribute("CanError", "儲存失敗！");
 					} else if (ben.trim().length() == 0 || ben == null) {
 						session.setAttribute("CanError", "儲存失敗！");
@@ -118,15 +118,15 @@ public class DetailServlet extends HttpServlet {
 						session.setAttribute("CanError", "儲存失敗！");
 					} else if (emg.trim().length() == 0 || emg == null) {
 						session.setAttribute("CanError", "儲存失敗！");
-					} else if(!Phone.matches("^[09][0-9]{9}")){
+					} else if (!Phone.matches("^[09][0-9]{9}")) {
 						session.setAttribute("CanError", "儲存失敗！");
-					}else if(!detailService.isValidTWPID(ID)){
+					} else if (!detailService.isValidTWPID(ID)) {
 						session.setAttribute("CanError", "儲存失敗！");
-					}else if(sex.equals("男")&&!ID.substring(1, 2).equals("1")){
+					} else if (sex.equals("男") && !ID.substring(1, 2).equals("1")) {
 						session.setAttribute("CanError", "儲存失敗！");
-					}else if(sex.equals("女")&&!ID.substring(1, 2).equals("2")){
+					} else if (sex.equals("女") && !ID.substring(1, 2).equals("2")) {
 						session.setAttribute("CanError", "儲存失敗！");
-					}else{
+					} else {
 						String temp_FamNo = req.getParameter("fam_No");
 						String car = req.getParameter("car");
 						String spe = req.getParameter("text_multiselect");
@@ -191,13 +191,13 @@ public class DetailServlet extends HttpServlet {
 						session.setAttribute("CanError", "儲存失敗！");
 					} else if (emg.trim().length() == 0 || emg == null) {
 						session.setAttribute("CanError", "儲存失敗！");
-					} else if(!Phone.matches("^[09][0-9]{9}")){
+					} else if (!Phone.matches("^[09][0-9]{9}")) {
 						session.setAttribute("CanError", "儲存失敗！");
-					}else if(!detailService.isValidTWPID(ID)){
+					} else if (!detailService.isValidTWPID(ID)) {
 						session.setAttribute("CanError", "儲存失敗！");
-					}else if(sex.equals("男")&&!ID.substring(1, 2).equals("1")){
+					} else if (sex.equals("男") && !ID.substring(1, 2).equals("1")) {
 						session.setAttribute("CanError", "儲存失敗！");
-					}else if(sex.equals("女")&&!ID.substring(1, 2).equals("2")){
+					} else if (sex.equals("女") && !ID.substring(1, 2).equals("2")) {
 						session.setAttribute("CanError", "儲存失敗！");
 					} else {
 						EmployeeVO Ebean = new EmployeeVO();
