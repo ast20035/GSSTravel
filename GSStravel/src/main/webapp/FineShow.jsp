@@ -80,13 +80,13 @@ td>strong {
 										</c:if>
 										<c:if test="${statusI.count>1}">
 											<c:if test="${fSelect[i].fine_Dates==fSelect[i-1].fine_Dates-1}">
-										<td><strong>旅遊前${fSelect[i].fine_Dates}<strong>天通知<br>扣款總費用 *
+										<td>旅遊前<strong>${fSelect[i].fine_Dates}</strong>天通知<br>扣款總費用 *
 											${fSelect[i].fine_Per}%
 										</td>
 									</c:if>
 									<c:if test="${fSelect[i].fine_Dates!=fSelect[i-1].fine_Dates-1}">
-										<td><strong>旅遊前${fSelect[i].fine_Dates} ～
-											${fSelect[i-1].fine_Dates-1}<strong>天通知<br>扣款總費用 *
+										<td>旅遊前<strong>${fSelect[i].fine_Dates} ～
+											${fSelect[i-1].fine_Dates-1}</strong>天通知<br>扣款總費用 *
 											${fSelect[i].fine_Per}%
 										</td>
 									</c:if>
