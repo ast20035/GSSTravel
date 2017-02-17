@@ -91,7 +91,7 @@ tr, td {
 			</c:if>
 			<input type="button" value="罰則設定" name="FineSetting"
 				onclick="window.location.href=resultjs+'/FineSetting.jsp'" /> <input
-				type="submit" name="FineEmail" value="異動通知" />
+				type="submit" name="FineEmail" value="寄送罰則異動通知" />
 			<c:choose>
 				<c:when test="${countI+1 eq 0 && countJ+1 eq 0}">
 					<h2>目前尚無罰則＆行程資訊！</h2>
