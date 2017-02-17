@@ -68,7 +68,10 @@ public class Register extends HttpServlet {
 					 start.setFam_Bady(false);
 				 }
 				 if(betweenDate<365*11){
+					 if(betweenDate>365*3){
 					 start.setFam_kid(true);
+					 start.setFam_Bady(false);
+					 }
 				 }else{
 					 start.setFam_kid(false);
 				 }

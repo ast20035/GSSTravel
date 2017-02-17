@@ -141,34 +141,34 @@
 
 					<c:forEach var="start" items="${famstart}">
 						<tr>
-							<td><input type="submit" name="delete" id="delete"
-								value="delete"></td>
+							<td><input type="button" name="delete" id="delete"
+								value="delete" class="${start.fam_No}"></td>
 							<td><select name="famrel">
 									<c:if test="${start.fam_Rel=='親友'}">
 										<option value="眷屬">眷屬</option>
 										<option value="親友" selected>親友
-										<option>
+										</option>
 									</c:if>
 									<c:if test="${start.fam_Rel=='眷屬'}">
 										<option value="眷屬" selected>眷屬</option>
 										<option value="親友">親友
-										<option>
+										</option>
 									</c:if>
 							</select></td>
 							<td><input type="text" name="famname"  id="famname" 
 								value="${start.fam_Name}" style="width:100px;">
-							<div class="famnameerror">${error.famneme}</div></td>
+							<div class="famnameerror" name="famnameerror">${error.famneme}</div></td>
 							<td><select name="famsex">
 									<!--  servlet抓name db抓值會抓進value值進去-->
 									<c:if test="${start.fam_Sex=='男'}">
 										<option value="女">女</option>
 										<option value="男" selected>男
-										<option>
+										</option>
 									</c:if>
 									<c:if test="${start.fam_Sex=='女'}">
 										<option value="女" selected>女</option>
 										<option value="男">男
-										<option>
+										</option>
 									</c:if>
 							</select></td>
 
@@ -270,23 +270,23 @@
 		<table>
 			<!-- 空白欄位 -->
 			<tr name="repeat">
-				<td><input type="submit" name="delete" id="delete"
+				<td><input type="button" name="delete" id="delete"
 					value="delete"></td>
 				<td><select name="famrel">
 						<option value="眷屬">眷屬</option>
 						<option value="親友">親友
-						<option>
+						</option>
 				</select></td>
 				<td><input type="text" name="famname" id="famname" style="width:100px;">
-				<div class="famnameerror"  name="famiderror">${error.famneme}</div></td>
+				<div class="famnameerror"  name="famnameerror">${error.famneme}</div></td>
 				<td><select name="famsex">
 						<!--  servlet抓name db抓值會抓進value值進去-->
 						<option value="女">女</option>
 						<option value="男">男
-						<option>
+						</option>
 				</select></td>
 				<td><input type="text" name="famid" class="famid" style="width:100px;">
-				<div class="famiderror">${error.famid}</div></td>
+				<div class="famiderror" name="famiderror">${error.famid}</div></td>
 				<td><input type="date" id="fambdate" name="fambdate"
 					class="fambdate" style="width:150px;" />
 				<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div></td>
@@ -323,6 +323,50 @@
 		<script>
 		
 var xh = new XMLHttpRequest();
+
+// searchfamno();
+
+
+// function searchfamno(){
+// 	if (xh != null) {
+		
+
+		//用on試試看
+// 		var famno=$("input[name='delete']").click(function(){
+// 				return $(this).attr("class");
+// 			}) 
+
+// 		console.log(famno);
+		
+// 	var pathName = document.location.pathname;
+// 	var index = pathName.substr(1).indexOf("/");
+// 	var result = pathName.substr(0, index + 1);
+// 	var url = result + "/FamilyServlet";
+
+// 	if(typeof famno != "undefined"){
+// 	var famnojson =JSON.stringify(famno);
+// 	}
+// 	xh.addEventListener("readystatechange", famnoreturn);
+// 	xh.open("POST",url);
+// 	xh.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+// 	xh.send("famno="+famno);
+// 	}else {
+// 		alert("Your browser doesn't support JSON!");
+// 	}
+// }
+// function famnoreturn() { //其實不用判斷 原工email有沒有重複  因為原工不會有新增的問題 不用怕重複
+// 	if (xh.readyState == 4){
+// 		if (xh.status == 200) {
+// 			if(xh.responseText!=null){
+// // 			alert("email ajax return");
+// 			var famnoreturn= xh.responseText;
+// // 			console.log(famnoreturn);
+// 			}
+// 		}
+// 	}
+// }
+
+
 // searchempmail();
 
 // function searchempmail(){
@@ -388,19 +432,20 @@ function search() {
 function ajaxReturn() {
 	if (xh.readyState == 4){
 		if (xh.status == 200) {
-			if(xh.responseText!=null){
+			if(xh.responseText!=""){
 // 			var ajaxreturn= JSON.parse(xh.responseText);
 			var ajaxreturn= xh.responseText;
 			console.log(ajaxreturn);
 					//查一下如果傳回值變成一串 該怎麼拆開 不然就直接寫兩個
-					//應該是說有回傳值 而且值等於那個字串 才執行下面的程式
-// 			$(".repeat td").on("blur","input[name='famid']",function(){
-				
-				$("#save").attr("type","button");
-// 			})
-			$(".repeat td div[name='famiderror']").val(ajaxreturn);
-// 			$(".repeat td .famiderror").val("xxxxxxxx");
+					//應該是說有回傳值 而且值等於那個字串 才執行下面的程式	
+			$("#save").attr("type","button");
+			$(".repeat td div[name='famiderror']:last").css("border-color","red");
+			$(".repeat td div[name='famiderror']:last").text("親屬身分證字號重複");
 			
+			}else{
+				$("#save").attr("type","submit");
+				$(".repeat td div[name='famiderror']:last").css("border-color","green");
+				$(".repeat td div[name='famiderror']:last").text("");
 			}
 		}
 	}
@@ -418,8 +463,21 @@ $(function(){
 			$(".repeat:last #multiselect").kendoMultiSelect({autoClose: false});
 // 			新增的欄位作正規劃
 			var famname=/^.*\s*[^\s]/;
-			$(".repeat td").on("blur","input[name='famname']",function(){if(famname.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
+			$(".repeat td").on("blur","input[name='famname']",function(){
+				if(famname.test($(this).val())){
+					$(this).css("border-color","green");
+					$("#save").attr("type","submit");
+					setTimeout(function(){$(".repeat td input[name='famname']").css('border-color', "");}, 2000);
+					}else{
+						$(this).css("border-color","red");
+						$("#save").attr("type","button")
+						setTimeout(function(){$(".repeat td input[name='famname']").css('border-color', "");}, 2000);
+						};
+			});	
+					
+			
 			//id
+			//.repeat td input[name='famname']
 			$(".repeat td").on("blur","input[name='famid']",function (){
 				
 			  // 依照字母的編號排列，存入陣列備用。
@@ -463,6 +521,7 @@ $(function(){
 			  } else {
 				
 				$(this).css("border-color","red");
+				setTimeout(function(){$(".repeat td input[name='famid']").css('border-color', "");}, 2000);
 				$("#famiderror").text("身分證格式錯誤");
 				$("#save").attr("type","button");
 	// 			return false;
@@ -488,30 +547,41 @@ $(function(){
 			  // 和最後一個數字比對
 			  if ((10 - (total % 10))!= lastNum) {
 				  $(this).css("border-color","red");
+				  setTimeout(function(){$(".repeat td input[name='famid']").css('border-color', "");}, 2000);
 				  $("#famiderror").text("身分證格式錯誤");
 				  $("#save").attr("type","button");
 	// 			return false;
 			  }else{
 					 $(this).css("border-color","green");
+					 setTimeout(function(){$(".repeat td input[name='famid']").css('border-color', "");}, 2000);
 					  $("#save").attr("type","submit");
 			// 		  return true;
 					}
 			  search();  
 			})
 			var fambdate=/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
-			$(".repeat td").on("blur","input[name='fambdate']",function(){if(fambdate.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
+			$(".repeat td").on("blur","input[name='fambdate']",function(){
+				if(fambdate.test($(this).val())){
+					$(this).css("border-color","green");
+					$("#save").attr("type","submit");
+					setTimeout(function(){$(".repeat td input[name='fambdate']").css('border-color', "");}, 2000);
+					}else{
+						$(this).css("border-color","red");
+						setTimeout(function(){$(".repeat td input[name='fambdate']").css('border-color', "");}, 2000);
+						$("#save").attr("type","button");
+						} });	
 			var famphone=/^09\d{2}-?\d{3}-?\d{3}$/;
-			$(".repeat td").on("blur","input[name='famphone']",function(){if(famphone.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
+			$(".repeat td").on("blur","input[name='famphone']",function(){if(famphone.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");setTimeout(function(){$(".repeat td input[name='famphone']").css('border-color', "");}, 2000);}else{$(this).css("border-color","red");setTimeout(function(){$(".repeat td input[name='famphone']").css('border-color', "");}, 2000);$("#save").attr("type","button");} });	
 			var famben=/^.*\s*[^\s]/;
-			$(".repeat td").on("blur","input[name='famben']",function(){if(famben.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
+			$(".repeat td").on("blur","input[name='famben']",function(){if(famben.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");setTimeout(function(){$(".repeat td input[name='famben']").css('border-color', "");}, 2000);}else{$(this).css("border-color","red");setTimeout(function(){$(".repeat td input[name='famben']").css('border-color', "");}, 2000);$("#save").attr("type","button");} });	
 			var fambenrel=/^.*\s*[^\s]/;
-			$(".repeat td").on("blur","input[name='fambenrel']",function(){if(fambenrel.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
+			$(".repeat td").on("blur","input[name='fambenrel']",function(){if(fambenrel.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");setTimeout(function(){$(".repeat td input[name='fambenrel']").css('border-color', "");}, 2000);}else{$(this).css("border-color","red");setTimeout(function(){$(".repeat td input[name='fambenrel']").css('border-color', "");}, 2000);$("#save").attr("type","button");} });	
 			var famemg=/^.*\s*[^\s]/;
-			$(".repeat td").on("blur","input[name='famemg']",function(){if(famemg.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
+			$(".repeat td").on("blur","input[name='famemg']",function(){if(famemg.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");setTimeout(function(){$(".repeat td input[name='famemg']").css('border-color', "");}, 2000);}else{$(this).css("border-color","red");setTimeout(function(){$(".repeat td input[name='famemg']").css('border-color', "");}, 2000);$("#save").attr("type","button");} });	
 			var famemgphpone=/^09\d{2}-?\d{3}-?\d{3}$/;
-			$(".repeat td").on("blur","input[name='famemgphpone']",function(){if(famemgphpone.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
+			$(".repeat td").on("blur","input[name='famemgphpone']",function(){if(famemgphpone.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");setTimeout(function(){$(".repeat td input[name='famemgphpone']").css('border-color', "");}, 2000);}else{$(this).css("border-color","red");setTimeout(function(){$(".repeat td input[name='famemgphpone']").css('border-color', "");}, 2000);$("#save").attr("type","button");} });	
 			var famemgrel=/^.*\s*[^\s]/;
-			$(".repeat td").on("blur","input[name='famemgrel']",function(){if(famemgrel.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");}else{$(this).css("border-color","red");$("#save").attr("type","button");} });	
+			$(".repeat td").on("blur","input[name='famemgrel']",function(){if(famemgrel.test($(this).val())){$(this).css("border-color","green");$("#save").attr("type","submit");setTimeout(function(){$(".repeat td input[name='famemgrel']").css('border-color', "");}, 2000);}else{$(this).css("border-color","red");setTimeout(function(){$(".repeat td input[name='famemgrel']").css('border-color', "");}, 2000);$("#save").attr("type","button");} });	
 			
 			//在commit按下後內 判斷把全部欄未能不能不要是空白  
 			$("#save").click(function(){
@@ -549,8 +619,9 @@ $(function(){
 	);	
 	//刪除鍵按下後
 	$("#familytable").on("click","input[name='delete']",function(){
-		 $("#familytable input[name='delete']").submit(function(){ $(this).parents("tr").remove();});
+// 		 $("#familytable input[name='delete']").submit(function(){ $(this).parents("tr").remove();});
 		//on事件要綁定動態之後 還得要綁定 submit才可以抓的到值
+		 $(this).parents("tr").remove();
 	});	
 
 	//想改把enter後submit的功能去消            施工中
@@ -583,12 +654,14 @@ $(function(){
 	$("#empphone").blur(function(){
 		if(empphone.test($(this).val())){
 			$(this).css("border-color","green")
+			setTimeout(function(){$("#empphone").css("border-color","inherit");}, 2000);
 			$("#empphoneerror").text("");
 			$("#save").attr("type","submit");
 		}else{
 			$("#empphoneerror").text("手機輸入錯誤");
-// 			setTimeout(function(){$(this).css("border-color","red");},2000);	
 			$(this).css("border-color","red");
+			setTimeout(function(){$("#empphone").css("border-color","inherit");}, 2000);
+
 			$("#save").attr("type","button");
 		}
 	});
@@ -597,12 +670,14 @@ $(function(){
 	$("#empben").blur(function(){
 		if(empben.test($(this).val())){
 			$(this).css("border-color","green")
+			setTimeout(function(){$("#empben").css("border-color","inherit");}, 2000);
 			$("#empbenerror").text("");
 			$("#save").attr("type","submit");
 			
 		}else{
 			$("#empbenerror").text("不能為空值");
 			$(this).css("border-color","red");
+			setTimeout(function(){$("#empben").css("border-color","inherit");}, 2000);
 			$("#save").attr("type","button");
 		}
 	});
@@ -611,12 +686,14 @@ $(function(){
 	$("#empbenrel").blur(function(){
 		if(empbenrel.test($(this).val())){
 			$(this).css("border-color","green")
+			setTimeout(function(){$("#empbenrel").css("border-color","inherit");}, 2000);
 			$("#empbenrelerror").text("");
 			$("#save").attr("type","submit");
 			
 		}else{
 			$("#empbenrelerror").text("不能為空值");
 			$(this).css("border-color","red");
+			setTimeout(function(){$("#empbenrel").css("border-color","inherit");}, 2000);
 			$("#save").attr("type","button");
 		}
 	});
@@ -625,12 +702,14 @@ $(function(){
 	$("#empemg").blur(function(){
 		if(empemg.test($(this).val())){
 			$(this).css("border-color","green")
+			setTimeout(function(){$("#empemg").css("border-color","inherit");}, 2000);
 			$("#empemgerror").text("");
 			$("#save").attr("type","submit");
 			
 		}else{
 			$("#empemgerror").text("不能為空值");
 			$(this).css("border-color","red");
+			setTimeout(function(){$("#empemg").css("border-color","inherit");}, 2000);
 			$("#save").attr("type","button");
 		}
 	});
@@ -639,12 +718,14 @@ $(function(){
 	$("#empemgphone").blur(function(){
 		if(empemgphone.test($(this).val())){
 			$(this).css("border-color","green")
+			setTimeout(function(){$("#empemgphone").css("border-color","inherit");}, 2000);
 			$("#empemgphoneerror").text("");
 			$("#save").attr("type","submit");
 			
 		}else{
 			$("#empemgphoneerror").text("不符合手機規則");
 			$(this).css("border-color","red");
+			setTimeout(function(){$("#empemgphone").css("border-color","inherit");}, 2000);
 			$("#save").attr("type","button");
 		}
 	});
@@ -653,12 +734,14 @@ $(function(){
 	$("#empemail").blur(function(){
 		if(empemail.test($(this).val())){
 			$(this).css("border-color","green")
+			setTimeout(function(){$("#empemail").css("border-color","inherit");}, 2000);
 			$("#empemailerror").text("");
 			$("#save").attr("type","submit");
 			
 		}else{
-			$("#empemailerror").text("不符合手機規則");
+			$("#empemailerror").text("不符合信箱規則");
 			$(this).css("border-color","red");
+			setTimeout(function(){$("#empemail").css("border-color","inherit");}, 2000);
 			$("#save").attr("type","button");
 		}
 	})
@@ -667,12 +750,14 @@ $(function(){
 	$("input[name*='famname']").on("blur",function(){
 		if(famname.test($(this).val())){
 			$(this).css("border-color","green")
+			setTimeout(function(){$("input[name*='famname']").css('border-color', "");}, 2000);
 			$(".famnameerror").text("");
 			$("#save").attr("type","submit");
 			
 		}else{
 			//後面用append加一個h4 或什麼 來顯示錯誤訊息  新增的抓不到正規劃  正規劃錯誤後要不能新增進去
 			$(this).css("border-color","red");
+			setTimeout(function(){$("input[name*='famname']").css('border-color', "");}, 2000);
 			$("#save").attr("type","button");
 // 			$(".famnameerror").text("錯誤");
 // 			$(this).after("<div>錯誤</div>"); //多按一次新增一次
@@ -709,6 +794,7 @@ $(function(){
 		  } else {
 			
 			$(this).css("border-color","red");
+			setTimeout(function(){$("input[name*='famid']").css('border-color', "");}, 2000);
 			$("#famiderror").text("身分證格式錯誤");
 			$("#save").attr("type","button");
 // 			return false;
@@ -734,11 +820,13 @@ $(function(){
 		  // 和最後一個數字比對
 		  if ((10 - (total % 10))!= lastNum) {
 			  $(this).css("border-color","red");
+			  setTimeout(function(){$("input[name*='famid']").css('border-color', "");}, 2000);
 			  $("#famiderror").text("身分證格式錯誤");
 			  $("#save").attr("type","button");
 // 			return false;
 		  }else{
 		  $(this).css("border-color","green");
+		  setTimeout(function(){$("input[name*='famid']").css('border-color', "");}, 2000);
 		  $("#save").attr("type","submit");
 // 		  return true;
 		}})
@@ -747,12 +835,26 @@ $(function(){
 	var fambdate=/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
 	$("input[name*='fambdate']").on("blur",function(){
 		if(fambdate.test($(this).val())){
-			$(this).css("border-color","green")
-			$("#fambdateerror").text("");
-			$("#save").attr("type","submit");
+				var today=new Date();
+				var bdate = $(this).val();
+				var mydate = new Date(bdate.replace("-", "/").replace("-", "/"));
+				console.log(today);
+				console.log(bdate);
+				console.log(mydate);
+			if(mydate<=today){
+				$(this).css("border-color","green");
+				setTimeout(function(){$("input[name*='fambdate']").css('border-color', "");}, 2000);
+				$("#fambdateerror").text("");
+				$("#save").attr("type","submit");
+			}else{
+				$(this).css("border-color","red");
+				setTimeout(function(){$("input[name*='fambdate']").css('border-color', "");}, 2000);
+				$("#save").attr("type","button");
+			}
 		}else{
 // 			$("#fambdateerror").text("需要為年-月-日的規格");
 			$(this).css("border-color","red");
+			setTimeout(function(){$("input[name*='fambdate']").css('border-color', "");}, 2000);
 			$("#save").attr("type","button");
 		}
 	});
@@ -761,11 +863,13 @@ $(function(){
 	$("input[name*='famphone']").on("blur",function(){
 		if(famphone.test($(this).val())){
 			$(this).css("border-color","green")
+			setTimeout(function(){$("input[name*='famphone']").css('border-color', "");}, 2000);
 			$("#famnameerrror").text("");
 			$("#save").attr("type","submit");
 		}else{
 // 			$("#famnameerror").text("不符和手機規則");
 			$(this).css("border-color","red");
+			setTimeout(function(){$("input[name*='famphone']").css('border-color', "");}, 2000);
 			$("#save").attr("type","button");
 		}
 	});
@@ -774,11 +878,13 @@ $(function(){
 	$("input[name*='famben']").on("blur",function(){
 		if(famben.test($(this).val())){
 			$(this).css("border-color","green")
+			setTimeout(function(){$("input[name*='famben']").css('border-color', "");}, 2000);
 			$("#fambenerror").text("");
 			$("#save").attr("type","submit");
 		}else{
 // 			$("#fambenerror").text("需要為中文");
 			$(this).css("border-color","red");
+			setTimeout(function(){$("input[name*='famben']").css('border-color', "");}, 2000);
 			$("#save").attr("type","button");
 		}
 	});
@@ -787,11 +893,13 @@ $(function(){
 	$("input[name*='fambenrel']").on("blur",function(){
 		if(fambenrel.test($(this).val())){
 			$(this).css("border-color","green")
+			setTimeout(function(){$("input[name*='fambenrel']").css('border-color', "");}, 2000);
 			$("#fambenrelerror").text("");
 			$("#save").attr("type","submit");
 		}else{
 // 			$("#fambenrelerror").text("需要為中文");
 			$(this).css("border-color","red");
+			setTimeout(function(){$("input[name*='fambenrel']").css('border-color', "");}, 2000);
 			$("#save").attr("type","button");
 		}
 	});
@@ -800,11 +908,13 @@ $(function(){
 	$("input[name*='famemg']").on("blur",function(){
 		if(famemg.test($(this).val())){
 			$(this).css("border-color","green")
+			setTimeout(function(){$("input[name*='famemg']").css('border-color', "");}, 2000);
 			$("#famemgerror").text("");
 			$("#save").attr("type","submit");
 		}else{
 // 			$("#famemgerror").text("需要為中文");
 			$(this).css("border-color","red");
+			setTimeout(function(){$("input[name*='famemg']").css('border-color', "");}, 2000);
 			$("#save").attr("type","button");
 		}
 	});
@@ -813,11 +923,13 @@ $(function(){
 	$("input[name*='famemgphpone']").on("blur",function(){
 		if(famemgphpone.test($(this).val())){
 			$(this).css("border-color","green")
+			setTimeout(function(){$("input[name*='famemgphpone']").css('border-color', "");}, 2000);
 			$("#famemgphoneerror").text("");
 			$("#save").attr("type","submit");
 		}else{
 // 			$("#famemgphoneerror").text("不符合手機規則");
 			$(this).css("border-color","red");
+			setTimeout(function(){$("input[name*='famemgphpone']").css('border-color', "");}, 2000);
 			$("#save").attr("type","button");
 		}
 	});
@@ -826,11 +938,13 @@ $(function(){
 	$("input[name*='famemgrel']").on("blur",function(){
 		if(famemgrel.test($(this).val())){
 			$(this).css("border-color","green")
+			setTimeout(function(){$("input[name*='famemgrel']").css('border-color', "");}, 2000);
 			$("#famemgrel").text("");
 			$("#save").attr("type","submit");
 		}else{
 // 			$("#famemgrel").text("不符合手機規則");
 			$(this).css("border-color","red");
+			setTimeout(function(){$("input[name*='famemgrel']").css('border-color', "");}, 2000);
 			$("#save").attr("type","button");
 		}
 	});

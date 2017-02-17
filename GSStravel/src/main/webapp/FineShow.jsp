@@ -38,9 +38,45 @@ td>strong {
 	font-size: 20px;
 }
 </style>
-
-
-
+<script>
+		var btn=null;
+		var myImg=null;
+		window.onload = function() {
+			btn = document.getElementById("FineEmail")
+			myImg = document.getElementById("img1"), xhr = null;
+			myImg.style.display = "none";
+			btn.addEventListener("click", load);
+		}
+		
+		function load() {
+			xhr = new XMLHttpRequest();
+			if (xhr != null) {
+				xhr.addEventListener("readystatechange", callback);
+				xhr.open("GET", "Loading.jsp", true);
+				xhr.send();
+			} else {
+				alert("很抱歉，您的瀏覽器不支援AJAX功能！");
+			}
+		}
+		function callback() {
+			if (xhr.readyState == 1) {
+				myImg.style.display = "inline";
+				btn.setAttribute("disabled", "");
+				btn.value = "Email寄送中...";
+			} else if (xhr.readyState == 4) {
+				myImg.style.display = "none";
+				btn.removeAttribute("disabled");
+				btn.value = "寄送罰則異動通知";
+				if (xhr.status == 200) {
+					var data = xhr.responseText;
+					var myDiv = document.getElementById("div1");
+					myDiv.innerHTML = "<h3>" + data + "</h3>";
+				} else {
+					alert(xhr.status + ":" + xhr.statusText);
+				}
+			}
+		}
+</script>
 </head>
 <body>
 	<%@include file="SelectBar.jsp"%>
@@ -62,8 +98,10 @@ td>strong {
 					<br> <input type="button" value="罰則設定" name="FineSetting"
 						class='btn btn-primary'
 						onclick="window.location.href=resultjs+'/FineSetting.jsp'" /><br>
-					<br> <input class='btn btn-primary' type="submit"
+					<br> <input class='btn btn-primary' type="submit" id="FineEmail"
 						name="FineEmail" value="寄送罰則異動通知" />
+					<img src="images/ajax-loader.gif" id="img1" />
+					<div id="div1"></div>
 				</div>
 				<div class='col-md-7'>
 

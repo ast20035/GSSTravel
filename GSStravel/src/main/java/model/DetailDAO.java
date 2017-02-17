@@ -596,7 +596,7 @@ public class DetailDAO implements IDetailDAO {
 		}
 		return b;
 	}
-
+	
 	@Override
 	public List<TotalAmountFormBean> selectBean(String tra_No) {
 		List<TotalAmountFormBean> result = null;
