@@ -108,7 +108,7 @@ td>strong {
 							</tr>
 						</table>
 					</c:if>
-					<c:if test="${countI+1 eq 0 && countJ+1 eq 0}">
+					<c:if test="${countI+1 eq 0 || countJ+1 eq 0}">
 						<h1>目前尚無行程或罰則資訊！</h1>
 					</c:if>
 				</form>

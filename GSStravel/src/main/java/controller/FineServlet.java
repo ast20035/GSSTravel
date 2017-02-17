@@ -188,7 +188,7 @@ public class FineServlet extends HttpServlet {
 				}
 			}
 		}
-		if ("異動通知".equals(email)) {
+		if ("寄送罰則異動通知".equals(email)) {
 			power = true;
 			List<EmployeeVO> result = employeeService.selectEmp();
 			LinkedHashSet mailSet = new LinkedHashSet();	
@@ -217,14 +217,6 @@ public class FineServlet extends HttpServlet {
 			out.print(fineService.to_Json(result));
 			return;
 		}
-//		if ("罰則設定".equals(set)) {
-//			power = false;
-//			List<FineVO> result = fineService.select(fineBean);
-//			request.setAttribute("select", result);
-//			request.setAttribute("power", power);
-//			RequestDispatcher rd = request.getRequestDispatcher("/view/FineSetting.jsp");
-//			rd.forward(request, response);
-//		}
 		if ("罰則明細".equals(show)) {
 			power = true;
 			List<TravelVO> tResult = travelService.select(travelBean);
