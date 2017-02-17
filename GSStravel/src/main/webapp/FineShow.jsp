@@ -100,7 +100,7 @@ td>strong {
 						onclick="window.location.href=resultjs+'/FineSetting.jsp'" /><br>
 					<br> <input class='btn btn-primary' type="submit" id="FineEmail"
 						name="FineEmail" value="寄送罰則異動通知" />
-					<img src="images/ajax-loader.gif" id="img1" />
+					<img src="images/ajax-loader.gif" id="img1" style="display: none"/>
 					<div id="div1"></div>
 				</div>
 				<div class='col-md-7'>
