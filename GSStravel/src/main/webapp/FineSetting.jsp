@@ -206,6 +206,9 @@ input[type=text] {
 					<br>
 					<input type="button" value="罰則明細" name="FineShow"
 						onclick="window.location.href=resultjs+'/FineShowServlet'"
+						class='btn btn-primary' /><br>
+					<br><input type="button" value="重設" name="FineShow"
+						onclick="window.location.href=resultjs+'/FineSetting.jsp'"
 						class='btn btn-primary' />
 				</div>
 				<div class='col-md-5'>
