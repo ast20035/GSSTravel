@@ -15,7 +15,7 @@ background-color:#5599FF;
 .container-fluid{
 padding-top: 5%;
 }
-a{
+li>a{
 font-size:15px;
 color: white;
 font-weight: normal; 

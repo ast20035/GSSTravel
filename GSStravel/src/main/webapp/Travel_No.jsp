@@ -31,87 +31,111 @@
 	text-decoration: none;
 	color: black;
 }
+
+table {
+	padding-right: 20%;
+	font-size: 15px;
+}
+
+.little {
+	width: 1px;
+}
 </style>
 <title>Insert title here</title>
 </head>
 <body>
 	<div class='container-fluid'>
-		<h1>行程內容</h1>
-		<button>
-			<a href="<c:url value="/FeeTravel?tra_No=${traveResult.tra_NO}"/>"
-				class="a">行程</a>
-		</button>
-		<button>
-			<a
-				href="<c:url value="/FineShowOneServlet?tra_No=${traveResult.tra_NO}"/>"
-				class="a">罰則</a>
-		</button>
-
-		<table class="t">
-			<tr>
-				<td>活動代碼</td>
-				<td>${traveResult.tra_NO}</td>
-			</tr>
-			<tr>
-				<td>活動名稱</td>
-				<td>${traveResult.tra_Name}</td>
-			</tr>
-			<tr>
-				<td>活動日期</td>
-				<td>${traveResult.tra_On}~${traveResult.tra_Off}</td>
-			</tr>
-			<tr>
-				<td>登記時間</td>
-				<td>${traveResult.tra_Beg}~${traveResult.tra_End}</td>
-			</tr>
-			<tr>
-				<td>每人報名上限</td>
-				<td>${traveResult.tra_Total}人</td>
-			</tr>
-			<tr>
-				<td>本團人數上限</td>
-				<td>${traveResult.tra_Max}人</td>
-			</tr>
-			<tr>
-				<td>是否住宿</td>
-				<td><c:if test="${traveResult.tra_On==traveResult.tra_Off}">否</c:if>
-					<c:if test="${traveResult.tra_On!=traveResult.tra_Off}">是</c:if></td>
-			</tr>
-			<tr>
-				<td>活動說明</td>
-				<td>${traveResult.tra_Intr}</td>
-			</tr>
-			<tr>
-				<td>活動內容</td>
-				<td style="word-break: break-all; width: 500px">${traveResult.tra_Con}</td>
-			</tr>
-			<tr>
-				<td>注意事項</td>
-				<td>${traveResult.tra_Atter}</td>
-			</tr>
-			<tr>
-				<td>附件</td>
-				<td><a
-					href="<c:url value="/File?tra_Name=${traveResult.tra_Name}"></c:url>">${traveResult.tra_File}</a></td>
-			</tr>
-			<tr>
-				<td>費用</td>
-				<td class="t">項目</td>
-				<td class="t">金額</td>
-			</tr>
-			<c:forEach var="row" items="${itemResult}">
-				<tr>
-					<td></td>
-					<td class="t">${row.item_Name}</td>
-					<td class="t">${row.item_Money}</td>
-				</tr>
-			</c:forEach>
-		</table>
-		<button>
-			<a href="<c:url value="/AllTravel"></c:url>" class="a">回到報名/查詢</a>
-		</button>
-		<%-- 	<button><a href="<c:url value="/Login_Information?tra_No=${traveResult.tra_NO}&emp_No=${emp_No}" ></c:url>" class="a">報名</a></button> --%>
-
+		<div class='row'>
+			<div class='col-md-5'></div>
+			<div class='col-md-3'>
+				<h1>行程內容</h1>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-lg-1'></div>
+			<div class='col-lg-10'>
+				<ul class="nav nav-tabs">
+					<li role="presentation" class="active"><a
+						href="<c:url value="/FeeTravel?tra_No=${traveResult.tra_NO}"/>"><strong>行程</strong></a></li>
+					<li role="presentation"><a
+						href="<c:url value="/FineShowOneServlet?tra_No=${traveResult.tra_NO}"/>"><strong>罰則</strong></a></li>
+				</ul>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-lg-1'></div>
+			<div class='col-lg-10'>
+				<table class="table table-responsive">
+					<tr>
+						<td class='little'>活動代碼</td>
+						<td colspan="2">${traveResult.tra_NO}</td>
+					</tr>
+					<tr>
+						<td class='little'>活動名稱</td>
+						<td colspan="2">${traveResult.tra_Name}</td>
+					</tr>
+					<tr>
+						<td class='little'>活動日期</td>
+						<td colspan="2">${traveResult.tra_On}~${traveResult.tra_Off}</td>
+					</tr>
+					<tr>
+						<td class='little'>登記時間</td>
+						<td colspan="2">${traveResult.tra_Beg}~${traveResult.tra_End}</td>
+					</tr>
+					<tr>
+						<td class='little'>每人報名上限</td>
+						<td colspan="2">${traveResult.tra_Total}人</td>
+					</tr>
+					<tr>
+						<td class='little'>本團人數上限</td>
+						<td colspan="2">${traveResult.tra_Max}人</td>
+					</tr>
+					<tr>
+						<td class='little'>是否住宿</td>
+						<td colspan="2"><c:if
+								test="${traveResult.tra_On==traveResult.tra_Off}">否</c:if> <c:if
+								test="${traveResult.tra_On!=traveResult.tra_Off}">是</c:if></td>
+					</tr>
+					<tr>
+						<td class='little'>活動說明</td>
+						<td colspan="2">${traveResult.tra_Intr}</td>
+					</tr>
+					<tr>
+						<td class='little'>活動內容</td>
+						<td colspan="2"
+							style="word-break: break-all; width: 500px; LINE-HEIGHT: 30px;">${traveResult.tra_Con}</td>
+					</tr>
+					<tr>
+						<td class='little'>注意事項</td>
+						<td colspan="2">${traveResult.tra_Atter}</td>
+					</tr>
+					<tr>
+						<td class='little'>附件</td>
+						<td colspan="2"><a
+							href="<c:url value="/File?tra_Name=${traveResult.tra_Name}"></c:url>">${traveResult.tra_File}</a></td>
+					</tr>
+					<tr>
+						<td class='little'>費用</td>
+						<td class='little'>項目</td>
+						<td class='little'>金額</td>
+					</tr>
+					<c:forEach var="row" items="${itemResult}">
+						<tr>
+							<td></td>
+							<td>${row.item_Name}</td>
+							<td>${row.item_Money}</td>
+						</tr>
+					</c:forEach>
+				</table>
+				<br>
+				<script>
+					var GSS = '<c:url value="/AllTravel" />'
+				</script>
+				<input type="button" value='回到報名/查詢' class='btn  btn-primary'
+					onclick="window.location.href=GSS;" />
+			</div>
+			<div class='col-lg-1'></div>
+		</div>
 	</div>
 </body>
 </html>
