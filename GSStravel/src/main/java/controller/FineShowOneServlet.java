@@ -35,14 +35,12 @@ public class FineShowOneServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		FineVO fineBean = null;
-		ItemVO itemBean = null;
 		boolean power = true;
-		power = true;		
+		power = true;
 		String tra_No = request.getParameter("tra_No");
 		List<TravelVO> tOneResult = travelService.selectOne(tra_No);
-		List<FineVO> fResult = fineService.select(fineBean);
-		List<ItemVO> iResult = itemService.select(itemBean);
+		List<FineVO> fResult = fineService.select();
+		List<ItemVO> iResult = itemService.selectOne(tra_No);
 		countI = fResult.size() - 1;
 		countJ = tOneResult.size() - 1;
 		request.setAttribute("countI", countI);
@@ -85,7 +83,7 @@ public class FineShowOneServlet extends HttpServlet {
 		request.setAttribute("totalDays", totalDays);
 		days.clear();
 
-		RequestDispatcher rd = request.getRequestDispatcher("/view/FineShowOne.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/FineShowOne.jsp");
 		rd.forward(request, response);
 	}
 

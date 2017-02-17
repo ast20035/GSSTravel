@@ -10,4 +10,5 @@ public interface IEmployeeDAO {
 	public void updateEmp_SubTra(String tra_No,String emp_No);
 	public void update(EmployeeVO empVoUpdate);
 	public List<EmployeeVO> selectFineEmail();
+	public List<String> selectEmail();
 }

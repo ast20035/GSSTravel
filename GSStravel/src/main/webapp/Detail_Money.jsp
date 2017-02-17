@@ -47,8 +47,12 @@ td {
 </style>
 
 <body>
-	<div class='container-fluid'>
 		<%@include file="SelectBar.jsp"%>
+		<script>
+			$('li').removeClass('now');
+			$('li:eq(5)').addClass('now');
+		</script>
+	<div class='container-fluid'>
 		<form action="<c:url value='/TotalAmountServlet' />" method="GET">
 			<div><textarea name="tra_Name" readonly>${tra_Name}</textarea></div>
 			<input type="hidden" name="tra_No" value="${tra_No}">

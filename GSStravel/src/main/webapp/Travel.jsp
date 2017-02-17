@@ -34,8 +34,13 @@ table {
 </head>
 
 <body>
+	<%@include file="SelectBar.jsp"%>
+	<script>
+		$('li').removeClass('now');
+		$('li:eq(0)').addClass('now');
+	</script>
 	<div class='container-fluid'>
-		<%@include file="SelectBar.jsp"%>
+
 		<div class='row'>
 			<div class='col-lg-1'></div>
 			<div class='col-lg-11'>
@@ -77,24 +82,24 @@ table {
 								<td class="t">${row.tra_Max}</td>
 								<c:set var="tra_no" value="${row.tra_NO}" />
 								<c:if test="${mp[tra_no]==0}">
-									<td><a
-										href="<c:url value="/Login_Information?tra_No=${row.tra_NO}&emp_No=${emp_No}"></c:url>"><button>我要報名</button></a></td>
+									<td class="t"><a
+										href="<c:url value="/Login_Information?tra_No=${row.tra_NO}&emp_No=${emp_No}"></c:url>"><button class='btn btn-info'>我要報名</button></a></td>
 								</c:if>
 								<c:if test="${mp[tra_no]==1}">
-									<td>登記已截止</td>
+									<td class="t">登記已截止</td>
 								</c:if>
 								<c:if test="${mp[tra_no]==2}">
-									<td>人數已額滿</td>
+									<td class="t">人數已額滿</td>
 								</c:if>
 								<c:if test="${mp[tra_no]==3}">
-									<td><a
-										href="<c:url value="/CancelServlet?tra_No=${row.tra_NO}&emp_No=${emp_No}"></c:url>"><button>取消報名</button></a></td>
+									<td class="t"><a
+										href="<c:url value="/CancelServlet?tra_No=${row.tra_NO}&emp_No=${emp_No}"></c:url>"><button class='btn btn-info'>取消報名</button></a></td>
 								</c:if>
 								<c:if test="${mp[tra_no]==4}">
-									<td>活動已結束</td>
+									<td class="t">活動已結束</td>
 								</c:if>
 								<c:if test="${mp[tra_no]==5}">
-									<td>活動尚未開始登記</td>
+									<td class="t">活動尚未開始登記</td>
 								</c:if>
 							</tr>
 						</c:forEach>

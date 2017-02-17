@@ -51,7 +51,7 @@
 			if (Edate.value != undefined && Edate.value != '') {
 				url = url + "endDay=" + Edate.value + "&";
 			}
-			if (selectedValues != undefined && selectedValues!='') {
+			if (selectedValues != undefined && selectedValues != '') {
 				url = url + "loc=" + JSON.stringify(selectedValues);
 			}
 			xh.addEventListener("readystatechange", ajaxReturn)
@@ -128,6 +128,11 @@
 </head>
 
 <body>
+		<%@include file="SelectBar.jsp"%>
+		<script>
+			$('li').removeClass('now');
+			$('li:eq(2)').addClass('now');
+		</script>
 	<div class='container-fluid'>
 		<link rel="stylesheet"
 			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
@@ -137,7 +142,6 @@
 			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
 		<script
 			src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
-		<%@include file="SelectBar.jsp"%>
 		<h2>行程維護</h2>
 		<form action="<c:url value='/Travel_Edit'/>" method="GET">
 			活動代碼:<input type='text' id='id' value='' /><br> 活動名稱:<input

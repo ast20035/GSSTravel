@@ -49,7 +49,12 @@ public class Cancelservice {
 					money=ta_Money-sub;
 				}							
 			}else{
-				money=0;
+				if(ta_Money<sub){
+					money=0;
+				}else{
+					money=ta_Money-sub;
+				}
+				
 			}
 			
 		}else{
@@ -60,6 +65,7 @@ public class Cancelservice {
 		detail.add(sub);		
 		detail.add(ta_Money);
 		detail.add(money);
+		fam_Counts=0;
 		return detail;
 	}	
 	

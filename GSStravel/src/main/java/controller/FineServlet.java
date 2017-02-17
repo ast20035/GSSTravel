@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,8 +19,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.DetailService;
-import model.DetailVO;
 import model.EmployeeService;
 import model.EmployeeVO;
 import model.FineService;
@@ -53,7 +52,7 @@ public class FineServlet extends HttpServlet {
 		// 5.根據Model執行結果，決定需要顯示的View元件
 
 		String set = request.getParameter("FineSetting");
-		String save = request.getParameter("save");
+		String save = request.getParameter("FineSave");
 		String show = request.getParameter("FineShow");
 		String email = request.getParameter("FineEmail");
 		FineVO fineBean = new FineVO();
@@ -72,12 +71,12 @@ public class FineServlet extends HttpServlet {
 			if (temp1 == null || temp2 == null) {
 				fineService.delete(fineBean);
 				List<TravelVO> tResult = travelService.select(travelBean);
-				List<FineVO> fResult = fineService.select(fineBean);
+				List<FineVO> fResult = fineService.select();
 				countI = fResult.size() - 1;
 				countJ = tResult.size() - 1;
 				request.setAttribute("countI", countI);
 				request.setAttribute("countJ", countJ);
-				RequestDispatcher rd = request.getRequestDispatcher("/view/FineShow.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("/FineShow.jsp");
 				rd.forward(request, response);
 			} else {
 				int count1 = 0;
@@ -170,9 +169,9 @@ public class FineServlet extends HttpServlet {
 
 				if ("儲存罰則".equals(save)) {
 					if (error != null && !error.isEmpty()) {
-						List<FineVO> result = fineService.select(fineBean);
+						List<FineVO> result = fineService.select();
 						request.setAttribute("select", result);
-						RequestDispatcher rd = request.getRequestDispatcher("/view/FineSetting.jsp");
+						RequestDispatcher rd = request.getRequestDispatcher("/FineSetting.jsp");
 						rd.forward(request, response);
 						return;
 					}
@@ -189,7 +188,7 @@ public class FineServlet extends HttpServlet {
 				}
 			}
 		}
-		if ("異動通知".equals(email)) {
+		if ("寄送罰則異動通知".equals(email)) {
 			power = true;
 			List<EmployeeVO> result = employeeService.selectEmp();
 			LinkedHashSet mailSet = new LinkedHashSet();	
@@ -213,17 +212,15 @@ public class FineServlet extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/FineShowServlet");
 		}
 		if ("罰則設定".equals(set)) {
-			power = false;
-			List<FineVO> result = fineService.select(fineBean);
-			request.setAttribute("select", result);
-			request.setAttribute("power", power);
-			RequestDispatcher rd = request.getRequestDispatcher("/view/FineSetting.jsp");
-			rd.forward(request, response);
+			PrintWriter out = response.getWriter();
+			List<FineVO> result = fineService.select();
+			out.print(fineService.to_Json(result));
+			return;
 		}
 		if ("罰則明細".equals(show)) {
 			power = true;
 			List<TravelVO> tResult = travelService.select(travelBean);
-			List<FineVO> fResult = fineService.select(fineBean);
+			List<FineVO> fResult = fineService.select();
 			List<ItemVO> iResult = itemService.select(itemBean);
 			countI = fResult.size() - 1;
 			countJ = tResult.size() - 1;
@@ -267,7 +264,7 @@ public class FineServlet extends HttpServlet {
 				request.setAttribute("totalDays", totalDays);
 				days.clear();
 			}
-			RequestDispatcher rd = request.getRequestDispatcher("/view/FineShow.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/FineShow.jsp");
 			rd.forward(request, response);
 		}
 	}

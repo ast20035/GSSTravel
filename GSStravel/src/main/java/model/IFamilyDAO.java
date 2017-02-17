@@ -14,4 +14,5 @@ public interface IFamilyDAO {
 //	public List<FamilyVO>selectstart(Integer empno);//selectFam
 	public int select_byname(int emp_No, String fam_Name);
 	public boolean insert_fam(FamilyVO famvo);
+	public int selectfam_byid(String famid);
 }
