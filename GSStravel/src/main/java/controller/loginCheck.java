@@ -33,7 +33,7 @@ public class loginCheck implements Filter {
 		String path = servletRequest.getRequestURI();
 		String pro = servletRequest.getContextPath();
 
-		if (path.indexOf("login") > -1) {
+		if (path.indexOf("login") > -1 || path.length()<=12) {
 			;
 		}
 
