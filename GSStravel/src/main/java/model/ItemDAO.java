@@ -14,13 +14,13 @@ import javax.sql.DataSource;
 public class ItemDAO implements IItemDAO {
 	private DataSource ds;
 	private static final String feeTravel = "select item_Name,item_Money from Item  where tra_No = ?";
-	private static final String SELECT_ONE_STMT = "SELECT item_Money FROM Item WHERE item_No=1 ORDER BY tra_No";
 	private static final String roomMoney = "select item_No,item_Name,item_Money from Item where tra_No=? and item_name like '%住宿%'";
 	private static final String fareMoney = "select item_Name,item_Money from Item  where tra_No = ? and item_name not like '%住宿%'";
 	private static final String SELECT = "select * from Item where tra_No =?";
 	private static final String insert = "insert into Item(item_No, item_Name, item_Money) values (?,?,?)";
-	private static final String UPDATE = "update Item set item_Name=?, item_Money=? where item_No=?";
+	private static final String UPDATE = "update Item set item_Name=?, item_Money=? where tra_No=? and item_No=?";	
 	private static final String DELETE ="delete from Item where item_NO=?";
+	private static final String SELECT_ALL_STMT = "SELECT item_Money FROM Item WHERE item_No=1 ORDER BY tra_No";//柯
 	
 	public ItemDAO() {
 		super();
@@ -54,8 +54,9 @@ public class ItemDAO implements IItemDAO {
 		ItemVO result = null;
 		try (Connection conn = ds.getConnection(); PreparedStatement insertdata = conn.prepareStatement(UPDATE);) {
 			insertdata.setString(1, Itemupdate.getItem_Name());
-			insertdata.setDouble(2, Itemupdate.getItem_Money());
-			insertdata.setInt(3, Itemupdate.getItem_No());
+			insertdata.setFloat(2, Itemupdate.getItem_Money());
+			insertdata.setString(3, Itemupdate.getTra_No());
+			insertdata.setInt(4, Itemupdate.getItem_No());
 			int i = insertdata.executeUpdate();
 			if (i == 1) {
 				result = Itemupdate;
@@ -167,11 +168,12 @@ public class ItemDAO implements IItemDAO {
 		return result;
 	}
 
+	//柯
 	@Override
 	public List<ItemVO> select() {
 		List<ItemVO> result = null;
 		try (Connection conn = ds.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(SELECT_ONE_STMT);
+				PreparedStatement stmt = conn.prepareStatement(SELECT_ALL_STMT);
 				ResultSet rset = stmt.executeQuery();) {
 			result = new ArrayList<ItemVO>();
 			while (rset.next()) {

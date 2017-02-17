@@ -6,10 +6,6 @@ import java.util.List;
 public class EmployeeService {
 	private IEmployeeDAO employeeDAO=new EmployeeDAO();
 	
-	public List<EmployeeVO> selectEmp() {
-		return employeeDAO.selectFineEmail();
-	}
-	
 	public String getName(String emp_No){
 		return employeeDAO.selectEmp_Name(emp_No);
 	}
@@ -42,7 +38,10 @@ public class EmployeeService {
 	public void update(EmployeeVO empVoUpdate){
 		employeeDAO.update(empVoUpdate);
 	}
-	public List<String> selectEmail(){
-		return employeeDAO.selectEmail();
+	
+	//柯
+	public List<EmployeeVO> selectEmp() {
+		return employeeDAO.selectFineEmail();
 	}
+	
 }
