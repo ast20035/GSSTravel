@@ -136,6 +136,11 @@ var Error="<%=session.getAttribute("nopeople")%>";
 </head>
 
 <body>
+		<%@include file="SelectBar.jsp"%>
+		<script>
+			$('li').removeClass('now');
+			$('li:eq(5)').addClass('now');
+		</script>
 	<div class='container-fluid'>
 		<link rel="stylesheet"
 			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
@@ -145,11 +150,6 @@ var Error="<%=session.getAttribute("nopeople")%>";
 			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
 		<script
 			src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
-		<%@include file="SelectBar.jsp"%>
-		<script>
-			$('li').removeClass('active');
-			$('li:eq(5)').addClass('active');
-		</script>
 		<h2>旅費統計</h2>
 		<form>
 			活動代碼:<input type='text' id='id' value='' /><br> 活動名稱:<input

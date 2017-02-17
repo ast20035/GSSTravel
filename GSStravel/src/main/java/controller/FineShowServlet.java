@@ -85,7 +85,7 @@ public class FineShowServlet extends HttpServlet {
 			request.setAttribute("totalDays", totalDays);
 			days.clear();
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("/view/FineShow.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/FineShow.jsp");
 		rd.forward(request, response);
 	}
 

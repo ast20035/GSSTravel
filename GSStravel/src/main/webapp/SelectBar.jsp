@@ -8,14 +8,43 @@
 </script>
 <style>
 .topBar {
-	padding-bottom: 5%;
+padding-top: 1%;
+padding-bottom: 0;
+background-color:#5599FF;
+}
+.container-fluid{
+padding-top: 5%;
+}
+a{
+font-size:15px;
+color: white;
+font-weight: normal; 
+}
+.now{
+border-radius: 5px\5px;
+background-color: white;
+}
+.now>a{
+font-weight: bolder; 
+ color: #5599FF; 
+}
+.title{
+font-size: 20px;
+text-align: left;
+font-style: italic;
+color:#000088;
+padding-bottom: 1px;
+padding-top: 5px;
 }
 </style>
 <ul class="nav nav-pills">
 
 </ul>
-<div class='row-fluid topBar'>
-	<div class='col-md-11'>
+<div class='row-fluid topBar navbar-fixed-top'>
+<div class='col-md-3'>
+<label class='title'>GSS Travel Sign-in System</label>
+</div>
+	<div class='col-md-5'>
 		<ul class="nav nav-pills">
 			<!-- 			<input type='button' value='報名/查詢' class="btn btn-primary btn-lg" -->
 			<!-- 				onclick="window.location.href=resultjs+'/AllTravel';" /> -->
@@ -32,21 +61,22 @@
 			<!-- 					onclick="window.location.href=resultjs+'/search1.jsp';" /> -->
 			<%-- 			</c:if> --%>
 <%-- 			<c:url value='/FineServlet?FineSetting=罰則設定'/> --%>
-			<li role="presentation" ><a 
+			<li role="presentation" class='now'><a 
 				href="<c:url value='/AllTravel'/>" >報名/查詢</a></li>
 			<li role="presentation"><a href="<c:url value='/Register'/>" >資料輸入</a></li>
 			<c:if test='${sessionScope.emp_Role==true}'>
 				<li role="presentation"><a href="<c:url value='/search2.jsp'/>" >行程維護</a></li>
 				<li role="presentation"><a href="<c:url value='/search.jsp'/>" >報名維護</a></li>
 				<li role="presentation"><a
-					href="<c:url value='/FineServlet?FineSetting=罰則設定'/>" >罰則維護</a></li>
+					href="<c:url value='/FineSetting.jsp'/>" >罰則維護</a></li>
 				<li role="presentation"><a href="<c:url value='/search1.jsp'/>" >旅費統計</a></li>
 			</c:if>
 		</ul>
 	</div>
 	<div class='col-md-1'>
-		<input type="button" value='登出' class="btn btn-danger btn-lg"
+		<input type="button" value='登出' class="btn btn-group-sm btn-warning"
 			onclick="window.location.href=resultjs+'/LogOut.do';">
+			
 	</div>
 </div>
 
