@@ -113,6 +113,9 @@ font-size: 20px;
 						var GSS = '<c:url value="/AllTravel" />';
 						var sign= '<c:url value="/Login_Information?tra_No=${traveResult.tra_NO}&emp_No=${emp_No}" />';
 					</script>
+			<c:if test="${countI+1 eq 0}">
+				<h2>目前尚無罰則資訊！</h2>
+			</c:if>
 					<br>
 		<input type="button" value='回到報名/查詢' class='btn  btn-primary'
 			onclick="window.location.href=GSS;" /> <input type="button"
