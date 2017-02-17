@@ -34,6 +34,7 @@ td>strong {
 	color: #CC6600;
 	font-size: 20px;
 }
+
 </style>
 
 
