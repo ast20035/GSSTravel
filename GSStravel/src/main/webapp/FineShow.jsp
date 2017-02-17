@@ -25,11 +25,6 @@ tr, td {
 	border: 1px solid black;
 	text-align: center;
 }
-
-.error {
-	color: blue;
-}
-
 </style>
 
 
@@ -78,7 +73,7 @@ tr, td {
 												groupingUsed="true" type="currency" maxFractionDigits="0" /></td>
 									</c:if>
 									<c:if test="${statusJ.count!=1}">
-										<td>${afterDay[i][j-1]}～ ${totalDays[i][j]}<br>
+										<td>${afterDay[i][j-1]} ～ ${totalDays[i][j]}<br>
 										<fmt:formatNumber value="${iSelect[i].item_Money}"
 												groupingUsed="true" type="currency" maxFractionDigits="0" />
 											* ${fSelect[j].fine_Per}% ＝ <fmt:formatNumber
@@ -96,16 +91,16 @@ tr, td {
 			</c:if>
 			<input type="button" value="罰則設定" name="FineSetting"
 				onclick="window.location.href=resultjs+'/FineSetting.jsp'" /> <input
-				type="submit" name="FineEmail" value="異動通知" />
+				type="submit" name="FineEmail" value="寄送罰則異動通知" />
 			<c:choose>
 				<c:when test="${countI+1 eq 0 && countJ+1 eq 0}">
-					<h2 class="error">目前尚無罰則＆行程資訊！</h2>
+					<h2>目前尚無罰則＆行程資訊！</h2>
 				</c:when>
 				<c:when test="${countI+1 eq 0}">
-					<h2 class="error">目前尚無罰則資訊！</h2>
+					<h2>目前尚無罰則資訊！</h2>
 				</c:when>
 				<c:when test="${countJ+1 eq 0}">
-					<h2 class="error">目前尚無行程資訊！</h2>
+					<h2>目前尚無行程資訊！</h2>
 				</c:when>
 			</c:choose>
 		</form>
