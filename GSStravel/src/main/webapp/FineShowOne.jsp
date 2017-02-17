@@ -25,12 +25,14 @@
 	text-decoration: none;
 	color: black;
 }
-table{
-font-size: 15px;
+
+table {
+	font-size: 15px;
 }
-td>strong{
-color: #CC6600;
-font-size: 20px;
+
+td>strong {
+	color: #CC6600;
+	font-size: 20px;
 }
 </style>
 
@@ -55,23 +57,23 @@ font-size: 20px;
 				</ul>
 			</div>
 		</div>
-		<form action="<c:url value="/FineShowOneServlet" />" method="GET">
-			<c:if test="${countI+1 ne 0 && countJ+1 ne 0}">
-				<div class='row'>
-					<div class='col-lg-1'></div>
-					<div class='col-lg-10'>
+		<div class='row'>
+			<div class='col-md-1'></div>
+			<div class='col-md-10'>
+				<form action="<c:url value="/FineShowOneServlet" />" method="GET">
+					<c:if test="${countI+1 ne 0 && countJ+1 ne 0}">
 						<table id="resultTable" class='table table-condensed'>
 							<tr>
 								<td>行程 ＼ 罰則</td>
 								<c:forEach var="i" varStatus="statusI" begin="0" end="${countI}">
 									<c:if test="${statusI.count==1}">
-										<td>旅遊前<strong>${fSelect[i].fine_Dates}</strong>天通知<br>扣款總費用 *
-											${fSelect[i].fine_Per}%
+										<td>旅遊前<strong>${fSelect[i].fine_Dates}</strong>天通知<br>扣款總費用
+											* ${fSelect[i].fine_Per}%
 										</td>
 									</c:if>
 									<c:if test="${statusI.count>1}">
 										<td>旅遊前<strong>${fSelect[i].fine_Dates} ～
-											${fSelect[i-1].fine_Dates-1}</strong>天通知<br>扣款總費用 *
+												${fSelect[i-1].fine_Dates-1}</strong>天通知<br>扣款總費用 *
 											${fSelect[i].fine_Per}%
 										</td>
 									</c:if>
@@ -86,41 +88,41 @@ font-size: 20px;
 										<td>報名截止日 ～ ${totalDays[0][j]}<br> <fmt:formatNumber
 												value="${iSelect[0].item_Money}" groupingUsed="true"
 												type="currency" maxFractionDigits="0" /> *
-											${fSelect[j].fine_Per}% ＝ <br><strong><fmt:formatNumber
-												value="${iSelect[0].item_Money*fSelect[j].fine_Per/100}"
-												groupingUsed="true" type="currency" maxFractionDigits="0" /></strong></td>
+											${fSelect[j].fine_Per}% ＝ <br> <strong><fmt:formatNumber
+													value="${iSelect[0].item_Money*fSelect[j].fine_Per/100}"
+													groupingUsed="true" type="currency" maxFractionDigits="0" /></strong></td>
 									</c:if>
 									<c:if test="${statusJ.count!=1}">
 										<td>${afterDay[0][j-1]}～${totalDays[0][j]}<br> <fmt:formatNumber
 												value="${iSelect[0].item_Money}" groupingUsed="true"
 												type="currency" maxFractionDigits="0" /> *
 											${fSelect[j].fine_Per}% ＝<br> <strong><fmt:formatNumber
-												value="${iSelect[0].item_Money*fSelect[j].fine_Per/100}"
-												groupingUsed="true" type="currency" maxFractionDigits="0" /></strong></td>
+													value="${iSelect[0].item_Money*fSelect[j].fine_Per/100}"
+													groupingUsed="true" type="currency" maxFractionDigits="0" /></strong></td>
 									</c:if>
 								</c:forEach>
-								<td>${totalDays[0][countI+1]}<br> <!-- money*100% --><br> <strong><fmt:formatNumber
-										value="${iSelect[0].item_Money}" groupingUsed="true"
-										type="currency" maxFractionDigits="0" /></strong></td>
+								<td>${totalDays[0][countI+1]}<br> <!-- money*100% -->
+									<br> <strong><fmt:formatNumber
+											value="${iSelect[0].item_Money}" groupingUsed="true"
+											type="currency" maxFractionDigits="0" /></strong></td>
 							</tr>
 						</table>
-			</c:if>
-			<c:if test="${countI+1 eq 0 && countJ+1 eq 0}">
-				<h1>目前尚無行程或罰則資訊！</h1>
-			</c:if>
-		</form>
-		<script>
-						var GSS = '<c:url value="/AllTravel" />';
-						var sign= '<c:url value="/Login_Information?tra_No=${traveResult.tra_NO}&emp_No=${emp_No}" />';
-					</script>
-					<br>
-		<input type="button" value='回到報名/查詢' class='btn  btn-primary'
-			onclick="window.location.href=GSS;" /> <input type="button"
-			value='報名' class='btn  btn-primary'
-			onclick="window.location.href=sign;" />
-	</div>
-	<div class='col-lg-1'></div>
-	</div>
+					</c:if>
+					<c:if test="${countI+1 eq 0 && countJ+1 eq 0}">
+						<h1>目前尚無行程或罰則資訊！</h1>
+					</c:if>
+				</form>
+				<script>
+					var GSS = '<c:url value="/AllTravel" />';
+					var sign = '<c:url value="/Login_Information?tra_No=${traveResult.tra_NO}&emp_No=${emp_No}" />';
+				</script>
+				<br> <input type="button" value='回到報名/查詢'
+					class='btn  btn-primary' onclick="window.location.href=GSS;" /> <input
+					type="button" value='報名' class='btn  btn-primary'
+					onclick="window.location.href=sign;" />
+			</div>
+			<div class='col-md-1'></div>
+		</div>
 	</div>
 </body>
 </html>
