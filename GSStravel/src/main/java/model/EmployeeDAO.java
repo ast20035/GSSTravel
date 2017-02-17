@@ -30,16 +30,18 @@ public class EmployeeDAO implements IEmployeeDAO {
 	private static final String updateEmp_Sub = "update Employee set emp_Sub=? where emp_No=?";
 	private static final String SELECT_BY_emp_NO = "select * from employee where emp_NO=?";
 	private static final String updateEmp_SubTra = "update Employee set emp_SubTra = ? where emp_No=?";
+	private static final String selectEmail="select emp_Mail from Employee";
 	// private static final String update = "update Employee set
 	// emp_Name=?,emp_Phone=?, emp_ID=?, emp_Sex=?, emp_Bdate=?, emp_Eat=?,
 	// emp_Emg=?, emp_EmgPhone=?, emp_EmgRel=?, emp_HireDate=?, emp_Sub=?,
 	// emp_PW=?, emp_Ben=?, emp_BenRel=?, dept_NO=?, emp_Note=?, emp_Mail=?,
 	// emp_Role=? where emp_NO=?";
-	private static final String update1 = "update Employee set emp_Phone=?,emp_Ben=?,emp_BenRel=?,emp_Emg=?,emp_EmgPhone=?,emp_Eat=?,emp_Note=? where emp_NO=? ";
+	private static final String update1 = "update Employee set emp_Phone=?,emp_Ben=?,emp_BenRel=?,emp_Emg=?,emp_EmgPhone=?,emp_Mail=?,emp_Eat=?,emp_Note=? where emp_NO=? ";
 	private static final String years = "select * from Year";
 	private static final String updateYear = "update Year set year=?";
 	private static final String updateEmp = "update Employee set emp_Sub=? , emp_SubTra = ?";
 	private static final String Fine_Email = "SELECT emp_Mail FROM Employee";
+	
 
 	public List<EmployeeVO> selectFineEmail() {
 		List<EmployeeVO> result = null;
@@ -214,13 +216,31 @@ public class EmployeeDAO implements IEmployeeDAO {
 			state.setString(3, empvoupdate.getEmp_BenRel());
 			state.setString(4, empvoupdate.getEmp_Emg());
 			state.setString(5, empvoupdate.getEmp_EmgPhone());
-			state.setString(6, empvoupdate.getEmp_Eat());
-			state.setString(7, empvoupdate.getEmp_Note());
-			state.setInt(8, empvoupdate.getEmp_No());
+			state.setString(6, empvoupdate.getEmp_Mail());
+			state.setString(7, empvoupdate.getEmp_Eat());
+			state.setString(8, empvoupdate.getEmp_Note());
+			state.setInt(9, empvoupdate.getEmp_No());
 			state.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public List<String> selectEmail() {
+		List<String> email=null;
+		try (Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(selectEmail);
+				ResultSet rset = stmt.executeQuery();) {
+			email =new ArrayList<String>();
+			while (rset.next()) {
+				email.add(rset.getString("emp_Mail"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return email;
+		
 	}
 
 }

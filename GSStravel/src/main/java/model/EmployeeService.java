@@ -42,4 +42,7 @@ public class EmployeeService {
 	public void update(EmployeeVO empVoUpdate){
 		employeeDAO.update(empVoUpdate);
 	}
+	public List<String> selectEmail(){
+		return employeeDAO.selectEmail();
+	}
 }
