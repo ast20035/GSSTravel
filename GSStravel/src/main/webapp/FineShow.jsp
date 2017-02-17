@@ -30,6 +30,7 @@ td, th {
 
 table {
 	font-size: 15px;
+	margin-bottom: 3%;
 }
 
 td>strong {
