@@ -210,7 +210,7 @@ input[type=text] {
 						class='btn btn-primary' /><br>
 					<br><input type="button" value="重新設定" name="FineShow"
 						onclick="window.location.href=resultjs+'/FineSetting.jsp'"
-						class='btn btn-primary' />
+						class='btn btn-info' />
 				</div>
 				<div class='col-md-5'>
 
