@@ -8,7 +8,7 @@ import org.json.simple.JSONObject;
 
 public class FineService {
 	private IFineDAO ifineDao = new FineDAO();
-	
+
 	public JSONArray to_Json(List<FineVO> fineBean){
 		JSONArray array = new JSONArray();
 		for(FineVO v:fineBean){
@@ -19,7 +19,7 @@ public class FineService {
 		}
 		return array;
 	}
-
+	
 	public List<FineVO> select(FineVO bean) {
 		List<FineVO> result = null;
 		if (bean != null && bean.getFine_Dates() != 0) {
@@ -34,29 +34,9 @@ public class FineService {
 		return result;
 	}
 
-	public FineVO insert(FineVO bean) {
-		FineVO result = null;
-		if (bean != null) {
-			result = ifineDao.insert(bean);
-		}
-		return result;
+	public void insert(FineVO bean) {
+		ifineDao.insert(bean);
 	}
-
-//	public FineVO update(FineVO bean) {
-//		FineVO result = null;
-//		if (bean != null) {
-//			result = ifineDao.update(bean.getFine_Per(), bean.getFine_Dates());
-//		}
-//		return result;
-//	}
-
-//	public boolean delete(FineVO bean) {
-//		boolean result = false;
-//		if (bean != null) {
-//			result = ifineDao.delete(bean.getFine_Dates());
-//		}
-//		return result;
-//	}
 	
 	public void delete(FineVO bean) {
 		ifineDao.delete(bean.getFine_Dates());
