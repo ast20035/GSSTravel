@@ -44,7 +44,7 @@ table {
 		<div class='row'>
 			<div class='col-lg-1'></div>
 			<div class='col-lg-11'>
-				<h2>報名/查詢</h2>
+				<h2>報名／查詢</h2>
 				<br>
 				<h4 style="color: red">說明:當取消報名時，將該員工的所有名額一起取消，再重新報名，以避免排名不公</h4>
 			</div>

@@ -52,21 +52,15 @@ input[type=text] {
 </style>
 
 <script>
-	$(document)
-			.ready(
-					function() {
-						$("#add")
-								.click(
-										function() {
-											$("#fineTable")
-													.append(
-															"<tr><td class='tdbtn'><input type='button' class='remove btn btn-info ' value='－'/></td><td><input name='day' type='text' autofocus value='${row.fine_Dates}' autocomplete='off' /></td><td><input name='percent' type='text' value='${row.fine_Per}' autocomplete='off' /></td></tr>");
-										});
+	$(document).ready(function() {
+		$("#add").click(function() {
+			$("#fineTable").append("<tr><td class='tdbtn'><input type='button' class='remove btn btn-info ' value='－'/></td><td><input name='day' type='text' autofocus value='${row.fine_Dates}' autocomplete='off' /></td><td><input name='percent' type='text' value='${row.fine_Per}' autocomplete='off' /></td></tr>");
+		});
 
-						$(document).on("click", ".remove", function() {
-							$(this).parents("tr").remove();
-						});
-					});
+		$(document).on("click", ".remove", function() {
+			$(this).parents("tr").remove();
+		});
+	});
 </script>
 <script>
 	window.onload = function() {
@@ -82,7 +76,7 @@ input[type=text] {
 			xh.open("GET", "FineServlet?FineSetting=罰則設定", true);
 			xh.send();
 		} else {
-			alert("很抱歉，您的瀏覽器不支援AJAX功能！")
+			alert("很抱歉，您的瀏覽器不支援AJAX功能！");
 		}
 	}
 
@@ -160,14 +154,14 @@ input[type=text] {
 			} else if (percent[i].value == "") {
 				alert("請輸入扣款比例！");
 				break;
-			} else if (!regDay.test(day[i].value)) {
+			} else if (day[i].value<=0 || !regDay.test(day[i].value)) {
 				alert("取消日必須為正整數！");
 				break;
 			} else if (i == step && pk == 1) {
 				alert("取消日已存在！");
 				break;
-			} else if (!regDay.test(percent[i].value)) {
-				if (!regPercent.test(percent[i].value)) {
+			} else if (percent[i].value<=0 || !regDay.test(percent[i].value)) {
+				if (percent[i].value<=0 || !regPercent.test(percent[i].value)) {
 					alert("扣款比例必須為小於100的正數！");
 					break;
 				} else if (regPercent.test(percent[i].value)
@@ -201,16 +195,20 @@ input[type=text] {
 			<div class='row'>
 				<div class='col-md-1'></div>
 				<div class='col-md-2'>
-					<br> <input type="hidden" id="FineSave" name="FineSave"
-						value="" /> <input type="button" value="儲存罰則" onclick="check()"
-						class='btn btn-primary' /> <br>
-					<br>
+					<br> 
 					<input type="button" value="罰則明細" name="FineShow"
 						onclick="window.location.href=resultjs+'/FineShowServlet'"
-						class='btn btn-primary' /><br>
-					<br><input type="button" value="重新設定" name="FineShow"
-						onclick="window.location.href=resultjs+'/FineSetting.jsp'"
 						class='btn btn-primary' />
+					<br>
+					<br>
+					<input type="hidden" id="FineSave" name="FineSave"
+						value="" /> <input type="button" value="儲存罰則" onclick="check()"
+						class='btn btn-primary' />
+					<br>
+					<br>
+					<input type="button" value="重新設定" name="FineShow"
+						onclick="window.location.href=resultjs+'/FineSetting.jsp'"
+						class='btn btn-info' />
 				</div>
 				<div class='col-md-5'>
 
@@ -220,8 +218,8 @@ input[type=text] {
 							<tr>
 								<th class='tdbtn'><input type="button" value="＋" id="add"
 									class='btn btn-info' /></th>
-								<th><em style="color: red">*</em>取消日<br>(旅遊前 n 天通知)</th>
-								<th><em style="color: red">*</em>罰款扣款比例 (%)</th>
+								<th><em style="color: red">* </em>取消日<br><input type="text" value="（旅遊前 n 天通知）" readonly />
+								<th><em style="color: red">* </em>罰款扣款比例<br><input type="text" value="（1.x ～ 99.x）%" readonly /></th>
 							</tr>
 						</thead>
 						<tbody>
