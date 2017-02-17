@@ -59,7 +59,8 @@ public class TravelServlet extends HttpServlet {
 		String traAtter = request.getParameter("edittraAtter");
 		String traFile = request.getParameter("edittraFile");
 
-		String itemNo = request.getParameter("edititemNo");
+		//String itemNo = request.getParameter("edititemNo");
+		String[] itemNo = request.getParameterValues("edititemNo");
 		String[] itemName = request.getParameterValues("edititemName");
 		String[] itemMoney = request.getParameterValues("edititemMoney");
 		String inputerrors = request.getParameter("inputerrors");
@@ -101,7 +102,7 @@ public class TravelServlet extends HttpServlet {
 			}
 
 		}
-		/// * 活動名稱 */ // 測試用
+		/* 活動名稱 */ // 測試用
 
 		String edittraName = "";
 		if (traName != null && traName.length() != 0) {
@@ -114,8 +115,9 @@ public class TravelServlet extends HttpServlet {
 			
 		}
 		// System.out.println(edittraName+","+request.getParameter("edittraName"));
+		
 		/* 活動起始日 */
-		//java.util.Date edittraOn = new java.util.Date(edittraOn.getTime());  // sql -> util
+
 		java.util.Date edittraOn = null;
 		if (traOn != null && traOn.length() != 0) {
 			try {
@@ -127,8 +129,7 @@ public class TravelServlet extends HttpServlet {
 		}
 
 		/*---活動結束日---*/
-		// java.util.Date edittraOff = new java.util.Date(edittraOff.getTime());
-		// // sql -> util
+
 		java.util.Date edittraOff = null;
 		if (traOff != null && traOff.length() != 0) {
 			try {
@@ -224,15 +225,28 @@ public class TravelServlet extends HttpServlet {
 		}
 
 		/*---費用項目代碼---*/ // 測試用
-		int edititemNo = 0;
-		if (itemNo != null && itemNo.length() != 0) {
-			try {
-				edititemNo = Integer.parseInt(itemNo);
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-				errors.put("edititemNo", "活動說明必須輸入");
+		List<Integer> edititemNo = new ArrayList<Integer>();
+		if (itemNo != null && itemNo.length != 0) {
+			for (int i = 0; i < itemNo.length; i++) {
+				try {
+					edititemNo.add(Integer.parseInt(itemNo[i]));
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+					errors.put("edititemName", "費用項目必須是輸入");
+				}
 			}
 		}
+		
+//		int edititemNo = 0;
+//		if (itemNo != null && itemNo.length != 0) {
+//			
+//			try {
+//				edititemNo = Integer.parseInt(itemNo);
+//			} catch (NumberFormatException e) {
+//				e.printStackTrace();
+//				errors.put("edititemNo", "活動說明必須輸入");
+//			}
+//		}
 
 		/*---費用項目---*/
 
@@ -250,22 +264,10 @@ public class TravelServlet extends HttpServlet {
 			}
 		}
 		/*---費用金錢---*/
-		// float edititemMoney = 0;
-		// if (itemMoney != null && itemMoney.length() != 0) {
-		// try {
-		// edititemMoney = Float.parseFloat(itemMoney);
-		// } catch (NumberFormatException e) {
-		// e.printStackTrace();
-		// errors.put("edititemMoney", "活動說明必須輸入");
-		// }
-		// }
 
 		List<Float> edititemMoney = new ArrayList<Float>();
-
 		if (itemMoney != null && itemMoney.length != 0) {
-
 			for (int i = 0; i < itemMoney.length; i++) {
-
 				try {
 					edititemMoney.add(Float.parseFloat(itemMoney[i]));
 				} catch (NumberFormatException e) {
@@ -349,15 +351,17 @@ public class TravelServlet extends HttpServlet {
 			List<ItemVO> itemfor = new ArrayList<ItemVO>();
 			ItemVO v = new ItemVO();
 			v.setTra_No(traNo);
-
-			v.setItem_No(edititemNo);
-				int a=edititemNo;	//取值1
+			
+//			for(ItemVO ppp:itemfor){		//list型態保留
+//				System.out.println(ppp);
+//			}
+				//v.setItem_No(edititemNo);	//單筆型態保留
+				//int a=edititemNo;			//單筆型態保留
 				System.out.println("edititemNo:" + edititemNo);
 
-				// System.out.println(itemName.length);
 				for (int i = 0; i < itemName.length; i++) {
-					
-					v.setItem_No(a);
+					v.setItem_No(edititemNo.get(i));
+					//v.setItem_No(a);	//單筆型態保留
 					v.setItem_Name(edititemName.get(i));
 					v.setItem_Money(edititemMoney.get(i));
 					
@@ -365,7 +369,7 @@ public class TravelServlet extends HttpServlet {
 					//System.out.println("result1:" + result1);
 					itemfor.add(result1);
 					//System.out.println("itemfor:" + itemfor);
-					a++;
+					//a++;	//單筆型態保留
 				}
 
 			TravelVO resultEdit = travelService.update(travelview);
