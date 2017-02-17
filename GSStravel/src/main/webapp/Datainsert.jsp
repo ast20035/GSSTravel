@@ -147,12 +147,12 @@
 									<c:if test="${start.fam_Rel=='親友'}">
 										<option value="眷屬">眷屬</option>
 										<option value="親友" selected>親友
-										<option>
+										</option>
 									</c:if>
 									<c:if test="${start.fam_Rel=='眷屬'}">
 										<option value="眷屬" selected>眷屬</option>
 										<option value="親友">親友
-										<option>
+										</option>
 									</c:if>
 							</select></td>
 							<td><input type="text" name="famname"  id="famname" 
@@ -163,12 +163,12 @@
 									<c:if test="${start.fam_Sex=='男'}">
 										<option value="女">女</option>
 										<option value="男" selected>男
-										<option>
+										</option>
 									</c:if>
 									<c:if test="${start.fam_Sex=='女'}">
 										<option value="女" selected>女</option>
 										<option value="男">男
-										<option>
+										</option>
 									</c:if>
 							</select></td>
 
@@ -275,7 +275,7 @@
 				<td><select name="famrel">
 						<option value="眷屬">眷屬</option>
 						<option value="親友">親友
-						<option>
+						</option>
 				</select></td>
 				<td><input type="text" name="famname" id="famname" style="width:100px;">
 				<div class="famnameerror"  name="famnameerror">${error.famneme}</div></td>
@@ -283,7 +283,7 @@
 						<!--  servlet抓name db抓值會抓進value值進去-->
 						<option value="女">女</option>
 						<option value="男">男
-						<option>
+						</option>
 				</select></td>
 				<td><input type="text" name="famid" class="famid" style="width:100px;">
 				<div class="famiderror" name="famiderror">${error.famid}</div></td>
@@ -331,7 +331,7 @@ var xh = new XMLHttpRequest();
 // 	if (xh != null) {
 		
 
-		
+		//用on試試看
 // 		var famno=$("input[name='delete']").click(function(){
 // 				return $(this).attr("class");
 // 			}) 
@@ -835,10 +835,22 @@ $(function(){
 	var fambdate=/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
 	$("input[name*='fambdate']").on("blur",function(){
 		if(fambdate.test($(this).val())){
-			$(this).css("border-color","green")
-			setTimeout(function(){$("input[name*='fambdate']").css('border-color', "");}, 2000);
-			$("#fambdateerror").text("");
-			$("#save").attr("type","submit");
+				var today=new Date();
+				var bdate = $("input[name*=fambdate]").val();
+				var mydate = new Date(bdate.replace("-", "/").replace("-", "/"));
+				console.log(today);
+				console.log(bdate);
+				console.log(mydate);
+			if(mydate<=today){
+				$(this).css("border-color","green")
+				setTimeout(function(){$("input[name*='fambdate']").css('border-color', "");}, 2000);
+				$("#fambdateerror").text("");
+				$("#save").attr("type","submit");
+			}else{
+				$(this).css("border-color","red");
+				setTimeout(function(){$("input[name*='fambdate']").css('border-color', "");}, 2000);
+				$("#save").attr("type","button");
+			}
 		}else{
 // 			$("#fambdateerror").text("需要為年-月-日的規格");
 			$(this).css("border-color","red");
