@@ -19,18 +19,9 @@ public class FineService {
 		}
 		return array;
 	}
-	
-	public List<FineVO> select(FineVO bean) {
-		List<FineVO> result = null;
-		if (bean != null && bean.getFine_Dates() != 0) {
-			FineVO temp = ifineDao.select(bean.getFine_Dates());
-			if (temp != null) {
-				result = new ArrayList<FineVO>();
-				result.add(temp);
-			}
-		} else {
-			result = ifineDao.select();
-		}
+
+	public List<FineVO> select() {
+		List<FineVO> result = ifineDao.select();
 		return result;
 	}
 

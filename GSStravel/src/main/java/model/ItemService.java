@@ -51,4 +51,9 @@ public class ItemService {
 		return result;
 	}
 	
+	public List<ItemVO> selectOne(String no) {
+		List<ItemVO> result = itemDAO.selectOne(no);
+		return result;
+	}
+	
 }

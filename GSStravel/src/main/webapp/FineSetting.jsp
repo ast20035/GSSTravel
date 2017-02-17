@@ -124,7 +124,7 @@ input {
 		var step=0;
 		var day = document.getElementsByName("day");
 		var percent = document.getElementsByName("percent");
-		var regDay = new RegExp("^[0-9]{1,2}$");
+		var regDay = new RegExp("^[0-9]{1,}$");
 		var regPercent = new RegExp("^([0-9]{1,2})([.]{1})([0-9]{1,})$");
 		for (var i = 0; i < (day.length) - 1; i++) {
 			for (var j = i + 1; j < day.length; j++) {
@@ -190,11 +190,9 @@ input {
 				<tbody>
 				</tbody>
 			</table>
-			<input type="hidden" id="FineSave" name="FineSave" value="" /> <input
-				type="button" value="儲存罰則" onclick="check()" /> <input
-				type="button" value="罰則明細" name="FineShow"
-				onclick="window.location.href=resultjs+'/FineShowServlet'" />
-
+			<input type="hidden" id="FineSave" name="FineSave" value="" /> 
+			<input type="button" value="儲存罰則" onclick="check()" /> 
+			<input type="button" value="罰則明細" name="FineShow" onclick="window.location.href=resultjs+'/FineShowServlet'" />
 			<div class="error">${error.day}</div>
 			<div class="error">${error.percent}</div>
 			<div class="error">${error.pk}</div>

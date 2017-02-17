@@ -72,10 +72,17 @@ td>strong {
 										</td>
 									</c:if>
 									<c:if test="${statusI.count>1}">
-										<td>旅遊前<strong>${fSelect[i].fine_Dates} ～
+										<c:if test="${fSelect[i].fine_Dates==fSelect[i-1].fine_Dates-1}">
+											<td>旅遊前<strong>${fSelect[i].fine_Dates}</strong>天通知<br>扣款總費用 *
+											${fSelect[i].fine_Per}%
+										</td>
+										</c:if>
+										<c:if test="${fSelect[i].fine_Dates!=fSelect[i-1].fine_Dates-1}">
+											<td>旅遊前<strong>${fSelect[i].fine_Dates} ～
 												${fSelect[i-1].fine_Dates-1}</strong>天通知<br>扣款總費用 *
 											${fSelect[i].fine_Per}%
 										</td>
+										</c:if>
 									</c:if>
 								</c:forEach>
 								<td>旅遊<strong>開始</strong>日<br>扣款總費用 * 100%
@@ -93,7 +100,13 @@ td>strong {
 													groupingUsed="true" type="currency" maxFractionDigits="0" /></strong></td>
 									</c:if>
 									<c:if test="${statusJ.count!=1}">
-										<td>${afterDay[0][j-1]} ～ ${totalDays[0][j]}<br> <fmt:formatNumber
+										<c:if test="${afterDay[0][j-1]==totalDays[0][j]}">
+											<td>${totalDays[0][j]}<br>
+										</c:if>
+										<c:if test="${afterDay[0][j-1]!=totalDays[0][j]}">
+											<td>${afterDay[0][j-1]} ～ ${totalDays[0][j]}<br>
+										</c:if>
+										 <fmt:formatNumber
 												value="${iSelect[0].item_Money}" groupingUsed="true"
 												type="currency" maxFractionDigits="0" /> *
 											${fSelect[j].fine_Per}% ＝<br> <strong><fmt:formatNumber
