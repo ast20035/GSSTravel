@@ -35,9 +35,10 @@
 
 		<%@include file="SelectBar.jsp"%>
 		<script>
-			$('li').removeClass('active');
-			$('li:eq(1)').addClass('active');
+			$('li').removeClass('now');
+			$('li:eq(1)').addClass('now');
 		</script>
+
 	<div class='container-fluid'>
 
 		<form action=<c:url value="/FamilyServlet"/> method="post">

@@ -25,8 +25,8 @@
 <body>
 	<%@include file="SelectBar.jsp"%>
 	<script>
-			$('li').removeClass('active');
-			$('li:eq(3)').addClass('active');
+			$('li').removeClass('now');
+			$('li:eq(3)').addClass('now');
 		</script>
 <div class='container-fluid'>
 	<h2>－報名明細－</h2>

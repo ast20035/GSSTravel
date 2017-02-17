@@ -49,8 +49,8 @@ td {
 <body>
 		<%@include file="SelectBar.jsp"%>
 		<script>
-			$('li').removeClass('active');
-			$('li:eq(5)').addClass('active');
+			$('li').removeClass('now');
+			$('li:eq(5)').addClass('now');
 		</script>
 	<div class='container-fluid'>
 		<form action="<c:url value='/TotalAmountServlet' />" method="GET">
