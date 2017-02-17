@@ -836,13 +836,13 @@ $(function(){
 	$("input[name*='fambdate']").on("blur",function(){
 		if(fambdate.test($(this).val())){
 				var today=new Date();
-				var bdate = $("input[name*=fambdate]").val();
+				var bdate = $(this).val();
 				var mydate = new Date(bdate.replace("-", "/").replace("-", "/"));
 				console.log(today);
 				console.log(bdate);
 				console.log(mydate);
 			if(mydate<=today){
-				$(this).css("border-color","green")
+				$(this).css("border-color","green");
 				setTimeout(function(){$("input[name*='fambdate']").css('border-color', "");}, 2000);
 				$("#fambdateerror").text("");
 				$("#save").attr("type","submit");
