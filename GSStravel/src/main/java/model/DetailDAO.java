@@ -8,10 +8,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -37,7 +36,7 @@ public class DetailDAO implements IDetailDAO {
 	private static final String detail_Emp_No = "select distinct emp_No,det_Date from Detail where tra_No=? and det_CanDate is null order by det_Date";
 	private static final String detail_Enter = "select det_Date from Detail where emp_No=? and tra_No=? and det_CanDate is null order by det_Date";
 	private static final String updateDet_CanDate = "update Detail set det_CanDate=? where emp_No=? and tra_No=? and det_CanDate is null";
-	private static final String SELECT_BY_TRA_NO = "select d.tra_No , tra_Name ,t.tra_No, dept_No , e.emp_No , f.fam_No , emp_Name , emp_sub , fam_Name , det_money ,emp_subTra, det_note ,det_noteMoney from Detail d join Employee e on d.emp_No=e.emp_No left join Family f on d.fam_No = f.fam_No left join Travel t on t.tra_No=d.tra_No where d.tra_No=? and det_CanDate is null";
+	private static final String SELECT_BY_TRA_NO = "select d.tra_No , tra_Name ,t.tra_No, dept_No , e.emp_No , f.fam_No , emp_Name , emp_sub , fam_Name , det_money ,emp_subTra, det_note ,det_noteMoney from Detail d join Employee e on d.emp_No=e.emp_No left join Family f on d.fam_No = f.fam_No left join Travel t on t.tra_No=d.tra_No where d.tra_No=? and det_CanDate is null order by e.emp_No";
 	private static final String UPDATE_DETAIL_FOR_EMP_NO = "update Detail set det_note=? , det_noteMoney=? where emp_No=? and fam_No is null and tra_No=?";
 	private static final String UPDATE_DETAIL_FOR_FAM_NO = "update Detail set det_note=? , det_noteMoney=? where fam_No=? and tra_No=?";
 	private static final String selectFam_No = "select fam_No  from Detail where fam_No=? and tra_No=? and det_CanDate is null ";
@@ -93,10 +92,10 @@ public class DetailDAO implements IDetailDAO {
 	}
 
 	@Override
-	public List<String> detail_Emp_No(long tra_No) {
-		List<String> result = null;
+	public LinkedHashSet<String> detail_Emp_No(long tra_No) {
+		LinkedHashSet<String> result = null;
 		try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(detail_Emp_No);) {
-			result = new ArrayList<>();
+			result = new LinkedHashSet<>();
 			stmt.setLong(1, tra_No);
 			ResultSet rset = stmt.executeQuery();
 			while (rset.next()) {
@@ -361,7 +360,7 @@ public class DetailDAO implements IDetailDAO {
 			return result;
 		}
 		
-		private static final String select_TotalMoney = "SELECT totalMoney FROM (SELECT Detail.Tra_No, Detail.emp_No,SUM(det_money) as totalMoney FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No full outer join Travel on Detail.tra_No = Travel.tra_No WHERE Detail.emp_No=? and Detail.Tra_No=? and ISNULL(fam_Rel,'員工') <> '親友' and det_CanDate is null GROUP BY  Detail.emp_No,Detail.Tra_No )temp1";
+		private static final String select_TotalMoney = "SELECT totalMoney FROM (SELECT Detail.Tra_No, Detail.emp_No,SUM(det_money) as totalMoney FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No full outer join Travel on Detail.tra_No = Travel.tra_No WHERE Detail.emp_No=? and Detail.Tra_No=? and det_CanDate is null GROUP BY  Detail.emp_No,Detail.Tra_No )temp1";
 		@Override
 		public float select_TotalMoney(int emp_No, String Tra_No) {
 			float result = 0;
@@ -597,7 +596,7 @@ public class DetailDAO implements IDetailDAO {
 		}
 		return b;
 	}
-
+	
 	@Override
 	public List<TotalAmountFormBean> selectBean(String tra_No) {
 		List<TotalAmountFormBean> result = null;

@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,14 +20,12 @@ import model.ItemVO;
 import model.TravelService;
 import model.TravelVO;
 
-
 @WebServlet(urlPatterns = { ("/Travel_Edit") })
-
 
 /*---------*/
 public class TravelServlet extends HttpServlet {
 
-// private TravelService travelService =null;
+	// private TravelService travelService =null;
 	private TravelService travelService = new TravelService();
 	private ItemService itemService = new ItemService();
 	/* 初始化 */
@@ -46,8 +42,9 @@ public class TravelServlet extends HttpServlet {
 		// 1.接收資料
 		String inputdate = "";
 		if (request.getParameter("inputdate") != "" && request.getParameter("inputdate") != null)
-		inputdate = request.getParameter("inputdate");
-//		String traNo = request.getParameter("edittraNO");//正式用
+			inputdate = request.getParameter("inputdate");
+
+		String traNoNew = request.getParameter("edittraNO");// 正式用
 		String traNo = request.getParameter("tra_no"); // 單頁更新測試用
 		String traName = request.getParameter("edittraName");
 		String traLoc = request.getParameter("edittraLoc");
@@ -61,12 +58,13 @@ public class TravelServlet extends HttpServlet {
 		String traCon = request.getParameter("edittraCon");
 		String traAtter = request.getParameter("edittraAtter");
 		String traFile = request.getParameter("edittraFile");
-		String itemNo = request.getParameter("edititemNo");
-		String itemName = request.getParameter("edititemName");
-		String itemMoney = request.getParameter("edititemMoney");
+
+		//String itemNo = request.getParameter("edititemNo");
+		String[] itemNo = request.getParameterValues("edititemNo");
+		String[] itemName = request.getParameterValues("edititemName");
+		String[] itemMoney = request.getParameterValues("edititemMoney");
 		String inputerrors = request.getParameter("inputerrors");
-		String excel = request.getParameter("excel");
-		
+
 		// 驗證資料
 		Map<String, String> errors = new HashMap<String, String>();
 		request.setAttribute("errors", errors);
@@ -79,33 +77,19 @@ public class TravelServlet extends HttpServlet {
 
 		// 3.轉換資料
 
-		/* 活動代碼 */ // 單筆測試用
-		
-		if ("匯出Excel".equals(excel)) {
-			TravelVO travelBean = new TravelVO();
-			List<TravelVO> tResult = travelService.selectExcel(travelBean);
-			File dir = new File("C:/travel");
-			writeExcel we = new writeExcel(dir);
-			for (int i = 0; i < tResult.size(); i++) {
-				we.excel(tResult.get(i).getTra_NO(), tResult.get(i).getTra_Name(), tResult.get(i).getTra_Loc(),
-						tResult.get(i).getTra_On().toString(), tResult.get(i).getTra_Off().toString(),
-						tResult.get(i).getTra_Beg().toString(), tResult.get(i).getTra_End().toString(),
-						tResult.get(i).getTra_Total() + "", tResult.get(i).getTra_Max() + "", tResult.get(i).getTra_Intr(),
-						tResult.get(i).getTra_Con(), tResult.get(i).getTra_Atter(), tResult.get(i).getTra_File());
-			}
-			request.getRequestDispatcher("/search2.jsp").forward(request,response);
-		}
-		
+		/* 活動代碼 */
+		// 單筆測試用
+
 		String edittraNO = "";
-		if (traNo != null && traNo.length() != 0) {
+		if (traNoNew != null && traNoNew.length() != 0) {
 			try {
-				edittraNO = traNo;
+				edittraNO = traNoNew;
 			} catch (Exception e) {
 				e.printStackTrace();
 				errors.put("edittraNO", "活動代碼必須輸入");
 			}
 		}
-		
+
 		/* 活動地點 */ // 測試用
 
 		String edittraLoc = "";
@@ -118,7 +102,7 @@ public class TravelServlet extends HttpServlet {
 			}
 
 		}
-		///* 活動名稱 */ // 測試用
+		/* 活動名稱 */ // 測試用
 
 		String edittraName = "";
 		if (traName != null && traName.length() != 0) {
@@ -128,10 +112,12 @@ public class TravelServlet extends HttpServlet {
 				e.printStackTrace();
 				errors.put("edittraName", "活動名稱必須輸入");
 			}
-
+			
 		}
+		// System.out.println(edittraName+","+request.getParameter("edittraName"));
+		
 		/* 活動起始日 */
-		//java.util.Date edittraOn = new java.util.Date(edittraOn.getTime());  // sql -> util
+
 		java.util.Date edittraOn = null;
 		if (traOn != null && traOn.length() != 0) {
 			try {
@@ -143,7 +129,7 @@ public class TravelServlet extends HttpServlet {
 		}
 
 		/*---活動結束日---*/
-		//java.util.Date edittraOff = new java.util.Date(edittraOff.getTime());  // sql -> util
+
 		java.util.Date edittraOff = null;
 		if (traOff != null && traOff.length() != 0) {
 			try {
@@ -167,7 +153,7 @@ public class TravelServlet extends HttpServlet {
 
 		/*---活動報名結束日---*/
 
-		//java.sql.Timestamp edittraEnd = null;
+		// java.sql.Timestamp edittraEnd = null;
 		java.util.Date edittraEnd = null;
 		if (traEnd != null && traEnd.length() != 0) {
 			try {
@@ -231,7 +217,7 @@ public class TravelServlet extends HttpServlet {
 		String edittraAtter = "";
 		if (traAtter != null && traAtter.length() != 0) {
 			try {
-				edittraAtter = traAtter ;
+				edittraAtter = traAtter;
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 				errors.put("edittraAtter", "活動注意事項必須是輸入");
@@ -239,136 +225,172 @@ public class TravelServlet extends HttpServlet {
 		}
 
 		/*---費用項目代碼---*/ // 測試用
-		int edititemNo = 0;
-		if (itemNo != null && itemNo.length() != 0) {
-			try {
-				edititemNo = Integer.parseInt(itemNo);
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-				errors.put("edititemNo", "活動說明必須輸入");
+		List<Integer> edititemNo = new ArrayList<Integer>();
+		if (itemNo != null && itemNo.length != 0) {
+			for (int i = 0; i < itemNo.length; i++) {
+				try {
+					edititemNo.add(Integer.parseInt(itemNo[i]));
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+					errors.put("edititemName", "費用項目必須是輸入");
+				}
 			}
 		}
 		
+//		int edititemNo = 0;
+//		if (itemNo != null && itemNo.length != 0) {
+//			
+//			try {
+//				edititemNo = Integer.parseInt(itemNo);
+//			} catch (NumberFormatException e) {
+//				e.printStackTrace();
+//				errors.put("edititemNo", "活動說明必須輸入");
+//			}
+//		}
+
 		/*---費用項目---*/
 
-		String edititemName = "";
-		if (itemName != null && itemName.length() != 0) {
-			try {
-				edititemName =  itemName;
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-				errors.put("edititemName", "費用項目必須是輸入");
+		List<String> edititemName = new ArrayList<String>();
+		if (itemName != null && itemName.length != 0) {
+			for (int i = 0; i < itemName.length; i++) {
+
+				try {
+					// System.out.println("123");
+					edititemName.add(itemName[i]);
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+					errors.put("edititemName", "費用項目必須是輸入");
+				}
+			}
+		}
+		/*---費用金錢---*/
+
+		List<Float> edititemMoney = new ArrayList<Float>();
+		if (itemMoney != null && itemMoney.length != 0) {
+			for (int i = 0; i < itemMoney.length; i++) {
+				try {
+					edititemMoney.add(Float.parseFloat(itemMoney[i]));
+				} catch (NumberFormatException e) {
+					e.printStackTrace();
+					errors.put("edititemMoney", "xxxxxx");
+				}
 			}
 		}
 
-		/*---費用金錢---*/
-		float edititemMoney = 0;
-		if (itemMoney != null && itemMoney.length() != 0) {
-			try {
-				edititemMoney = Float.parseFloat(itemMoney);
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-				errors.put("edititemMoney", "活動說明必須輸入");
-			}
+		/* 回報錯誤 */
+		if (errors != null && !errors.isEmpty()) {
+			request.getRequestDispatcher("Travel_Edit.jsp").forward(request, response);
+			return;
 		}
+
+		// 4.呼叫Model
 		
-		/*回報錯誤*/
-		 if(errors!=null && !errors.isEmpty()) {
-		 request.getRequestDispatcher(
-		 "Travel_Edit.jsp").forward(request, response);
-		 return;
-		 }
-		
-		 // 4.呼叫Model
 		/*---單頁測試用---*/
 		TravelVO travelview = travelService.select(traNo);
-//		System.out.println("travelService位置 : "+travelview);
-		List<ItemVO> itemview = itemService.select(traNo);	//list
+		// System.out.println("travelService位置 : "+travelview);
+		List<ItemVO> itemview = itemService.select(traNo); // list
+		// System.out.println("itemService位置 : "+itemview);
 		request.setAttribute("params", travelview);
 		request.setAttribute("paramsi", itemview);
-//		System.out.println("itemService資料數 : "+itemview.size());
+		// System.out.println("itemService資料數 : "+itemview.size());
 
 		// 5.根據Model執行結果，決定需要顯示的View元件
-		
+
 		/*----Insert----*/
-		if("Insert".equals(inputerrors)) {
-			/*--Travel--*/
-			
-			travelview.setTra_NO(edittraNO);
-			travelview.setTra_Name(edittraName);
-			travelview.setTra_Loc(edittraLoc);
-			travelview.setTra_On(new java.sql.Date(edittraOn.getTime()));
-			travelview.setTra_Off(new java.sql.Date(edittraOff.getTime()));
-			travelview.setTra_Beg(new java.sql.Timestamp(edittraBeg.getTime()));
-			travelview.setTra_End(new java.sql.Timestamp(edittraEnd.getTime()));
-			travelview.setTra_Total(edittraTotal);;
-			travelview.setTra_Max(edittraMax);;
-			travelview.setTra_Intr(traIntr);;
-			travelview.setTra_Con(traCon);
-			travelview.setTra_Atter(traAtter);
-			travelview.setTra_Loc(traLoc);
-			travelview.setTra_File(traFile);
-			TravelVO resultnew = travelService.insert(travelview);
-//			System.out.println("travelService資料 : "+travelview.getTra_On());
-			
-			/*--item--*/
-			
-			if(resultnew==null) {
-				errors.put("action", "Insert fail");
-			} else {
-				session.setAttribute("insert", resultnew);
-			}
-			request.getRequestDispatcher("/Travel_New.jsp").forward(request, response);
-		}
-	
+		// if("Insert".equals(inputerrors)) {
+		// /*--Travel--*/
+		// System.out.println("test insert !!");
+		// TravelVO travelview1 =new TravelVO();
+		// travelview1.setTra_Name(edittraNO);
+		// travelview1.setTra_Name(edittraName);
+		// travelview1.setTra_Loc(edittraLoc);
+		// travelview1.setTra_On(new java.sql.Date(edittraOn.getTime()));
+		// travelview1.setTra_Off(new java.sql.Date(edittraOff.getTime()));
+		// travelview1.setTra_Beg(new java.sql.Timestamp(edittraBeg.getTime()));
+		// travelview1.setTra_End(new java.sql.Timestamp(edittraEnd.getTime()));
+		// travelview1.setTra_Total(edittraTotal);;
+		// travelview1.setTra_Max(edittraMax);;
+		// travelview1.setTra_Intr(traIntr);;
+		// travelview1.setTra_Con(traCon);
+		// travelview1.setTra_Atter(traAtter);
+		// travelview1.setTra_File(traFile);
+		// System.out.println(travelview1);
+		// TravelVO resultnew = travelService.insert(travelview1);
+		// System.out.println("travelService資料 : "+travelview1.getTra_On());
+		//
+		// /*--item--*/
+		//
+		// if(resultnew==null) {
+		// errors.put("action", "Insert fail");
+		// } else {
+		// session.setAttribute("insert", resultnew);
+		// }
+		// request.getRequestDispatcher("/Travel_New.jsp").forward(request,
+		// response);
+		// }
+
 		/*----Update----*/
-		else if ("Update".equals(inputerrors)) {
-			
-		/*--Travel--*/	
+		// else
+
+		if ("Update".equals(inputerrors)) {
+			/*--Travel--*/
 			travelview.setTra_Name(edittraName);
 			travelview.setTra_Loc(edittraLoc);
 			travelview.setTra_On(new java.sql.Date(edittraOn.getTime()));
 			travelview.setTra_Off(new java.sql.Date(edittraOff.getTime()));
 			travelview.setTra_Beg(new java.sql.Timestamp(edittraBeg.getTime()));
 			travelview.setTra_End(new java.sql.Timestamp(edittraEnd.getTime()));
-			travelview.setTra_Total(edittraTotal);;
-			travelview.setTra_Max(edittraMax);;
-			travelview.setTra_Intr(traIntr);;
+			travelview.setTra_Total(edittraTotal);
+			travelview.setTra_Max(edittraMax);
+			travelview.setTra_Intr(traIntr);
 			travelview.setTra_Con(traCon);
 			travelview.setTra_Atter(traAtter);
-			travelview.setTra_Loc(traLoc);
 			travelview.setTra_File(traFile);
-			 
-		/*--item--*/	 
-			 List<ItemVO> itemfor = new ArrayList<ItemVO>();  
-			 for(ItemVO v:itemview){
-				 v.setItem_Name(edititemName);
-//				 System.out.println(edititemName);
-				 v.setItem_Money(edititemMoney);
-//				 System.out.println(edititemMoney);
-				 ItemVO result1 = itemService.update(v);
-				 itemfor.add(result1);
-			}
-			 //System.out.println(test1out);
-			 TravelVO resultEdit = travelService.update(travelview);
+
+			/*--item--*/
+			List<ItemVO> itemfor = new ArrayList<ItemVO>();
+			ItemVO v = new ItemVO();
+			v.setTra_No(traNo);
 			
-			//ItemVO bean = new ItemVO();
-			//List<ItemVO> result1 = (List<ItemVO>) itemService.update(bean);
-			if (resultEdit == null ) {	//& result1 == null
+//			for(ItemVO ppp:itemfor){		//list型態保留
+//				System.out.println(ppp);
+//			}
+				//v.setItem_No(edititemNo);	//單筆型態保留
+				//int a=edititemNo;			//單筆型態保留
+				System.out.println("edititemNo:" + edititemNo);
+
+				for (int i = 0; i < itemName.length; i++) {
+					v.setItem_No(edititemNo.get(i));
+					//v.setItem_No(a);	//單筆型態保留
+					v.setItem_Name(edititemName.get(i));
+					v.setItem_Money(edititemMoney.get(i));
+					
+					ItemVO result1 = itemService.update(v);
+					//System.out.println("result1:" + result1);
+					itemfor.add(result1);
+					//System.out.println("itemfor:" + itemfor);
+					//a++;	//單筆型態保留
+				}
+
+			TravelVO resultEdit = travelService.update(travelview);
+
+			// ItemVO bean = new ItemVO();
+			// List<ItemVO> result1 = (List<ItemVO>) itemService.update(bean);
+			if (resultEdit == null) { // & result1 == null
 				errors.put("action", "Update fail");
 			} else {
 				session.setAttribute("update", resultEdit);
 			}
-		/*----Delete----*/	
+			/*----Delete----*/
 		} else if ("Delete".equals(inputerrors)) {
 			boolean result = travelService.delete(travelview);
 			if (!result) {
 				session.setAttribute("delete", 0);
 			} else {
 				session.setAttribute("delete", 1);
-			}	
+			}
 		}
-		request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response); //測試用
+		request.getRequestDispatcher("/Travel_Edit.jsp").forward(request, response); // 測試用
 	}// doGet
 
 	@Override

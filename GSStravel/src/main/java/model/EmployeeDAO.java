@@ -31,34 +31,11 @@ public class EmployeeDAO implements IEmployeeDAO {
 	private static final String SELECT_BY_emp_NO = "select * from employee where emp_NO=?";
 	private static final String updateEmp_SubTra = "update Employee set emp_SubTra = ? where emp_No=?";
 	private static final String selectEmail="select emp_Mail from Employee";
-	// private static final String update = "update Employee set
-	// emp_Name=?,emp_Phone=?, emp_ID=?, emp_Sex=?, emp_Bdate=?, emp_Eat=?,
-	// emp_Emg=?, emp_EmgPhone=?, emp_EmgRel=?, emp_HireDate=?, emp_Sub=?,
-	// emp_PW=?, emp_Ben=?, emp_BenRel=?, dept_NO=?, emp_Note=?, emp_Mail=?,
-	// emp_Role=? where emp_NO=?";
 	private static final String update1 = "update Employee set emp_Phone=?,emp_Ben=?,emp_BenRel=?,emp_Emg=?,emp_EmgPhone=?,emp_Mail=?,emp_Eat=?,emp_Note=? where emp_NO=? ";
 	private static final String years = "select * from Year";
 	private static final String updateYear = "update Year set year=?";
 	private static final String updateEmp = "update Employee set emp_Sub=? , emp_SubTra = ?";
-	private static final String Fine_Email = "SELECT emp_Mail FROM Employee";
-	
-
-	public List<EmployeeVO> selectFineEmail() {
-		List<EmployeeVO> result = null;
-		try (Connection conn = ds.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(Fine_Email);
-				ResultSet rset = stmt.executeQuery();) {
-			result = new ArrayList<EmployeeVO>();
-			while (rset.next()) {
-				EmployeeVO bean = new EmployeeVO();
-				bean.setEmp_Mail(rset.getString("emp_Mail"));
-				result.add(bean);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
+	private static final String Fine_Email = "SELECT emp_Mail FROM Employee";// 柯
 
 	public void updateEmp() {
 		try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(updateEmp);) {
@@ -167,7 +144,6 @@ public class EmployeeDAO implements IEmployeeDAO {
 				empVO.setEmp_Ben(rs.getString("emp_Ben"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			if (rs != null) {
@@ -210,7 +186,6 @@ public class EmployeeDAO implements IEmployeeDAO {
 	public void update(EmployeeVO empvoupdate) {
 		try (Connection connection = ds.getConnection();
 				PreparedStatement state = connection.prepareStatement(update1);) {
-
 			state.setString(1, empvoupdate.getEmp_Phone());
 			state.setString(2, empvoupdate.getEmp_Ben());
 			state.setString(3, empvoupdate.getEmp_BenRel());
@@ -224,6 +199,24 @@ public class EmployeeDAO implements IEmployeeDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	// 柯
+	public List<EmployeeVO> selectFineEmail() {
+		List<EmployeeVO> result = null;
+		try (Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(Fine_Email);
+				ResultSet rset = stmt.executeQuery();) {
+			result = new ArrayList<EmployeeVO>();
+			while (rset.next()) {
+				EmployeeVO bean = new EmployeeVO();
+				bean.setEmp_Mail(rset.getString("emp_Mail"));
+				result.add(bean);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	@Override
@@ -240,7 +233,6 @@ public class EmployeeDAO implements IEmployeeDAO {
 			e.printStackTrace();
 		}
 		return email;
-		
 	}
 
 }

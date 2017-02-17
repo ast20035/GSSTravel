@@ -102,10 +102,12 @@ public class FamilyServlet extends HttpServlet {
 //			}
 //		}
 
+
 //		if ("delete".equals(buttondelete)) {
 //			// familyservice.delete();//ajax傳值近來他的val來抓他的值? 前端配合把欄位remove掉
 //			System.out.println("xxxxxx");
 //		}
+
 		
 
 		if ("儲存".equals(buttonsave)) {//前面""抓value

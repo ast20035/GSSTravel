@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +36,7 @@ public class Login_Information extends HttpServlet {
 		long tra_No=Long.parseLong(request.getParameter("tra_No"));//旅遊編號
 		Integer emp_No=Integer.parseInt(request.getParameter("emp_No"));//員工標號
 		String myName = employeeService.getName(emp_No.toString());//登入者姓名
-		List<String> names = detailService.detailName(tra_No);//已經報明姓名
+		LinkedHashSet<String> names = detailService.detailName(tra_No);//已經報明姓名
 		Map<String, Integer> mp = detailService.detail(tra_No);//(姓名,人數)
 		List<FamilyVO> familyVO = familyService.selectFam(emp_No.toString(),tra_No);//親朋好友
 		int familySize = familyVO.size();//親朋好友數量
