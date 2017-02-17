@@ -147,6 +147,7 @@ public class DetailService {
 			}
 		}
 
+		
 		if (emp_Sub == 1) {
 			employeeDAO = new EmployeeDAO();
 			java.sql.Date hireDate = employeeDAO.select(Integer.parseInt(emp_No)).getEmp_HireDate();
