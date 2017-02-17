@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import model.EmployeeService;
 import model.EmployeeVO;
 import model.FamilyService;
@@ -31,6 +33,7 @@ public class FamilyServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
+    	res.setContentType ("text/html;charset=utf-8");
 		// 接收資料 驗證資料 轉換資料 呼叫Model 根據Model執行結果，決定需要顯示的View元件
 		String empphone = req.getParameter("empphone");
 		String empben = req.getParameter("empben");
@@ -56,34 +59,54 @@ public class FamilyServlet extends HttpServlet {
 		String[] famemgphpone = req.getParameterValues("famemgphpone");
 		String[] famemgrel = req.getParameterValues("famemgrel");
 		String[] famnote = req.getParameterValues("famnote");
+		
 		String ajaxid = req.getParameter("id");// 接到前端json格式資料
-		System.out.println(ajaxid);//["Q250939543","F261403341","F218757856",""]
-
+//		System.out.println(ajaxid);//["Q250939543","F261403341","F218757856",""]
+//		String ajaxemail = req.getParameter("email");
+//		System.out.println(ajaxemail);
+		
 		String buttondelete = req.getParameter("delete");
 		String buttonsave = req.getParameter("button");
 
+		PrintWriter out = res.getWriter();//ajax輸出???
+		
 		HttpSession session = req.getSession();
 		Integer emp_No = (Integer) session.getAttribute("emp_No");
 		List<String> id = familyservice.selectid(emp_No);
-
+//		for(String yyyy:id){System.out.println(yyyy);}
+		
 		if (ajaxid != null) {// 轉成string[] 格式
 			String[] items = ajaxid.replaceAll("\\[", "").replaceAll("\"", "").replaceAll("\\]", "").split(",");
 			for (String dataid : items) {// 輸出
-				System.out.println(dataid);// Q250939543 F261403341 F218757856
+//				System.out.println(dataid);// Q250939543 F261403341 F218757856
 				if (id.contains(dataid)) {//
 //					System.out.println("xxxxxxxxxxxxxxxxxxxxx");
-					req.setAttribute("idrepeat", "親屬身分證字號重複");
+					out.print("親屬身分證字號重複");//用來傳出
+					
+//					req.setAttribute("idrepeat", "親屬身分證字號重複");
+					//setAttribute需要用方法重新導向 回jsp頁面才可以顯示 ajax只有送過來 
 				}
 			}
 		}
+//		List<String> email = employeeservice.selectEmail();
+//		System.out.println(email);
+//		if(ajaxemail!=null){
+//			String[] items = ajaxemail.replaceAll("\\[", "").replaceAll("\"", "").replaceAll("\\]", "").split(",");
+//			for(String dataemail: items){
+//				System.out.println(dataemail);
+//				if(email.contains(dataemail)){
+//					out.print("員工信箱重複");//一樣 可能會抓到兩個print 一起出來??
+//				}
+//			}
+//		}
 
 		if ("delete".equals(buttondelete)) {
 			// familyservice.delete();//ajax傳值近來他的val來抓他的值? 前端配合把欄位remove掉
 			System.out.println("xxxxxx");
 		}
-		;
+		
 
-		if ("save".equals(buttonsave)) {
+		if ("儲存".equals(buttonsave)) {//前面""抓value
 			Map<String, String> errormsg = new HashMap<String, String>();
 			req.setAttribute("error", errormsg);
 
@@ -268,7 +291,7 @@ public class FamilyServlet extends HttpServlet {
 			} // 判斷 有沒有親屬資料
 
 		} // 按下save的執行動作 結束
-
+  
 	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
