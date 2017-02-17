@@ -76,7 +76,7 @@ input[type=text] {
 			xh.open("GET", "FineServlet?FineSetting=罰則設定", true);
 			xh.send();
 		} else {
-			alert("很抱歉，您的瀏覽器不支援AJAX功能！")
+			alert("很抱歉，您的瀏覽器不支援AJAX功能！");
 		}
 	}
 
