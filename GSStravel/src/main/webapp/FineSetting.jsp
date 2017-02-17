@@ -195,14 +195,18 @@ input[type=text] {
 			<div class='row'>
 				<div class='col-md-1'></div>
 				<div class='col-md-2'>
-					<br> <input type="hidden" id="FineSave" name="FineSave"
-						value="" /> <input type="button" value="儲存罰則" onclick="check()"
-						class='btn btn-primary' /> <br>
-					<br>
+					<br> 
 					<input type="button" value="罰則明細" name="FineShow"
 						onclick="window.location.href=resultjs+'/FineShowServlet'"
-						class='btn btn-primary' /><br>
-					<br><input type="button" value="重新設定" name="FineShow"
+						class='btn btn-primary' />
+					<br>
+					<br>
+					<input type="hidden" id="FineSave" name="FineSave"
+						value="" /> <input type="button" value="儲存罰則" onclick="check()"
+						class='btn btn-primary' />
+					<br>
+					<br>
+					<input type="button" value="重新設定" name="FineShow"
 						onclick="window.location.href=resultjs+'/FineSetting.jsp'"
 						class='btn btn-info' />
 				</div>
