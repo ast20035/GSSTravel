@@ -93,7 +93,7 @@ td>strong {
 													groupingUsed="true" type="currency" maxFractionDigits="0" /></strong></td>
 									</c:if>
 									<c:if test="${statusJ.count!=1}">
-										<td>${afterDay[0][j-1]}～${totalDays[0][j]}<br> <fmt:formatNumber
+										<td>${afterDay[0][j-1]} ～ ${totalDays[0][j]}<br> <fmt:formatNumber
 												value="${iSelect[0].item_Money}" groupingUsed="true"
 												type="currency" maxFractionDigits="0" /> *
 											${fSelect[j].fine_Per}% ＝<br> <strong><fmt:formatNumber
