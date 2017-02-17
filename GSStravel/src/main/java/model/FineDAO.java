@@ -13,7 +13,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class FineDAO implements IFineDAO {
-	private static final String SELECT_ONE_STMT = "SELECT * FROM Fines WHERE fine_Dates=?";
 	private static final String SELECT_ALL_STMT = "SELECT * FROM Fines ORDER BY fine_Dates DESC";
 	public static final String INSERT_STMT = "INSERT INTO Fines VALUES(?, ?)";
 	private static final String DELETE_STMT = "DELETE FROM Fines";
@@ -27,32 +26,6 @@ public class FineDAO implements IFineDAO {
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public FineVO select(int day) {
-		FineVO result = null;
-		ResultSet rset = null;
-		try (Connection conn = dataSource.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(SELECT_ONE_STMT);) {
-			stmt.setInt(1, day);
-			rset = stmt.executeQuery();
-			if (rset.next()) {
-				result = new FineVO();
-				result.setFine_Dates(rset.getInt("fine_Dates"));
-				result.setFine_Per(rset.getFloat("fine_Per"));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (rset != null) {
-				try {
-					rset.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return result;
 	}
 
 	public List<FineVO> select() {

@@ -39,6 +39,7 @@ public class loginCheck implements Filter {
 
 		if (path.indexOf("login") > -1) {
 
+
 		} else if (session.getAttribute("emp_No") == null || "".equals(session.getAttribute("emp_No"))) {
 			servletResponse.sendRedirect(pro + "/notlogin.jsp");
 			return;
