@@ -43,6 +43,7 @@ table {
 
 .tdbtn {
 	padding: 5px;
+	border: 0;
 }
 
 input[type=text] {
