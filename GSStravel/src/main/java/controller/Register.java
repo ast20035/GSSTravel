@@ -27,7 +27,9 @@ public class Register extends HttpServlet {
 	private FamilyService familyservice= new FamilyService();
 	
 	private static final long serialVersionUID = 1L;
-    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {    	
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {    
+    	req.setCharacterEncoding("UTF-8");
+    	res.setContentType ("text/html;charset=utf-8");
     	HttpSession session = req.getSession();
 		Integer emp_No = (Integer) session.getAttribute("emp_No");
 		long tra_No = 0;

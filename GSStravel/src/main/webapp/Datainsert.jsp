@@ -38,6 +38,7 @@
 			$('li').removeClass('now');
 			$('li:eq(1)').addClass('now');
 		</script>
+
 	<div class='container-fluid'>
 
 		<form action=<c:url value="/FamilyServlet"/> method="post">
@@ -154,8 +155,8 @@
 										<option>
 									</c:if>
 							</select></td>
-							<td><input type="text" name="famname" id="famname"
-								value="${start.fam_Name}">
+							<td><input type="text" name="famname"  id="famname" 
+								value="${start.fam_Name}" style="width:100px;">
 							<div class="famnameerror">${error.famneme}</div></td>
 							<td><select name="famsex">
 									<!--  servlet抓name db抓值會抓進value值進去-->
@@ -172,13 +173,13 @@
 							</select></td>
 
 							<td><input type="text" name="famid" class="famid"
-								value="${start.fam_Id}">
-							<div class="famiderror">${error.famid}</div></td>
+								value="${start.fam_Id}"  style="width:100px;">
+							<div class="famiderror" name="famiderror">${error.famid}</div></td>
 							<td><input type="date" id="fambdate" name="fambdate"
-								class="fambdate" value="${start.fam_Bdate}" />
+								class="fambdate" value="${start.fam_Bdate}" style="width:150px;"/>
 							<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div></td>
 							<td><input type="text" name="famphone" id="famphone"
-								value="${start.fam_Phone}">
+								value="${start.fam_Phone}" style="width:100px;">
 							<div class=famphoneerror>${error.famphone}</div></td>
 							<td><select name="fameat">
 									<!-- 今天的日期 減去 他的生日 < 三歲  (剩幾天?) (看年底還是年初)  看年?  -->
@@ -235,22 +236,22 @@
 							</select></td>
 
 							<td><input type="text" name="famben" id="famben"
-								value="${start.fam_Ben}">
+								value="${start.fam_Ben}" style="width:100px;">
 							<div class="fambenerror">${error.famben}</div></td>
 							<td><input type="text" name="fambenrel" id="fambenrel"
-								value="${start.fam_BenRel}">
+								value="${start.fam_BenRel}" style="width:100px;">
 							<div class="fambenrelerror">${error.fambenrel}</div></td>
 							<td><input type="text" name="famemg" id="famemg"
-								value="${start.fam_Emg}">
+								value="${start.fam_Emg}" style="width:100px;">
 							<div class="famemgerror">${error.famemg}</div></td>
 							<td><input type="text" name="famemgphpone" id="famemgphone"
-								value="${start.fam_EmgPhone}">
+								value="${start.fam_EmgPhone}" style="width:100px;">
 							<div class="famemgphoneerror">${error.famemgphone}</div></td>
 							<td><input type="text" name="famemgrel" id="famemgrel"
-								value="${start.fam_EmgRel}">
+								value="${start.fam_EmgRel}" style="width:100px;">
 							<div class="famemgrelerror">${error.famemgrel}</div></td>
 							<td><input type="text" name="famnote" id="famnote"
-								value="${start.fam_Note}">
+								value="${start.fam_Note}" >
 							<div class="famnoteerror"></div></td>
 						</tr>
 					</c:forEach>
@@ -260,8 +261,8 @@
 			</table>
 
 			<!--新增、儲存 -->
-			<input type="button" value="insert" id="insert" name="button"><br>
-			<span>${error.famblock}</span> <input type="submit" value="save"
+			<input type="button" value="新增欄位" id="insert" name="button"><br>
+			<span>${error.famblock}</span> <input type="submit" value="儲存"
 				id="save" name="button"><br>
 
 		</form>
@@ -276,20 +277,20 @@
 						<option value="親友">親友
 						<option>
 				</select></td>
-				<td><input type="text" name="famname" id="famname">
-				<div class="famnameerror">${error.famneme}</div></td>
+				<td><input type="text" name="famname" id="famname" style="width:100px;">
+				<div class="famnameerror"  name="famiderror">${error.famneme}</div></td>
 				<td><select name="famsex">
 						<!--  servlet抓name db抓值會抓進value值進去-->
 						<option value="女">女</option>
 						<option value="男">男
 						<option>
 				</select></td>
-				<td><input type="text" name="famid" class="famid">
-				<div class="famiderror">${error.famid}${idrepeat}</div></td>
+				<td><input type="text" name="famid" class="famid" style="width:100px;">
+				<div class="famiderror">${error.famid}</div></td>
 				<td><input type="date" id="fambdate" name="fambdate"
-					class="fambdate" />
+					class="fambdate" style="width:150px;" />
 				<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div></td>
-				<td><input type="text" name="famphone" id="famphone">
+				<td><input type="text" name="famphone" id="famphone" style="width:100px;">
 					<div class=famphoneerror>${error.famphone}</div></td>
 				<td><select name="fameat">
 						<option value="葷">葷</option>
@@ -304,15 +305,15 @@
 						<option>孕婦(媽媽手冊)</option>
 				</select></td>
 				<!-- 		class="multiselect"   id="multiselect"-->
-				<td><input type="text" name="famben" id="famben">
+				<td><input type="text" name="famben" id="famben" style="width:100px;">
 				<div class="fambenerror">${error.famben}</div></td>
-				<td><input type="text" name="fambenrel" id="fambenrel">
+				<td><input type="text" name="fambenrel" id="fambenrel" style="width:100px;">
 				<div class="fambenrelerror">${error.fambenrel}</div></td>
-				<td><input type="text" name="famemg" id="famemg">
+				<td><input type="text" name="famemg" id="famemg" style="width:100px;">
 				<div class="famemgerror">${error.famemg}</div></td>
-				<td><input type="text" name="famemgphpone" id="famemgphone">
+				<td><input type="text" name="famemgphpone" id="famemgphone" style="width:100px;">
 				<div class="famemgphoneerror">${error.famemgphone}</div></td>
-				<td><input type="text" name="famemgrel" id="famemgrel">
+				<td><input type="text" name="famemgrel" id="famemgrel" style="width:100px;">
 				<div class="famemgrelerror">${error.famemgrel}</div></td>
 				<td><input type="text" name="famnote" id="famnote">
 				<div class="famnoteerror"></div></td>
@@ -320,8 +321,42 @@
 		</table>
 
 		<script>
-
+		
 var xh = new XMLHttpRequest();
+// searchempmail();
+
+// function searchempmail(){
+// 	if (xh != null) {
+// 		var empemail=$("#empemail").val();
+		
+// 	var pathName = document.location.pathname;
+// 	var index = pathName.substr(1).indexOf("/");
+// 	var result = pathName.substr(0, index + 1);
+// 	var url = result + "/FamilyServlet";
+
+// 	if(typeof empemail != "undefined"){
+// 	var email =JSON.stringify(empemail);
+// 	}
+// 	xh.addEventListener("readystatechange", mailreturn);
+// 	xh.open("POST",url);
+// 	xh.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+// 	xh.send("email="+email);
+// 	}else {
+// 		alert("Your browser doesn't support JSON!");
+// 	}
+// }
+// function mailreturn() {//其實不用判斷 原工email有沒有重複  因為原工不會有新增的問題 不用怕重複
+// 	if (xh.readyState == 4){
+// 		if (xh.status == 200) {
+// 			if(xh.responseText!=null){
+// // 			alert("email ajax return");
+// 			var mailreturn= xh.responseText;
+// 			console.log(mailreturn);
+// 			}
+// 		}
+// 	}
+// }
+
 
 //search方法 在動態新增紐的famid 檢驗法的最下方
 function search() {
@@ -329,10 +364,8 @@ function search() {
 		var famidnew=$(".repeat .famid").map(function(){
 				return $(this).val();
 			}).get();
-
-//		console.log(famidvaulemap);//["Q250939543","F199131438","F218757856",""]
-		console.log(famidnew);
-	
+		console.log(famidnew);//輸出陣列出來
+		
 	var pathName = document.location.pathname;
 	var index = pathName.substr(1).indexOf("/");
 	var result = pathName.substr(0, index + 1);
@@ -340,12 +373,9 @@ function search() {
 
 	if(typeof famidnew != "undefined"){
 	var id =JSON.stringify(famidnew);
-	
-	console.log(id);
+	console.log(id);//轉成json格式
 	}
-	
-	//轉json 格式? 字串證列  console.log() 輸出   h
-			
+	//轉json 格式? 字串證列
 	xh.addEventListener("readystatechange", ajaxReturn);
 	xh.open("POST",url);
 	xh.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
@@ -358,8 +388,20 @@ function search() {
 function ajaxReturn() {
 	if (xh.readyState == 4){
 		if (xh.status == 200) {
-		 	alert("xxxxxxx");
-		 	
+			if(xh.responseText!=null){
+// 			var ajaxreturn= JSON.parse(xh.responseText);
+			var ajaxreturn= xh.responseText;
+			console.log(ajaxreturn);
+					//查一下如果傳回值變成一串 該怎麼拆開 不然就直接寫兩個
+					//應該是說有回傳值 而且值等於那個字串 才執行下面的程式
+// 			$(".repeat td").on("blur","input[name='famid']",function(){
+				
+				$("#save").attr("type","button");
+// 			})
+			$(".repeat td div[name='famiderror']").val(ajaxreturn);
+// 			$(".repeat td .famiderror").val("xxxxxxxx");
+			
+			}
 		}
 	}
 }
@@ -507,10 +549,6 @@ $(function(){
 	);	
 	//刪除鍵按下後
 	$("#familytable").on("click","input[name='delete']",function(){
-// 		var keyCode = e.keyCode || e.which;
-// 		 if (keyCode == 13) {
-// 		        return false;
-// 		    }//看能不能用
 		 $("#familytable input[name='delete']").submit(function(){ $(this).parents("tr").remove();});
 		//on事件要綁定動態之後 還得要綁定 submit才可以抓的到值
 	});	
