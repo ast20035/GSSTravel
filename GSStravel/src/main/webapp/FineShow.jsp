@@ -71,6 +71,7 @@ td>strong {
 					var data = xhr.responseText;
 					var myDiv = document.getElementById("div1");
 					myDiv.innerHTML = "<h3>" + data + "</h3>";
+					$("#FineEmail").submit();
 				} else {
 					alert(xhr.status + ":" + xhr.statusText);
 				}
