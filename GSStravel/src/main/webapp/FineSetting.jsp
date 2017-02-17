@@ -64,7 +64,6 @@ input[type=text] {
 </script>
 <script>
 	window.onload = function() {
-		var save = document.getElementById("save");
 		setFine();
 	}
 
@@ -190,8 +189,7 @@ input[type=text] {
 				<h1>罰則設定</h1>
 			</div>
 		</div>
-		<form id="DataForm" action="<c:url value="/FineServlet" />"
-			method="GET">
+		<form id="DataForm" action="<c:url value="/FineServlet" />" method="GET">
 			<div class='row'>
 				<div class='col-md-1'></div>
 				<div class='col-md-2'>
@@ -201,8 +199,8 @@ input[type=text] {
 						class='btn btn-primary' />
 					<br>
 					<br>
-					<input type="hidden" id="FineSave" name="FineSave"
-						value="" /> <input type="button" value="儲存罰則" onclick="check()"
+					<input type="hidden" id="FineSave" name="FineSave" value="" />
+					<input type="button" value="儲存罰則" onclick="check()"
 						class='btn btn-primary' />
 					<br>
 					<br>
