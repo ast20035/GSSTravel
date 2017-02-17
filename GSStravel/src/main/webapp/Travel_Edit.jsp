@@ -204,9 +204,6 @@ li {
 				</tr>
 			</table>
 		</form>
-		<!-- 	<button><a href="<c:url value="/AllTravel"></c:url>" class="a">回上一頁</a></button><button><a href="<c:url value="/Login_Information?tra_No=${traveResult.tra_NO}&emp_No=${emp_No}" ></c:url>" class="a">報名</a></button>
-	 -->
-
 	</div>
 </body>
 </html>
