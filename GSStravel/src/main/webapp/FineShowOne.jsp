@@ -113,13 +113,10 @@ td>strong {
 					</c:if>
 				</form>
 				<script>
-					var GSS = '<c:url value="/AllTravel" />';
-					var sign = '<c:url value="/Login_Information?tra_No=${traveResult.tra_NO}&emp_No=${emp_No}" />';
+					var GSS = '<c:url value="/AllTravel" />';				
 				</script>
 				<br> <input type="button" value='回到報名/查詢'
-					class='btn  btn-primary' onclick="window.location.href=GSS;" /> <input
-					type="button" value='報名' class='btn  btn-primary'
-					onclick="window.location.href=sign;" />
+					class='btn  btn-primary' onclick="window.location.href=GSS;" /> 
 			</div>
 			<div class='col-md-1'></div>
 		</div>
