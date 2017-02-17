@@ -13,11 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-
-import model.HibernateUtil;
-
 @WebFilter("/*")
 public class loginCheck implements Filter {
 
