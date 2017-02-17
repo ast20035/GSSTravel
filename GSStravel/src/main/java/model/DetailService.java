@@ -5,9 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 public class DetailService {
@@ -18,7 +18,6 @@ public class DetailService {
 	public ITravelDAO travelDAO;
 	public ITotalAmountDAO totalAmountDAO;
 	private EmployeeService employeeService = new EmployeeService();
-	private IDetailDAO idetailDao = new DetailDAO();
 
 	public List<String> selectFam_Rel(int emp_No, long tra_No) {
 		detailDAO = new DetailDAO();
@@ -28,7 +27,7 @@ public class DetailService {
 	public int ranking(long tra_No, String myName) {
 		int ranking = 0;
 		DetailService detailService = new DetailService();
-		List<String> names = detailService.detailName(tra_No);// 已經報明姓名
+		LinkedHashSet<String> names = detailService.detailName(tra_No);// 已經報明姓名
 		Map<String, Integer> mp = detailService.detail(tra_No);// (姓名,人數)
 		int x = 0;
 		for (String name : names) {
@@ -49,9 +48,8 @@ public class DetailService {
 		Map<String, Integer> mp = new HashMap<>();
 		detailDAO = new DetailDAO();
 		employeeDAO = new EmployeeDAO();
-		List<String> detail_Emp_No = detailDAO.detail_Emp_No(tra_No);
+		LinkedHashSet<String> detail_Emp_No = detailDAO.detail_Emp_No(tra_No);
 		for (String emp_No : detail_Emp_No) {
-			System.out.println(emp_No);
 			int count = detailDAO.detail_Count(emp_No, tra_No) + 1;
 			String name = employeeDAO.selectEmp_Name(emp_No);
 			mp.put(name, count);
@@ -59,11 +57,11 @@ public class DetailService {
 		return mp;
 	}
 
-	public List<String> detailName(long tra_No) {
-		List<String> result = new ArrayList<>();
+	public LinkedHashSet<String> detailName(long tra_No) {
+		LinkedHashSet<String> result = new LinkedHashSet<>();
 		detailDAO = new DetailDAO();
 		employeeDAO = new EmployeeDAO();
-		List<String> detail_Emp_No = detailDAO.detail_Emp_No(tra_No);
+		LinkedHashSet<String> detail_Emp_No = detailDAO.detail_Emp_No(tra_No);
 		for (String emp_No : detail_Emp_No) {
 			String name = employeeDAO.selectEmp_Name(emp_No);
 			result.add(name);
