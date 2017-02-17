@@ -45,8 +45,7 @@ li {
 	<div class='container-fluid'>
 		<h1>行程內容</h1>
 		<input type=button onclick=window.open( "Travel_New.jsp") value="新增行程"></input>
-
-		<form action="<c:url value='/Travel_Edit'/>" method="GET">
+	<form action="<c:url value='/Travel_Edit'/>" method="GET">
 			<table class="t">
 
 				<tr>
