@@ -65,7 +65,7 @@ td>strong {
 					<br> <input class='btn btn-primary' type="submit"
 						name="FineEmail" value="寄送罰則異動通知" />
 				</div>
-				<div class='col-md-6'>
+				<div class='col-md-7'>
 
 					<c:if test="${power==true}">
 						<c:if test="${countI+1 ne 0 && countJ+1 ne 0}">
@@ -150,7 +150,7 @@ td>strong {
 					</c:choose>
 
 				</div>
-				<div class='col-md-3'></div>
+				<div class='col-md-2'></div>
 			</div>
 		</form>
 	</div>
