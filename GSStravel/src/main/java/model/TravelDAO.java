@@ -285,10 +285,11 @@ public class TravelDAO implements ITravelDAO {
 			PreparedStatement stmt = conn.prepareStatement(select_tra);) {
 			stmt.setString(1,tra_No);
 			ResultSet rset = stmt.executeQuery();
-			travelBean = new TravelVO();
 			while(rset.next()){
+				travelBean = new TravelVO();
 				travelBean.setTra_Total(rset.getInt("tra_Total"));
 				travelBean.setTra_Max(rset.getInt("tra_Max"));
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
