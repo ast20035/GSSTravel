@@ -119,11 +119,23 @@
 					</script>
 					<input type="button" value='回上一頁' class='btn  btn-primary'
 						onclick="window.location.href=GSS;" /> <input type="submit"
-						value="取消報名"  class='btn  btn-primary'/>
+						value="取消報名"  class='btn  btn-primary' onclick="confirmComplete()"/>
 				</div>
 			</div>
 		</form>
 	</div>
 </body>
-
+<script type="text/javascript">
+function confirmComplete() {
+	var answer=confirm("是否確定要取消???");
+	if (answer==true)
+	  {
+	    return true;
+	  }
+	else
+	  {
+	    return false;
+	  }
+	}
+</script>
 </html>

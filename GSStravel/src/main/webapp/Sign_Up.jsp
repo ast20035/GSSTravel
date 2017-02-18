@@ -54,9 +54,10 @@
 				<div class='col-lg-2'></div>
 				<div class='col-lg-3'>
 					<h1 class='alert alert-info'>-本團報名資訊-</h1>
-<%-- 					<h3>活動名稱:${tra_Vo.tra_Name}</h3> --%>
+					<%-- 					<h3>活動名稱:${tra_Vo.tra_Name}</h3> --%>
 					<h3>
-						活動名稱:<input style="border-style: none; color: #7700BB; width:600px;"
+						活動名稱:<input
+							style="border-style: none; color: #7700BB; width: 600px;"
 							type="text" value="${tra_Vo.tra_Name}" name="tra_Name" readonly>
 					</h3>
 					<h3>
@@ -74,13 +75,13 @@
 				<div class='col-lg-3'>
 					<h1 class='alert alert-info'>-報名人員-</h1>
 
-					<h2> 
-						員編:<input  style="border-style: none; color: #7700BB"
-							type="text" value="${emp_No}" name="emp_No" readonly>
+					<h2>
+						員編:<input style="border-style: none; color: #7700BB" type="text"
+							value="${emp_No}" name="emp_No" readonly>
 					</h2>
-					<h2> 
-						姓名:<input  style="border-style: none; color: #7700BB"
-							type="text" value="${myName}" name="emp_No" readonly>
+					<h2>
+						姓名:<input style="border-style: none; color: #7700BB" type="text"
+							value="${myName}" name="emp_No" readonly>
 					</h2>
 
 					<c:if test="${familySize>0}">
@@ -117,20 +118,17 @@
 								</tr>
 							</table>
 						</c:forEach>
-					</c:if><br>
-					<!-- 					<button class='btn  btn-primary'> -->
-					<%-- 						<a href="<c:url value="/AllTravel"></c:url>" class="a">回上一頁</a> --%>
-					<!-- 					</button> -->
+					</c:if>
+					<br>
 					<script>
 						var GSS = '<c:url value="/AllTravel" />'
 					</script>
 					<input type="button" value='回上一頁' class='btn  btn-primary'
 						onclick="window.location.href=GSS;" /> <input type="submit"
-						value="確定報名" class='btn  btn-primary'>
+						value="確定報名" class='btn  btn-primary' onclick="this.form.submit(); this.disabled=true;">
 				</div>
 			</div>
 		</form>
 	</div>
 </body>
-
 </html>
