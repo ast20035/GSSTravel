@@ -19,7 +19,6 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <style type="text/css">
-
 .a {
 	text-decoration: none;
 	color: white;
@@ -33,11 +32,12 @@
 	margin-top: 2%;
 }
 
-.table1,.table2 {
+.table1, .table2 {
 	font-size: 17px;
 }
-.table-bordered{
-text-align: center;
+
+.table-bordered {
+	text-align: center;
 }
 </style>
 <title>Insert title here</title>
@@ -53,7 +53,7 @@ text-align: center;
 						<div class='panel-heading'>
 							<h1>-本團報名資訊-</h1>
 						</div>
-						<%-- 					<h3>活動名稱:${tra_Vo.tra_Name}</h3> --%>
+						<%-- <h3>活動名稱:${tra_Vo.tra_Name}</h3> --%>
 						<div class='panel-body'>
 							<table class='table table-condensed table1'>
 								<tr>
@@ -102,38 +102,35 @@ text-align: center;
 									</td>
 								</tr>
 								<tr>
-									<td colspan="2">
-									<br>
-									<c:if test="${familySize>0}">
+									<td colspan="2"><br> <c:if test="${familySize>0}">
 											<table class='table table-bordered'>
-												<tr >
-													<th ></th>
-													<th >眷屬/親友</th>
-													<th >姓名</th>
+												<tr>
+													<th></th>
+													<th>眷屬/親友</th>
+													<th>姓名</th>
 												</tr>
 												<c:forEach var="row" items="${familyVO}">
 													<tr class="t">
 														<td class="t"><input type=checkbox
 															value="${row.fam_Name}" name="fam"></td>
-														<td >${row.fam_Rel}</td>
-														<td >${row.fam_Name}</td>
+														<td>${row.fam_Rel}</td>
+														<td>${row.fam_Name}</td>
 													</tr>
 												</c:forEach>
 											</table>
-										</c:if> <br> <c:if
-											test="${tra_Vo.tra_On!=tra_Vo.tra_Off}">
+										</c:if> <br> <c:if test="${tra_Vo.tra_On!=tra_Vo.tra_Off}">
 											<c:forEach var="room" items="${itemVo}">
 												<table class='table table-bordered'>
-													<tr >
-														<th ></th>
-														<th >房型</th>
-														<th >費用</th>
+													<tr>
+														<th></th>
+														<th>房型</th>
+														<th>費用</th>
 													</tr>
 													<tr>
-														<td ><input type=checkbox
-															value="${room.item_Money}" name="room"></td>
-														<td  >${room.item_Name}</td>
-														<td  >${room.item_Money}</td>
+														<td><input type=checkbox value="${room.item_Money}"
+															name="room"></td>
+														<td>${room.item_Name}</td>
+														<td>${room.item_Money}</td>
 													</tr>
 
 												</table>
@@ -141,16 +138,17 @@ text-align: center;
 										</c:if></td>
 								</tr>
 
-								<!-- 					<button class='btn  btn-primary'> -->
-								<%-- 						<a href="<c:url value="/AllTravel"></c:url>" class="a">回上一頁</a> --%>
-								<!-- 					</button> -->
+								<!-- <button class='btn btn-primary'> -->
+								<%-- <a href="<c:url value="/AllTravel"></c:url>" class="a">回上一頁</a> --%>
+								<!-- </button> -->
 								<script>
 									var GSS = '<c:url value="/AllTravel" />'
 								</script>
 								<tr>
 									<td><input type="button" value='回上一頁'
-										class='btn  btn-primary' onclick="window.location.href=GSS;" />
-										<input type="submit" value="確定報名" class='btn  btn-primary' />
+										class='btn btn-primary' onclick="window.location.href=GSS;" />
+										<input type="submit" value="確定報名" class='btn btn-primary' 
+										onclick="this.form.submit(); this.disabled=true;"/>
 									</td>
 								</tr>
 							</table>
@@ -161,5 +159,4 @@ text-align: center;
 		</form>
 	</div>
 </body>
-
 </html>

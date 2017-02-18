@@ -21,11 +21,12 @@ public class TotalAmountDAO implements ITotalAmountDAO {
 			e.printStackTrace();
 		}
 	}
-	private static final String UPDATE_TOTALAMOUNT_FOR_EMP_NO = "update TotalAmount set TA_money=? where emp_No=? and tra_No=?";private static final String insertTotalAmount ="insert into TotalAmount (tra_No,emp_No,TA_money) values(?,?,?)";	
-	private static final String deleteTotalAmount="Delete from TotalAmount where emp_No=? and tra_No=?";
-	private static final String selectTa_money="select  TOP(1)Ta_money,tra_No from TotalAmount where emp_No=? order by TA_money DESC";
+	private static final String UPDATE_TOTALAMOUNT_FOR_EMP_NO = "update TotalAmount set TA_money=? where emp_No=? and tra_No=?";
+	private static final String insertTotalAmount ="insert into TotalAmount (tra_No,emp_No,TA_money) values(?,?,?)";	
+	private static final String deleteTotalAmount="Delete from TotalAmount where emp_No=? and tra_No=?"; 
+	private static final String selectTa_money="select  TOP(1)Ta_money from TotalAmount where emp_No=? ";
 	private static final String selectAll="select * from TotalAmount where emp_No=?";
-	private static final String counts="select count(emp_No)as count from TotalAmount where emp_No=?";
+	private static final String counts="select count(emp_No)as count from TotalAmount where emp_No=? ";
 	private static final String select="select * from TotalAmount where emp_No=? and tra_No=?";
 	
 	@Override
@@ -54,7 +55,8 @@ public class TotalAmountDAO implements ITotalAmountDAO {
 		try {
 			Connection conn = dataSource.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(counts);
-			stmt.setString(1, emp_No);			
+			stmt.setString(1, emp_No);	
+			stmt.setString(2, emp_No);
 			ResultSet rest = stmt.executeQuery();
 			while(rest.next()){
 				count=rest.getInt("count");
@@ -134,6 +136,7 @@ public class TotalAmountDAO implements ITotalAmountDAO {
 			PreparedStatement stem=conn.prepareStatement(selectTa_money);
 				){
 			stem.setString(1, emp_No);
+			stem.setString(2, emp_No);
 			ResultSet rest = stem.executeQuery();
 			while(rest.next()){
 				totalAmountVO.setTra_No(rest.getString("tra_No"));

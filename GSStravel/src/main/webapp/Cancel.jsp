@@ -23,13 +23,15 @@
 	text-decoration: none;
 	color: black;
 }
-table{
-font-size: 15px;
+
+table {
+	font-size: 15px;
 }
 
-.table1{
-text-align: center;
+.table1 {
+	text-align: center;
 }
+
 .container-fluid {
 	margin-top: 2%;
 }
@@ -46,7 +48,6 @@ text-align: center;
 						<div class='panel-heading'>
 							<h1>-本團報名資訊-</h1>
 						</div>
-						<%-- 					<h3>活動名稱:${tra_Vo.tra_Name}</h3> --%>
 						<div class='panel-body'>
 							<table class='table table-condensed'>
 								<tr>
@@ -158,26 +159,33 @@ text-align: center;
 								</tr>
 								<tr>
 									<td colspan="2" style="color: red">PS:團費試算僅供參考，需繳納費用以福委會通知為主</td>
-								</tr>
-								<!-- 					<button> -->
-								<%-- 						<a href="<c:url value="/AllTravel"></c:url>" class="a">回上一頁</a> --%>
-								<!-- 					</button> -->
 								<script>
 									var GSS = '<c:url value="/AllTravel" />'
 								</script>
 								<tr>
 									<td><br> <input type="button" value='回上一頁'
 										class='btn  btn-primary' onclick="window.location.href=GSS;" />
-										<input type="submit" value="取消報名" class='btn  btn-primary' />
+										<input type="submit" value="取消報名" class='btn  btn-primary' 
+										onclick="confirmComplete()"/>
 									</td>
 								</tr>
 							</table>
 						</div>
 					</div>
+
 				</div>
 			</div>
 		</form>
 	</div>
 </body>
-
+<script type="text/javascript">
+	function confirmComplete() {
+		var answer = confirm("是否確定要取消???");
+		if (answer == true) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+</script>
 </html>

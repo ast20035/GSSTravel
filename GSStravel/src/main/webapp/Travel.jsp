@@ -23,8 +23,9 @@ table {
 	margin-top: 2%;
 	font-size: 15px
 }
-td,th{
-padding: 10px;
+
+td, th {
+	padding: 10px;
 }
 </style>
 <title>Insert title here</title>
@@ -80,7 +81,8 @@ padding: 10px;
 								<c:set var="tra_no" value="${row.tra_NO}" />
 								<c:if test="${mp[tra_no]==0}">
 									<td class="t"><a
-										href="<c:url value="/Login_Information?tra_No=${row.tra_NO}&emp_No=${emp_No}"></c:url>"><button class='btn btn-success'>我要報名</button></a></td>
+										href="<c:url value="/Login_Information?tra_No=${row.tra_NO}&emp_No=${emp_No}"></c:url>"><button
+												class='btn btn-success'>我要報名</button></a></td>
 								</c:if>
 								<c:if test="${mp[tra_no]==1}">
 									<td class="t">登記已截止</td>
@@ -90,7 +92,8 @@ padding: 10px;
 								</c:if>
 								<c:if test="${mp[tra_no]==3}">
 									<td class="t"><a
-										href="<c:url value="/CancelServlet?tra_No=${row.tra_NO}&emp_No=${emp_No}"></c:url>"><button class='btn btn-success'>取消報名</button></a></td>
+										href="<c:url value="/CancelServlet?tra_No=${row.tra_NO}&emp_No=${emp_No}"></c:url>"><button
+												class='btn btn-success'>取消報名</button></a></td>
 								</c:if>
 								<c:if test="${mp[tra_no]==4}">
 									<td class="t">活動已結束</td>
