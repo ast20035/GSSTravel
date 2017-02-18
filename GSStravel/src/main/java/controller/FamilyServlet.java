@@ -64,6 +64,8 @@ public class FamilyServlet extends HttpServlet {
 //		System.out.println(ajaxid);//["Q250939543","F261403341","F218757856",""]
 //		String ajaxemail = req.getParameter("email");
 //		System.out.println(ajaxemail);
+		String ajaxfamid = req.getParameter("famid");
+		System.out.println(ajaxfamid);
 		
 		String buttondelete = req.getParameter("delete");
 		String buttonsave = req.getParameter("button");
@@ -73,21 +75,25 @@ public class FamilyServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		Integer emp_No = (Integer) session.getAttribute("emp_No");
 		List<String> id = familyservice.selectid(emp_No);
-//		for(String yyyy:id){System.out.println(yyyy);}
+
 		
 		if (ajaxid != null) {// 轉成string[] 格式
 			String[] items = ajaxid.replaceAll("\\[", "").replaceAll("\"", "").replaceAll("\\]", "").split(",");
 			for (String dataid : items) {// 輸出
 //				System.out.println(dataid);// Q250939543 F261403341 F218757856
 				if (id.contains(dataid)) {//
-//					System.out.println("xxxxxxxxxxxxxxxxxxxxx");
 					out.print("親屬身分證字號重複");//用來傳出
-					
-//					req.setAttribute("idrepeat", "親屬身分證字號重複");
 					//setAttribute需要用方法重新導向 回jsp頁面才可以顯示 ajax只有送過來 
+				}else{
+					out.print("");
 				}
 			}
 		}
+		if(ajaxfamid!=null){//用ajax找到id
+			familyservice.delete(ajaxfamid);
+//			out.print("刪除成功");
+		}
+		
 //		List<String> email = employeeservice.selectEmail();
 //		System.out.println(email);
 //		if(ajaxemail!=null){
@@ -100,11 +106,6 @@ public class FamilyServlet extends HttpServlet {
 //			}
 //		}
 
-		if ("delete".equals(buttondelete)) {
-			// familyservice.delete();//ajax傳值近來他的val來抓他的值? 前端配合把欄位remove掉
-			System.out.println("xxxxxx");
-		}
-		;
 
 		if ("儲存".equals(buttonsave)) {//前面""抓value
 			Map<String, String> errormsg = new HashMap<String, String>();

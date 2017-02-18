@@ -71,7 +71,7 @@ public class FineServlet extends HttpServlet {
 			if (temp1 == null || temp2 == null) {
 				fineService.delete(fineBean);
 				List<TravelVO> tResult = travelService.select(travelBean);
-				List<FineVO> fResult = fineService.select(fineBean);
+				List<FineVO> fResult = fineService.select();
 				countI = fResult.size() - 1;
 				countJ = tResult.size() - 1;
 				request.setAttribute("countI", countI);
@@ -169,7 +169,7 @@ public class FineServlet extends HttpServlet {
 
 				if ("儲存罰則".equals(save)) {
 					if (error != null && !error.isEmpty()) {
-						List<FineVO> result = fineService.select(fineBean);
+						List<FineVO> result = fineService.select();
 						request.setAttribute("select", result);
 						RequestDispatcher rd = request.getRequestDispatcher("/FineSetting.jsp");
 						rd.forward(request, response);
@@ -188,7 +188,7 @@ public class FineServlet extends HttpServlet {
 				}
 			}
 		}
-		if ("異動通知".equals(email)) {
+		if ("寄送罰則異動通知".equals(email)) {
 			power = true;
 			List<EmployeeVO> result = employeeService.selectEmp();
 			LinkedHashSet mailSet = new LinkedHashSet();	
@@ -213,22 +213,14 @@ public class FineServlet extends HttpServlet {
 		}
 		if ("罰則設定".equals(set)) {
 			PrintWriter out = response.getWriter();
-			List<FineVO> result = fineService.select(fineBean);
+			List<FineVO> result = fineService.select();
 			out.print(fineService.to_Json(result));
 			return;
 		}
-//		if ("罰則設定".equals(set)) {
-//			power = false;
-//			List<FineVO> result = fineService.select(fineBean);
-//			request.setAttribute("select", result);
-//			request.setAttribute("power", power);
-//			RequestDispatcher rd = request.getRequestDispatcher("/view/FineSetting.jsp");
-//			rd.forward(request, response);
-//		}
 		if ("罰則明細".equals(show)) {
 			power = true;
 			List<TravelVO> tResult = travelService.select(travelBean);
-			List<FineVO> fResult = fineService.select(fineBean);
+			List<FineVO> fResult = fineService.select();
 			List<ItemVO> iResult = itemService.select(itemBean);
 			countI = fResult.size() - 1;
 			countJ = tResult.size() - 1;

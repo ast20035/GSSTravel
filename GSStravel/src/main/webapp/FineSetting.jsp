@@ -22,11 +22,6 @@
 <link rel="stylesheet" type="text/css" href="" />
 <title>罰則設定表</title>
 <style>
-tr, th, td {
-	border: 1px solid black;
-	text-align: center;
-}
-
 input {
 	text-align: center;
 }
@@ -35,28 +30,40 @@ input {
 	color: red;
 }
 
+td, th {
+	border: 2px outset black;
+	text-align: center;
+	/* 	padding: 0px 0px 0px 0px; */
+	font-size: 15px;
+}
+
+table {
+	margin-top: 2%;
+}
+
+.tdbtn {
+	padding: 5px;
+	border: 0;
+}
+
+input[type=text] {
+	border: 0px;
+}
 </style>
 
 <script>
-	$(document)
-			.ready(
-					function() {
-						$("#add")
-								.click(
-										function() {
-											$("#fineTable")
-													.append(
-															"<tr><td><input type='button' class='remove' value='－' /></td><td><input name='day' type='text' value='${row.fine_Dates}' autocomplete='off' /></td><td><input name='percent' type='text' value='${row.fine_Per}' autocomplete='off' /></td></tr>");
-										});
+	$(document).ready(function() {
+		$("#add").click(function() {
+			$("#fineTable").append("<tr><td class='tdbtn'><input type='button' class='remove btn btn-info ' value='－'/></td><td><input name='day' type='text' autofocus value='${row.fine_Dates}' autocomplete='off' /></td><td><input name='percent' type='text' value='${row.fine_Per}' autocomplete='off' /></td></tr>");
+		});
 
-						$(document).on("click", ".remove", function() {
-							$(this).parents("tr").remove();
-						});
-					});
+		$(document).on("click", ".remove", function() {
+			$(this).parents("tr").remove();
+		});
+	});
 </script>
 <script>
 	window.onload = function() {
-		var save = document.getElementById("save");
 		setFine();
 	}
 
@@ -68,7 +75,7 @@ input {
 			xh.open("GET", "FineServlet?FineSetting=罰則設定", true);
 			xh.send();
 		} else {
-			alert("很抱歉，您的瀏覽器不支援AJAX功能！")
+			alert("很抱歉，您的瀏覽器不支援AJAX功能！");
 		}
 	}
 
@@ -88,8 +95,9 @@ input {
 
 					var buttonPlus = document.createElement("input");
 					buttonPlus.setAttribute("type", "button");
-					buttonPlus.setAttribute("class", "remove");
+					buttonPlus.setAttribute("class", "remove btn btn-info");
 					buttonPlus.setAttribute("value", "－");
+					td.setAttribute("class", "tdbtn")
 					td.appendChild(buttonPlus);
 					tr.appendChild(td);
 
@@ -121,16 +129,16 @@ input {
 
 	function check() {
 		var pk = 0;
-		var step=0;
+		var step = 0;
 		var day = document.getElementsByName("day");
 		var percent = document.getElementsByName("percent");
-		var regDay = new RegExp("^[0-9]{1,2}$");
+		var regDay = new RegExp("^[0-9]{1,}$");
 		var regPercent = new RegExp("^([0-9]{1,2})([.]{1})([0-9]{1,})$");
 		for (var i = 0; i < (day.length) - 1; i++) {
 			for (var j = i + 1; j < day.length; j++) {
 				if (day[i].value == day[j].value) {
 					pk = 1;
-					step=i;
+					step = i;
 				}
 			}
 		}
@@ -145,14 +153,14 @@ input {
 			} else if (percent[i].value == "") {
 				alert("請輸入扣款比例！");
 				break;
-			} else if (!regDay.test(day[i].value)) {
+			} else if (day[i].value<=0 || !regDay.test(day[i].value)) {
 				alert("取消日必須為正整數！");
 				break;
-			} else if (i==step&&pk==1) {
+			} else if (i == step && pk == 1) {
 				alert("取消日已存在！");
 				break;
-			} else if (!regDay.test(percent[i].value)) {
-				if (!regPercent.test(percent[i].value)) {
+			} else if (percent[i].value<=0 || !regDay.test(percent[i].value)) {
+				if (percent[i].value<=0 || !regPercent.test(percent[i].value)) {
 					alert("扣款比例必須為小於100的正數！");
 					break;
 				} else if (regPercent.test(percent[i].value)
@@ -169,35 +177,59 @@ input {
 </script>
 </head>
 <body>
-		<%@include file="SelectBar.jsp"%>
-		<script>
-			$('li').removeClass('now');
-			$('li:eq(4)').addClass('now');
-		</script>
+	<%@include file="SelectBar.jsp"%>
+	<script>
+		$('li').removeClass('now');
+		$('li:eq(4)').addClass('now');
+	</script>
 	<div class='container-fluid'>
-		<h2>罰則設定</h2>
-		<form id="DataForm" action="<c:url value="/FineServlet" />"
-			method="GET">
-			<em style="color: red">*</em>為必填欄位
-			<table id="fineTable">
-				<thead>
-					<tr>
-						<th><input type="button" value="＋" id="add" /></th>
-						<th><em style="color: red">*</em>取消日<br>(旅遊前 n 天通知)</th>
-						<th><em style="color: red">*</em>罰款扣款比例 (%)</th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
-			<input type="hidden" id="FineSave" name="FineSave" value="" /> <input
-				type="button" value="儲存罰則" onclick="check()" /> <input
-				type="button" value="罰則明細" name="FineShow"
-				onclick="window.location.href=resultjs+'/FineShowServlet'" />
+		<div class='row'>
+			<div class='col-md-1'></div>
+			<div class='col-md-11'>
+				<h1>罰則設定</h1>
+			</div>
+		</div>
+		<form id="DataForm" action="<c:url value="/FineServlet" />" method="GET">
+			<div class='row'>
+				<div class='col-md-1'></div>
+				<div class='col-md-2'>
+					<br> 
+					<input type="button" value="罰則明細" name="FineShow"
+						onclick="window.location.href=resultjs+'/FineShowServlet'"
+						class='btn btn-primary' />
+					<br>
+					<br>
+					<input type="hidden" id="FineSave" name="FineSave" value="" />
+					<input type="button" value="儲存罰則" onclick="check()"
+						class='btn btn-primary' />
+					<br>
+					<br>
+					<input type="button" value="重新設定" name="FineShow"
+						onclick="window.location.href=resultjs+'/FineSetting.jsp'"
+						class='btn btn-info' />
+				</div>
+				<div class='col-md-5'>
 
-			<div class="error">${error.day}</div>
-			<div class="error">${error.percent}</div>
-			<div class="error">${error.pk}</div>
+					<em style="color: red; font-size: 12px;">*</em>為必填欄位
+					<table id="fineTable" class='table-responsive'>
+						<thead>
+							<tr>
+								<th class='tdbtn'><input type="button" value="＋" id="add"
+									class='btn btn-info' /></th>
+								<th><em style="color: red">* </em>取消日<br><input type="text" value="（旅遊前 n 天通知）" readonly />
+								<th><em style="color: red">* </em>罰款扣款比例<br><input type="text" value="（1.x ～ 99.x）%" readonly /></th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					<div class="error">${error.day}</div>
+					<div class="error">${error.percent}</div>
+					<div class="error">${error.pk}</div>
+
+				</div>
+				<div class='col-md-4'></div>
+			</div>
 		</form>
 	</div>
 </body>

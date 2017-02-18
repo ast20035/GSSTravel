@@ -42,9 +42,7 @@ li {
 </head>
 <body>
 	<div class='container-fluid'>
-		<h1>行程內容</h1>
-		<input type=button onclick=window.open( "Travel_New.jsp") value="新增行程"></input>
-
+		<h1>--行程編輯--</h1>
 		<form action="<c:url value='/Travel_Edit'/>" method="GET">
 			<table class="t">
 
@@ -163,62 +161,92 @@ li {
 						value="${params.tra_File}"></td>
 					<td></td>
 				</tr>
+
+
 				<tr>
 					<td>費用</td>
+					<td><input type="button" value="新增欄位" id="insert"
+						name="button"></td>>
+				</tr>
+			</table>
+
+			<table id="Itemtable" class="t">
+
+				<tr>
+
 					<td class="t">項目</td>
 					<td class="t">金額</td>
 
 				</tr>
-
 				<c:forEach var="row" items="${paramsi}">
 					<tr>
 
-						<td></td>
-						<td><input type="text" value="${row.item_Name}"></td>
-						<td><input type="text" value="${row.item_Money}"></td>
-						<td><input type="text" value="${row.tra_No}"></td>
-						<td><input type="text" value="${row.item_No}"></td>
+						<td><SELECT name="edititemName">
+								<option selected="selected">${row.item_Name}</option>
+								<OPTION value="團費">團費</OPTION>
+								<OPTION value="保險費">保險費</OPTION>
+								<OPTION value="住宿費(兩人房)">住宿費(兩人房)</OPTION>
+								<OPTION value="住宿費(通鋪8人)">住宿費(通鋪8人)</OPTION>
+								<OPTION value="住宿費(加床)">住宿費(加床)</OPTION>
+						</SELECT></td>
+						<td><input type="text" name="edititemMoney"
+							value="${row.item_Money}"></td>
+
+						<td><input type="text" name="edititemNo"
+							value="${row.item_No}" readonly></td>
 						<td class="t">tra_No : ${row.tra_No}</td>
 						<td class="t">item_No : ${row.item_No}</td>
-
-
+					<td><input type="submit" name="delete" id="delete"
+								value="delete"></td>
 					</tr>
+					
 				</c:forEach>
-
-				<tr>
-					<td>測試用</td>
-					<td>
-
-						<button id="add_new">+ 新增</button>
-						<ul class="container" id="sortable">
-							<c:forEach var="row" items="${paramsi}">
-								<!-- loop -->
-								<li><input name="dyn_val[temp_id][]" type="hidden"
-									value="1"> <select name="dyn_val[money_name][]">
-										<option value="">${row.item_Name}</option>
-										<option value="a">團費</option>
-										<option value="b">保險費</option>
-										<option value="c">住宿費(兩人房)</option>
-										<option value="d">住宿費(四人房)</option>
-										<option value="e">住宿費(通鋪8人)</option>
-										<option value="e">住宿費(加床)</option>
-								</select> <input name="dyn_val[name][]" value="">
-									<button class="add_new">+ 複製</button>
-									<button class="remove_one">- 移除</button></li>
-								<!-- loop end -->
-						</ul>
-				</tr>
-				</c:forEach>
-				<tr>
-					<td><input type="submit" name="inputerrors" value="Update">
-						<input type="submit" name="inputerrors" value="Delete"> <input
-						type="submit" name="" value="關閉"></td>
-				</tr>
 			</table>
-		</form>
-		<!-- 	<button><a href="<c:url value="/AllTravel"></c:url>" class="a">回上一頁</a></button><button><a href="<c:url value="/Login_Information?tra_No=${traveResult.tra_NO}&emp_No=${emp_No}" ></c:url>" class="a">報名</a></button>
-	 -->
 
+			<a><input type="submit" name="inputerrors" value="Update">
+				<input type="submit" name="inputerrors" value="Delete"> <input
+				type="submit" name="" value="關閉"></a>
+		</form>
+		<table>
+
+			<tr name="newtable">
+				<td><SELECT name="edititemName">
+						<option selected="selected">${row.item_Name}</option>
+						<OPTION value="團費">團費</OPTION>
+						<OPTION value="保險費">保險費</OPTION>
+						<OPTION value="住宿費(兩人房)">住宿費(兩人房)</OPTION>
+						<OPTION value="住宿費(通鋪8人)">住宿費(通鋪8人)</OPTION>
+						<OPTION value="住宿費(加床)">住宿費(加床)</OPTION>
+				</SELECT></td>
+				<td><input type="text" name="edititemMoney"
+					value="${row.item_Money}"></td>
+
+				<td><input type="text" name="edititemNo" value="${row.item_No}"
+					readonly></td>
+				<td class="t">tra_No : ${row.tra_No}</td>
+				<td class="t">item_No : ${row.item_No}</td>
+				<td><input type="submit" name="delete" id="delete"
+								value="delete"></td>
+			</tr>
+		</table>
+
+		<script>
+			$(function() {
+				$("tr[name='newtable']").hide();
+				$("#insert").click(function(event) {$("#Itemtable").append('<tr class=newtable>'+ $("tr[name='newtable']").html()
+											+ '</tr>');
+						})
+				//刪除動態tr		
+				$("#Itemtable").on("click", "input[name='delete']",
+						function() {
+						$(this).parents("tr").remove();
+						});
+
+						
+			});
+			
+
+		</script>
 	</div>
 </body>
 </html>

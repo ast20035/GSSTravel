@@ -29,7 +29,7 @@ public class TravelDAO implements ITravelDAO {
 	}
 
 	private static final String GET_ALL_STMT = "SELECT tra_NO, tra_Name,tra_On, tra_Off, tra_Beg, tra_End, tra_Total, tra_Max,tra_Intr,tra_Con,tra_Atter,tra_File, tra_Loc  FROM Travel ORDER BY tra_NO";
-	private static final String selectFortravel = "SELECT tra_NO, tra_Name,tra_On, tra_Off, tra_Beg, tra_End, tra_Total, tra_Max,tra_Intr,tra_Con,tra_Atter,tra_File  FROM Travel where tra_NO= ? order by tra_NO ";
+	private static final String selectFortravel = "SELECT tra_NO, tra_Name,tra_On, tra_Off, tra_Beg, tra_End, tra_Total, tra_Max,tra_Intr,tra_Con,tra_Atter,tra_File  FROM Travel where tra_NO= ?";
 	private static final String selectTra_NoTra_End = "select tra_No,tra_End from Travel";
 	private static final String selectTra_NoTra_Beg = "select tra_No,tra_Beg from Travel";
 	private static final String selectTra_No = "select tra_No from Travel";
@@ -285,10 +285,11 @@ public class TravelDAO implements ITravelDAO {
 			PreparedStatement stmt = conn.prepareStatement(select_tra);) {
 			stmt.setString(1,tra_No);
 			ResultSet rset = stmt.executeQuery();
-			travelBean = new TravelVO();
 			while(rset.next()){
+				travelBean = new TravelVO();
 				travelBean.setTra_Total(rset.getInt("tra_Total"));
 				travelBean.setTra_Max(rset.getInt("tra_Max"));
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
