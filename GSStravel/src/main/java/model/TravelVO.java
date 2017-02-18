@@ -1,5 +1,8 @@
 package model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class TravelVO {
 	private String tra_NO;
 	private String tra_Name;

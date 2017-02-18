@@ -41,18 +41,33 @@ td>strong {
 <script>
 		var btn=null;
 		var myImg=null;
+		var close1=null;
+		var close2=null;
+		var close3=null;
+		var close4=null;
+		var close5=null;
+		var close6=null;
+		var close7=null;
+		var closeBtn=null;
+		
 		window.onload = function() {
-			btn = document.getElementById("FineEmail")
+			btn = document.getElementById("FineEmail");
 			myImg = document.getElementById("img1"), xhr = null;
-			myImg.style.display = "none";
-			btn.addEventListener("click", load);
+			close1 = document.getElementById("close1");
+			close2 = document.getElementById("close2");
+			close3 = document.getElementById("close3");
+			close4 = document.getElementById("close4");
+			close5 = document.getElementById("close5");
+			close6 = document.getElementById("close6");
+			close7 = document.getElementById("close7");
+			closeBtn = document.getElementById("closeBtn");
 		}
 		
 		function load() {
 			xhr = new XMLHttpRequest();
 			if (xhr != null) {
 				xhr.addEventListener("readystatechange", callback);
-				xhr.open("GET", "Loading.jsp", true);
+				xhr.open("GET", "FineServlet?FineEmail=寄送罰則異動通知");
 				xhr.send();
 			} else {
 				alert("很抱歉，您的瀏覽器不支援AJAX功能！");
@@ -60,18 +75,34 @@ td>strong {
 		}
 		function callback() {
 			if (xhr.readyState == 1) {
+				close1.removeAttribute("href");
+				close2.removeAttribute("href");
+				close3.removeAttribute("href");
+				close4.removeAttribute("href");
+				close5.removeAttribute("href");
+				close6.removeAttribute("href");
+				close7.disabled = true;
+				closeBtn.disabled = true;
 				myImg.style.display = "inline";
 				btn.setAttribute("disabled", "");
 				btn.value = "Email寄送中...";
 			} else if (xhr.readyState == 4) {
+				close1.setAttribute("href","<c:url value='/AllTravel'/>");
+				close2.setAttribute("href","<c:url value='/Register'/>");
+				close3.setAttribute("href","<c:url value='/search2.jsp'/>");
+				close4.setAttribute("href","<c:url value='/search.jsp'/>");
+				close5.setAttribute("href","<c:url value='/FineSetting.jsp'/>");
+				close6.setAttribute("href","<c:url value='/search1.jsp'/>");
+				close7.disabled = false;
+				closeBtn.disabled = false;
 				myImg.style.display = "none";
-				btn.removeAttribute("disabled");
 				btn.value = "寄送罰則異動通知";
 				if (xhr.status == 200) {
 					var data = xhr.responseText;
 					var myDiv = document.getElementById("div1");
 					myDiv.innerHTML = "<h3>" + data + "</h3>";
-				} else {
+				} 
+				else {
 					alert(xhr.status + ":" + xhr.statusText);
 				}
 			}
@@ -88,18 +119,17 @@ td>strong {
 		<div class='row'>
 			<div class='col-md-1'></div>
 			<div class='col-md-11'>
-				<h1>罰則明細</h1>
+				<h2>罰則明細</h2>
 			</div>
 		</div>
-		<form action="<c:url value="/FineServlet" />" method="GET">
+		<form id="EmailData" action="<c:url value="/FineServlet" />" method="GET">
 			<div class='row'>
 				<div class='col-md-1'></div>
 				<div class='col-md-2'>
-					<br> <input type="button" value="罰則設定" name="FineSetting"
-						class='btn btn-primary'
-						onclick="window.location.href=resultjs+'/FineSetting.jsp'" /><br>
-					<br> <input class='btn btn-primary' type="submit" id="FineEmail"
-						name="FineEmail" value="寄送罰則異動通知" />
+					<br> <input type="button" value="罰則設定" name="FineSetting" class='btn btn-primary' id="closeBtn"
+							onclick="window.location.href=resultjs+'/FineSetting.jsp'" /><br>
+					<br>
+					<input class='btn btn-primary' type="button" id="FineEmail" name="FineEmail" value="寄送罰則異動通知" onclick="load()" />
 					<img src="images/ajax-loader.gif" id="img1" style="display: none"/>
 					<div id="div1"></div>
 				</div>

@@ -131,7 +131,11 @@ td {
 			<br />
 			<div>
 				<button type="submit" name="prodaction" value="save">儲存</button>
+
 				<input type="button" onclick="excel()" value="匯出Excel">
+				<!-- 柯(請勿刪除) -->
+					<input type="submit" name="excel" value="匯出Excel"/>
+				<!-- 柯(請勿刪除) -->
 			</div>
 		</form>
 		<c:if test="${session!=null}">

@@ -64,7 +64,6 @@ input[type=text] {
 </script>
 <script>
 	window.onload = function() {
-		var save = document.getElementById("save");
 		setFine();
 	}
 
@@ -187,11 +186,10 @@ input[type=text] {
 		<div class='row'>
 			<div class='col-md-1'></div>
 			<div class='col-md-11'>
-				<h1>罰則設定</h1>
+				<h2>罰則設定</h2>
 			</div>
 		</div>
-		<form id="DataForm" action="<c:url value="/FineServlet" />"
-			method="GET">
+		<form id="DataForm" action="<c:url value="/FineServlet" />" method="GET">
 			<div class='row'>
 				<div class='col-md-1'></div>
 				<div class='col-md-2'>
@@ -199,20 +197,17 @@ input[type=text] {
 					<input type="button" value="罰則明細" name="FineShow"
 						onclick="window.location.href=resultjs+'/FineShowServlet'"
 						class='btn btn-primary' />
-					<br>
-					<br>
-					<input type="hidden" id="FineSave" name="FineSave"
-						value="" /> <input type="button" value="儲存罰則" onclick="check()"
-						class='btn btn-primary' />
-					<br>
-					<br>
-					<input type="button" value="重新設定" name="FineShow"
-						onclick="window.location.href=resultjs+'/FineSetting.jsp'"
-						class='btn btn-info' />
 				</div>
 				<div class='col-md-5'>
 
-					<em style="color: red; font-size: 12px;">*</em>為必填欄位
+					<em style="color: red; font-size: 12px;">*</em>為必填欄位<br><br>
+					<div class='btn-group'>
+					<input type="button" value="重新設定" name="FineShow"
+						onclick="window.location.href=resultjs+'/FineSetting.jsp'"
+						class='btn btn-success' />
+						<input type="button" value="儲存罰則" onclick="check()"
+						class='btn btn-success' /> </div><input type="hidden" id="FineSave" name="FineSave"
+						value="" />
 					<table id="fineTable" class='table-responsive'>
 						<thead>
 							<tr>
