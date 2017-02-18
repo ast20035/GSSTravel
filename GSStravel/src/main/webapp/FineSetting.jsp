@@ -64,7 +64,6 @@ input[type=text] {
 </script>
 <script>
 	window.onload = function() {
-		var save = document.getElementById("save");
 		setFine();
 	}
 
@@ -76,7 +75,7 @@ input[type=text] {
 			xh.open("GET", "FineServlet?FineSetting=罰則設定", true);
 			xh.send();
 		} else {
-			alert("很抱歉，您的瀏覽器不支援AJAX功能！")
+			alert("很抱歉，您的瀏覽器不支援AJAX功能！");
 		}
 	}
 
@@ -190,8 +189,7 @@ input[type=text] {
 				<h2>罰則設定</h2>
 			</div>
 		</div>
-		<form id="DataForm" action="<c:url value="/FineServlet" />"
-			method="GET">
+		<form id="DataForm" action="<c:url value="/FineServlet" />" method="GET">
 			<div class='row'>
 				<div class='col-md-1'></div>
 				<div class='col-md-2'>
