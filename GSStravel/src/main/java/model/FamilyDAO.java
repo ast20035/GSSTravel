@@ -34,7 +34,7 @@ public class FamilyDAO implements IFamilyDAO {
 //	private static final String off = "SET IDENTITY_INSERT Family OFF;";
 	private static final String insert = "insert into Family (emp_No,fam_Name,fam_Rel,fam_Bdate,fam_Sex,fam_Eat,fam_Id,fam_Phone,fam_Note,fam_Ben,fam_BenRel,fam_Car,fam_Emg,fam_EmgPhone,fam_EmgRel,fam_Bady,fam_kid,fam_Dis,fam_Mom) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 	private static final String update = "update Family set fam_Name=?,fam_Rel=?,fam_Bdate=?,fam_Sex=?,fam_Eat=?,fam_Id=?,fam_Phone=?,fam_Note=?,fam_Ben=?,fam_BenRel=?,fam_Car=?,fam_Emg=?,fam_EmgPhone=?,fam_EmgRel=?,fam_Bady=?,fam_kid=?,fam_Dis=?,fam_Mom=? where fam_No=?";
-	private static final String delete = "delete from Family where fam_No=?";
+	private static final String delete = "delete from Family where fam_Id=?";
 	
 	
 	public String selectfam_Rel(String emp_No,String fam_Name){	
@@ -182,13 +182,13 @@ public class FamilyDAO implements IFamilyDAO {
 	}
 
 	@Override
-	public void delete(Integer famno) {
+	public void delete(String famid) {
 		try(
 			Connection connection = ds.getConnection();
 			PreparedStatement state = connection.prepareStatement(delete);)
 		{
 			
-			state.setInt(1,famno);
+			state.setString(1,famid);
 			state.executeUpdate();
 		}catch(SQLException e){
 			e.printStackTrace();

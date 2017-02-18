@@ -119,7 +119,7 @@ td>strong {
 		<div class='row'>
 			<div class='col-md-1'></div>
 			<div class='col-md-11'>
-				<h1>罰則明細</h1>
+				<h2>罰則明細</h2>
 			</div>
 		</div>
 		<form id="EmailData" action="<c:url value="/FineServlet" />" method="GET">
