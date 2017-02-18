@@ -24,9 +24,9 @@ public class TotalAmountDAO implements ITotalAmountDAO {
 	private static final String UPDATE_TOTALAMOUNT_FOR_EMP_NO = "update TotalAmount set TA_money=? where emp_No=? and tra_No=?";
 	private static final String insertTotalAmount ="insert into TotalAmount (tra_No,emp_No,TA_money) values(?,?,?)";	
 	private static final String deleteTotalAmount="Delete from TotalAmount where emp_No=? and tra_No=?"; 
-	private static final String selectTa_money="select  TOP(1)Ta_money from TotalAmount where emp_No=? and (select * from Year)=(select subString(cast(tra_On as nvarchar),1,4) from Travel where tra_No=(select tra_No from TotalAmount where emp_No=?)) order by TA_money DESC";
+	private static final String selectTa_money="select  TOP(1)Ta_money from TotalAmount where emp_No=? ";
 	private static final String selectAll="select * from TotalAmount where emp_No=?";
-	private static final String counts="select count(emp_No)as count from TotalAmount where emp_No=? and (select * from Year)=(select subString(cast(tra_On as nvarchar),1,4) from Travel where tra_No=(select tra_No from TotalAmount where emp_No=?))";
+	private static final String counts="select count(emp_No)as count from TotalAmount where emp_No=? ";
 	private static final String select="select * from TotalAmount where emp_No=? and tra_No=?";
 	
 	@Override

@@ -19,22 +19,13 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <style type="text/css">
-.t {
-	border: 3px outset black;
-	text-align: center;
-	padding: 5px 8px 5px 8px;
-	font-size: 15px;
-}
-
-td {
-	border: 3px outset black;
-	text-align: center;
-	padding: 5px 8px 5px 8px;
-	font-size: 15px;
-}
-
 table {
 	margin-top: 2%;
+	font-size: 15px
+}
+
+td, th {
+	padding: 10px;
 }
 </style>
 <title>Insert title here</title>
@@ -59,7 +50,7 @@ table {
 		<div class='row'>
 			<div class='col-lg-1'></div>
 			<div class='col-lg-11'>
-				<table class="t table-responsive">
+				<table class="t table-responsive table-bordered">
 					<thead class="t">
 						<tr>
 							<th class="t">活動代碼</th>
@@ -77,61 +68,40 @@ table {
 					<tbody>
 						<c:forEach var="row" items="${select}">
 							<tr>
-								<td ><a
+								<td class="t"><a
 									href="<c:url value="/FeeTravel?tra_No=${row.tra_NO}" />">${row.tra_NO}</a></td>
-								<td >${row.tra_Name}</td>
-								<td >${row.tra_On}</td>
-								<td >${row.tra_Off}</td>
-								<c:set var="tra_Beg" value="${row.tra_Beg}" />
-								<script>
-									var traBeg = "${tra_Beg}";
-									var Beg = traBeg.substring(0, 19);
-									function f() {
-										document.write("<td>");
-										document.write(Beg);
-										document.write("</td>");
-									}
-									f();
-								</script>
-								<c:set var="tra_End" value="${row.tra_End}" />
-								<script>
-									var tra_End = "${tra_End}";
-									var End = tra_End.substring(0, 19);
-									function f() {
-										document.write("<td>");
-										document.write(Beg);
-										document.write("</td>");
-									}
-									f();
-								</script>
-								<td >${row.tra_Total}</td>
-								<td >${row.sign_InTotal}</td>
-								<td >${row.tra_Max}</td>
+								<td class="t">${row.tra_Name}</td>
+								<td class="t">${row.tra_On}</td>
+								<td class="t">${row.tra_Off}</td>
+								<td class="t">${row.tra_Beg}</td>
+								<td class="t">${row.tra_End}</td>
+								<td class="t">${row.tra_Total}</td>
+								<td class="t">${row.sign_InTotal}</td>
+								<td class="t">${row.tra_Max}</td>
 								<c:set var="tra_no" value="${row.tra_NO}" />
 								<c:if test="${mp[tra_no]==0}">
-									<td ><a
+									<td class="t"><a
 										href="<c:url value="/Login_Information?tra_No=${row.tra_NO}&emp_No=${emp_No}"></c:url>"><button
-												class='btn btn-info'>我要報名</button></a></td>
+												class='btn btn-success'>我要報名</button></a></td>
 								</c:if>
 								<c:if test="${mp[tra_no]==1}">
-									<td>登記已截止</td>
+									<td class="t">登記已截止</td>
 								</c:if>
 								<c:if test="${mp[tra_no]==2}">
-									<td >人數已額滿</td>
+									<td class="t">人數已額滿</td>
 								</c:if>
 								<c:if test="${mp[tra_no]==3}">
-									<td ><a
+									<td class="t"><a
 										href="<c:url value="/CancelServlet?tra_No=${row.tra_NO}&emp_No=${emp_No}"></c:url>"><button
-												class='btn btn-info'>取消報名</button></a></td>
+												class='btn btn-success'>取消報名</button></a></td>
 								</c:if>
 								<c:if test="${mp[tra_no]==4}">
-									<td>活動已結束</td>
+									<td class="t">活動已結束</td>
 								</c:if>
 								<c:if test="${mp[tra_no]==5}">
-									<td >活動尚未開始登記</td>
+									<td class="t">活動尚未開始登記</td>
 								</c:if>
 							</tr>
-
 						</c:forEach>
 					</tbody>
 				</table>
