@@ -1,23 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="BIG5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src='js/jquery-3.1.1.min.js'></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <title>旅遊報名</title>
 </head>
 <style>
@@ -53,6 +43,7 @@ td {
 			$('li:eq(5)').addClass('now');
 		</script>
 	<div class='container-fluid'>
+	<h2>旅費統計</h2>
 		<form action="<c:url value='/TotalAmountServlet' />" method="GET">
 			<div>
 				<textarea name="tra_Name" class="tra_Name" readonly>${tra_Name}</textarea>
@@ -77,51 +68,40 @@ td {
 				<c:forEach var="list" items="${list}">
 					<tr>
 						<td><input type="text" name="dept_No" class="dept_No"
-							value="${list.dept_No}" readonly></td>
+							value="${list.dept_No}" style="border-width: 0" readonly></td>
 						<td><c:if test="${list.fam_No==0}">
-								<input type="text" name="emp_No" class="emp No"
-									value="${list.emp_No}" readonly>
+								<input type="text" name="emp_No" class="emp No" value="${list.emp_No}" style="border-width: 0" readonly>
 								<input type="hidden" name="empfam" value="${list.emp_No}">
-							</c:if> <c:if test="${list.fam_No!=0}">
-								<input type="text" name="empfam" class="fam No"
-									value="${list.emp_No}/${list.fam_No}" readonly>
+							</c:if>
+							<c:if test="${list.fam_No!=0}">
+								<input type="text" name="empfam" class="fam No" value="${list.emp_No}/${list.fam_No}" style="border-width: 0" readonly>
 							</c:if></td>
 						<td><c:if test="${list.fam_Name==NULL}">
-								<input type="text" class="Name" value="${list.emp_Name}"
-									readonly>
-							</c:if> <c:if test="${list.fam_Name!=NULL}">
-								<input type="text" class="Name"
-									value="${list.fam_Name}/${list.emp_Name}" readonly>
+								<input type="text" class="Name" value="${list.emp_Name}" style="border-width: 0" readonly>
+							</c:if>
+							<c:if test="${list.fam_Name!=NULL}">
+								<input type="text" class="Name" value="${list.fam_Name}/${list.emp_Name}" style="border-width: 0" readonly>
 							</c:if></td>
 						<c:if test="${list.fam_Name==NULL}">
-							<td><input type="text" class="years_money years_Money"
-								value="${list.years_money}" readonly></td>
-							<td><input type="text" class="person_money person_Money"
-								value="" readonly> <input type="hidden" class="person"
-								value="${list.emp_No}"></td>
+							<td><input type="text" class="years_money years_Money" value="${list.years_money}" style="border-width: 0" readonly></td>
+							<td><input type="text" class="person_money person_Money" value="" style="border-width: 0" readonly>
+							<input type="hidden" class="person" value="${list.emp_No}"></td>
 						</c:if>
 						<c:if test="${list.fam_Name!=NULL}">
-							<td><input type="text" class="years_Money" value="0.0"
-								readonly></td>
+							<td><input type="text" class="years_Money" value="0.0" style="border-width: 0" readonly></td>
 							<td><c:if test="${list.fam_sub}">
-									<input type="text" class="personfam_money person_Money"
-										value="0.0" readonly>
+									<input type="text" class="personfam_money person_Money" style="border-width: 0" value="0.0" readonly>
 									<input type="hidden" class="person" value="${list.emp_No}">
 								</c:if> <c:if test="${!list.fam_sub}">
-									<input type="text" class="onmoney person_Money" value="0.0"
-										readonly>
-								</c:if></td>
+									<input type="text" class="onmoney person_Money" value="0.0" style="border-width: 0" readonly>
+								</c:if>
+							</td>
 						</c:if>
-						<td><input type="text" name="money" class="money Money"
-							value="${list.det_money}" readonly></td>
-						<td><input type="text" name="det_note"
-							class="det_note det_Note" value="${list.det_note}"></td>
-						<td><input type="text" name="det_noteMoney"
-							class="det_noteMoney det_NoteMoney" value="${list.det_noteMoney}"
-							onkeyup="changeNotemoney()"></td>
+						<td><input type="text" name="money" class="money Money" value="${list.det_money}" style="border-width: 0" readonly></td>
+						<td><input type="text" name="det_note" class="det_note det_Note" value="${list.det_note}"></td>
+						<td><input type="text" name="det_noteMoney" class="det_noteMoney det_NoteMoney" value="${list.det_noteMoney}" onkeyup="changeNotemoney()"></td>
 						<td><c:if test="${list.fam_No==0}">
-								<input type="text" name="TA_money" class="TA_money ta_Money"
-									value="">
+								<input type="text" name="TA_money" class="TA_money ta_Money" value="" style="border-width: 0" readonly>
 							</c:if> <c:if test="${list.fam_No!=0}">
 								<input type="hidden" class="ta_Money" value="0">
 							</c:if></td>
@@ -131,6 +111,7 @@ td {
 			<br />
 			<div>
 				<button type="submit" name="prodaction" value="save">儲存</button>
+
 				<input type="button" onclick="excel()" value="匯出Excel">
 			</div>
 		</form>
@@ -214,7 +195,7 @@ td {
 		var det_NoteMoney= new Array();
 		var ta_Money= new Array();
 		
-		for(var i=0;i<4;i++){
+		for(var i=0;i<$dept_No.length;i++){
 			dept_No[i]=$dept_No[i].value;
 			No[i]=$No[i].value;
 			Name[i]=$Name[i].value;

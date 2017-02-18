@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.sql.Date;
@@ -36,6 +37,10 @@ public class DetailServlet extends HttpServlet {
 		String tra_no = req.getParameter("tra_no");
 		String can_detNo = req.getParameter("can_detNo");
 		String doInsert = req.getParameter("doInsert");
+		
+		//柯(請勿刪除)
+			String excel = req.getParameter("excel");
+		//柯(請勿刪除)
 
 		DetailBean bean = new DetailBean();
 		TravelVO travelVO = new TravelVO();
@@ -43,6 +48,14 @@ public class DetailServlet extends HttpServlet {
 
 		HttpSession session = req.getSession();
 		session.removeAttribute("DetCanError");
+		
+		// 柯(請勿刪除)
+		if ("匯出Excel".equals(excel)) {
+			File dir = new File("C:/detail");
+			writeExcel we = new writeExcel(dir);
+			
+			req.getRequestDispatcher("/Detail.jsp").forward(req, resp);
+		} // 柯(請勿刪除)
 
 		List<ItemVO> itemVO = null;
 		List<ItemVO> room = null;

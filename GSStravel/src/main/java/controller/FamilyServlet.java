@@ -64,8 +64,8 @@ public class FamilyServlet extends HttpServlet {
 //		System.out.println(ajaxid);//["Q250939543","F261403341","F218757856",""]
 //		String ajaxemail = req.getParameter("email");
 //		System.out.println(ajaxemail);
-		String ajaxfamno = req.getParameter("famno");
-		System.out.println(ajaxfamno);
+		String ajaxfamid = req.getParameter("famid");
+		System.out.println(ajaxfamid);
 		
 		String buttondelete = req.getParameter("delete");
 		String buttonsave = req.getParameter("button");
@@ -75,7 +75,7 @@ public class FamilyServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		Integer emp_No = (Integer) session.getAttribute("emp_No");
 		List<String> id = familyservice.selectid(emp_No);
-//		for(String yyyy:id){System.out.println(yyyy);}
+
 		
 		if (ajaxid != null) {// 轉成string[] 格式
 			String[] items = ajaxid.replaceAll("\\[", "").replaceAll("\"", "").replaceAll("\\]", "").split(",");
@@ -88,6 +88,10 @@ public class FamilyServlet extends HttpServlet {
 					out.print("");
 				}
 			}
+		}
+		if(ajaxfamid!=null){//用ajax找到id
+			familyservice.delete(ajaxfamid);
+//			out.print("刪除成功");
 		}
 		
 //		List<String> email = employeeservice.selectEmail();
@@ -102,13 +106,6 @@ public class FamilyServlet extends HttpServlet {
 //			}
 //		}
 
-
-//		if ("delete".equals(buttondelete)) {
-//			// familyservice.delete();//ajax傳值近來他的val來抓他的值? 前端配合把欄位remove掉
-//			System.out.println("xxxxxx");
-//		}
-
-		
 
 		if ("儲存".equals(buttonsave)) {//前面""抓value
 			Map<String, String> errormsg = new HashMap<String, String>();

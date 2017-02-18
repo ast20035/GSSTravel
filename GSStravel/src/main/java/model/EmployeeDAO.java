@@ -219,6 +219,7 @@ public class EmployeeDAO implements IEmployeeDAO {
 		return result;
 	}
 
+	// 柯
 	@Override
 	public List<String> selectEmail() {
 		List<String> email=null;
