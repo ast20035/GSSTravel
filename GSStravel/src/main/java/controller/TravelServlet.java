@@ -59,8 +59,11 @@ public class TravelServlet extends HttpServlet {
 		String traCon = request.getParameter("edittraCon");
 		String traAtter = request.getParameter("edittraAtter");
 		String traFile = request.getParameter("edittraFile");
-		String excel = request.getParameter("excel");//柯(請勿刪除)
-
+		
+		//柯(請勿刪除)
+			String excel = request.getParameter("excel");
+		//柯(請勿刪除)
+		
 		//String itemNo = request.getParameter("edititemNo");
 		String[] itemNo = request.getParameterValues("edititemNo");
 		String[] itemName = request.getParameterValues("edititemName");
@@ -71,14 +74,14 @@ public class TravelServlet extends HttpServlet {
 		Map<String, String> errors = new HashMap<String, String>();
 		request.setAttribute("errors", errors);
 		
-		//柯(請勿刪除)
+		// 柯(請勿刪除)
 		if ("匯出Excel".equals(excel)) {
 			TravelVO travelBean = new TravelVO();
 			List<TravelVO> tResult = travelService.selectExcel(travelBean);
 			File dir = new File("C:/travel");
 			writeExcel we = new writeExcel(dir);
 			for (int i = 0; i < tResult.size(); i++) {
-				we.excel(tResult.get(i).getTra_NO(), tResult.get(i).getTra_Name(), tResult.get(i).getTra_Loc(),
+				we.travelExcel(tResult.get(i).getTra_NO(), tResult.get(i).getTra_Name(), tResult.get(i).getTra_Loc(),
 						tResult.get(i).getTra_On().toString(), tResult.get(i).getTra_Off().toString(),
 						tResult.get(i).getTra_Beg().toString(), tResult.get(i).getTra_End().toString(),
 						tResult.get(i).getTra_Total() + "", tResult.get(i).getTra_Max() + "",
@@ -86,8 +89,8 @@ public class TravelServlet extends HttpServlet {
 						tResult.get(i).getTra_File());
 			}
 			request.getRequestDispatcher("/search2.jsp").forward(request, response);
-		}//柯(請勿刪除)
-
+		} // 柯(請勿刪除)
+		
 		
 		
 		/*

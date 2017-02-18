@@ -25,7 +25,7 @@ public class writeExcel {
 		}
 	}
 
-	public void excel(String traNo, String traName, String traLoc, String traOn, String traOff, String traBeg,
+	public void travelExcel(String traNo, String traName, String traLoc, String traOn, String traOff, String traBeg,
 			String traEnd, String traTotal, String traMax, String traIntr, String traCon, String traAttr,
 			String traFile) {
 		try {

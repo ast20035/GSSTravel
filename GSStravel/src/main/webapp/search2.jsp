@@ -188,8 +188,10 @@
 						<br> 
 						<div class='btn-group'>
 						<input type="button" value="查詢" onclick="search()"  class='btn btn-primary'/> 
-						<input  class='btn btn-primary' 
-							type="reset"></div>
+						<input  class='btn btn-primary' type="reset"></div>
+						<!-- 柯(請勿刪除) -->
+							<input type="submit" name="excel" value="匯出Excel"/>
+						<!-- 柯(請勿刪除) -->
 					</form>
 				</fieldset>
 			</div>

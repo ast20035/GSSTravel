@@ -171,8 +171,11 @@
 		</table>
 		<br />
 		<button type="submit" name="prodaction" value="insert">新增</button>
-		<input type="button" value="匯出Excel">
-
+		
+		<!-- 柯(請勿刪除) -->
+			<input type="submit" name="excel" value="匯出Excel"/>
+		<!-- 柯(請勿刪除) -->
+		
 	</form>
 
 
