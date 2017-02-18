@@ -19,16 +19,19 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <style type="text/css">
-.t {
-	border: 3px outset black;
-	text-align: center;
-	padding: 5px 8px 5px 8px;
-	font-size: 15px;
-}
-
 .a {
 	text-decoration: none;
 	color: black;
+}
+table{
+font-size: 15px;
+}
+
+.table1{
+text-align: center;
+}
+.container-fluid {
+	margin-top: 2%;
 }
 </style>
 <title>Insert title here</title>
@@ -39,87 +42,138 @@
 			<div class='row'>
 				<div class='col-lg-2'></div>
 				<div class='col-lg-3'>
-					<h1 class='alert alert-info'>-本團報名資訊-</h1>
-<%-- 					<h3>活動名稱:${tra_Vo.tra_Name}</h3> --%>
-					<h3>
-						活動名稱:<input  style="border-style: none; color: #7700BB; width: 600px;"
-							type="text" value="${tra_Vo.tra_Name}" name="tra_Name" readonly>
-					</h3>
-					<h3>
-						活動代碼:<input  style="border-style: none; color: #7700BB;"
-							type="text" value="${tra_Vo.tra_NO}" name="tra_No" readonly>
-					</h3>
-					<h3>已報名人數 ${tra_count}人依報名順序為:</h3>
-					<c:forEach var="names" items="${name}">
-						<c:set var="nameKey" value="${names}" />
-						<h3>${names}(共${mp[nameKey]}人)</h3>
-					</c:forEach>
+					<div class='panel panel-primary'>
+						<div class='panel-heading'>
+							<h1>-本團報名資訊-</h1>
+						</div>
+						<%-- 					<h3>活動名稱:${tra_Vo.tra_Name}</h3> --%>
+						<div class='panel-body'>
+							<table class='table table-condensed'>
+								<tr>
+									<td>活動名稱:</td>
+									<td><input style="border-style: none; color: #7700BB;"
+										type="text" value="${tra_Vo.tra_Name}" name="tra_Name"
+										readonly></td>
+								<tr>
+									<td>活動代碼:</td>
+									<td><input style="border-style: none; color: #7700BB;"
+										type="text" value="${tra_Vo.tra_NO}" name="tra_No" readonly>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2">目前已報名人數為 <strong>${tra_count}</strong>人，依報名順序為:
+									</td>
+								</tr>
+								<c:forEach var="names" items="${name}">
+									<c:set var="nameKey" value="${names}" />
+									<tr>
+										<td colspan="2">${names}(共${mp[nameKey]}人)</td>
+									</tr>
+								</c:forEach>
+							</table>
+						</div>
+					</div>
 				</div>
 				<div class='col-lg-1'></div>
 				<div class='col-lg-3'>
-					<h1 class='alert alert-info'>-報名人員-</h1>
-					<h4>
-						員編:<input  type="text" style="border-style: none; color: #7700BB;"
-							value="${emp_No}" name="emp_No" readonly>
-					</h4>
-					<h4>
-						姓名:<input  type="text" style="border-style: none; color: #7700BB;"
-							value="${myName}" name="emp_No" readonly>
-					</h4>
-					<h4>
-						報名順序:<input  type="text" style="border-style: none; color: #7700BB;"
-							value="第${tra_order}名" name="emp_No" readonly>
-					</h4>
-
-					<c:if test="${familySize>0}">
-						<table class="t">
-							<tr class="t">
-								<th class="t">報名</th>
-								<th class="t">眷屬/親友</th>
-								<th class="t">姓名</th>
-							</tr>
-							<c:forEach var="row" items="${familyVO}">
-								<tr class="t">
-									<td class="t"><input type=checkbox value="${row.fam_Name}"
-										onclick="return false" ${row.checked} name="fam"></td>
-									<td class="t">${row.fam_Rel}</td>
-									<td class="t">${row.fam_Name}</td>
-								</tr>
-							</c:forEach>
-						</table>
-					</c:if>
-					<br> <br> <br>
-					<c:if test="${tra_Vo.tra_On!=tra_Vo.tra_Off}">
-						<c:forEach var="room" items="${itemVo}">
-							<table class="t">
-								<tr class="t">
-									<th class="t"></th>
-									<th class="t">房型</th>
-									<th class="t">費用</th>
+					<div class='panel panel-primary'>
+						<div class='panel-heading'>
+							<h1>-報名人員-</h1>
+						</div>
+						<div class='panel-body'>
+							<table class='table table-condensed'>
+								<tr>
+									<td>員編:</td>
+									<td><input type="text"
+										style="border-style: none; color: #7700BB;" value="${emp_No}"
+										name="emp_No" readonly></td>
 								</tr>
 								<tr>
-									<td class="t"><input type=checkbox
-										value="${room.item_Money} " onclick="return false" name="room"></td>
-									<td class="t" width='150px'>${room.item_Name}</td>
-									<td class="t" width='70px'>${room.item_Money}</td>
+									<td>姓名:</td>
+									<td><input type="text"
+										style="border-style: none; color: #7700BB;" value="${myName}"
+										name="emp_No" readonly></td>
+								</tr>
+								<tr>
+									<td>報名順序:</td>
+									<td><input type="text"
+										style="border-style: none; color: #7700BB;"
+										value="第${tra_order}名" name="emp_No" readonly></td>
+								</tr>
+								<tr>
+									<td colspan="2"><c:if test="${familySize>0}">
+											<table class='table table-bordered table1'>
+												<tr>
+													<th></th>
+													<th>眷屬/親友</th>
+													<th>姓名</th>
+												</tr>
+												<c:forEach var="row" items="${familyVO}">
+													<tr>
+														<td><input type=checkbox value="${row.fam_Name}"
+															onclick="return false" ${row.checked} name="fam"></td>
+														<td>${row.fam_Rel}</td>
+														<td>${row.fam_Name}</td>
+													</tr>
+												</c:forEach>
+											</table>
+										</c:if> <br> <c:if test="${tra_Vo.tra_On!=tra_Vo.tra_Off}">
+											<c:forEach var="room" items="${itemVo}">
+												<table class='table table-bordered table1'>
+													<tr>
+														<th></th>
+														<th>房型</th>
+														<th>費用</th>
+													</tr>
+													<tr>
+														<td><input type=checkbox value="${room.item_Money} "
+															onclick="return false" name="room"></td>
+														<td>${room.item_Name}</td>
+														<td>${room.item_Money}</td>
+													</tr>
+												</table>
+											</c:forEach>
+											<br>
+											<br>
+										</c:if></td>
+								</tr>
+								<tr>
+									<td>團費試算:</td>
+								</tr>
+								<tr>
+									<td>年度可使用補助金額:</td>
+									<td><strong>${detail[0]}</strong></td>
+								</tr>
+								<tr>
+									<td>個人團費:</td>
+									<td><strong>${detail[1]}</strong></td>
+								</tr>
+								<tr>
+									<td>個人補助金:</td>
+									<td><strong>${detail[0]}</strong></td>
+								</tr>
+								<tr>
+									<td>補團費:</td>
+									<td><strong>${detail[2]}</strong></td>
+								</tr>
+								<tr>
+									<td colspan="2" style="color: red">PS:團費試算僅供參考，需繳納費用以福委會通知為主</td>
+								</tr>
+								<!-- 					<button> -->
+								<%-- 						<a href="<c:url value="/AllTravel"></c:url>" class="a">回上一頁</a> --%>
+								<!-- 					</button> -->
+								<script>
+									var GSS = '<c:url value="/AllTravel" />'
+								</script>
+								<tr>
+									<td><br> <input type="button" value='回上一頁'
+										class='btn  btn-primary' onclick="window.location.href=GSS;" />
+										<input type="submit" value="取消報名" class='btn  btn-primary' />
+									</td>
 								</tr>
 							</table>
-						</c:forEach>
-						<br>
-						<br>
-					</c:if>
-					<h4>團費試算:<br>
-						年度可使用補助金額:<strong>${detail[0]}</strong><br> 個人團費:<strong>${detail[1]}</strong><br> 個人補助金:<strong>${detail[0]}</strong><br>  補團費:<strong>${detail[2]}</strong></h4>
-					<h4 style="color: red">PS:團費試算僅供參考，需繳納費用以福委會通知為主</h4>
-					<!-- 					<button> -->
-					<%-- 						<a href="<c:url value="/AllTravel"></c:url>" class="a">回上一頁</a> --%>
-					<!-- 					</button> -->
-					<script>
-						var GSS = '<c:url value="/AllTravel" />'
-					</script>
-					<input type="button" value='回上一頁' class='btn  btn-primary'
-						onclick="window.location.href=GSS;" /> <input type="submit"
-						value="取消報名"  class='btn  btn-primary'/>
+						</div>
+					</div>
 				</div>
 			</div>
 		</form>

@@ -150,42 +150,81 @@ var Error="<%=session.getAttribute("nopeople")%>";
 			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
 		<script
 			src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
-		<h2>旅費統計</h2>
-		<form>
-			活動代碼:<input type='text' id='id' value='' /><br> 活動名稱:<input
-				type='text' id='tra_name' value='' /><br> 開始日期:<input
-				type='date' id='Sdate' name='startDay' value='' /> ~ <input
-				type='date' id='Edate' name='endDay' value='' /> <br>活動地點:
-			<!-- 			 <input -->
-			<!-- 			type="checkbox" name="loc" value="東" />東 <input type="checkbox" -->
-			<!-- 			name="loc" value="西" />西 <input type="checkbox" name="loc" value="南" />南 -->
-			<!-- 		<input type="checkbox" name="loc" value="北" />北  -->
-			<select class="multiselect" name="loca" multiple="multiple"
-				data-placeholder="請選擇" style="width: 350px;">
-				<option>東</option>
-				<option>西</option>
-				<option>南</option>
-				<option>北</option>
-			</select> <br> <input type="button" value="查詢" onclick="search()" /> <input
-				type="reset">
-		</form>
-		<table class='table' cellpadding="10">
-			<thead>
-				<tr>
-					<th>活動代碼</th>
-					<th>活動名稱</th>
-					<th>活動開始</th>
-					<th>活動結束</th>
-					<th>登記開始</th>
-					<th>登記結束</th>
-					<th>人數上限</th>
-					<th>已報名人數</th>
-					<th>活動地點</th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
+		<div class='row'>
+			<div class='col-md-1'></div>
+			<div class='col-md-11'>
+				<h2>旅費統計</h2>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-md-1'></div>
+			<div class='col-md-2'>
+				<br>
+				<fieldset>
+					<form>
+						<div class='input-group'>
+							<span class="input-group-addon info" id="sizing-addon1">活動代碼:</span><input
+								type='text' id='id' value='' aria-describedby="sizing-addon1"
+								class='form-control' />
+						</div>
+						<br>
+						<div class='input-group'>
+							<span class="input-group-addon info" id="sizing-addon2">活動名稱:</span> <input
+								type='text' id='tra_name' value=''
+								aria-describedby="sizing-addon2" class='form-control' />
+						</div>
+						<br>
+						<div class='input-group'>
+							<span class="input-group-addon info" id="sizing-addon3"> 開始日期:</span><input
+								type='date' id='Sdate' name='startDay' value=''
+								aria-describedby="sizing-addon3" class='form-control' /> <input
+								type='date' id='Edate' name='endDay' value=''
+								class='form-control' />
+						</div>
+						<br>
+						<div class='input-group'>
+							<span class="input-group-addon info" id="sizing-addon3">活動地點:</span> <select
+								class="multiselect" name="loca" multiple="multiple"
+								data-placeholder="請選擇" style="width: 300px;">
+								<option>東</option>
+								<option>西</option>
+								<option>南</option>
+								<option>北</option>
+
+							</select>
+						</div>
+						<br> 
+						<div class='btn-group'>
+						<input type="button" value="查詢" onclick="search()"  class='btn btn-primary'/> 
+						<input  class='btn btn-primary' 
+							type="reset"></div>
+					</form>
+				</fieldset>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-md-1'></div>
+			<div class='col-md-10'>
+				<table class='table' cellpadding="10">
+					<thead>
+						<tr>
+							<th>活動代碼</th>
+							<th>活動名稱</th>
+							<th>活動開始</th>
+							<th>活動結束</th>
+							<th>登記開始</th>
+							<th>登記結束</th>
+							<th>人數上限</th>
+							<th>已報名人數</th>
+							<th>活動地點</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+			<div class='col-md-1'></div>
+		</div>
 	</div>
 </body>
 </html>
