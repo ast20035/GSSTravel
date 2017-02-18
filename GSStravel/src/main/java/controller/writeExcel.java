@@ -84,4 +84,57 @@ public class writeExcel {
 			e.printStackTrace();
 		}
 	}
+	
+	public void detailExcel(){
+		try {
+			WritableWorkbook workbook = Workbook.createWorkbook(new File(saveFolder + "/" + ".xls"));
+			WritableSheet sheet = workbook.createSheet("MySheet", 0);
+
+			WritableFont myFont = new WritableFont(WritableFont.createFont("標楷體"), 12);
+			
+			WritableCellFormat cellFormat = new WritableCellFormat();
+			cellFormat.setFont(myFont);
+			cellFormat.setBorder(Border.ALL, BorderLineStyle.MEDIUM); // 邊框
+			cellFormat.setAlignment(Alignment.CENTRE); // 水平對齊方式
+			cellFormat.setVerticalAlignment(VerticalAlignment.CENTRE); // 垂直對齊方式
+			cellFormat.setWrap(true); // 換行
+
+			String[] name = {};
+			String[] content = {};
+
+			workbook.write();
+			workbook.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (WriteException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void totalAmountExcel(){
+		try {
+			WritableWorkbook workbook = Workbook.createWorkbook(new File(saveFolder + "/" + ".xls"));
+			WritableSheet sheet = workbook.createSheet("MySheet", 0);
+
+			WritableFont myFont = new WritableFont(WritableFont.createFont("標楷體"), 12);
+			
+			WritableCellFormat cellFormat = new WritableCellFormat();
+			cellFormat.setFont(myFont);
+			cellFormat.setBorder(Border.ALL, BorderLineStyle.MEDIUM); // 邊框
+			cellFormat.setAlignment(Alignment.CENTRE); // 水平對齊方式
+			cellFormat.setVerticalAlignment(VerticalAlignment.CENTRE); // 垂直對齊方式
+			cellFormat.setWrap(true); // 換行
+
+			String[] name = {};
+			String[] content = {};
+
+			workbook.write();
+			workbook.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (WriteException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

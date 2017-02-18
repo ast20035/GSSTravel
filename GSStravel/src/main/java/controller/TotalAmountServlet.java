@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +35,10 @@ public class TotalAmountServlet extends HttpServlet {
 		String[] det_note = request.getParameterValues("det_note");
 		String[] temp3 = request.getParameterValues("det_noteMoney");
 		String[] temp4 = request.getParameterValues("empfam");
+		
+		//柯(請勿刪除)
+			String excel = request.getParameter("excel");
+		//柯(請勿刪除)
 
 		// 轉換資料
 		HttpSession session = request.getSession();
@@ -129,6 +134,15 @@ public class TotalAmountServlet extends HttpServlet {
 		}if("Excel".equals(prodaction)){
 			return;
 		}
+		
+		// 柯(請勿刪除)
+		if ("匯出Excel".equals(excel)) {
+			File dir = new File("C:/totalAmount");
+			writeExcel we = new writeExcel(dir);
+					
+			request.getRequestDispatcher("/Detail_Money.jsp").forward(request, response);
+		} // 柯(請勿刪除)
+		
 	}
 
 	@Override
