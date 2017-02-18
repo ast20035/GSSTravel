@@ -201,6 +201,7 @@ li {
 					<td><input type="submit" name="inputerrors" value="Update">
 						<input type="submit" name="inputerrors" value="Delete"> <input
 						type="submit" name="" value="關閉"></td>
+						
 				</tr>
 			</table>
 		</form>
