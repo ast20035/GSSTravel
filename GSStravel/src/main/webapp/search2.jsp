@@ -153,7 +153,7 @@
 			<div class='col-md-2'>
 				<br>
 				<fieldset>
-					<form>
+					<form action=<c:url value="/Travel_Edit"/> method="get">
 						<div class='input-group'>
 							<span class="input-group-addon info" id="sizing-addon1">活動代碼:</span><input
 								type='text' id='id' value='' aria-describedby="sizing-addon1"

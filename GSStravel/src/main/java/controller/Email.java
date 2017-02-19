@@ -11,7 +11,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class email {
+public class Email {
 	private String host = "smtp.gmail.com";
 	private int port = 587;
 	private final String username = "gsstravelteam2@gmail.com";

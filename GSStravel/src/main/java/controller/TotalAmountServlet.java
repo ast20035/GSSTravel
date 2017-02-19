@@ -138,7 +138,7 @@ public class TotalAmountServlet extends HttpServlet {
 		// 柯(請勿刪除)
 		if ("匯出Excel".equals(excel)) {
 			File dir = new File("C:/totalAmount");
-			writeExcel we = new writeExcel(dir);
+			Excel we = new Excel(dir);
 					
 			request.getRequestDispatcher("/Detail_Money.jsp").forward(request, response);
 		} // 柯(請勿刪除)
