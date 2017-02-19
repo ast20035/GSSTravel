@@ -100,7 +100,7 @@ public class Excel {
 			String[] famBenRel, String[] famEmg, String[] famEmgPhone, String[] detDate, String[] detCanDate,
 			String[] famNote, String[] detCanNote) {
 		try {
-			WritableWorkbook workbook = Workbook.createWorkbook(new File(saveFolder + "/報明明細" + traNo + ".xls"));
+			WritableWorkbook workbook = Workbook.createWorkbook(new File(saveFolder + "/報名明細-" + traNo + ".xls"));
 			WritableSheet sheet = workbook.createSheet("MySheet", 0);
 
 			WritableFont myFont = new WritableFont(WritableFont.createFont("標楷體"), 12);
@@ -123,7 +123,7 @@ public class Excel {
 			String[] name = { "報名流水號", "活動代碼", "員工編號", "親屬編號", "身份", "姓名", "性別", "身份證字號", "生日", "手機", "用餐", "車位",
 					"特殊身份-幼童", "特殊身份-兒童", "特殊身份-身心障礙", "特殊身份-孕婦", "保險受益人", "與受益人關係", "緊急聯絡人", "緊急聯絡人手機", "報名時間", "取消日期",
 					"備註", "取消原因" };
-			for (int i = 0; i < count; i++) { // 0-5
+			for (int i = 0; i < count; i++) {
 				if (famCar[i].equals("true")) {
 					famCar[i] = "是";
 				} else {
@@ -160,7 +160,7 @@ public class Excel {
 			int rowSize = 500;
 			int columnSize = 30;
 
-			for (int i = 0; i < count; i++) { // 0-5
+			for (int i = 0; i < count; i++) {
 				for (int j = 0; j < name.length; j++) { // 0-23
 					if (i == 0) {
 						sheet.setRowView(i, rowSize);
@@ -170,7 +170,7 @@ public class Excel {
 				}
 			}
 
-			for (int i = 0; i < count; i++) { // 0-5
+			for (int i = 0; i < count; i++) {
 				for (int j = 0; j < name.length; j++) { // 0-23
 					sheet.setRowView(i + 1, rowSize);
 					sheet.setColumnView(j, columnSize);
@@ -234,23 +234,78 @@ public class Excel {
 		}
 	}
 
-	public void totalAmountExcel() {
+	public void totalAmountExcel(int count, String traNo, String traName, String[] deptNo, String[] No, String[] Name,
+			String[] yearsMoney, String[] personMoney, String[] Money, String[] detNote, String[] detNoteMoney,
+			String[] taMoney) {
 		try {
-			WritableWorkbook workbook = Workbook.createWorkbook(new File(saveFolder + "/" + ".xls"));
+			WritableWorkbook workbook = Workbook
+					.createWorkbook(new File(saveFolder + "/旅費統計-" + traNo + "-" + traName + ".xls"));
 			WritableSheet sheet = workbook.createSheet("MySheet", 0);
 
 			WritableFont myFont = new WritableFont(WritableFont.createFont("標楷體"), 12);
 
+			WritableCellFormat cellFormatTitle = new WritableCellFormat();
+			cellFormatTitle.setFont(myFont); // 字體
+			cellFormatTitle.setBorder(Border.ALL, BorderLineStyle.MEDIUM); // 邊框
+			cellFormatTitle.setAlignment(Alignment.CENTRE); // 水平對齊方式
+			cellFormatTitle.setVerticalAlignment(VerticalAlignment.CENTRE); // 垂直對齊方式
+			cellFormatTitle.setWrap(true); // 換行
+			cellFormatTitle.setBackground(Colour.PALE_BLUE); // 背景顏色
+
 			WritableCellFormat cellFormat = new WritableCellFormat();
-			cellFormat.setFont(myFont);
+			cellFormat.setFont(myFont); // 字體
 			cellFormat.setBorder(Border.ALL, BorderLineStyle.MEDIUM); // 邊框
 			cellFormat.setAlignment(Alignment.CENTRE); // 水平對齊方式
 			cellFormat.setVerticalAlignment(VerticalAlignment.CENTRE); // 垂直對齊方式
 			cellFormat.setWrap(true); // 換行
 
-			String[] name = {};
-			String[] content = {};
+			String[] name = { "部門代碼", "員工(/眷屬親友)編號", "姓名(/隸屬於哪位員工)", "年度可補助金額", "個人可補助金額", "個人團費", "其他增減費用明細說明",
+					"其他增減費用總額", "應補團費" };
 
+			for (int i = 0; i < count; i++) {
+				if (detNote[i] == "") {
+					detNote[i] = "無";
+				}
+			}
+			
+			int rowSize = 500;
+			int columnSize = 30;
+
+			for (int i = 0; i < count; i++) {
+				for (int j = 0; j < name.length; j++) {
+					if (i == 0) {
+						sheet.setRowView(i, rowSize);
+						sheet.setColumnView(j, columnSize);
+						sheet.addCell(new Label(j, i, name[j], cellFormatTitle));
+					}
+				}
+			}
+
+			for (int i = 0; i < count; i++) {
+				for (int j = 0; j < name.length; j++) { // 0-8
+					sheet.setRowView(i + 1, rowSize);
+					sheet.setColumnView(j, columnSize);
+					if (j == 0) {
+						sheet.addCell(new Label(j, i + 1, deptNo[i], cellFormat));
+					} else if (j == 1) {
+						sheet.addCell(new Label(j, i + 1, No[i], cellFormat));
+					} else if (j == 2) {
+						sheet.addCell(new Label(j, i + 1, Name[i], cellFormat));
+					} else if (j == 3) {
+						sheet.addCell(new Label(j, i + 1, yearsMoney[i], cellFormat));
+					} else if (j == 4) {
+						sheet.addCell(new Label(j, i + 1, personMoney[i], cellFormat));
+					} else if (j == 5) {
+						sheet.addCell(new Label(j, i + 1, Money[i], cellFormat));
+					} else if (j == 6) {
+						sheet.addCell(new Label(j, i + 1, detNote[i], cellFormat));
+					} else if (j == 7) {
+						sheet.addCell(new Label(j, i + 1, detNoteMoney[i], cellFormat));
+					} else if (j == 8) {
+						sheet.addCell(new Label(j, i + 1, taMoney[i], cellFormat));
+					}
+				}
+			}
 			workbook.write();
 			workbook.close();
 		} catch (IOException e) {
