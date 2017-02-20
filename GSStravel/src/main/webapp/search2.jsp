@@ -167,7 +167,7 @@
 						</div>
 						<br>
 						<div class='input-group'>
-							<span class="input-group-addon info" id="sizing-addon3"> 開始日期:</span><input
+							<span class="input-group-addon info" id="sizing-addon3"> 起迄日期:</span><input
 								type='date' id='Sdate' name='startDay' value=''
 								aria-describedby="sizing-addon3" class='form-control' /> <input
 								type='date' id='Edate' name='endDay' value=''
