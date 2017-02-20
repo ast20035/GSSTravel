@@ -6,6 +6,7 @@ import java.sql.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONObject;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
 import model.EmployeeService;
@@ -60,16 +63,10 @@ public class FamilyServlet extends HttpServlet {
 		String[] famemgrel = req.getParameterValues("famemgrel");
 		String[] famnote = req.getParameterValues("famnote");
 		
-		String ajaxid = req.getParameter("id");// 接到前端json格式資料
-//		System.out.println(ajaxid);//["Q250939543","F261403341","F218757856",""]
-//		String ajaxemail = req.getParameter("email");
-//		System.out.println(ajaxemail);
-		String ajaxfamid = req.getParameter("famid");
-		System.out.println(ajaxfamid);
-		
 		String buttondelete = req.getParameter("delete");
 		String buttonsave = req.getParameter("button");
-
+		String ajaxid = req.getParameter("id");//判斷前端寫親屬身分證有無重複
+		String ajaxfamid = req.getParameter("famid");//用前端的親屬身分證去刪親屬
 		PrintWriter out = res.getWriter();//ajax輸出???
 		
 		HttpSession session = req.getSession();
@@ -77,10 +74,9 @@ public class FamilyServlet extends HttpServlet {
 		List<String> id = familyservice.selectid(emp_No);
 
 		
-		if (ajaxid != null) {// 轉成string[] 格式
+		if (ajaxid != null) {//用來抓是否重複報名id會在前端顯示
 			String[] items = ajaxid.replaceAll("\\[", "").replaceAll("\"", "").replaceAll("\\]", "").split(",");
 			for (String dataid : items) {// 輸出
-//				System.out.println(dataid);// Q250939543 F261403341 F218757856
 				if (id.contains(dataid)) {//
 					out.print("親屬身分證字號重複");//用來傳出
 					//setAttribute需要用方法重新導向 回jsp頁面才可以顯示 ajax只有送過來 
@@ -89,10 +85,44 @@ public class FamilyServlet extends HttpServlet {
 				}
 			}
 		}
-		if(ajaxfamid!=null){//用ajax找到id
-			familyservice.delete(ajaxfamid);
-//			out.print("刪除成功");
-		}
+		
+		
+			if(ajaxfamid!="block"){//用ajax找到id 去刪家屬
+				
+				//Travel 的活動結束時間之後可以刪 並且在detail 的親屬no之外 才可以刪  join 方法?
+				//假如在 travel 當中有此親屬 活動結束後可以刪 如果還沒結束的不能刪
+				 int famno = familyservice.selectfam_byid(ajaxfamid);//用id找famno
+			 	
+				 List<java.sql.Date> listdate= familyservice.selectfam_Nodelete(famno);//用famno去找有活動的親屬
+				 long betweenDate=0;
+				 //假如無活動
+				 //重整時會直接進入save動作?
+				 if(famno!=0){
+					 for(Date date: listdate){
+						 System.out.println(date);
+						 Calendar calendar = Calendar.getInstance();
+						 long nowDate = calendar.getTime().getTime(); //Date.getTime() 獲得毫秒型 現在日期
+						 long specialDate = date.getTime();//把要比較的值放這(親屬日期)
+						 betweenDate = (specialDate - nowDate) / (1000 * 60 * 60 * 24);
+						 
+						 if(betweenDate>0){//字串輸出過去
+							 System.out.println(betweenDate);
+							 //不能刪除  只要有超出日期 即會有out.print出去
+							 	//不再detail裡面還是抓的到值? id新的 而且刪不掉
+							 out.print("親屬尚有在活動報名當中，不可以刪除此親屬資料");
+							 
+						 }else{
+							//可以刪除  全部過期才會到此 才能刪除
+							familyservice.delete(ajaxfamid);
+						 }
+					 }//迴圈結束
+				 }else{//!famno!=0
+					 out.print("");
+				 }
+			}else{
+				out.print("");
+			}
+			
 		
 //		List<String> email = employeeservice.selectEmail();
 //		System.out.println(email);
@@ -111,14 +141,6 @@ public class FamilyServlet extends HttpServlet {
 			Map<String, String> errormsg = new HashMap<String, String>();
 			req.setAttribute("error", errormsg);
 
-			// try{
-			// String orderId = req.getAttribute("selectvalue").toString();
-			//
-			// System.out.println(orderId);
-			//
-			// }catch(Exception ex){
-			// System.out.println("aaaaa");
-			// }
 
 			// 員工 轉值
 			if (empphone == null || empphone.length() == 0) {

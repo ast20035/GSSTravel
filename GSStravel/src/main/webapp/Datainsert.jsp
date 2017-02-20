@@ -143,6 +143,7 @@
 						<tr>
 							<td><input type="button" name="delete" id="delete"
 								value="delete" class="${start.fam_Id}"></td>
+								
 							<td><select name="famrel">
 									<c:if test="${start.fam_Rel=='親友'}">
 										<option value="眷屬">眷屬</option>
@@ -185,8 +186,8 @@
 										<option value="素">素食</option>
 									</c:if>
 									<c:if test="${start.fam_Eat=='素'}">
-										<option value="葷">葷</option>
-										<option value="素" selected>素</option>
+										<option value="葷">葷食</option>
+										<option value="素" selected>素食</option>
 									</c:if>
 								</select> 
 								<c:if test="${start.fam_Car=='true'}">
@@ -269,7 +270,7 @@
 			<!-- 空白欄位 -->
 			<tr name="repeat">
 				<td><input type="button" name="delete" id="delete"
-					value="delete"></td>
+					value="delete" class="block"></td>
 				<td><select name="famrel">
 						<option value="眷屬">眷屬</option>
 						<option value="親友">親友</option>
@@ -328,46 +329,75 @@
 		<script>
 			var xh = new XMLHttpRequest();
 			
-			$("input[name='delete']").click(function() {
-			searchfamid();
-			})
-// 			$("#save").click(function(){
-//  				searchbox();
-// 			})
-			searchbox();
+			$("#familytable").on("click", "input[name='delete']",
+					function() {
+						//$("#familytable input[name='delete']").submit(function(){ $(this).parents("tr").remove();});
+						//on事件要綁定動態之後 還得要綁定 submit才可以抓的到值
+// 							$("this").blur(searchfamid());
+// 							$(this).parents("tr").remove();
+							//直接改成submit 讓他重新跳轉頁面不要刪欄位
+						//做成只有submit怎麼辦
+						searchfamid();
+						$(this).parents("tr").remove();
+						});
+
+// 							var famid=0;//jquery 直接寫在動作之中?
+// 							$("input[name*='delete']").on("click",function(){
+// 									famid=$(this).attr("class");
+// 								});
+// 				 			var pathName = document.location.pathname;
+// 				 			var index = pathName.substr(1).indexOf("/");
+// 				 			var result = pathName.substr(0, index + 1);
+// 				 			var url = result + "/FamilyServlet";
+// 							$.post(url,{"famid":famid },famidreturn());
+						
+					
+			
+// 			searchbox();
 			//儲存鍵按下後判斷checkbox 有按下鍵的 回傳一個值  沒有按下鍵的回傳另外一個值 
 			//在去判斷那個值是哪個 在去放置true  false 0 1等等 紀德判斷 不占車位為1 占車位為2
-			var pathName = document.location.pathname;
-			var index = pathName.substr(1).indexOf("/");
-			var result = pathName.substr(0, index + 1);
-			var url = result + "/FamilyServlet";
-			var boxvalue =0;
-			var famno=0;
-			function searchbox(){
-				if()
-				 famno = $("input[name='famcar']"),attr("class");
-				 boxvalue=$("")
-			}
-			$.post(url,{"famno":famno,"boxvalue":boxvalue  },function(){
-				console.log("box return value");
-			});
+// 			var pathName = document.location.pathname;
+// 			var index = pathName.substr(1).indexOf("/");
+// 			var result = pathName.substr(0, index + 1);
+// 			var url = result + "/FamilyServlet";
+// 			var boxvalue =0;
+// 			var famno=0;
+// 			function searchbox(){
+// // 				if()
+// 				 famno = $("input[name='famcar']").attr("class");
+// 				 boxvalue=$("in")
+// 			}
+// 			$.post(url,{"famno":famno,"boxvalue":boxvalue  },function(){
+// 				console.log("box return value");
+// 			});
 			
 			
-			var famid=0;
-			function searchfamid() {
+			
+				var famid=0;
+			function searchfamid() {//按下delete去找他的famid
 				if (xh != null) {
-						famid= $("input[name='delete']").attr("class");
-					console.log(famid);
+							$("input[name*='delete']").on("click",function(){
+								famid=$(this).attr("class");
+							});
 
+						
+// 						$("#familytable").on("click", "input[name='delete']",function(){
+// 							famid=$(this).attr("class");
+// 						})
+// 							$("input[name*='delete']").click(function(){
+// 								famid=$(this).attr("class");
+// 							})
+					console.log(famid);
+					
 					var pathName = document.location.pathname;
 					var index = pathName.substr(1).indexOf("/");
 					var result = pathName.substr(0, index + 1);
 					var url = result + "/FamilyServlet";
 
-					if (typeof famid != "undefined") {
-						var famnojson = JSON.stringify(famid);
-					}
-					xh.addEventListener("readystatechange", famnoreturn);
+// 					if (typeof famid != "undefined") {
+// 						var famnojson = JSON.stringify(famid);
+// 					}
+					xh.addEventListener("readystatechange", famidreturn);
 					xh.open("POST", url);
 					xh.setRequestHeader("Content-Type",
 							"application/x-www-form-urlencoded");
@@ -376,13 +406,14 @@
 					alert("Your browser doesn't support JSON!");
 				}
 			}
-			function famnoreturn() { //其實不用判斷 原工email有沒有重複  因為原工不會有新增的問題 不用怕重複
+			function famidreturn() { //其實不用判斷 原工email有沒有重複  因為原工不會有新增的問題 不用怕重複
 				if (xh.readyState == 4) {
 					if (xh.status == 200) {
-						if (xh.responseText != null) {
-										alert("famid ajax return");
-							var famnoreturn = xh.responseText;
-							// 			console.log(famnoreturn);
+						if (xh.responseText != "") {
+							console.log(xh.responseText);		
+// 							console.log("親屬尚有在活動報名當中，不可以刪除此親屬資料");						
+						}else{
+							console.log("直接刪除");
 						}
 					}
 				}
@@ -457,9 +488,8 @@
 				if (xh.readyState == 4) {
 					if (xh.status == 200) {
 						if (xh.responseText != "") {
-							// 			var ajaxreturn= JSON.parse(xh.responseText);
-							var ajaxreturn = xh.responseText;
-							console.log(ajaxreturn);
+// 							var ajaxreturn = xh.responseText;
+// 							console.log(ajaxreturn);
 							//查一下如果傳回值變成一串 該怎麼拆開 不然就直接寫兩個
 							//應該是說有回傳值 而且值等於那個字串 才執行下面的程式	
 							$("#save").attr("type", "button");
@@ -480,20 +510,16 @@
 			}
 
 			$(function() {
-				$(".multiselect").kendoMultiSelect({
-					autoClose : false
-				});
+				$(".multiselect").kendoMultiSelect({autoClose : false});
 				$("tr[name='repeat']").hide();
 				$("#familytable").attr("width", "1200px").attr("border", "3px")
 						.attr("border-collapse", "collapse");
 				$("#insert").click(function(event) {
 									$("#familytable").append('<tr class=repeat>'+ $("tr[name='repeat']").html() + '</tr>');
-									$(".repeat:last #multiselect")
-											.kendoMultiSelect({autoClose : false});
-									// 			新增的欄位作正規劃
+									$(".repeat:last #multiselect").kendoMultiSelect({autoClose : false});
+									//新增的欄位作正規劃
 									var famname = /^.*\s*[^\s]/;
-									$(".repeat td")
-											.on("blur","input[name='famname']",function() {if (famname.test($(this).val())) {
+									$(".repeat td").on("blur","input[name='famname']",function() {if (famname.test($(this).val())) {
 															$(this).css("border-color","green");
 															$("#save").attr("type","submit");
 															setTimeout(function() {$(".repeat td input[name='famname']")
@@ -505,9 +531,7 @@
 													});
 
 									//id
-									//.repeat td input[name='famname']
-									$(".repeat td")
-											.on("blur","input[name='famid']",function() {
+									$(".repeat td").on("blur","input[name='famid']",function() {
 														// 依照字母的編號排列，存入陣列備用。
 														var letters = new Array(
 																'A', 'B', 'C',
@@ -548,7 +572,6 @@
 														var regExpID = /^[a-z](1|2)\d{8}$/i;
 														// 使用「正規表達式」檢驗格式
 														if (regExpID.test($("input[name*='famid']").val())) {
-
 															// 取出第一個字元和最後一個數字。
 															firstChar = $(this).val().charAt(0).toUpperCase();
 															lastNum = $(this).val().charAt(9);
@@ -557,7 +580,6 @@
 																				.css('border-color',"");}, 2000);
 															$("#famiderror").text("身分證格式錯誤");
 															$("#save").attr("type","button");
-															// 			return false;
 														}
 														// 找出第一個字母對應的數字，並轉換成兩位數數字。
 														for (var i = 0; i < 26; i++) {
@@ -578,18 +600,15 @@
 														
 														// 和最後一個數字比對
 // 														if ((10– (total % 10))!= lastNum && ((10-(total % 10))-10)!= lastNum){
-															if ((10 - (total % 10))!= lastNum) {
-																//if ((10 – (total % 10))!= lastNum &&  ((10 - (total % 10))-10) != lastNum)
+															if ((10 - (total % 10))!= lastNum && ((10 - (total % 10))-10)!= lastNum  ) {
 																$(this).css("border-color","red");
 																setTimeout(function() {$(".repeat td input[name='famid']")
 																					.css('border-color',"");}, 2000);
 																$("#famiderror").text("身分證格式錯誤");
 																$("#save").attr("type","button");
 															
-															
 															// 			return false;
 														} else {
-															
 															$(this).css("border-color","green");
 															setTimeout(function() {$(".repeat td input[name='famid']")
 																				.css('border-color',"");}, 2000);
@@ -599,270 +618,100 @@
 														search();
 													})
 									var fambdate = /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
-									$(".repeat td")
-											.on("blur","input[name='fambdate']",function() {if (fambdate.test($(this).val())) {
-															$(this).css("border-color","green");
-															$("#save").attr("type","submit");
+									$(".repeat td").on("blur","input[name='fambdate']",function() {
+														if (fambdate.test($(this).val())) {
+																var today = new Date();
+																var bdate = $(this).val();
+																var mydate = new Date(bdate.replace("-", "/").replace("-", "/"));
+															if(mydate<= today){
+																$(this).css("border-color","green");
+																$("#save").attr("type","submit");
+																setTimeout(function() {$(".repeat td input[name='fambdate']").css('border-color',"");}, 2000);	
+															}else{
+																$(this).css("border-color","red");
+																setTimeout(function() {$(".repeat td input[name='fambdate']").css('border-color',"");}, 2000);
+																$("#save").attr("type","button");
+															}
+														
+														} else {
+															$(this).css("border-color","red");
 															setTimeout(function() {$(".repeat td input[name='fambdate']").css('border-color',"");}, 2000);
-														} else {$(this).css("border-color","red");
-															setTimeout(
-																	function() {
-																		$(
-																				".repeat td input[name='fambdate']")
-																				.css(
-																						'border-color',
-																						"");
-																	}, 2000);
-															$("#save").attr(
-																	"type",
-																	"button");
+															$("#save").attr("type","button");
 														}
 													});
 									var famphone = /^09\d{2}-?\d{3}-?\d{3}$/;
-									$(".repeat td")
-											.on(
-													"blur",
-													"input[name='famphone']",
-													function() {
-														if (famphone.test($(
-																this).val())) {
-															$(this)
-																	.css(
-																			"border-color",
-																			"green");
-															$("#save").attr(
-																	"type",
-																	"submit");
-															setTimeout(
-																	function() {
-																		$(
-																				".repeat td input[name='famphone']")
-																				.css(
-																						'border-color',
-																						"");
-																	}, 2000);
+									$(".repeat td").on("blur","input[name='famphone']",function() {
+														if (famphone.test($(this).val())) {
+															$(this).css("border-color","green");
+															$("#save").attr("type","submit");
+															setTimeout(function() {$(".repeat td input[name='famphone']").css('border-color',"");}, 2000);
 														} else {
-															$(this)
-																	.css(
-																			"border-color",
-																			"red");
-															setTimeout(
-																	function() {
-																		$(
-																				".repeat td input[name='famphone']")
-																				.css(
-																						'border-color',
-																						"");
+															$(this).css("border-color","red");
+															setTimeout(function() {$(".repeat td input[name='famphone']").css('border-color',"");
 																	}, 2000);
-															$("#save").attr(
-																	"type",
-																	"button");
+															$("#save").attr("type","button");
 														}
 													});
 									var famben = /^.*\s*[^\s]/;
-									$(".repeat td")
-											.on(
-													"blur",
-													"input[name='famben']",
-													function() {
-														if (famben.test($(this)
-																.val())) {
-															$(this)
-																	.css(
-																			"border-color",
-																			"green");
-															$("#save").attr(
-																	"type",
-																	"submit");
-															setTimeout(
-																	function() {
-																		$(
-																				".repeat td input[name='famben']")
-																				.css(
-																						'border-color',
-																						"");
-																	}, 2000);
+									$(".repeat td").on("blur","input[name='famben']",function() {if (famben.test($(this).val())) {
+															$(this).css("border-color","green");
+															$("#save").attr("type","submit");
+															setTimeout(function() {$(".repeat td input[name='famben']").css('border-color',"");}, 2000);
 														} else {
-															$(this)
-																	.css(
-																			"border-color",
-																			"red");
-															setTimeout(
-																	function() {
-																		$(
-																				".repeat td input[name='famben']")
-																				.css(
-																						'border-color',
-																						"");
-																	}, 2000);
-															$("#save").attr(
-																	"type",
-																	"button");
-														}
+															$(this).css("border-color","red");
+															setTimeout(function() {$(".repeat td input[name='famben']").css('border-color',"");}, 2000);
+															$("#save").attr("type","button");}
 													});
 									var fambenrel = /^.*\s*[^\s]/;
-									$(".repeat td")
-											.on(
-													"blur",
-													"input[name='fambenrel']",
-													function() {
-														if (fambenrel.test($(
-																this).val())) {
-															$(this)
-																	.css(
-																			"border-color",
-																			"green");
-															$("#save").attr(
-																	"type",
-																	"submit");
-															setTimeout(
-																	function() {
-																		$(
-																				".repeat td input[name='fambenrel']")
-																				.css(
-																						'border-color',
-																						"");
-																	}, 2000);
-														} else {
-															$(this)
-																	.css(
-																			"border-color",
-																			"red");
-															setTimeout(
-																	function() {
-																		$(
-																				".repeat td input[name='fambenrel']")
-																				.css(
-																						'border-color',
-																						"");
-																	}, 2000);
-															$("#save").attr(
-																	"type",
-																	"button");
+									$(".repeat td").on("blur","input[name='fambenrel']",function() {if (fambenrel.test($(this).val())) {
+															$(this).css("border-color","green");
+															$("#save").attr("type","submit");
+															setTimeout(function() {$(".repeat td input[name='fambenrel']").css('border-color',"");}, 2000);
+														} else {$(this).css("border-color","red");
+															setTimeout(function() {$(".repeat td input[name='fambenrel']").css('border-color',"");}, 2000);
+															$("#save").attr("type","button");
 														}
 													});
 									var famemg = /^.*\s*[^\s]/;
-									$(".repeat td")
-											.on(
-													"blur",
-													"input[name='famemg']",
-													function() {
-														if (famemg.test($(this)
-																.val())) {
-															$(this)
-																	.css(
-																			"border-color",
-																			"green");
-															$("#save").attr(
-																	"type",
-																	"submit");
-															setTimeout(
-																	function() {
-																		$(
-																				".repeat td input[name='famemg']")
-																				.css(
-																						'border-color',
-																						"");
+									$(".repeat td").on("blur","input[name='famemg']",
+													function() {if (famemg.test($(this).val())) {
+															$(this).css("border-color","green");
+															$("#save").attr("type","submit");
+															setTimeout(function() {$(".repeat td input[name='famemg']").css('border-color',"");}, 2000);
+														} else {$(this).css("border-color","red");
+															setTimeout(function() {$(".repeat td input[name='famemg']").css('border-color',"");
 																	}, 2000);
-														} else {
-															$(this)
-																	.css(
-																			"border-color",
-																			"red");
-															setTimeout(
-																	function() {
-																		$(
-																				".repeat td input[name='famemg']")
-																				.css(
-																						'border-color',
-																						"");
-																	}, 2000);
-															$("#save").attr(
-																	"type",
-																	"button");
+															$("#save").attr("type","button");
 														}
 													});
 									var famemgphpone = /^09\d{2}-?\d{3}-?\d{3}$/;
-									$(".repeat td")
-											.on(
-													"blur",
-													"input[name='famemgphpone']",
+									$(".repeat td").on("blur","input[name='famemgphpone']",
 													function() {
-														if (famemgphpone
-																.test($(this)
-																		.val())) {
-															$(this)
-																	.css(
-																			"border-color",
-																			"green");
-															$("#save").attr(
-																	"type",
-																	"submit");
-															setTimeout(
-																	function() {
-																		$(
-																				".repeat td input[name='famemgphpone']")
-																				.css(
-																						'border-color',
-																						"");
-																	}, 2000);
-														} else {
-															$(this)
-																	.css(
-																			"border-color",
-																			"red");
-															setTimeout(
-																	function() {
-																		$(
-																				".repeat td input[name='famemgphpone']")
-																				.css(
-																						'border-color',
-																						"");
-																	}, 2000);
-															$("#save").attr(
-																	"type",
-																	"button");
+										if (famemgphpone.test($(this).val())) {
+															$(this).css("border-color","green");
+															$("#save").attr("type","submit");
+															setTimeout(function() {$(".repeat td input[name='famemgphpone']")
+																				.css('border-color',"");}, 2000);
+														} else {$(this).css("border-color","red");
+															setTimeout(function() {$(".repeat td input[name='famemgphpone']")
+																				.css('border-color',"");}, 2000);
+															$("#save").attr("type","button");
 														}
 													});
 									var famemgrel = /^.*\s*[^\s]/;
 									$(".repeat td")
-											.on(
-													"blur",
-													"input[name='famemgrel']",
+											.on("blur","input[name='famemgrel']",
 													function() {
-														if (famemgrel.test($(
-																this).val())) {
-															$(this)
-																	.css(
-																			"border-color",
-																			"green");
-															$("#save").attr(
-																	"type",
-																	"submit");
-															setTimeout(
-																	function() {
-																		$(
-																				".repeat td input[name='famemgrel']")
-																				.css(
-																						'border-color',
-																						"");
-																	}, 2000);
-														} else {
-															$(this)
-																	.css(
-																			"border-color",
-																			"red");
-															setTimeout(
-																	function() {
-																		$(
-																				".repeat td input[name='famemgrel']")
-																				.css(
-																						'border-color',
-																						"");
-																	}, 2000);
-															$("#save").attr(
-																	"type",
-																	"button");
+														if (famemgrel.test($(this).val())) {
+															$(this).css("border-color","green");
+															$("#save").attr("type","submit");
+															setTimeout(function() {
+																		$(".repeat td input[name='famemgrel']")
+																				.css('border-color',"");}, 2000);
+														} else {$(this).css("border-color","red");
+															setTimeout(function() {$(".repeat td input[name='famemgrel']").css(
+																						'border-color',"");}, 2000);
+															$("#save").attr("type","button");
 														}
 													});
 
@@ -870,57 +719,39 @@
 									$("#save")
 											.click(
 													function() {
-														if ($(
-																".repeat td input[name='famname']")
-																.val() == "") {
+														if ($(".repeat td input[name='famname']").val() == "") {
 															alert("請輸入親屬名稱");
 															return false;
 														}
-														if ($(
-																".repeat td input[name='famid']")
-																.val() == "") {
+														if ($(".repeat td input[name='famid']").val() == "") {
 															alert("請輸入親屬身份證");
 															return false;
 														}
-														if ($(
-																".repeat td input[name='fambdate']")
-																.val() == "") {
+														if ($(".repeat td input[name='fambdate']").val() == "") {
 															alert("請輸入親屬生日");
 															return false;
 														}
-														if ($(
-																".repeat td input[name='famphone']")
-																.val() == "") {
+														if ($(".repeat td input[name='famphone']").val() == "") {
 															alert("請輸入親屬手機");
 															return false;
 														}
-														if ($(
-																".repeat td input[name='famben']")
-																.val() == "") {
+														if ($(".repeat td input[name='famben']").val() == "") {
 															alert("請輸入親屬保險受益人");
 															return false;
 														}
-														if ($(
-																".repeat td input[name='fambenrel']")
-																.val() == "") {
+														if ($(".repeat td input[name='fambenrel']").val() == "") {
 															alert("請輸入親屬保險受益人關係");
 															return false;
 														}
-														if ($(
-																".repeat td input[name='famemg']")
-																.val() == "") {
+														if ($(".repeat td input[name='famemg']").val() == "") {
 															alert("請輸入親屬緊急聯絡人");
 															return false;
 														}
-														if ($(
-																".repeat td input[name='famemgphone']")
-																.val() == "") {
+														if ($(".repeat td input[name='famemgphone']").val() == "") {
 															alert("請輸入親屬緊急聯絡人電話");
 															return false;
 														}
-														if ($(
-																".repeat td input[name='famemgrel']")
-																.val() == "") {
+														if ($(".repeat td input[name='famemgrel']").val() == "") {
 															alert("請輸入親屬緊急聯絡人關係");
 															return false;
 														}
@@ -929,12 +760,12 @@
 
 								});
 				//刪除鍵按下後
-				$("#familytable").on("click", "input[name='delete']",
-						function() {
-							// 		 $("#familytable input[name='delete']").submit(function(){ $(this).parents("tr").remove();});
-							//on事件要綁定動態之後 還得要綁定 submit才可以抓的到值
-							$(this).parents("tr").remove();
-						});
+// 				$("#familytable").on("click", "input[name='delete']",
+// 						function() {
+// 							// 		 $("#familytable input[name='delete']").submit(function(){ $(this).parents("tr").remove();});
+// 							//on事件要綁定動態之後 還得要綁定 submit才可以抓的到值
+// 							$(this).parents("tr").remove();
+// 						});
 
 				//想改把enter後submit的功能去消            施工中
 				// 	$("#save").keypress(function(e){
@@ -1155,7 +986,7 @@
 									
 									
 									// 和最後一個數字比對
-									if ((10 - (total % 10)) != lastNum) {
+									if ((10 - (total % 10))!= lastNum && ((10 - (total % 10))-10)!= lastNum  ) {
 // 										if ((10 – (total % 10))!= lastNum &&  ((10 - (total % 10))-10) != lastNum){
 											$(this).css("border-color", "red");
 											setTimeout(function() {
@@ -1185,10 +1016,7 @@
 										.replace("-", "/"));
 								if (mydate <= today) {
 									$(this).css("border-color", "green");
-									setTimeout(function() {
-										$("input[name*='fambdate']").css(
-												'border-color', "");
-									}, 2000);
+									setTimeout(function() {$("input[name*='fambdate']").css('border-color', "");}, 2000);
 									$("#fambdateerror").text("");
 									$("#save").attr("type", "submit");
 								} else {
@@ -1200,12 +1028,9 @@
 									$("#save").attr("type", "button");
 								}
 							} else {
-								// 			$("#fambdateerror").text("需要為年-月-日的規格");
+								//$("#fambdateerror").text("需要為年-月-日的規格");
 								$(this).css("border-color", "red");
-								setTimeout(function() {
-									$("input[name*='fambdate']").css(
-											'border-color', "");
-								}, 2000);
+								setTimeout(function() {$("input[name*='fambdate']").css('border-color',"");}, 2000);
 								$("#save").attr("type", "button");
 							}
 						});
