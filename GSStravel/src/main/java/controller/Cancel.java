@@ -61,7 +61,7 @@ public class Cancel extends HttpServlet {
 		String title=travelVo.getTra_Name()+"已經取消!!!";
 		String content="行程編號:"+tra_No+"\n"+"行程名稱:"+travelVo.getTra_Name()+"\n"+"在"+date+"做取消!!!"
 						+"\n"+"有問題請詢問福委會";
-		new email().send(email, title, content);
+		new Email().send(email, title, content);
 		response.sendRedirect(request.getContextPath()+"/AllTravel");
 
 	}

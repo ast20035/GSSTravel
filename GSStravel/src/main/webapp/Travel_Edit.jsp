@@ -193,9 +193,9 @@ li {
 							value="${row.item_Money}"></td>
 
 						<td><input type="text" name="edititemNo"
-							value="${row.item_No}" readonly></td>
-						<td class="t">tra_No : ${row.tra_No}</td>
-						<td class="t">item_No : ${row.item_No}</td>
+							value="${row.item_No}"></td>
+<%-- 						<td class="t">tra_No : ${row.tra_No}</td> --%>
+<%-- 						<td class="t">item_No : ${row.item_No}</td> --%>
 					<td><input type="submit" name="delete" id="delete"
 								value="delete"></td>
 					</tr>
@@ -222,9 +222,9 @@ li {
 					value="${row.item_Money}"></td>
 
 				<td><input type="text" name="edititemNo" value="${row.item_No}"
-					readonly></td>
-				<td class="t">tra_No : ${row.tra_No}</td>
-				<td class="t">item_No : ${row.item_No}</td>
+					></td>
+<%-- 				<td class="t">tra_No : ${row.tra_No}</td> --%>
+<%-- 				<td class="t">item_No : ${row.item_No}</td> --%>
 				<td><input type="submit" name="delete" id="delete"
 								value="delete"></td>
 			</tr>

@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +35,10 @@ public class TotalAmountServlet extends HttpServlet {
 		String[] det_note = request.getParameterValues("det_note");
 		String[] temp3 = request.getParameterValues("det_noteMoney");
 		String[] temp4 = request.getParameterValues("empfam");
+
+		// 柯(請勿刪除)
+		String excel = request.getParameter("excel");
+		// 柯(請勿刪除)
 
 		// 轉換資料
 		HttpSession session = request.getSession();
@@ -126,7 +131,36 @@ public class TotalAmountServlet extends HttpServlet {
 			request.setAttribute("session", session.getAttribute("Msg"));
 			request.getRequestDispatcher("TravelDetail?tra_no=" + tra_No).forward(request, response);
 			return;
-		}if("Excel".equals(prodaction)){
+		}
+		if ("Excel".equals(prodaction)) {
+			tra_No = request.getParameter("tra_No");
+			String tra_Name = request.getParameter("tra_Name");
+			String[] dept_No = request.getParameterValues("dept_No[]");
+			String[] No = request.getParameterValues("No[]");
+			String[] Name = request.getParameterValues("Name[]");
+			String[] years_Money = request.getParameterValues("Name[]");
+			String[] person_Money = request.getParameterValues("person_Money[]");
+			String[] Money = request.getParameterValues("Money[]");
+			String[] det_Note = request.getParameterValues("det_Note[]");
+			String[] det_NoteMoney = request.getParameterValues("det_NoteMoney[]");
+			String[] ta_Money = request.getParameterValues("ta_Money[]");
+			int count = dept_No.length;
+			File dir = new File("C:/totalAmount");
+			Excel ex = new Excel(dir);
+			ex.totalAmountExcel(count, tra_No, tra_Name, dept_No, No, Name, years_Money, person_Money, Money, det_Note, det_NoteMoney, ta_Money);
+//			System.out.println("tra_No =" + tra_No);
+//			System.out.println("tra_Name =" + tra_Name);
+//			for (int i = 0; i < dept_No.length; i++) {
+//				System.out.println("dept_No[" + i + "]=" + dept_No[i]);
+//				System.out.println("No[" + i + "]=" + No[i]);
+//				System.out.println("Name[" + i + "]=" + Name[i]);
+//				System.out.println("years_Money[" + i + "]=" + years_Money[i]);
+//				System.out.println("person_Money[" + i + "]=" + person_Money[i]);
+//				System.out.println("Money[" + i + "]=" + Money[i]);
+//				System.out.println("det_Note[" + i + "]=" + det_Note[i]);
+//				System.out.println("det_NoteMoney[" + i + "]=" + det_NoteMoney[i]);
+//				System.out.println("ta_Money[" + i + "]=" + ta_Money[i]);
+//			}
 			return;
 		}
 	}

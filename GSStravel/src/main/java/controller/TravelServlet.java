@@ -63,7 +63,7 @@ public class TravelServlet extends HttpServlet {
 		//柯(請勿刪除)
 			String excel = request.getParameter("excel");
 		//柯(請勿刪除)
-		
+
 		//String itemNo = request.getParameter("edititemNo");
 		String[] itemNo = request.getParameterValues("edititemNo");
 		String[] itemName = request.getParameterValues("edititemName");
@@ -74,14 +74,15 @@ public class TravelServlet extends HttpServlet {
 		Map<String, String> errors = new HashMap<String, String>();
 		request.setAttribute("errors", errors);
 		
+
 		// 柯(請勿刪除)
 		if ("匯出Excel".equals(excel)) {
 			TravelVO travelBean = new TravelVO();
 			List<TravelVO> tResult = travelService.selectExcel(travelBean);
 			File dir = new File("C:/travel");
-			writeExcel we = new writeExcel(dir);
+			Excel ex = new Excel(dir);
 			for (int i = 0; i < tResult.size(); i++) {
-				we.travelExcel(tResult.get(i).getTra_NO(), tResult.get(i).getTra_Name(), tResult.get(i).getTra_Loc(),
+				ex.travelExcel(tResult.get(i).getTra_NO(), tResult.get(i).getTra_Name(), tResult.get(i).getTra_Loc(),
 						tResult.get(i).getTra_On().toString(), tResult.get(i).getTra_Off().toString(),
 						tResult.get(i).getTra_Beg().toString(), tResult.get(i).getTra_End().toString(),
 						tResult.get(i).getTra_Total() + "", tResult.get(i).getTra_Max() + "",
@@ -91,6 +92,7 @@ public class TravelServlet extends HttpServlet {
 			request.getRequestDispatcher("/search2.jsp").forward(request, response);
 		} // 柯(請勿刪除)
 		
+
 		
 		
 		/*
@@ -376,24 +378,25 @@ public class TravelServlet extends HttpServlet {
 			ItemVO v = new ItemVO();
 			v.setTra_No(traNo);
 			
-//			for(ItemVO ppp:itemfor){		//list型態保留
-//				System.out.println(ppp);
-//			}
-				//v.setItem_No(edititemNo);	//單筆型態保留
-				//int a=edititemNo;			//單筆型態保留
 				System.out.println("edititemNo:" + edititemNo);
 
 				for (int i = 0; i < itemName.length; i++) {
+					
+					
+					
 					v.setItem_No(edititemNo.get(i));
-					//v.setItem_No(a);	//單筆型態保留
 					v.setItem_Name(edititemName.get(i));
 					v.setItem_Money(edititemMoney.get(i));
 					
+					int itemNolong = 0; 
+					itemNolong = itemNo.length;
+					for(int s = 0;s < itemNolong;s++){
+					
+						
 					ItemVO result1 = itemService.update(v);
-					//System.out.println("result1:" + result1);
 					itemfor.add(result1);
-					//System.out.println("itemfor:" + itemfor);
-					//a++;	//單筆型態保留
+				
+					}
 				}
 
 			TravelVO resultEdit = travelService.update(travelview);
