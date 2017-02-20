@@ -44,6 +44,7 @@ public class FineServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 
 		// 1.接收資料
 		// 2.驗證資料
@@ -190,10 +191,13 @@ public class FineServlet extends HttpServlet {
 		}
 		if ("寄送罰則異動通知".equals(email)) {
 			power = true;
+			PrintWriter out = response.getWriter();
+			
+			
 			List<EmployeeVO> result = employeeService.selectEmp();
 			LinkedHashSet mailSet = new LinkedHashSet();	
 			String[] empMail = new String[result.size()];
-			email em = new email();
+			Email em = new Email();
 			String[] mail = new String[result.size()];
 			Iterator mailIt = null;
 			for (int i = 0; i < result.size(); i++) {
@@ -209,7 +213,8 @@ public class FineServlet extends HttpServlet {
 				i++;
 			}
 			em.send(emp, "罰則異動通知！", "您好！\n罰則有些許的變更，請注意您所報名的行程，謝謝！\n祝您旅途愉快！");
-			response.sendRedirect(request.getContextPath() + "/FineShowServlet");
+			out.print("Email寄送成功！");
+//			response.sendRedirect(request.getContextPath() + "/FineShowServlet");
 		}
 		if ("罰則設定".equals(set)) {
 			PrintWriter out = response.getWriter();

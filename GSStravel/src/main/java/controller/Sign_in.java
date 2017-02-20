@@ -85,7 +85,7 @@ public class Sign_in extends HttpServlet {
 					String title=travelVo.getTra_Name()+"報名成功!!";
 					String content="恭喜你報名成功!!"+"\n"+"行程編號:"+tra_No+"\n"+"行程名稱:"+travelVo.getTra_Name()+"行程開始日:"
 									+travelVo.getTra_On()+"\n\n\n"+"最後取消時間:"+travelVo.getTra_End()+"\n"+"PS:有問題請詢問福委會";
-					new email().send(email, title, content);
+					new Email().send(email, title, content);
 			};
 			HttpSession session = req.getSession();
 			session.setAttribute("decide", decide);
