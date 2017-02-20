@@ -18,6 +18,14 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
+	<link rel="stylesheet"
+			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
+		<link rel="stylesheet"
+			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
+		<link rel="stylesheet"
+			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
+		<script
+			src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
 <title>Insert title here</title>
 
 <script>
@@ -126,9 +134,7 @@
 			}
 	}
 </script>
-<style>
 
-</style>
 </head>
 
 <body>
@@ -138,14 +144,7 @@
 		$('li:eq(3)').addClass('now');
 	</script>
 	<div class='container-fluid'>
-		<link rel="stylesheet"
-			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
-		<link rel="stylesheet"
-			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
-		<link rel="stylesheet"
-			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
-		<script
-			src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
+		
 		<div class='row'>
 			<div class='col-md-1'></div>
 			<div class='col-md-11'>
@@ -171,14 +170,14 @@
 						</div>
 						<br>
 						<div class='input-group'>
-							<span class="input-group-addon info" id="sizing-addon3"> 開始日期:</span><input
+							<span class="input-group-addon info" id="sizing-addon3"> 起迄日期:</span><input
 								type='date' id='Sdate' name='startDay' value=''
 								aria-describedby="sizing-addon3" class='form-control' /> <input
 								type='date' id='Edate' name='endDay' value=''
 								class='form-control' />
 						</div>
 						<br>
-						<div class='input-group'>
+						<div class='input-group select'>
 							<span class="input-group-addon info" id="sizing-addon3">活動地點:</span> <select
 								class="multiselect" name="loca" multiple="multiple"
 								data-placeholder="請選擇" style="width: 300px;">

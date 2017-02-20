@@ -1,11 +1,14 @@
 package model;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -35,6 +38,7 @@ public class FamilyDAO implements IFamilyDAO {
 	private static final String insert = "insert into Family (emp_No,fam_Name,fam_Rel,fam_Bdate,fam_Sex,fam_Eat,fam_Id,fam_Phone,fam_Note,fam_Ben,fam_BenRel,fam_Car,fam_Emg,fam_EmgPhone,fam_EmgRel,fam_Bady,fam_kid,fam_Dis,fam_Mom) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 	private static final String update = "update Family set fam_Name=?,fam_Rel=?,fam_Bdate=?,fam_Sex=?,fam_Eat=?,fam_Id=?,fam_Phone=?,fam_Note=?,fam_Ben=?,fam_BenRel=?,fam_Car=?,fam_Emg=?,fam_EmgPhone=?,fam_EmgRel=?,fam_Bady=?,fam_kid=?,fam_Dis=?,fam_Mom=? where fam_No=?";
 	private static final String delete = "delete from Family where fam_Id=?";
+	private static final String selectfam_Nodelete="select tra_On from Detail FULL JOIN Travel on Detail.tra_No = Travel.tra_No  where fam_No=?";
 	
 	
 	public String selectfam_Rel(String emp_No,String fam_Name){	
@@ -286,5 +290,24 @@ public class FamilyDAO implements IFamilyDAO {
 			}
 			return fam_No;
 		
+	}
+
+	@Override
+	public List<Date> selectfam_Nodelete(int famno) {
+		List<Date> tra_On=null;
+		try( Connection conn=ds.getConnection();
+			 PreparedStatement stem=conn.prepareStatement(selectfam_Nodelete);
+				 	){
+				stem.setInt(1,famno);
+				ResultSet rset = stem.executeQuery();
+				tra_On=new ArrayList<Date>();
+				while(rset.next()){
+					tra_On.add(rset.getDate("tra_On"));
+				}
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		return tra_On;
 	}
 }

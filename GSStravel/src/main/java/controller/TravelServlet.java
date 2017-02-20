@@ -80,9 +80,9 @@ public class TravelServlet extends HttpServlet {
 			TravelVO travelBean = new TravelVO();
 			List<TravelVO> tResult = travelService.selectExcel(travelBean);
 			File dir = new File("C:/travel");
-			writeExcel we = new writeExcel(dir);
+			Excel ex = new Excel(dir);
 			for (int i = 0; i < tResult.size(); i++) {
-				we.travelExcel(tResult.get(i).getTra_NO(), tResult.get(i).getTra_Name(), tResult.get(i).getTra_Loc(),
+				ex.travelExcel(tResult.get(i).getTra_NO(), tResult.get(i).getTra_Name(), tResult.get(i).getTra_Loc(),
 						tResult.get(i).getTra_On().toString(), tResult.get(i).getTra_Off().toString(),
 						tResult.get(i).getTra_Beg().toString(), tResult.get(i).getTra_End().toString(),
 						tResult.get(i).getTra_Total() + "", tResult.get(i).getTra_Max() + "",

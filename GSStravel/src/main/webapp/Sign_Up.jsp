@@ -119,22 +119,23 @@
 												</c:forEach>
 											</table>
 										</c:if> <br> <c:if test="${tra_Vo.tra_On!=tra_Vo.tra_Off}">
-											<c:forEach var="room" items="${itemVo}">
-												<table class='table table-bordered'>
-													<tr>
-														<th></th>
-														<th>房型</th>
-														<th>費用</th>
-													</tr>
+
+											<table class='table table-bordered'>
+												<tr>
+													<th></th>
+													<th>房型</th>
+													<th>費用</th>
+												</tr>
+												<c:forEach var="room" items="${itemVo}">
 													<tr>
 														<td><input type=checkbox value="${room.item_Money}"
 															name="room"></td>
 														<td>${room.item_Name}</td>
 														<td>${room.item_Money}</td>
 													</tr>
+												</c:forEach>
+											</table>
 
-												</table>
-											</c:forEach>
 										</c:if></td>
 								</tr>
 
@@ -147,9 +148,8 @@
 								<tr>
 									<td><input type="button" value='回上一頁'
 										class='btn btn-primary' onclick="window.location.href=GSS;" />
-										<input type="submit" value="確定報名" class='btn btn-primary' 
-										onclick="this.form.submit(); this.disabled=true;"/>
-									</td>
+										<input type="submit" value="確定報名" class='btn btn-primary'
+										onclick="this.form.submit(); this.disabled=true;" /></td>
 								</tr>
 							</table>
 						</div>

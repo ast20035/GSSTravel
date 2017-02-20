@@ -38,7 +38,7 @@ public class TravelDAO implements ITravelDAO {
 	private static final String insert = "insert into Travel(tra_Name, tra_Loc, tra_On, tra_Off, tra_Beg, tra_End, tra_Total, tra_Max, tra_Intr, tra_Con, tra_Atter, tra_File, tra_NO) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String UPDATE = "update Travel set tra_Name=?, tra_Loc=?, tra_On=?, tra_Off=?, tra_Beg=?, tra_End=?, tra_Total=?, tra_Max=?, tra_Intr=?, tra_Con=?, tra_Atter=?, tra_File=? where tra_NO=?";
 	private static final String DELETE = "delete from Travel where tra_NO=?";
-	private static final String SELECT_ALL_STMT = "SELECT * FROM Travel";
+	private static final String SELECT_EXCEL = "SELECT * FROM Travel";
 
 	@Override
 	public boolean delete(String tra_NO) {
@@ -301,7 +301,7 @@ public class TravelDAO implements ITravelDAO {
 	public List<TravelVO> selectExcel() {
 		List<TravelVO> result = null;
 		try (Connection conn = ds.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(SELECT_ALL_STMT);
+				PreparedStatement stmt = conn.prepareStatement(SELECT_EXCEL);
 				ResultSet rset = stmt.executeQuery();) {
 			result = new ArrayList<TravelVO>();
 			while (rset.next()) {
