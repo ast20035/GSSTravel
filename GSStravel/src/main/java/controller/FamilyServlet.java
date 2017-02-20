@@ -271,9 +271,9 @@ public class FamilyServlet extends HttpServlet {
 					familyvo.setFam_Eat(fameat[i]);
 
 					// 測試
-					System.out.println(famcar[0]);
-					System.out.println(famcar[1]);
-					Map<Integer,Boolean> box = new HashMap<Integer,Boolean>();
+//					System.out.println(famcar[0]);
+//					System.out.println(famcar[1]);
+//					Map<Integer,Boolean> box = new HashMap<Integer,Boolean>();
 //					box.put(famcar[i], false);
 //					if(famcar[i] )
 //					box.put(i, );

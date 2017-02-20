@@ -1,3 +1,4 @@
+<%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -246,14 +247,13 @@ td>input[type='text'] {
 											</c:if>
 									</select> <c:if test="${start.fam_Car=='true'}">
 											<input id="${start.fam_No}_car" name="famcar" type="checkbox"
-												value="true" class="${start.fam_No}" checked>
+												value="false" class="${start.fam_No}" >
 											<span>不占車位</span>
 										</c:if> <c:if test="${start.fam_Car=='false'}">
 											<input id="${start.fam_No}_car" name="famcar" type="checkbox"
-												value="true" class="${start.fam_No}">
+												value="false" class="${start.fam_No}" Checked>
 											<span>不占車位</span>
 										</c:if></td>
-
 									<td><div class='select'>
 											<select class="multiselect aaa form-control" name="famspa"
 												style='width: 350px;' multiple="multiple"
@@ -353,7 +353,7 @@ td>input[type='text'] {
 					<option value="葷">葷</option>
 					<option value="素">素</option>
 					<option value="不佔餐">不佔餐</option>
-			</select> <input name="famcar" type="checkbox" value="true"
+			</select> <input name="famcar" type="checkbox" value="false"
 				class="${start.fam_No}"> <span>不占車位</span></td>
 			<td><div class='select'>
 					<select name="famspa" id="multiselect" multiple="multiple"
@@ -396,6 +396,7 @@ td>input[type='text'] {
 // 							$(this).parents("tr").remove();
 							//直接改成submit 讓他重新跳轉頁面不要刪欄位
 						//做成只有submit怎麼辦
+						
 						searchfamid();
 						$(this).parents("tr").remove();
 						});
@@ -531,12 +532,58 @@ td>input[type='text'] {
 			} else if ($BodyWidth == ($ViewportWidth + $ScrollLeft)) {
 				$('#span').hide();
 			}
+			
 // 				$("#save").on("submit",function(){
 // 					$("input:not(:checked)").val("false");
 // 				});
-				$("input[name*='famcar']").click(function(){
-						$(!$(this).is(':checked')).val("false");
-				});
+// 				$("input[name*='famcar']").click(function(){
+// 						$(!$(this).is(':checked')).val("false");
+// 				});
+<%-- 				<%String[] famid = request.getParameterValues("famid"); --%>
+// 				String[] famcar = request.getParameterValues("famcar");
+// 				String[] famcar2 = request.getParameterValues("famcar2");
+// 				 int idlength = famid.length;
+<%-- 				 int i=0;%> --%>
+<%-- 						<% session.setAttribute( String.valueOf(i),"false");%> --%>
+<%-- 						<% session.setAttribute( String.valueOf(i),"true");%> --%>
+
+// 					var xxxxx = $("#familytable input[name*='famcar']").map(function() {
+// 						return $(this).val();
+// 					}).get();
+// 					console.log(xxxxx);
+
+					$("save").click(function(){
+					
+				})
+					//window.onload時執行 記得要變成按下save後計算
+					var idlength= $("#familytable input[name*='famid']").length-1;//3
+					console.log(idlength);
+					var checkbox=[];
+					checkbox.length=idlength//1 2 3
+// 					console.log($("input[name*='famcar']").val());//直接抓到true
+					
+// 					$("#familytable input[name*='famcar']").prop("checked",funtcion(){
+// 						if($(this))
+// 					});
+					
+					
+// 				for (i = 1; i<= idlength; i++) {//1 2 3 
+					if($("#familytable input[name*='famcar']").val()!="false"){
+// 					if($("#familytable input[name*='famcar']").prop('checked')!=true){
+// 					if($("input:not(:checked)")){
+						checkbox.push("true");
+					}
+					if($("#familytable input[name*='famcar']").val()=="false"){
+// 					if($("#familytable input[name*='famcar']").prop('checked')==true){
+// 					if($(":checked")){
+						checkbox.push("false");
+					}
+// 				}
+				console.log(checkbox);
+// 				var checkboxstring = checkbox.join("、");
+// 				console.log(checkboxstring);
+<%-- 				<%session.setAttribute("checkboxvalue", checkbox);%> --%>
+				
 				
 
 				$(".multiselect").kendoMultiSelect({autoClose : false});
