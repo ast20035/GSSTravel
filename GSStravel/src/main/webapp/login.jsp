@@ -59,7 +59,7 @@ form {
 			<!-- 			<div class='col-lg-10'></div> -->
 		</div>
 
-		<form method="POST" action=<c:url value="/controller/login.do" />
+		<form method="POST" action=<c:url value="/login.do" />
 			id="login.do" role='form' class='form-horizontal form-signin'>
 			<div class='form-group'>
 				<label for='account' class='control-label col-lg-4'>帳號:</label>
