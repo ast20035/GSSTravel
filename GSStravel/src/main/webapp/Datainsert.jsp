@@ -166,7 +166,7 @@ td>input[type='text'] {
 			<div class='row'>
 				<div class='col-md-1'></div>
 				<div class='col-md-11'>
-					<table id="familytable table table-bordered">
+					<table id="familytable" class=' table table-bordered'>
 						<tr>
 							<th></th>
 							<th><em style="color: red">*</em>眷屬/親友</th>
