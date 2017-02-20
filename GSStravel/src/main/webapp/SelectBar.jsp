@@ -54,6 +54,9 @@ font-weight: bolder;
     background-color: rgb(57, 179, 215);
     border-color: rgb(38, 154, 188);
 }
+.select{
+border:1px solid #DDDDDD;
+}
 </style>
 <div class='row-fluid topBar navbar-fixed-top'>
 	<div class='col-md-3'>

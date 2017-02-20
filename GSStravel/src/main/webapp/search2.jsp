@@ -174,7 +174,7 @@
 								class='form-control' />
 						</div>
 						<br>
-						<div class='input-group'>
+						<div class='input-group select'>
 							<span class="input-group-addon info" id="sizing-addon3">活動地點:</span> <select
 								class="multiselect" name="loca" multiple="multiple"
 								data-placeholder="請選擇" style="width: 300px;">

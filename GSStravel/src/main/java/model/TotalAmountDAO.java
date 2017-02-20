@@ -136,7 +136,6 @@ public class TotalAmountDAO implements ITotalAmountDAO {
 			PreparedStatement stem=conn.prepareStatement(selectTa_money);
 				){
 			stem.setString(1, emp_No);
-			stem.setString(2, emp_No);
 			ResultSet rest = stem.executeQuery();
 			while(rest.next()){
 				totalAmountVO.setTra_No(rest.getString("tra_No"));
