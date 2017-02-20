@@ -29,6 +29,20 @@ td, th {
 }
 </style>
 <title>Insert title here</title>
+<script>
+window.onload=function(){
+	var $BodyWidth = $(document).width();  
+	var $ViewportWidth=$(window).width();  
+	var $ScrollLeft=$(this).scrollLeft();
+	if($BodyWidth>($ViewportWidth+$ScrollLeft)){   
+           $('#span').show();
+	} 
+	else if($BodyWidth==($ViewportWidth+$ScrollLeft)){   
+          $('#span').hide();
+	}
+	
+};
+</script>
 </head>
 
 <body>
