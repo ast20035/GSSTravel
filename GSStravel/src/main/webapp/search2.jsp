@@ -153,7 +153,7 @@
 			<div class='col-md-2'>
 				<br>
 				<fieldset>
-					<form>
+					<form action=<c:url value="/Travel_Edit"/> method="get">
 						<div class='input-group'>
 							<span class="input-group-addon info" id="sizing-addon1">活動代碼:</span><input
 								type='text' id='id' value='' aria-describedby="sizing-addon1"
@@ -167,7 +167,7 @@
 						</div>
 						<br>
 						<div class='input-group'>
-							<span class="input-group-addon info" id="sizing-addon3"> 開始日期:</span><input
+							<span class="input-group-addon info" id="sizing-addon3"> 起迄日期:</span><input
 								type='date' id='Sdate' name='startDay' value=''
 								aria-describedby="sizing-addon3" class='form-control' /> <input
 								type='date' id='Edate' name='endDay' value=''
@@ -188,8 +188,13 @@
 						<br> 
 						<div class='btn-group'>
 						<input type="button" value="查詢" onclick="search()"  class='btn btn-primary'/> 
-						<input  class='btn btn-primary' 
-							type="reset"></div>
+						<input  class='btn btn-primary' type="reset">
+						
+						<!-- 柯(請勿刪除) -->
+							<input type="submit" class='btn btn-primary' name="excel" value="匯出Excel"/>
+						<!-- 柯(請勿刪除) -->
+						
+						</div>
 					</form>
 				</fieldset>
 			</div>

@@ -197,6 +197,7 @@ public class FineServlet extends HttpServlet {
 			List<EmployeeVO> result = employeeService.selectEmp();
 			LinkedHashSet mailSet = new LinkedHashSet();	
 			String[] empMail = new String[result.size()];
+
 			email em = new email();
 			String[] mail = new String[result.size()];
 			Iterator mailIt = null;

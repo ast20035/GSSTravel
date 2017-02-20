@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.Date;
 import java.util.List;
 
 public class FamilyService {
@@ -32,5 +33,8 @@ public class FamilyService {
 	}
 	public Integer selectfam_byid(String famid){
 		return familyDAO.selectfam_byid(famid);
+	}
+	public List<Date> selectfam_Nodelete(int famno){
+		return familyDAO.selectfam_Nodelete(famno);
 	}
 }

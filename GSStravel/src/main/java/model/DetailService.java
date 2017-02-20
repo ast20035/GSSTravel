@@ -18,6 +18,10 @@ public class DetailService {
 	public ITravelDAO travelDAO;
 	public ITotalAmountDAO totalAmountDAO;
 	private EmployeeService employeeService = new EmployeeService();
+	
+	public List<DetailBean> selectExcel(DetailBean bean) {
+		return detailDAO.selectExcel(bean.getTra_NO());
+	}
 
 	public List<String> selectFam_Rel(int emp_No, long tra_No) {
 		detailDAO = new DetailDAO();
