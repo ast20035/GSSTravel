@@ -37,7 +37,7 @@ public class DetailInsertServlet extends HttpServlet {
 			String temp1 = req.getParameter("emp_No");
 			String name = req.getParameter("select");
 			String temp2 = req.getParameter("money");
-			
+
 			float det_money = Float.parseFloat(temp2);
 			if (temp1 != "" && temp1.trim().length() != 0) {
 				int emp_no = Integer.parseInt(temp1);
@@ -84,6 +84,7 @@ public class DetailInsertServlet extends HttpServlet {
 						String fam_Phone = req.getParameter("fam_Phone"); // 手機
 						String fam_Eat = req.getParameter("fam_Eat"); // 用餐
 						String temp4 = req.getParameter("fam_Car"); // 車位
+						String Sfam_spa = req.getParameter("fam_spa"); // 特殊身份
 						String[] fam_spa = req.getParameterValues("fam_spa"); // 特殊身份
 						String fam_Ben = req.getParameter("fam_Ben"); // 保險受益人
 						String fam_BenRel = req.getParameter("fam_BenRel"); // 保險受益人關係
@@ -91,7 +92,6 @@ public class DetailInsertServlet extends HttpServlet {
 						String fam_EmgPhone = req.getParameter("fam_EmgPhone"); // 緊急聯絡人電話
 						String fam_EmgRel = req.getParameter("fam_EmgRel"); // 緊急聯絡人關係
 						String fam_Note = req.getParameter("fam_note"); // 備註
-
 						familyVO.setEmp_No(emp_no);
 						familyVO.setFam_Rel(fam_Rel);
 						familyVO.setFam_Name(fam_Name);
@@ -102,27 +102,28 @@ public class DetailInsertServlet extends HttpServlet {
 						familyVO.setFam_Bdate(fam_Bdate);
 						familyVO.setFam_Phone(fam_Phone);
 						familyVO.setFam_Eat(fam_Eat);
-						familyVO.setFam_Car(false);
+						familyVO.setFam_Car(true);
 						if (temp4 != null) {
-							familyVO.setFam_Car(true);
+							familyVO.setFam_Car(false);
 						}
-
 						familyVO.setFam_Bady(false);
 						familyVO.setFam_kid(false);
 						familyVO.setFam_Dis(false);
 						familyVO.setFam_Mom(false);
-						for (String k : fam_spa) {
-							if ("幼童(0~3歲)".equals(k)) {
-								familyVO.setFam_Bady(true);
-							}
-							if ("兒童(4~11歲)".equals(k)) {
-								familyVO.setFam_kid(true);
-							}
-							if ("持身心障礙手冊".equals(k)) {
-								familyVO.setFam_Dis(true);
-							}
-							if ("孕婦(媽媽手冊)".equals(k)) {
-								familyVO.setFam_Mom(true);
+						if (Sfam_spa != null) {
+							for (String k : fam_spa) {
+								if ("幼童(0~3歲)".equals(k)) {
+									familyVO.setFam_Bady(true);
+								}
+								if ("兒童(4~11歲)".equals(k)) {
+									familyVO.setFam_kid(true);
+								}
+								if ("持身心障礙手冊".equals(k)) {
+									familyVO.setFam_Dis(true);
+								}
+								if ("孕婦(媽媽手冊)".equals(k)) {
+									familyVO.setFam_Mom(true);
+								}
 							}
 						}
 						familyVO.setFam_Ben(fam_Ben);
@@ -133,11 +134,7 @@ public class DetailInsertServlet extends HttpServlet {
 						familyVO.setFam_Note(fam_Note);
 						boolean a = familyService.insert_fam(familyVO);
 						if (a) {
-							System.out.println("emp_no=" + emp_no);
-							System.out.println("name=" + fam_Name);
-
 							int fam_no = familyService.select_byname(emp_no, fam_Name);
-							System.out.println("fam_no=" + fam_no);
 							detailVO.setEmp_No(emp_no);
 							detailVO.setTra_No(tra_No);
 							detailVO.setDet_money(det_money);
@@ -160,10 +157,10 @@ public class DetailInsertServlet extends HttpServlet {
 						}
 					} catch (Exception e) {
 						session.setAttribute("DataError", "員工編號輸入非數字之字");
-					}	
+					}
 				}
-			}else{
-				resp.sendRedirect("/GSStravel/detail?tra_no="+tra_No+"&doInsert=1");
+			} else {
+				resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No + "&doInsert=1");
 				return;
 			}
 		}
