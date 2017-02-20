@@ -56,7 +56,6 @@ public class TotalAmountDAO implements ITotalAmountDAO {
 			Connection conn = dataSource.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(counts);
 			stmt.setString(1, emp_No);	
-			stmt.setString(2, emp_No);
 			ResultSet rest = stmt.executeQuery();
 			while(rest.next()){
 				count=rest.getInt("count");
