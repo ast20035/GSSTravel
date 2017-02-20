@@ -186,7 +186,6 @@ td>input[type='text'] {
 						</tr>
 
 						<c:if test="${famstartsize>0}">
-
 							<c:forEach var="start" items="${famstart}">
 								<tr>
 									<td><input type="button" name="delete" id="delete"
@@ -256,8 +255,7 @@ td>input[type='text'] {
 												<option id="${start.fam_No}_span_1" value="baby" Selected>幼童(0~3歲)</option>
 											</c:if>
 											<script>
-												console
-														.log('${start.fam_No}_span_1');
+												console.log('${start.fam_No}_span_1');
 											</script>
 
 											<c:if test="${start.fam_kid=='false'}">
@@ -314,6 +312,7 @@ td>input[type='text'] {
 			</div>
 		</form>
 	</div>
+	
 	<table class='table table-bordered'>
 		<!-- 空白欄位 -->
 		<tr name="repeat">
@@ -560,7 +559,9 @@ td>input[type='text'] {
 									$(".repeat:last #multiselect").kendoMultiSelect({autoClose : false});
 									//新增的欄位作正規劃
 									var famname = /^.*\s*[^\s]/;
-									$(".repeat td").on("blur","input[name='famname']",function() {if (famname.test($(this).val())) {
+									$(".repeat td").on("blur","input[name='famname']",function() {
+														if (famname.test($(this).val())) {
+									
 															$(this).css("border-color","green");
 															$("#save").attr("type","submit");
 															setTimeout(function() {$(".repeat td input[name='famname']")
@@ -640,7 +641,6 @@ td>input[type='text'] {
 														}
 														
 														// 和最後一個數字比對
-// 														if ((10– (total % 10))!= lastNum && ((10-(total % 10))-10)!= lastNum){
 															if ((10 - (total % 10))!= lastNum && ((10 - (total % 10))-10)!= lastNum  ) {
 																$(this).css("border-color","red");
 																setTimeout(function() {$(".repeat td input[name='famid']")
@@ -740,8 +740,7 @@ td>input[type='text'] {
 														}
 													});
 									var famemgrel = /^.*\s*[^\s]/;
-									$(".repeat td")
-											.on("blur","input[name='famemgrel']",
+									$(".repeat td").on("blur","input[name='famemgrel']",
 													function() {
 														if (famemgrel.test($(this).val())) {
 															$(this).css("border-color","green");
@@ -757,9 +756,7 @@ td>input[type='text'] {
 													});
 
 									//在commit按下後內 判斷把全部欄未能不能不要是空白  
-									$("#save")
-											.click(
-													function() {
+									$("#save").click(function() {
 														if ($(".repeat td input[name='famname']").val() == "") {
 															alert("請輸入親屬名稱");
 															return false;
@@ -800,13 +797,7 @@ td>input[type='text'] {
 													});
 
 								});
-				//刪除鍵按下後
-// 				$("#familytable").on("click", "input[name='delete']",
-// 						function() {
-// 							// 		 $("#familytable input[name='delete']").submit(function(){ $(this).parents("tr").remove();});
-// 							//on事件要綁定動態之後 還得要綁定 submit才可以抓的到值
-// 							$(this).parents("tr").remove();
-// 						});
+
 
 				//想改把enter後submit的功能去消            施工中
 				// 	$("#save").keypress(function(e){
