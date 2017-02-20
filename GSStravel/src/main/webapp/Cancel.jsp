@@ -119,21 +119,23 @@ table {
 												</c:forEach>
 											</table>
 										</c:if> <br> <c:if test="${tra_Vo.tra_On!=tra_Vo.tra_Off}">
-											<c:forEach var="room" items="${itemVo}">
+											
 												<table class='table table-bordered table1'>
 													<tr>
 														<th></th>
 														<th>房型</th>
 														<th>費用</th>
 													</tr>
+													<c:forEach var="room" items="${itemVo}">
 													<tr>
 														<td><input type=checkbox value="${room.item_Money} "
 															onclick="return false" name="room"></td>
 														<td>${room.item_Name}</td>
 														<td>${room.item_Money}</td>
 													</tr>
+													</c:forEach>
 												</table>
-											</c:forEach>
+											
 											<br>
 											<br>
 										</c:if></td>
