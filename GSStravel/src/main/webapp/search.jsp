@@ -38,6 +38,15 @@
 			autoClose : false
 		});
 		search();
+		var $BodyWidth = $(document).width();  
+		var $ViewportWidth=$(window).width();  
+		var $ScrollLeft=$(this).scrollLeft();
+		if($BodyWidth>($ViewportWidth+$ScrollLeft)){   
+               $('#span').show();
+		} 
+		else if($BodyWidth==($ViewportWidth+$ScrollLeft)){   
+              $('#span').hide();
+		}
 	};
 	var xh = new XMLHttpRequest();
 	function search() {

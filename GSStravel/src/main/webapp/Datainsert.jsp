@@ -550,6 +550,15 @@ td>input[type='text'] {
 			}
 
 			$(function() {
+				var $BodyWidth = $(document).width();  
+				var $ViewportWidth=$(window).width();  
+				var $ScrollLeft=$(this).scrollLeft();
+				if($BodyWidth>($ViewportWidth+$ScrollLeft)){   
+		               $('#span').show();
+				} 
+				else if($BodyWidth==($ViewportWidth+$ScrollLeft)){   
+		              $('#span').hide();
+				}
 				$(".multiselect").kendoMultiSelect({autoClose : false});
 				$("tr[name='repeat']").hide();
 				$("#familytable").attr("width", "1200px").attr("border", "3px")

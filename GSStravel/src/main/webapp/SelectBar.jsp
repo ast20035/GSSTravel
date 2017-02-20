@@ -5,6 +5,18 @@
 	var pathNamejs = document.location.pathname;
 	var indexjs = pathNamejs.substr(1).indexOf("/");
 	var resultjs = pathNamejs.substr(0, indexjs + 1);
+	
+	$(window).scroll(function(){
+		var $BodyWidth = $(document).width();  
+		var $ViewportWidth=$(window).width();  
+		var $ScrollLeft=$(this).scrollLeft();
+		if($BodyWidth>($ViewportWidth+$ScrollLeft)){   
+               $('#span').show();
+		} 
+		else if($BodyWidth==($ViewportWidth+$ScrollLeft)){   
+              $('#span').hide();
+		}
+	});
 </script>
 <style>
 .topBar {
@@ -15,6 +27,7 @@
 		rgba(115, 177, 231, 1) 36%, rgba(10, 119, 213, 1) 96%,
 		rgba(83, 159, 225, 1) 100%, rgba(135, 188, 234, 1) 100%,
 		rgba(83, 159, 225, 1) 101%);
+z-index: 15;
 }
 
 .container-fluid {
@@ -57,6 +70,14 @@ font-weight: bolder;
 .select{
 border:1px solid #DDDDDD;
 }
+#span{
+position: fixed;
+top: 10%;
+right: 5%;
+font-size: 10%;
+font-weight: boider;
+z-index: 5;
+}
 </style>
 <div class='row-fluid topBar navbar-fixed-top'>
 	<div class='col-md-3'>
@@ -92,7 +113,8 @@ border:1px solid #DDDDDD;
 	<div class='col-md-1'>
 		<input type="button" value='登出' class="btn btn-group-sm btn-warning" id="close7"
 			onclick="window.location.href=resultjs+'/LogOut.do';">
-
 	</div>
+	<div class='col-md-1'></div>
+	
 </div>
-
+<span class='alert alert-danger' id='span' style="display: none;"><strong>右方還有內容</strong></span>

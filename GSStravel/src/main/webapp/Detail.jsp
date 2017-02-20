@@ -185,7 +185,17 @@
 	<script src="js/jquery-1.12.3.min.js"></script>
 	<script	src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
 <script type="text/javascript">
-$(function(){ 	
+$(function(){ 
+	var $BodyWidth = $(document).width();  
+	var $ViewportWidth=$(window).width();  
+	var $ScrollLeft=$(this).scrollLeft();
+	if($BodyWidth>($ViewportWidth+$ScrollLeft)){   
+           $('#span').show();
+	} 
+	else if($BodyWidth==($ViewportWidth+$ScrollLeft)){   
+          $('#span').hide();
+	}
+	
 	 //多選下拉式選單
 	 
 	 $(".multiselect").hide();
