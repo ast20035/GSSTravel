@@ -380,19 +380,9 @@ td>input[type='text'] {
 						searchfamid();
 						$(this).parents("tr").remove();
 						});
-
-// 							var famid=0;//jquery 直接寫在動作之中?
-// 							$("input[name*='delete']").on("click",function(){
-// 									famid=$(this).attr("class");
-// 								});
-// 				 			var pathName = document.location.pathname;
-// 				 			var index = pathName.substr(1).indexOf("/");
-// 				 			var result = pathName.substr(0, index + 1);
-// 				 			var url = result + "/FamilyServlet";
-// 							$.post(url,{"famid":famid },famidreturn());
-						
-					
 			
+	
+
 // 			searchbox();
 			//儲存鍵按下後判斷checkbox 有按下鍵的 回傳一個值  沒有按下鍵的回傳另外一個值 
 			//在去判斷那個值是哪個 在去放置true  false 0 1等等 紀德判斷 不占車位為1 占車位為2
@@ -411,7 +401,7 @@ td>input[type='text'] {
 // 				console.log("box return value");
 // 			});
 			
-			
+				
 			
 				var famid=0;
 			function searchfamid() {//按下delete去找他的famid
@@ -420,7 +410,6 @@ td>input[type='text'] {
 								famid=$(this).attr("class");
 							});
 
-						
 // 						$("#familytable").on("click", "input[name='delete']",function(){
 // 							famid=$(this).attr("class");
 // 						})
@@ -458,50 +447,15 @@ td>input[type='text'] {
 					}
 				}
 			}
-
-			// searchempmail();
-
-			// function searchempmail(){
-			// 	if (xh != null) {
-			// 		var empemail=$("#empemail").val();
-
-			// 	var pathName = document.location.pathname;
-			// 	var index = pathName.substr(1).indexOf("/");
-			// 	var result = pathName.substr(0, index + 1);
-			// 	var url = result + "/FamilyServlet";
-
-			// 	if(typeof empemail != "undefined"){
-			// 	var email =JSON.stringify(empemail);
-			// 	}
-			// 	xh.addEventListener("readystatechange", mailreturn);
-			// 	xh.open("POST",url);
-			// 	xh.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-			// 	xh.send("email="+email);
-			// 	}else {
-			// 		alert("Your browser doesn't support JSON!");
-			// 	}
-			// }
-			// function mailreturn() {//其實不用判斷 原工email有沒有重複  因為原工不會有新增的問題 不用怕重複
-			// 	if (xh.readyState == 4){
-			// 		if (xh.status == 200) {
-			// 			if(xh.responseText!=null){
-			// // 			alert("email ajax return");
-			// 			var mailreturn= xh.responseText;
-			// 			console.log(mailreturn);
-			// 			}
-			// 		}
-			// 	}
-			// }
-
+			
 			//search方法 在動態新增紐的famid 檢驗法的最下方
 			function search() {
 				if (xh != null) {
 					var famidnew = $(".repeat .famid").map(function() {
 						return $(this).val();
 					}).get();
-					// 					var famidold=$("input[name='famid']").map(function(){
-					// 						return $(this).val();
-					// 					}).get();//把舊的值也要抓到資料庫的id
+
+					
 					console.log(famidnew);//輸出陣列出來
 					// 					console.log(famidold);
 					var pathName = document.location.pathname;
@@ -550,6 +504,14 @@ td>input[type='text'] {
 			}
 
 			$(function() {
+// 				$("#save").on("submit",function(){
+// 					$("input:not(:checked)").val("false");
+// 				});
+				$("input[name*='famcar']").click(function(){
+						$(!$(this).is(':checked')).val("false");
+				});
+				
+
 				$(".multiselect").kendoMultiSelect({autoClose : false});
 				$("tr[name='repeat']").hide();
 				$("#familytable").attr("width", "1200px").attr("border", "3px")
