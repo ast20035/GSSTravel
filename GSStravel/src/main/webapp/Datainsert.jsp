@@ -189,9 +189,10 @@ td>input[type='text'] {
 							<c:forEach var="start" items="${famstart}">
 								<tr>
 									<td><input type="button" name="delete" id="delete"
-										value="delete" class="${start.fam_Id}"></td>
+										value="delete" class="${start.fam_Id} btn btn-success"></td>
 
-									<td><select name="famrel">
+									<td><select name="famrel" class='form-control'
+										style="width: 80px;">
 											<c:if test="${start.fam_Rel=='親友'}">
 												<option value="眷屬">眷屬</option>
 												<option value="親友" selected>親友</option>
@@ -202,9 +203,9 @@ td>input[type='text'] {
 											</c:if>
 									</select></td>
 									<td><input type="text" name="famname" id="famname"
-										value="${start.fam_Name}">
+										class='form-control' value="${start.fam_Name}">
 										<div class="famnameerror" name="famnameerror">${error.famneme}</div></td>
-									<td><select name="famsex">
+									<td><select name="famsex" class='form-control'>
 											<!--  servlet抓name db抓值會抓進value值進去-->
 											<c:if test="${start.fam_Sex=='男'}">
 												<option value="女">女</option>
@@ -216,86 +217,94 @@ td>input[type='text'] {
 											</c:if>
 									</select></td>
 
-									<td><input type="text" name="famid" class="famid"
-										value="${start.fam_Id}">
+									<td><input type="text" name="famid"
+										class="famid form-control" value="${start.fam_Id}">
 										<div class="famiderror" name="famiderror">${error.famid}</div></td>
 									<td><input type="date" id="fambdate" name="fambdate"
-										class="fambdate" value="${start.fam_Bdate}" />
+										class="fambdate form-control" value="${start.fam_Bdate}" />
 										<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div></td>
 									<td><input type="text" name="famphone" id="famphone"
-										value="${start.fam_Phone}">
+										class='form-control' value="${start.fam_Phone}">
 										<div class=famphoneerror>${error.famphone}</div></td>
-									<td><select name="fameat">
+									<td><select name="fameat" style='width: 100px;'
+										class='form-control'>
 											<!-- 今天的日期 減去 他的生日 < 三歲  (剩幾天?) (看年底還是年初)  看年?  -->
 											<c:if test="${start.fam_Eat=='葷'}">
-												<option value="葷" selected>葷食</option>
-												<option value="素">素食</option>
+												<option value="葷" selected>葷</option>
+												<option value="素">素</option>
+												<option value="不佔餐">不佔餐</option>
 											</c:if>
 											<c:if test="${start.fam_Eat=='素'}">
-												<option value="葷">葷食</option>
-												<option value="素" selected>素食</option>
+												<option value="葷">葷</option>
+												<option value="素" selected>素</option>
+												<option value="不佔餐">不佔餐</option>
+											</c:if>
+											<c:if test="${start.fam_Eat=='不佔餐'}">
+												<option value="葷">葷</option>
+												<option value="素">素</option>
+												<option value="不佔餐" selected>不佔餐</option>
 											</c:if>
 									</select> <c:if test="${start.fam_Car=='true'}">
 											<input id="${start.fam_No}_car" name="famcar" type="checkbox"
 												value="true" class="${start.fam_No}" checked>
-											<div>不占車位</div>
+											<span>不占車位</span>
 										</c:if> <c:if test="${start.fam_Car=='false'}">
 											<input id="${start.fam_No}_car" name="famcar" type="checkbox"
 												value="true" class="${start.fam_No}">
-											<div>不占車位</div>
+											<span>不占車位</span>
 										</c:if></td>
 
-									<td><select class="multiselect aaa" name="famspa" style='width:350px;' 
-										multiple="multiple" data-placeholder="請選擇">
+									<td><div class='select'>
+											<select class="multiselect aaa form-control" name="famspa"
+												style='width: 350px;' multiple="multiple"
+												data-placeholder="請選擇">
 
-											<c:if test="${start.fam_Bady=='false'}">
-												<option value="baby">幼童(0~3歲)</option>
-											</c:if>
-											<c:if test="${start.fam_Bady}">
-												<option id="${start.fam_No}_span_1" value="baby" Selected>幼童(0~3歲)</option>
-											</c:if>
-											<script>
-												console.log('${start.fam_No}_span_1');
-											</script>
+												<c:if test="${start.fam_Bady=='false'}">
+													<option value="baby">幼童(0~3歲)</option>
+												</c:if>
+												<c:if test="${start.fam_Bady}">
+													<option id="${start.fam_No}_span_1" value="baby" Selected>幼童(0~3歲)</option>
+												</c:if>
+												<c:if test="${start.fam_kid=='false'}">
+													<option value="kid">兒童(4~11歲)</option>
+												</c:if>
+												<c:if test="${start.fam_kid}">
+													<option value="kid" Selected>兒童(4~11歲)</option>
+												</c:if>
 
-											<c:if test="${start.fam_kid=='false'}">
-												<option value="kid">兒童(4~11歲)</option>
-											</c:if>
-											<c:if test="${start.fam_kid}">
-												<option value="kid" Selected>兒童(4~11歲)</option>
-											</c:if>
-
-											<c:if test="${start.fam_Dis=='false'}">
-												<option value="dis">持身心障礙手冊</option>
-											</c:if>
-											<c:if test="${start.fam_Dis}">
-												<option value="dis" Selected>持身心障礙手冊</option>
-											</c:if>
-											<c:if test="${start.fam_Mom=='false'}">
-												<option value="mom">孕婦(媽媽手冊)</option>
-											</c:if>
-											<c:if test="${start.fam_Mom}">
-												<option value="mom" Selected>孕婦(媽媽手冊)</option>
-											</c:if>
-									</select></td>
+												<c:if test="${start.fam_Dis=='false'}">
+													<option value="dis">持身心障礙手冊</option>
+												</c:if>
+												<c:if test="${start.fam_Dis}">
+													<option value="dis" Selected>持身心障礙手冊</option>
+												</c:if>
+												<c:if test="${start.fam_Mom=='false'}">
+													<option value="mom">孕婦(媽媽手冊)</option>
+												</c:if>
+												<c:if test="${start.fam_Mom}">
+													<option value="mom" Selected>孕婦(媽媽手冊)</option>
+												</c:if>
+											</select>
+										</div></td>
 
 									<td><input type="text" name="famben" id="famben"
-										value="${start.fam_Ben}">
+										class='form-control' value="${start.fam_Ben}">
 										<div class="fambenerror">${error.famben}</div></td>
 									<td><input type="text" name="fambenrel" id="fambenrel"
-										value="${start.fam_BenRel}">
+										class='form-control' value="${start.fam_BenRel}">
 										<div class="fambenrelerror">${error.fambenrel}</div></td>
 									<td><input type="text" name="famemg" id="famemg"
-										value="${start.fam_Emg}">
+										class='form-control' value="${start.fam_Emg}">
 										<div class="famemgerror">${error.famemg}</div></td>
 									<td><input type="text" name="famemgphpone"
-										id="famemgphone" value="${start.fam_EmgPhone}">
+										class='form-control' id="famemgphone"
+										value="${start.fam_EmgPhone}">
 										<div class="famemgphoneerror">${error.famemgphone}</div></td>
 									<td><input type="text" name="famemgrel" id="famemgrel"
-										value="${start.fam_EmgRel}">
+										class='form-control' value="${start.fam_EmgRel}">
 										<div class="famemgrelerror">${error.famemgrel}</div></td>
 									<td><input type="text" name="famnote" id="famnote"
-										value="${start.fam_Note}">
+										class='form-control' value="${start.fam_Note}">
 										<div class="famnoteerror"></div></td>
 								</tr>
 							</c:forEach>
@@ -305,68 +314,78 @@ td>input[type='text'] {
 					</table>
 
 					<!--新增、儲存 -->
-					<input type="button" value="新增欄位" id="insert" name="button"><br>
-					<span>${error.famblock}</span> <input type="submit" value="儲存"
-						id="save" name="button"><br>
+					<input type="button" value="新增欄位" id="insert" name="button"
+						class='btn btn-primary'> <span>${error.famblock}</span> <input
+						type="submit" value="儲存" class='btn btn-primary' id="save"
+						name="button"><br>
 				</div>
 			</div>
 		</form>
 	</div>
-	
+
 	<table class='table table-bordered'>
 		<!-- 空白欄位 -->
 		<tr name="repeat">
 			<td><input type="button" name="delete" id="delete"
-				value="delete" class="block"></td>
-			<td><select name="famrel">
+				class='btn btn-success' value="delete" class="block"></td>
+			<td><select name="famrel" class='form-control'>
 					<option value="眷屬">眷屬</option>
 					<option value="親友">親友</option>
 			</select></td>
-			<td><input type="text" name="famname" id="famname">
+			<td><input type="text" name="famname" id="famname"
+				class='form-control'>
 				<div class="famnameerror" name="famnameerror">${error.famneme}</div></td>
-			<td><select name="famsex">
+			<td><select name="famsex" class='form-control'>
 					<!--  servlet抓name db抓值會抓進value值進去-->
 					<option value="女">女</option>
 					<option value="男">男</option>
 			</select></td>
-			<td><input type="text" name="famid" class="famid">
+			<td><input type="text" name="famid" class="famid form-control">
 				<div class="famiderror" name="famiderror">${error.famid}</div></td>
 			<td><input type="date" id="fambdate" name="fambdate"
-				class="fambdate" />
+				class="fambdate form-control" />
 				<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div></td>
-			<td><input type="text" name="famphone" id="famphone">
+			<td><input type="text" name="famphone" id="famphone"
+				class='form-control'>
 				<div class=famphoneerror>${error.famphone}</div></td>
-			<td><select name="fameat">
+			<td><select name="fameat" style='width: 100px;'
+				class='form-control'>
 					<option value="葷">葷</option>
 					<option value="素">素</option>
+					<option value="不佔餐">不佔餐</option>
 			</select> <input name="famcar" type="checkbox" value="true"
-				class="${start.fam_No}">
-				<div>不占車位</div></td>
-			<td><select name="famspa" id="multiselect" multiple="multiple"
-				data-placeholder="請選擇">
-					<option>幼童(0~3歲)</option>
-					<option>兒童(4~11歲)</option>
-					<option>持身心障礙手冊</option>
-					<option>孕婦(媽媽手冊)</option>
-			</select></td>
+				class="${start.fam_No}"> <span>不占車位</span></td>
+			<td><div class='select'>
+					<select name="famspa" id="multiselect" multiple="multiple"
+						class='form-control select' data-placeholder="請選擇">
+						<option>幼童(0~3歲)</option>
+						<option>兒童(4~11歲)</option>
+						<option>持身心障礙手冊</option>
+						<option>孕婦(媽媽手冊)</option>
+					</select>
+				</div></td>
 			<!-- 		class="multiselect"   id="multiselect"-->
-			<td><input type="text" name="famben" id="famben">
+			<td><input type="text" name="famben" id="famben"
+				class='form-control'>
 				<div class="fambenerror">${error.famben}</div></td>
-			<td><input type="text" name="fambenrel" id="fambenrel">
+			<td><input type="text" name="fambenrel" id="fambenrel"
+				class='form-control'>
 				<div class="fambenrelerror">${error.fambenrel}</div></td>
-			<td><input type="text" name="famemg" id="famemg">
+			<td><input type="text" name="famemg" id="famemg"
+				class='form-control'>
 				<div class="famemgerror">${error.famemg}</div></td>
-			<td><input type="text" name="famemgphpone" id="famemgphone">
+			<td><input type="text" name="famemgphpone" id="famemgphone"
+				class='form-control'>
 				<div class="famemgphoneerror">${error.famemgphone}</div></td>
-			<td><input type="text" name="famemgrel" id="famemgrel">
+			<td><input type="text" name="famemgrel" id="famemgrel"
+				class='form-control'>
 				<div class="famemgrelerror">${error.famemgrel}</div></td>
-			<td><input type="text" name="famnote" id="famnote">
+			<td><input type="text" name="famnote" id="famnote"
+				class='form-control'>
 				<div class="famnoteerror"></div></td>
 		</tr>
 	</table>
-
-
-	<script>
+<script>
 			var xh = new XMLHttpRequest();
 			
 			$("#familytable").on("click", "input[name='delete']",
@@ -504,6 +523,14 @@ td>input[type='text'] {
 			}
 
 			$(function() {
+			var $BodyWidth = $(document).width();
+			var $ViewportWidth = $(window).width();
+			var $ScrollLeft = $(this).scrollLeft();
+			if ($BodyWidth > ($ViewportWidth + $ScrollLeft)) {
+				$('#span').show();
+			} else if ($BodyWidth == ($ViewportWidth + $ScrollLeft)) {
+				$('#span').hide();
+			}
 // 				$("#save").on("submit",function(){
 // 					$("input:not(:checked)").val("false");
 // 				});

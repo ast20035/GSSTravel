@@ -37,6 +37,15 @@ var Error="<%=session.getAttribute("nopeople")%>";
 			autoClose : false
 		});
 		search();
+		var $BodyWidth = $(document).width();  
+		var $ViewportWidth=$(window).width();  
+		var $ScrollLeft=$(this).scrollLeft();
+		if($BodyWidth>($ViewportWidth+$ScrollLeft)){   
+               $('#span').show();
+		} 
+		else if($BodyWidth==($ViewportWidth+$ScrollLeft)){   
+              $('#span').hide();
+		}
 	};
 	var xh = new XMLHttpRequest();
 	function search() {
@@ -182,7 +191,7 @@ var Error="<%=session.getAttribute("nopeople")%>";
 								class='form-control' />
 						</div>
 						<br>
-						<div class='input-group'>
+						<div class='input-group select'>
 							<span class="input-group-addon info" id="sizing-addon3">活動地點:</span> <select
 								class="multiselect" name="loca" multiple="multiple"
 								data-placeholder="請選擇" style="width: 300px;">
