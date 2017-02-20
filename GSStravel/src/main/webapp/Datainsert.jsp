@@ -21,6 +21,17 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <title>Insert title here</title>
+<style>
+tr>td {
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-right: 10px;
+}
+
+td>input[type='text'] {
+	width: 200px;
+}
+</style>
 </head>
 <body>
 
@@ -40,293 +51,323 @@
 	</script>
 
 	<div class='container-fluid'>
-
-		<form action=<c:url value="/FamilyServlet"/> method="post">
-
-			<table>
-
-				<tr>
-					<td>員工編號</td>
-					<td>${empno}</td>
-				</tr>
-				<tr>
-					<td>姓名</td>
-					<td>${empname}</td>
-				</tr>
-				<tr>
-					<td>手機</td>
-					<td><input type="text" name="empphone" id="empphone"
-						value="${empphone}">
-						<div id=empphoneerror>${error.empphone}</div></td>
-				</tr>
-				<tr>
-					<td>保險受益人</td>
-					<td><input type="text" name="empben" id="empben"
-						value="${empben}">
-						<div id=empbenerror>${error.empben}</div></td>
-				</tr>
-				<tr>
-					<td>與受益人關係</td>
-					<td><input type="text" name="empbenrel" id="empbenrel"
-						value="${empbenrel}">
-						<div id=empbenrelerror>${error.empbenrel}</div></td>
-				</tr>
-				<tr>
-					<td>緊急聯絡人</td>
-					<td><input type="text" name="empemg" id="empemg"
-						value="${empemg}">
-						<div id=empemgerror>${error.empemg}</div></td>
-				</tr>
-				<tr>
-					<td>緊急聯絡人電話</td>
-					<td><input type="text" name="empemgphone" id="empemgphone"
-						value="${empemgphone}">
-						<div id=empemgphoneerror>${error.empemgphone}</div></td>
-				</tr>
-				<tr>
-					<td>信箱</td>
-					<td><input type="text" name="empemail" id="empemail"
-						value="${empemail}">
-						<div id=empemailerror>${error.empemailerror}</div></td>
-				</tr>
-				<tr>
-					<td>用餐</td>
-					<td><select name="empeat">
-							<c:if test="${empeat=='葷'}">
-								<option value="葷" selected>葷</option>
-								<option value="素">素</option>
-							</c:if>
-							<c:if test="${empeat=='素'}">
-								<option value="葷">葷</option>
-								<option value="素" selected>素</option>
-							</c:if>
-					</select> (如有特別要求請填寫於備註)</td>
-				</tr>
-
-				<tr>
-					<td>備註</td>
-					<td><input type="text" name="empnote" id="empnote"
-						value="${empnote}">
-						<div id=empnoteerror></div></td>
-				</tr>
-
-			</table>
-
-			<div>
-				－眷屬親友資訊－<br> *眷屬包含直系及旁系二等親，納入補助計算<br>
-				*親友為旁系三等親以上及朋友，不納入補助計算<br>
+		<div class='row'>
+			<div class='col-md-1'></div>
+			<div class='col-md-11'>
+				<h2>資料輸入</h2>
 			</div>
-
-
-			<table id="familytable">
-				<tr>
-					<th></th>
-					<th><em style="color: red">*</em>眷屬/親友</th>
-					<th><em style="color: red">*</em>姓名</th>
-					<th><em style="color: red">*</em>性別</th>
-					<th><em style="color: red">*</em>身份證字號</th>
-					<th><em style="color: red">*</em>生日</th>
-					<th><em style="color: red">*</em>手機</th>
-					<th>用餐/車位</th>
-					<th>特殊身份</th>
-					<th><em style="color: red">*</em>保險受益人</th>
-					<th><em style="color: red">*</em>保險受益人關係</th>
-					<th><em style="color: red">*</em>緊急聯絡人</th>
-					<th><em style="color: red">*</em>緊急聯絡人電話</th>
-					<th><em style="color: red">*</em>緊急聯絡人關係</th>
-					<th>備註</th>
-				</tr>
-
-				<c:if test="${famstartsize>0}">
-
-					<c:forEach var="start" items="${famstart}">
+		</div>
+		<br>
+		<form action=<c:url value="/FamilyServlet"/> method="post">
+			<div class='row'>
+				<div class='col-md-1'></div>
+				<div class='col-md-3'>
+					<table>
 						<tr>
-							<td><input type="button" name="delete" id="delete"
-								value="delete" class="${start.fam_Id}"></td>
-								
-							<td><select name="famrel">
-									<c:if test="${start.fam_Rel=='親友'}">
-										<option value="眷屬">眷屬</option>
-										<option value="親友" selected>親友</option>
-									</c:if>
-									<c:if test="${start.fam_Rel=='眷屬'}">
-										<option value="眷屬" selected>眷屬</option>
-										<option value="親友">親友</option>
-									</c:if>
-							</select></td>
-							<td><input type="text" name="famname" id="famname"
-								value="${start.fam_Name}" style="width: 100px;">
-								<div class="famnameerror" name="famnameerror">${error.famneme}</div></td>
-							<td><select name="famsex">
-									<!--  servlet抓name db抓值會抓進value值進去-->
-									<c:if test="${start.fam_Sex=='男'}">
-										<option value="女">女</option>
-										<option value="男" selected>男</option>
-									</c:if>
-									<c:if test="${start.fam_Sex=='女'}">
-										<option value="女" selected>女</option>
-										<option value="男">男</option>
-									</c:if>
-							</select></td>
-
-							<td><input type="text" name="famid" class="famid"
-								value="${start.fam_Id}" style="width: 100px;">
-								<div class="famiderror" name="famiderror">${error.famid}</div></td>
-							<td><input type="date" id="fambdate" name="fambdate"
-								class="fambdate" value="${start.fam_Bdate}"
-								style="width: 150px;" />
-								<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div></td>
-							<td><input type="text" name="famphone" id="famphone"
-								value="${start.fam_Phone}" style="width: 100px;">
-								<div class=famphoneerror>${error.famphone}</div></td>
-							<td><select name="fameat">
-									<!-- 今天的日期 減去 他的生日 < 三歲  (剩幾天?) (看年底還是年初)  看年?  -->
-									<c:if test="${start.fam_Eat=='葷'}">
-										<option value="葷" selected>葷食</option>
-										<option value="素">素食</option>
-									</c:if>
-									<c:if test="${start.fam_Eat=='素'}">
-										<option value="葷">葷食</option>
-										<option value="素" selected>素食</option>
-									</c:if>
-								</select> 
-								<c:if test="${start.fam_Car=='true'}">
-									<input id="${start.fam_No}_car" name="famcar" type="checkbox"
-										value="true" class="${start.fam_No}" checked>
-									<div>不占車位</div>
-								</c:if> <c:if test="${start.fam_Car=='false'}">
-									<input id="${start.fam_No}_car" name="famcar" type="checkbox"
-										value="true" class="${start.fam_No}">
-									<div>不占車位</div>
-								</c:if></td>
-
-							<td><select class="multiselect aaa" name="famspa"
-								multiple="multiple" data-placeholder="請選擇" style="width: 200px;">
-
-									<c:if test="${start.fam_Bady=='false'}">
-										<option value="baby">幼童(0~3歲)</option>
-									</c:if>
-									<c:if test="${start.fam_Bady}">
-										<option id="${start.fam_No}_span_1" value="baby" Selected>幼童(0~3歲)</option>
-									</c:if>
-									<script>
-										console.log('${start.fam_No}_span_1');
-									</script>
-
-									<c:if test="${start.fam_kid=='false'}">
-										<option value="kid">兒童(4~11歲)</option>
-									</c:if>
-									<c:if test="${start.fam_kid}">
-										<option value="kid" Selected>兒童(4~11歲)</option>
-									</c:if>
-
-									<c:if test="${start.fam_Dis=='false'}">
-										<option value="dis">持身心障礙手冊</option>
-									</c:if>
-									<c:if test="${start.fam_Dis}">
-										<option value="dis" Selected>持身心障礙手冊</option>
-									</c:if>
-									<c:if test="${start.fam_Mom=='false'}">
-										<option value="mom">孕婦(媽媽手冊)</option>
-									</c:if>
-									<c:if test="${start.fam_Mom}">
-										<option value="mom" Selected>孕婦(媽媽手冊)</option>
-									</c:if>
-							</select></td>
-
-							<td><input type="text" name="famben" id="famben"
-								value="${start.fam_Ben}" style="width: 100px;">
-								<div class="fambenerror">${error.famben}</div></td>
-							<td><input type="text" name="fambenrel" id="fambenrel"
-								value="${start.fam_BenRel}" style="width: 100px;">
-								<div class="fambenrelerror">${error.fambenrel}</div></td>
-							<td><input type="text" name="famemg" id="famemg"
-								value="${start.fam_Emg}" style="width: 100px;">
-								<div class="famemgerror">${error.famemg}</div></td>
-							<td><input type="text" name="famemgphpone" id="famemgphone"
-								value="${start.fam_EmgPhone}" style="width: 100px;">
-								<div class="famemgphoneerror">${error.famemgphone}</div></td>
-							<td><input type="text" name="famemgrel" id="famemgrel"
-								value="${start.fam_EmgRel}" style="width: 100px;">
-								<div class="famemgrelerror">${error.famemgrel}</div></td>
-							<td><input type="text" name="famnote" id="famnote"
-								value="${start.fam_Note}">
-								<div class="famnoteerror"></div></td>
+							<td><div class='input-group'>
+									<span class="input-group-addon info" id="sizing-addon1">員工編號</span>
+									<input type='text' class='form-control' readonly
+										value='${empno}' aria-describedby="sizing-addon1" />
+								</div></td>
 						</tr>
-					</c:forEach>
+						<tr>
+							<td><div class='input-group'>
+									<span class="input-group-addon info" id="sizing-addon2">姓名</span>
+									<input type='text' class='form-control' readonly
+										value='${empname}' aria-describedby="sizing-addon2" />
+								</div></td>
+						</tr>
+						<tr>
+							<td><div class='input-group'>
+									<span class="input-group-addon info" id="sizing-addon3">手機</span>
+									<input type="text" name="empphone" id="empphone"
+										class='form-control' autofocus
+										aria-describedby="sizing-addon3" value="${empphone}">
+								</div>
+								<div id=empphoneerror>${error.empphone}</div></td>
+						</tr>
+						<tr>
+							<td><div class='input-group'>
+									<span class="input-group-addon info" id="sizing-addon4">保險受益人</span>
+									<input type="text" name="empben" id="empben"
+										class='form-control' aria-describedby="sizing-addon4"
+										value="${empben}">
+								</div>
+								<div id=empbenerror>${error.empben}</div></td>
+						</tr>
+						<tr>
+							<td><div class='input-group'>
+									<span class="input-group-addon info" id="sizing-addon5">與受益人關係</span>
+									<input type="text" name="empbenrel" id="empbenrel"
+										class='form-control' aria-describedby="sizing-addon5"
+										value="${empbenrel}">
+								</div>
+								<div id=empbenrelerror>${error.empbenrel}</div></td>
+						</tr>
+						<tr>
+							<td><div class='input-group'>
+									<span class="input-group-addon info" id="sizing-addon6">緊急聯絡人</span>
+									<input type="text" name="empemg" id="empemg"
+										class='form-control' aria-describedby="sizing-addon6"
+										value="${empemg}">
+								</div>
+								<div id=empemgerror>${error.empemg}</div></td>
+						</tr>
+						<tr>
+							<td><div class='input-group'>
+									<span class="input-group-addon info" id="sizing-addon7">緊急聯絡人電話</span>
+									<input type="text" name="empemgphone" id="empemgphone"
+										class='form-control' aria-describedby="sizing-addon7"
+										value="${empemgphone}">
+								</div>
+								<div id=empemgphoneerror>${error.empemgphone}</div></td>
+						</tr>
+						<tr>
+							<td><div class='input-group'>
+									<span class="input-group-addon info" id="sizing-addon8">信箱</span>
+									<input type="text" name="empemail" id="empemail"
+										class='form-control' aria-describedby="sizing-addon8"
+										value="${empemail}">
+								</div>
+								<div id=empemailerror>${error.empemailerror}</div></td>
+						</tr>
+						<tr>
+							<td><div class='input-group'>
+									<span class="input-group-addon info" id="sizing-addon8">用餐</span>
+									<select name="empeat" aria-describedby="sizing-addon8"
+										class='form-control'>
+										<c:if test="${empeat=='葷'}">
+											<option value="葷" selected>葷</option>
+											<option value="素">素</option>
+										</c:if>
+										<c:if test="${empeat=='素'}">
+											<option value="葷">葷</option>
+											<option value="素" selected>素</option>
+										</c:if>
+									</select> (如有特別要求請填寫於備註)
+								</div></td>
+						</tr>
+						<tr>
+							<td><div class='input-group'>
+									<span class="input-group-addon info" id="sizing-addon9">備註</span>
+									<input type="text" name="empnote" id="empnote"
+										aria-describedby="sizing-addon9" class='form-control'
+										value="${empnote}">
+								</div>
+								<div id=empnoteerror></div></td>
+						</tr>
+					</table>
+					<div>
+						－眷屬親友資訊－<br> *眷屬包含直系及旁系二等親，納入補助計算<br>
+						*親友為旁系三等親以上及朋友，不納入補助計算<br>
+					</div>
+				</div>
+			</div>
+			<div class='row'>
+				<div class='col-md-1'></div>
+				<div class='col-md-11'>
+					<table id="familytable table table-bordered">
+						<tr>
+							<th></th>
+							<th><em style="color: red">*</em>眷屬/親友</th>
+							<th><em style="color: red">*</em>姓名</th>
+							<th><em style="color: red">*</em>性別</th>
+							<th><em style="color: red">*</em>身份證字號</th>
+							<th><em style="color: red">*</em>生日</th>
+							<th><em style="color: red">*</em>手機</th>
+							<th>用餐/車位</th>
+							<th>特殊身份</th>
+							<th><em style="color: red">*</em>保險受益人</th>
+							<th><em style="color: red">*</em>保險受益人關係</th>
+							<th><em style="color: red">*</em>緊急聯絡人</th>
+							<th><em style="color: red">*</em>緊急聯絡人電話</th>
+							<th><em style="color: red">*</em>緊急聯絡人關係</th>
+							<th>備註</th>
+						</tr>
 
-				</c:if>
+						<c:if test="${famstartsize>0}">
 
-			</table>
+							<c:forEach var="start" items="${famstart}">
+								<tr>
+									<td><input type="button" name="delete" id="delete"
+										value="delete" class="${start.fam_Id}"></td>
 
-			<!--新增、儲存 -->
-			<input type="button" value="新增欄位" id="insert" name="button"><br>
-			<span>${error.famblock}</span> <input type="submit" value="儲存"
-				id="save" name="button"><br>
+									<td><select name="famrel">
+											<c:if test="${start.fam_Rel=='親友'}">
+												<option value="眷屬">眷屬</option>
+												<option value="親友" selected>親友</option>
+											</c:if>
+											<c:if test="${start.fam_Rel=='眷屬'}">
+												<option value="眷屬" selected>眷屬</option>
+												<option value="親友">親友</option>
+											</c:if>
+									</select></td>
+									<td><input type="text" name="famname" id="famname"
+										value="${start.fam_Name}">
+										<div class="famnameerror" name="famnameerror">${error.famneme}</div></td>
+									<td><select name="famsex">
+											<!--  servlet抓name db抓值會抓進value值進去-->
+											<c:if test="${start.fam_Sex=='男'}">
+												<option value="女">女</option>
+												<option value="男" selected>男</option>
+											</c:if>
+											<c:if test="${start.fam_Sex=='女'}">
+												<option value="女" selected>女</option>
+												<option value="男">男</option>
+											</c:if>
+									</select></td>
 
+									<td><input type="text" name="famid" class="famid"
+										value="${start.fam_Id}">
+										<div class="famiderror" name="famiderror">${error.famid}</div></td>
+									<td><input type="date" id="fambdate" name="fambdate"
+										class="fambdate" value="${start.fam_Bdate}" />
+										<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div></td>
+									<td><input type="text" name="famphone" id="famphone"
+										value="${start.fam_Phone}">
+										<div class=famphoneerror>${error.famphone}</div></td>
+									<td><select name="fameat">
+											<!-- 今天的日期 減去 他的生日 < 三歲  (剩幾天?) (看年底還是年初)  看年?  -->
+											<c:if test="${start.fam_Eat=='葷'}">
+												<option value="葷" selected>葷食</option>
+												<option value="素">素食</option>
+											</c:if>
+											<c:if test="${start.fam_Eat=='素'}">
+												<option value="葷">葷食</option>
+												<option value="素" selected>素食</option>
+											</c:if>
+									</select> <c:if test="${start.fam_Car=='true'}">
+											<input id="${start.fam_No}_car" name="famcar" type="checkbox"
+												value="true" class="${start.fam_No}" checked>
+											<div>不占車位</div>
+										</c:if> <c:if test="${start.fam_Car=='false'}">
+											<input id="${start.fam_No}_car" name="famcar" type="checkbox"
+												value="true" class="${start.fam_No}">
+											<div>不占車位</div>
+										</c:if></td>
+
+									<td><select class="multiselect aaa" name="famspa" style='width:350px;' 
+										multiple="multiple" data-placeholder="請選擇">
+
+											<c:if test="${start.fam_Bady=='false'}">
+												<option value="baby">幼童(0~3歲)</option>
+											</c:if>
+											<c:if test="${start.fam_Bady}">
+												<option id="${start.fam_No}_span_1" value="baby" Selected>幼童(0~3歲)</option>
+											</c:if>
+											<script>
+												console
+														.log('${start.fam_No}_span_1');
+											</script>
+
+											<c:if test="${start.fam_kid=='false'}">
+												<option value="kid">兒童(4~11歲)</option>
+											</c:if>
+											<c:if test="${start.fam_kid}">
+												<option value="kid" Selected>兒童(4~11歲)</option>
+											</c:if>
+
+											<c:if test="${start.fam_Dis=='false'}">
+												<option value="dis">持身心障礙手冊</option>
+											</c:if>
+											<c:if test="${start.fam_Dis}">
+												<option value="dis" Selected>持身心障礙手冊</option>
+											</c:if>
+											<c:if test="${start.fam_Mom=='false'}">
+												<option value="mom">孕婦(媽媽手冊)</option>
+											</c:if>
+											<c:if test="${start.fam_Mom}">
+												<option value="mom" Selected>孕婦(媽媽手冊)</option>
+											</c:if>
+									</select></td>
+
+									<td><input type="text" name="famben" id="famben"
+										value="${start.fam_Ben}">
+										<div class="fambenerror">${error.famben}</div></td>
+									<td><input type="text" name="fambenrel" id="fambenrel"
+										value="${start.fam_BenRel}">
+										<div class="fambenrelerror">${error.fambenrel}</div></td>
+									<td><input type="text" name="famemg" id="famemg"
+										value="${start.fam_Emg}">
+										<div class="famemgerror">${error.famemg}</div></td>
+									<td><input type="text" name="famemgphpone"
+										id="famemgphone" value="${start.fam_EmgPhone}">
+										<div class="famemgphoneerror">${error.famemgphone}</div></td>
+									<td><input type="text" name="famemgrel" id="famemgrel"
+										value="${start.fam_EmgRel}">
+										<div class="famemgrelerror">${error.famemgrel}</div></td>
+									<td><input type="text" name="famnote" id="famnote"
+										value="${start.fam_Note}">
+										<div class="famnoteerror"></div></td>
+								</tr>
+							</c:forEach>
+
+						</c:if>
+
+					</table>
+
+					<!--新增、儲存 -->
+					<input type="button" value="新增欄位" id="insert" name="button"><br>
+					<span>${error.famblock}</span> <input type="submit" value="儲存"
+						id="save" name="button"><br>
+				</div>
+			</div>
 		</form>
+	</div>
+	<table class='table table-bordered'>
+		<!-- 空白欄位 -->
+		<tr name="repeat">
+			<td><input type="button" name="delete" id="delete"
+				value="delete" class="block"></td>
+			<td><select name="famrel">
+					<option value="眷屬">眷屬</option>
+					<option value="親友">親友</option>
+			</select></td>
+			<td><input type="text" name="famname" id="famname">
+				<div class="famnameerror" name="famnameerror">${error.famneme}</div></td>
+			<td><select name="famsex">
+					<!--  servlet抓name db抓值會抓進value值進去-->
+					<option value="女">女</option>
+					<option value="男">男</option>
+			</select></td>
+			<td><input type="text" name="famid" class="famid">
+				<div class="famiderror" name="famiderror">${error.famid}</div></td>
+			<td><input type="date" id="fambdate" name="fambdate"
+				class="fambdate" />
+				<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div></td>
+			<td><input type="text" name="famphone" id="famphone">
+				<div class=famphoneerror>${error.famphone}</div></td>
+			<td><select name="fameat">
+					<option value="葷">葷</option>
+					<option value="素">素</option>
+			</select> <input name="famcar" type="checkbox" value="true"
+				class="${start.fam_No}">
+				<div>不占車位</div></td>
+			<td><select name="famspa" id="multiselect" multiple="multiple"
+				data-placeholder="請選擇">
+					<option>幼童(0~3歲)</option>
+					<option>兒童(4~11歲)</option>
+					<option>持身心障礙手冊</option>
+					<option>孕婦(媽媽手冊)</option>
+			</select></td>
+			<!-- 		class="multiselect"   id="multiselect"-->
+			<td><input type="text" name="famben" id="famben">
+				<div class="fambenerror">${error.famben}</div></td>
+			<td><input type="text" name="fambenrel" id="fambenrel">
+				<div class="fambenrelerror">${error.fambenrel}</div></td>
+			<td><input type="text" name="famemg" id="famemg">
+				<div class="famemgerror">${error.famemg}</div></td>
+			<td><input type="text" name="famemgphpone" id="famemgphone">
+				<div class="famemgphoneerror">${error.famemgphone}</div></td>
+			<td><input type="text" name="famemgrel" id="famemgrel">
+				<div class="famemgrelerror">${error.famemgrel}</div></td>
+			<td><input type="text" name="famnote" id="famnote">
+				<div class="famnoteerror"></div></td>
+		</tr>
+	</table>
 
-		<table>
-			<!-- 空白欄位 -->
-			<tr name="repeat">
-				<td><input type="button" name="delete" id="delete"
-					value="delete" class="block"></td>
-				<td><select name="famrel">
-						<option value="眷屬">眷屬</option>
-						<option value="親友">親友</option>
-				</select></td>
-				<td><input type="text" name="famname" id="famname"
-					style="width: 100px;">
-					<div class="famnameerror" name="famnameerror">${error.famneme}</div></td>
-				<td><select name="famsex">
-						<!--  servlet抓name db抓值會抓進value值進去-->
-						<option value="女">女</option>
-						<option value="男">男</option>
-				</select></td>
-				<td><input type="text" name="famid" class="famid"
-					style="width: 100px;">
-					<div class="famiderror" name="famiderror">${error.famid}</div></td>
-				<td><input type="date" id="fambdate" name="fambdate"
-					class="fambdate" style="width: 150px;" />
-					<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div></td>
-				<td><input type="text" name="famphone" id="famphone"
-					style="width: 100px;">
-					<div class=famphoneerror>${error.famphone}</div></td>
-				<td><select name="fameat">
-						<option value="葷">葷</option>
-						<option value="素">素</option>
-					</select> 
-					<input name="famcar" type="checkbox" value="true" class="${start.fam_No}">
-					<div>不占車位</div></td>
-				<td><select name="famspa" id="multiselect" multiple="multiple"
-					data-placeholder="請選擇" style="width: 200px;">
-						<option>幼童(0~3歲)</option>
-						<option>兒童(4~11歲)</option>
-						<option>持身心障礙手冊</option>
-						<option>孕婦(媽媽手冊)</option>
-				</select></td>
-				<!-- 		class="multiselect"   id="multiselect"-->
-				<td><input type="text" name="famben" id="famben"
-					style="width: 100px;">
-					<div class="fambenerror">${error.famben}</div></td>
-				<td><input type="text" name="fambenrel" id="fambenrel"
-					style="width: 100px;">
-					<div class="fambenrelerror">${error.fambenrel}</div></td>
-				<td><input type="text" name="famemg" id="famemg"
-					style="width: 100px;">
-					<div class="famemgerror">${error.famemg}</div></td>
-				<td><input type="text" name="famemgphpone" id="famemgphone"
-					style="width: 100px;">
-					<div class="famemgphoneerror">${error.famemgphone}</div></td>
-				<td><input type="text" name="famemgrel" id="famemgrel"
-					style="width: 100px;">
-					<div class="famemgrelerror">${error.famemgrel}</div></td>
-				<td><input type="text" name="famnote" id="famnote">
-					<div class="famnoteerror"></div></td>
-			</tr>
-		</table>
 
-		<script>
+	<script>
 			var xh = new XMLHttpRequest();
 			
 			$("#familytable").on("click", "input[name='delete']",
