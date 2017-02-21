@@ -21,7 +21,17 @@
 	crossorigin="anonymous"></script>
 <link href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"
 	rel="stylesheet" />
+	
+<script src='js/jquery.inputmask.date.extensions.js'></script>	
+<script src='js/jquery-3.1.1.min.js'></script>	
 <script type="text/javascript">
+$("#tsfield").inputmask("timestamp", { 
+    mask:        "y/1/2 h:s:s",
+    placeholder: "yyyy/mm/dd hh:mm:ss",
+    separator:   "/",
+    alias:       "datetime",
+    hourFormat:  "24"
+});
 </script>
 
 <style type="text/css">
@@ -62,7 +72,7 @@ li {
 				<tr>
 					<td><em style="color: red">*</em>活動地點</td>
 					<td><SELECT name="edittraLoc">
-							<OPTION selected>${params.tra_Loc}</OPTION>
+							<OPTION selected="selected">${params.tra_Loc}</OPTION>
 							<!-- <option selected="selected" value="null">請選擇地點</option> -->
 							<OPTION value="北">北</OPTION>
 							<OPTION value="中">中</OPTION>
@@ -112,13 +122,13 @@ li {
 					<td><em style="color: red">*</em>活動日期</td>
 
 					<td><input type="text" name="edittraOn"
-						value="${params.tra_On}"><a> ~</a> <input type="text"
+						value="${params.tra_On}"><a> ~</a> <input type="date"
 						name="edittraOff" value="${params.tra_Off}"></td>
 				</tr>
 				<tr>
 					<td><em style="color: red">*</em>登記時間</td>
 					<td><input type="text" name="edittraBeg"
-						value="${params.tra_Beg}"><a> ~</a> <input type="text"
+						value="${params.tra_Beg}"><a> ~</a> <input type="date"
 						name="edittraEnd" value="${params.tra_End}"></td>
 
 					<td></td>
@@ -194,6 +204,8 @@ li {
 
 						<td><input type="text" name="edititemNo"
 							value="${row.item_No}"></td>
+							<td><input type="text" name="tra_no" value="${row.tra_No}"
+					></td>
 <%-- 						<td class="t">tra_No : ${row.tra_No}</td> --%>
 <%-- 						<td class="t">item_No : ${row.item_No}</td> --%>
 					<td><input type="submit" name="delete" id="delete"
@@ -223,6 +235,7 @@ li {
 
 				<td><input type="text" name="edititemNo" value="${row.item_No}"
 					></td>
+					<td><input type="text" name="tra_no" value="${row.tra_No}"></td>
 <%-- 				<td class="t">tra_No : ${row.tra_No}</td> --%>
 <%-- 				<td class="t">item_No : ${row.item_No}</td> --%>
 				<td><input type="submit" name="delete" id="delete"
