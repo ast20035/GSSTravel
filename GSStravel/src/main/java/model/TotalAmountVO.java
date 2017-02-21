@@ -4,7 +4,21 @@ public class TotalAmountVO {
 	private String tra_No;
 	private int emp_No;
 	private float ta_Money;
+	private String thisyear;
+	private boolean yearsub;
 	
+	public String getThisyear() {
+		return thisyear;
+	}
+	public void setThisyear(String thisyear) {
+		this.thisyear = thisyear;
+	}
+	public boolean isYearsub() {
+		return yearsub;
+	}
+	public void setYearsub(boolean yearsub) {
+		this.yearsub = yearsub;
+	}
 	public String getTra_No() {
 		return tra_No;
 	}

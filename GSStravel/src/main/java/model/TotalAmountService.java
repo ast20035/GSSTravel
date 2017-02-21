@@ -33,4 +33,7 @@ public class TotalAmountService {
 		}
 		return b;
 	}
+	public void updateYearSub(boolean yearsub,Integer emp_No,String tra_No ){
+		totalAmountDAO.updateYearSub(yearsub,emp_No,tra_No);
+	}
 }

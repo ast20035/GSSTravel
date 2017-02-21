@@ -44,30 +44,31 @@ public class Cancel extends HttpServlet {
 				if(emp_SubTra.equals("null")||emp_SubTra==null){
 					tra_No=totalAmountService.selectTa_money(emp_No).getTra_No();
 					employeeService.updateEmp_SubTra(tra_No, emp_No);
+					totalAmountService.updateYearSub(true, Integer.parseInt(emp_No), tra_No);
 				}else{
 					String traNo=totalAmountService.selectTa_money(emp_No).getTra_No();
 					TravelVO travelVo = travelService.select(traNo);
-					System.out.println(traNo);
 					java.sql.Date tra_Off = travelVo.getTra_Off();
 					String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());//現在系統時間
 					java.sql.Date today = java.sql.Date.valueOf(date);
 					if(tra_Off.after(today)){
 						tra_No=totalAmountService.selectTa_money(emp_No).getTra_No();
 						employeeService.updateEmp_SubTra(tra_No, emp_No);
+						totalAmountService.updateYearSub(true, Integer.parseInt(emp_No), tra_No);
 					}						
 				}							
 			}
 		}
 
-		 String email = employeeService.select(emp_No).getEmp_Mail();
-		 String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new
-		 Date());// 現在系統時間
-		 TravelVO travelVo = travelService.select(tra_No);
-		 String title=travelVo.getTra_Name()+"已經取消!!!";
-		 String
-		 content="行程編號:"+tra_No+"\n"+"行程名稱:"+travelVo.getTra_Name()+"\n"+"在"+date+"做取消!!!"
-		 +"\n"+"有問題請詢問福委會";
-		 new email().send(email, title, content);
+//		 String email = employeeService.select(emp_No).getEmp_Mail();
+//		 String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new
+//		 Date());// 現在系統時間
+//		 TravelVO travelVo = travelService.select(tra_No);
+//		 String title=travelVo.getTra_Name()+"已經取消!!!";
+//		 String
+//		 content="行程編號:"+tra_No+"\n"+"行程名稱:"+travelVo.getTra_Name()+"\n"+"在"+date+"做取消!!!"
+//		 +"\n"+"有問題請詢問福委會";
+//		 new email().send(email, title, content);
 		response.sendRedirect(request.getContextPath() + "/AllTravel");
 
 	}
