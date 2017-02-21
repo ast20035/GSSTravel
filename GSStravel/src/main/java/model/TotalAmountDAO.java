@@ -216,7 +216,7 @@ public class TotalAmountDAO implements ITotalAmountDAO {
 				stem.setString(2, tra_No);
 				ResultSet rest = stem.executeQuery();
 				while(rest.next()){
-					return	rest.getBoolean("yearsub");
+					return rest.getBoolean("yearsub");
 				}
 			}catch(SQLException e){
 				e.printStackTrace();
