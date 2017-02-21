@@ -210,18 +210,17 @@ public class TotalAmountDAO implements ITotalAmountDAO {
 	private final String select_yearsub="select yearsub from TotalAmount where emp_No=? and tra_No=?";
 	
 	public boolean select_yearsub(int emp_No ,String tra_No){
-		boolean b=false;
 		try(Connection conn=dataSource.getConnection();
 			PreparedStatement stem=conn.prepareStatement(select_yearsub);){
 				stem.setInt(1, emp_No);
 				stem.setString(2, tra_No);
 				ResultSet rest = stem.executeQuery();
 				while(rest.next()){
-					b=true;
+					return	rest.getBoolean("yearsub");
 				}
 			}catch(SQLException e){
 				e.printStackTrace();
 			}
-		return b;
+		return false;
 	}
 }

@@ -44,12 +44,12 @@ public class loginCheck implements Filter {
 			servletResponse.sendRedirect(pro + "/notlogin.jsp");
 			return;
 		}
-//		EmployeeDAO employeeDAO = new EmployeeDAO();//資料庫年度資訊
-//		String date = new SimpleDateFormat("yyyy").format(new Date());// 現在系統時
-//		if (employeeDAO.year() != Integer.parseInt(date)) {
-//			employeeDAO.updateYear(Integer.parseInt(date));
-//			employeeDAO.updateEmp();
-//		}
+		EmployeeDAO employeeDAO = new EmployeeDAO();//資料庫年度資訊
+		String date = new SimpleDateFormat("yyyy").format(new Date());// 現在系統時
+		if (employeeDAO.year() != Integer.parseInt(date)) {
+			employeeDAO.updateYear(Integer.parseInt(date));
+			employeeDAO.updateEmp();
+		}
 		chain.doFilter(request, response);
 
 	}
