@@ -9,4 +9,5 @@ public interface ITotalAmountDAO {
 	public boolean selectAll(String emp_No);//確地是否還有使用補助金
 	public int counts(String emp_No);
 	public TotalAmountVO select(String emp_No,String tra_NO);
+	boolean select_yearsub(int emp_No ,String tra_No);
 }

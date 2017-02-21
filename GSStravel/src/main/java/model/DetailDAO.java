@@ -664,7 +664,8 @@ public class DetailDAO implements IDetailDAO {
 	@Override
 	public List<TotalAmountFormBean> selectBean(String tra_No) {
 		List<TotalAmountFormBean> result = null;
-		try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(SELECT_BY_TRA_NO);) {
+		try (Connection conn = ds.getConnection(); 
+			PreparedStatement stmt = conn.prepareStatement(SELECT_BY_TRA_NO);) {
 			stmt.setString(1, tra_No);
 			ResultSet rset = stmt.executeQuery();
 			result = new ArrayList<TotalAmountFormBean>();
@@ -680,10 +681,7 @@ public class DetailDAO implements IDetailDAO {
 				bean.setFam_Name(rset.getString("fam_Name"));
 				bean.setDet_note(rset.getString("det_note"));
 				bean.setDet_noteMoney(rset.getFloat("det_noteMoney"));
-				bean.setEmp_sub(rset.getBoolean("emp_sub"));
-				bean.setEmp_subTra(rset.getString("emp_subTra"));
 				result.add(bean);
-
 			}
 			rset.close();
 		} catch (Exception e) {

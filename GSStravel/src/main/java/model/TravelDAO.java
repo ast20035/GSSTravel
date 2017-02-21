@@ -278,7 +278,7 @@ public class TravelDAO implements ITravelDAO {
 		}
 		return result;
 	}
-	private final String select_tra="select tra_Total ,tra_Max from Travel where tra_no=? and tra_End > GETDATE()";
+	private final String select_tra="select tra_Total ,tra_Max from Travel where tra_no=? and tra_Off > GETDATE()";
 	
 	@Override
 	public TravelVO Count(String tra_No) {
@@ -291,7 +291,6 @@ public class TravelDAO implements ITravelDAO {
 				travelBean = new TravelVO();
 				travelBean.setTra_Total(rset.getInt("tra_Total"));
 				travelBean.setTra_Max(rset.getInt("tra_Max"));
-				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

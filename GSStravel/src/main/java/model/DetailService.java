@@ -11,12 +11,12 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class DetailService {
-	public IDetailDAO detailDAO;
+	public IDetailDAO detailDAO = new DetailDAO();
 	public IEmployeeDAO employeeDAO;
 	public IItemDAO itemDAO;
 	public IFamilyDAO familyDAO;
-	public ITravelDAO travelDAO;
-	public ITotalAmountDAO totalAmountDAO;
+	public ITravelDAO travelDAO = new TravelDAO();
+	public TotalAmountDAO totalAmountDAO = new TotalAmountDAO();
 	private EmployeeService employeeService = new EmployeeService();
 	
 	Date date = new Date();
@@ -326,10 +326,7 @@ public class DetailService {
 		return result;
 	}
 
-	public TravelVO Count(String tra_No) {
-		travelDAO = new TravelDAO();
-		return travelDAO.Count(tra_No);
-	}
+
 
 	public Boolean update_famData(FamilyVO bean) {
 		Boolean result = false;
@@ -339,19 +336,47 @@ public class DetailService {
 		}
 		return result;
 	}
+	public final Pattern TWPID_PATTERN = Pattern.compile("[ABCDEFGHJKLMNPQRSTUVXYWZIO][12]\\d{8}");
+
+	public boolean isValidTWPID(String twpid) {
+		boolean result = false;
+		String pattern = "ABCDEFGHJKLMNPQRSTUVXYWZIO";
+		if (TWPID_PATTERN.matcher(twpid.toUpperCase()).matches()) {
+			int code = pattern.indexOf(twpid.toUpperCase().charAt(0)) + 10;
+			int sum = 0;
+			sum = (int) (code / 10) + 9 * (code % 10) + 8 * (twpid.charAt(1) - '0') + 7 * (twpid.charAt(2) - '0')
+					+ 6 * (twpid.charAt(3) - '0') + 5 * (twpid.charAt(4) - '0') + 4 * (twpid.charAt(5) - '0')
+					+ 3 * (twpid.charAt(6) - '0') + 2 * (twpid.charAt(7) - '0') + 1 * (twpid.charAt(8) - '0')
+					+ (twpid.charAt(9) - '0');
+			if ((sum % 10) == 0) {
+				result = true;
+			}
+		}
+		return result;
+	}
 
 	// 雅婷
+
+	public boolean update_empNo(String det_note, float det_noteMoney, String tra_No, int emp_No) {
+		boolean b = true;
+		b = detailDAO.update_empNo(det_note, det_noteMoney, tra_No, emp_No);
+		return b;
+	}
+
+	public boolean update_famNo(String det_note, float det_noteMoney, String tra_No, int fam_No) {
+		boolean b = true;
+		b = detailDAO.update_famNo(det_note, det_noteMoney, tra_No, fam_No);
+		return b;
+	}
+	
 	public List<TotalAmountFormBean> select(String tra_No) {
-		detailDAO = new DetailDAO();
 		List<TotalAmountFormBean> list = detailDAO.selectBean(tra_No);
 		if (list.size() != 0) {
 			for (TotalAmountFormBean bean : list) {
 				if (bean.getFam_No() == 0) {
-					if (bean.getEmp_subTra() == null) {
-						bean.setEmp_subTra("");
-					}
-					if (bean.getEmp_subTra().equals(bean.getTra_No()) && !bean.getEmp_sub()) {
-						Integer emp_No = bean.getEmp_No();
+					Integer emp_No = bean.getEmp_No();
+					boolean b = totalAmountDAO.select_yearsub(emp_No, tra_No);
+					if (b) {
 						EmployeeVO employeeVo = employeeService.select(emp_No.toString());
 						java.sql.Date hireDate = employeeVo.getEmp_HireDate();
 						String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());// 現在系統時間
@@ -383,42 +408,10 @@ public class DetailService {
 		return list;
 	}
 
-	public boolean update_empNo(String det_note, float det_noteMoney, String tra_No, int emp_No) {
-		detailDAO = new DetailDAO();
-		boolean b = true;
-		b = detailDAO.update_empNo(det_note, det_noteMoney, tra_No, emp_No);
-		return b;
-	}
-
-	public boolean update_famNo(String det_note, float det_noteMoney, String tra_No, int fam_No) {
-		detailDAO = new DetailDAO();
-		boolean b = true;
-		b = detailDAO.update_famNo(det_note, det_noteMoney, tra_No, fam_No);
-		return b;
-	}
-
-	public final Pattern TWPID_PATTERN = Pattern.compile("[ABCDEFGHJKLMNPQRSTUVXYWZIO][12]\\d{8}");
-
-	public boolean isValidTWPID(String twpid) {
-		boolean result = false;
-		String pattern = "ABCDEFGHJKLMNPQRSTUVXYWZIO";
-		if (TWPID_PATTERN.matcher(twpid.toUpperCase()).matches()) {
-			int code = pattern.indexOf(twpid.toUpperCase().charAt(0)) + 10;
-			int sum = 0;
-			sum = (int) (code / 10) + 9 * (code % 10) + 8 * (twpid.charAt(1) - '0') + 7 * (twpid.charAt(2) - '0')
-					+ 6 * (twpid.charAt(3) - '0') + 5 * (twpid.charAt(4) - '0') + 4 * (twpid.charAt(5) - '0')
-					+ 3 * (twpid.charAt(6) - '0') + 2 * (twpid.charAt(7) - '0') + 1 * (twpid.charAt(8) - '0')
-					+ (twpid.charAt(9) - '0');
-			if ((sum % 10) == 0) {
-				result = true;
-			}
-		}
-		return result;
-	}
-
-	// 雅婷
 	public int detail_Count(String emp_No, long tra_No) {
-		detailDAO = new DetailDAO();
 		return detailDAO.detail_Count(emp_No, tra_No);
+	}
+	public TravelVO Count(String tra_No) {
+		return travelDAO.Count(tra_No);
 	}
 }
