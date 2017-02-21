@@ -394,10 +394,10 @@ public class TravelServlet extends HttpServlet {
 						ItemVO result1 = itemService.update(v);
 						itemfor.add(result1);
 					}
-					else{
-						ItemVO result1 = itemService.insert(v);
-						itemfor.add(result1);
-					}
+//					else{
+//						ItemVO result1 = itemService.insert(v);
+//						itemfor.add(result1);
+//					}
 					
 				}
 
