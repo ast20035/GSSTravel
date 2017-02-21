@@ -243,15 +243,15 @@ public class DetailDAO implements IDetailDAO {
 		}
 	}
 
-	// SELECT報名維護所有欄位
-	private static final String SELECT = "SELECT det_No, Detail.emp_No, ISNULL(Detail.fam_No,Detail.emp_No) as number, ISNULL(fam_Rel,'員工') as Rel, ISNULL(fam_Name, emp_Name) as Name, ISNULL(fam_Sex,emp_Sex) as Sex, ISNULL(fam_ID, emp_ID) as ID,ISNULL(fam_Bdate,emp_Bdate) as Bdate, ISNULL(fam_Phone,emp_Phone) as Phone,ISNULL(fam_eat,emp_Eat) as Eat, ISNULL(fam_Car,1) as Car, fam_Bady, fam_kid, fam_Dis, fam_Mom,ISNULL(fam_Ben,emp_Ben) as Ben, ISNULL(fam_BenRel,emp_BenRel) as BenRel, ISNULL(fam_Emg,emp_Emg) as Emg, ISNULL(fam_EmgPhone,emp_EmgPhone) as EmgPhone, det_Date, det_CanDate as CanDate, ISNULL(fam_Note,emp_Note) as Note, det_canNote FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No WHERE Tra_No = ? order by CanDate";
+	// SELECT報名維護已取消欄位
+	private static final String SELECTCan = "SELECT det_No, Detail.emp_No, ISNULL(Detail.fam_No,Detail.emp_No) as number, ISNULL(fam_Rel,'員工') as Rel, ISNULL(fam_Name, emp_Name) as Name, ISNULL(fam_Sex,emp_Sex) as Sex, ISNULL(fam_ID, emp_ID) as ID,ISNULL(fam_Bdate,emp_Bdate) as Bdate, ISNULL(fam_Phone,emp_Phone) as Phone,ISNULL(fam_eat,emp_Eat) as Eat, ISNULL(fam_Car,1) as Car, fam_Bady, fam_kid, fam_Dis, fam_Mom,ISNULL(fam_Ben,emp_Ben) as Ben, ISNULL(fam_BenRel,emp_BenRel) as BenRel, ISNULL(fam_Emg,emp_Emg) as Emg, ISNULL(fam_EmgPhone,emp_EmgPhone) as EmgPhone, det_Date, det_CanDate as CanDate, ISNULL(fam_Note,emp_Note) as Note, det_canNote FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No WHERE Tra_No = ? and det_CanDate is not null order by CanDate";
 
 	@Override
-	public List<DetailBean> select(String Tra_No) {
+	public List<DetailBean> selectCan(String Tra_No) {
 		List<DetailBean> result = new ArrayList<>();
 		try {
 			Connection conn = ds.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(SELECT);
+			PreparedStatement stmt = conn.prepareStatement(SELECTCan);
 			stmt.setString(1, Tra_No);
 			ResultSet rset = stmt.executeQuery();
 			result = new ArrayList<DetailBean>();
@@ -287,6 +287,96 @@ public class DetailDAO implements IDetailDAO {
 		}
 		return result;
 	}
+	
+	// SELECT報名維護未取消欄位
+		private static final String SELECTNotCan = "SELECT det_No, Detail.emp_No, ISNULL(Detail.fam_No,Detail.emp_No) as number, ISNULL(fam_Rel,'員工') as Rel, ISNULL(fam_Name, emp_Name) as Name, ISNULL(fam_Sex,emp_Sex) as Sex, ISNULL(fam_ID, emp_ID) as ID,ISNULL(fam_Bdate,emp_Bdate) as Bdate, ISNULL(fam_Phone,emp_Phone) as Phone,ISNULL(fam_eat,emp_Eat) as Eat, ISNULL(fam_Car,1) as Car, fam_Bady, fam_kid, fam_Dis, fam_Mom,ISNULL(fam_Ben,emp_Ben) as Ben, ISNULL(fam_BenRel,emp_BenRel) as BenRel, ISNULL(fam_Emg,emp_Emg) as Emg, ISNULL(fam_EmgPhone,emp_EmgPhone) as EmgPhone, det_Date, det_CanDate as CanDate, ISNULL(fam_Note,emp_Note) as Note, det_canNote FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No WHERE Tra_No = ? and det_CanDate is null order by CanDate";
+
+		@Override
+		public List<DetailBean> selectNotCan(String Tra_No) {
+			List<DetailBean> result = new ArrayList<>();
+			try {
+				Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(SELECTNotCan);
+				stmt.setString(1, Tra_No);
+				ResultSet rset = stmt.executeQuery();
+				result = new ArrayList<DetailBean>();
+				while (rset.next()) {
+					DetailBean bean = new DetailBean();
+					bean.setDet_No(rset.getInt("det_No"));
+					bean.setEmp_No(rset.getInt("emp_No"));
+					bean.setFam_No(rset.getInt("number"));
+					bean.setRel(rset.getString("Rel"));
+					bean.setName(rset.getString("Name"));
+					bean.setSex(rset.getString("Sex"));
+					bean.setID(rset.getString("ID"));
+					bean.setBdate(rset.getDate("Bdate"));
+					bean.setPhone(rset.getString("Phone"));
+					bean.setEat(rset.getString("Eat"));
+					bean.setCar(rset.getBoolean("Car"));
+					bean.setFam_Bady(rset.getBoolean("fam_Bady"));
+					bean.setFam_kid(rset.getBoolean("fam_kid"));
+					bean.setFam_Dis(rset.getBoolean("fam_Dis"));
+					bean.setFam_Mom(rset.getBoolean("fam_Mom"));
+					bean.setBen(rset.getString("Ben"));
+					bean.setBenRel(rset.getString("BenRel"));
+					bean.setEmg(rset.getString("Emg"));
+					bean.setEmgPhone(rset.getString("EmgPhone"));
+					bean.setDet_Date(rset.getString("det_Date"));
+					bean.setDet_CanDate(rset.getString("CanDate"));
+					bean.setNote(rset.getString("Note"));
+					bean.setDet_canNote(rset.getString("det_canNote"));
+					result.add(bean);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
+		
+		// SELECT報名維護所有欄位
+		private static final String SELECT = "SELECT det_No, Detail.emp_No, ISNULL(Detail.fam_No,Detail.emp_No) as number, ISNULL(fam_Rel,'員工') as Rel, ISNULL(fam_Name, emp_Name) as Name, ISNULL(fam_Sex,emp_Sex) as Sex, ISNULL(fam_ID, emp_ID) as ID,ISNULL(fam_Bdate,emp_Bdate) as Bdate, ISNULL(fam_Phone,emp_Phone) as Phone,ISNULL(fam_eat,emp_Eat) as Eat, ISNULL(fam_Car,1) as Car, fam_Bady, fam_kid, fam_Dis, fam_Mom,ISNULL(fam_Ben,emp_Ben) as Ben, ISNULL(fam_BenRel,emp_BenRel) as BenRel, ISNULL(fam_Emg,emp_Emg) as Emg, ISNULL(fam_EmgPhone,emp_EmgPhone) as EmgPhone, det_Date, det_CanDate as CanDate, ISNULL(fam_Note,emp_Note) as Note, det_canNote FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No WHERE Tra_No = ? order by CanDate";
+
+		@Override
+		public List<DetailBean> select(String Tra_No) {
+			List<DetailBean> result = new ArrayList<>();
+			try {
+				Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(SELECT);
+				stmt.setString(1, Tra_No);
+				ResultSet rset = stmt.executeQuery();
+				result = new ArrayList<DetailBean>();
+				while (rset.next()) {
+					DetailBean bean = new DetailBean();
+					bean.setDet_No(rset.getInt("det_No"));
+					bean.setEmp_No(rset.getInt("emp_No"));
+					bean.setFam_No(rset.getInt("number"));
+					bean.setRel(rset.getString("Rel"));
+					bean.setName(rset.getString("Name"));
+					bean.setSex(rset.getString("Sex"));
+					bean.setID(rset.getString("ID"));
+					bean.setBdate(rset.getDate("Bdate"));
+					bean.setPhone(rset.getString("Phone"));
+					bean.setEat(rset.getString("Eat"));
+					bean.setCar(rset.getBoolean("Car"));
+					bean.setFam_Bady(rset.getBoolean("fam_Bady"));
+					bean.setFam_kid(rset.getBoolean("fam_kid"));
+					bean.setFam_Dis(rset.getBoolean("fam_Dis"));
+					bean.setFam_Mom(rset.getBoolean("fam_Mom"));
+					bean.setBen(rset.getString("Ben"));
+					bean.setBenRel(rset.getString("BenRel"));
+					bean.setEmg(rset.getString("Emg"));
+					bean.setEmgPhone(rset.getString("EmgPhone"));
+					bean.setDet_Date(rset.getString("det_Date"));
+					bean.setDet_CanDate(rset.getString("CanDate"));
+					bean.setNote(rset.getString("Note"));
+					bean.setDet_canNote(rset.getString("det_canNote"));
+					result.add(bean);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
 
 	// 由name判斷是否為員工(SELECT_emp_Name)or親屬(SELECT_fam_Name)
 	private static final String SELECT_emp_Name = "SELECT emp_No = '員工' from Employee where emp_No=? and emp_Name=?";
