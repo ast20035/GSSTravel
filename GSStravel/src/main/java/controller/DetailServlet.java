@@ -114,8 +114,7 @@ public class DetailServlet extends HttpServlet {
 		if ("insert".equals(prodaction) || ("1").equals(doInsert)) {
 			Long tra_No = Long.parseLong(tra_no);
 			travelVO = detailService.Count(tra_no);
-			System.out.println("aaa" + travelVO);
-			if (travelVO != null) {
+			if (travelVO != null){
 				if (travelVO.getTra_Total() > detailService.tra_count(tra_No) || ("1").equals(doInsert)) {
 					room = itemService.getRoomMoney(tra_No);
 					itemVO = itemService.getFareMoney(tra_No);
@@ -135,7 +134,7 @@ public class DetailServlet extends HttpServlet {
 				}
 			} else {
 				session.setAttribute("CanError", "此報名已結束");
-				req.getRequestDispatcher("/Detail.jsp?tra_no=" + tra_no).forward(req, resp);
+				resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_no);
 				return;
 			}
 		}

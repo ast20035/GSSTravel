@@ -133,6 +133,15 @@ td {
 	var a = 0;
 	var b = 0;
 	$().ready(function() {
+		var $BodyWidth = $(document).width();  
+		var $ViewportWidth=$(window).width();  
+		var $ScrollLeft=$(this).scrollLeft();
+		if($BodyWidth>($ViewportWidth+$ScrollLeft)){   
+               $('#span').show();
+		} 
+		else if($BodyWidth==($ViewportWidth+$ScrollLeft)){   
+              $('#span').hide();
+		}
 		$.each($personmoney, function(i, value) {
 			var sum = Number(0);
 			$.each($personemp, function(k, value) {

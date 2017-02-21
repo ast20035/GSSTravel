@@ -11,12 +11,12 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class DetailService {
-	public IDetailDAO detailDAO;
+	public IDetailDAO detailDAO = new DetailDAO();
 	public IEmployeeDAO employeeDAO;
 	public IItemDAO itemDAO;
 	public IFamilyDAO familyDAO;
-	public ITravelDAO travelDAO;
-	public TotalAmountDAO totalAmountDAO;
+	public ITravelDAO travelDAO = new TravelDAO();
+	public TotalAmountDAO totalAmountDAO = new TotalAmountDAO();
 	private EmployeeService employeeService = new EmployeeService();
 	
 	public List<DetailBean> selectExcel(DetailBean bean) {
@@ -289,10 +289,7 @@ public class DetailService {
 		return result;
 	}
 
-	public TravelVO Count(String tra_No) {
-		travelDAO = new TravelDAO();
-		return travelDAO.Count(tra_No);
-	}
+
 
 	public Boolean update_famData(FamilyVO bean) {
 		Boolean result = false;
@@ -324,22 +321,18 @@ public class DetailService {
 	// 雅婷
 
 	public boolean update_empNo(String det_note, float det_noteMoney, String tra_No, int emp_No) {
-		detailDAO = new DetailDAO();
 		boolean b = true;
 		b = detailDAO.update_empNo(det_note, det_noteMoney, tra_No, emp_No);
 		return b;
 	}
 
 	public boolean update_famNo(String det_note, float det_noteMoney, String tra_No, int fam_No) {
-		detailDAO = new DetailDAO();
 		boolean b = true;
 		b = detailDAO.update_famNo(det_note, det_noteMoney, tra_No, fam_No);
 		return b;
 	}
 	
 	public List<TotalAmountFormBean> select(String tra_No) {
-		detailDAO = new DetailDAO();
-		totalAmountDAO=new TotalAmountDAO();
 		List<TotalAmountFormBean> list = detailDAO.selectBean(tra_No);
 		if (list.size() != 0) {
 			for (TotalAmountFormBean bean : list) {
@@ -379,7 +372,9 @@ public class DetailService {
 	}
 
 	public int detail_Count(String emp_No, long tra_No) {
-		detailDAO = new DetailDAO();
 		return detailDAO.detail_Count(emp_No, tra_No);
+	}
+	public TravelVO Count(String tra_No) {
+		return travelDAO.Count(tra_No);
 	}
 }

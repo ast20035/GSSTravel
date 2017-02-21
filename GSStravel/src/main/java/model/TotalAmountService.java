@@ -7,7 +7,7 @@ public class TotalAmountService {
 		totalAmountDAO.insertTotalAmount(tra_No, emp_No, TA_money);
 	}
 	
-	public void deleteTotalAmount(int emp_No,String tra_No){
+	public void deleteTotalAmount(String emp_No,String tra_No){
 		totalAmountDAO.deleteTotalAmount( emp_No, tra_No);
 	}
 	

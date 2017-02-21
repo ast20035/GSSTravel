@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import model.EmployeeService;
 import model.EmployeeVO;
 
-@WebServlet("/controller/login.do")
+@WebServlet("/login.do")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	// 用來轉換日期格式

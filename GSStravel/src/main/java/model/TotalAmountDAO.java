@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -24,7 +26,7 @@ public class TotalAmountDAO implements ITotalAmountDAO {
 	private static final String UPDATE_TOTALAMOUNT_FOR_EMP_NO = "update TotalAmount set TA_money=? where emp_No=? and tra_No=?";
 	private static final String insertTotalAmount ="insert into TotalAmount (tra_No,emp_No,TA_money) values(?,?,?)";	
 	private static final String deleteTotalAmount="Delete from TotalAmount where emp_No=? and tra_No=?"; 
-	private static final String selectTa_money="select  TOP(1)Ta_money from TotalAmount where emp_No=? ";
+	private static final String selectTa_money="select  TOP(1)Ta_money, tra_No from TotalAmount where emp_No=? ";
 	private static final String selectAll="select * from TotalAmount where emp_No=?";
 	private static final String counts="select count(emp_No)as count from TotalAmount where emp_No=? ";
 	private static final String select="select * from TotalAmount where emp_No=? and tra_No=?";
@@ -68,13 +70,22 @@ public class TotalAmountDAO implements ITotalAmountDAO {
 	
 	@Override
 	public boolean selectAll(String emp_No) {
+		
 		try {
 			Connection conn = dataSource.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(selectAll);
 			stmt.setString(1, emp_No);			
 			ResultSet rest = stmt.executeQuery();
 			while(rest.next()){
-				return false;
+//				TravelService travelService=new TravelService();
+//				String tra_No=rest.getString("tra_No");
+//				TravelVO travelVo = travelService.select(Long.parseLong(tra_No));
+//				java.sql.Date tra_Off = travelVo.getTra_Off();
+//				String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());// 現在系統時間
+//				java.sql.Date today = java.sql.Date.valueOf(date);
+//				if (tra_Off.after(today)) {
+					return false;
+//				}				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -116,11 +127,11 @@ public class TotalAmountDAO implements ITotalAmountDAO {
 		}		
 	}	
 	@Override
-	public void deleteTotalAmount( int emp_No,String tra_No ) {
+	public void deleteTotalAmount( String emp_No,String tra_No ) {
 		try {
 			Connection conn = dataSource.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(deleteTotalAmount);
-			stmt.setInt(1, emp_No);
+			stmt.setString(1, emp_No);
 			stmt.setString(2, tra_No);			
 			stmt.executeUpdate();
 		} catch (SQLException e) {

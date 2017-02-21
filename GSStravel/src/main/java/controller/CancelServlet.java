@@ -45,6 +45,7 @@ public class CancelServlet extends HttpServlet {
 		TravelVO tra_Vo = travelService.select(tra_No);
 		List<ItemVO> itemVo = itemService.getRoomMoney(tra_No);
 		List<Long> detail = cancelservice.detail(emp_No, tra_No);
+
 		request.setAttribute("detail", detail);
 		request.setAttribute("itemVo", itemVo);
 		request.setAttribute("tra_Vo", tra_Vo);
