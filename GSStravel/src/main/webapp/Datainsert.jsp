@@ -161,10 +161,16 @@ td>input[type=text] {
 					</table>
 					<div>
 						－眷屬親友資訊－<br> *眷屬包含直系及旁系二等親，納入補助計算<br>
-						*親友為旁系三等親以上及朋友，不納入補助計算<br>
+						*親友為旁系三等親以上及朋友，不納入補助計算<br> <br>
+						<!--新增、儲存 -->
+					<input type="button" value="新增欄位" id="insert" name="button"
+						class='btn btn-primary'> <span>${error.famblock}</span> <input
+						type="submit" value="儲存" class='btn btn-primary' id="save"
+						name="button">
 					</div>
 				</div>
 			</div>
+			<br>
 			<div class='row'>
 				<div class='col-md-1'></div>
 				<div class='col-md-11'>
@@ -219,7 +225,7 @@ td>input[type=text] {
 											</c:if>
 									</select></td>
 
-									<td><input type="text" name="famid" style='width:90px;'
+									<td><input type="text" name="famid" style='width:100px;'
 										class="famid form-control" value="${start.fam_Id}">
 										<div class="famiderror" name="famiderror">${error.famid}</div></td>
 									<td><input type="date" id="fambdate" name="fambdate" style='width:170px;'
@@ -314,11 +320,13 @@ td>input[type=text] {
 
 					</table>
 
-					<!--新增、儲存 -->
-					<input type="button" value="新增欄位" id="insert" name="button"
-						class='btn btn-primary'> <span>${error.famblock}</span> <input
-						type="button" value="儲存" class='btn btn-primary' id="save"
-						name="button"><input type="hidden" id="checkbox" name="checkbox"><br>
+
+<!-- 					新增、儲存 -->
+<!-- 					<input type="button" value="新增欄位" id="insert" name="button" -->
+<%-- 						class='btn btn-primary'> <span>${error.famblock}</span> <input --%>
+<!-- 						type="button" value="儲存" class='btn btn-primary' id="save" -->
+<!-- 						name="button"><input type="hidden" id="checkbox" name="checkbox"><br> -->
+
 				</div>
 			</div>
 		</form>
@@ -793,12 +801,11 @@ td>input[type=text] {
 															alert("請輸入親屬緊急聯絡人關係");
 															return false;
 														}
-
 													});
+									//focus在新增欄位
+									$('#familytable input[name*="famname"]:last').focus();
 
 								});
-
-
 				//想改把enter後submit的功能去消            施工中
 				// 	$("#save").keypress(function(e){
 				// 		var keyCode = e.keyCode || e.which;

@@ -2,8 +2,8 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -19,6 +19,7 @@ import model.EmployeeVO;
 import model.FamilyVO;
 import model.ItemService;
 import model.ItemVO;
+import model.TravelService;
 import model.TravelVO;
 
 @WebServlet(urlPatterns = { ("/detail") })
@@ -26,6 +27,7 @@ public class DetailServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private DetailService detailService = new DetailService();
+	private TravelService travelService = new TravelService();
 	private ItemService itemService = new ItemService();
 	String test;
 
@@ -37,6 +39,8 @@ public class DetailServlet extends HttpServlet {
 		String tra_no = req.getParameter("tra_no");
 		String can_detNo = req.getParameter("can_detNo");
 		String doInsert = req.getParameter("doInsert");
+		
+		TravelVO traVO = travelService.Count(tra_no);
 
 		// 柯(請勿刪除)
 		String excel = req.getParameter("excel");
@@ -114,7 +118,6 @@ public class DetailServlet extends HttpServlet {
 		if ("insert".equals(prodaction) || ("1").equals(doInsert)) {
 			Long tra_No = Long.parseLong(tra_no);
 			travelVO = detailService.Count(tra_no);
-			System.out.println("aaa" + travelVO);
 			if (travelVO != null) {
 				if (travelVO.getTra_Total() > detailService.tra_count(tra_No) || ("1").equals(doInsert)) {
 					room = itemService.getRoomMoney(tra_No);
@@ -135,7 +138,7 @@ public class DetailServlet extends HttpServlet {
 				}
 			} else {
 				session.setAttribute("CanError", "此報名已結束");
-				req.getRequestDispatcher("/Detail.jsp?tra_no=" + tra_no).forward(req, resp);
+				resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_no);
 				return;
 			}
 		}
@@ -296,6 +299,7 @@ public class DetailServlet extends HttpServlet {
 		bean.setTra_NO(tra_no);
 		List<DetailBean> result = detailService.select(bean);
 		req.setAttribute("select", result);
+		req.setAttribute("traVO", traVO);
 		req.getRequestDispatcher("/Detail.jsp").forward(req, resp);
 	}
 

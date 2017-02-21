@@ -162,7 +162,6 @@ public class TravelService {
 	public TravelVO insert(TravelVO bean) {
 		TravelVO result = null;
 		if (bean != null) {
-			System.out.println("service");
 			result = travelDAO.insert(bean);
 		}
 		return result;

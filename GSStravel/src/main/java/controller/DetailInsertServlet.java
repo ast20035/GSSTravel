@@ -50,11 +50,11 @@ public class DetailInsertServlet extends HttpServlet {
 						boolean b = detailService.insert_emp(detailVO);
 						if (b) {
 							session.setAttribute("CanError", "員工新增成功");
-							req.getRequestDispatcher("/detail?tra_no=" + tra_No).forward(req, resp);
+							resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No);
 							return;
 						} else {
 							session.setAttribute("CanError", "員工新增失敗");
-							req.getRequestDispatcher("/detail?tra_no=" + tra_No).forward(req, resp);
+							resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No);
 							return;
 						}
 					} else {
@@ -65,11 +65,11 @@ public class DetailInsertServlet extends HttpServlet {
 						boolean b = detailService.insert(detailVO);
 						if (b) {
 							session.setAttribute("CanError", "家屬新增成功");
-							req.getRequestDispatcher("/detail?tra_no=" + tra_No).forward(req, resp);
+							resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No);
 							return;
 						} else {
 							session.setAttribute("CanError", "家屬新增失敗");
-							req.getRequestDispatcher("/detail?tra_no=" + tra_No).forward(req, resp);
+							resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No);
 							return;
 						}
 					}
@@ -142,17 +142,17 @@ public class DetailInsertServlet extends HttpServlet {
 							boolean b = detailService.insert(detailVO);
 							if (b) {
 								session.setAttribute("CanError", "家屬新增成功");
-								req.getRequestDispatcher("/detail?tra_no=" + tra_No).forward(req, resp);
+								resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No);
 								return;
 
 							} else {
 								session.setAttribute("CanError", "家屬新增失敗");
-								req.getRequestDispatcher("/detail?tra_no=" + tra_No).forward(req, resp);
+								resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No);
 								return;
 							}
 						} else {
 							session.setAttribute("CanError", "家屬新增失敗");
-							req.getRequestDispatcher("/detail?tra_no=" + tra_No).forward(req, resp);
+							resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No);
 							return;
 						}
 					} catch (Exception e) {
@@ -165,8 +165,7 @@ public class DetailInsertServlet extends HttpServlet {
 			}
 		}
 		if ("回前頁".equals(prodaction)) {
-			req.setAttribute("tra_no", tra_No);
-			req.getRequestDispatcher("/detail?tra_no=" + tra_No).forward(req, resp);
+			resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No);
 			return;
 		}
 	}

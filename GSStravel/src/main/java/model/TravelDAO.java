@@ -39,7 +39,8 @@ public class TravelDAO implements ITravelDAO {
 	private static final String UPDATE = "update Travel set tra_Name=?, tra_Loc=?, tra_On=?, tra_Off=?, tra_Beg=?, tra_End=?, tra_Total=?, tra_Max=?, tra_Intr=?, tra_Con=?, tra_Atter=?, tra_File=? where tra_NO=?";
 	private static final String DELETE = "delete from Travel where tra_NO=?";
 	private static final String SELECT_EXCEL = "SELECT * FROM Travel";
-
+	private static final String SELECT_traNo = "SELECT tra_No FROM Travel WHERE tra_On > GetDate() and tra_No=?";
+	
 	@Override
 	public boolean delete(String tra_NO) {
 		try (
@@ -277,7 +278,7 @@ public class TravelDAO implements ITravelDAO {
 		}
 		return result;
 	}
-	private final String select_tra="select tra_Total ,tra_Max from Travel where tra_no=? and tra_End > GETDATE()";
+	private final String select_tra="select tra_Total ,tra_Max from Travel where tra_no=? and tra_Off > GETDATE()";
 	
 	@Override
 	public TravelVO Count(String tra_No) {
@@ -290,7 +291,6 @@ public class TravelDAO implements ITravelDAO {
 				travelBean = new TravelVO();
 				travelBean.setTra_Total(rset.getInt("tra_Total"));
 				travelBean.setTra_Max(rset.getInt("tra_Max"));
-				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -326,4 +326,19 @@ public class TravelDAO implements ITravelDAO {
 		}
 		return result;
 	}
+	
+	public String SELECTsubTra(String tra_No){
+		String result = null;
+		try (Connection conn = ds.getConnection();) {
+			PreparedStatement stmt = conn.prepareStatement(SELECT_traNo);
+			stmt.setString(1, tra_No);
+			ResultSet set = stmt.executeQuery();
+			while (set.next()) {
+				result = set.getString("tra_No");
+			}
+		}catch (SQLException e) {
+		e.printStackTrace();
+	}
+	return result;
+	} 
 }
