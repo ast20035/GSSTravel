@@ -143,9 +143,7 @@ h1, h2 {
 				<li><a href="<c:url value='/search.jsp'/>" id="close4" >報名維護</a></li>
 				<li><a href="<c:url value='/FineSetting.jsp'/>" id="close5" >罰則維護</a></li>
 				<li><a href="<c:url value='/search1.jsp'/>" id="close6" >旅費統計</a></li>
-				<li><input type="button" value='登出'
-					class="btn btn-warning navbar-btn" id="close7"
-					onclick="window.location.href=resultjs+'/LogOut.do';"></li>
+				<li><input type="button" value='登出' class="btn btn-warning navbar-btn" id="close7" onclick="window.location.href=resultjs+'/LogOut.do';"></li>
 			</ul>
 		</div>
 		<!--/.nav-collapse -->
