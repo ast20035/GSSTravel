@@ -71,7 +71,7 @@ table {
 							<th>報名總金額</th>
 						</tr>
 						<tr>
-							<td><input type="text" id="emp_No" name="emp_No"
+							<td><input type="text" id="emp_No" name="emp_No" style='width:65px;'
 								class='form-control' onblur="select_emp_No()"
 								onfocus="clearName()"></td>
 							<td><select id="select" name="select" onchange="checkbox()" class='form-control select'></select></td>
@@ -113,13 +113,13 @@ table {
 										<option>男</option>
 										<option>女</option>
 								</select></td>
-								<td><input type="text" name="fam_Id" style='width: 110px;'
+								<td><input type="text" name="fam_Id" style='width: 130px;'
 									class="fam_Id center_a form-control" placeholder="請填寫"></td>
 								<td><input type="date" name="fam_Bdate"
 									style='width: 170px;' class="fam_Bdate center_a form-control"
 									placeholder="請填寫"></td>
 								<td><input type="text" name="fam_Phone"
-									style='width: 120px;' class="fam_Phone center_a form-control"
+									style='width: 130px;' class="fam_Phone center_a form-control"
 									placeholder="請填寫"></td>
 								<td><select name="fam_Eat" class="center_a form-control"
 									style='width: 100px;'>
@@ -145,7 +145,7 @@ table {
 								<td><input type="text" name="fam_Emg" style='width: 120px;'
 									class="fam_Emg center_a form-control" placeholder="請填寫"></td>
 								<td><input type="text" name="fam_EmgPhone"
-									style='width: 100px;'
+									style='width: 130px;'
 									class="fam_EmgPhone center_a form-control" placeholder="請填寫"></td>
 								<td><input type="text" name="fam_EmgRel"
 									style='width: 100px;' class="fam_EmgRel center_a form-control"
