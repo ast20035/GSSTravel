@@ -2,7 +2,6 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -17,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.IItemDAO;
+import model.ItemDAO;
 import model.ItemService;
 import model.ItemVO;
 import model.TravelService;
@@ -24,10 +25,8 @@ import model.TravelVO;
 
 @WebServlet(urlPatterns = { ("/Travel_Edit") })
 
-/*---------*/
 public class TravelServlet extends HttpServlet {
 
-	// private TravelService travelService =null;
 	private TravelService travelService = new TravelService();
 	private ItemService itemService = new ItemService();
 	/* 初始化 */
@@ -70,7 +69,8 @@ public class TravelServlet extends HttpServlet {
 		String[] itemName = request.getParameterValues("edititemName");
 		String[] itemMoney = request.getParameterValues("edititemMoney");
 		String inputerrors = request.getParameter("inputerrors");
-
+		
+		
 		// 驗證資料
 		Map<String, String> errors = new HashMap<String, String>();
 		request.setAttribute("errors", errors);
@@ -379,12 +379,51 @@ public class TravelServlet extends HttpServlet {
 			List<ItemVO> itemfor = new ArrayList<ItemVO>();
 			ItemVO v = new ItemVO();
 			v.setTra_No(traNo);
+			IItemDAO itemDAO=new ItemDAO();			
+			List<ItemVO> itemVOs = itemDAO.select(traNo);
+			int x=2;
+			for(ItemVO itemVO:itemVOs){			
+				if(itemVO.getItem_No()==1){
+					ItemVO Vo=new ItemVO();
+					Vo.setItem_Name(itemName[0]);
+					Vo.setItem_Money(Float.parseFloat(itemMoney[0]));
+					Vo.setTra_No(traNo);
+					Vo.setItem_No(1);
+					itemDAO.update(Vo);
+				}
+				if(itemVO.getItem_No()==2){
+					ItemVO Vo=new ItemVO();
+					Vo.setItem_Name(itemName[1]);
+					Vo.setItem_Money(Float.parseFloat(itemMoney[1]));
+					Vo.setTra_No(traNo);
+					Vo.setItem_No(2);
+					itemDAO.update(Vo);
+				}
+				if(itemVO.getItem_No()!=1&&itemVO.getItem_No()!=2){
+					itemDAO.delete(itemVO.getItem_No());
+					ItemVO Vo=new ItemVO();
+					Vo.setItem_Name(itemName[x]);
+					Vo.setItem_Money(Float.parseFloat(itemMoney[x]));
+					Vo.setTra_No(traNo);
+					Vo.setItem_No(itemVO.getItem_No());
+					itemDAO.insert(Vo);
+					x++;
+				}
+			}
+			for(int y=x;y<itemName.length;y++){
+				ItemVO Vo=new ItemVO();
+				Vo.setItem_Name(itemName[y]);
+				Vo.setItem_Money(Float.parseFloat(itemMoney[y]));
+				Vo.setTra_No(traNo);
+				Vo.setItem_No(y+1);
+				itemDAO.insert(Vo);
+			}
 			
-				System.out.println("edititemNo:" + edititemNo);
+//				System.out.println("edititemNo:" + edititemNo);
 
 				for (int i = 0; i < itemNo.length; i++) {
 					
-					System.out.println("itemNo.length:" + i);
+//					System.out.println("itemNo.length:" + i);
 					
 					v.setItem_No(edititemNo.get(i));
 					v.setItem_Name(edititemName.get(i));
@@ -394,10 +433,10 @@ public class TravelServlet extends HttpServlet {
 						ItemVO result1 = itemService.update(v);
 						itemfor.add(result1);
 					}
-					else{
-						ItemVO result1 = itemService.insert(v);
-						itemfor.add(result1);
-					}
+//					else{
+//						ItemVO result1 = itemService.insert(v);
+//						itemfor.add(result1);
+//					}
 					
 				}
 
