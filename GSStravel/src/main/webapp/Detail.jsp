@@ -201,11 +201,15 @@ margin-right: 3%;
 						</c:if>
 					</table>
 					<br />
+<<<<<<< HEAD
 					<span id='table_page'></span>
 					<br />
 					<button type="submit" name="prodaction" value="insert" class='btn btn-primary btn-lg'>新增</button>
+=======
+					<button type="submit" name="prodaction" value="insert" class='btn btn-primary'>新增</button>
+>>>>>>> branch 'master' of https://github.com/freelife1018/GSSTravel.git
 					<!-- 柯(請勿刪除) -->
-					<input type="submit" name="excel" value="匯出Excel" class='btn btn-primary btn-lg' />
+					<input type="submit" name="excel" value="匯出Excel" class='btn btn-primary' />
 					<!-- 柯(請勿刪除) -->
 				</form>
 			</div>

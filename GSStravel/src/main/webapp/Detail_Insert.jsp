@@ -7,6 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src='js/jquery-3.1.1.min.js'></script>
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -71,7 +72,7 @@ table {
 							<th>報名總金額</th>
 						</tr>
 						<tr>
-							<td><input type="text" id="emp_No" name="emp_No"
+							<td><input type="text" id="emp_No" name="emp_No" style='width:65px;'
 								class='form-control' onblur="select_emp_No()"
 								onfocus="clearName()"></td>
 							<td><select id="select" name="select" onchange="checkbox()" class='form-control select'></select></td>
@@ -113,13 +114,13 @@ table {
 										<option>男</option>
 										<option>女</option>
 								</select></td>
-								<td><input type="text" name="fam_Id" style='width: 110px;'
+								<td><input type="text" name="fam_Id" style='width: 130px;'
 									class="fam_Id center_a form-control" placeholder="請填寫"></td>
 								<td><input type="date" name="fam_Bdate"
 									style='width: 170px;' class="fam_Bdate center_a form-control"
 									placeholder="請填寫"></td>
 								<td><input type="text" name="fam_Phone"
-									style='width: 120px;' class="fam_Phone center_a form-control"
+									style='width: 130px;' class="fam_Phone center_a form-control"
 									placeholder="請填寫"></td>
 								<td><select name="fam_Eat" class="center_a form-control"
 									style='width: 100px;'>
@@ -145,7 +146,7 @@ table {
 								<td><input type="text" name="fam_Emg" style='width: 120px;'
 									class="fam_Emg center_a form-control" placeholder="請填寫"></td>
 								<td><input type="text" name="fam_EmgPhone"
-									style='width: 100px;'
+									style='width: 130px;'
 									class="fam_EmgPhone center_a form-control" placeholder="請填寫"></td>
 								<td><input type="text" name="fam_EmgRel"
 									style='width: 100px;' class="fam_EmgRel center_a form-control"
@@ -189,17 +190,14 @@ table {
 		</div>
 	</div>
 </body>
-<link rel="stylesheet"
-	href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
-<link rel="stylesheet"
-	href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
-<link rel="stylesheet"
-	href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
 
-<script
-	src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
+<script src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
 
 <script>
+	
 	$(".multiselect").kendoMultiSelect({
 		autoClose : false
 	});
