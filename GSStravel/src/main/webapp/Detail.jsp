@@ -48,6 +48,9 @@ margin-right: 3%;
 					<p>活動代碼：${param.tra_no}</p>
 					<input type="hidden" name="tra_no" id="tra_no"
 						value="${param.tra_no}">
+					<input type="submit" name="prodaction" value="顯示全部" class='btn btn-primary btn-lg' />
+					<input type="submit" name="prodaction" value="尚未取消" class='btn btn-primary btn-lg' />
+					<input type="submit" name="prodaction" value="已取消" class='btn btn-primary btn-lg' />
 					<table id="deailtable" 
 						>
 						<tr>
@@ -75,13 +78,11 @@ margin-right: 3%;
 							<c:forEach var="row" items="${select}">
 								<tr>
 									<td><c:if test="${empty row.det_CanDate}">
-											<button name="cancel" id="cancel" type="button"
-												class='btn btn-success' value="${row.det_No}"
-												onclick="open_Can(this)">取消</button>
-											<button name="edit" class="detEdit btn btn-success"
-												id="detEdit" type="button" value="${row.det_No}">編輯</button>
-											<button name="prodaction" class="save btn btn-success"
-												type="submit" id='save' value="save" style='display: none;'>儲存</button>
+											<c:if test="${traVO!=null}">
+												<button name="cancel" id="cancel" type="button" class='cancel btn btn-success' value="${row.det_No}" onclick="open_Can(this)">取消</button>
+												<button name="edit" class="detEdit btn btn-success" id="detEdit" type="button" value="${row.det_No}">編輯</button>
+											</c:if>
+											<button name="prodaction" class="save btn btn-success"type="submit" id='save' value="save" style='display: none;'>儲存</button>
 										</c:if></td>
 									<td>${row.emp_No}<input type="text"
 										class="emp_No form-control" name="emp_No"
@@ -197,11 +198,9 @@ margin-right: 3%;
 						</c:if>
 					</table>
 					<br />
-					<button type="submit" name="prodaction" value="insert"
-						class='btn btn-primary btn-lg'>新增</button>
+					<button type="submit" name="prodaction" value="insert" class='btn btn-primary btn-lg'>新增</button>
 					<!-- 柯(請勿刪除) -->
-					<input type="submit" name="excel" value="匯出Excel"
-						class='btn btn-primary btn-lg' />
+					<input type="submit" name="excel" value="匯出Excel" class='btn btn-primary btn-lg' />
 					<!-- 柯(請勿刪除) -->
 				</form>
 			</div>
@@ -406,6 +405,7 @@ $(function(){
 				
 				$(this).parents("tr").find("p").hide();
 				 $(this).hide();
+				 $(".cancel").hide();
 				 $(".detEdit").prop("disabled",true);
 			     });  
 			})
