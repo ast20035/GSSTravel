@@ -411,7 +411,7 @@ function insertnewfam(nofam){
 	}
 }
 function checkedA(){
-	var money=Number(${money});
+	var money=Number("${money}");
 	var $checkbox = $(".checkbox:checked");
 	var sum=Number(0);
 	$.each($checkbox, function(key,value){
