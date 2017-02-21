@@ -493,6 +493,7 @@ table {
 			$(".div").show();
 		}else{
 			$(".div").hide();
+			$(".insertSave").attr("type", "submit");
 		}
 	}
 	var Error ='<%=session.getAttribute("DataError")%>';
