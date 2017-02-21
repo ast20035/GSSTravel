@@ -110,7 +110,9 @@ td {
 			</table>
 			<br />
 			<div>
-				<button type="submit" name="prodaction" value="save">Àx¦s</button>
+				<c:if test="${travelVO!=null}">
+					<button type="submit" name="prodaction" value="save">Àx¦s</button>
+				</c:if>
 				<input type="button" onclick="excel()" value="¶×¥XExcel">
 			</div>
 		</form>

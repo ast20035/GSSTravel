@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import model.DetailService;
 import model.TotalAmountFormBean;
+import model.TravelVO;
 
 @WebServlet("/TravelDetail")
 public class TravelDetail extends HttpServlet {
@@ -29,7 +30,10 @@ public class TravelDetail extends HttpServlet {
 		String tra_No = request.getParameter("tra_no");
 		List<TotalAmountFormBean> list = detailService.select(tra_No);
 		if (list.size() != 0) {
+			TravelVO travelVO = detailService.Count(tra_No);
 			String tra_Name = list.get(0).getTra_Name();
+			
+			request.setAttribute("travelVO", travelVO);
 			request.setAttribute("list", list);
 			request.setAttribute("tra_Name", tra_Name);
 			request.setAttribute("tra_No", tra_No);
