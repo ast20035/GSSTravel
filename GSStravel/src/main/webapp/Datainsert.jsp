@@ -248,11 +248,11 @@ td>input[type=text] {
 											</c:if>
 									</select> <c:if test="${start.fam_Car=='true'}">
 											<input id="${start.fam_No}_car" name="famcar" type="checkbox"
-												value="false" class="${start.fam_No}" >
+												value="off" class="${start.fam_No}" >
 											<span>不占車位</span>
 										</c:if> <c:if test="${start.fam_Car=='false'}">
 											<input id="${start.fam_No}_car" name="famcar" type="checkbox"
-												value="false" class="${start.fam_No}" Checked>
+												value="off" class="${start.fam_No}" Checked>
 											<span>不占車位</span>
 										</c:if></td>
 									<td><div class='select'>
@@ -354,7 +354,7 @@ td>input[type=text] {
 					<option value="葷">葷</option>
 					<option value="素">素</option>
 					<option value="不佔餐">不佔餐</option>
-			</select> <input name="famcar" type="checkbox" value="false"
+			</select> <input name="famcar" type="checkbox" value="off"
 				class="${start.fam_No}"> <span>不占車位</span></td>
 			<td><div class='select'>
 					<select name="famspa" id="multiselect" multiple="multiple"
@@ -403,27 +403,6 @@ td>input[type=text] {
 						});
 			
 	
-
-// 			searchbox();
-			//儲存鍵按下後判斷checkbox 有按下鍵的 回傳一個值  沒有按下鍵的回傳另外一個值 
-			//在去判斷那個值是哪個 在去放置true  false 0 1等等 紀德判斷 不占車位為1 占車位為2
-// 			var pathName = document.location.pathname;
-// 			var index = pathName.substr(1).indexOf("/");
-// 			var result = pathName.substr(0, index + 1);
-// 			var url = result + "/FamilyServlet";
-// 			var boxvalue =0;
-// 			var famno=0;
-// 			function searchbox(){
-// // 				if()
-// 				 famno = $("input[name='famcar']").attr("class");
-// 				 boxvalue=$("in")
-// 			}
-// 			$.post(url,{"famno":famno,"boxvalue":boxvalue  },function(){
-// 				console.log("box return value");
-// 			});
-			
-				
-			
 				var famid=0;
 			function searchfamid() {//按下delete去找他的famid
 				if (xh != null) {
@@ -475,8 +454,6 @@ td>input[type=text] {
 					var famidnew = $(".repeat .famid").map(function() {
 						return $(this).val();
 					}).get();
-
-					
 					console.log(famidnew);//輸出陣列出來
 					// 					console.log(famidold);
 					var pathName = document.location.pathname;
@@ -534,58 +511,60 @@ td>input[type=text] {
 				$('#span').hide();
 			}
 			
-// 				$("#save").on("submit",function(){
-// 					$("input:not(:checked)").val("false");
-// 				});
-// 				$("input[name*='famcar']").click(function(){
-// 						$(!$(this).is(':checked')).val("false");
-// 				});
-<%-- 				<%String[] famid = request.getParameterValues("famid"); --%>
-// 				String[] famcar = request.getParameterValues("famcar");
-// 				String[] famcar2 = request.getParameterValues("famcar2");
-// 				 int idlength = famid.length;
-<%-- 				 int i=0;%> --%>
-<%-- 						<% session.setAttribute( String.valueOf(i),"false");%> --%>
-<%-- 						<% session.setAttribute( String.valueOf(i),"true");%> --%>
-
-// 					var xxxxx = $("#familytable input[name*='famcar']").map(function() {
-// 						return $(this).val();
-// 					}).get();
-// 					console.log(xxxxx);
-
-					$("save").click(function(){
-					
-				})
-					//window.onload時執行 記得要變成按下save後計算
-					var idlength= $("#familytable input[name*='famid']").length-1;//3
-					console.log(idlength);
-					var checkbox=[];
-					checkbox.length=idlength//1 2 3
-// 					console.log($("input[name*='famcar']").val());//直接抓到true
-					
-// 					$("#familytable input[name*='famcar']").prop("checked",funtcion(){
-// 						if($(this))
-// 					});
-					
-					
-// 				for (i = 1; i<= idlength; i++) {//1 2 3 
-					if($("#familytable input[name*='famcar']").val()!="false"){
-// 					if($("#familytable input[name*='famcar']").prop('checked')!=true){
-// 					if($("input:not(:checked)")){
-						checkbox.push("true");
-					}
-					if($("#familytable input[name*='famcar']").val()=="false"){
-// 					if($("#familytable input[name*='famcar']").prop('checked')==true){
-// 					if($(":checked")){
-						checkbox.push("false");
-					}
-// 				}
-				console.log(checkbox);
-// 				var checkboxstring = checkbox.join("、");
-// 				console.log(checkboxstring);
-<%-- 				<%session.setAttribute("checkboxvalue", checkbox);%> --%>
+			$("save").click(function(){
+				searchcheckbox();
+			})
 				
-				
+				function searchcheckbox(){
+					if (xh != null) {
+									//window.onload時執行 記得要變成按下save後計算
+								var idlength= $("#familytable input[name*='famcar']").length-1;//3
+								console.log(idlength);
+								var checkbox=[];
+								checkbox.length=idlength;//0 1 2
+									
+								if($("#familytable input[name='famcar']:checked").length > 0){
+									$("#familytable input[name='famcar'] ").each(function(){
+										if($(this).prop("checked")==false){
+												checkbox.push("nocheck");
+										}else{
+												checkbox.push("check");
+										}
+									})
+								}
+								console.log(checkbox);
+								var checkboxstring = checkbox.join("、");
+								console.log(checkboxstring);
+								
+								
+								var pathName = document.location.pathname;
+								var index = pathName.substr(1).indexOf("/");
+								var result = pathName.substr(0, index + 1);
+								var url = result + "/FamilyServlet";
+
+								xh.addEventListener("readystatechange", checkboxreturn);
+								xh.open("POST", url);
+								xh.setRequestHeader("Content-Type",
+										"application/x-www-form-urlencoded");
+								xh.send("checkbox=" + checkbox);
+							} else {
+								alert("Your browser doesn't support JSON!");
+							}
+						}
+				function checkboxreturn(){
+					if (xh.readyState == 4) {
+						if (xh.status == 200) {
+// 							if (xh.responseText != "") {
+// 								console.log(xh.responseText);		
+// 	// 													
+// 							}else{
+// 								console.log("");
+							console.log("checkbox進入");
+							
+						}
+					}
+				}
+					
 
 				$(".multiselect").kendoMultiSelect({autoClose : false});
 				$("tr[name='repeat']").hide();
