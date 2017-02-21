@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -171,6 +172,7 @@ public class TravelServlet extends HttpServlet {
 		if (traBeg != null && traBeg.length() != 0) {
 			try {
 				edittraBeg = sDateTime.parse(traBeg);
+				//edittraBeg	 = Timestamp.valueOf(traBeg.replace("T"," "));
 			} catch (ParseException e) {
 				e.printStackTrace();
 				errors.put("edittraBeg", "活動報名登記日必須是符合yyyy-Mm-dd HH:mm:ss格式的日期");
@@ -380,23 +382,23 @@ public class TravelServlet extends HttpServlet {
 			
 				System.out.println("edititemNo:" + edititemNo);
 
-				for (int i = 0; i < itemName.length; i++) {
+				for (int i = 0; i < itemNo.length; i++) {
 					
-					
+					System.out.println("itemNo.length:" + i);
 					
 					v.setItem_No(edititemNo.get(i));
 					v.setItem_Name(edititemName.get(i));
 					v.setItem_Money(edititemMoney.get(i));
 					
-					int itemNolong = 0; 
-					itemNolong = itemNo.length;
-					for(int s = 0;s < itemNolong;s++){
-					
-						
-					ItemVO result1 = itemService.update(v);
-					itemfor.add(result1);
-				
+					if(i==itemNo.length){
+						ItemVO result1 = itemService.update(v);
+						itemfor.add(result1);
 					}
+					else{
+						ItemVO result1 = itemService.insert(v);
+						itemfor.add(result1);
+					}
+					
 				}
 
 			TravelVO resultEdit = travelService.update(travelview);
@@ -417,7 +419,7 @@ public class TravelServlet extends HttpServlet {
 				session.setAttribute("delete", 1);
 			}
 		}
-//		request.getRequestDispatcher("/Travel_Edit.jsp").forward(request, response); // 測試用
+		request.getRequestDispatcher("/Travel_Edit.jsp").forward(request, response); // 測試用
 	}// doGet
 
 	@Override

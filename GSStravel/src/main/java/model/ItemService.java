@@ -25,6 +25,13 @@ public class ItemService {
 		}
 		return result;
 	}
+	public ItemVO insert(ItemVO bean){
+		ItemVO result = null;
+		if(bean!=null) {
+			result = itemDAO.insert(bean);
+		}
+		return result;
+	}
 	public boolean delete(ItemVO bean) {
 		boolean result = false;
 		if(bean!=null) {
