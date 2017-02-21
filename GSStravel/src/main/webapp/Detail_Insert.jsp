@@ -417,8 +417,6 @@ function saveData(){
 	 alert("儲存失敗！");
 	}
 }
-
-
 function select_emp_No(){
 	$.ajax({
 		type:"post",
@@ -442,6 +440,7 @@ function select_emp_No(){
 				$.each(fam_Name,function(key,value){
 					$("#select").append($("<option></option>").attr("class",'fam_name').text(fam_Name[key]));
 				});
+				$("#select").append($("<option></option>").attr("class",'fam_name').text("其他"));
 			}
 			if(Msg.emp_Max){
 				alert(Msg.emp_Max);				
@@ -462,7 +461,7 @@ function insertnewfam(nofam){
 	}
 }
 function checkedA(){
-	var money=Number(${money});
+	var money=Number("${money}");
 	var $checkbox = $(".checkbox:checked");
 	var sum=Number(0);
 	$.each($checkbox, function(key,value){

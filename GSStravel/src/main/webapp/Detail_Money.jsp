@@ -44,7 +44,7 @@ td {
 		</script>
 	<div class='container-fluid'>
 	<h2>®È¶O²Î­p</h2>
-		<form action="<c:url value='/TotalAmountServlet' />" method="GET">
+		<form action="<c:url value='/TotalAmountServlet' />" method="POST">
 			<div>
 				<textarea name="tra_Name" class="tra_Name" readonly>${tra_Name}</textarea>
 			</div>

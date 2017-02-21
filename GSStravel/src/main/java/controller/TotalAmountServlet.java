@@ -129,7 +129,7 @@ public class TotalAmountServlet extends HttpServlet {
 				session.setAttribute("Msg", "其他增減費用總額/應補團費  輸入非數字之字");
 			}
 			request.setAttribute("session", session.getAttribute("Msg"));
-			request.getRequestDispatcher("TravelDetail?tra_no=" + tra_No).forward(request, response);
+			request.getRequestDispatcher("/TravelDetail?tra_no=" + tra_No).forward(request, response);
 			return;
 		}
 		if ("Excel".equals(prodaction)) {

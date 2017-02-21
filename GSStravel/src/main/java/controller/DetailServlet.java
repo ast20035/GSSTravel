@@ -134,7 +134,7 @@ public class DetailServlet extends HttpServlet {
 				}
 			} else {
 				session.setAttribute("CanError", "此報名已結束");
-				req.getRequestDispatcher("/Detail.jsp?tra_no=" + tra_no).forward(req, resp);
+				resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_no);
 				return;
 			}
 		}
