@@ -418,6 +418,8 @@ public class DetailDAO implements IDetailDAO {
 			}
 			return result;
 		}
+		
+		
 
 	private static final String INSERT_Detail = "insert into Detail(emp_No,fam_No,tra_No,det_Date,det_money) values(?,?,?,GETDATE(),?)";
 
@@ -459,16 +461,18 @@ public class DetailDAO implements IDetailDAO {
 		return b;
 	}
 	
-	private static final String INSERT_TA = "INSERT INTO TotalAmount(tra_No,emp_No,TA_money) values(?,?,?)";
+	private static final String INSERT_TA = "INSERT INTO TotalAmount(tra_No,emp_No,TA_money,thisyear,yearsub) values(?,?,?,?,?)";
 
 	@Override
-	public boolean INSERT_TA(String Tra_No, int Emp_No, float TA_money) {
+	public boolean INSERT_TA(String Tra_No, int Emp_No, float TA_money, String thisyear, boolean yearsub) {
 		boolean b = true;
 		try (Connection conn = ds.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(INSERT_TA);
 			stmt.setString(1, Tra_No);
 			stmt.setInt(2, Emp_No);
 			stmt.setFloat(3, TA_money);
+			stmt.setString(4, thisyear);
+			stmt.setBoolean(5, yearsub);
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -606,23 +610,41 @@ public class DetailDAO implements IDetailDAO {
 		return b;
 	}
 	
-		private static final String UPDATE_TA = "update TotalAmount set TA_money=? where emp_No=? and tra_No=?";
+		private static final String UPDATE_TA = "update TotalAmount set TA_money=?, yearsub=? where emp_No=? and tra_No=?";
 
 		@Override
-		public boolean Update_TA(float TA_money, int Emp_No, String Tra_No) {
-			boolean b = true;
-			try (Connection conn = ds.getConnection()) {
-				PreparedStatement stmt = conn.prepareStatement(UPDATE_TA);
-				stmt.setFloat(1, TA_money);
-				stmt.setInt(2, Emp_No);
-				stmt.setString(3, Tra_No);
-				stmt.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				b = false;
-			}
-			return b;
+	public boolean Update_TA(float TA_money, Boolean yearsub, int Emp_No, String Tra_No) {
+		boolean b = true;
+		try (Connection conn = ds.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(UPDATE_TA);
+			stmt.setFloat(1, TA_money);
+			stmt.setBoolean(2, yearsub);
+			stmt.setInt(3, Emp_No);
+			stmt.setString(4, Tra_No);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			b = false;
 		}
+		return b;
+	}
+		
+	private static final String UPDATE_TA_SUB = "update TotalAmount set yearsub=0 where yearsub=1 and emp_No=? and thisyear=?";
+	@Override
+	public boolean Update_TA_SUB(int emp_No, String thisyear) {
+		boolean b = true;
+		try (Connection conn = ds.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(UPDATE_TA_SUB);
+			stmt.setInt(1, emp_No);
+			stmt.setString(2, thisyear);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			b = false;
+		}
+		return b;
+	}
+		
 	private static final String DELETE_TA = "delete from TotalAmount where tra_No=? and emp_No=?";
 	@Override
 	public boolean DELETE_TA(String Tra_No, int Emp_No){
