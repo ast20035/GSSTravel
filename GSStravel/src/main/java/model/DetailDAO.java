@@ -42,7 +42,22 @@ public class DetailDAO implements IDetailDAO {
 	private static final String selectFam_No = "select fam_No  from Detail where fam_No=? and tra_No=? and det_CanDate is null ";
 	private static final String selectFam_Rel = "select f.fam_Rel as fam_Rel from Detail d join Family f on d.fam_No=f.fam_No where d.det_CanDate is null and tra_No=? and d.emp_No=?";
 	private static final String SELECT_EXCEL = "SELECT det_No, Detail.emp_No, ISNULL(Detail.fam_No,Detail.emp_No) as number, ISNULL(fam_Rel,'員工') as Rel, ISNULL(fam_Name, emp_Name) as Name, ISNULL(fam_Sex,emp_Sex) as Sex, ISNULL(fam_ID, emp_ID) as ID,ISNULL(fam_Bdate,emp_Bdate) as Bdate, ISNULL(fam_Phone,emp_Phone) as Phone,ISNULL(fam_eat,emp_Eat) as Eat, ISNULL(fam_Car,1) as Car, fam_Bady, fam_kid, fam_Dis, fam_Mom,ISNULL(fam_Ben,emp_Ben) as Ben, ISNULL(fam_BenRel,emp_BenRel) as BenRel, ISNULL(fam_Emg,emp_Emg) as Emg, ISNULL(fam_EmgPhone,emp_EmgPhone) as EmgPhone, det_Date, det_CanDate as CanDate, ISNULL(fam_Note,emp_Note) as Note, det_canNote FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No WHERE Tra_No = ? order by CanDate";
-		
+	
+	public String detail(String emp_No, String tra_No) {
+		String det_Date=null;
+		try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(detail_Enter);) {
+			stmt.setString(1, emp_No);
+			stmt.setString(2, tra_No);
+			ResultSet rset = stmt.executeQuery();
+			while (rset.next()) {
+				det_Date=rset.getString("det_Date");	
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return det_Date;
+	}
+	
 	public List<DetailBean> selectExcel(String Tra_No) {
 		List<DetailBean> result = new ArrayList<>();
 		try {
@@ -418,6 +433,8 @@ public class DetailDAO implements IDetailDAO {
 			}
 			return result;
 		}
+		
+		
 
 	private static final String INSERT_Detail = "insert into Detail(emp_No,fam_No,tra_No,det_Date,det_money) values(?,?,?,GETDATE(),?)";
 
@@ -459,16 +476,18 @@ public class DetailDAO implements IDetailDAO {
 		return b;
 	}
 	
-	private static final String INSERT_TA = "INSERT INTO TotalAmount(tra_No,emp_No,TA_money) values(?,?,?)";
+	private static final String INSERT_TA = "INSERT INTO TotalAmount(tra_No,emp_No,TA_money,thisyear,yearsub) values(?,?,?,?,?)";
 
 	@Override
-	public boolean INSERT_TA(String Tra_No, int Emp_No, float TA_money) {
+	public boolean INSERT_TA(String Tra_No, int Emp_No, float TA_money, String thisyear, boolean yearsub) {
 		boolean b = true;
 		try (Connection conn = ds.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(INSERT_TA);
 			stmt.setString(1, Tra_No);
 			stmt.setInt(2, Emp_No);
 			stmt.setFloat(3, TA_money);
+			stmt.setString(4, thisyear);
+			stmt.setBoolean(5, yearsub);
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -606,23 +625,41 @@ public class DetailDAO implements IDetailDAO {
 		return b;
 	}
 	
-		private static final String UPDATE_TA = "update TotalAmount set TA_money=? where emp_No=? and tra_No=?";
+		private static final String UPDATE_TA = "update TotalAmount set TA_money=?, yearsub=? where emp_No=? and tra_No=?";
 
 		@Override
-		public boolean Update_TA(float TA_money, int Emp_No, String Tra_No) {
-			boolean b = true;
-			try (Connection conn = ds.getConnection()) {
-				PreparedStatement stmt = conn.prepareStatement(UPDATE_TA);
-				stmt.setFloat(1, TA_money);
-				stmt.setInt(2, Emp_No);
-				stmt.setString(3, Tra_No);
-				stmt.executeUpdate();
-			} catch (SQLException e) {
-				e.printStackTrace();
-				b = false;
-			}
-			return b;
+	public boolean Update_TA(float TA_money, Boolean yearsub, int Emp_No, String Tra_No) {
+		boolean b = true;
+		try (Connection conn = ds.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(UPDATE_TA);
+			stmt.setFloat(1, TA_money);
+			stmt.setBoolean(2, yearsub);
+			stmt.setInt(3, Emp_No);
+			stmt.setString(4, Tra_No);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			b = false;
 		}
+		return b;
+	}
+		
+	private static final String UPDATE_TA_SUB = "update TotalAmount set yearsub=0 where yearsub=1 and emp_No=? and thisyear=?";
+	@Override
+	public boolean Update_TA_SUB(int emp_No, String thisyear) {
+		boolean b = true;
+		try (Connection conn = ds.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(UPDATE_TA_SUB);
+			stmt.setInt(1, emp_No);
+			stmt.setString(2, thisyear);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			b = false;
+		}
+		return b;
+	}
+		
 	private static final String DELETE_TA = "delete from TotalAmount where tra_No=? and emp_No=?";
 	@Override
 	public boolean DELETE_TA(String Tra_No, int Emp_No){
@@ -642,7 +679,8 @@ public class DetailDAO implements IDetailDAO {
 	@Override
 	public List<TotalAmountFormBean> selectBean(String tra_No) {
 		List<TotalAmountFormBean> result = null;
-		try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(SELECT_BY_TRA_NO);) {
+		try (Connection conn = ds.getConnection(); 
+			PreparedStatement stmt = conn.prepareStatement(SELECT_BY_TRA_NO);) {
 			stmt.setString(1, tra_No);
 			ResultSet rset = stmt.executeQuery();
 			result = new ArrayList<TotalAmountFormBean>();
@@ -658,10 +696,7 @@ public class DetailDAO implements IDetailDAO {
 				bean.setFam_Name(rset.getString("fam_Name"));
 				bean.setDet_note(rset.getString("det_note"));
 				bean.setDet_noteMoney(rset.getFloat("det_noteMoney"));
-				bean.setEmp_sub(rset.getBoolean("emp_sub"));
-				bean.setEmp_subTra(rset.getString("emp_subTra"));
 				result.add(bean);
-
 			}
 			rset.close();
 		} catch (Exception e) {

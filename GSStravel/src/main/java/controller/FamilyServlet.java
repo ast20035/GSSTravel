@@ -67,12 +67,14 @@ public class FamilyServlet extends HttpServlet {
 		String buttonsave = req.getParameter("button");
 		String ajaxid = req.getParameter("id");//判斷前端寫親屬身分證有無重複
 		String ajaxfamid = req.getParameter("famid");//用前端的親屬身分證去刪親屬
+		String ajaxcheckbox =req.getParameter("checkbox");
 		PrintWriter out = res.getWriter();//ajax輸出???
 		
 		HttpSession session = req.getSession();
 		Integer emp_No = (Integer) session.getAttribute("emp_No");
 		List<String> id = familyservice.selectid(emp_No);
 
+		
 		
 		if (ajaxid != null) {//用來抓是否重複報名id會在前端顯示
 			String[] items = ajaxid.replaceAll("\\[", "").replaceAll("\"", "").replaceAll("\\]", "").split(",");
@@ -86,42 +88,43 @@ public class FamilyServlet extends HttpServlet {
 			}
 		}
 		
-		
-			if(ajaxfamid!="block"){//用ajax找到id 去刪家屬
-				
-				//Travel 的活動結束時間之後可以刪 並且在detail 的親屬no之外 才可以刪  join 方法?
-				//假如在 travel 當中有此親屬 活動結束後可以刪 如果還沒結束的不能刪
-				 int famno = familyservice.selectfam_byid(ajaxfamid);//用id找famno
-			 	
-				 List<java.sql.Date> listdate= familyservice.selectfam_Nodelete(famno);//用famno去找有活動的親屬
-				 long betweenDate=0;
-				 //假如無活動
-				 //重整時會直接進入save動作?
-				 if(famno!=0){
-					 for(Date date: listdate){
-						 System.out.println(date);
-						 Calendar calendar = Calendar.getInstance();
-						 long nowDate = calendar.getTime().getTime(); //Date.getTime() 獲得毫秒型 現在日期
-						 long specialDate = date.getTime();//把要比較的值放這(親屬日期)
-						 betweenDate = (specialDate - nowDate) / (1000 * 60 * 60 * 24);
-						 
-						 if(betweenDate>0){//字串輸出過去
-							 System.out.println(betweenDate);
-							 //不能刪除  只要有超出日期 即會有out.print出去
-							 	//不再detail裡面還是抓的到值? id新的 而且刪不掉
-							 out.print("親屬尚有在活動報名當中，不可以刪除此親屬資料");
-							 
-						 }else{
-							//可以刪除  全部過期才會到此 才能刪除
-							familyservice.delete(ajaxfamid);
-						 }
-					 }//迴圈結束
-				 }else{//!famno!=0
-					 out.print("");
-				 }
-			}else{
-				out.print("");
-			}
+//		if(ajaxfamid!=null){
+//			if(ajaxfamid!="block"){//用ajax找到id 去刪家屬
+//				
+//				//Travel 的活動結束時間之後可以刪 並且在detail 的親屬no之外 才可以刪  join 方法?
+//				//假如在 travel 當中有此親屬 活動結束後可以刪 如果還沒結束的不能刪
+//				 int famno = familyservice.selectfam_byid(ajaxfamid);//用id找famno
+//			 	
+//				 List<java.sql.Date> listdate= familyservice.selectfam_Nodelete(famno);//用famno去找有活動的親屬
+//				 long betweenDate=0;
+//				 //假如無活動
+//				 //重整時會直接進入save動作?
+//				 if(famno!=0){
+//					 for(Date date: listdate){
+//						 System.out.println(date);
+//						 Calendar calendar = Calendar.getInstance();
+//						 long nowDate = calendar.getTime().getTime(); //Date.getTime() 獲得毫秒型 現在日期
+//						 long specialDate = date.getTime();//把要比較的值放這(親屬日期)
+//						 betweenDate = (specialDate - nowDate) / (1000 * 60 * 60 * 24);
+//						 
+//						 if(betweenDate>0){//字串輸出過去
+//							 System.out.println(betweenDate);
+//							 //不能刪除  只要有超出日期 即會有out.print出去
+//							 	//不再detail裡面還是抓的到值? id新的 而且刪不掉
+//							 out.print("xxxxxx");
+//							 
+//						 }else{
+//							//可以刪除  全部過期才會到此 才能刪除
+//							familyservice.delete(ajaxfamid);
+//						 }
+//					 }//迴圈結束
+//				 }else{//!famno!=0
+//					 out.print("");
+//				 }
+//			}else{
+//				out.print("");
+//			}
+//		}
 			
 		
 //		List<String> email = employeeservice.selectEmail();
@@ -137,10 +140,13 @@ public class FamilyServlet extends HttpServlet {
 //		}
 
 
-		if ("儲存".equals(buttonsave)) {//前面""抓value
+		if ("儲存".equals(buttonsave)) {//前面""抓value 
 			Map<String, String> errormsg = new HashMap<String, String>();
 			req.setAttribute("error", errormsg);
-
+			
+			if(ajaxcheckbox !=null){//抓checkbox的值  未測試 在外面抓 進不來
+				System.out.println(ajaxcheckbox);
+			}
 
 			// 員工 轉值
 			if (empphone == null || empphone.length() == 0) {
@@ -162,17 +168,13 @@ public class FamilyServlet extends HttpServlet {
 				errormsg.put("empemail", "員工信箱不能為空值");
 			}
 
-			// HttpSession session = req.getSession();
-			// Integer emp_No = (Integer) session.getAttribute("emp_No");
 
 			// 親屬 轉值 家屬為null?
 			// 判斷 假如只有一行空白刪除空白欄位 跟 兩行以上 一行有一行空白 把空白判斷掉
 			List<Date> fambdate = new ArrayList<Date>();
 			int idlength = 0;
 			if (famid != null) {
-
 				idlength = famid.length;
-
 				for (int i = 0; i < idlength; i++) {
 
 					if (!famid[i].equals("") || famid[i] != null || !famname[i].equals("") || famname[i] != null
@@ -193,6 +195,11 @@ public class FamilyServlet extends HttpServlet {
 						}
 					}
 				}
+				
+				//String[] famcar = req.getParameterValues("famcar");
+				
+				
+				
 				if (famname == null || famname.length == 0) {
 					errormsg.put("famname", "親屬家人不能為空值");
 				}
@@ -238,14 +245,11 @@ public class FamilyServlet extends HttpServlet {
 			employeevo.setEmp_EmgPhone(empemgphone);
 			employeevo.setEmp_Mail(empemail);
 			employeevo.setEmp_Eat(empeat);
-			if (empnote != null || empnote.length() != 0) {
+			if (empnote != null ) {
 				employeevo.setEmp_Note(empnote);
 			} else {
 				employeevo.setEmp_Note(null);
 			}
-
-			// List<String> id = familyservice.selectid(emp_No);
-
 			employeeservice.update(employeevo);
 			System.out.println("員工資料更改完畢");
 
@@ -265,9 +269,6 @@ public class FamilyServlet extends HttpServlet {
 						familyvo.setFam_No(famno);
 						familyvo.setFam_Name(famname[i]);
 					} else {
-						// System.out.println(famid[i]);
-						// System.out.println(famname[i]);
-						// System.out.println(famnobyid);
 						familyvo.setFam_No(famnobyid);
 						familyvo.setFam_Name(famname[i]);
 					}
@@ -279,6 +280,13 @@ public class FamilyServlet extends HttpServlet {
 					familyvo.setFam_Eat(fameat[i]);
 
 					// 測試
+//					System.out.println(famcar[0]);
+//					System.out.println(famcar[1]);
+//					Map<Integer,Boolean> box = new HashMap<Integer,Boolean>();
+//					box.put(famcar[i], false);
+//					if(famcar[i] )
+//					box.put(i, );
+//					if(famcar[i])
 					familyvo.setFam_Car(false);
 					familyvo.setFam_Bady(false);
 					familyvo.setFam_kid(false);

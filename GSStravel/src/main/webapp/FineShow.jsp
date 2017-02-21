@@ -61,6 +61,16 @@ td>strong {
 			close6 = document.getElementById("close6");
 			close7 = document.getElementById("close7");
 			closeBtn = document.getElementById("closeBtn");
+			
+			var $BodyWidth = $(document).width();  
+			var $ViewportWidth=$(window).width();  
+			var $ScrollLeft=$(this).scrollLeft();
+			if($BodyWidth>($ViewportWidth+$ScrollLeft)){   
+	               $('#span').show();
+			} 
+			else if($BodyWidth==($ViewportWidth+$ScrollLeft)){   
+	              $('#span').hide();
+			}
 		}
 		
 		function load() {

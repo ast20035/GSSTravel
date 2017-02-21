@@ -7,7 +7,7 @@ public class TotalAmountService {
 		totalAmountDAO.insertTotalAmount(tra_No, emp_No, TA_money);
 	}
 	
-	public void deleteTotalAmount(int emp_No,String tra_No){
+	public void deleteTotalAmount(String emp_No,String tra_No){
 		totalAmountDAO.deleteTotalAmount( emp_No, tra_No);
 	}
 	
@@ -32,5 +32,11 @@ public class TotalAmountService {
 			b=totalAmountDAO.update(bean.getTa_Money(), bean.getTra_No(), bean.getEmp_No());
 		}
 		return b;
+	}
+	public void updateYearSub(boolean yearsub,Integer emp_No,String tra_No ){
+		totalAmountDAO.updateYearSub(yearsub,emp_No,tra_No);
+	}
+	public boolean select_yearsub(int emp_No ,String tra_No){
+		return totalAmountDAO.select_yearsub(emp_No, tra_No);
 	}
 }

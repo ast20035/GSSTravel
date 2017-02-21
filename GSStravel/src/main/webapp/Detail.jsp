@@ -20,172 +20,202 @@
 	crossorigin="anonymous"></script>
 <title>報名明細</title>
 </head>
-<style>
-</style>
 <body>
 	<%@include file="SelectBar.jsp"%>
 	<script>
 			$('li').removeClass('now');
 			$('li:eq(3)').addClass('now');
 		</script>
-<div class='container-fluid'>
-	<h2>－報名明細－</h2>
-	<form action=<c:url value="/detail"/> method="post">
-		<p>活動代碼：${param.tra_no}</p>
-		<input type="hidden" name="tra_no" id="tra_no" value="${param.tra_no}">
-		<table border="1" id="deailtable" width="160%">
-			<tr>
-				<th></th>
-				<th>員工編號</th>
-				<th>身份</th>
-				<th>姓名</th>
-				<th>性別</th>
-				<th>身份證字號</th>
-				<th>生日</th>
-				<th>手機</th>
-				<th>用餐/車位</th>
-				<th>特殊身份</th>
-				<th>保險受益人</th>
-				<th>與受益人關係</th>
-				<th>緊急聯絡人</th>
-				<th>緊急聯絡人手機</th>
-				<th>報名時間</th>
-				<th>取消日期</th>
-				<th>備註</th>
-				<th>取消原因</th>
-			</tr>
+	<div class='container-fluid'>
+		<div class='row'>
+			<div class='col-md-2 col-md-offset-1'>
+				<h2>報名明細</h2>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-md-11 col-md-offset-1'>
+				<form action=<c:url value="/detail"/> method="post">
+					<p>活動代碼：${param.tra_no}</p>
+					<input type="hidden" name="tra_no" id="tra_no"
+						value="${param.tra_no}">
+					<table id="deailtable" 
+						class='table table-bordered '>
+						<tr>
+							<th></th>
+							<th>員工編號</th>
+							<th>身份</th>
+							<th>姓名</th>
+							<th>性別</th>
+							<th>身份證字號</th>
+							<th>生日</th>
+							<th>手機</th>
+							<th>用餐/車位</th>
+							<th>特殊身份</th>
+							<th>保險受益人</th>
+							<th>與受益人關係</th>
+							<th>緊急聯絡人</th>
+							<th>緊急聯絡人手機</th>
+							<th>報名時間</th>
+							<th>取消日期</th>
+							<th>備註</th>
+							<th>取消原因</th>
+						</tr>
 
-			<c:if test="${not empty select}">
-				<c:forEach var="row" items="${select}">
-					<tr>
-						<td><c:if test="${empty row.det_CanDate}">
-								<button name="cancel" id="cancel" type="button"
-									value="${row.det_No}" onclick="open_Can(this)">取消</button>
-								<button name="edit" class="detEdit" id="detEdit" type="button"
-									value="${row.det_No}">編輯</button>
-								<button name="prodaction" class="save" type="submit"
-									value="save" hidden>儲存</button>
-							</c:if></td>
-						<td>${row.emp_No}<input type="text" class="emp_No"
-							name="emp_No" value="${row.emp_No}" disabled
-							style="display: none"><input type="text" class="fam_No"
-							name="fam_No" value="${row.fam_No}" disabled
-							style="display: none"></td>
-						<td><input type="text" name="trel" value="${row.rel}"
-							style="display: none"> <c:if test="${row.rel == '員工'}">
+						<c:if test="${not empty select}">
+							<c:forEach var="row" items="${select}">
+								<tr>
+									<td><c:if test="${empty row.det_CanDate}">
+											<button name="cancel" id="cancel" type="button"
+												class='btn btn-success' value="${row.det_No}"
+												onclick="open_Can(this)">取消</button>
+											<button name="edit" class="detEdit btn btn-success"
+												id="detEdit" type="button" value="${row.det_No}">編輯</button>
+											<button name="prodaction" class="save btn btn-success"
+												type="submit" id='save' value="save" style='display: none;'>儲存</button>
+										</c:if></td>
+									<td>${row.emp_No}<input type="text"
+										class="emp_No form-control" name="emp_No"
+										value="${row.emp_No}" disabled style="display: none"><input
+										type="text" class="fam_No form-control" name="fam_No"
+										value="${row.fam_No}" disabled style="display: none"></td>
+									<td><input type="text" name="trel" value="${row.rel}"
+										class='form-control' style="display: none"> <c:if
+											test="${row.rel == '員工'}">
 		     ${row.rel}
-		      <select style="display: none" class="fam_Rel" name="fam_Rel"
-									disabled>
-									<option>員工</option>
-									<option>眷屬</option>
-									<option>親友</option>
-								</select>
-							</c:if> <c:if test="${row.rel != '員工'}">
-								<select name="fam_Rel" disabled>
-									<option>眷屬</option>
-									<option>親友</option>
-								</select>
-							</c:if></td>
-						<td><input type="text" class="name" name="name"
-							value="${row.name}" disabled></td>
-						<td><input type="text" name="tsex" value="${row.sex}"
-							style="display: none"> <select name="sex" class="sex" disabled>
-								<option>男</option>
-								<option>女</option>
-						</select></td>
-						<td><input type="text" name="ID" class="TWID" value="${row.ID}" disabled></td>
-						<td><input type="date" name="Bdate" class="Bdate" value="${row.bdate}"
-							disabled></td>
-						<td><input type="text" name="Phone" class="Phone" value="${row.phone}"
-							disabled></td>
-						<td><input type="text" name="teat" value="${row.eat}"
-							style="display: none"> <select name="eat" disabled>
-								<option>葷</option>
-								<option>素</option>
-								<option>不佔餐</option>
-						</select> <c:if test="${row.rel != '員工'}">
-								<c:if test="${row.car == false}">
-									<input type="checkbox" name="car" Checked disabled>不佔車位
+		      <select style="display: none; width:90px;" class="fam_Rel form-control"
+												name="fam_Rel" disabled>
+												<option>員工</option>
+												<option>眷屬</option>
+												<option>親友</option>
+											</select>
+										</c:if> <c:if test="${row.rel != '員工'}">
+											<select name="fam_Rel" disabled class='form-control' style="width:90px;">
+												<option>眷屬</option>
+												<option>親友</option>
+											</select>
+										</c:if></td>
+									<td><input type="text" class="name form-control" 
+										name="name" value="${row.name}" disabled></td>
+									<td><input type="text" name="tsex" value="${row.sex}"
+										class='form-control' style="display: none"> <select
+										name="sex" class="sex form-control" disabled>
+											<option>男</option>
+											<option>女</option>
+									</select></td>
+									<td><input type="text" name="ID" class="TWID form-control"
+										value="${row.ID}" disabled></td>
+									<td><input type="date" name="Bdate"
+										class="Bdate form-control" value="${row.bdate}" disabled></td>
+									<td><input type="text" name="Phone"
+										class="Phone form-control" value="${row.phone}" disabled></td>
+									<td><input type="text" name="teat" value="${row.eat}"
+										class='form-control' style="display: none"> <select
+										name="eat" disabled class='form-control'>
+											<option>葷</option>
+											<option>素</option>
+											<option>不佔餐</option>
+									</select> <c:if test="${row.rel != '員工'}">
+											<c:if test="${row.car == false}">
+												<input type="checkbox" name="car" Checked disabled>不佔車位
 				        </c:if>
-								<c:if test="${row.car}">
-									<input type="checkbox" name="car" disabled>不佔車位
+											<c:if test="${row.car}">
+												<input type="checkbox" name="car" disabled>不佔車位
 				        </c:if>
-							</c:if></td>
-						<td><c:if test="${row.rel != '員工'}"><p>
-								<c:if test="${row.fam_Bady == true}">
+										</c:if></td>
+									<td><c:if test="${row.rel != '員工'}">
+											<p>
+												<c:if test="${row.fam_Bady == true}">
 									幼童(0~3歲)
 								</c:if>
-								<c:if test="${row.fam_kid == true}">
+												<c:if test="${row.fam_kid == true}">
 									兒童(4~11歲)
 								</c:if>
-								<c:if test="${row.fam_Dis == true}">
+												<c:if test="${row.fam_Dis == true}">
 									持身心障礙手冊
 								</c:if>
-								<c:if test="${row.fam_Mom == true}">
+												<c:if test="${row.fam_Mom == true}">
 									孕婦(媽媽手冊)
-								</c:if></p>
-								<select class="multiselect" name="spe"
-									multiple="multiple" data-placeholder="請選擇"
-									style="width: 210px;" disabled>
-									<c:if test="${row.fam_Bady == false}">
-										<option>幼童(0~3歲)</option>
-									</c:if>
-									<c:if test="${row.fam_Bady}">
-										<option Selected>幼童(0~3歲)</option>
-									</c:if>
-									<c:if test="${row.fam_kid == false}">
-										<option>兒童(4~11歲)</option>
-									</c:if>
-									<c:if test="${row.fam_kid}">
-										<option Selected>兒童(4~11歲)</option>
-									</c:if>
-									<c:if test="${row.fam_Dis == false}">
-										<option>持身心障礙手冊</option>
-									</c:if>
-									<c:if test="${row.fam_Dis}">
-										<option Selected>持身心障礙手冊</option>
-									</c:if>
-									<c:if test="${row.fam_Mom == false}">
-										<option>孕婦(媽媽手冊)</option>
-									</c:if>
-									<c:if test="${row.fam_Mom}">
-										<option Selected>孕婦(媽媽手冊)</option>
-									</c:if>
-								</select>
-								<input type="hidden" class="text_multiselect" name="text_multiselect" disabled>
-							</c:if></td>
-						<td><input type="text" class="ben" name="ben" value="${row.ben}" disabled></td>
-						<td><input type="text" class="ben_Rel" name="ben_Rel" value="${row.benRel}"
-							disabled></td>
-						<td><input type="text" class="emg" name="emg" value="${row.emg}" disabled></td>
-						<td><input type="text" name="emg_Phone" class="emg_Phone" 
-							value="${row.emgPhone}" disabled></td>
-						<td>${row.det_Date}</td>
-						<td>${row.det_CanDate}</td>
-						<td><input type="text" name="note" value="${row.note}"
-							disabled></td>
-						<td>${row.det_canNote}</td>
-					</tr>
-				</c:forEach>
-			</c:if>
-		</table>
-		<br />
-		<button type="submit" name="prodaction" value="insert">新增</button>
-		
-		<!-- 柯(請勿刪除) -->
-			<input type="submit" name="excel" value="匯出Excel"/>
-		<!-- 柯(請勿刪除) -->
-		
-	</form>
-
-
-	<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
-	<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
-	<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
-	<script src="js/jquery-1.12.3.min.js"></script>
-	<script	src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
-<script type="text/javascript">
-$(function(){ 	
+								</c:if>
+											</p>
+											<select class="multiselect form-control select" name="spe"
+												multiple="multiple" data-placeholder="請選擇"
+												style="width: 210px;" disabled>
+												<c:if test="${row.fam_Bady == false}">
+													<option>幼童(0~3歲)</option>
+												</c:if>
+												<c:if test="${row.fam_Bady}">
+													<option Selected>幼童(0~3歲)</option>
+												</c:if>
+												<c:if test="${row.fam_kid == false}">
+													<option>兒童(4~11歲)</option>
+												</c:if>
+												<c:if test="${row.fam_kid}">
+													<option Selected>兒童(4~11歲)</option>
+												</c:if>
+												<c:if test="${row.fam_Dis == false}">
+													<option>持身心障礙手冊</option>
+												</c:if>
+												<c:if test="${row.fam_Dis}">
+													<option Selected>持身心障礙手冊</option>
+												</c:if>
+												<c:if test="${row.fam_Mom == false}">
+													<option>孕婦(媽媽手冊)</option>
+												</c:if>
+												<c:if test="${row.fam_Mom}">
+													<option Selected>孕婦(媽媽手冊)</option>
+												</c:if>
+											</select>
+											<input type="hidden" class="text_multiselect"
+												name="text_multiselect" disabled>
+										</c:if></td>
+									<td><input type="text" class="ben form-control" name="ben"
+										value="${row.ben}" disabled></td>
+									<td><input type="text" class="ben_Rel form-control"
+										name="ben_Rel" value="${row.benRel}" disabled></td>
+									<td><input type="text" class="emg form-control" name="emg"
+										value="${row.emg}" disabled></td>
+									<td><input type="text" name="emg_Phone"
+										class="emg_Phone form-control" value="${row.emgPhone}"
+										disabled></td>
+									<td>${row.det_Date}</td>
+									<td>${row.det_CanDate}</td>
+									<td><input type="text" name="note" value="${row.note}"
+										class='form-control' disabled></td>
+									<td>${row.det_canNote}</td>
+								</tr>
+							</c:forEach>
+						</c:if>
+					</table>
+					<br />
+					<button type="submit" name="prodaction" value="insert"
+						class='btn btn-primary btn-lg'>新增</button>
+					<!-- 柯(請勿刪除) -->
+					<input type="submit" name="excel" value="匯出Excel"
+						class='btn btn-primary btn-lg' />
+					<!-- 柯(請勿刪除) -->
+				</form>
+			</div>
+		</div>
+		<link rel="stylesheet"
+			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
+		<link rel="stylesheet"
+			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
+		<link rel="stylesheet"
+			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
+		<script
+			src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
+		<script type="text/javascript">
+$(function(){ 
+	var $BodyWidth = $(document).width();  
+	var $ViewportWidth=$(window).width();  
+	var $ScrollLeft=$(this).scrollLeft();
+	if($BodyWidth>($ViewportWidth+$ScrollLeft)){   
+           $('#span').show();
+	} 
+	else if($BodyWidth==($ViewportWidth+$ScrollLeft)){   
+          $('#span').hide();
+	}
+	
 	 //多選下拉式選單
 	 
 	 $(".multiselect").hide();
@@ -391,15 +421,15 @@ if(CanError!="null"){
 }
 var Msg="<%=session.getAttribute("DetMsg")%>";
 <%session.removeAttribute("DetMsg");%>
-if(Msg!="null"){
-	if(confirm(Msg)){
-		var insert="/GSStravel/detail?tra_no="+$('#tra_no').val()+"&doInsert=1";
-		window.location=insert;
-	}
-}
-
-</script>
-</div>
+			if (Msg != "null") {
+				if (confirm(Msg)) {
+					var insert = "/GSStravel/detail?tra_no="
+							+ $('#tra_no').val() + "&doInsert=1";
+					window.location = insert;
+				}
+			}
+		</script>
+	</div>
 </body>
 </html>
 
