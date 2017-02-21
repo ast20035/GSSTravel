@@ -166,7 +166,7 @@ td>input[type=text] {
 					<input type="button" value="新增欄位" id="insert" name="button"
 						class='btn btn-primary'> <span>${error.famblock}</span> <input
 						type="submit" value="儲存" class='btn btn-primary' id="save"
-						name="button">
+						name="button"><input type="hidden" value="checkbox" id="checkbox" name="checkbox">
 					</div>
 				</div>
 			</div>
@@ -319,14 +319,6 @@ td>input[type=text] {
 						</c:if>
 
 					</table>
-
-
-<!-- 					新增、儲存 -->
-<!-- 					<input type="button" value="新增欄位" id="insert" name="button" -->
-<%-- 						class='btn btn-primary'> <span>${error.famblock}</span> <input --%>
-<!-- 						type="button" value="儲存" class='btn btn-primary' id="save" -->
-<!-- 						name="button"><input type="hidden" id="checkbox" name="checkbox"><br> -->
-
 				</div>
 			</div>
 		</form>
@@ -509,7 +501,7 @@ td>input[type=text] {
 				}
 			}
 			
-			
+			$("#save").click(function(){
 			var pathName = document.location.pathname;
 			var index = pathName.substr(1).indexOf("/");
 			var result = pathName.substr(0, index + 1);
@@ -520,30 +512,58 @@ td>input[type=text] {
 			var checkbox=[];
 			//checkbox.length=idlength;//0 1 2
 				
-			if($("#familytable input[name='famcar']:checked").length > 0){
+			if($("#familytable input[name='famcar']").length > 0){
 				$("#familytable input[name='famcar'] ").each(function(){
-					if($(this).prop("checked")==false){
-							checkbox.push(0);
-					}else{
-							checkbox.push(1);
+					if($(this).prop("checked")==false){//true
+							checkbox.push(1);//有勾
+					}
+					if($(this).prop("checked")==true){
+							checkbox.push(0);//沒有勾
 					}
 				})
 			}else{
-				$("#familytable input[name='famcar'] ").each(function(){
-					checkbox.push(0);
-				})
+				console.log("沒有親屬 checkbox無值");
 			}
 			console.log(checkbox);
-//			var checkboxstring = checkbox.join("、");
-//			console.log(checkboxstring);
-			console.log(checkbox.join()+"<br/>");
-			console.log(checkbox.join("-"));
 			console.log(JSON.stringify(checkbox));// JSON.stringify 將陣列轉換為 JSON 字串
 			var checkboxjson=JSON.stringify(checkbox);
-			console.log(JSON.parse(JSON.stringify(checkbox)));//，然後使用 JSON.parse 將字串轉換回陣列。
-			$("#save").click(function(){
+// 			console.log(JSON.parse(JSON.stringify(checkbox)));//，然後使用 JSON.parse 將字串轉換回陣列。
 				$("#checkbox").val(checkboxjson);//放一個隱藏的text傳值進去 按save時一次送出
-				$("#save").submit();
+				
+				//判斷是不是為空值
+				// 	if($(".repeat td input[name='famname']").val() == ""){					
+// 					for(i=0;i<=$("#familytable tr").length;i++){
+						if($("#familytable input[name*='famname']").val() == ""){
+							alert("請輸入親屬名稱");
+// 							break;
+						}else if ($("#familytable input[name*='famid']").val() == ""){
+							alert("請輸入親屬身份證");
+// 							break;
+						}else if ($("#familytable input[name*='fambdate']").val() == ""){
+							alert("請輸入親屬生日");
+// 							break;
+						}else if ($("#familytable input[name*='famphone']").val() == "") {
+							alert("請輸入親屬手機");
+// 							break;
+						}else if ($("#familytable input[name*='famben']").val() == "") {
+							alert("請輸入親屬保險受益人");
+// 							break;
+						}else if ($("#familytable input[name*='fambenrel']").val() == "") {
+							alert("請輸入親屬保險受益人關係");
+// 							break;
+						}else if ($("#familytable input[name*='famemg']").val() == "") {
+							alert("請輸入親屬緊急聯絡人");
+// 							break;
+						}else if ($("#familytable input[name*='famemgphone']").val() == ""){
+							alert("請輸入親屬緊急聯絡人電話");
+// 							break;
+						}else if ($("#familytable input[name*='famemgrel']").val() == ""){
+							alert("請輸入親屬緊急聯絡人關係");
+// 							break;
+							}
+// 						}
+				$("#save").submit();//最後在submit
+				
 			});
 
 			
@@ -762,58 +782,10 @@ td>input[type=text] {
 															$("#save").attr("type","button");
 														}
 													});
-
-									//在commit按下後內 判斷把全部欄未能不能不要是空白  
-									$("#save").click(function() {
-														if ($(".repeat td input[name='famname']").val() == "") {
-															alert("請輸入親屬名稱");
-															return false;
-														}
-														if ($(".repeat td input[name='famid']").val() == "") {
-															alert("請輸入親屬身份證");
-															return false;
-														}
-														if ($(".repeat td input[name='fambdate']").val() == "") {
-															alert("請輸入親屬生日");
-															return false;
-														}
-														if ($(".repeat td input[name='famphone']").val() == "") {
-															alert("請輸入親屬手機");
-															return false;
-														}
-														if ($(".repeat td input[name='famben']").val() == "") {
-															alert("請輸入親屬保險受益人");
-															return false;
-														}
-														if ($(".repeat td input[name='fambenrel']").val() == "") {
-															alert("請輸入親屬保險受益人關係");
-															return false;
-														}
-														if ($(".repeat td input[name='famemg']").val() == "") {
-															alert("請輸入親屬緊急聯絡人");
-															return false;
-														}
-														if ($(".repeat td input[name='famemgphone']").val() == "") {
-															alert("請輸入親屬緊急聯絡人電話");
-															return false;
-														}
-														if ($(".repeat td input[name='famemgrel']").val() == "") {
-															alert("請輸入親屬緊急聯絡人關係");
-															return false;
-														}
-													});
 									//focus在新增欄位
 									$('#familytable input[name*="famname"]:last').focus();
-
 								});
-				//想改把enter後submit的功能去消            施工中
-				// 	$("#save").keypress(function(e){
-				// 		var keyCode = e.keyCode || e.which;
-				// 		 if (keyCode == 13) {
-				// 		        return false;
-				// 		    }
-				// 	});
-
+				
 				var empphone = /^09\d{2}-?\d{3}-?\d{3}$/;
 				$("#empphone").blur(function() {
 					if (empphone.test($(this).val())) {
