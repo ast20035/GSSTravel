@@ -74,8 +74,7 @@ table {
 							<td><input type="text" id="emp_No" name="emp_No"
 								class='form-control' onblur="select_emp_No()"
 								onfocus="clearName()"></td>
-							<td><select id="select" name="select" onchange="checkbox()"
-								class='form-control select'></select></td>
+							<td><select id="select" name="select" onchange="checkbox()" class='form-control select'></select></td>
 							<td><input type="text" id="money" name="money"
 								class="money form-control" value="${money}" readonly></td>
 						</tr>
@@ -492,6 +491,8 @@ table {
 		var $checkbox = $(".select");
 		if($checkbox.val()=="其他"){
 			$(".div").show();
+		}else{
+			$(".div").hide();
 		}
 	}
 	var Error ='<%=session.getAttribute("DataError")%>';
