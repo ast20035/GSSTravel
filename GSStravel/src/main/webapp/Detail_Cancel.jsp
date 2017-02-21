@@ -36,13 +36,13 @@ fieldset {
 			enctype="multipart/form-data">
 			<fieldset>
 				請輸入取消原因： <br />
-				<textarea style="width: 250px; height: 100px; resize: none"
+				<textarea style="width: 250px; height: 100px; resize: none" class='form-control'
 					name="det_CanNote"></textarea>
-				<br /> <input type="text" id="can_detNo" name="can_detNo"
-					style="display: none"> <input type="text" id="can_traNo"
-					name="can_traNo" style="display: none"> <br /> <input
+				<br /> <input type="text" id="can_detNo" name="can_detNo" class='btn btn-primary'
+					style="display: none"> <input type="text" id="can_traNo" class='btn btn-primary'
+					name="can_traNo" style="display: none"> <br /> <input class='btn btn-primary'
 					name="prodaction" type="submit" value="送出">
-				<button name="canClose" type="button" onclick="window.close()">關閉</button>
+				<button name="canClose" type="button" onclick="window.close()" class='btn btn-primary'>關閉</button>
 
 				<p style="color: red" hidden><%=session.getAttribute("DetCanError")%></p>
 			</fieldset>
