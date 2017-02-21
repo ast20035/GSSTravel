@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src='js/jquery-3.1.1.min.js'></script>
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -54,8 +55,7 @@ margin-right: 3%;
 								<option>已取消</option>
 						</select>
 
-					<table id="deailtable" 
-						>
+					<table id="deailtable">
 						<tr>
 							<th></th>
 							<th>員工編號</th>
@@ -201,6 +201,8 @@ margin-right: 3%;
 						</c:if>
 					</table>
 					<br />
+					<span id='table_page'></span>
+					<br />
 					<button type="submit" name="prodaction" value="insert" class='btn btn-primary btn-lg'>新增</button>
 					<!-- 柯(請勿刪除) -->
 					<input type="submit" name="excel" value="匯出Excel" class='btn btn-primary btn-lg' />
@@ -218,6 +220,7 @@ margin-right: 3%;
 			src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
 		<script type="text/javascript">
 $(function(){ 
+	
 	 $(".selectTable").on("change",function(){
 		 if($(this).val() == "顯示全部"){
 			 $("em:empty").parent().parent().show();
