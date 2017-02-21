@@ -317,8 +317,8 @@ td>input[type=text] {
 					<!--新增、儲存 -->
 					<input type="button" value="新增欄位" id="insert" name="button"
 						class='btn btn-primary'> <span>${error.famblock}</span> <input
-						type="submit" value="儲存" class='btn btn-primary' id="save"
-						name="button"><br>
+						type="button" value="儲存" class='btn btn-primary' id="save"
+						name="button"><input type="hidden" id="checkbox" name="checkbox"><br>
 				</div>
 			</div>
 		</form>
@@ -500,7 +500,45 @@ td>input[type=text] {
 					}
 				}
 			}
+			
+			
+			var pathName = document.location.pathname;
+			var index = pathName.substr(1).indexOf("/");
+			var result = pathName.substr(0, index + 1);
+			var url = result + "/FamilyServlet";
+			
+			var idlength= $("#familytable input[name*='famcar']").length;//3
+			console.log(idlength);
+			var checkbox=[];
+			//checkbox.length=idlength;//0 1 2
+				
+			if($("#familytable input[name='famcar']:checked").length > 0){
+				$("#familytable input[name='famcar'] ").each(function(){
+					if($(this).prop("checked")==false){
+							checkbox.push(0);
+					}else{
+							checkbox.push(1);
+					}
+				})
+			}else{
+				$("#familytable input[name='famcar'] ").each(function(){
+					checkbox.push(0);
+				})
+			}
+			console.log(checkbox);
+//			var checkboxstring = checkbox.join("、");
+//			console.log(checkboxstring);
+			console.log(checkbox.join()+"<br/>");
+			console.log(checkbox.join("-"));
+			console.log(JSON.stringify(checkbox));// JSON.stringify 將陣列轉換為 JSON 字串
+			var checkboxjson=JSON.stringify(checkbox);
+			console.log(JSON.parse(JSON.stringify(checkbox)));//，然後使用 JSON.parse 將字串轉換回陣列。
+			$("#save").click(function(){
+				$("#checkbox").val(checkboxjson);//放一個隱藏的text傳值進去 按save時一次送出
+				$("#save").submit();
+			});
 
+			
 			$(function() {
 			var $BodyWidth = $(document).width();
 			var $ViewportWidth = $(window).width();
@@ -511,63 +549,9 @@ td>input[type=text] {
 				$('#span').hide();
 			}
 			
-			$("save").click(function(){
-				searchcheckbox();
-			})
-				
-				function searchcheckbox(){
-					if (xh != null) {
-									//window.onload時執行 記得要變成按下save後計算
-								var idlength= $("#familytable input[name*='famcar']").length-1;//3
-								console.log(idlength);
-								var checkbox=[];
-								checkbox.length=idlength;//0 1 2
-									
-								if($("#familytable input[name='famcar']:checked").length > 0){
-									$("#familytable input[name='famcar'] ").each(function(){
-										if($(this).prop("checked")==false){
-												checkbox.push("nocheck");
-										}else{
-												checkbox.push("check");
-										}
-									})
-								}
-								console.log(checkbox);
-								var checkboxstring = checkbox.join("、");
-								console.log(checkboxstring);
-								
-								
-								var pathName = document.location.pathname;
-								var index = pathName.substr(1).indexOf("/");
-								var result = pathName.substr(0, index + 1);
-								var url = result + "/FamilyServlet";
-
-								xh.addEventListener("readystatechange", checkboxreturn);
-								xh.open("POST", url);
-								xh.setRequestHeader("Content-Type",
-										"application/x-www-form-urlencoded");
-								xh.send("checkbox=" + checkbox);
-							} else {
-								alert("Your browser doesn't support JSON!");
-							}
-						}
-				function checkboxreturn(){
-					if (xh.readyState == 4) {
-						if (xh.status == 200) {
-// 							if (xh.responseText != "") {
-// 								console.log(xh.responseText);		
-// 	// 													
-// 							}else{
-// 								console.log("");
-							console.log("checkbox進入");
-							
-						}
-					}
-				}
-					
-
 				$(".multiselect").kendoMultiSelect({autoClose : false});
 				$("tr[name='repeat']").hide();
+				$("#checkbox").hide();
 				$("#familytable").attr("width", "1200px").attr("border", "3px")
 						.attr("border-collapse", "collapse");
 				$("#insert").click(function(event) {

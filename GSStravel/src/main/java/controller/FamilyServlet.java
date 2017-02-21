@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.el.parser.BooleanNode;
 import org.json.simple.JSONObject;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
@@ -138,16 +139,14 @@ public class FamilyServlet extends HttpServlet {
 //				}
 //			}
 //		}
-
-
+		
+		
 		if ("儲存".equals(buttonsave)) {//前面""抓value 
 			Map<String, String> errormsg = new HashMap<String, String>();
 			req.setAttribute("error", errormsg);
-			
-			if(ajaxcheckbox !=null){//抓checkbox的值  未測試 在外面抓 進不來
-				System.out.println(ajaxcheckbox);
-			}
 
+			
+			
 			// 員工 轉值
 			if (empphone == null || empphone.length() == 0) {
 				errormsg.put("empphone", "員工電話不能為空值");
@@ -172,6 +171,7 @@ public class FamilyServlet extends HttpServlet {
 			// 親屬 轉值 家屬為null?
 			// 判斷 假如只有一行空白刪除空白欄位 跟 兩行以上 一行有一行空白 把空白判斷掉
 			List<Date> fambdate = new ArrayList<Date>();
+			
 			int idlength = 0;
 			if (famid != null) {
 				idlength = famid.length;
@@ -195,10 +195,6 @@ public class FamilyServlet extends HttpServlet {
 						}
 					}
 				}
-				
-				//String[] famcar = req.getParameterValues("famcar");
-				
-				
 				
 				if (famname == null || famname.length == 0) {
 					errormsg.put("famname", "親屬家人不能為空值");
@@ -252,12 +248,32 @@ public class FamilyServlet extends HttpServlet {
 			}
 			employeeservice.update(employeevo);
 			System.out.println("員工資料更改完畢");
-
+			
+			
 			if (famid != null) {// 這邊判斷匯錯 因為空值也算一筆?
-
+				
+				ArrayList<Boolean> carcheckbox =new ArrayList<Boolean>();
+				System.out.println(ajaxcheckbox);
+				String[] items = ajaxcheckbox.replaceAll("\\[", "").replaceAll("\\]", "").split(",");
+				String[] results = new String[items.length];
+				 for (int j = 0; j < items.length; j++) {
+						results[j] = String.valueOf(items[j].trim());
+					 	}
+				 for (String element : results) {
+//					 System.out.print(element + ", ");
+					 if(element.equals("0")){
+						 carcheckbox.add(true);
+					 }
+					 if(element.equals("1")){
+						 carcheckbox.add(false);
+					 }
+					 		//還是用判斷並把boolean塞進去?//改成數字後看看?datainsert.jsp
+				 }
+				 System.out.println(carcheckbox.get(0));
+				 System.out.println(carcheckbox.get(1));
+				 System.out.println(carcheckbox.get(2));
 				idlength = famid.length;
 				for (int i = 0; i < idlength; i++) {// 0 1 2 3
-
 					FamilyVO familyvo = new FamilyVO();
 					familyvo.setEmp_No(emp_No);
 					// 這邊的famno 帶錯 如果用name來入找famno會讓famno變成0( 新改的name
@@ -280,14 +296,20 @@ public class FamilyServlet extends HttpServlet {
 					familyvo.setFam_Eat(fameat[i]);
 
 					// 測試
-//					System.out.println(famcar[0]);
-//					System.out.println(famcar[1]);
-//					Map<Integer,Boolean> box = new HashMap<Integer,Boolean>();
-//					box.put(famcar[i], false);
-//					if(famcar[i] )
-//					box.put(i, );
-//					if(famcar[i])
+					
+//					for(Boolean xxx:carcheckbox){
+//						 System.out.println(xxx.toString());
+//						 System.out.println("yyyyyy");
+//					 }
+					
+					
+					
+					if(carcheckbox!=null && carcheckbox.size()!=0){
+					System.out.println(carcheckbox.get(i));
+					familyvo.setFam_Car(carcheckbox.get(i));
+					}else{
 					familyvo.setFam_Car(false);
+					}
 					familyvo.setFam_Bady(false);
 					familyvo.setFam_kid(false);
 					familyvo.setFam_Dis(false);
