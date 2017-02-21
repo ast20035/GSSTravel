@@ -1,15 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="BIG5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src='js/jquery-3.1.1.min.js'></script>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous">
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
 <title>旅遊報名</title>
 </head>
+
 <style>
 * {
 	font-size: 13px;
@@ -39,11 +52,11 @@ td {
 <body>
 	<%@include file="SelectBar.jsp"%>
 	<script>
-			$('li').removeClass('now');
-			$('li:eq(5)').addClass('now');
-		</script>
+		$('li').removeClass('now');
+		$('li:eq(5)').addClass('now');
+	</script>
 	<div class='container-fluid'>
-	<h2>旅費統計</h2>
+		<h2>旅費統計</h2>
 		<form action="<c:url value='/TotalAmountServlet' />" method="POST">
 			<div>
 				<textarea name="tra_Name" class="tra_Name" readonly>${tra_Name}</textarea>
@@ -70,57 +83,67 @@ td {
 						<td><input type="text" name="dept_No" class="dept_No"
 							value="${list.dept_No}" style="border-width: 0" readonly></td>
 						<td><c:if test="${list.fam_No==0}">
-								<input type="text" name="emp_No" class="emp No" value="${list.emp_No}" style="border-width: 0" readonly>
+								<input type="text" name="emp_No" class="emp No"
+									value="${list.emp_No}" style="border-width: 0" readonly>
 								<input type="hidden" name="empfam" value="${list.emp_No}">
-							</c:if>
-							<c:if test="${list.fam_No!=0}">
-								<input type="text" name="empfam" class="fam No" value="${list.emp_No}/${list.fam_No}" style="border-width: 0" readonly>
+							</c:if> <c:if test="${list.fam_No!=0}">
+								<input type="text" name="empfam" class="fam No"
+									value="${list.emp_No}/${list.fam_No}" style="border-width: 0"
+									readonly>
 							</c:if></td>
 						<td><c:if test="${list.fam_Name==NULL}">
-								<input type="text" class="Name" value="${list.emp_Name}" style="border-width: 0" readonly>
-							</c:if>
-							<c:if test="${list.fam_Name!=NULL}">
-								<input type="text" class="Name" value="${list.fam_Name}/${list.emp_Name}" style="border-width: 0" readonly>
+								<input type="text" class="Name" value="${list.emp_Name}"
+									style="border-width: 0" readonly>
+							</c:if> <c:if test="${list.fam_Name!=NULL}">
+								<input type="text" class="Name"
+									value="${list.fam_Name}/${list.emp_Name}"
+									style="border-width: 0" readonly>
 							</c:if></td>
 						<c:if test="${list.fam_Name==NULL}">
-							<td><input type="text" class="years_money years_Money" value="${list.years_money}" style="border-width: 0" readonly></td>
-							<td><input type="text" class="person_money person_Money" value="" style="border-width: 0" readonly>
-							<input type="hidden" class="person" value="${list.emp_No}"></td>
+							<td><input type="text" class="years_money years_Money"
+								value="${list.years_money}" style="border-width: 0" readonly></td>
+							<td><input type="text" class="person_money person_Money"
+								value="" style="border-width: 0" readonly> <input
+								type="hidden" class="person" value="${list.emp_No}"></td>
 						</c:if>
 						<c:if test="${list.fam_Name!=NULL}">
-							<td><input type="text" class="years_Money" value="0.0" style="border-width: 0" readonly></td>
+							<td><input type="text" class="years_Money" value="0.0"
+								style="border-width: 0" readonly></td>
 							<td><c:if test="${list.fam_sub}">
-									<input type="text" class="personfam_money person_Money" style="border-width: 0" value="0.0" readonly>
+									<input type="text" class="personfam_money person_Money"
+										style="border-width: 0" value="0.0" readonly>
 									<input type="hidden" class="person" value="${list.emp_No}">
 								</c:if> <c:if test="${!list.fam_sub}">
-									<input type="text" class="onmoney person_Money" value="0.0" style="border-width: 0" readonly>
-								</c:if>
-							</td>
+									<input type="text" class="onmoney person_Money" value="0.0"
+										style="border-width: 0" readonly>
+								</c:if></td>
 						</c:if>
-						<td><input type="text" name="money" class="money Money" value="${list.det_money}" style="border-width: 0" readonly></td>
-						<td><input type="text" name="det_note" class="det_note det_Note" value="${list.det_note}"></td>
-						<td><input type="text" name="det_noteMoney" class="det_noteMoney det_NoteMoney" value="${list.det_noteMoney}" onkeyup="changeNotemoney()"></td>
+						<td><input type="text" name="money" class="money Money"
+							value="${list.det_money}" style="border-width: 0" readonly></td>
+						<td><input type="text" name="det_note"
+							class="det_note det_Note" value="${list.det_note}"></td>
+						<td><input type="text" name="det_noteMoney"
+							class="det_noteMoney det_NoteMoney" value="${list.det_noteMoney}"
+							onkeyup="changeNotemoney()"></td>
 						<td><c:if test="${list.fam_No==0}">
-								<input type="text" name="TA_money" class="TA_money ta_Money" value="" style="border-width: 0" readonly>
+								<input type="text" name="TA_money" class="TA_money ta_Money"
+									value="" style="border-width: 0" readonly>
 							</c:if> <c:if test="${list.fam_No!=0}">
 								<input type="hidden" class="ta_Money" value="0">
 							</c:if></td>
 					</tr>
 				</c:forEach>
 			</table>
-			<br />
-			<div>
-				<c:if test="${travelVO!=null}">
-					<button type="submit" name="prodaction" value="save">儲存</button>
-				</c:if>
-				<input type="button" onclick="excel()" value="匯出Excel">
-			</div>
+			<c:if test="${travelVO!=null}">
+				<button type="submit" name="prodaction" value="save">儲存</button>
+			</c:if>
+			<input type="button" onclick="excel()" value="匯出Excel">
 		</form>
-		<c:if test="${session!=null}">
-			<script>
-				alert('${session}');
-			</script>
-		</c:if>
+	<c:if test="${session!=null}">
+		<script>
+			alert('${session}');
+		</script>
+	</c:if>
 	</div>
 </body>
 <script>
@@ -135,14 +158,13 @@ td {
 	var a = 0;
 	var b = 0;
 	$().ready(function() {
-		var $BodyWidth = $(document).width();  
-		var $ViewportWidth=$(window).width();  
-		var $ScrollLeft=$(this).scrollLeft();
-		if($BodyWidth>($ViewportWidth+$ScrollLeft)){   
-               $('#span').show();
-		} 
-		else if($BodyWidth==($ViewportWidth+$ScrollLeft)){   
-              $('#span').hide();
+		var $BodyWidth = $(document).width();
+		var $ViewportWidth = $(window).width();
+		var $ScrollLeft = $(this).scrollLeft();
+		if ($BodyWidth > ($ViewportWidth + $ScrollLeft)) {
+			$('#span').show();
+		} else if ($BodyWidth == ($ViewportWidth + $ScrollLeft)) {
+			$('#span').hide();
 		}
 		$.each($personmoney, function(i, value) {
 			var sum = Number(0);
@@ -179,69 +201,69 @@ td {
 			$TAmoney[keys].value = sum;
 		});
 	}
-	function excel(){
-		var $tra_No=$(".tra_No");
-		var $tra_Name=$(".tra_Name");
-		var $dept_No=$(".dept_No");
-		var $No=$(".No");
-		var $Name=$(".Name");
-		var $years_Money=$(".years_Money");
-		var $person_Money=$(".person_Money");
-		var $Money=$(".Money");
-		var $det_Note=$(".det_Note");
-		var $det_NoteMoney=$(".det_NoteMoney");
-		var $ta_Money=$(".ta_Money");
-			
-		var tra_No=$tra_No.val();
-		var tra_Name=$tra_Name.val();
-		
-		var dept_No= new Array();
-		var No= new Array();
-		var Name= new Array();
-		var years_Money= new Array();
-		var person_Money= new Array();
-		var Money= new Array();
-		var det_Note= new Array();
-		var det_NoteMoney= new Array();
-		var ta_Money= new Array();
-		
-		for(var i=0;i<$dept_No.length;i++){
-			dept_No[i]=$dept_No[i].value;
-			No[i]=$No[i].value;
-			Name[i]=$Name[i].value;
-			years_Money[i]=$years_Money[i].value;
-			person_Money[i]=$person_Money[i].value;
-			Money[i]=$Money[i].value;
-			if(!$det_Note[i]){
-				det_Note[i]="";
-			}else{
-				det_Note[i]=$det_Note[i].value;
+	function excel() {
+		var $tra_No = $(".tra_No");
+		var $tra_Name = $(".tra_Name");
+		var $dept_No = $(".dept_No");
+		var $No = $(".No");
+		var $Name = $(".Name");
+		var $years_Money = $(".years_Money");
+		var $person_Money = $(".person_Money");
+		var $Money = $(".Money");
+		var $det_Note = $(".det_Note");
+		var $det_NoteMoney = $(".det_NoteMoney");
+		var $ta_Money = $(".ta_Money");
+
+		var tra_No = $tra_No.val();
+		var tra_Name = $tra_Name.val();
+
+		var dept_No = new Array();
+		var No = new Array();
+		var Name = new Array();
+		var years_Money = new Array();
+		var person_Money = new Array();
+		var Money = new Array();
+		var det_Note = new Array();
+		var det_NoteMoney = new Array();
+		var ta_Money = new Array();
+
+		for (var i = 0; i < $dept_No.length; i++) {
+			dept_No[i] = $dept_No[i].value;
+			No[i] = $No[i].value;
+			Name[i] = $Name[i].value;
+			years_Money[i] = $years_Money[i].value;
+			person_Money[i] = $person_Money[i].value;
+			Money[i] = $Money[i].value;
+			if (!$det_Note[i]) {
+				det_Note[i] = "";
+			} else {
+				det_Note[i] = $det_Note[i].value;
 			}
-			if(!$det_NoteMoney[i]){
-				det_NoteMoney[i]=0;
-			}else{
-				det_NoteMoney[i]=$det_NoteMoney[i].value;
+			if (!$det_NoteMoney[i]) {
+				det_NoteMoney[i] = 0;
+			} else {
+				det_NoteMoney[i] = $det_NoteMoney[i].value;
 			}
-			ta_Money[i]=$ta_Money[i].value;
+			ta_Money[i] = $ta_Money[i].value;
 		}
 		$.ajax({
-			type:"POST",
-			url:"/GSStravel/TotalAmountServlet",
-			data:{
-				tra_No:tra_No,
-				tra_Name:tra_Name,
-				prodaction:"Excel",
-				dept_No:dept_No,
-				No:No,
-				Name:Name,
-				years_Money:years_Money,
-				person_Money:person_Money,
-				Money:Money,
-				det_Note:det_Note,
-				det_NoteMoney:det_NoteMoney,
-				ta_Money:ta_Money
-			},  
-			  
+			type : "POST",
+			url : "/GSStravel/TotalAmountServlet",
+			data : {
+				tra_No : tra_No,
+				tra_Name : tra_Name,
+				prodaction : "Excel",
+				dept_No : dept_No,
+				No : No,
+				Name : Name,
+				years_Money : years_Money,
+				person_Money : person_Money,
+				Money : Money,
+				det_Note : det_Note,
+				det_NoteMoney : det_NoteMoney,
+				ta_Money : ta_Money
+			},
+
 		})
 	}
 </script>
