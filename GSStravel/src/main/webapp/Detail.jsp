@@ -19,6 +19,15 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <title>報名明細</title>
+<style>
+td,th{
+padding: 10px;
+border:1px solid #DDDDDD;
+}
+table{
+margin-right: 3%;
+}
+</style>
 </head>
 <body>
 	<%@include file="SelectBar.jsp"%>
@@ -33,7 +42,8 @@
 			</div>
 		</div>
 		<div class='row'>
-			<div class='col-md-11 col-md-offset-1'>
+		<div class='col-md-1'></div>
+			<div class='col-md-11'>
 				<form action=<c:url value="/detail"/> method="post">
 					<p>活動代碼：${param.tra_no}</p>
 					<input type="hidden" name="tra_no" id="tra_no"
@@ -42,7 +52,7 @@
 					<input type="submit" name="prodaction" value="尚未取消" class='btn btn-primary btn-lg' />
 					<input type="submit" name="prodaction" value="已取消" class='btn btn-primary btn-lg' />
 					<table id="deailtable" 
-						class='table table-bordered '>
+						>
 						<tr>
 							<th></th>
 							<th>員工編號</th>
@@ -95,23 +105,23 @@
 												<option>親友</option>
 											</select>
 										</c:if></td>
-									<td><input type="text" class="name form-control" 
+									<td><input type="text" class="name form-control"  style="width:90px;"
 										name="name" value="${row.name}" disabled></td>
-									<td><input type="text" name="tsex" value="${row.sex}"
-										class='form-control' style="display: none"> <select
-										name="sex" class="sex form-control" disabled>
+									<td><input type="text" name="tsex" value="${row.sex}" 
+										class='form-control' style="display:none;width:70px;">
+										 <select style="width:70px;" name="sex" class="sex form-control" disabled>
 											<option>男</option>
 											<option>女</option>
 									</select></td>
-									<td><input type="text" name="ID" class="TWID form-control"
+									<td><input type="text" name="ID" class="TWID form-control"  style='width:110px;'
 										value="${row.ID}" disabled></td>
-									<td><input type="date" name="Bdate"
+									<td><input type="date" name="Bdate" style='width:150px;'
 										class="Bdate form-control" value="${row.bdate}" disabled></td>
-									<td><input type="text" name="Phone"
+									<td><input type="text" name="Phone" style='width:105px;'
 										class="Phone form-control" value="${row.phone}" disabled></td>
 									<td><input type="text" name="teat" value="${row.eat}"
 										class='form-control' style="display: none"> <select
-										name="eat" disabled class='form-control'>
+										name="eat" disabled class='form-control' style='width:100px;'>
 											<option>葷</option>
 											<option>素</option>
 											<option>不佔餐</option>
@@ -124,15 +134,15 @@
 				        </c:if>
 										</c:if></td>
 									<td><c:if test="${row.rel != '員工'}">
-											<p>
+											<p style='width:130px;'>
 												<c:if test="${row.fam_Bady == true}">
-									幼童(0~3歲)
+									幼童(0~3歲)<br>
 								</c:if>
 												<c:if test="${row.fam_kid == true}">
-									兒童(4~11歲)
+									兒童(4~11歲)<br>
 								</c:if>
 												<c:if test="${row.fam_Dis == true}">
-									持身心障礙手冊
+									持身心障礙手冊<br>
 								</c:if>
 												<c:if test="${row.fam_Mom == true}">
 									孕婦(媽媽手冊)
@@ -169,20 +179,20 @@
 											<input type="hidden" class="text_multiselect"
 												name="text_multiselect" disabled>
 										</c:if></td>
-									<td><input type="text" class="ben form-control" name="ben"
+									<td><input type="text" class="ben form-control" name="ben" style='width:90px;'
 										value="${row.ben}" disabled></td>
-									<td><input type="text" class="ben_Rel form-control"
+									<td><input type="text" class="ben_Rel form-control" style='width:80px;'
 										name="ben_Rel" value="${row.benRel}" disabled></td>
-									<td><input type="text" class="emg form-control" name="emg"
+									<td><input type="text" class="emg form-control" name="emg" style='width:90px;'
 										value="${row.emg}" disabled></td>
-									<td><input type="text" name="emg_Phone"
+									<td><input type="text" name="emg_Phone" style='width:110px;'
 										class="emg_Phone form-control" value="${row.emgPhone}"
 										disabled></td>
-									<td>${row.det_Date}</td>
-									<td>${row.det_CanDate}</td>
-									<td><input type="text" name="note" value="${row.note}"
+									<td ><p style='width:110px;'>${row.det_Date}</p></td>
+									<td ><p style='width:110px;'>${row.det_CanDate}</p></td>
+									<td><input type="text" name="note" value="${row.note}" style='width:150px;'
 										class='form-control' disabled></td>
-									<td>${row.det_canNote}</td>
+									<td><p style='width:200px;'>${row.det_canNote}</p></td>
 								</tr>
 							</c:forEach>
 						</c:if>
