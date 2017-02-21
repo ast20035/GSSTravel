@@ -214,6 +214,24 @@ public class DetailService {
 		}
 		return result;
 	}
+	
+	public List<DetailBean> selectCan(DetailBean bean) {
+		List<DetailBean> result = new ArrayList<>();
+		detailDAO = new DetailDAO();
+		if (bean != null && bean.getTra_NO() != null) {
+			result = detailDAO.selectCan(bean.getTra_NO());
+		}
+		return result;
+	}
+	
+	public List<DetailBean> selectNotCan(DetailBean bean) {
+		List<DetailBean> result = new ArrayList<>();
+		detailDAO = new DetailDAO();
+		if (bean != null && bean.getTra_NO() != null) {
+			result = detailDAO.selectNotCan(bean.getTra_NO());
+		}
+		return result;
+	}
 
 	public String SELECT_Name(int Emp_No, String Name) {
 		detailDAO = new DetailDAO();

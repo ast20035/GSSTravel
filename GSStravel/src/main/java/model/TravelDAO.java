@@ -30,7 +30,7 @@ public class TravelDAO implements ITravelDAO {
 	}
 
 	private static final String GET_ALL_STMT = "SELECT tra_NO, tra_Name,tra_On, tra_Off, tra_Beg, tra_End, tra_Total, tra_Max,tra_Intr,tra_Con,tra_Atter,tra_File, tra_Loc  FROM Travel ORDER BY tra_NO";
-	private static final String selectFortravel = "SELECT tra_NO, tra_Name,tra_On, tra_Off, tra_Beg, tra_End, tra_Total, tra_Max,tra_Intr,tra_Con,tra_Atter,tra_File  FROM Travel where tra_NO= ?";
+	private static final String selectFortravel = "SELECT tra_NO, tra_Name,tra_On, tra_Off, tra_Beg, tra_End, tra_Total, tra_Max,tra_Intr,tra_Con,tra_Atter,tra_File, tra_Loc  FROM Travel where tra_NO= ?";
 	private static final String selectTra_NoTra_End = "select tra_No,tra_End from Travel";
 	private static final String selectTra_NoTra_Beg = "select tra_No,tra_Beg from Travel";
 	private static final String selectTra_No = "select tra_No from Travel";
@@ -178,6 +178,7 @@ public class TravelDAO implements ITravelDAO {
 				result.setTra_Con(rset.getString("tra_Con"));
 				result.setTra_Atter(rset.getString("tra_Atter"));
 				result.setTra_File(rset.getString("tra_File"));
+				result.setTra_Loc(rset.getString("tra_Loc"));
 
 			}
 		} catch (SQLException e) {

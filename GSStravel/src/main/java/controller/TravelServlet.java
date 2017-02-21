@@ -24,10 +24,8 @@ import model.TravelVO;
 
 @WebServlet(urlPatterns = { ("/Travel_Edit") })
 
-/*---------*/
 public class TravelServlet extends HttpServlet {
 
-	// private TravelService travelService =null;
 	private TravelService travelService = new TravelService();
 	private ItemService itemService = new ItemService();
 	/* 初始化 */
@@ -70,7 +68,8 @@ public class TravelServlet extends HttpServlet {
 		String[] itemName = request.getParameterValues("edititemName");
 		String[] itemMoney = request.getParameterValues("edititemMoney");
 		String inputerrors = request.getParameter("inputerrors");
-
+		
+		
 		// 驗證資料
 		Map<String, String> errors = new HashMap<String, String>();
 		request.setAttribute("errors", errors);
@@ -380,7 +379,13 @@ public class TravelServlet extends HttpServlet {
 			ItemVO v = new ItemVO();
 			v.setTra_No(traNo);
 			
-				System.out.println("edititemNo:" + edititemNo);
+			for(String a:itemName){
+				System.out.println(a+"name");
+			}
+			for(String x:itemMoney){
+				System.out.println(x+"Money");
+			}
+//				System.out.println("edititemNo:" + edititemNo);
 
 				for (int i = 0; i < itemNo.length; i++) {
 					
@@ -394,10 +399,10 @@ public class TravelServlet extends HttpServlet {
 						ItemVO result1 = itemService.update(v);
 						itemfor.add(result1);
 					}
-					else{
-						ItemVO result1 = itemService.insert(v);
-						itemfor.add(result1);
-					}
+//					else{
+//						ItemVO result1 = itemService.insert(v);
+//						itemfor.add(result1);
+//					}
 					
 				}
 

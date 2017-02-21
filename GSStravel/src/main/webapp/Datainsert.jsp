@@ -225,7 +225,7 @@ td>input[type=text] {
 											</c:if>
 									</select></td>
 
-									<td><input type="text" name="famid" style='width:100px;'
+									<td><input type="text" name="famid" style='width:110px;'
 										class="famid form-control" value="${start.fam_Id}">
 										<div class="famiderror" name="famiderror">${error.famid}</div></td>
 									<td><input type="date" id="fambdate" name="fambdate" style='width:170px;'

@@ -21,17 +21,11 @@
 	crossorigin="anonymous"></script>
 <link href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"
 	rel="stylesheet" />
-	
-<script src='js/jquery.inputmask.date.extensions.js'></script>	
-<script src='js/jquery-3.1.1.min.js'></script>	
+
+<script src='js/jquery.inputmask.date.extensions.js'></script>
+<script src='js/jquery-3.1.1.min.js'></script>
 <script type="text/javascript">
-$("#tsfield").inputmask("timestamp", { 
-    mask:        "y/1/2 h:s:s",
-    placeholder: "yyyy/mm/dd hh:mm:ss",
-    separator:   "/",
-    alias:       "datetime",
-    hourFormat:  "24"
-});
+	
 </script>
 
 <style type="text/css">
@@ -70,16 +64,71 @@ li {
 					<td></td>
 				</tr>
 				<tr>
-					<td><em style="color: red">*</em>活動地點</td>
-					<td><SELECT name="edittraLoc">
-							<OPTION selected="selected">${params.tra_Loc}</OPTION>
-							<!-- <option selected="selected" value="null">請選擇地點</option> -->
-							<OPTION value="北">北</OPTION>
-							<OPTION value="中">中</OPTION>
-							<OPTION value="南">南</OPTION>
-							<OPTION value="東">東</OPTION>
-							<OPTION value="外島">外島</OPTION>
-					</SELECT></td>
+					<td>*活動地點 ${params.tra_Loc}</td>
+
+					 			<td><SELECT name="edittraLoc"> 
+					 			<option value="" selected>${params.tra_Loc}</option> 
+					 			<OPTION  value="北">北</OPTION> 
+								<OPTION  value="中">中</OPTION> 
+								<OPTION  value="南">南</OPTION> 
+								<OPTION  value="東">東</OPTION> 
+								<OPTION  value="外島">外島</OPTION>
+							</SELECT></td> 
+<!-- 					<td><select name="edittraLoc"> -->
+
+<%-- 							<option value="北" ${params.tra_Loc == '北' ? 'selected' : ''}>北</option> --%>
+<%-- 							<option value="中" ${params.tra_Loc == '中' ? 'selected' : ''}>中</option> --%>
+<%-- 							<option value="南" ${params.tra_Loc == '南' ? 'selected' : ''}>南</option> --%>
+<%-- 							<option value="東" ${params.tra_Loc == '東' ? 'selected' : ''}>東</option> --%>
+<%-- 							<option value="外島" ${params.tra_Loc == '外島' ? 'selected' : ''}>外島</option> --%>
+
+
+<!-- 					</select></td> -->
+<!-- 				<td><select name="edittraLoc"> -->
+<%-- 				<option selected="selected">${params.tra_Loc}</option> --%>
+<%-- 				<c:if test="${params.tra_Loc=='北'}"> --%>
+<!-- 		     <option value="北" selected>北</option> -->
+<!-- 		     <option value="中">中</option> -->
+<!-- 		     <option value="南">南</option> -->
+<!-- 		     <option value="東">東</option> -->
+<!-- 		     <option value="外島">外島</option> -->
+<%-- 			 </c:if> --%>
+			 
+<%-- 			<c:if test="${params.tra_Loc=='中'}"> --%>
+<!-- 		     <option value="北" >北</option> -->
+<!-- 		     <option value="中" selected>中</option> -->
+<!-- 		     <option value="南" >南</option> -->
+<!-- 		     <option value="東">東</option> -->
+<!-- 		     <option value="外島">外島</option> -->
+<%-- 			 </c:if> --%>
+			 
+<%-- 			 <c:if test="${params.tra_Loc=='南'}"> --%>
+<!-- 		     <option value="北" >北</option> -->
+<!-- 		     <option value="中"	>中</option> -->
+<!-- 		     <option value="南" selected>南</option> -->
+<!-- 		     <option value="東">東</option> -->
+<!-- 		     <option value="外島">外島</option> -->
+<%-- 			 </c:if> --%>
+			 
+<%-- 			 <c:if test="${params.tra_Loc=='東'}"> --%>
+<!-- 		     <option value="北" >北</option> -->
+<!-- 		     <option value="中">中</option> -->
+<!-- 		     <option value="南">南</option> -->
+<!-- 		     <option value="東" selected>東</option> -->
+<!-- 		     <option value="外島">外島</option> -->
+<%-- 			 </c:if> --%>
+			 
+<%-- 			  <c:if test="${params.tra_Loc=='外島'}"> --%>
+<!-- 		     <option value="北" >北</option> -->
+<!-- 		     <option value="中">中</option> -->
+<!-- 		     <option value="南">南</option> -->
+<!-- 		     <option value="東">東</option> -->
+<!-- 		     <option value="外島" selected>外島</option> -->
+<%-- 			 </c:if> --%>
+
+				
+<!-- 				</select></td> -->
+
 					<!-- 
 <select class="" name ="edittraName"  m data-placeholder="請選擇" style="width: 200px;">
 			 <c:if test="${start.fam_Bady=='false'} ${start.fam_kid=='false'} ${start.fam_Dis=='false'} ${start.fam_Mom=='false'}" >
@@ -119,16 +168,17 @@ li {
 					<td></td>
 				</tr>
 				<tr>
-					<td><em style="color: red">*</em>活動日期</td>
+				<tr>
+					<td>*活動日期</td>
 
 					<td><input type="text" name="edittraOn"
-						value="${params.tra_On}"><a> ~</a> <input type="date"
+						value="${params.tra_On}"><a> ~</a> <input type="text"
 						name="edittraOff" value="${params.tra_Off}"></td>
 				</tr>
 				<tr>
-					<td><em style="color: red">*</em>登記時間</td>
+					<td>*登記時間</td>
 					<td><input type="text" name="edittraBeg"
-						value="${params.tra_Beg}"><a> ~</a> <input type="date"
+						value="${params.tra_Beg}"><a> ~</a> <input type="text"
 						name="edittraEnd" value="${params.tra_End}"></td>
 
 					<td></td>
@@ -176,7 +226,7 @@ li {
 				<tr>
 					<td>費用</td>
 					<td><input type="button" value="新增欄位" id="insert"
-						name="button"></td>>
+						name="button"></td>
 				</tr>
 			</table>
 
@@ -204,14 +254,13 @@ li {
 
 						<td><input type="text" name="edititemNo"
 							value="${row.item_No}"></td>
-							<td><input type="text" name="tra_no" value="${row.tra_No}"
-					></td>
-<%-- 						<td class="t">tra_No : ${row.tra_No}</td> --%>
-<%-- 						<td class="t">item_No : ${row.item_No}</td> --%>
-					<td><input type="submit" name="delete" id="delete"
-								value="delete"></td>
+						<td><input type="text" name="tra_no" value="${row.tra_No}"></td>
+						<%-- 						<td class="t">tra_No : ${row.tra_No}</td> --%>
+						<%-- 						<td class="t">item_No : ${row.item_No}</td> --%>
+						<td><input type="submit" name="delete" id="delete"
+							value="delete"></td>
 					</tr>
-					
+
 				</c:forEach>
 			</table>
 
@@ -233,32 +282,31 @@ li {
 				<td><input type="text" name="edititemMoney"
 					value="${row.item_Money}"></td>
 
-				<td><input type="text" name="edititemNo" value="${row.item_No}"
-					></td>
-					<td><input type="text" name="tra_no" value="${row.tra_No}"></td>
-<%-- 				<td class="t">tra_No : ${row.tra_No}</td> --%>
-<%-- 				<td class="t">item_No : ${row.item_No}</td> --%>
+				<td><input type="text" name="edititemNo" value="${row.item_No}"></td>
+				<td><input type="text" name="tra_no" value="${row.tra_No}"></td>
+				<%-- 				<td class="t">tra_No : ${row.tra_No}</td> --%>
+				<%-- 				<td class="t">item_No : ${row.item_No}</td> --%>
 				<td><input type="submit" name="delete" id="delete"
-								value="delete"></td>
+					value="delete"></td>
 			</tr>
 		</table>
 
 		<script>
 			$(function() {
 				$("tr[name='newtable']").hide();
-				$("#insert").click(function(event) {$("#Itemtable").append('<tr class=newtable>'+ $("tr[name='newtable']").html()
+				$("#insert").click(
+						function(event) {
+							$("#Itemtable").append(
+									'<tr class=newtable>'
+											+ $("tr[name='newtable']").html()
 											+ '</tr>');
 						})
 				//刪除動態tr		
-				$("#Itemtable").on("click", "input[name='delete']",
-						function() {
-						$(this).parents("tr").remove();
-						});
+				$("#Itemtable").on("click", "input[name='delete']", function() {
+					$(this).parents("tr").remove();
+				});
 
-						
 			});
-			
-
 		</script>
 	</div>
 </body>

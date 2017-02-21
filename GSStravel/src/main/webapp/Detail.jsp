@@ -48,9 +48,12 @@ margin-right: 3%;
 					<p>活動代碼：${param.tra_no}</p>
 					<input type="hidden" name="tra_no" id="tra_no"
 						value="${param.tra_no}">
-					<input type="submit" name="prodaction" value="顯示全部" class='btn btn-primary btn-lg' />
-					<input type="submit" name="prodaction" value="尚未取消" class='btn btn-primary btn-lg' />
-					<input type="submit" name="prodaction" value="已取消" class='btn btn-primary btn-lg' />
+						<select class="selectTable" >
+								<option>顯示全部</option>
+								<option>尚未取消</option>
+								<option>已取消</option>
+						</select>
+
 					<table id="deailtable" 
 						>
 						<tr>
@@ -189,7 +192,7 @@ margin-right: 3%;
 										class="emg_Phone form-control" value="${row.emgPhone}"
 										disabled></td>
 									<td ><p style='width:110px;'>${row.det_Date}</p></td>
-									<td ><p style='width:110px;'>${row.det_CanDate}</p></td>
+									<td ><em style='width:110px;'>${row.det_CanDate}</em></td>
 									<td><input type="text" name="note" value="${row.note}" style='width:150px;'
 										class='form-control' disabled></td>
 									<td><p style='width:200px;'>${row.det_canNote}</p></td>
@@ -198,9 +201,9 @@ margin-right: 3%;
 						</c:if>
 					</table>
 					<br />
-					<button type="submit" name="prodaction" value="insert" class='btn btn-primary btn-lg'>新增</button>
+					<button type="submit" name="prodaction" value="insert" class='btn btn-primary'>新增</button>
 					<!-- 柯(請勿刪除) -->
-					<input type="submit" name="excel" value="匯出Excel" class='btn btn-primary btn-lg' />
+					<input type="submit" name="excel" value="匯出Excel" class='btn btn-primary' />
 					<!-- 柯(請勿刪除) -->
 				</form>
 			</div>
@@ -215,6 +218,19 @@ margin-right: 3%;
 			src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
 		<script type="text/javascript">
 $(function(){ 
+	 $(".selectTable").on("change",function(){
+		 if($(this).val() == "顯示全部"){
+			 $("em:empty").parent().parent().show();
+			 $("em:contains('-')").parent().parent().show();
+		 }else if($(this).val() == "尚未取消"){
+			 $("em:empty").parent().parent().show();
+			 $("em:contains('-')").parent().parent().hide();
+		 }else{
+			 $("em:contains('-')").parent().parent().show();
+			 $("em:empty").parent().parent().hide();
+		 }
+	})
+	
 	var $BodyWidth = $(document).width();  
 	var $ViewportWidth=$(window).width();  
 	var $ScrollLeft=$(this).scrollLeft();
@@ -415,8 +431,6 @@ $(function(){
 		 if(this.type=='button'){
 			 alert("儲存失敗！");
 		 }
-		 
-		 
 	 });
 function open_Can(obj) {
     var CanUrl = '/GSStravel/Detail_Cancel.jsp?can_detNo=' + obj.value + "&can_traNo=" + document.getElementById("tra_no").value;
