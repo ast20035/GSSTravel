@@ -7,18 +7,6 @@ public class TotalAmountVO {
 	private String thisyear;
 	private boolean yearsub;
 	
-	public String getThisyear() {
-		return thisyear;
-	}
-	public void setThisyear(String thisyear) {
-		this.thisyear = thisyear;
-	}
-	public boolean isYearsub() {
-		return yearsub;
-	}
-	public void setYearsub(boolean yearsub) {
-		this.yearsub = yearsub;
-	}
 	public String getTra_No() {
 		return tra_No;
 	}
@@ -37,5 +25,19 @@ public class TotalAmountVO {
 	public void setTa_Money(float ta_Money) {
 		this.ta_Money = ta_Money;
 	}
+	public String getThisyear() {
+		return thisyear;
+	}
+	public void setThisyear(String thisyear) {
+		this.thisyear = thisyear;
+	}
+	public boolean getYearsub() {
+		return yearsub;
+	}
+	public void setYearsub(boolean yearsub) {
+		this.yearsub = yearsub;
+	}
+	
 
+	
 }

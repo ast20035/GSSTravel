@@ -67,13 +67,14 @@ public class FamilyServlet extends HttpServlet {
 		String buttonsave = req.getParameter("button");
 		String ajaxid = req.getParameter("id");//判斷前端寫親屬身分證有無重複
 		String ajaxfamid = req.getParameter("famid");//用前端的親屬身分證去刪親屬
-//		String ajaxcheckbox =req.getParameter("")
+		String ajaxcheckbox =req.getParameter("checkbox");
 		PrintWriter out = res.getWriter();//ajax輸出???
 		
 		HttpSession session = req.getSession();
 		Integer emp_No = (Integer) session.getAttribute("emp_No");
 		List<String> id = familyservice.selectid(emp_No);
 
+		
 		
 		if (ajaxid != null) {//用來抓是否重複報名id會在前端顯示
 			String[] items = ajaxid.replaceAll("\\[", "").replaceAll("\"", "").replaceAll("\\]", "").split(",");
@@ -139,10 +140,13 @@ public class FamilyServlet extends HttpServlet {
 //		}
 
 
-		if ("儲存".equals(buttonsave)) {//前面""抓value
+		if ("儲存".equals(buttonsave)) {//前面""抓value 
 			Map<String, String> errormsg = new HashMap<String, String>();
 			req.setAttribute("error", errormsg);
-
+			
+			if(ajaxcheckbox !=null){//抓checkbox的值  未測試 在外面抓 進不來
+				System.out.println(ajaxcheckbox);
+			}
 
 			// 員工 轉值
 			if (empphone == null || empphone.length() == 0) {
@@ -191,6 +195,11 @@ public class FamilyServlet extends HttpServlet {
 						}
 					}
 				}
+				
+				//String[] famcar = req.getParameterValues("famcar");
+				
+				
+				
 				if (famname == null || famname.length == 0) {
 					errormsg.put("famname", "親屬家人不能為空值");
 				}
@@ -271,9 +280,9 @@ public class FamilyServlet extends HttpServlet {
 					familyvo.setFam_Eat(fameat[i]);
 
 					// 測試
-					System.out.println(famcar[0]);
-					System.out.println(famcar[1]);
-					Map<Integer,Boolean> box = new HashMap<Integer,Boolean>();
+//					System.out.println(famcar[0]);
+//					System.out.println(famcar[1]);
+//					Map<Integer,Boolean> box = new HashMap<Integer,Boolean>();
 //					box.put(famcar[i], false);
 //					if(famcar[i] )
 //					box.put(i, );

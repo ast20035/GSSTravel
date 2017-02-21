@@ -1,3 +1,4 @@
+<%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,6 +7,17 @@
 
 <html>
 <head>
+<style>
+tr>td {
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-right: 10px;
+}
+
+td>input[type=text] {
+	width: 220px;
+}
+</style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src='js/jquery-3.1.1.min.js'></script>
 <link rel="stylesheet"
@@ -21,17 +33,7 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <title>Insert title here</title>
-<style>
-tr>td {
-	padding-top: 3px;
-	padding-bottom: 3px;
-	padding-right: 10px;
-}
 
-td>input[type='text'] {
-	width: 200px;
-}
-</style>
 </head>
 <body>
 
@@ -64,77 +66,77 @@ td>input[type='text'] {
 				<div class='col-md-3'>
 					<table>
 						<tr>
-							<td><div class='input-group'>
-									<span class="input-group-addon info" id="sizing-addon1">員工編號</span>
+							<td>
+									<span class="input-group-addon info" >員工編號</span></td><td>
 									<input type='text' class='form-control' readonly
-										value='${empno}' aria-describedby="sizing-addon1" />
-								</div></td>
+										 value='${empno}' />
+								</td>
 						</tr>
 						<tr>
-							<td><div class='input-group'>
-									<span class="input-group-addon info" id="sizing-addon2">姓名</span>
+							<td>
+									<span class="input-group-addon info" >姓名</span></td><td>
 									<input type='text' class='form-control' readonly
-										value='${empname}' aria-describedby="sizing-addon2" />
-								</div></td>
+										value='${empname}'  />
+								</td>
 						</tr>
 						<tr>
-							<td><div class='input-group'>
-									<span class="input-group-addon info" id="sizing-addon3">手機</span>
+							<td>
+									<span class="input-group-addon info" >手機</span></td><td>
 									<input type="text" name="empphone" id="empphone"
 										class='form-control' autofocus
-										aria-describedby="sizing-addon3" value="${empphone}">
-								</div>
+										 value="${empphone}">
+								
 								<div id=empphoneerror>${error.empphone}</div></td>
 						</tr>
 						<tr>
-							<td><div class='input-group'>
-									<span class="input-group-addon info" id="sizing-addon4">保險受益人</span>
+							<td>
+									<span class="input-group-addon info" >保險受益人</span></td><td>
 									<input type="text" name="empben" id="empben"
-										class='form-control' aria-describedby="sizing-addon4"
+										class='form-control'
 										value="${empben}">
-								</div>
+								
 								<div id=empbenerror>${error.empben}</div></td>
 						</tr>
 						<tr>
-							<td><div class='input-group'>
-									<span class="input-group-addon info" id="sizing-addon5">與受益人關係</span>
+							<td>
+									<span class="input-group-addon info">與受益人關係</span></td><td>
 									<input type="text" name="empbenrel" id="empbenrel"
-										class='form-control' aria-describedby="sizing-addon5"
+										class='form-control' 
 										value="${empbenrel}">
-								</div>
+								
 								<div id=empbenrelerror>${error.empbenrel}</div></td>
 						</tr>
 						<tr>
-							<td><div class='input-group'>
-									<span class="input-group-addon info" id="sizing-addon6">緊急聯絡人</span>
+							<td>
+									<span class="input-group-addon info" >緊急聯絡人</span></td><td>
 									<input type="text" name="empemg" id="empemg"
-										class='form-control' aria-describedby="sizing-addon6"
+										class='form-control'
 										value="${empemg}">
-								</div>
+								
 								<div id=empemgerror>${error.empemg}</div></td>
 						</tr>
 						<tr>
-							<td><div class='input-group'>
-									<span class="input-group-addon info" id="sizing-addon7">緊急聯絡人電話</span>
+							<td>
+									<span class="input-group-addon info" >緊急聯絡人電話</span></td><td>
 									<input type="text" name="empemgphone" id="empemgphone"
-										class='form-control' aria-describedby="sizing-addon7"
+										class='form-control' 
 										value="${empemgphone}">
-								</div>
+								
 								<div id=empemgphoneerror>${error.empemgphone}</div></td>
 						</tr>
 						<tr>
-							<td><div class='input-group'>
-									<span class="input-group-addon info" id="sizing-addon8">信箱</span>
+							<td>
+									<span class="input-group-addon info" >信箱</span></td><td>
 									<input type="text" name="empemail" id="empemail"
-										class='form-control' aria-describedby="sizing-addon8"
+										class='form-control' 
 										value="${empemail}">
-								</div>
+								
 								<div id=empemailerror>${error.empemailerror}</div></td>
 						</tr>
 						<tr>
-							<td><div class='input-group'>
-									<span class="input-group-addon info" id="sizing-addon8">用餐</span>
-									<select name="empeat" aria-describedby="sizing-addon8"
+							<td>
+									<span class="input-group-addon info" >用餐</span></td><td>
+									<select name="empeat" 
 										class='form-control'>
 										<c:if test="${empeat=='葷'}">
 											<option value="葷" selected>葷</option>
@@ -145,15 +147,15 @@ td>input[type='text'] {
 											<option value="素" selected>素</option>
 										</c:if>
 									</select> (如有特別要求請填寫於備註)
-								</div></td>
+								</td>
 						</tr>
 						<tr>
-							<td><div class='input-group'>
-									<span class="input-group-addon info" id="sizing-addon9">備註</span>
+							<td>
+									<span class="input-group-addon info" >備註</span></td><td>
 									<input type="text" name="empnote" id="empnote"
-										aria-describedby="sizing-addon9" class='form-control'
+										 class='form-control'
 										value="${empnote}">
-								</div>
+								
 								<div id=empnoteerror></div></td>
 						</tr>
 					</table>
@@ -202,10 +204,10 @@ td>input[type='text'] {
 												<option value="親友">親友</option>
 											</c:if>
 									</select></td>
-									<td><input type="text" name="famname" id="famname"
+									<td><input type="text" name="famname" id="famname" style='width:90px;'
 										class='form-control' value="${start.fam_Name}">
 										<div class="famnameerror" name="famnameerror">${error.famneme}</div></td>
-									<td><select name="famsex" class='form-control'>
+									<td><select name="famsex" class='form-control' style='width:70px;'>
 											<!--  servlet抓name db抓值會抓進value值進去-->
 											<c:if test="${start.fam_Sex=='男'}">
 												<option value="女">女</option>
@@ -217,13 +219,13 @@ td>input[type='text'] {
 											</c:if>
 									</select></td>
 
-									<td><input type="text" name="famid"
+									<td><input type="text" name="famid" style='width:90px;'
 										class="famid form-control" value="${start.fam_Id}">
 										<div class="famiderror" name="famiderror">${error.famid}</div></td>
-									<td><input type="date" id="fambdate" name="fambdate"
+									<td><input type="date" id="fambdate" name="fambdate" style='width:170px;'
 										class="fambdate form-control" value="${start.fam_Bdate}" />
 										<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div></td>
-									<td><input type="text" name="famphone" id="famphone"
+									<td><input type="text" name="famphone" id="famphone" style='width:90px;'
 										class='form-control' value="${start.fam_Phone}">
 										<div class=famphoneerror>${error.famphone}</div></td>
 									<td><select name="fameat" style='width: 100px;'
@@ -246,14 +248,13 @@ td>input[type='text'] {
 											</c:if>
 									</select> <c:if test="${start.fam_Car=='true'}">
 											<input id="${start.fam_No}_car" name="famcar" type="checkbox"
-												value="true" class="${start.fam_No}" checked>
+												value="off" class="${start.fam_No}" >
 											<span>不占車位</span>
 										</c:if> <c:if test="${start.fam_Car=='false'}">
 											<input id="${start.fam_No}_car" name="famcar" type="checkbox"
-												value="true" class="${start.fam_No}">
+												value="off" class="${start.fam_No}" Checked>
 											<span>不占車位</span>
 										</c:if></td>
-
 									<td><div class='select'>
 											<select class="multiselect aaa form-control" name="famspa"
 												style='width: 350px;' multiple="multiple"
@@ -287,23 +288,23 @@ td>input[type='text'] {
 											</select>
 										</div></td>
 
-									<td><input type="text" name="famben" id="famben"
+									<td><input type="text" name="famben" id="famben" style='width:90px;'
 										class='form-control' value="${start.fam_Ben}">
 										<div class="fambenerror">${error.famben}</div></td>
-									<td><input type="text" name="fambenrel" id="fambenrel"
+									<td><input type="text" name="fambenrel" id="fambenrel" style='width:90px;'
 										class='form-control' value="${start.fam_BenRel}">
 										<div class="fambenrelerror">${error.fambenrel}</div></td>
-									<td><input type="text" name="famemg" id="famemg"
+									<td><input type="text" name="famemg" id="famemg" style='width:90px;'
 										class='form-control' value="${start.fam_Emg}">
 										<div class="famemgerror">${error.famemg}</div></td>
-									<td><input type="text" name="famemgphpone"
+									<td><input type="text" name="famemgphpone" style='width:90px;'
 										class='form-control' id="famemgphone"
 										value="${start.fam_EmgPhone}">
 										<div class="famemgphoneerror">${error.famemgphone}</div></td>
-									<td><input type="text" name="famemgrel" id="famemgrel"
+									<td><input type="text" name="famemgrel" id="famemgrel" style='width:90px;'
 										class='form-control' value="${start.fam_EmgRel}">
 										<div class="famemgrelerror">${error.famemgrel}</div></td>
-									<td><input type="text" name="famnote" id="famnote"
+									<td><input type="text" name="famnote" id="famnote" style='width:200px;'
 										class='form-control' value="${start.fam_Note}">
 										<div class="famnoteerror"></div></td>
 								</tr>
@@ -353,7 +354,7 @@ td>input[type='text'] {
 					<option value="葷">葷</option>
 					<option value="素">素</option>
 					<option value="不佔餐">不佔餐</option>
-			</select> <input name="famcar" type="checkbox" value="true"
+			</select> <input name="famcar" type="checkbox" value="off"
 				class="${start.fam_No}"> <span>不占車位</span></td>
 			<td><div class='select'>
 					<select name="famspa" id="multiselect" multiple="multiple"
@@ -396,32 +397,12 @@ td>input[type='text'] {
 // 							$(this).parents("tr").remove();
 							//直接改成submit 讓他重新跳轉頁面不要刪欄位
 						//做成只有submit怎麼辦
+						
 						searchfamid();
 						$(this).parents("tr").remove();
 						});
 			
 	
-
-// 			searchbox();
-			//儲存鍵按下後判斷checkbox 有按下鍵的 回傳一個值  沒有按下鍵的回傳另外一個值 
-			//在去判斷那個值是哪個 在去放置true  false 0 1等等 紀德判斷 不占車位為1 占車位為2
-// 			var pathName = document.location.pathname;
-// 			var index = pathName.substr(1).indexOf("/");
-// 			var result = pathName.substr(0, index + 1);
-// 			var url = result + "/FamilyServlet";
-// 			var boxvalue =0;
-// 			var famno=0;
-// 			function searchbox(){
-// // 				if()
-// 				 famno = $("input[name='famcar']").attr("class");
-// 				 boxvalue=$("in")
-// 			}
-// 			$.post(url,{"famno":famno,"boxvalue":boxvalue  },function(){
-// 				console.log("box return value");
-// 			});
-			
-				
-			
 				var famid=0;
 			function searchfamid() {//按下delete去找他的famid
 				if (xh != null) {
@@ -473,8 +454,6 @@ td>input[type='text'] {
 					var famidnew = $(".repeat .famid").map(function() {
 						return $(this).val();
 					}).get();
-
-					
 					console.log(famidnew);//輸出陣列出來
 					// 					console.log(famidold);
 					var pathName = document.location.pathname;
@@ -531,13 +510,61 @@ td>input[type='text'] {
 			} else if ($BodyWidth == ($ViewportWidth + $ScrollLeft)) {
 				$('#span').hide();
 			}
-// 				$("#save").on("submit",function(){
-// 					$("input:not(:checked)").val("false");
-// 				});
-				$("input[name*='famcar']").click(function(){
-						$(!$(this).is(':checked')).val("false");
-				});
+			
+			$("save").click(function(){
+				searchcheckbox();
+			})
 				
+				function searchcheckbox(){
+					if (xh != null) {
+									//window.onload時執行 記得要變成按下save後計算
+								var idlength= $("#familytable input[name*='famcar']").length-1;//3
+								console.log(idlength);
+								var checkbox=[];
+								checkbox.length=idlength;//0 1 2
+									
+								if($("#familytable input[name='famcar']:checked").length > 0){
+									$("#familytable input[name='famcar'] ").each(function(){
+										if($(this).prop("checked")==false){
+												checkbox.push("nocheck");
+										}else{
+												checkbox.push("check");
+										}
+									})
+								}
+								console.log(checkbox);
+								var checkboxstring = checkbox.join("、");
+								console.log(checkboxstring);
+								
+								
+								var pathName = document.location.pathname;
+								var index = pathName.substr(1).indexOf("/");
+								var result = pathName.substr(0, index + 1);
+								var url = result + "/FamilyServlet";
+
+								xh.addEventListener("readystatechange", checkboxreturn);
+								xh.open("POST", url);
+								xh.setRequestHeader("Content-Type",
+										"application/x-www-form-urlencoded");
+								xh.send("checkbox=" + checkbox);
+							} else {
+								alert("Your browser doesn't support JSON!");
+							}
+						}
+				function checkboxreturn(){
+					if (xh.readyState == 4) {
+						if (xh.status == 200) {
+// 							if (xh.responseText != "") {
+// 								console.log(xh.responseText);		
+// 	// 													
+// 							}else{
+// 								console.log("");
+							console.log("checkbox進入");
+							
+						}
+					}
+				}
+					
 
 				$(".multiselect").kendoMultiSelect({autoClose : false});
 				$("tr[name='repeat']").hide();

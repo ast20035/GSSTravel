@@ -36,4 +36,7 @@ public class TotalAmountService {
 	public void updateYearSub(boolean yearsub,Integer emp_No,String tra_No ){
 		totalAmountDAO.updateYearSub(yearsub,emp_No,tra_No);
 	}
+	public boolean select_yearsub(int emp_No ,String tra_No){
+		return totalAmountDAO.select_yearsub(emp_No, tra_No);
+	}
 }
