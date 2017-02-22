@@ -35,7 +35,7 @@ public class ItemDAO implements IItemDAO {
 	}
 
 	@Override
-	public boolean delete(int item_No) {
+	public boolean delete(int item_No,String tra_No) {
 		try(
 				Connection conn = ds.getConnection();	//web用
 				PreparedStatement stmt = conn.prepareStatement(DELETE);) {			
