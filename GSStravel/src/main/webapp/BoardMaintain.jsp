@@ -21,28 +21,45 @@
 <link rel="stylesheet" type="text/css" href="" />
 <title>Announcement Maintain</title>
 <style>
-td {
-	border: 2px outset black;
-	text-align: center;
-	/* 	padding: 0px 0px 0px 0px; */
-	font-size: 15px;
+table, tr, td {
+	border: 1px solid black;
 }
-
-table {
-	margin-top: 2%;
+.clock {
+	border: 1px solid black;
+	width: 200px;
+	height: 70px;
+	text-align: center;
 }
 </style>
 <script>
 	window.onload = function() {
+		var title = document.getElementById('title');
+		var startDay = document.getElementById('startDay');
+		var endDay = document.getElementById('endDay');
 		setBoard();
+		showtime();
 	}
 
 	var xh = new XMLHttpRequest();
 
 	function setBoard() {
 		if (xh != null) {
+			var pathName = document.location.pathname;
+			var index = pathName.substr(1).indexOf("/");
+			var result = pathName.substr(0, index + 1);
+			var url = result + "/AnnouncementServlet?select=查詢&";
+			if (title.value != undefined && title.value != '') {
+// 				url = url + "title=" + title.value + "&";
+				url = url + "title=" + title.value;
+			}
+// 			if (startDay.value != undefined && startDay.value != '') {
+// 				url = url + "startDay=" + startDay.value + "&";
+// 			}
+// 			if (endDay.value != undefined && endDay.value != '') {
+// 				url = url + "endDay=" + endDay.value;	
+// 			}
 			xh.addEventListener("readystatechange", setBoardData, false);
-			xh.open("GET", "AnnouncementServlet?select=查詢", true);
+			xh.open("GET", url, true);
 			xh.send();
 		} else {
 			alert("很抱歉，您的瀏覽器不支援AJAX功能！");
@@ -62,7 +79,7 @@ table {
 				for (var i = 0; i < board.length; i++) {
 					var tr = document.createElement("tr");
 					var td = document.createElement("td");
-					
+
 					td = document.createElement("td");
 					td.appendChild(document.createTextNode(board[i].time));
 					tr.appendChild(td);
@@ -82,10 +99,40 @@ table {
 			}
 		}
 	}
-</script>
 
+	var now = null;
+	var hours = null;
+	var minutes = null;
+	var seconds = null;
+	var timeValue = null;
+	var clock = null;
+	function showtime() {
+		clock = document.getElementById("clock");
+		now = new Date();
+		hours = now.getHours();
+		minutes = now.getMinutes();
+		seconds = now.getSeconds();
+		timeValue = hours + "：";
+		if (minutes < 10) {
+			timeValue += " 0" + minutes + "：";
+			if (seconds < 10) {
+				timeValue += " 0" + seconds;
+			} else {
+				timeValue += seconds;
+			}
+		} else {
+			timeValue += minutes + "：";
+			if (seconds < 10) {
+				timeValue += " 0" + seconds;
+			} else {
+				timeValue += seconds;
+			}
+		}
+		clock.innerHTML = timeValue;
+		setTimeout("showtime()", 1000);
+	}
+</script>
 </head>
-<!-- <body onload="showtime()"> -->
 <body>
 	<%@include file="SelectBar.jsp"%>
 	<script>
@@ -100,33 +147,14 @@ table {
 			</div>
 		</div>
 		<form action="<c:url value="/AnnouncementServlet" />" method="GET">
-			<script language="JavaScript">
-// 				var now, hours, minutes, seconds, timeValue;
-// 				function showtime() {
-// 					now = new Date();
-// 					hours = now.getHours();
-// 					minutes = now.getMinutes();
-// 					seconds = now.getSeconds();
-// 					timeValue = (hours >= 12) ? "下午 " : "上午 ";
-// 					timeValue += ((hours > 12) ? hours - 12 : hours) + " 點";
-// 					timeValue += ((minutes < 10) ? " 0" : " ") + minutes + " 分";
-// 					timeValue += ((seconds < 10) ? " 0" : " ") + seconds + " 秒";
-// 					clock.innerHTML = timeValue;
-// 					setTimeout("showtime()", 1000);
-// 				}
-// 				showtime();
-			</script>
-			<h3 id='clock'></h3>
+			<div class="clock"><h2 id="clock"></h2></div>
 			<div>公告標題</div>
 			<input type="text" id="title" name="title" value="" />
 			<div id="sizing-addon3">起迄日期:</div>
-			<input type='date' id='startDay' name='startDay' value='' />
-			<br>
-			<input type='date' id='endDay' name='endDay' value='' />
-			<br><br>
-			<input type="button" value="查詢" name="select" />
-			<input type="reset" value="重設" />
-			<input type="button" value="新增" name="insert" />
+			<input type='date' id='startDay' name='startDay' value='' /> <br>
+			<input type='date' id='endDay' name='endDay' value='' /> <br> <br>
+			<input type="button" value="查詢" name="select" onclick="setBoard()" />
+			<input type="reset" value="重設" /> <input type="button" value="新增" name="insert" />
 		</form>
 		<br>
 		<table id="boardTable">

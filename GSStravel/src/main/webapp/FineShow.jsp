@@ -46,6 +46,8 @@ td>strong {
 		var close3=null;
 		var close4=null;
 		var close5=null;
+		var close6=null;
+		var close7=null;
 		var closeBtn=null;
 		var down1=null;
 		var down2=null;
@@ -58,6 +60,8 @@ td>strong {
 			close3 = document.getElementById("close3");
 			close4 = document.getElementById("close4");
 			close5 = document.getElementById("close5");
+			close6 = document.getElementById("close6");
+			close7 = document.getElementById("close7");
 			closeBtn = document.getElementById("closeBtn");
 			down1 = document.getElementById("down1");
 			down2 = document.getElementById("down2");
@@ -92,6 +96,8 @@ td>strong {
 				close3.removeAttribute("href");
 				close4.removeAttribute("href");
 				close5.disabled = true;
+				close6.removeAttribute("href");
+				close7.removeAttribute("href");
 				closeBtn.disabled = true;
 				down1.setAttribute("style","display:none");
 				down2.setAttribute("style","display:none");
@@ -104,6 +110,8 @@ td>strong {
 				close3.setAttribute("href","<c:url value='/search.jsp'/>");
 				close4.setAttribute("href","<c:url value='/search1.jsp'/>");
 				close5.disabled = false;
+				close6.setAttribute("href","<c:url value='/BoardMaintain.jsp'/>");
+				close7.setAttribute("href","<c:url value='/Board.jsp'/>");
 				closeBtn.disabled = false;
 				down1.removeAttribute("style");
 				down2.removeAttribute("style");
