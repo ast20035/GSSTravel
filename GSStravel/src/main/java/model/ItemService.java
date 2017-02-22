@@ -32,13 +32,13 @@ public class ItemService {
 		}
 		return result;
 	}
-	public boolean delete(ItemVO bean) {
-		boolean result = false;
-		if(bean!=null) {
-			result = itemDAO.delete(bean.getItem_No());
-		}
-		return result;
-	}
+//	public boolean delete(ItemVO bean) {
+//		boolean result = false;
+//		if(bean!=null) {
+//			result = itemDAO.delete(bean.getItem_No());
+//		}
+//		return result;
+//	}
 	
 	public List<ItemVO> select(long tra_No)  {
 		return itemDAO.getFee(tra_No);
