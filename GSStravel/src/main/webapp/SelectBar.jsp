@@ -178,29 +178,28 @@ h1, h2 {
 			<ul class="nav navbar-nav">
 				<li class='now dropdown'><a class='dropdown-toggle'
 					role="button" aria-haspopup="true" aria-expanded="false"
-					data-toggle="dropdown" id="close1">旅遊報名<span class="caret"></span></a>
-					<ul class='dropdown-menu'>
+					data-toggle="dropdown">旅遊報名<span class="caret"></span></a>
+					<ul class='dropdown-menu' id="down1">
 						<li><a href="<c:url value='/AllTravel'/>">報名/查詢</a></li>
 						<li><a href="#">報名記錄</a></li>
 					</ul></li>
 
-				<li role="presentation"><a href="<c:url value='/Register'/>"
-					id="close2">資料輸入</a></li>
+				<li role="presentation"><a href="<c:url value='/Register'/>" id="close1">資料輸入</a></li>
 				<c:if test='${emp_Role eq true}'>
-					<li><a href="<c:url value='/search2.jsp'/>" id="close3">行程維護</a></li>
-					<li><a href="<c:url value='/search.jsp'/>" id="close4">報名維護</a></li>
+					<li><a href="<c:url value='/search2.jsp'/>" id="close2">行程維護</a></li>
+					<li><a href="<c:url value='/search.jsp'/>" id="close3">報名維護</a></li>
 					<li class='dropdown'><a class='dropdown-toggle' role="button"
 						aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"
-						href="<c:url value='/FineSetting.jsp'/>" id="close5">罰則維護<span
+						href="<c:url value='/FineSetting.jsp'/>">罰則維護<span
 							class="caret"></span></a>
-						<ul class='dropdown-menu'>
+						<ul class='dropdown-menu' id="down2">
 							<li><a href="<c:url value='/FineSetting.jsp'/>">罰則設定</a></li>
 							<li><a href="<c:url value='/FineShowServlet'/>">罰則明細</a></li>
 						</ul></li>
-					<li><a href="<c:url value='/search1.jsp'/>" id="close6">旅費統計</a></li>
+					<li><a href="<c:url value='/search1.jsp'/>" id="close4">旅費統計</a></li>
 				</c:if>
 				<li><input type="button" value='登出'
-					class="btn btn-warning navbar-btn" id="close7"
+					class="btn btn-warning navbar-btn" id="close5"
 					onclick="window.location.href=resultjs+'/LogOut.do';"></li>
 			</ul>
 		</div>
