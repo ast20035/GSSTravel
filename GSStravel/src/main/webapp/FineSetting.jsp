@@ -218,9 +218,8 @@ input[type=text] {
 					<table id="fineTable" class='table-responsive'>
 						<thead>
 							<tr>
-								<th class='tdbtn'><input type="button" value="＋" id="add"
-									class='btn btn-info' /></th>
-								<th><em style="color: red">* </em>取消日<br><input type="text" value="（旅遊前 n 天通知）" readonly />
+								<th class='tdbtn'><input type="button" value="＋" id="add" class='btn btn-info' /></th>
+								<th><em style="color: red">* </em>取消日<br><input type="text" value="（旅遊前 n 天通知）" readonly /></th>
 								<th><em style="color: red">* </em>罰款扣款比例<br><input type="text" value="（1.x ～ 99.x）%" readonly /></th>
 							</tr>
 						</thead>
