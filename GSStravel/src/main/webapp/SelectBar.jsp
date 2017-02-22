@@ -24,7 +24,7 @@
 
 li>a {
 	font-size: 15px;
-	color: #00008B;
+	color: #00FA9A;
 	font-weight: normal;
 }
 
@@ -71,9 +71,9 @@ h1, h2 {
 }
 
 .navbar {
-	background: linear-gradient(to bottom, rgba(161, 219, 255, 1) 0%,
-		rgba(203, 235, 255, 1) 76%, rgba(203, 235, 255, 1) 76%,
-		rgba(240, 249, 255, 1) 100%);
+	background: linear-gradient(to bottom, rgba(30, 87, 153, 1) 0%,
+		rgba(82, 141, 196, 1) 55%, rgba(107, 166, 217, 0.7) 81%,
+		rgba(125, 185, 232, 0) 100%);
 	z-index: 15;
 	padding-top: 5px;
 	border: 0;
@@ -121,8 +121,7 @@ h1, h2 {
 						<ul class='dropdown-menu'>
 							<li><a href="<c:url value='/FineSetting.jsp'/>">罰則設定</a></li>
 							<li><a href="<c:url value='/FineShowServlet'/>">罰則明細</a></li>
-						</ul>
-					</li>
+						</ul></li>
 					<li><a href="<c:url value='/search1.jsp'/>" id="close6">旅費統計</a></li>
 				</c:if>
 				<li><input type="button" value='登出'
