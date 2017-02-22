@@ -18,12 +18,21 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="" />
-<title>Announcement</title>
+<title>Announcement Maintain</title>
 </head>
 <body>
-	<h2>公佈欄</h2>
+	<h2>公告維護</h2>
 	<table>
-		
+		<thead>
+			<tr>
+				<th>公告標題</th>
+				<th>公告時間</th>
+				<th>公告內容</th>	
+			</tr>
+		</thead>
+		<tbody>
+			<tr></tr>
+		</tbody>
 	</table>
 </body>
 </html>
