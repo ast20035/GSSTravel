@@ -114,7 +114,15 @@ h1, h2 {
 				<c:if test='${emp_Role eq true}'>
 					<li><a href="<c:url value='/search2.jsp'/>" id="close3">行程維護</a></li>
 					<li><a href="<c:url value='/search.jsp'/>" id="close4">報名維護</a></li>
-					<li><a href="<c:url value='/FineSetting.jsp'/>" id="close5">罰則維護</a></li>
+					<li class='dropdown'><a class='dropdown-toggle' role="button"
+						aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"
+						href="<c:url value='/FineSetting.jsp'/>" id="close5">罰則維護<span
+							class="caret"></span></a>
+						<ul class='dropdown-menu'>
+							<li><a href="<c:url value='/FineSetting.jsp'/>">罰則設定</a></li>
+							<li><a href="<c:url value='/FineShowServlet'/>">罰則明細</a></li>
+						</ul>
+					</li>
 					<li><a href="<c:url value='/search1.jsp'/>" id="close6">旅費統計</a></li>
 				</c:if>
 				<li><input type="button" value='登出'

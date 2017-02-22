@@ -208,8 +208,6 @@ input[type=text] {
 						class='btn btn-primary' />
 				</div>
 				<div class='col-md-5'>
-
-					<em style="color: red; font-size: 12px;">*</em>為必填欄位<br><br>
 					<div class='btn-group'>
 					<input type="button" value="重新設定" name="FineShow"
 						onclick="window.location.href=resultjs+'/FineSetting.jsp'"
