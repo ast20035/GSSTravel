@@ -45,10 +45,9 @@ margin-right: 3%;
 		<div class='row'>
 		<div class='col-md-1'></div>
 			<div class='col-md-11'>
-				<form action=<c:url value="/detail"/> method="post">
+				<form id="myForm" action=<c:url value="/detail"/> method="post">
 					<p>活動代碼：${param.tra_no}</p>
-					<input type="hidden" name="tra_no" id="tra_no"
-						value="${param.tra_no}">
+					<input type="hidden" name="tra_no" id="tra_no" value="${param.tra_no}">
 						<select class="selectTable" >
 								<option>顯示全部</option>
 								<option>尚未取消</option>
@@ -200,8 +199,14 @@ margin-right: 3%;
 							</c:forEach>
 						</c:if>
 					</table>
+					共 ${Count} 筆
+					<br />	
+					<ul class="pagination" id="pagination">
+						<li><a onclick="before()">&laquo;</a></li>
+						<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
+					</ul>
 					<br />
-					<br />
+					<input type="text" name="detailPage" class="detailPage">
 					<button type="submit" name="prodaction" value="insert" class='btn btn-primary'>新增</button>
 					<!-- 柯(請勿刪除) -->
 					<input type="submit" name="excel" value="匯出Excel" class='btn btn-primary' />
@@ -218,8 +223,25 @@ margin-right: 3%;
 		<script
 			src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
 		<script type="text/javascript">
+
+var $page=$(".page");
+var i;
 $(function(){ 
 	
+	var allData = ${Count};
+	var totalPage = Math.ceil(allData/10);
+	for(var i=1; i<totalPage; i++){
+		var li = document.createElement('li');
+		var a =  document.createElement('a');
+		a.innerHTML= (i+1);
+		li.appendChild(a);
+		li.className="page";
+		$(".pagination").append('<li class="page" onclick="page(this)" value="'+i+'"><a>'+(i+1)+'</a></li>');
+	}
+	var li = document.createElement('li');
+	li.innerHTML='<a onclick="next()">&raquo;</a>';
+	document.getElementById("pagination").appendChild(li);
+	$page=$(".page");
 	 $(".selectTable").on("change",function(){
 		 if($(this).val() == "顯示全部"){
 			 $("em:empty").parent().parent().show();
@@ -454,6 +476,38 @@ var Msg="<%=session.getAttribute("DetMsg")%>";
 					window.location = insert;
 				}
 			}
+function next(){
+	i=$(".active");
+	$page.removeClass("active");
+	if(i.val()<$page.length-1){
+		$(".detailPage").val(i.val()+2);
+		$page[i.val()+1].className="active";
+	}else{
+		$page[0].className="active";
+		$(".detailPage").val("1");
+	}
+	//document.getElementById('myForm').submit();
+	
+}
+function before(){
+	i=$(".active");
+	$page.removeClass("active");
+	if(i.val()<$page.length && i.val()>0){
+		$(".detailPage").val(i.val());
+		$page[i.val()-1].className="active";
+	}else{
+		$page[$page.length-1].className="active";
+		$(".detailPage").val($page.length);
+	}	
+	//document.getElementById('myForm').submit();
+}
+function page(obj){
+	$page.removeClass("active");
+	$(obj).prop("class","active");
+	i=$(".active");
+	$(".detailPage").val(i.val()+1);
+	//document.getElementById('myForm').submit();
+}
 		</script>
 	</div>
 </body>
