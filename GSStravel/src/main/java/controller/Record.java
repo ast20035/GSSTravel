@@ -25,6 +25,13 @@ public class Record extends HttpServlet {
 		HttpSession session = request.getSession();
 		String emp_No = session.getAttribute("emp_No").toString();
 		List<String[]> record = recordService.selectRecord(emp_No);
+		int counts = 0;
+		try{
+			counts=record.size();
+		}catch(Exception e){
+			counts=0;
+		}		
+		request.setAttribute("counts",counts);
 		request.setAttribute("record",record);
 		request.getRequestDispatcher("/Record.jsp").forward(request, response);
 	}

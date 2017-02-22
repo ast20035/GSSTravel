@@ -13,6 +13,7 @@ table, th, td {
 <title>Insert title here</title>
 </head>
 <body>
+<c:if test="${counts!=0}">
 	<table>
 		<tr>
 			<th>行程編號</th>
@@ -37,6 +38,9 @@ table, th, td {
 			</tr>
 		</c:forEach>
 	</table>
-
+</c:if>
+<c:if test="${counts==0}">
+<h1>目前沒有任何歷史訊息</h1>
+</c:if>
 </body>
 </html>
