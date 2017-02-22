@@ -46,9 +46,9 @@ td>strong {
 		var close3=null;
 		var close4=null;
 		var close5=null;
-		var close6=null;
-		var close7=null;
 		var closeBtn=null;
+		var down1=null;
+		var down2=null;
 		
 		window.onload = function() {
 			btn = document.getElementById("FineEmail");
@@ -58,10 +58,12 @@ td>strong {
 			close3 = document.getElementById("close3");
 			close4 = document.getElementById("close4");
 			close5 = document.getElementById("close5");
-			close6 = document.getElementById("close6");
-			close7 = document.getElementById("close7");
 			closeBtn = document.getElementById("closeBtn");
-			
+			down1 = document.getElementById("down1");
+			down2 = document.getElementById("down2");
+			if(${em == 1} && ${btn == 1}){
+				btn.removeAttribute("disabled");
+			}
 			var $BodyWidth = $(document).width();  
 			var $ViewportWidth=$(window).width();  
 			var $ScrollLeft=$(this).scrollLeft();
@@ -89,32 +91,24 @@ td>strong {
 				close2.removeAttribute("href");
 				close3.removeAttribute("href");
 				close4.removeAttribute("href");
-				close5.removeAttribute("href");
-				close6.removeAttribute("href");
-				close7.disabled = true;
+				close5.disabled = true;
 				closeBtn.disabled = true;
+				down1.setAttribute("style","display:none");
+				down2.setAttribute("style","display:none");
 				myImg.style.display = "inline";
-				btn.setAttribute("disabled", "");
+				btn.setAttribute("disabled", "disabled");
 				btn.value = "Email寄送中...";
 			} else if (xhr.readyState == 4) {
-				close1.setAttribute("href","<c:url value='/AllTravel'/>");
-				close2.setAttribute("href","<c:url value='/Register'/>");
-				close3.setAttribute("href","<c:url value='/search2.jsp'/>");
-				close4.setAttribute("href","<c:url value='/search.jsp'/>");
-				close5.setAttribute("href","<c:url value='/FineSetting.jsp'/>");
-				close6.setAttribute("href","<c:url value='/search1.jsp'/>");
-				close7.disabled = false;
+				close1.setAttribute("href","<c:url value='/Register'/>");
+				close2.setAttribute("href","<c:url value='/search2.jsp'/>");
+				close3.setAttribute("href","<c:url value='/search.jsp'/>");
+				close4.setAttribute("href","<c:url value='/search1.jsp'/>");
+				close5.disabled = false;
 				closeBtn.disabled = false;
+				down1.removeAttribute("style");
+				down2.removeAttribute("style");
 				myImg.style.display = "none";
-				btn.value = "寄送罰則異動通知";
-				if (xhr.status == 200) {
-					var data = xhr.responseText;
-					var myDiv = document.getElementById("div1");
-					myDiv.innerHTML = "<h3>" + data + "</h3>";
-				} 
-				else {
-					alert(xhr.status + ":" + xhr.statusText);
-				}
+				btn.value = "Email寄送成功！";
 			}
 		}
 </script>
@@ -122,8 +116,8 @@ td>strong {
 <body>
 	<%@include file="SelectBar.jsp"%>
 	<script>
-		$('li').removeClass('now');
-		$('li:eq(4)').addClass('now');
+		$('.navbar-nav>li').removeClass('now');
+		$('.navbar-nav>li:eq(4)').addClass('now');
 	</script>
 	<div class='container-fluid'>
 		<div class='row'>
@@ -132,15 +126,17 @@ td>strong {
 				<h2>罰則明細</h2>
 			</div>
 		</div>
-		<form id="EmailData" action="<c:url value="/FineServlet" />" method="GET">
+		<form id="EmailData" action="<c:url value="/FineServlet" />"
+			method="GET">
 			<div class='row'>
 				<div class='col-md-1'></div>
 				<div class='col-md-2'>
-					<br> <input type="button" value="罰則設定" name="FineSetting" class='btn btn-primary' id="closeBtn"
-							onclick="window.location.href=resultjs+'/FineSetting.jsp'" /><br>
-					<br>
-					<input class='btn btn-primary' type="button" id="FineEmail" name="FineEmail" value="寄送罰則異動通知" onclick="load()" />
-					<img src="images/ajax-loader.gif" id="img1" style="display: none"/>
+					<br> <input type="button" value="罰則設定" name="FineSetting"
+						class='btn btn-primary' id="closeBtn"
+						onclick="window.location.href=resultjs+'/FineSetting.jsp'" /><br>
+					<br> <input class='btn btn-primary' type="button"
+						id="FineEmail" name="FineEmail" value="寄送罰則異動通知" onclick="load()" disabled="disabled"/> 
+					<img src="images/ajax-loader.gif" id="img1" style="display: none" />
 					<div id="div1"></div>
 				</div>
 				<div class='col-md-7'>
@@ -158,17 +154,19 @@ td>strong {
 											</td>
 										</c:if>
 										<c:if test="${statusI.count>1}">
-											<c:if test="${fSelect[i].fine_Dates==fSelect[i-1].fine_Dates-1}">
-										<td>旅遊前<strong>${fSelect[i].fine_Dates}</strong>天通知<br>扣款總費用 *
-											${fSelect[i].fine_Per}%
-										</td>
-									</c:if>
-									<c:if test="${fSelect[i].fine_Dates!=fSelect[i-1].fine_Dates-1}">
-										<td>旅遊前<strong>${fSelect[i].fine_Dates} ～
-											${fSelect[i-1].fine_Dates-1}</strong>天通知<br>扣款總費用 *
-											${fSelect[i].fine_Per}%
-										</td>
-									</c:if>
+											<c:if
+												test="${fSelect[i].fine_Dates==fSelect[i-1].fine_Dates-1}">
+												<td>旅遊前<strong>${fSelect[i].fine_Dates}</strong>天通知<br>扣款總費用
+													* ${fSelect[i].fine_Per}%
+												</td>
+											</c:if>
+											<c:if
+												test="${fSelect[i].fine_Dates!=fSelect[i-1].fine_Dates-1}">
+												<td>旅遊前<strong>${fSelect[i].fine_Dates} ～
+														${fSelect[i-1].fine_Dates-1}</strong>天通知<br>扣款總費用 *
+													${fSelect[i].fine_Per}%
+												</td>
+											</c:if>
 										</c:if>
 									</c:forEach>
 									<td>旅遊<strong>開始</strong>日<br>扣款總費用 * 100%
@@ -191,16 +189,17 @@ td>strong {
 											</c:if>
 											<c:if test="${statusJ.count!=1}">
 												<c:if test="${afterDay[i][j-1]==totalDays[i][j]}">
-											<td>${totalDays[i][j]}<br>
-										</c:if>
-										<c:if test="${afterDay[i][j-1]!=totalDays[i][j]}">
-											<td>${afterDay[i][j-1]} ～ ${totalDays[i][j]}<br>
-										</c:if> <fmt:formatNumber
-														value="${iSelect[i].item_Money}" groupingUsed="true"
-														type="currency" maxFractionDigits="0" /> *
-													${fSelect[j].fine_Per}% ＝ <br> <strong><fmt:formatNumber
-															value="${iSelect[i].item_Money*fSelect[j].fine_Per/100}"
-															groupingUsed="true" type="currency" maxFractionDigits="0" /></strong>
+													<td>${totalDays[i][j]}<br>
+												</c:if>
+												<c:if test="${afterDay[i][j-1]!=totalDays[i][j]}">
+													<td>${afterDay[i][j-1]}～ ${totalDays[i][j]}<br>
+												</c:if>
+												<fmt:formatNumber value="${iSelect[i].item_Money}"
+													groupingUsed="true" type="currency" maxFractionDigits="0" /> *
+													${fSelect[j].fine_Per}% ＝ <br>
+												<strong><fmt:formatNumber
+														value="${iSelect[i].item_Money*fSelect[j].fine_Per/100}"
+														groupingUsed="true" type="currency" maxFractionDigits="0" /></strong>
 												</td>
 											</c:if>
 										</c:forEach>
