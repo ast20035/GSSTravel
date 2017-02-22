@@ -20,7 +20,7 @@ public class ItemDAO implements IItemDAO {
 	//private static final String insert = "insert into Item(item_Name, item_Money,tra_No) values (?,?,?)";
 	private static final String insert = "insert into Item(item_Name, item_Money, tra_No, item_No) values (?,?,?,?)";
 	private static final String UPDATE = "update Item set item_Name=?, item_Money=? where tra_No=? and item_No=?";	
-	private static final String DELETE ="delete from Item where item_NO=?";
+	private static final String DELETE ="delete from Item where item_NO=? and tra_No=?";
 	private static final String SELECT_ALL_STMT = "SELECT item_Money FROM Item WHERE item_No=1 ORDER BY tra_No";//柯
 	private static final String SELECT_ONE_STMT = "SELECT item_Money FROM Item WHERE item_No=1 AND tra_No=?";//柯
 	
@@ -40,6 +40,7 @@ public class ItemDAO implements IItemDAO {
 				Connection conn = ds.getConnection();	//web用
 				PreparedStatement stmt = conn.prepareStatement(DELETE);) {			
 			stmt.setInt(1, item_No);
+			stmt.setString(2, tra_No);
 			int i = stmt.executeUpdate();
 			if(i==1) {
 				return true;
