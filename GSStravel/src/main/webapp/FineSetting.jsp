@@ -30,7 +30,7 @@ input {
 	color: red;
 }
 
-td, th {
+td {
 	border: 2px outset black;
 	text-align: center;
 	/* 	padding: 0px 0px 0px 0px; */
@@ -39,11 +39,6 @@ td, th {
 
 table {
 	margin-top: 2%;
-}
-
-.tdbtn {
-	padding: 5px;
-	border: 0;
 }
 
 input[type=text] {
@@ -218,10 +213,10 @@ input[type=text] {
 					<table id="fineTable" class='table-responsive'>
 						<thead>
 							<tr>
-								<th class='tdbtn'><input type="button" value="＋" id="add"
+								<th class='tdbtn thWH'><input type="button" value="＋" id="add"
 									class='btn btn-info' /></th>
-								<th><em style="color: red">* </em>取消日<br><input type="text" value="（旅遊前 n 天通知）" readonly />
-								<th><em style="color: red">* </em>罰款扣款比例<br><input type="text" value="（1.x ～ 99.x）%" readonly /></th>
+								<th class='thWH'><em style="color: red">* </em>取消日<br><input type="text" value="（旅遊前 n 天通知）" readonly /></th>
+								<th class='thWH'><em style="color: red">* </em>罰款扣款比例<br><input type="text" value="（1.x ～ 99.x）%" readonly /></th>
 							</tr>
 						</thead>
 						<tbody>
