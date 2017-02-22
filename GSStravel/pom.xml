@@ -15,20 +15,22 @@
 	</properties>
 
 	<dependencies>
+
+
 		<!-- javamail -->
-    	<dependency>
- 			<groupId>javax.mail</groupId>
- 			<artifactId>mail</artifactId>
- 			<version>1.4.7</version>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
 		</dependency>
-		
+
 		<!-- jexcel -->
 		<dependency>
-		    <groupId>org.jxls</groupId>
-		    <artifactId>jxls-jexcel</artifactId>
-		    <version>1.0.6</version>
+			<groupId>org.jxls</groupId>
+			<artifactId>jxls-jexcel</artifactId>
+			<version>1.0.6</version>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -109,7 +111,9 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-
+		
+	
+		
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}-${project.version}</finalName>
