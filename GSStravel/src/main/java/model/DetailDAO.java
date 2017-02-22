@@ -42,6 +42,27 @@ public class DetailDAO implements IDetailDAO {
 	private static final String selectFam_No = "select fam_No  from Detail where fam_No=? and tra_No=? and det_CanDate is null ";
 	private static final String selectFam_Rel = "select f.fam_Rel as fam_Rel from Detail d join Family f on d.fam_No=f.fam_No where d.det_CanDate is null and tra_No=? and d.emp_No=?";
 	private static final String SELECT_EXCEL = "SELECT det_No, Detail.emp_No, ISNULL(Detail.fam_No,Detail.emp_No) as number, ISNULL(fam_Rel,'員工') as Rel, ISNULL(fam_Name, emp_Name) as Name, ISNULL(fam_Sex,emp_Sex) as Sex, ISNULL(fam_ID, emp_ID) as ID,ISNULL(fam_Bdate,emp_Bdate) as Bdate, ISNULL(fam_Phone,emp_Phone) as Phone,ISNULL(fam_eat,emp_Eat) as Eat, ISNULL(fam_Car,1) as Car, fam_Bady, fam_kid, fam_Dis, fam_Mom,ISNULL(fam_Ben,emp_Ben) as Ben, ISNULL(fam_BenRel,emp_BenRel) as BenRel, ISNULL(fam_Emg,emp_Emg) as Emg, ISNULL(fam_EmgPhone,emp_EmgPhone) as EmgPhone, det_Date, det_CanDate as CanDate, ISNULL(fam_Note,emp_Note) as Note, det_canNote FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No WHERE Tra_No = ? order by CanDate";
+	private static final String selectALL = "select * from Detail where emp_No=? and fam_No is null order by det_Date desc";
+	
+	
+	public List<DetailVO> selectALL(String emp_No) {
+		List<DetailVO> DetailVOs=new ArrayList<>();
+		try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(selectALL);) {
+			stmt.setString(1, emp_No);
+			ResultSet rset = stmt.executeQuery();
+			while (rset.next()) {
+				DetailVO vo=new DetailVO();
+				vo.setTra_No(rset.getString("tra_NO"));
+				vo.setDet_Date(rset.getTimestamp("det_Date"));
+				vo.setDet_CanDate(rset.getTimestamp("det_CanDate"));
+				vo.setDet_money(rset.getFloat("det_money"));
+				DetailVOs.add(vo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return DetailVOs;
+	}
 	
 	public String detail(String emp_No, String tra_No) {
 		String det_Date=null;

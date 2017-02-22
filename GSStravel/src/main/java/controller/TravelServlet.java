@@ -388,14 +388,7 @@ public class TravelServlet extends HttpServlet {
 					itemDAO.update(Vo);
 				}
 				if(itemVO.getItem_No()!=1&&itemVO.getItem_No()!=2){
-					itemDAO.delete(itemVO.getItem_No());
-					ItemVO Vo=new ItemVO();
-					Vo.setItem_Name(itemName[x]);
-					Vo.setItem_Money(Float.parseFloat(itemMoney[x]));
-					Vo.setTra_No(traNo);
-					Vo.setItem_No(itemVO.getItem_No());
-					itemDAO.insert(Vo);
-					x++;
+					itemDAO.delete(itemVO.getItem_No(),traNo);
 				}
 			}
 			for(int y=x;y<itemName.length;y++){
