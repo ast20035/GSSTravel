@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.el.parser.BooleanNode;
-import org.json.simple.JSONObject;
+//import org.apache.el.parser.BooleanNode;
+//import org.json.simple.JSONObject;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
 import model.EmployeeService;
@@ -55,7 +55,6 @@ public class FamilyServlet extends HttpServlet {
 		String[] fambdatedate = req.getParameterValues("fambdate");
 		String[] famphone = req.getParameterValues("famphone");
 		String[] fameat = req.getParameterValues("fameat");
-		String[] famcar = req.getParameterValues("famcar");
 		String[] famspa = req.getParameterValues("famspa");
 		String[] famben = req.getParameterValues("famben");
 		String[] fambenrel = req.getParameterValues("fambenrel");
@@ -63,6 +62,11 @@ public class FamilyServlet extends HttpServlet {
 		String[] famemgphpone = req.getParameterValues("famemgphpone");
 		String[] famemgrel = req.getParameterValues("famemgrel");
 		String[] famnote = req.getParameterValues("famnote");
+		System.out.println(famspa);
+		for(String xxx:famspa){
+			System.out.println(xxx);
+		}
+		
 		
 		String buttondelete = req.getParameter("delete");
 		String buttonsave = req.getParameter("button");
@@ -250,7 +254,7 @@ public class FamilyServlet extends HttpServlet {
 			if (famid != null) {// 這邊判斷匯錯 因為空值也算一筆?
 				
 				ArrayList<Boolean> carcheckbox =new ArrayList<Boolean>();
-				System.out.println(ajaxcheckbox);
+//				System.out.println(ajaxcheckbox);
 				String[] items = ajaxcheckbox.replaceAll("\\[", "").replaceAll("\\]", "").split(",");
 				String[] results = new String[items.length];
 				 for (int j = 0; j < items.length; j++) {
@@ -265,9 +269,6 @@ public class FamilyServlet extends HttpServlet {
 					 }
 					 		//還是用判斷並把boolean塞進去?//改成數字後看看?datainsert.jsp
 				 }
-				 System.out.println(carcheckbox.get(0));
-				 System.out.println(carcheckbox.get(1));
-				 System.out.println(carcheckbox.get(2));
 				idlength = famid.length;
 				for (int i = 0; i < idlength; i++) {// 0 1 2 3
 					FamilyVO familyvo = new FamilyVO();
@@ -294,11 +295,11 @@ public class FamilyServlet extends HttpServlet {
 					// 測試
 					if(carcheckbox!=null && carcheckbox.size()!=0){
 						if(carcheckbox.get(i)==true){
-							System.out.println(true);
+//							System.out.println(true);
 							familyvo.setFam_Car(true);
 						}
 						if(carcheckbox.get(i)==false){
-							System.out.println(false);
+//							System.out.println(false);
 							familyvo.setFam_Car(false);
 						}
 					}else{
@@ -307,8 +308,8 @@ public class FamilyServlet extends HttpServlet {
 					
 					familyvo.setFam_Bady(false);
 					familyvo.setFam_kid(false);
-					familyvo.setFam_Dis(false);
-					familyvo.setFam_Mom(false);
+					familyvo.setFam_Dis(true);
+					familyvo.setFam_Mom(true);
 
 					familyvo.setFam_Ben(famben[i]);
 					familyvo.setFam_BenRel(fambenrel[i]);
