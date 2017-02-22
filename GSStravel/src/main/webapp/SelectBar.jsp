@@ -24,7 +24,7 @@
 
 li>a {
 	font-size: 15px;
-	color: 	#00008B;
+	color: #00008B;
 	font-weight: normal;
 }
 
@@ -63,7 +63,7 @@ h1, h2 {
 
 #span {
 	position: fixed;
-	top: 10%;
+	top: 80px;
 	right: 5%;
 	font-size: 10%;
 	font-weight: boider;
@@ -71,9 +71,12 @@ h1, h2 {
 }
 
 .navbar {
-	background: linear-gradient(to bottom, rgba(240,249,255,1) 0%,rgba(203,235,255,1) 20%,rgba(161,219,255,1) 100%);
+	background: linear-gradient(to bottom, rgba(161, 219, 255, 1) 0%,
+		rgba(203, 235, 255, 1) 76%, rgba(203, 235, 255, 1) 76%,
+		rgba(240, 249, 255, 1) 100%);
 	z-index: 15;
 	padding-top: 5px;
+	border: 0;
 }
 
 .icon-bar {
@@ -105,13 +108,15 @@ h1, h2 {
 						<li><a href="<c:url value='/AllTravel'/>">報名/查詢</a></li>
 						<li><a href="#">報名記錄</a></li>
 					</ul></li>
-				
+
 				<li role="presentation"><a href="<c:url value='/Register'/>"
 					id="close2">資料輸入</a></li>
-				<li><a href="<c:url value='/search2.jsp'/>" id="close3">行程維護</a></li>
-				<li><a href="<c:url value='/search.jsp'/>" id="close4">報名維護</a></li>
-				<li><a href="<c:url value='/FineSetting.jsp'/>" id="close5">罰則維護</a></li>
-				<li><a href="<c:url value='/search1.jsp'/>" id="close6">旅費統計</a></li>
+				<c:if test='${emp_Role eq true}'>
+					<li><a href="<c:url value='/search2.jsp'/>" id="close3">行程維護</a></li>
+					<li><a href="<c:url value='/search.jsp'/>" id="close4">報名維護</a></li>
+					<li><a href="<c:url value='/FineSetting.jsp'/>" id="close5">罰則維護</a></li>
+					<li><a href="<c:url value='/search1.jsp'/>" id="close6">旅費統計</a></li>
+				</c:if>
 				<li><input type="button" value='登出'
 					class="btn btn-warning navbar-btn" id="close7"
 					onclick="window.location.href=resultjs+'/LogOut.do';"></li>
