@@ -23,7 +23,16 @@
 <body>
 	<h2>公告維護</h2>
 	<table>
-		
+		<thead>
+			<tr>
+				<th>公告標題</th>
+				<th>公告時間</th>
+				<th>公告內容</th>	
+			</tr>
+		</thead>
+		<tbody>
+			<tr></tr>
+		</tbody>
 	</table>
 </body>
 </html>
