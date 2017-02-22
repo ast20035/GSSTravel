@@ -38,9 +38,9 @@ table, th, td {
 				<h2>歷史紀錄</h2>
 			</div>
 		</div>
-		<c:if test="${counts!=0}">
-			<div class='row'>
-				<div class='col-md-offset-2 col-md-8'>
+		<div class='row'>
+			<div class='col-md-offset-2 col-md-8'>
+				<c:if test="${counts!=0}">
 					<table class='table'>
 						<thead>
 							<tr>
@@ -67,12 +67,12 @@ table, th, td {
 							</tr>
 						</c:forEach>
 					</table>
-				</div>
+				</c:if>
+				<c:if test="${counts==0}">
+					<h1 style='font-size: 60px;'>目前沒有任何歷史訊息</h1>
+				</c:if>
 			</div>
-		</c:if>
-		<c:if test="${counts==0}">
-			<h1 style='font-size: 60px;'>目前沒有任何歷史訊息</h1>
-		</c:if>
+		</div>
 	</div>
 </body>
 </html>

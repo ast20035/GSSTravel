@@ -355,15 +355,16 @@ public class DetailDAO implements IDetailDAO {
 		}
 		
 		// SELECT報名維護所有欄位
-		private static final String SELECT = "SELECT det_No, Detail.emp_No, ISNULL(Detail.fam_No,Detail.emp_No) as number, ISNULL(fam_Rel,'員工') as Rel, ISNULL(fam_Name, emp_Name) as Name, ISNULL(fam_Sex,emp_Sex) as Sex, ISNULL(fam_ID, emp_ID) as ID,ISNULL(fam_Bdate,emp_Bdate) as Bdate, ISNULL(fam_Phone,emp_Phone) as Phone,ISNULL(fam_eat,emp_Eat) as Eat, ISNULL(fam_Car,1) as Car, fam_Bady, fam_kid, fam_Dis, fam_Mom,ISNULL(fam_Ben,emp_Ben) as Ben, ISNULL(fam_BenRel,emp_BenRel) as BenRel, ISNULL(fam_Emg,emp_Emg) as Emg, ISNULL(fam_EmgPhone,emp_EmgPhone) as EmgPhone, det_Date, det_CanDate as CanDate, ISNULL(fam_Note,emp_Note) as Note, det_canNote FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No WHERE Tra_No = ? order by CanDate";
-
+		private static final String SELECT = "SELECT * FROM(SELECT TOP 100 PERCENT det_No, Detail.emp_No, ISNULL(Detail.fam_No,Detail.emp_No) as number, ISNULL(fam_Rel,'員工') as Rel, ISNULL(fam_Name, emp_Name) as Name, ISNULL(fam_Sex,emp_Sex) as Sex, ISNULL(fam_ID, emp_ID) as ID,ISNULL(fam_Bdate,emp_Bdate) as Bdate, ISNULL(fam_Phone,emp_Phone) as Phone,ISNULL(fam_eat,emp_Eat) as Eat, ISNULL(fam_Car,1) as Car, fam_Bady, fam_kid, fam_Dis, fam_Mom,ISNULL(fam_Ben,emp_Ben) as Ben, ISNULL(fam_BenRel,emp_BenRel) as BenRel, ISNULL(fam_Emg,emp_Emg) as Emg, ISNULL(fam_EmgPhone,emp_EmgPhone) as EmgPhone, det_Date, det_CanDate as CanDate, ISNULL(fam_Note,emp_Note) as Note, det_canNote, ROW_NUMBER() OVER (ORDER BY det_CanDate) as row FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No  where Tra_No = ? order by CanDate) a WHERE (row >= ? and row <= ?)";
 		@Override
-		public List<DetailBean> select(String Tra_No) {
+		public List<DetailBean> select(String Tra_No, int firstPage, int lastPage) {
 			List<DetailBean> result = new ArrayList<>();
 			try {
 				Connection conn = ds.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(SELECT);
 				stmt.setString(1, Tra_No);
+				stmt.setInt(2, firstPage);
+				stmt.setInt(3, lastPage);
 				ResultSet rset = stmt.executeQuery();
 				result = new ArrayList<DetailBean>();
 				while (rset.next()) {
@@ -398,6 +399,21 @@ public class DetailDAO implements IDetailDAO {
 			}
 			return result;
 		}
+	private static final String SELECT_DatailCount="SELECT count(det_No) as count FROM detail where tra_No = ?";
+	@Override
+	public int selectDatailCount(String tra_No){
+		int result = 0;
+		try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(SELECT_DatailCount);) {
+			stmt.setString(1, tra_No);
+			ResultSet set = stmt.executeQuery();
+			while (set.next()) {
+				result = set.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}	
 
 	// 由name判斷是否為員工(SELECT_emp_Name)or親屬(SELECT_fam_Name)
 	private static final String SELECT_emp_Name = "SELECT emp_No = '員工' from Employee where emp_No=? and emp_Name=?";
