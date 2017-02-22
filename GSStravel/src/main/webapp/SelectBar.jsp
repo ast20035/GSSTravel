@@ -24,18 +24,18 @@
 
 li>a {
 	font-size: 15px;
-	color: white;
+	color: 	#00008B;
 	font-weight: normal;
 }
 
 .now {
-	border-radius: 5px\5px;
+	border-radius: 7px\7px;
 	background-color: white;
 }
 
 .now>a {
 	font-weight: bolder;
-	color: #5599FF;
+	color: #00BFFF;
 }
 
 .title {
@@ -71,17 +71,17 @@ h1, h2 {
 }
 
 .navbar {
-	background: linear-gradient(to bottom, rgba(208, 228, 247, 1) 0%,
-		rgba(115, 177, 231, 1) 2%, rgba(115, 177, 231, 1) 36%,
-		rgba(115, 177, 231, 1) 36%, rgba(10, 119, 213, 1) 96%,
-		rgba(83, 159, 225, 1) 100%, rgba(135, 188, 234, 1) 100%,
-		rgba(83, 159, 225, 1) 101%);
+	background: linear-gradient(to bottom, rgba(240,249,255,1) 0%,rgba(203,235,255,1) 20%,rgba(161,219,255,1) 100%);
 	z-index: 15;
 	padding-top: 5px;
 }
 
 .icon-bar {
 	background-color: white;
+}
+
+.in {
+	color: black;
 }
 </style>
 <nav class="navbar navbar-fixed-top topBar">
@@ -98,16 +98,27 @@ h1, h2 {
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li class='now'><a href="<c:url value='/AllTravel'/>" id="close1">報名／查詢</a></li>
-				<li role="presentation"><a href="<c:url value='/Register'/>" id="close2">資料輸入</a></li>
-				<li><a href="<c:url value='/search2.jsp'/>" id="close3" >行程維護</a></li>
-				<li><a href="<c:url value='/search.jsp'/>" id="close4" >報名維護</a></li>
-				<li><a href="<c:url value='/FineSetting.jsp'/>" id="close5" >罰則維護</a></li>
-				<li><a href="<c:url value='/search1.jsp'/>" id="close6" >旅費統計</a></li>
-				<li><input type="button" value='登出' class="btn btn-warning navbar-btn" id="close7" onclick="window.location.href=resultjs+'/LogOut.do';"></li>
+				<li class='now dropdown'><a class='dropdown-toggle'
+					role="button" aria-haspopup="true" aria-expanded="false"
+					data-toggle="dropdown" id="close1">旅遊報名<span class="caret"></span></a>
+					<ul class='dropdown-menu'>
+						<li><a href="<c:url value='/AllTravel'/>">報名/查詢</a></li>
+						<li><a href="#">報名記錄</a></li>
+					</ul></li>
+				
+				<li role="presentation"><a href="<c:url value='/Register'/>"
+					id="close2">資料輸入</a></li>
+				<li><a href="<c:url value='/search2.jsp'/>" id="close3">行程維護</a></li>
+				<li><a href="<c:url value='/search.jsp'/>" id="close4">報名維護</a></li>
+				<li><a href="<c:url value='/FineSetting.jsp'/>" id="close5">罰則維護</a></li>
+				<li><a href="<c:url value='/search1.jsp'/>" id="close6">旅費統計</a></li>
+				<li><input type="button" value='登出'
+					class="btn btn-warning navbar-btn" id="close7"
+					onclick="window.location.href=resultjs+'/LogOut.do';"></li>
 			</ul>
 		</div>
 		<!--/.nav-collapse -->
 	</div>
 </nav>
 <span class='alert alert-danger' id='span' style="display: none;"><strong>右方還有內容</strong></span>
+
