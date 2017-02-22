@@ -206,7 +206,7 @@ margin-right: 3%;
 						<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
 					</ul>
 					<br />
-					<input type="text" name="detailPage" class="detailPage">
+					<input type="hidden" name="detailPage" class="detailPage">
 					<button type="submit" name="prodaction" value="insert" class='btn btn-primary'>新增</button>
 					<!-- 柯(請勿刪除) -->
 					<input type="submit" name="excel" value="匯出Excel" class='btn btn-primary' />
@@ -231,11 +231,6 @@ $(function(){
 	var allData = ${Count};
 	var totalPage = Math.ceil(allData/10);
 	for(var i=1; i<totalPage; i++){
-		var li = document.createElement('li');
-		var a =  document.createElement('a');
-		a.innerHTML= (i+1);
-		li.appendChild(a);
-		li.className="page";
 		$(".pagination").append('<li class="page" onclick="page(this)" value="'+i+'"><a>'+(i+1)+'</a></li>');
 	}
 	var li = document.createElement('li');
