@@ -176,6 +176,7 @@ h1, h2 {
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
+			<li><a href="<c:url value='/Board.jsp'/>" id="close7">公告</a></li>
 				<li class='now dropdown'><a class='dropdown-toggle'
 					role="button" aria-haspopup="true" aria-expanded="false"
 					data-toggle="dropdown">旅遊報名<span class="caret"></span></a>
@@ -184,7 +185,7 @@ h1, h2 {
 						<li><a href="<c:url value='/Record'/>">報名記錄</a></li>
 					</ul></li>
 
-				<li role="presentation"><a href="<c:url value='/Register'/>" id="close1">資料輸入</a></li>
+				<li role="presentation"><a href="<c:url value='/Register'/>" id="close1">資料輸入</a></li>				
 				<c:if test='${emp_Role eq true}'>
 					<li><a href="<c:url value='/search2.jsp'/>" id="close2">行程維護</a></li>
 					<li><a href="<c:url value='/search.jsp'/>" id="close3">報名維護</a></li>
@@ -197,6 +198,7 @@ h1, h2 {
 							<li><a href="<c:url value='/FineShowServlet'/>">罰則明細</a></li>
 						</ul></li>
 					<li><a href="<c:url value='/search1.jsp'/>" id="close4">旅費統計</a></li>
+					<li><a href="<c:url value='/BoardMaintain.jsp'/>" id="close6">公告維護</a></li>
 				</c:if>
 				<li><input type="button" value='登出'
 					class="btn btn-warning navbar-btn" id="close5"

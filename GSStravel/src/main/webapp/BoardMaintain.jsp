@@ -21,7 +21,23 @@
 <title>Announcement Maintain</title>
 </head>
 <body>
-	<h2>公告維護</h2>
-	
+	<%@include file="SelectBar.jsp"%>
+	<script>
+		$('.navbar-nav>li').removeClass('now');
+		$('.navbar-nav>li:eq(7)').addClass('now');
+	</script>
+	<div class='container-fluid'>
+		
+		<div class='row'>
+			<div class='col-md-1'></div>
+			<div class='col-md-11'>
+				<h2>公告維護</h2>
+			</div>
+		</div>
+		
+		
+		
+		
+		</div>
 </body>
 </html>
