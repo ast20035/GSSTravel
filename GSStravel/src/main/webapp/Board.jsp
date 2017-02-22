@@ -18,10 +18,10 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="" />
-<title>Announcement Maintain</title>
+<title>Announcement</title>
 </head>
 <body>
-	<h2>公告維護</h2>
+	<h2>公佈欄</h2>
 	
 </body>
 </html>
