@@ -414,24 +414,24 @@ public class TravelServlet extends HttpServlet {
 			
 //				System.out.println("edititemNo:" + edititemNo);
 
-				for (int i = 0; i < itemNo.length; i++) {
+//				for (int i = 0; i < itemNo.length; i++) {
 					
 //					System.out.println("itemNo.length:" + i);
 					
-					v.setItem_No(edititemNo.get(i));
-					v.setItem_Name(edititemName.get(i));
-					v.setItem_Money(edititemMoney.get(i));
-					
-					if(i==itemNo.length){
-						ItemVO result1 = itemService.update(v);
-						itemfor.add(result1);
-					}
+//					v.setItem_No(edititemNo.get(i));
+//					v.setItem_Name(edititemName.get(i));
+//					v.setItem_Money(edititemMoney.get(i));
+//					
+//					if(i==itemNo.length){
+//						ItemVO result1 = itemService.update(v);
+//						itemfor.add(result1);
+//					}
 //					else{
 //						ItemVO result1 = itemService.insert(v);
 //						itemfor.add(result1);
 //					}
 					
-				}
+//				}
 
 			TravelVO resultEdit = travelService.update(travelview);
 

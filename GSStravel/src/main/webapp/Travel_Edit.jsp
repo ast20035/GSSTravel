@@ -252,9 +252,9 @@ li {
 						<td><input type="text" name="edititemMoney"
 							value="${row.item_Money}"></td>
 
-						<td><input type="text" name="edititemNo"
-							value="${row.item_No}"></td>
-						<td><input type="text" name="tra_no" value="${row.tra_No}"></td>
+<!-- 						<td><input type="text" name="edititemNo" -->
+<%-- 							value="${row.item_No}"></td> --%>
+<%-- 						<td><input type="text" name="tra_no" value="${row.tra_No}"></td> --%>
 						<%-- 						<td class="t">tra_No : ${row.tra_No}</td> --%>
 						<%-- 						<td class="t">item_No : ${row.item_No}</td> --%>
 						<td><input type="submit" name="delete" id="delete"
@@ -282,8 +282,8 @@ li {
 				<td><input type="text" name="edititemMoney"
 					value="${row.item_Money}"></td>
 
-				<td><input type="text" name="edititemNo" value="${row.item_No}"></td>
-				<td><input type="text" name="tra_no" value="${row.tra_No}"></td>
+<%-- 				<td><input type="text" name="edititemNo" value="${row.item_No}"></td> --%>
+<%-- 				<td><input type="text" name="tra_no" value="${row.tra_No}"></td> --%>
 				<%-- 				<td class="t">tra_No : ${row.tra_No}</td> --%>
 				<%-- 				<td class="t">item_No : ${row.item_No}</td> --%>
 				<td><input type="submit" name="delete" id="delete"
