@@ -64,7 +64,6 @@ public class TravelServlet extends HttpServlet {
 			String excel = request.getParameter("excel");
 		//柯(請勿刪除)
 
-		//String itemNo = request.getParameter("edititemNo");
 		String[] itemNo = request.getParameterValues("edititemNo");
 		String[] itemName = request.getParameterValues("edititemName");
 		String[] itemMoney = request.getParameterValues("edititemMoney");
@@ -265,17 +264,6 @@ public class TravelServlet extends HttpServlet {
 			}
 		}
 		
-//		int edititemNo = 0;
-//		if (itemNo != null && itemNo.length != 0) {
-//			
-//			try {
-//				edititemNo = Integer.parseInt(itemNo);
-//			} catch (NumberFormatException e) {
-//				e.printStackTrace();
-//				errors.put("edititemNo", "活動說明必須輸入");
-//			}
-//		}
-
 		/*---費用項目---*/
 
 		List<String> edititemName = new ArrayList<String>();
@@ -381,7 +369,7 @@ public class TravelServlet extends HttpServlet {
 			v.setTra_No(traNo);
 			IItemDAO itemDAO=new ItemDAO();			
 			List<ItemVO> itemVOs = itemDAO.select(traNo);
-			
+			int x=2;
 			for(ItemVO itemVO:itemVOs){			
 				if(itemVO.getItem_No()==1){
 					ItemVO Vo=new ItemVO();
@@ -400,10 +388,17 @@ public class TravelServlet extends HttpServlet {
 					itemDAO.update(Vo);
 				}
 				if(itemVO.getItem_No()!=1&&itemVO.getItem_No()!=2){
-					itemDAO.delete(itemVO.getItem_No(),traNo);
+					itemDAO.delete(itemVO.getItem_No());
+					ItemVO Vo=new ItemVO();
+					Vo.setItem_Name(itemName[x]);
+					Vo.setItem_Money(Float.parseFloat(itemMoney[x]));
+					Vo.setTra_No(traNo);
+					Vo.setItem_No(itemVO.getItem_No());
+					itemDAO.insert(Vo);
+					x++;
 				}
 			}
-			for(int y=2;y<itemName.length;y++){
+			for(int y=x;y<itemName.length;y++){
 				ItemVO Vo=new ItemVO();
 				Vo.setItem_Name(itemName[y]);
 				Vo.setItem_Money(Float.parseFloat(itemMoney[y]));
@@ -413,24 +408,13 @@ public class TravelServlet extends HttpServlet {
 			}
 			
 //				System.out.println("edititemNo:" + edititemNo);
-
-//				for (int i = 0; i < itemNo.length; i++) {
-					
-//					System.out.println("itemNo.length:" + i);
-					
+//				for (int i = 0; i < itemNo.length; i++) {			
+////					System.out.println("itemNo.length:" + i);
 //					v.setItem_No(edititemNo.get(i));
 //					v.setItem_Name(edititemName.get(i));
 //					v.setItem_Money(edititemMoney.get(i));
-//					
-//					if(i==itemNo.length){
-//						ItemVO result1 = itemService.update(v);
-//						itemfor.add(result1);
-//					}
-//					else{
-//						ItemVO result1 = itemService.insert(v);
-//						itemfor.add(result1);
-//					}
-					
+//					ItemVO result1 = itemService.update(v);
+//					itemfor.add(result1);
 //				}
 
 			TravelVO resultEdit = travelService.update(travelview);
