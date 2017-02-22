@@ -20,7 +20,72 @@
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="" />
 <title>Announcement Maintain</title>
+<style>
+td {
+	border: 2px outset black;
+	text-align: center;
+	/* 	padding: 0px 0px 0px 0px; */
+	font-size: 15px;
+}
+
+table {
+	margin-top: 2%;
+}
+</style>
+<script>
+	window.onload = function() {
+		setBoard();
+	}
+
+	var xh = new XMLHttpRequest();
+
+	function setBoard() {
+		if (xh != null) {
+			xh.addEventListener("readystatechange", setBoardData, false);
+			xh.open("GET", "AnnouncementServlet?select=查詢", true);
+			xh.send();
+		} else {
+			alert("很抱歉，您的瀏覽器不支援AJAX功能！");
+		}
+	}
+
+	function setBoardData() {
+		if (xh.readyState == 4) {
+			if (xh.status == 200) {
+				var board = JSON.parse(xh.responseText);
+				var body = document.querySelector("#boardTable>tbody");
+
+				while (body.hasChildNodes()) {
+					body.removeChild(body.lastChild);
+				}
+
+				for (var i = 0; i < board.length; i++) {
+					var tr = document.createElement("tr");
+					var td = document.createElement("td");
+					
+					td = document.createElement("td");
+					td.appendChild(document.createTextNode(board[i].time));
+					tr.appendChild(td);
+
+					td = document.createElement("td");
+					td.appendChild(document.createTextNode(board[i].title));
+					tr.appendChild(td);
+
+					td = document.createElement("td");
+					td.appendChild(document.createTextNode(board[i].content));
+					tr.appendChild(td);
+
+					body.appendChild(tr);
+				}
+			} else {
+				alert(xh.status + ":" + xh.statusText);
+			}
+		}
+	}
+</script>
+
 </head>
+<!-- <body onload="showtime()"> -->
 <body>
 	<%@include file="SelectBar.jsp"%>
 	<script>
@@ -35,30 +100,46 @@
 			</div>
 		</div>
 		<form action="<c:url value="/AnnouncementServlet" />" method="GET">
-			<div class='input-group'>
-				<span class="input-group-addon info" id="sizing-addon1">公告標題</span>
-				<input type='text' id='title' value=''
-					aria-describedby="sizing-addon1" class='form-control' />
-			</div>
+			<script language="JavaScript">
+// 				var now, hours, minutes, seconds, timeValue;
+// 				function showtime() {
+// 					now = new Date();
+// 					hours = now.getHours();
+// 					minutes = now.getMinutes();
+// 					seconds = now.getSeconds();
+// 					timeValue = (hours >= 12) ? "下午 " : "上午 ";
+// 					timeValue += ((hours > 12) ? hours - 12 : hours) + " 點";
+// 					timeValue += ((minutes < 10) ? " 0" : " ") + minutes + " 分";
+// 					timeValue += ((seconds < 10) ? " 0" : " ") + seconds + " 秒";
+// 					clock.innerHTML = timeValue;
+// 					setTimeout("showtime()", 1000);
+// 				}
+// 				showtime();
+			</script>
+			<h3 id='clock'></h3>
+			<div>公告標題</div>
+			<input type="text" id="title" name="title" value="" />
+			<div id="sizing-addon3">起迄日期:</div>
+			<input type='date' id='startDay' name='startDay' value='' />
 			<br>
-			<div class='input-group'>
-				<span class="input-group-addon info" id="sizing-addon2">公告時間</span>
-				<input type='text' id='time' value=''
-					aria-describedby="sizing-addon2" class='form-control' />
-			</div>
-			<br>
-			<div class='input-group'>
-				<span class="input-group-addon info" id="sizing-addon2">公告內容</span>
-				<input type='text' id='time' value=''
-					aria-describedby="sizing-addon2" class='form-control' />
-			</div>
-			<br>
-			<div class='btn-group'>
-				<input type="button" value="查詢" onclick="search()"
-					class='btn btn-primary' /> <input class='btn btn-primary'
-					type="reset"> <input type="button" name="insert" value="新增">
-			</div>
+			<input type='date' id='endDay' name='endDay' value='' />
+			<br><br>
+			<input type="button" value="查詢" name="select" />
+			<input type="reset" value="重設" />
+			<input type="button" value="新增" name="insert" />
 		</form>
+		<br>
+		<table id="boardTable">
+			<thead>
+				<tr>
+					<th>公告時間</th>
+					<th>公告標題</th>
+					<th>公告內容</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
 	</div>
 </body>
 </html>
