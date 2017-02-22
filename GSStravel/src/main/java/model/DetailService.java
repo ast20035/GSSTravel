@@ -432,4 +432,7 @@ public class DetailService {
 	public TravelVO Count(String tra_No) {
 		return travelDAO.Count(tra_No);
 	}
+	public int selectDetail_by_Tra_No(String tra_No){
+		return detailDAO.selectDetail_by_Tra_No(tra_No);
+	}
 }

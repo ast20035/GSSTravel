@@ -849,5 +849,21 @@ public class DetailDAO implements IDetailDAO {
 		}
 		return b;
 	}
+	private final String selectDetail_by_Tra_No="select count(det_No) as count from Detail where tra_No=? and det_CanDate is null";
 	
+	@Override
+	public int selectDetail_by_Tra_No(String tra_No){
+		int result=0;
+		try (Connection conn = ds.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(selectDetail_by_Tra_No);
+			stmt.setString(1, tra_No);
+			ResultSet rset = stmt.executeQuery();
+			while(rset.next()){
+				result = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
