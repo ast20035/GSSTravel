@@ -46,9 +46,9 @@ td>strong {
 		var close3=null;
 		var close4=null;
 		var close5=null;
-		var close6=null;
-		var close7=null;
 		var closeBtn=null;
+		var down1=null;
+		var down2=null;
 		
 		window.onload = function() {
 			btn = document.getElementById("FineEmail");
@@ -58,10 +58,9 @@ td>strong {
 			close3 = document.getElementById("close3");
 			close4 = document.getElementById("close4");
 			close5 = document.getElementById("close5");
-			close6 = document.getElementById("close6");
-			close7 = document.getElementById("close7");
 			closeBtn = document.getElementById("closeBtn");
-			
+			down1 = document.getElementById("down1");
+			down2 = document.getElementById("down2");
 			var $BodyWidth = $(document).width();  
 			var $ViewportWidth=$(window).width();  
 			var $ScrollLeft=$(this).scrollLeft();
@@ -89,22 +88,22 @@ td>strong {
 				close2.removeAttribute("href");
 				close3.removeAttribute("href");
 				close4.removeAttribute("href");
-				close5.removeAttribute("href");
-				close6.removeAttribute("href");
-				close7.disabled = true;
+				close5.disabled = true;
 				closeBtn.disabled = true;
+				down1.setAttribute("style","display:none");
+				down2.setAttribute("style","display:none");
 				myImg.style.display = "inline";
 				btn.setAttribute("disabled", "");
 				btn.value = "Email寄送中...";
 			} else if (xhr.readyState == 4) {
-				close1.setAttribute("href","<c:url value='/AllTravel'/>");
-				close2.setAttribute("href","<c:url value='/Register'/>");
-				close3.setAttribute("href","<c:url value='/search2.jsp'/>");
-				close4.setAttribute("href","<c:url value='/search.jsp'/>");
-				close5.setAttribute("href","<c:url value='/FineSetting.jsp'/>");
-				close6.setAttribute("href","<c:url value='/search1.jsp'/>");
-				close7.disabled = false;
+				close1.setAttribute("href","<c:url value='/Register'/>");
+				close2.setAttribute("href","<c:url value='/search2.jsp'/>");
+				close3.setAttribute("href","<c:url value='/search.jsp'/>");
+				close4.setAttribute("href","<c:url value='/search1.jsp'/>");
+				close5.disabled = false;
 				closeBtn.disabled = false;
+				down1.removeAttribute("style");
+				down2.removeAttribute("style");
 				myImg.style.display = "none";
 				btn.value = "寄送罰則異動通知";
 				if (xhr.status == 200) {
