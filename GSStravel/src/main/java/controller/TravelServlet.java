@@ -381,7 +381,7 @@ public class TravelServlet extends HttpServlet {
 			v.setTra_No(traNo);
 			IItemDAO itemDAO=new ItemDAO();			
 			List<ItemVO> itemVOs = itemDAO.select(traNo);
-			int x=2;
+			
 			for(ItemVO itemVO:itemVOs){			
 				if(itemVO.getItem_No()==1){
 					ItemVO Vo=new ItemVO();
@@ -400,17 +400,10 @@ public class TravelServlet extends HttpServlet {
 					itemDAO.update(Vo);
 				}
 				if(itemVO.getItem_No()!=1&&itemVO.getItem_No()!=2){
-					itemDAO.delete(itemVO.getItem_No());
-					ItemVO Vo=new ItemVO();
-					Vo.setItem_Name(itemName[x]);
-					Vo.setItem_Money(Float.parseFloat(itemMoney[x]));
-					Vo.setTra_No(traNo);
-					Vo.setItem_No(itemVO.getItem_No());
-					itemDAO.insert(Vo);
-					x++;
+					itemDAO.delete(itemVO.getItem_No(),traNo);
 				}
 			}
-			for(int y=x;y<itemName.length;y++){
+			for(int y=2;y<itemName.length;y++){
 				ItemVO Vo=new ItemVO();
 				Vo.setItem_Name(itemName[y]);
 				Vo.setItem_Money(Float.parseFloat(itemMoney[y]));

@@ -9,7 +9,7 @@ public interface IItemDAO {
 	public List<ItemVO> select(String tra_No);
 	public ItemVO insert(ItemVO bean);
 	public ItemVO update(ItemVO Itemupdate);
-	public boolean delete(int item_No);
+	public boolean delete(int item_No,String tra_No);
 	public List<ItemVO> select();//柯
 	public List<ItemVO> selectOne(String no);//柯
 }

@@ -5,8 +5,8 @@ public class DetailVO {
 	private int emp_No;
 	private int fam_No;
 	private String tra_No;
-	private java.sql.Time det_Date;
-	private java.sql.Time det_CanDate;
+	private java.sql.Timestamp det_Date;
+	private java.sql.Timestamp det_CanDate;
 	private float det_money;
 	private String det_note;
 	private float det_noteMoney;
@@ -55,16 +55,16 @@ public class DetailVO {
 	public void setTra_No(String tra_No) {
 		this.tra_No = tra_No;
 	}
-	public java.sql.Time getDet_Date() {
+	public java.sql.Timestamp getDet_Date() {
 		return det_Date;
 	}
-	public void setDet_Date(java.sql.Time det_Date) {
+	public void setDet_Date(java.sql.Timestamp det_Date) {
 		this.det_Date = det_Date;
 	}
-	public java.sql.Time getDet_CanDate() {
+	public java.sql.Timestamp getDet_CanDate() {
 		return det_CanDate;
 	}
-	public void setDet_CanDate(java.sql.Time det_CanDate) {
+	public void setDet_CanDate(java.sql.Timestamp det_CanDate) {
 		this.det_CanDate = det_CanDate;
 	}
 	public float getDet_money() {
