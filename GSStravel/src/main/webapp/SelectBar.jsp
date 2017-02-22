@@ -86,6 +86,9 @@ h1, h2 {
 .in {
 	color: black;
 }
+.nav>li>a:HOVER{
+background-color: 	#DCDCDC;
+}
 </style>
 <nav class="navbar navbar-fixed-top topBar">
 	<div class="container">
