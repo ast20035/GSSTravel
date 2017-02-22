@@ -147,8 +147,8 @@ var Error="<%=session.getAttribute("nopeople")%>";
 <body>
 		<%@include file="SelectBar.jsp"%>
 		<script>
-			$('li').removeClass('now');
-			$('li:eq(5)').addClass('now');
+			$('.navbar-nav>li').removeClass('now');
+			$('.navbar-nav>li:eq(5)').addClass('now');
 		</script>
 	<div class='container-fluid'>
 		<link rel="stylesheet"
