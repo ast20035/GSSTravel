@@ -64,107 +64,17 @@ li {
 					<td></td>
 				</tr>
 				<tr>
-					<td>*活動地點 ${params.tra_Loc}</td>
+					<td>*活動地點 </td>
+					<td><select name="edittraLoc">
 
-					 			<td><SELECT name="edittraLoc"> 
-					 			<option value="" selected>${params.tra_Loc}</option> 
-					 			<OPTION  value="北">北</OPTION> 
-								<OPTION  value="中">中</OPTION> 
-								<OPTION  value="南">南</OPTION> 
-								<OPTION  value="東">東</OPTION> 
-								<OPTION  value="外島">外島</OPTION>
-							</SELECT></td> 
-<!-- 					<td><select name="edittraLoc"> -->
-
-<%-- 							<option value="北" ${params.tra_Loc == '北' ? 'selected' : ''}>北</option> --%>
-<%-- 							<option value="中" ${params.tra_Loc == '中' ? 'selected' : ''}>中</option> --%>
-<%-- 							<option value="南" ${params.tra_Loc == '南' ? 'selected' : ''}>南</option> --%>
-<%-- 							<option value="東" ${params.tra_Loc == '東' ? 'selected' : ''}>東</option> --%>
-<%-- 							<option value="外島" ${params.tra_Loc == '外島' ? 'selected' : ''}>外島</option> --%>
+							<option value="北" ${params.tra_Loc == '北' ? 'selected' : ''}>北</option>
+							<option value="中" ${params.tra_Loc == '中' ? 'selected' : ''}>中</option>
+							<option value="南" ${params.tra_Loc == '南' ? 'selected' : ''}>南</option>
+							<option value="東" ${params.tra_Loc == '東' ? 'selected' : ''}>東</option>
+							<option value="外島" ${params.tra_Loc == '外島' ? 'selected' : ''}>外島</option>
 
 
-<!-- 					</select></td> -->
-<!-- 				<td><select name="edittraLoc"> -->
-<%-- 				<option selected="selected">${params.tra_Loc}</option> --%>
-<%-- 				<c:if test="${params.tra_Loc=='北'}"> --%>
-<!-- 		     <option value="北" selected>北</option> -->
-<!-- 		     <option value="中">中</option> -->
-<!-- 		     <option value="南">南</option> -->
-<!-- 		     <option value="東">東</option> -->
-<!-- 		     <option value="外島">外島</option> -->
-<%-- 			 </c:if> --%>
-			 
-<%-- 			<c:if test="${params.tra_Loc=='中'}"> --%>
-<!-- 		     <option value="北" >北</option> -->
-<!-- 		     <option value="中" selected>中</option> -->
-<!-- 		     <option value="南" >南</option> -->
-<!-- 		     <option value="東">東</option> -->
-<!-- 		     <option value="外島">外島</option> -->
-<%-- 			 </c:if> --%>
-			 
-<%-- 			 <c:if test="${params.tra_Loc=='南'}"> --%>
-<!-- 		     <option value="北" >北</option> -->
-<!-- 		     <option value="中"	>中</option> -->
-<!-- 		     <option value="南" selected>南</option> -->
-<!-- 		     <option value="東">東</option> -->
-<!-- 		     <option value="外島">外島</option> -->
-<%-- 			 </c:if> --%>
-			 
-<%-- 			 <c:if test="${params.tra_Loc=='東'}"> --%>
-<!-- 		     <option value="北" >北</option> -->
-<!-- 		     <option value="中">中</option> -->
-<!-- 		     <option value="南">南</option> -->
-<!-- 		     <option value="東" selected>東</option> -->
-<!-- 		     <option value="外島">外島</option> -->
-<%-- 			 </c:if> --%>
-			 
-<%-- 			  <c:if test="${params.tra_Loc=='外島'}"> --%>
-<!-- 		     <option value="北" >北</option> -->
-<!-- 		     <option value="中">中</option> -->
-<!-- 		     <option value="南">南</option> -->
-<!-- 		     <option value="東">東</option> -->
-<!-- 		     <option value="外島" selected>外島</option> -->
-<%-- 			 </c:if> --%>
-
-				
-<!-- 				</select></td> -->
-
-					<!-- 
-<select class="" name ="edittraName"  m data-placeholder="請選擇" style="width: 200px;">
-			 <c:if test="${start.fam_Bady=='false'} ${start.fam_kid=='false'} ${start.fam_Dis=='false'} ${start.fam_Mom=='false'}" >
-			 <option value="no" Selected>請選擇</option>
-			 </c:if>
-			 
-		     <c:if test="${start.fam_Bady=='false'}">
-		     <option value="baby">幼童(0~3歲)</option>
-			 </c:if>
-			 <c:if test="${start.fam_Bady}">
-			 <option value="baby" Selected>幼童(0~3歲)</option>
-			 </c:if>
-			 
-			 <c:if test="${start.fam_kid=='false'}">
-		     <option value="kid">兒童(4~11歲)</option>
-			 </c:if>
-			 <c:if test="${start.fam_kid}">
-			 <option value="kid" Selected>兒童(4~11歲)</option>
-			 </c:if>
-		      <c:if test="${start.fam_Dis=='false'}">
-		     <option value="dis">持身心障礙手冊</option>
-		     </c:if>
-		      <c:if test="${start.fam_Dis}">
-		     <option value="dis" Selected>持身心障礙手冊</option>
-		     </c:if>
-		     <c:if test="${start.fam_Mom=='false'}">
-		     <option value="mom">孕婦(媽媽手冊)</option>
-		      </c:if>
-		      <c:if test="${start.fam_Mom}">
-		     <option value="mom" Selected>孕婦(媽媽手冊)</option>
-		      </c:if>
-		     </select>
-
-	-->
-
-					<!--<td><input type="text" name="edittraLoc" value="${params.tra_Loc}"></td>-->
+					</select></td>
 					<td></td>
 				</tr>
 				<tr>
@@ -242,21 +152,14 @@ li {
 					<tr>
 
 						<td><SELECT name="edititemName">
-								<option selected="selected">${row.item_Name}</option>
-								<OPTION value="團費">團費</OPTION>
-								<OPTION value="保險費">保險費</OPTION>
-								<OPTION value="住宿費(兩人房)">住宿費(兩人房)</OPTION>
-								<OPTION value="住宿費(通鋪8人)">住宿費(通鋪8人)</OPTION>
-								<OPTION value="住宿費(加床)">住宿費(加床)</OPTION>
-						</SELECT></td>
-						<td><input type="text" name="edititemMoney"
-							value="${row.item_Money}"></td>
+							<option value="團費" ${row.item_Name == '團費' ? 'selected' : ''}>團費</option>
+							<option value="保險費" ${row.item_Name == '保險費' ? 'selected' : ''}>保險費</option>
+							<option value="住宿費(兩人房)" ${row.item_Name == '住宿費(兩人房)' ? 'selected' : ''}>住宿費(兩人房)</option>
+							<option value="住宿費(通鋪8人)" ${row.item_Name == '住宿費(通鋪8人)' ? 'selected' : ''}>住宿費(通鋪8人)</option>
+							<option value="住宿費(加床)" ${row.item_Name == '住宿費(加床)' ? 'selected' : ''}>住宿費(加床)</option>
 
-<!-- 						<td><input type="text" name="edititemNo" -->
-<%-- 							value="${row.item_No}"></td> --%>
-<%-- 						<td><input type="text" name="tra_no" value="${row.tra_No}"></td> --%>
-						<%-- 						<td class="t">tra_No : ${row.tra_No}</td> --%>
-						<%-- 						<td class="t">item_No : ${row.item_No}</td> --%>
+						</SELECT></td>
+						<td><input type="text" name="edititemMoney" value="${row.item_Money}"></td>
 						<td><input type="submit" name="delete" id="delete"
 							value="delete"></td>
 					</tr>
@@ -272,34 +175,25 @@ li {
 
 			<tr name="newtable">
 				<td><SELECT name="edititemName">
-						<option selected="selected">${row.item_Name}</option>
-						<OPTION value="團費">團費</OPTION>
-						<OPTION value="保險費">保險費</OPTION>
-						<OPTION value="住宿費(兩人房)">住宿費(兩人房)</OPTION>
-						<OPTION value="住宿費(通鋪8人)">住宿費(通鋪8人)</OPTION>
-						<OPTION value="住宿費(加床)">住宿費(加床)</OPTION>
-				</SELECT></td>
-				<td><input type="text" name="edititemMoney"
-					value="${row.item_Money}"></td>
+						<option selected="selected" disabled="disabled">請選擇</option>
+							<option value="住宿費(兩人房)" ${row.item_Name == '住宿費(兩人房)' ? 'selected' : ''}>住宿費(兩人房)</option>
+							<option value="住宿費(通鋪8人)" ${row.item_Name == '住宿費(通鋪8人)' ? 'selected' : ''}>住宿費(通鋪8人)</option>
+							<option value="住宿費(加床)" ${row.item_Name == '住宿費(加床)' ? 'selected' : ''}>住宿費(加床)</option>
 
-<%-- 				<td><input type="text" name="edititemNo" value="${row.item_No}"></td> --%>
-<%-- 				<td><input type="text" name="tra_no" value="${row.tra_No}"></td> --%>
-				<%-- 				<td class="t">tra_No : ${row.tra_No}</td> --%>
-				<%-- 				<td class="t">item_No : ${row.item_No}</td> --%>
-				<td><input type="submit" name="delete" id="delete"
-					value="delete"></td>
+				</SELECT></td>
+				<td><input type="text" name="edititemMoney"value="${row.item_Money}"></td>
+				<td><input type="submit" name="delete" id="delete"value="delete"></td>
 			</tr>
 		</table>
 
 		<script>
 			$(function() {
 				$("tr[name='newtable']").hide();
+				//動態新增tr
 				$("#insert").click(
 						function(event) {
-							$("#Itemtable").append(
-									'<tr class=newtable>'
-											+ $("tr[name='newtable']").html()
-											+ '</tr>');
+							$("#Itemtable").append('<tr class=newtable>'+ $("tr[name='newtable']").html()+ '</tr>');
+	
 						})
 				//刪除動態tr		
 				$("#Itemtable").on("click", "input[name='delete']", function() {
