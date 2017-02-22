@@ -49,7 +49,7 @@ td>input[type=text] {
 	<%@include file="SelectBar.jsp"%>
 	<script>
 		$('.navbar-nav>li').removeClass('now');
-		$('.navbar-nav>li:eq(1)').addClass('now');
+		$('.navbar-nav>li:eq(2)').addClass('now');
 	</script>
 
 	<div class='container-fluid'>

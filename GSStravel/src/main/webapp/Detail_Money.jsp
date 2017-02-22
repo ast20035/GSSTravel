@@ -52,7 +52,7 @@ td {
 	<%@include file="SelectBar.jsp"%>
 	<script>
 		$('.navbar-nav>li').removeClass('now');
-		$('.navbar-nav>li:eq(5)').addClass('now');
+		$('.navbar-nav>li:eq(6)').addClass('now');
 	</script>
 	<div class='container-fluid'>
 		<h2>旅費統計</h2>
@@ -133,16 +133,26 @@ td {
 					</tr>
 				</c:forEach>
 			</table>
+			<ul class="pagination">
+				<li><a onclick="before()">&laquo;</a></li>
+					<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
+					<li class="page" onclick="page(this)" value="1"><a>2</a></li>
+					<li class="page" onclick="page(this)" value="2"><a>3</a></li>
+					<li class="page" onclick="page(this)" value="3"><a>4</a></li>
+					<li class="page" onclick="page(this)" value="4"><a>5</a></li>
+				<li><a onclick="next()">&raquo;</a></li>			
+			</ul>
+			<br />
 			<c:if test="${travelVO!=null}">
 				<button type="submit" name="prodaction" value="save">儲存</button>
 			</c:if>
 			<input type="button" onclick="excel()" value="匯出Excel">
 		</form>
-	<c:if test="${session!=null}">
-		<script>
-			alert('${session}');
-		</script>
-	</c:if>
+		<c:if test="${session!=null}">
+			<script>
+				alert('${session}');
+			</script>
+		</c:if>
 	</div>
 </body>
 <script>
@@ -264,6 +274,36 @@ td {
 			},
 
 		})
+	}
+	var $page=$(".page");
+	var i;
+	$("tr:gt(10)").css("display","none");
+	
+	function next(){
+		i=$(".active");
+		$page.removeClass("active");
+		if(i.val()<$page.length-1){
+// 			console.log("i",i.val());
+			$page[i.val()+1].className="active";
+// 			$("tr:gt("+1+Number(i.val())*5+"):lt("+1+(Number(i.val())+1)*5+")").css("display","none");
+							
+		}else{
+			$page[0].className="active";
+		}
+	}
+	function before(){
+		i=$(".active");
+		$page.removeClass("active");
+		if(i.val()<$page.length && i.val()>0){
+			$page[i.val()-1].className="active";
+		}else{
+			$page[$page.length-1].className="active";
+		}	
+	}
+	function page(obj){
+		$page.removeClass("active");
+		$(obj).prop("class","active");
+		i=$(".active");
 	}
 </script>
 </html>

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -22,17 +22,29 @@
 <title>Announcement</title>
 </head>
 <body>
-	<h2>公佈欄</h2>
-	<table>
-		<thead>
-			<tr>
-				<th>公告標題</th>
-				<th>公告時間</th>
-				<th>公告內容</th>	
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
+	<%@include file="SelectBar.jsp"%>
+	<script>
+		$('.navbar-nav>li').removeClass('now');
+		$('.navbar-nav>li:eq(0)').addClass('now');
+	</script>
+	<div class='container-fluid'>
+		<div class='row'>
+			<div class='col-md-1'></div>
+			<div class='col-md-11'>
+				<h2>公告</h2>
+			</div>
+		</div>
+		<table>
+			<thead>
+				<tr>
+					<th>公告標題</th>
+					<th>公告時間</th>
+					<th>公告內容</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>

@@ -22,28 +22,43 @@
 <title>Announcement Maintain</title>
 </head>
 <body>
-	<h2>公告維護</h2>
-	<form action="<c:url value="/AnnouncementServlet" />" method="GET">
-		<div class='input-group'>
-			<span class="input-group-addon info" id="sizing-addon1">公告標題</span>
-			<input type='text' id='title' value='' aria-describedby="sizing-addon1" class='form-control' />
+	<%@include file="SelectBar.jsp"%>
+	<script>
+		$('.navbar-nav>li').removeClass('now');
+		$('.navbar-nav>li:eq(7)').addClass('now');
+	</script>
+	<div class='container-fluid'>
+		<div class='row'>
+			<div class='col-md-1'></div>
+			<div class='col-md-11'>
+				<h2>公告維護</h2>
+			</div>
 		</div>
-		<br>
-		<div class='input-group'>
-			<span class="input-group-addon info" id="sizing-addon2">公告時間</span>
-			<input type='text' id='time' value='' aria-describedby="sizing-addon2" class='form-control' />
-		</div>
-		<br>
-		<div class='input-group'>
-			<span class="input-group-addon info" id="sizing-addon2">公告內容</span>
-			<input type='text' id='time' value='' aria-describedby="sizing-addon2" class='form-control' />
-		</div>
-		<br>
-		<div class='btn-group'>
-			<input type="button" value="查詢" onclick="search()" class='btn btn-primary' />
-			<input class='btn btn-primary' type="reset">
-			<input type="button" name="insert" value="新增">
-		</div>
-	</form>
+		<form action="<c:url value="/AnnouncementServlet" />" method="GET">
+			<div class='input-group'>
+				<span class="input-group-addon info" id="sizing-addon1">公告標題</span>
+				<input type='text' id='title' value=''
+					aria-describedby="sizing-addon1" class='form-control' />
+			</div>
+			<br>
+			<div class='input-group'>
+				<span class="input-group-addon info" id="sizing-addon2">公告時間</span>
+				<input type='text' id='time' value=''
+					aria-describedby="sizing-addon2" class='form-control' />
+			</div>
+			<br>
+			<div class='input-group'>
+				<span class="input-group-addon info" id="sizing-addon2">公告內容</span>
+				<input type='text' id='time' value=''
+					aria-describedby="sizing-addon2" class='form-control' />
+			</div>
+			<br>
+			<div class='btn-group'>
+				<input type="button" value="查詢" onclick="search()"
+					class='btn btn-primary' /> <input class='btn btn-primary'
+					type="reset"> <input type="button" name="insert" value="新增">
+			</div>
+		</form>
+	</div>
 </body>
 </html>
