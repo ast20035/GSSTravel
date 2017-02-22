@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -22,6 +23,27 @@
 </head>
 <body>
 	<h2>公告維護</h2>
-	
+	<form action="<c:url value="/AnnouncementServlet" />" method="GET">
+		<div class='input-group'>
+			<span class="input-group-addon info" id="sizing-addon1">公告標題</span>
+			<input type='text' id='title' value='' aria-describedby="sizing-addon1" class='form-control' />
+		</div>
+		<br>
+		<div class='input-group'>
+			<span class="input-group-addon info" id="sizing-addon2">公告時間</span>
+			<input type='text' id='time' value='' aria-describedby="sizing-addon2" class='form-control' />
+		</div>
+		<br>
+		<div class='input-group'>
+			<span class="input-group-addon info" id="sizing-addon2">公告內容</span>
+			<input type='text' id='time' value='' aria-describedby="sizing-addon2" class='form-control' />
+		</div>
+		<br>
+		<div class='btn-group'>
+			<input type="button" value="查詢" onclick="search()" class='btn btn-primary' />
+			<input class='btn btn-primary' type="reset">
+			<input type="button" name="insert" value="新增">
+		</div>
+	</form>
 </body>
 </html>
