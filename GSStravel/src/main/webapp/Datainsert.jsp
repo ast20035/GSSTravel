@@ -48,8 +48,8 @@ td>input[type=text] {
 
 	<%@include file="SelectBar.jsp"%>
 	<script>
-		$('li').removeClass('now');
-		$('li:eq(1)').addClass('now');
+		$('.navbar-nav>li').removeClass('now');
+		$('.navbar-nav>li:eq(1)').addClass('now');
 	</script>
 
 	<div class='container-fluid'>
@@ -547,7 +547,7 @@ td>input[type=text] {
 			});
 
 			
-			$(function() {
+			$(function() {			
 			var $BodyWidth = $(document).width();
 			var $ViewportWidth = $(window).width();
 			var $ScrollLeft = $(this).scrollLeft();

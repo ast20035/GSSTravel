@@ -188,8 +188,8 @@ input[type=text] {
 <body>
 	<%@include file="SelectBar.jsp"%>
 	<script>
-		$('li').removeClass('now');
-		$('li:eq(4)').addClass('now');
+		$('.navbar-nav>li').removeClass('now');
+		$('.navbar-nav>li:eq(4)').addClass('now');
 	</script>
 	<div class='container-fluid'>
 		<div class='row'>
