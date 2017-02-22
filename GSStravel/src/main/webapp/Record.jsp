@@ -27,7 +27,7 @@ table, th, td {
 		</tr>
 		<c:forEach var="row" items="${record}">
 			<tr>
-				<td>${row[0]}</td>
+				<td><a href="<c:url value="/FeeTravel?tra_No=${row[0]}" />">${row[0]}</a></td>
 				<td>${row[1]}</td>
 				<td>${row[2]}</td>
 				<td>${row[3]}</td>
