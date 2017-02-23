@@ -165,6 +165,7 @@ public class DetailServlet extends HttpServlet {
 				bean.setTra_NO(det_canTraNo);
 				List<DetailBean> result1 = detailService.update(bean);
 				req.setAttribute("select", result1);
+				req.setAttribute("det_canTraNo", det_canTraNo);
 				req.getRequestDispatcher("/Detail_CanSuccess.jsp").forward(req, resp);
 				return;
 			} else {

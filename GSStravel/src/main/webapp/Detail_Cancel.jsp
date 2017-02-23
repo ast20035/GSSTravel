@@ -29,7 +29,7 @@ fieldset {
 </style>
 
 </head>
-<body onunload=unLoad();>
+<body>
 	<div class='container-fluid'>
 		<br />
 		<form action=<c:url value="/detail"/> method="get"
@@ -79,13 +79,6 @@ var DetCanError="<%=session.getAttribute("DetCanError")%>";
 <%session.removeAttribute("DetCanError");%>
 if(DetCanError!="null"){
 	$("p").show();
-}
-
-function unLoad(){
-	var pathName = document.location.pathname;
-	var index = pathName.substr(1).indexOf("/");
-	var result = pathName.substr(0, index + 1);
-    window.opener.location.href = result + "/detail?tra_no=" + tra_No;
 }
 </script>
 	</div>
