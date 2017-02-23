@@ -48,13 +48,14 @@ margin-right: 3%;
 				<form id="myForm" action=<c:url value="/detail"/> method="post">
 					<p>活動代碼：${param.tra_no}</p>
 					<input type="hidden" name="tra_no" id="tra_no" value="${param.tra_no}">
-						<select class="selectTable" >
+						<select name="selectTable" id="selectTable" onchange="dataSelect()">
 								<option>顯示全部</option>
 								<option>尚未取消</option>
 								<option>已取消</option>
 						</select>
 
 					<table id="deailtable">
+					<thead>
 						<tr>
 							<th></th>
 							<th>員工編號</th>
@@ -75,7 +76,7 @@ margin-right: 3%;
 							<th>備註</th>
 							<th>取消原因</th>
 						</tr>
-
+					</thead>
 						<c:if test="${not empty select}">
 							<c:forEach var="row" items="${select}">
 								<tr>
@@ -196,6 +197,7 @@ margin-right: 3%;
 										class='form-control' disabled></td>
 									<td><p style='width:200px;'>${row.det_canNote}</p></td>
 								</tr>
+								<input type="hidden" class="detailRow" style='width:90px;' value="${row.row}">
 							</c:forEach>
 						</c:if>
 					</table>
@@ -203,7 +205,7 @@ margin-right: 3%;
 					<br />	
 					<ul class="pagination" id="pagination">
 						<li><a onclick="before()">&laquo;</a></li>
-						<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
+						<li class="page" onclick="page(this)" value="0"><a>1</a></li>
 					</ul>
 					<br />
 					<input type="hidden" name="detailPage" class="detailPage">
@@ -227,7 +229,8 @@ margin-right: 3%;
 var $page=$(".page");
 var i;
 $(function(){ 
-	
+
+	var chosePage = Math.ceil($(".detailRow").val()/10);
 	var allData = ${Count};
 	var totalPage = Math.ceil(allData/10);
 	for(var i=1; i<totalPage; i++){
@@ -237,18 +240,28 @@ $(function(){
 	li.innerHTML='<a onclick="next()">&raquo;</a>';
 	document.getElementById("pagination").appendChild(li);
 	$page=$(".page");
-	 $(".selectTable").on("change",function(){
-		 if($(this).val() == "顯示全部"){
-			 $("em:empty").parent().parent().show();
-			 $("em:contains('-')").parent().parent().show();
-		 }else if($(this).val() == "尚未取消"){
-			 $("em:empty").parent().parent().show();
-			 $("em:contains('-')").parent().parent().hide();
-		 }else{
-			 $("em:contains('-')").parent().parent().show();
-			 $("em:empty").parent().parent().hide();
-		 }
-	})
+	$page.removeClass("active");
+	$page[chosePage-1].className="active";
+	
+// 	 $(".selectTable").on("change",function(){
+// 		 if($(this).val() == "顯示全部"){
+// 			 $("em:empty").parent().parent().show();
+// 			 $("em:contains('-')").parent().parent().show();
+// 		 }else if($(this).val() == "尚未取消"){
+// 			 $("em:empty").parent().parent().show();
+// 			 $("em:contains('-')").parent().parent().hide();
+// 		 }else{
+// 			 $("em:contains('-')").parent().parent().show();
+// 			 $("em:empty").parent().parent().hide();
+// 		 }
+// 	})
+		if("${view}" == "已取消"){
+			document.getElementById("selectTable").selectedIndex = "2";
+		}else if("${view}" == "尚未取消"){
+			document.getElementById("selectTable").selectedIndex = "1";
+		}else{
+			document.getElementById("selectTable").selectedIndex = "0";
+		}	
 	
 	var $BodyWidth = $(document).width();  
 	var $ViewportWidth=$(window).width();  
@@ -261,7 +274,6 @@ $(function(){
 	}
 	
 	 //多選下拉式選單
-	 
 	 $(".multiselect").hide();
     //性別選取
 	 for(var i=0; i<document.getElementsByName("tsex").length; i++){
@@ -293,7 +305,8 @@ $(function(){
 			}else{
 				document.getElementsByName("eat")[i].selectedIndex = 2;
 			}
-	}	
+	}
+
 	 $(".detEdit").click(function () {
 		 var thisTr = $(this).parents("tr")
 		 thisTr.find("input").removeAttr("disabled");
@@ -481,7 +494,7 @@ function next(){
 		$page[0].className="active";
 		$(".detailPage").val("1");
 	}
-	//document.getElementById('myForm').submit();
+	document.getElementById('myForm').submit();
 	
 }
 function before(){
@@ -494,14 +507,18 @@ function before(){
 		$page[$page.length-1].className="active";
 		$(".detailPage").val($page.length);
 	}	
-	//document.getElementById('myForm').submit();
+	document.getElementById('myForm').submit();
 }
 function page(obj){
 	$page.removeClass("active");
 	$(obj).prop("class","active");
 	i=$(".active");
 	$(".detailPage").val(i.val()+1);
-	//document.getElementById('myForm').submit();
+	document.getElementById('myForm').submit();
+}
+
+function dataSelect(){
+	document.getElementById('myForm').submit();
 }
 		</script>
 	</div>

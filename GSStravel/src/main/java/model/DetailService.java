@@ -215,20 +215,20 @@ public class DetailService {
 		return result;
 	}
 	
-	public List<DetailBean> selectCan(DetailBean bean) {
+	public List<DetailBean> selectCan(DetailBean bean, int firstPage, int lastPage) {
 		List<DetailBean> result = new ArrayList<>();
 		detailDAO = new DetailDAO();
 		if (bean != null && bean.getTra_NO() != null) {
-			result = detailDAO.selectCan(bean.getTra_NO());
+			result = detailDAO.selectCan(bean.getTra_NO(), firstPage, lastPage);
 		}
 		return result;
 	}
 	
-	public List<DetailBean> selectNotCan(DetailBean bean) {
+	public List<DetailBean> selectNotCan(DetailBean bean, int firstPage, int lastPage) {
 		List<DetailBean> result = new ArrayList<>();
 		detailDAO = new DetailDAO();
 		if (bean != null && bean.getTra_NO() != null) {
-			result = detailDAO.selectNotCan(bean.getTra_NO());
+			result = detailDAO.selectNotCan(bean.getTra_NO(), firstPage, lastPage);
 		}
 		return result;
 	}

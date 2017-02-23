@@ -265,15 +265,16 @@ public class DetailDAO implements IDetailDAO {
 	}
 
 	// SELECT報名維護已取消欄位
-	private static final String SELECTCan = "SELECT det_No, Detail.emp_No, ISNULL(Detail.fam_No,Detail.emp_No) as number, ISNULL(fam_Rel,'員工') as Rel, ISNULL(fam_Name, emp_Name) as Name, ISNULL(fam_Sex,emp_Sex) as Sex, ISNULL(fam_ID, emp_ID) as ID,ISNULL(fam_Bdate,emp_Bdate) as Bdate, ISNULL(fam_Phone,emp_Phone) as Phone,ISNULL(fam_eat,emp_Eat) as Eat, ISNULL(fam_Car,1) as Car, fam_Bady, fam_kid, fam_Dis, fam_Mom,ISNULL(fam_Ben,emp_Ben) as Ben, ISNULL(fam_BenRel,emp_BenRel) as BenRel, ISNULL(fam_Emg,emp_Emg) as Emg, ISNULL(fam_EmgPhone,emp_EmgPhone) as EmgPhone, det_Date, det_CanDate as CanDate, ISNULL(fam_Note,emp_Note) as Note, det_canNote FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No WHERE Tra_No = ? and det_CanDate is not null order by CanDate";
-
+	private static final String SELECTCan = "SELECT * FROM(SELECT TOP 100 PERCENT det_No, Detail.emp_No, ISNULL(Detail.fam_No,Detail.emp_No) as number, ISNULL(fam_Rel,'員工') as Rel, ISNULL(fam_Name, emp_Name) as Name, ISNULL(fam_Sex,emp_Sex) as Sex, ISNULL(fam_ID, emp_ID) as ID,ISNULL(fam_Bdate,emp_Bdate) as Bdate, ISNULL(fam_Phone,emp_Phone) as Phone,ISNULL(fam_eat,emp_Eat) as Eat, ISNULL(fam_Car,1) as Car, fam_Bady, fam_kid, fam_Dis, fam_Mom,ISNULL(fam_Ben,emp_Ben) as Ben, ISNULL(fam_BenRel,emp_BenRel) as BenRel, ISNULL(fam_Emg,emp_Emg) as Emg, ISNULL(fam_EmgPhone,emp_EmgPhone) as EmgPhone, det_Date, det_CanDate as CanDate, ISNULL(fam_Note,emp_Note) as Note, det_canNote, ROW_NUMBER() OVER (ORDER BY det_CanDate) as row  FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No  where Tra_No = ? and det_CanDate is not null order by CanDate) a WHERE (row >= ? and row <= ?)";
 	@Override
-	public List<DetailBean> selectCan(String Tra_No) {
+	public List<DetailBean> selectCan(String Tra_No, int firstPage, int lastPage) {
 		List<DetailBean> result = new ArrayList<>();
 		try {
 			Connection conn = ds.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(SELECTCan);
 			stmt.setString(1, Tra_No);
+			stmt.setInt(2, firstPage);
+			stmt.setInt(3, lastPage);
 			ResultSet rset = stmt.executeQuery();
 			result = new ArrayList<DetailBean>();
 			while (rset.next()) {
@@ -301,6 +302,7 @@ public class DetailDAO implements IDetailDAO {
 				bean.setDet_CanDate(rset.getString("CanDate"));
 				bean.setNote(rset.getString("Note"));
 				bean.setDet_canNote(rset.getString("det_canNote"));
+				bean.setRow(rset.getInt("row"));
 				result.add(bean);
 			}
 		} catch (SQLException e) {
@@ -310,15 +312,16 @@ public class DetailDAO implements IDetailDAO {
 	}
 	
 	// SELECT報名維護未取消欄位
-		private static final String SELECTNotCan = "SELECT det_No, Detail.emp_No, ISNULL(Detail.fam_No,Detail.emp_No) as number, ISNULL(fam_Rel,'員工') as Rel, ISNULL(fam_Name, emp_Name) as Name, ISNULL(fam_Sex,emp_Sex) as Sex, ISNULL(fam_ID, emp_ID) as ID,ISNULL(fam_Bdate,emp_Bdate) as Bdate, ISNULL(fam_Phone,emp_Phone) as Phone,ISNULL(fam_eat,emp_Eat) as Eat, ISNULL(fam_Car,1) as Car, fam_Bady, fam_kid, fam_Dis, fam_Mom,ISNULL(fam_Ben,emp_Ben) as Ben, ISNULL(fam_BenRel,emp_BenRel) as BenRel, ISNULL(fam_Emg,emp_Emg) as Emg, ISNULL(fam_EmgPhone,emp_EmgPhone) as EmgPhone, det_Date, det_CanDate as CanDate, ISNULL(fam_Note,emp_Note) as Note, det_canNote FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No WHERE Tra_No = ? and det_CanDate is null order by CanDate";
-
+		private static final String SELECTNotCan = "SELECT * FROM(SELECT TOP 100 PERCENT det_No, Detail.emp_No, ISNULL(Detail.fam_No,Detail.emp_No) as number, ISNULL(fam_Rel,'員工') as Rel, ISNULL(fam_Name, emp_Name) as Name, ISNULL(fam_Sex,emp_Sex) as Sex, ISNULL(fam_ID, emp_ID) as ID,ISNULL(fam_Bdate,emp_Bdate) as Bdate, ISNULL(fam_Phone,emp_Phone) as Phone,ISNULL(fam_eat,emp_Eat) as Eat, ISNULL(fam_Car,1) as Car, fam_Bady, fam_kid, fam_Dis, fam_Mom,ISNULL(fam_Ben,emp_Ben) as Ben, ISNULL(fam_BenRel,emp_BenRel) as BenRel, ISNULL(fam_Emg,emp_Emg) as Emg, ISNULL(fam_EmgPhone,emp_EmgPhone) as EmgPhone, det_Date, det_CanDate as CanDate, ISNULL(fam_Note,emp_Note) as Note, det_canNote, ROW_NUMBER() OVER (ORDER BY det_CanDate) as row  FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No  where Tra_No = ? and det_CanDate is null order by CanDate) a WHERE (row >= ? and row <= ?)";
 		@Override
-		public List<DetailBean> selectNotCan(String Tra_No) {
+		public List<DetailBean> selectNotCan(String Tra_No, int firstPage, int lastPage) {
 			List<DetailBean> result = new ArrayList<>();
 			try {
 				Connection conn = ds.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(SELECTNotCan);
 				stmt.setString(1, Tra_No);
+				stmt.setInt(2, firstPage);
+				stmt.setInt(3, lastPage);
 				ResultSet rset = stmt.executeQuery();
 				result = new ArrayList<DetailBean>();
 				while (rset.next()) {
@@ -346,6 +349,7 @@ public class DetailDAO implements IDetailDAO {
 					bean.setDet_CanDate(rset.getString("CanDate"));
 					bean.setNote(rset.getString("Note"));
 					bean.setDet_canNote(rset.getString("det_canNote"));
+					bean.setRow(rset.getInt("row"));
 					result.add(bean);
 				}
 			} catch (SQLException e) {
@@ -392,6 +396,7 @@ public class DetailDAO implements IDetailDAO {
 					bean.setDet_CanDate(rset.getString("CanDate"));
 					bean.setNote(rset.getString("Note"));
 					bean.setDet_canNote(rset.getString("det_canNote"));
+					bean.setRow(rset.getInt("row"));
 					result.add(bean);
 				}
 			} catch (SQLException e) {
