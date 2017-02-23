@@ -204,10 +204,7 @@ table {
 
 	var a1 = a2 = a3 = a4 = a5 = a6 = a7 = a8 = a9 = false;
 	$(function() {
-		$(".fam_Id")
-				.on(
-						"blur",
-						function() {
+		$(".fam_Id").on("blur",function() {
 							// 依照字母的編號排列，存入陣列備用。
 							var letters = new Array('A', 'B', 'C', 'D', 'E',
 									'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N',
