@@ -40,6 +40,10 @@ public class DetailServlet extends HttpServlet {
 		String can_detNo = req.getParameter("can_detNo");
 		String doInsert = req.getParameter("doInsert");
 		
+		String page = req.getParameter("detailPage");
+		
+		int Count = detailService.selectDatailCount(tra_no);
+		
 		TravelVO traVO = travelService.Count(tra_no);
 
 		// 柯(請勿刪除)
@@ -297,9 +301,10 @@ public class DetailServlet extends HttpServlet {
 			return;
 		}
 		bean.setTra_NO(tra_no);
-		List<DetailBean> result = detailService.select(bean);
+		List<DetailBean> result = detailService.select(bean, 1, 10);
 		req.setAttribute("select", result);
 		req.setAttribute("traVO", traVO);
+		req.setAttribute("Count", Count);
 		req.getRequestDispatcher("/Detail.jsp").forward(req, resp);
 	}
 

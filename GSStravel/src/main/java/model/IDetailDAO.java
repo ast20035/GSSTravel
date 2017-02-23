@@ -12,9 +12,10 @@ public interface IDetailDAO {
 	public void tra_Enter(int emp_No,String fam_No,String tra_No ,String det_Date, float det_money);//報名
 	public int detail_Enter(String emp_No,String tra_No);//查詢是否報名過
 	public void updateDet_CanDate(String emp_No,String tra_No);//登記取消時間	
-	public abstract List<DetailBean> select(String tra_No);
+	public abstract List<DetailBean> select(String tra_No, int firstPage, int lastPage);
 	public abstract List<DetailBean> selectCan(String tra_No);
 	public abstract List<DetailBean> selectNotCan(String tra_No);
+	public abstract int selectDatailCount(String tra_No);
 	public abstract String select_emp_Name(int Emp_No, String Emp_Name);
 	public abstract String select_fam_Name(int Emp_No, String Fam_Name);
 	public abstract String SELECT_emp_SubTra(int Emp_No);

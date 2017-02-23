@@ -206,11 +206,11 @@ public class DetailService {
 	}
 
 	// 羅集
-	public List<DetailBean> select(DetailBean bean) {
+	public List<DetailBean> select(DetailBean bean, int firstPage, int lastPage) {
 		List<DetailBean> result = new ArrayList<>();
 		detailDAO = new DetailDAO();
 		if (bean != null && bean.getTra_NO() != null) {
-			result = detailDAO.select(bean.getTra_NO());
+			result = detailDAO.select(bean.getTra_NO(), firstPage, lastPage);
 		}
 		return result;
 	}
@@ -230,6 +230,12 @@ public class DetailService {
 		if (bean != null && bean.getTra_NO() != null) {
 			result = detailDAO.selectNotCan(bean.getTra_NO());
 		}
+		return result;
+	}
+	
+	public int selectDatailCount(String tra_No){
+		detailDAO = new DetailDAO();
+		int result = detailDAO.selectDatailCount(tra_No);
 		return result;
 	}
 
