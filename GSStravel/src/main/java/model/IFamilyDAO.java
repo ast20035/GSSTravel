@@ -18,4 +18,8 @@ public interface IFamilyDAO {
 	public boolean insert_fam(FamilyVO famvo);
 	public int selectfam_byid(String famid);
 	public List<Date> selectfam_Nodelete(int famno);//sqldate
+	public void updatefambab(Integer famno,Boolean fambab);
+	public void updatefamkid(Integer famno,Boolean famkid);
+	public void updatefamdis(Integer famno,Boolean famdis);
+	public void updatefammom(Integer famno,Boolean fammom);
 }

@@ -32,6 +32,9 @@
 table {
 	font-size: 15px;
 }
+body{
+margin-bottom: 4%;
+}
 </style>
 <title>行程編輯</title>
 </head>
@@ -161,7 +164,7 @@ table {
 							</SELECT></td>
 							<td><input type="text" name="edititemMoney" class='form-control'
 									value="${row.item_Money}"></td>
-							<td><input type="submit" name="delete" id="delete" class='btn btn-success'
+							<td><input type="submit" name="delete" id="delete" class='btn btn-danger'
 									value="delete"></td>
 						</tr>
 
@@ -169,7 +172,7 @@ table {
 				</table>
 
 				<a><input type="submit" name="inputerrors" value="Update" class='btn btn-primary'>
-					<input type="submit" name="inputerrors" value="Delete" class='btn btn-primary'> <input
+					<input type="submit" name="inputerrors" value="Delete" class='btn btn-danger'> <input
 						type="submit" name="" value="關閉" class='btn btn-primary'></a>
 			</form>
 			<table>
@@ -187,7 +190,7 @@ table {
 					</SELECT></td>
 					<td><input type="text" name="edititemMoney" class='form-control'
 							value="${row.item_Money}"></td>
-					<td><input type="submit" name="delete" id="delete" class='btn btn-success'
+					<td><input type="submit" name="delete" id="delete" class='btn btn-danger'
 							value="delete"></td>
 				</tr>
 			</table>
