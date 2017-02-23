@@ -42,8 +42,8 @@ table {
 	<div class='container-fluid'>
 		<form action="<c:url value="Cancel"/>" method="get">
 			<div class='row'>
-				<div class='col-lg-2'></div>
-				<div class='col-lg-3'>
+				<div class='col-md-1'></div>
+				<div class='col-md-4'>
 					<div class='panel panel-primary'>
 						<div class='panel-heading'>
 							<h1>-本團報名資訊-</h1>
@@ -75,8 +75,8 @@ table {
 						</div>
 					</div>
 				</div>
-				<div class='col-lg-1'></div>
-				<div class='col-lg-3'>
+				<div class='col-md-1'></div>
+				<div class='col-md-4'>
 					<div class='panel panel-primary'>
 						<div class='panel-heading'>
 							<h1>-報名人員-</h1>
