@@ -24,6 +24,7 @@
 table, tr, td {
 	border: 1px solid black;
 }
+
 .clock {
 	border: 1px solid black;
 	width: 200px;
@@ -73,7 +74,7 @@ table, tr, td {
 				while (body.hasChildNodes()) {
 					body.removeChild(body.lastChild);
 				}
-				
+
 				var pathName = document.location.pathname;
 				var index = pathName.substr(1).indexOf("/");
 				var result = pathName.substr(0, index + 1);
@@ -87,7 +88,8 @@ table, tr, td {
 					tr.appendChild(td);
 
 					td = document.createElement("td");
-					a.setAttribute("href", result + "/BoardUD.jsp?anno_Time=" + board[i].time);
+					a.setAttribute("href", result + "/BoardUD.jsp?anno_Time="
+							+ board[i].time);
 					a.appendChild(document.createTextNode(board[i].title));
 					td.appendChild(a);
 					tr.appendChild(td);
@@ -114,27 +116,50 @@ table, tr, td {
 				<h2>公告維護</h2>
 			</div>
 		</div>
-		<form action="<c:url value="/BoardInsert.jsp" />" method="GET">
-			<div>公告標題</div>
-			<input type="text" id="title" name="title" value="" autocomplete="off" />
-			<div id="sizing-addon3">起迄日期</div>
-			<input type='date' id='startDay' name='startDay' value='' /> <br>
-			<input type='date' id='endDay' name='endDay' value='' /> <br> <br>
-			<input type="button" value="查詢" name="select" onclick="setBoard()" />
-			<input type="reset" value="重設" />
-			<input type="submit" value="新增" name="insert" />
-		</form>
+		<div class='row'>
+			<div class='col-md-offset-1 col-md-2'>
+				<form action="<c:url value="/BoardInsert.jsp" />" method="GET">
+					<div class='input-group'>
+						<span class="input-group-addon info" id="sizing-addon1">公告標題</span>
+						<input type="text" id="title" name="title" value=""
+							aria-describedby="sizing-addon1" class='form-control'
+							autocomplete="off" />
+					</div>
+					<br>
+					<div class='input-group'>
+						<span class="input-group-addon info" id="sizing-addon2">起迄日期</span>
+						<input type='date' id='startDay' name='startDay' value=''
+							aria-describedby="sizing-addon2" class='form-control' /> <br>
+						<input type='date' id='endDay' name='endDay' value=''
+							aria-describedby="sizing-addon2" class='form-control' />
+					</div>
+					<br> <br>
+					<div class='btn-group'>
+						<input type="button" value="查詢" name="select" onclick="setBoard()"
+							class='btn btn-primary' /> <input type="reset" value="重設"
+							class='btn btn-primary' />
+					</div>
+					<input type="submit" value="新增" name="insert"
+						class='btn btn-success' />
+
+				</form>
+			</div>
+		</div>
 		<br>
-		<table id="boardTable">
-			<thead>
-				<tr>
-					<th>公告時間</th>
-					<th>公告標題</th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
+		<div class='row'>
+			<div class='col-md-offset-1 col-md-5'>
+				<table id="boardTable" class='table'>
+					<thead>
+						<tr>
+							<th>公告時間</th>
+							<th>公告標題</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

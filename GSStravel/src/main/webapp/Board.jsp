@@ -24,6 +24,7 @@
 table, tr, td {
 	border: 1px solid black;
 }
+
 .clock {
 	border: 1px solid black;
 	width: 200px;
@@ -57,7 +58,7 @@ table, tr, td {
 				while (body.hasChildNodes()) {
 					body.removeChild(body.lastChild);
 				}
-				
+
 				var pathName = document.location.pathname;
 				var index = pathName.substr(1).indexOf("/");
 				var result = pathName.substr(0, index + 1);
@@ -71,7 +72,8 @@ table, tr, td {
 					tr.appendChild(td);
 
 					td = document.createElement("td");
-					a.setAttribute("href", result + "/BoardShow.jsp?anno_Time=" + board[i].time);
+					a.setAttribute("href", result + "/BoardShow.jsp?anno_Time="
+							+ board[i].time);
 					a.appendChild(document.createTextNode(board[i].title));
 					td.appendChild(a);
 					tr.appendChild(td);
@@ -97,17 +99,19 @@ table, tr, td {
 			<div class='col-md-11'>
 				<h2>公告</h2>
 			</div>
+		</div><br>
+		<div class='col-md-offset-3 col-md-5'>
+			<table id="boardTable" class='table'>
+				<thead>
+					<tr>
+						<th>公告時間</th>
+						<th>公告標題</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
 		</div>
-		<table id="boardTable">
-			<thead>
-				<tr>
-					<th>公告時間</th>
-					<th>公告標題</th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
 	</div>
 </body>
 </html>
