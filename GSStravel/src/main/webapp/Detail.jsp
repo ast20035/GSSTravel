@@ -50,10 +50,9 @@ margin-right: 3%;
 					<input type="hidden" name="tra_no" id="tra_no" value="${param.tra_no}">
 						<select name="selectTable" id="selectTable" onchange="dataSelect()">
 								<option>顯示全部</option>
-								<option>尚未取消</option>
+								<option>已報名</option>
 								<option>已取消</option>
 						</select>
-
 					<table id="deailtable">
 					<thead>
 						<tr>
@@ -245,7 +244,7 @@ $(function(){
 
 		if("${view}" == "已取消"){
 			document.getElementById("selectTable").selectedIndex = "2";
-		}else if("${view}" == "尚未取消"){
+		}else if("${view}" == "已報名"){
 			document.getElementById("selectTable").selectedIndex = "1";
 		}else{
 			document.getElementById("selectTable").selectedIndex = "0";

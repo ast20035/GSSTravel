@@ -303,7 +303,6 @@ public class DetailServlet extends HttpServlet {
 		bean.setTra_NO(tra_no);
 		result = detailService.select(bean, 1, 10);
 		String page = req.getParameter("detailPage");
-		
 		if(view != null && view.length() != 0){
 			if(view.equals("已取消")){
 				result = detailService.selectCan(bean,1,10);
@@ -313,15 +312,15 @@ public class DetailServlet extends HttpServlet {
 					result = detailService.selectCan(bean, intPage*10-9, intPage*10);
 					view = "已取消";
 				}
-			}else if(view.equals("尚未取消")){
+			}else if(view.equals("已報名")){
 				result = detailService.selectNotCan(bean,1,10);
 				Count = detailService.selectDetail_by_Tra_No(tra_no);
 				if(page != null && page.length() != 0){
 					int intPage = Integer.parseInt(page);
 					result = detailService.selectNotCan(bean, intPage*10-9, intPage*10);
-					view = "尚未取消";
+					view = "已報名";
 				}
-			}else{
+			}else if(view.equals("顯示全部")){
 				result = detailService.select(bean, 1, 10);
 				Count = detailService.selectDatailCount(tra_no);
 				if(page != null && page.length() != 0){
@@ -331,7 +330,7 @@ public class DetailServlet extends HttpServlet {
 				}
 			}
 		}
-	
+		
 		req.setAttribute("select", result);
 		req.setAttribute("view", view);
 		req.setAttribute("traVO", traVO);
