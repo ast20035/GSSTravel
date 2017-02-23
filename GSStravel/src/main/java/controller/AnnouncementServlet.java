@@ -2,6 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import model.AnnouncementService;
 import model.AnnouncementVO;
 import model.FineVO;
+import model.TravelService;
+import model.TravelVO;
 
 @WebServlet("/AnnouncementServlet")
 public class AnnouncementServlet extends HttpServlet {
@@ -26,23 +30,27 @@ public class AnnouncementServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		
-		// 1.接收資料
-		// 2.驗證資料
-		// 3.轉換資料
-		// 4.呼叫Model
-		// 5.根據Model執行結果，決定需要顯示的View元件
-		
-		String select = request.getParameter("select");
-		if("查詢".equals(select)){
-			PrintWriter out = response.getWriter();
-			List<AnnouncementVO> result = announcementService.select();
+
+		String title = request.getParameter("title");
+		String startDay = request.getParameter("startDay");
+		String endDay = request.getParameter("endDay");
+		PrintWriter out = response.getWriter();
+		List<AnnouncementVO> result = announcementService.select();
+		if (title == null && startDay == null && endDay == null) {
 			out.print(announcementService.to_Json(result));
 			return;
 		}
-//		String title = request.getParameter("title");
-//		String content = request.getParameter("content");
-//		AnnouncementVO bean = new AnnouncementVO();
+		if (title != null) {
+			result = announcementService.get_by_title(title);
+		}
+		if (startDay != null && startDay != "") {
+			result = announcementService.AfterOn(result, startDay);
+		}
+		if (endDay != null && endDay != "") {
+			result = announcementService.BeforeOff(result, endDay);
+		}
+		out.print(announcementService.to_Json(result));
+		return;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
