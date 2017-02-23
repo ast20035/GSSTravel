@@ -19,7 +19,7 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="" />
-<title>Announcement Maintain</title>
+<title>公告維護</title>
 <style>
 table, tr, td {
 	border: 1px solid black;

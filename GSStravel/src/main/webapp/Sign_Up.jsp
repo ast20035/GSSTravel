@@ -47,7 +47,7 @@ label{
 text-align: left;
 }
 </style>
-<title>Insert title here</title>
+<title>報名</title>
 </head>
 <body>
 	<div class='container-fluid'>

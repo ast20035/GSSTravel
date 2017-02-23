@@ -37,7 +37,7 @@ table {
 }
 
 </style>
-<title>Insert title here</title>
+<title>報名取消</title>
 </head>
 <body>
 	<div class='container-fluid'>

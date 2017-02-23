@@ -23,7 +23,7 @@ table, th, td {
 	border: 1px solid black;
 }
 </style>
-<title>Insert title here</title>
+<title>歷史紀錄</title>
 </head>
 <body>
 	<%@include file="SelectBar.jsp"%>

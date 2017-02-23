@@ -26,7 +26,7 @@
 			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
 		<script
 			src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
-<title>Insert title here</title>
+<title>報名維護</title>
 
 <script>
 	window.onload = function() {

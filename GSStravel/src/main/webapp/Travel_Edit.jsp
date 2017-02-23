@@ -33,7 +33,7 @@ table {
 	font-size: 15px;
 }
 </style>
-<title>Insert title here</title>
+<title>行程編輯</title>
 </head>
 <body>
 	<div class='container-fluid'>

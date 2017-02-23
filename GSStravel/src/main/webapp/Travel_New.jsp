@@ -28,7 +28,7 @@ table{
 font-size: 15px;
 }
 </style>
-<title>Insert title here</title>
+<title>新增行程</title>
 </head>
 <body>
 	<div class='container-fluid'>

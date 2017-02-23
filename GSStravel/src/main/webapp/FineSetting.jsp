@@ -20,7 +20,7 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="" />
-<title>罰則設定表</title>
+<title>罰則設定</title>
 <style>
 input {
 	text-align: center;
