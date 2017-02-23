@@ -197,7 +197,7 @@ margin-right: 3%;
 									<td><input type="text" name="emg_Phone" style='width:110px;'
 										class="emg_Phone form-control" value="${row.emgPhone}"
 										disabled></td>
-									<td ><p style='width:110px;'>${row.det_Date}</p></td>
+									<td ><b style='width:110px;'>${row.det_Date}</b></td>
 									<td ><em style='width:110px;'>${row.det_CanDate}</em></td>
 									<td><input type="text" name="note" value="${row.note}" style='width:150px;'
 										class='form-control' disabled></td>
@@ -254,7 +254,11 @@ $(function(){
 	}
 
 	//頁碼顯示
+	if($(".detailRow").val() != null){
 	var chosePage = Math.ceil($(".detailRow").val()/tagPage);
+	}else{
+		chosePage = 1;
+	}
 	var allData = ${Count};
 	var totalPage = Math.ceil(allData/tagPage);
 	for(var i=1; i<totalPage; i++){
@@ -266,6 +270,7 @@ $(function(){
 	document.getElementById("allPage").appendChild(li);
 	$page=$(".page");
 	$page.removeClass("active");
+	
 	$page[chosePage-1].className="active";
 
 	//選取報名/取消過濾
