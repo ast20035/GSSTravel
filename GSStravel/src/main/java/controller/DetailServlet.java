@@ -30,6 +30,7 @@ public class DetailServlet extends HttpServlet {
 	private TravelService travelService = new TravelService();
 	private ItemService itemService = new ItemService();
 	String test;
+	List<DetailBean> result;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,8 +41,7 @@ public class DetailServlet extends HttpServlet {
 		String can_detNo = req.getParameter("can_detNo");
 		String doInsert = req.getParameter("doInsert");
 		
-		String page = req.getParameter("detailPage");
-		
+		String view = req.getParameter("selectTable");
 		int Count = detailService.selectDatailCount(tra_no);
 		
 		TravelVO traVO = travelService.Count(tra_no);
@@ -301,8 +301,38 @@ public class DetailServlet extends HttpServlet {
 			return;
 		}
 		bean.setTra_NO(tra_no);
-		List<DetailBean> result = detailService.select(bean, 1, 10);
+		result = detailService.select(bean, 1, 10);
+		String page = req.getParameter("detailPage");
+		if(view != null && view.length() != 0){
+			if(view.equals("已取消")){
+				result = detailService.selectCan(bean,1,10);
+				Count = detailService.selectDetail_by_Tra_No_Can(tra_no);
+				if(page != null && page.length() != 0){
+					int intPage = Integer.parseInt(page);
+					result = detailService.selectCan(bean, intPage*10-9, intPage*10);
+					view = "已取消";
+				}
+			}else if(view.equals("已報名")){
+				result = detailService.selectNotCan(bean,1,10);
+				Count = detailService.selectDetail_by_Tra_No(tra_no);
+				if(page != null && page.length() != 0){
+					int intPage = Integer.parseInt(page);
+					result = detailService.selectNotCan(bean, intPage*10-9, intPage*10);
+					view = "已報名";
+				}
+			}else if(view.equals("顯示全部")){
+				result = detailService.select(bean, 1, 10);
+				Count = detailService.selectDatailCount(tra_no);
+				if(page != null && page.length() != 0){
+					int intPage = Integer.parseInt(page);
+					result = detailService.select(bean, intPage*10-9, intPage*10);
+					view = "顯示全部";
+				}
+			}
+		}
+		
 		req.setAttribute("select", result);
+		req.setAttribute("view", view);
 		req.setAttribute("traVO", traVO);
 		req.setAttribute("Count", Count);
 		req.getRequestDispatcher("/Detail.jsp").forward(req, resp);

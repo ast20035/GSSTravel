@@ -53,7 +53,7 @@ form {
 	<div class='container-fluid active in'>
 		<div class='row' id='title'>
 		<div class='col-lg-4' ></div>
-			<div class='col-lg-2' >
+			<div class='col-lg-4' >
 				<h1>叡揚旅遊報名系統</h1>
 			</div>
 			<!-- 			<div class='col-lg-10'></div> -->
