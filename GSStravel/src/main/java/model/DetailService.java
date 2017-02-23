@@ -441,4 +441,7 @@ public class DetailService {
 	public int selectDetail_by_Tra_No(String tra_No){
 		return detailDAO.selectDetail_by_Tra_No(tra_No);
 	}
+	public int selectDetail_by_Tra_No_Can(String tra_No){
+		return detailDAO.selectDetail_by_Tra_No_Can(tra_No);
+	}
 }

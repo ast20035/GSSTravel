@@ -242,19 +242,7 @@ $(function(){
 	$page=$(".page");
 	$page.removeClass("active");
 	$page[chosePage-1].className="active";
-	
-// 	 $(".selectTable").on("change",function(){
-// 		 if($(this).val() == "顯示全部"){
-// 			 $("em:empty").parent().parent().show();
-// 			 $("em:contains('-')").parent().parent().show();
-// 		 }else if($(this).val() == "尚未取消"){
-// 			 $("em:empty").parent().parent().show();
-// 			 $("em:contains('-')").parent().parent().hide();
-// 		 }else{
-// 			 $("em:contains('-')").parent().parent().show();
-// 			 $("em:empty").parent().parent().hide();
-// 		 }
-// 	})
+
 		if("${view}" == "已取消"){
 			document.getElementById("selectTable").selectedIndex = "2";
 		}else if("${view}" == "尚未取消"){
