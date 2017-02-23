@@ -269,9 +269,7 @@ public class DetailDAO implements IDetailDAO {
 	@Override
 	public List<DetailBean> selectCan(String Tra_No, int firstPage, int lastPage) {
 		List<DetailBean> result = new ArrayList<>();
-		try {
-			Connection conn = ds.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(SELECTCan);
+		try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(SELECTCan);){
 			stmt.setString(1, Tra_No);
 			stmt.setInt(2, firstPage);
 			stmt.setInt(3, lastPage);
@@ -316,9 +314,7 @@ public class DetailDAO implements IDetailDAO {
 		@Override
 		public List<DetailBean> selectNotCan(String Tra_No, int firstPage, int lastPage) {
 			List<DetailBean> result = new ArrayList<>();
-			try {
-				Connection conn = ds.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(SELECTNotCan);
+			try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(SELECTNotCan);){
 				stmt.setString(1, Tra_No);
 				stmt.setInt(2, firstPage);
 				stmt.setInt(3, lastPage);
@@ -363,9 +359,7 @@ public class DetailDAO implements IDetailDAO {
 		@Override
 		public List<DetailBean> select(String Tra_No, int firstPage, int lastPage) {
 			List<DetailBean> result = new ArrayList<>();
-			try {
-				Connection conn = ds.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(SELECT);
+			try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(SELECT);){
 				stmt.setString(1, Tra_No);
 				stmt.setInt(2, firstPage);
 				stmt.setInt(3, lastPage);
@@ -613,8 +607,7 @@ public class DetailDAO implements IDetailDAO {
 	@Override
 	public boolean INSERT_TA(String Tra_No, int Emp_No, float TA_money, String thisyear, boolean yearsub) {
 		boolean b = true;
-		try (Connection conn = ds.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement(INSERT_TA);
+		try (Connection conn = ds.getConnection();PreparedStatement stmt = conn.prepareStatement(INSERT_TA);) {
 			stmt.setString(1, Tra_No);
 			stmt.setInt(2, Emp_No);
 			stmt.setFloat(3, TA_money);
@@ -666,8 +659,7 @@ public class DetailDAO implements IDetailDAO {
 	@Override
 	public boolean UPDATE_emp_Sub(int Emp_No) {
 		boolean b = true;
-		try (Connection conn = ds.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement(UPDATE_emp_Sub);
+		try (Connection conn = ds.getConnection();PreparedStatement stmt = conn.prepareStatement(UPDATE_emp_Sub);) {
 			stmt.setInt(1, Emp_No);
 			stmt.executeUpdate();
 		} catch (SQLException e) {
@@ -683,8 +675,7 @@ public class DetailDAO implements IDetailDAO {
 	@Override
 	public boolean UPDATE_emp_SubTra(String Tra_No, int Emp_No) {
 		boolean b = true;
-		try (Connection conn = ds.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement(UPDATE_emp_SubTra);
+		try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(UPDATE_emp_SubTra);) {
 			stmt.setString(1, Tra_No);
 			stmt.setInt(2, Emp_No);
 			stmt.executeUpdate();
@@ -701,8 +692,7 @@ public class DetailDAO implements IDetailDAO {
 	@Override
 	public boolean UPDATE_empData(EmployeeVO bean) {
 		boolean b = true;
-		try (Connection conn = ds.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement(UPDATE_empData);
+		try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(UPDATE_empData);) {
 			stmt.setString(1, bean.getEmp_Name());
 			stmt.setString(2, bean.getEmp_Phone());
 			stmt.setString(3, bean.getEmp_Sex());
@@ -729,8 +719,7 @@ public class DetailDAO implements IDetailDAO {
 	@Override
 	public boolean UPDATE_famData(FamilyVO bean) {
 		boolean b = true;
-		try (Connection conn = ds.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement(UPDATE_famData);
+		try (Connection conn = ds.getConnection();PreparedStatement stmt = conn.prepareStatement(UPDATE_famData);) {
 			stmt.setString(1, bean.getFam_Rel());
 			stmt.setString(2, bean.getFam_Name());
 			stmt.setString(3, bean.getFam_Phone());
@@ -750,6 +739,7 @@ public class DetailDAO implements IDetailDAO {
 			stmt.setString(17, bean.getFam_Note());
 			stmt.setInt(18, bean.getFam_No());
 			stmt.executeUpdate();
+			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			b = false;
@@ -762,8 +752,7 @@ public class DetailDAO implements IDetailDAO {
 		@Override
 	public boolean Update_TA(float TA_money, Boolean yearsub, int Emp_No, String Tra_No) {
 		boolean b = true;
-		try (Connection conn = ds.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement(UPDATE_TA);
+		try (Connection conn = ds.getConnection();PreparedStatement stmt = conn.prepareStatement(UPDATE_TA);) {
 			stmt.setFloat(1, TA_money);
 			stmt.setBoolean(2, yearsub);
 			stmt.setInt(3, Emp_No);
@@ -780,8 +769,7 @@ public class DetailDAO implements IDetailDAO {
 	@Override
 	public boolean Update_TA_SUB(int emp_No, String thisyear) {
 		boolean b = true;
-		try (Connection conn = ds.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement(UPDATE_TA_SUB);
+		try (Connection conn = ds.getConnection();PreparedStatement stmt = conn.prepareStatement(UPDATE_TA_SUB);) {
 			stmt.setInt(1, emp_No);
 			stmt.setString(2, thisyear);
 			stmt.executeUpdate();
@@ -796,8 +784,7 @@ public class DetailDAO implements IDetailDAO {
 	@Override
 	public boolean DELETE_TA(String Tra_No, int Emp_No){
 		boolean b = true;
-		try (Connection conn = ds.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement(DELETE_TA);
+		try (Connection conn = ds.getConnection();PreparedStatement stmt = conn.prepareStatement(DELETE_TA);) {
 			stmt.setString(1, Tra_No);
 			stmt.setInt(2, Emp_No);
 			stmt.executeUpdate();
@@ -830,7 +817,6 @@ public class DetailDAO implements IDetailDAO {
 				bean.setDet_noteMoney(rset.getFloat("det_noteMoney"));
 				result.add(bean);
 			}
-			rset.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -857,8 +843,7 @@ public class DetailDAO implements IDetailDAO {
 	@Override
 	public boolean update_famNo(String det_note, float det_noteMoney, String tra_No, int fam_No) {
 		boolean b = true;
-		try (Connection conn = ds.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement(UPDATE_DETAIL_FOR_FAM_NO);
+		try (Connection conn = ds.getConnection();PreparedStatement stmt = conn.prepareStatement(UPDATE_DETAIL_FOR_FAM_NO);) {
 			stmt.setString(1, det_note);
 			stmt.setFloat(2, det_noteMoney);
 			stmt.setInt(3, fam_No);
@@ -875,8 +860,7 @@ public class DetailDAO implements IDetailDAO {
 	@Override
 	public int selectDetail_by_Tra_No(String tra_No){
 		int result=0;
-		try (Connection conn = ds.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement(selectDetail_by_Tra_No);
+		try (Connection conn = ds.getConnection();PreparedStatement stmt = conn.prepareStatement(selectDetail_by_Tra_No);) {
 			stmt.setString(1, tra_No);
 			ResultSet rset = stmt.executeQuery();
 			while(rset.next()){
@@ -893,8 +877,7 @@ private final String selectDetail_by_Tra_No_Can="select count(det_No) as count f
 	@Override
 	public int selectDetail_by_Tra_No_Can(String tra_No){
 		int result=0;
-		try (Connection conn = ds.getConnection()) {
-			PreparedStatement stmt = conn.prepareStatement(selectDetail_by_Tra_No_Can);
+		try (Connection conn = ds.getConnection();PreparedStatement stmt = conn.prepareStatement(selectDetail_by_Tra_No_Can);) {
 			stmt.setString(1, tra_No);
 			ResultSet rset = stmt.executeQuery();
 			while(rset.next()){
