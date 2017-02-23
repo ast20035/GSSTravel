@@ -55,13 +55,13 @@ label {
 	var x = 1;
 	function wait() {
 		if (x == 1) {
-			document.getElementById("ck").innerHTML = "<input type='text' class='btn btn-primary' value='確定報名中.'/>";
+			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-primary' value='確定報名中.'/>";
 			x++;
 		} else if (x == 2) {
-			document.getElementById("ck").innerHTML = "<input type='text' class='btn btn-primary' value='確定報名中..'/>";
+			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-primary' value='確定報名中..'/>";
 			x++;
 		} else if (x == 3) {
-			document.getElementById("ck").innerHTML = "<input type='text' class='btn btn-primary' value='確定報名中...'/>";
+			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-primary' value='確定報名中...'/>";
 			x = 1;
 		}
 		setTimeout('wait()',1000);
@@ -116,7 +116,7 @@ label {
 							<table class='table table-condensed table2'>
 								<tr>
 									<td>員編:</td>
-									<td><label style="border-style: none; color: #7700BB;">${emp_No}</label><input
+									<td><label style="border-style: none; color: #7700BB; width:150px;">${emp_No}</label><input
 										type="hidden" value="${emp_No}" name="emp_No" readonly>
 									</td>
 								</tr>

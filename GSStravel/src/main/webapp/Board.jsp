@@ -89,13 +89,13 @@ table, tr, td {
 	<%@include file="SelectBar.jsp"%>
 	<script>
 		$('.navbar-nav>li').removeClass('now');
-		$('.navbar-nav>li:eq(7)').addClass('now');
+		$('.navbar-nav>li:eq(0)').addClass('now');
 	</script>
 	<div class='container-fluid'>
 		<div class='row'>
 			<div class='col-md-1'></div>
 			<div class='col-md-11'>
-				<h2>公告維護</h2>
+				<h2>公告</h2>
 			</div>
 		</div>
 		<table id="boardTable">

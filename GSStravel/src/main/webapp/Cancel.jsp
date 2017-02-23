@@ -36,22 +36,25 @@ table {
 	margin-top: 2%;
 }
 
+.iii {
+	text-align: left;
+}
 </style>
 <title>報名取消</title>
 <script type="text/javascript">
 	var x = 1;
 	function wait() {
 		if (x == 1) {
-			document.getElementById("ck").innerHTML = "<input type='text' class='btn btn-primary' value='取消報名中.'/>";
+			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-primary' value='取消報名中.'/>";
 			x++;
 		} else if (x == 2) {
-			document.getElementById("ck").innerHTML = "<input type='text' class='btn btn-primary' value='取消報名中..'/>";
+			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-primary' value='取消報名中..'/>";
 			x++;
 		} else if (x == 3) {
-			document.getElementById("ck").innerHTML = "<input type='text' class='btn btn-primary' value='取消報名中...'/>";
+			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-primary' value='取消報名中...'/>";
 			x = 1;
 		}
-		setTimeout('wait()',1000);
+		setTimeout('wait()', 1000);
 	}
 </script>
 </head>
@@ -70,7 +73,7 @@ table {
 								<tr>
 									<td>活動名稱:</td>
 									<td><input type="hidden" value="${tra_Vo.tra_Name}"
-										name="tra_Name" readonly><label
+										name="tra_Name" readonly><label 
 										style="border-style: none; color: #7700BB;">${tra_Vo.tra_Name}</label></td>
 								<tr>
 									<td>活動代碼:</td>
@@ -103,22 +106,22 @@ table {
 							<table class='table table-condensed'>
 								<tr>
 									<td>員編:</td>
-									<td><input
-										type="hidden" value="${emp_No}" name="emp_No" readonly><label
-										style="border-style: none; color: #7700BB;">${emp_No}</label>
+									<td><input type="hidden" value="${emp_No}" name="emp_No"
+										readonly><label
+										style="border-style: none; color: #7700BB; width:300px;">${emp_No}</label>
 									</td>
 								</tr>
 								<tr>
 									<td>姓名:</td>
-									<td><input
-										type="hidden" value="${myName}" name="emp_No" readonly><label
+									<td><input type="hidden" value="${myName}" name="emp_No"
+										readonly><label
 										style="border-style: none; color: #7700BB;">${myName}</label>
 									</td>
 								</tr>
 								<tr>
 									<td>報名順序:</td>
-									<td><input type="hidden"
-										value="第${tra_order}名" name="emp_No" readonly><label
+									<td><input type="hidden" value="第${tra_order}名"
+										name="emp_No" readonly><label
 										style="border-style: none; color: #7700BB;">第${tra_order}位</label></td>
 								</tr>
 								<tr>
@@ -186,11 +189,11 @@ table {
 									</script>
 								<tr>
 									<td><br> <input type="button" value='回上一頁'
-										class='btn  btn-primary' onclick="window.location.href=GSS;" />
-										<input type="submit" value="取消報名" class='btn  btn-primary'
-										onclick="confirmComplete();this.style.display = 'none';wait();" />
-										<span id="ck"></span>
-										</td>
+										class='btn  btn-primary' onclick="window.location.href=GSS;" /></td>
+									<td><br> <input type="submit" value="取消報名"
+										class='btn  btn-primary'
+										onclick="confirmComplete();this.style.display = 'none';wait();" /><span
+										id="ck"></span></td>
 								</tr>
 							</table>
 						</div>
