@@ -161,6 +161,9 @@ h1, h2 {
 	padding: 5px;
 	border: 0;
 }
+#close5{
+margin-left: 50px;
+}
 </style>
 <nav class="navbar navbar-fixed-top topBar">
 	<div class="container">

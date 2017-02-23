@@ -40,6 +40,11 @@ public class DetailServlet extends HttpServlet {
 		String tra_no = req.getParameter("tra_no");
 		String can_detNo = req.getParameter("can_detNo");
 		String doInsert = req.getParameter("doInsert");
+		String tag = req.getParameter("detailTag");
+		if(tag == null || tag.length() ==0){
+			tag = "10";
+		}
+		int intTag = Integer.parseInt(tag);
 		
 		String view = req.getParameter("selectTable");
 		int Count = detailService.selectDatailCount(tra_no);
@@ -305,27 +310,27 @@ public class DetailServlet extends HttpServlet {
 		String page = req.getParameter("detailPage");
 		if(view != null && view.length() != 0){
 			if(view.equals("已取消")){
-				result = detailService.selectCan(bean,1,10);
+				result = detailService.selectCan(bean,1,intTag);
 				Count = detailService.selectDetail_by_Tra_No_Can(tra_no);
 				if(page != null && page.length() != 0){
 					int intPage = Integer.parseInt(page);
-					result = detailService.selectCan(bean, intPage*10-9, intPage*10);
+					result = detailService.selectCan(bean, intPage*intTag-(intTag-1), intPage*intTag);
 					view = "已取消";
 				}
 			}else if(view.equals("已報名")){
-				result = detailService.selectNotCan(bean,1,10);
+				result = detailService.selectNotCan(bean,1,intTag);
 				Count = detailService.selectDetail_by_Tra_No(tra_no);
 				if(page != null && page.length() != 0){
 					int intPage = Integer.parseInt(page);
-					result = detailService.selectNotCan(bean, intPage*10-9, intPage*10);
+					result = detailService.selectNotCan(bean, intPage*intTag-(intTag-1), intPage*intTag);
 					view = "已報名";
 				}
 			}else if(view.equals("顯示全部")){
-				result = detailService.select(bean, 1, 10);
+				result = detailService.select(bean, 1, intTag);
 				Count = detailService.selectDatailCount(tra_no);
 				if(page != null && page.length() != 0){
 					int intPage = Integer.parseInt(page);
-					result = detailService.select(bean, intPage*10-9, intPage*10);
+					result = detailService.select(bean, intPage*intTag-(intTag-1), intPage*intTag);
 					view = "顯示全部";
 				}
 			}
@@ -333,6 +338,7 @@ public class DetailServlet extends HttpServlet {
 		
 		req.setAttribute("select", result);
 		req.setAttribute("view", view);
+		req.setAttribute("tag", tag);
 		req.setAttribute("traVO", traVO);
 		req.setAttribute("Count", Count);
 		req.getRequestDispatcher("/Detail.jsp").forward(req, resp);
