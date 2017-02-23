@@ -23,10 +23,6 @@
 </head>
 
 <style>
-* {
-	font-size: 13px;
-}
-
 tr, input {
 	text-align: center;
 	width: 100px;
@@ -46,6 +42,11 @@ td {
 	padding: 0px;
 	text-align: center;
 }
+
+table {
+	font-size: 15px;
+}
+
 </style>
 
 <body>
@@ -55,113 +56,132 @@ td {
 		$('.navbar-nav>li:eq(6)').addClass('now');
 	</script>
 	<div class='container-fluid'>
-		<h2>旅費統計</h2>
-		<form action="<c:url value='/TotalAmountServlet' />" method="POST">
-			<div>
-				<textarea name="tra_Name" class="tra_Name" readonly>${tra_Name}</textarea>
+		<div class='row'>
+			<div class='col-md-1'></div>
+			<div class='col-md-11'>
+				<h2>旅費統計</h2>
 			</div>
-			<input type="hidden" name="tra_No" class="tra_No" value="${tra_No}">
-			
-			<ul class="pagination">
-				<li class="active pagenumber" onclick="changepage(this)" value="10"><a>每頁10筆</a></li>
-				<li class="pagenumber" onclick="changepage(this)" value="20"><a>每頁20筆</a></li>
-				<li class="pagenumber" onclick="changepage(this)" value="50"><a>每頁50筆</a></li>
-				<li class="pagenumber" onclick="changepage(this)" value="100"><a>每頁100筆</a></li>
-			</ul>
-			
-			<table border="1" class="table table-bordereds" id="table">
-				<thead>
-					<tr>
-						<th>部門代碼</th>
-						<th>員工(/眷屬親友)編號</th>
-						<th>姓名(/隸屬於哪位員工)</th>
-						<th>年度可補助金額<br /> <span style="color: red; font-size: 10px">未到職一年者按比例給予計算</span></th>
-						<th>個人可補助金額</th>
-						<th>個人團費</th>
-						<th>其他增減費用明細說明</th>
-						<th>其他增減費用總額</th>
-						<th>應補團費</th>
-					</tr>
-				</thead>
-				<c:forEach var="list" items="${list}">
-					<tr>
-						<td><input type="text" name="dept_No" class="dept_No"
-							value="${list.dept_No}" style="border-width: 0" readonly></td>
-						<td><c:if test="${list.fam_No==0}">
-								<input type="text" name="emp_No" class="emp No"
-									value="${list.emp_No}" style="border-width: 0" readonly>
-								<input type="hidden" name="empfam" value="${list.emp_No}">
-							</c:if> <c:if test="${list.fam_No!=0}">
-								<input type="text" name="empfam" class="fam No"
-									value="${list.emp_No}/${list.fam_No}" style="border-width: 0"
-									readonly>
-							</c:if></td>
-						<td><c:if test="${list.fam_Name==NULL}">
-								<input type="text" class="Name" value="${list.emp_Name}"
-									style="border-width: 0" readonly>
-							</c:if> <c:if test="${list.fam_Name!=NULL}">
-								<input type="text" class="Name"
-									value="${list.fam_Name}/${list.emp_Name}"
-									style="border-width: 0" readonly>
-							</c:if></td>
-						<c:if test="${list.fam_Name==NULL}">
-							<td><input type="text" class="years_money years_Money"
-								value="${list.years_money}" style="border-width: 0" readonly></td>
-							<td><input type="text" class="person_money person_Money"
-								value="" style="border-width: 0" readonly> <input
-								type="hidden" class="person" value="${list.emp_No}"></td>
-						</c:if>
-						<c:if test="${list.fam_Name!=NULL}">
-							<td><input type="text" class="years_Money" value="0.0"
-								style="border-width: 0" readonly></td>
-							<td><c:if test="${list.fam_sub}">
-									<input type="text" class="personfam_money person_Money"
-										style="border-width: 0" value="0.0" readonly>
-									<input type="hidden" class="person" value="${list.emp_No}">
-								</c:if> <c:if test="${!list.fam_sub}">
-									<input type="text" class="onmoney person_Money" value="0.0"
-										style="border-width: 0" readonly>
-								</c:if></td>
-						</c:if>
-						<td><input type="text" name="money" class="money Money"
-							value="${list.det_money}" style="border-width: 0" readonly></td>
-						<td><input type="text" name="det_note"
-							class="det_note det_Note" value="${list.det_note}"></td>
-						<td><input type="text" name="det_noteMoney"
-							class="det_noteMoney det_NoteMoney" value="${list.det_noteMoney}"
-							onkeyup="changeNotemoney()"></td>
-						<td><c:if test="${list.fam_No==0}">
-								<input type="text" name="TA_money" class="TA_money ta_Money"
-									value="" style="border-width: 0" readonly>
-							</c:if> <c:if test="${list.fam_No!=0}">
-								<input type="hidden" class="ta_Money" value="0">
-							</c:if></td>
-					</tr>
-				</c:forEach>
-			</table>
-			共${count}筆
-			<br />
-			<ul id="myul" class="pagination">
-				<li><a onclick="before()">&laquo;</a></li>
-				<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
-					<c:if test="${Math.ceil(count/10)!=0}">
-						<c:forEach var="i" begin="1" end="${Math.ceil(count/10)-1}">
-							<li class="page" onclick="page(this)" value="${i}"><a>${i+1}</a></li>
+		</div>
+		<div class='row'>
+			<div class='col-md-10 col-md-offset-1'>
+				<form action="<c:url value='/TotalAmountServlet' />" method="POST">
+					<div>
+						<textarea name="tra_Name" class="tra_Name" readonly>${tra_Name}</textarea>
+					</div>
+					<input type="hidden" name="tra_No" class="tra_No" value="${tra_No}">
+
+					<ul class="pagination">
+						<li class="active pagenumber" onclick="changepage(this)"
+							value="10"><a role='button'>每頁10筆</a></li>
+						<li class="pagenumber" onclick="changepage(this)" value="20"><a
+							role='button'>每頁20筆</a></li>
+						<li class="pagenumber" onclick="changepage(this)" value="50"><a
+							role='button'>每頁50筆</a></li>
+						<li class="pagenumber" onclick="changepage(this)" value="100"><a
+							role='button'>每頁100筆</a></li>
+					</ul>
+
+					<table border="1" class="table table-bordereds" id="table">
+						<thead>
+							<tr>
+								<th>部門代碼</th>
+								<th>員工(/眷屬親友)編號</th>
+								<th>姓名(/隸屬於哪位員工)</th>
+								<th>年度可補助金額<br /> <span
+									style="color: red; font-size: 10px">未到職一年者按比例給予計算</span></th>
+								<th>個人可補助金額</th>
+								<th>個人團費</th>
+								<th>其他增減費用明細說明</th>
+								<th>其他增減費用總額</th>
+								<th>應補團費</th>
+							</tr>
+						</thead>
+						<c:forEach var="list" items="${list}">
+							<tr>
+								<td><input type="text" name="dept_No" class="dept_No"
+									value="${list.dept_No}" style="border-width: 0" readonly></td>
+								<td><c:if test="${list.fam_No==0}">
+										<input type="text" name="emp_No" class="emp No"
+											value="${list.emp_No}" style="border-width: 0" readonly>
+										<input type="hidden" name="empfam" value="${list.emp_No}">
+									</c:if> <c:if test="${list.fam_No!=0}">
+										<input type="text" name="empfam" class="fam No"
+											value="${list.emp_No}/${list.fam_No}" style="border-width: 0"
+											readonly>
+									</c:if></td>
+								<td><c:if test="${list.fam_Name==NULL}">
+										<input type="text" class="Name" value="${list.emp_Name}"
+											style="border-width: 0" readonly>
+									</c:if> <c:if test="${list.fam_Name!=NULL}">
+										<input type="text" class="Name"
+											value="${list.fam_Name}/${list.emp_Name}"
+											style="border-width: 0" readonly>
+									</c:if></td>
+								<c:if test="${list.fam_Name==NULL}">
+									<td><input type="text" class="years_money years_Money"
+										value="${list.years_money}" style="border-width: 0" readonly></td>
+									<td><input type="text" class="person_money person_Money"
+										value="" style="border-width: 0" readonly> <input
+										type="hidden" class="person" value="${list.emp_No}"></td>
+								</c:if>
+								<c:if test="${list.fam_Name!=NULL}">
+									<td><input type="text" class="years_Money" value="0.0"
+										style="border-width: 0" readonly></td>
+									<td><c:if test="${list.fam_sub}">
+											<input type="text" class="personfam_money person_Money"
+												style="border-width: 0" value="0.0" readonly>
+											<input type="hidden" class="person" value="${list.emp_No}">
+										</c:if> <c:if test="${!list.fam_sub}">
+											<input type="text" class="onmoney person_Money" value="0.0"
+												style="border-width: 0" readonly>
+										</c:if></td>
+								</c:if>
+								<td><input type="text" name="money" class="money Money"
+									value="${list.det_money}" style="border-width: 0" readonly></td>
+								<td><input type="text" name="det_note"
+									class="det_note det_Note form-control" value="${list.det_note}"></td>
+								<td><input type="text" name="det_noteMoney"
+									class="det_noteMoney det_NoteMoney form-control"
+									value="${list.det_noteMoney}" onkeyup="changeNotemoney()"></td>
+								<td><c:if test="${list.fam_No==0}">
+										<input type="text" name="TA_money" class="TA_money ta_Money"
+											value="" style="border-width: 0" readonly>
+									</c:if> <c:if test="${list.fam_No!=0}">
+										<input type="hidden" class="ta_Money" value="0">
+									</c:if></td>
+							</tr>
 						</c:forEach>
-					</c:if>
-				<li><a onclick="next()">&raquo;</a></li>
-			</ul>
-			<br />
-			<c:if test="${travelVO!=null}">
-				<button type="submit" name="prodaction" value="save">儲存</button>
-			</c:if>
-			<input type="button" onclick="excel()" value="匯出Excel">
-		</form>
-		<c:if test="${session!=null}">
-			<script>
+					</table>
+					共${count}筆 <br />
+					<div id='mydiv'>
+						<ul id="myul" class="pagination">
+							<li><a role='button' onclick="before()">&laquo;</a></li>
+							<li class="page active" onclick="page(this)" value="0"><a
+								role='button'>1</a></li>
+							<c:if test="${Math.ceil(count/10)!=0}">
+								<c:forEach var="i" begin="1" end="${Math.ceil(count/10)-1}">
+									<li class="page" onclick="page(this)" value="${i}"><a
+										role='button'>${i+1}</a></li>
+								</c:forEach>
+							</c:if>
+							<li><a role='button' onclick="next()">&raquo;</a></li>
+						</ul>
+						<br />
+						<c:if test="${travelVO!=null}">
+							<button type="submit" name="prodaction" value="save"
+								class='btn btn-primary'>儲存</button>
+						</c:if>
+						<input type="button" onclick="excel()" value="匯出Excel"
+							class='btn btn-primary'>
+					</div>
+				</form>
+				<c:if test="${session!=null}">
+					<script>
 				alert('${session}');
 			</script>
-		</c:if>
+				</c:if>
+			</div>
+		</div>
 	</div>
 </body>
 <script>
@@ -331,16 +351,16 @@ td {
 		i = $(".active");
 		var count=${count};
 		$("#myul").find("li").remove();
-		$("#myul").append('<li><a onclick="before()">&laquo;</a></li>');
+		$("#myul").append('<li><a role="button" onclick="before()">&laquo;</a></li>');
 			var sum=Math.ceil(count/i[0].value);
 				for(var a=0;a<sum;a++){
 					if(a==0){
-						$("#myul").append('<li class="page active" onclick="page(this)" value="'+a+'"><a>'+(a+1)+'</a></li>');	
+						$("#myul").append('<li class="page active" onclick="page(this)" value="'+a+'"><a role="button">'+(a+1)+'</a></li>');	
 					}else{
-					$("#myul").append('<li class="page" onclick="page(this)" value="'+a+'"><a>'+(a+1)+'</a></li>');
+					$("#myul").append('<li class="page" onclick="page(this)" value="'+a+'"><a  role="button">'+(a+1)+'</a></li>');
 					}
 				}
-		$("#myul").append('<li><a onclick="next()">&raquo;</a></li>');
+		$("#myul").append('<li><a role="button" onclick="next()">&raquo;</a></li>');
 		i = $(".active");
 		$page = $(".page");
 		light(i[0].value,i[1].value);

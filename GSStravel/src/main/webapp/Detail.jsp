@@ -64,23 +64,23 @@ margin-right: 3%;
 					<thead>
 						<tr>
 							<th></th>
-							<th>員工編號</th>
-							<th>身份</th>
+							<th ><label style='width:80px;'>員工編號</label></th>
+							<th><label style='width:50px;'>身份</label></th>
 							<th>姓名</th>
 							<th>性別</th>
 							<th>身份證字號</th>
 							<th>生日</th>
 							<th>手機</th>
 							<th>用餐/車位</th>
-							<th>特殊身份</th>
+							<th><label style='width:80px;'>特殊身份</label></th>
 							<th>保險受益人</th>
-							<th>與受益人關係</th>
+							<th><label style='width:100px;'>與受益人關係</label></th>
 							<th>緊急聯絡人</th>
-							<th>緊急聯絡人手機</th>
-							<th>報名時間</th>
-							<th>取消日期</th>
+							<th><label style='width:120px;'>緊急聯絡人手機</label></th>
+							<th><label style='width:80px;'>報名時間</label></th>
+							<th><label style='width:80px;'>取消日期</label></th>
 							<th>備註</th>
-							<th>取消原因</th>
+							<th><label style='width:80px;'>取消原因</label></th>
 						</tr>
 					</thead>
 						<c:if test="${not empty select}">
@@ -102,14 +102,14 @@ margin-right: 3%;
 										class='form-control' style="display: none"> <c:if
 											test="${row.rel == '員工'}">
 		     ${row.rel}
-		      <select style="display: none; width:90px;" class="fam_Rel form-control"
+		      <select style="display: none; width:100px;" class="fam_Rel form-control"
 												name="fam_Rel" disabled>
 												<option>員工</option>
 												<option>眷屬</option>
 												<option>親友</option>
 											</select>
 										</c:if> <c:if test="${row.rel != '員工'}">
-											<select name="fam_Rel" disabled class='form-control' style="width:90px;">
+											<select name="fam_Rel" disabled class='form-control' style="width:100px;">
 												<option>眷屬</option>
 												<option>親友</option>
 											</select>
@@ -201,7 +201,7 @@ margin-right: 3%;
 									<td ><em style='width:110px;'>${row.det_CanDate}</em></td>
 									<td><input type="text" name="note" value="${row.note}" style='width:150px;'
 										class='form-control' disabled></td>
-									<td><p style='width:200px;'>${row.det_canNote}</p></td>
+									<td><p style='width:200px;' class='form-control'>${row.det_canNote}</p></td>
 								</tr>
 								<input type="hidden" class="detailRow" style='width:90px;' value="${row.row}">
 							</c:forEach>
