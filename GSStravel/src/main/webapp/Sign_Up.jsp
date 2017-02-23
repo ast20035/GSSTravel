@@ -41,6 +41,7 @@
 }
 .form-control{
 font-size: 15px;
+background-color: white;
 }
 </style>
 <title>Insert title here</title>

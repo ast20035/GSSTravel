@@ -35,6 +35,10 @@ table {
 .container-fluid {
 	margin-top: 2%;
 }
+.form-control{
+font-size: 15px;
+background-color: white;
+}
 </style>
 <title>Insert title here</title>
 </head>
@@ -52,12 +56,12 @@ table {
 							<table class='table table-condensed'>
 								<tr>
 									<td>活動名稱:</td>
-									<td><input style="border-style: none; color: #7700BB;"
+									<td><input style="border-style: none; color: #7700BB;" class='form-control'
 										type="text" value="${tra_Vo.tra_Name}" name="tra_Name"
 										readonly></td>
 								<tr>
 									<td>活動代碼:</td>
-									<td><input style="border-style: none; color: #7700BB;"
+									<td><input style="border-style: none; color: #7700BB;" class='form-control'
 										type="text" value="${tra_Vo.tra_NO}" name="tra_No" readonly>
 									</td>
 								</tr>
