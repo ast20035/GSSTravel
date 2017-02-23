@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -16,14 +15,12 @@ import javax.servlet.http.HttpSession;
 
 import model.AnnouncementService;
 import model.AnnouncementVO;
-import model.FineVO;
 
 @WebServlet("/AnnouncementUDServlet")
 public class AnnouncementUDServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private AnnouncementService announcementService = new AnnouncementService();
 	String time;
-//	String b;
 
 	public AnnouncementUDServlet() {
 	}
@@ -55,8 +52,6 @@ public class AnnouncementUDServlet extends HttpServlet {
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		Date date = new Date();
 		String now = sdFormat.format(date);
-
-		time = session.getAttribute("time").toString();
 
 		if ("儲存".equals(save)) {
 			announcementService.insert(now, title, content);

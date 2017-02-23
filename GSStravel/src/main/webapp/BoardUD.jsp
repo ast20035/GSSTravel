@@ -94,7 +94,7 @@
 		</div>
 		<input type="submit" value="更新" name="update" />
 		<input type="submit" value="刪除" name="delete" />
-		<button><a href="javascript:history.back()">回上頁</a></button>
+		<button><a href="BoardMaintain.jsp">回上頁</a></button>
 	</form>
 </body>
 </html>

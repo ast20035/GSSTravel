@@ -41,7 +41,7 @@ table, tr, td {
 	function setBoard() {
 		if (xh != null) {
 			xh.addEventListener("readystatechange", setBoardData, false);
-			xh.open("GET", "AnnouncementServlet", true);
+			xh.open("GET", "AnnouncementShowServlet", true);
 			xh.send();
 		} else {
 			alert("很抱歉，您的瀏覽器不支援AJAX功能！");

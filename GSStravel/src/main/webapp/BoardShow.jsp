@@ -106,6 +106,6 @@
 <body>
 	<div id="boardDiv">
 	</div>
-	<button><a href="javascript:history.back()">回上頁</a></button>
+	<button><a href="Board.jsp">回上頁</a></button>
 </body>
 </html>
