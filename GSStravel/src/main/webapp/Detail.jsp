@@ -88,7 +88,7 @@ margin-right: 3%;
 								<tr>
 									<td><c:if test="${empty row.det_CanDate}">
 											<c:if test="${traVO!=null}">
-												<button name="cancel" id="cancel" type="button" class='cancel btn btn-success' value="${row.det_No}" onclick="open_Can(this)">取消</button>
+												<button name="cancel" id="cancel" type="button" class='cancel btn btn-danger' value="${row.det_No}" onclick="open_Can(this)">取消</button>
 												<button name="edit" class="detEdit btn btn-success" id="detEdit" type="button" value="${row.det_No}">編輯</button>
 											</c:if>
 											<button name="prodaction" class="save btn btn-success"type="submit" id='save' value="save" style='display: none;'>儲存</button>

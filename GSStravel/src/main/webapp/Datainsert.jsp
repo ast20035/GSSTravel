@@ -184,7 +184,7 @@ text-align: center;
 							<c:forEach var="start" items="${famstart}">
 								<tr>
 									<td><input type="button" name="delete" id="delete"
-										value="delete" class="${start.fam_Id} btn btn-success"></td>
+										value="delete" class="${start.fam_Id} btn btn-danger"></td>
 
 									<td><select name="famrel" class='form-control'
 										style="width: 80px;">
@@ -324,7 +324,7 @@ text-align: center;
 		<!-- 空白欄位 -->
 		<tr name="repeat">
 			<td><input type="button" name="delete" id="delete"
-				class='btn btn-success' value="delete" class="block"></td>
+				class='btn btn-danger' value="delete" class="block"></td>
 			<td><select name="famrel" class='form-control'>
 					<option value="眷屬">眷屬</option>
 					<option value="親友">親友</option>
