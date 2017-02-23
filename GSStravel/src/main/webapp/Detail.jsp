@@ -53,6 +53,13 @@ margin-right: 3%;
 								<option>已報名</option>
 								<option>已取消</option>
 						</select>
+						<br/>
+			<ul class="tag pagination">
+				<li class="active pagenumber" onclick="changepage(this)" value="10"><a>每頁10筆</a></oi>
+				<li class="pagenumber" onclick="changepage(this)" value="20"><a>每頁20筆</a></oi>
+				<li class="pagenumber" onclick="changepage(this)" value="50"><a>每頁50筆</a></li>
+				<li class="pagenumber" onclick="changepage(this)" value="100"><a>每頁100筆</a></li>
+			</ul>
 					<table id="deailtable">
 					<thead>
 						<tr>
@@ -202,12 +209,13 @@ margin-right: 3%;
 					</table>
 					共 ${Count} 筆
 					<br />	
-					<ul class="pagination" id="pagination">
+					<ul class="allPage pagination" id="allPage">
 						<li><a onclick="before()">&laquo;</a></li>
 						<li class="page" onclick="page(this)" value="0"><a>1</a></li>
 					</ul>
 					<br />
 					<input type="hidden" name="detailPage" class="detailPage">
+					<input type="hidden" name="detailTag" class="detailTag" value="${tag}">
 					<button type="submit" name="prodaction" value="insert" class='btn btn-primary'>新增</button>
 					<!-- 柯(請勿刪除) -->
 					<input type="submit" name="excel" value="匯出Excel" class='btn btn-primary' />
@@ -223,21 +231,34 @@ margin-right: 3%;
 			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
 		<script
 			src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
-		<script type="text/javascript">
-
+<script type="text/javascript">
+var $pagenumber=$(".pagenumber");
 var $page=$(".page");
 var i;
 $(function(){ 
-
-	var chosePage = Math.ceil($(".detailRow").val()/10);
+	var tagPage = $(".detailTag").val()
+	if(tagPage == "100"){
+		$pagenumber.removeClass("active");
+		$pagenumber[3].className = "active";
+	}else if(tagPage == "20"){
+		$pagenumber.removeClass("active");
+		$pagenumber[1].className = "active";
+	}else if(tagPage == "50"){
+		$pagenumber.removeClass("active");
+		$pagenumber[2].className = "active";
+	}else{
+		$pagenumber.removeClass("active");
+		$pagenumber[0].className = "active";
+	}
+	var chosePage = Math.ceil($(".detailRow").val()/tagPage);
 	var allData = ${Count};
-	var totalPage = Math.ceil(allData/10);
+	var totalPage = Math.ceil(allData/tagPage);
 	for(var i=1; i<totalPage; i++){
-		$(".pagination").append('<li class="page" onclick="page(this)" value="'+i+'"><a>'+(i+1)+'</a></li>');
+		$(".allPage").append('<li class="page" onclick="page(this)" value="'+i+'"><a>'+(i+1)+'</a></li>');
 	}
 	var li = document.createElement('li');
 	li.innerHTML='<a onclick="next()">&raquo;</a>';
-	document.getElementById("pagination").appendChild(li);
+	document.getElementById("allPage").appendChild(li);
 	$page=$(".page");
 	$page.removeClass("active");
 	$page[chosePage-1].className="active";
@@ -474,11 +495,11 @@ var Msg="<%=session.getAttribute("DetMsg")%>";
 function next(){
 	i=$(".active");
 	$page.removeClass("active");
-	if(i.val()<$page.length-1){
-		$(".detailPage").val(i.val()+2);
-		$page[i.val()+1].className="active";
+	if (i[1].value < $page.length - 1) {
+		$(".detailPage").val(i[1].value+2);
+		$page[i[1].value + 1].className = "active";
 	}else{
-		$page[0].className="active";
+		$page[0].className = "active";
 		$(".detailPage").val("1");
 	}
 	document.getElementById('myForm').submit();
@@ -487,9 +508,9 @@ function next(){
 function before(){
 	i=$(".active");
 	$page.removeClass("active");
-	if(i.val()<$page.length && i.val()>0){
-		$(".detailPage").val(i.val());
-		$page[i.val()-1].className="active";
+	if (i[1].value < $page.length && i[1].value > 0) {
+		$page[i[1].value - 1].className = "active";
+		$(".detailPage").val(i[1].value);
 	}else{
 		$page[$page.length-1].className="active";
 		$(".detailPage").val($page.length);
@@ -500,10 +521,16 @@ function page(obj){
 	$page.removeClass("active");
 	$(obj).prop("class","active");
 	i=$(".active");
-	$(".detailPage").val(i.val()+1);
+	$(".detailPage").val(i[1].value+1);
 	document.getElementById('myForm').submit();
 }
-
+function changepage(obj){
+	$pagenumber.removeClass("active");
+	$(obj).prop("class", "active");
+	i = $(".active");
+	$(".detailTag").val(i[0].value);
+	document.getElementById('myForm').submit();
+}
 function dataSelect(){
 	document.getElementById('myForm').submit();
 }
