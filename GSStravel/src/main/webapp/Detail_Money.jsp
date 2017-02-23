@@ -61,20 +61,25 @@ td {
 				<textarea name="tra_Name" class="tra_Name" readonly>${tra_Name}</textarea>
 			</div>
 			<input type="hidden" name="tra_No" class="tra_No" value="${tra_No}">
-
+			<ul class="pagination">
+				<li class="active pagenumber" onclick="changepage(this)" value="10"><a>每頁10筆</a></oi>
+				<li class="pagenumber" onclick="changepage(this)" value="20"><a>每頁20筆</a></oi>
+				<li class="pagenumber" onclick="changepage(this)" value="50"><a>每頁50筆</a></li>
+				<li class="pagenumber" onclick="changepage(this)" value="100"><a>每頁100筆</a></li>
+			</ul>
+			
 			<table border="1" class="table table-bordereds" id="table">
 				<thead>
 					<tr>
-						<td scope="row">部門代碼</td>
-						<td scope="row">員工(/眷屬親友)編號</td>
-						<td scope="row">姓名(/隸屬於哪位員工)</td>
-						<td scope="row">年度可補助金額<br /> <span
-							style="color: red; font-size: 10px">未到職一年者按比例給予計算</span></td>
-						<td scope="row">個人可補助金額</td>
-						<td scope="row">個人團費</td>
-						<td scope="row">其他增減費用明細說明</td>
-						<td scope="row">其他增減費用總額</td>
-						<td scope="row">應補團費</td>
+						<th>部門代碼</th>
+						<th>員工(/眷屬親友)編號</th>
+						<th>姓名(/隸屬於哪位員工)</th>
+						<th>年度可補助金額<br /> <span style="color: red; font-size: 10px">未到職一年者按比例給予計算</span></th>
+						<th>個人可補助金額</th>
+						<th>個人團費</th>
+						<th>其他增減費用明細說明</th>
+						<th>其他增減費用總額</th>
+						<th>應補團費</th>
 					</tr>
 				</thead>
 				<c:forEach var="list" items="${list}">
@@ -133,14 +138,17 @@ td {
 					</tr>
 				</c:forEach>
 			</table>
+			共${count}筆
+			<br />
 			<ul class="pagination">
 				<li><a onclick="before()">&laquo;</a></li>
-					<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
-					<li class="page" onclick="page(this)" value="1"><a>2</a></li>
-					<li class="page" onclick="page(this)" value="2"><a>3</a></li>
-					<li class="page" onclick="page(this)" value="3"><a>4</a></li>
-					<li class="page" onclick="page(this)" value="4"><a>5</a></li>
-				<li><a onclick="next()">&raquo;</a></li>			
+				<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
+					<c:if test="${Math.ceil(count/10)!=0}">
+						<c:forEach var="i" begin="1" end="${Math.ceil(count/10)-1}">
+							<li class="page" onclick="page(this)" value="${i}"><a>${i+1}</a></li>
+						</c:forEach>
+					</c:if>
+				<li><a onclick="next()">&raquo;</a></li>
 			</ul>
 			<br />
 			<c:if test="${travelVO!=null}">
@@ -189,6 +197,10 @@ td {
 			$personmoney[i].value = sum;
 		});
 		changeNotemoney();
+		
+		var i;
+		$("tr:gt(10)").css("display", "none");
+		
 	});
 	function changeNotemoney() {
 		a = 0;
@@ -275,35 +287,46 @@ td {
 
 		})
 	}
-	var $page=$(".page");
-	var i;
-	$("tr:gt(10)").css("display","none");
+	var $page = $(".page");
+	var $pagenumber=$(".pagenumber");
 	
-	function next(){
-		i=$(".active");
+	function next() {
+		i = $(".active");
 		$page.removeClass("active");
-		if(i.val()<$page.length-1){
-// 			console.log("i",i.val());
-			$page[i.val()+1].className="active";
-// 			$("tr:gt("+1+Number(i.val())*5+"):lt("+1+(Number(i.val())+1)*5+")").css("display","none");
-							
-		}else{
-			$page[0].className="active";
+		if (i[1].value < $page.length - 1) {
+			$page[i[1].value + 1].className = "active";
+			light(i[0].value,i[1].value + 1);
+		} else {
+			$page[0].className = "active";
+			light(i[0].value,0);
 		}
 	}
-	function before(){
-		i=$(".active");
+	function before() {
+		i = $(".active");
 		$page.removeClass("active");
-		if(i.val()<$page.length && i.val()>0){
-			$page[i.val()-1].className="active";
-		}else{
-			$page[$page.length-1].className="active";
-		}	
+		if (i[1].value < $page.length && i[1].value > 0) {
+			$page[i[1].value - 1].className = "active";
+			light(i[0].value , i[1].value - 1);
+		} else {
+			$page[$page.length - 1].className = "active";
+			light(i[0].value , $page.length - 1);
+		}
 	}
-	function page(obj){
+	function page(obj) {
 		$page.removeClass("active");
-		$(obj).prop("class","active");
-		i=$(".active");
+		$(obj).prop("class", "active");
+		i = $(".active");
+		light(i[0].value,i[1].value);
+	}
+	function light(page,i) {
+		$("tr:gt(0)").css("display", "none");
+		$("tr:gt(" + i * page + "):lt(" + (i + 1) * page + ")").css("display", "");
+	}
+	function changepage(obj){
+		$pagenumber.removeClass("active");
+		$(obj).prop("class", "active");
+		i = $(".active");
+		light(i[0].value,i[1].value);
 	}
 </script>
 </html>
