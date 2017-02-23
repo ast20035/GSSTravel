@@ -39,6 +39,9 @@
 .table-bordered {
 	text-align: center;
 }
+.form-control{
+font-size: 15px;
+}
 </style>
 <title>Insert title here</title>
 </head>
@@ -58,13 +61,13 @@
 							<table class='table table-condensed table1'>
 								<tr>
 									<td>活動名稱:</td>
-									<td><input style="border-style: none; color: #7700BB;"
+									<td><input style="border-style: none; color: #7700BB;" class='form-control'
 										type="text" value="${tra_Vo.tra_Name}" name="tra_Name"
 										readonly></td>
 								</tr>
 								<tr>
 									<td>活動代碼:</td>
-									<td><input style="border-style: none; color: #7700BB;"
+									<td><input style="border-style: none; color: #7700BB;"  class='form-control'
 										type="text" value="${tra_Vo.tra_NO}" name="tra_No" readonly></td>
 								</tr>
 								<tr>
@@ -147,7 +150,7 @@
 								</script>
 								<tr>
 									<td><input type="button" value='回上一頁'
-										class='btn btn-primary' onclick="window.location.href=GSS;" />
+										class='btn btn-primary' onclick="window.location.href=GSS;" /></td><td>
 										<input type="submit" value="確定報名" class='btn btn-primary'
 										onclick="this.form.submit(); this.disabled=true;" /></td>
 								</tr>
