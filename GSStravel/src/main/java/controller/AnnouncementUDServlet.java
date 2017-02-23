@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -22,6 +23,7 @@ public class AnnouncementUDServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private AnnouncementService announcementService = new AnnouncementService();
 	String time;
+//	String b;
 
 	public AnnouncementUDServlet() {
 	}
@@ -47,13 +49,15 @@ public class AnnouncementUDServlet extends HttpServlet {
 			session.removeAttribute("time");
 			session.setAttribute("time", time);
 		}
-		AnnouncementVO bean = new AnnouncementVO();
+		
 		PrintWriter out = response.getWriter();
 
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		Date date = new Date();
 		String now = sdFormat.format(date);
-		
+
+		time = session.getAttribute("time").toString();
+
 		if ("儲存".equals(save)) {
 			announcementService.insert(now, title, content);
 			response.sendRedirect(request.getContextPath() + "/BoardMaintain.jsp");

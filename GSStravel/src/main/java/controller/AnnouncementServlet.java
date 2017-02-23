@@ -2,8 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,9 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.AnnouncementService;
 import model.AnnouncementVO;
-import model.FineVO;
-import model.TravelService;
-import model.TravelVO;
 
 @WebServlet("/AnnouncementServlet")
 public class AnnouncementServlet extends HttpServlet {
@@ -36,6 +33,25 @@ public class AnnouncementServlet extends HttpServlet {
 		String endDay = request.getParameter("endDay");
 		PrintWriter out = response.getWriter();
 		List<AnnouncementVO> result = announcementService.select();
+
+		SimpleDateFormat formatYMD = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String n = formatYMD.format(date);
+		Date nowDay = java.sql.Date.valueOf(n);
+		
+		Date boardDay = null;
+		String time = null;
+		for (int i = 0; i < result.size(); i++) {
+			time = result.get(i).getAnno_Time();
+			String b = result.get(i).getAnno_Time().substring(0, 10);
+			boardDay = java.sql.Date.valueOf(b);
+		}
+		
+		long day = (nowDay.getTime() - boardDay.getTime()) / (24 * 60 * 60 * 1000);
+		if (day >= 31) {
+			//announcementService.delete(time);
+		}
+
 		if (title == null && startDay == null && endDay == null) {
 			out.print(announcementService.to_Json(result));
 			return;
