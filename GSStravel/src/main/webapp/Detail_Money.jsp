@@ -141,7 +141,7 @@ td {
 			</table>
 			¦@${count}µ§
 			<br />
-			<ul class="pagination myul">
+			<ul id="myul" class="pagination">
 				<li><a onclick="before()">&laquo;</a></li>
 				<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
 					<c:if test="${Math.ceil(count/10)!=0}">
@@ -292,6 +292,7 @@ td {
 	var $page = $(".page");
 	var $pagenumber=$(".pagenumber");
 	
+	
 	function next() {
 		i = $(".active");
 		$page.removeClass("active");
@@ -318,8 +319,6 @@ td {
 		$page.removeClass("active");
 		$(obj).prop("class", "active");
 		i = $(".active");
-		console.log("i0",i[0].value);
-		console.log("i1",i[1].value);
 		light(i[0].value,i[1].value);
 	}
 	function light(page,i) {
@@ -330,10 +329,21 @@ td {
 		$pagenumber.removeClass("active");
 		$(obj).prop("class", "active");
 		i = $(".active");
+		var count=${count};
+		$("#myul").find("li").remove();
+		$("#myul").append('<li><a onclick="before()">&laquo;</a></li>');
+			var sum=Math.ceil(count/i[0].value);
+				for(var a=0;a<sum;a++){
+					if(a==0){
+						$("#myul").append('<li class="page active" onclick="page(this)" value="'+a+'"><a>'+(a+1)+'</a></li>');	
+					}else{
+					$("#myul").append('<li class="page" onclick="page(this)" value="'+a+'"><a>'+(a+1)+'</a></li>');
+					}
+				}
+		$("#myul").append('<li><a onclick="next()">&raquo;</a></li>');
+		i = $(".active");
+		$page = $(".page");
 		light(i[0].value,i[1].value);
-
-		$(".myul").
-		
 	}
 </script>
 </html>
