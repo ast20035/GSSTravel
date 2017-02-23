@@ -21,6 +21,11 @@
 <title>Insert title here</title>
 <script>
 	window.onload = function() {
+		$('#account, #pwd').keydown(function(event){
+			if(event.which==13){
+				document.getElementById('login.do').submit();
+			}
+		});
 		if ('${error.act ne true}' != null && '${error.act}' != '') {
 			alert('${error.act}');
 		} else {
