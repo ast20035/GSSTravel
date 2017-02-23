@@ -8,9 +8,9 @@ public interface IAnnouncementDAO {
 
 	public List<AnnouncementVO> select();
 
-	public void insert(AnnouncementVO bean);
+	public void insert(String now, String title, String content);
 
-	public void update(AnnouncementVO bean, String date);
+	public void update(String now, String title, String content, String date);
 
 	public void delete(String date);
 }

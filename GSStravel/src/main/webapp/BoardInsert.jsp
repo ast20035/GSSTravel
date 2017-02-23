@@ -18,18 +18,18 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
-<title>報名取消</title>
+<link rel="stylesheet" type="text/css" href="" />
+<title>Insert title here</title>
 </head>
-<body onLoad="setTimeout(window.close, 1000)"  onunload=unLoad();>
-	<div class='container-fluid'>取消成功！</div>
-	
-	<script> 
-	function unLoad(){
-		var pathName = document.location.pathname;
-		var index = pathName.substr(1).indexOf("/");
-		var result = pathName.substr(0, index + 1);
-	    window.opener.location.href = result + "/detail?tra_no=" + ${det_canTraNo};
-	}
-	</script>
+<body>
+	<form action="<c:url value="/AnnouncementUDServlet" />" method="GET">
+		<div id="boardDiv">
+			<div>公告標題</div>
+			<input type="text" id="title" name="title" />
+			<div>公告內容</div>
+			<textarea cols="50" rows="12" id="content" name="content" style="resize: none"></textarea>
+			<input type="submit" value="儲存" name="save" />
+		</div>
+	</form>
 </body>
 </html>

@@ -55,7 +55,7 @@ margin-right: 3%;
 						</select>
 						<br/>
 			<ul class="tag pagination">
-				<li class="active pagenumber" onclick="changepage(this)" value="10"><a>每頁10筆</a></oi>
+				<li class="pagenumber" onclick="changepage(this)" value="10"><a>每頁10筆</a></oi>
 				<li class="pagenumber" onclick="changepage(this)" value="20"><a>每頁20筆</a></oi>
 				<li class="pagenumber" onclick="changepage(this)" value="50"><a>每頁50筆</a></li>
 				<li class="pagenumber" onclick="changepage(this)" value="100"><a>每頁100筆</a></li>
@@ -64,23 +64,23 @@ margin-right: 3%;
 					<thead>
 						<tr>
 							<th></th>
-							<th>員工編號</th>
-							<th>身份</th>
+							<th ><label style='width:80px;'>員工編號</label></th>
+							<th><label style='width:50px;'>身份</label></th>
 							<th>姓名</th>
 							<th>性別</th>
 							<th>身份證字號</th>
 							<th>生日</th>
 							<th>手機</th>
 							<th>用餐/車位</th>
-							<th>特殊身份</th>
+							<th><label style='width:80px;'>特殊身份</label></th>
 							<th>保險受益人</th>
-							<th>與受益人關係</th>
+							<th><label style='width:100px;'>與受益人關係</label></th>
 							<th>緊急聯絡人</th>
-							<th>緊急聯絡人手機</th>
-							<th>報名時間</th>
-							<th>取消日期</th>
+							<th><label style='width:120px;'>緊急聯絡人手機</label></th>
+							<th><label style='width:80px;'>報名時間</label></th>
+							<th><label style='width:80px;'>取消日期</label></th>
 							<th>備註</th>
-							<th>取消原因</th>
+							<th><label style='width:80px;'>取消原因</label></th>
 						</tr>
 					</thead>
 						<c:if test="${not empty select}">
@@ -102,14 +102,14 @@ margin-right: 3%;
 										class='form-control' style="display: none"> <c:if
 											test="${row.rel == '員工'}">
 		     ${row.rel}
-		      <select style="display: none; width:90px;" class="fam_Rel form-control"
+		      <select style="display: none; width:100px;" class="fam_Rel form-control"
 												name="fam_Rel" disabled>
 												<option>員工</option>
 												<option>眷屬</option>
 												<option>親友</option>
 											</select>
 										</c:if> <c:if test="${row.rel != '員工'}">
-											<select name="fam_Rel" disabled class='form-control' style="width:90px;">
+											<select name="fam_Rel" disabled class='form-control' style="width:100px;">
 												<option>眷屬</option>
 												<option>親友</option>
 											</select>
@@ -197,11 +197,11 @@ margin-right: 3%;
 									<td><input type="text" name="emg_Phone" style='width:110px;'
 										class="emg_Phone form-control" value="${row.emgPhone}"
 										disabled></td>
-									<td ><p style='width:110px;'>${row.det_Date}</p></td>
+									<td ><b style='width:110px;'>${row.det_Date}</b></td>
 									<td ><em style='width:110px;'>${row.det_CanDate}</em></td>
 									<td><input type="text" name="note" value="${row.note}" style='width:150px;'
 										class='form-control' disabled></td>
-									<td><p style='width:200px;'>${row.det_canNote}</p></td>
+									<td><p style='width:200px;' class='form-control'>${row.det_canNote}</p></td>
 								</tr>
 								<input type="hidden" class="detailRow" style='width:90px;' value="${row.row}">
 							</c:forEach>
@@ -236,7 +236,9 @@ var $pagenumber=$(".pagenumber");
 var $page=$(".page");
 var i;
 $(function(){ 
+	//每頁XX筆顯示藍底
 	var tagPage = $(".detailTag").val()
+	$pagenumber[0].className = "active";
 	if(tagPage == "100"){
 		$pagenumber.removeClass("active");
 		$pagenumber[3].className = "active";
@@ -250,26 +252,35 @@ $(function(){
 		$pagenumber.removeClass("active");
 		$pagenumber[0].className = "active";
 	}
+
+	//頁碼顯示
+	if($(".detailRow").val() != null){
 	var chosePage = Math.ceil($(".detailRow").val()/tagPage);
+	}else{
+		chosePage = 1;
+	}
 	var allData = ${Count};
 	var totalPage = Math.ceil(allData/tagPage);
 	for(var i=1; i<totalPage; i++){
 		$(".allPage").append('<li class="page" onclick="page(this)" value="'+i+'"><a>'+(i+1)+'</a></li>');
 	}
+	//下一頁》顯示
 	var li = document.createElement('li');
 	li.innerHTML='<a onclick="next()">&raquo;</a>';
 	document.getElementById("allPage").appendChild(li);
 	$page=$(".page");
 	$page.removeClass("active");
+	
 	$page[chosePage-1].className="active";
 
-		if("${view}" == "已取消"){
-			document.getElementById("selectTable").selectedIndex = "2";
-		}else if("${view}" == "已報名"){
-			document.getElementById("selectTable").selectedIndex = "1";
-		}else{
-			document.getElementById("selectTable").selectedIndex = "0";
-		}	
+	//選取報名/取消過濾
+	if("${view}" == "已取消"){
+		document.getElementById("selectTable").selectedIndex = "2";
+	}else if("${view}" == "已報名"){
+		document.getElementById("selectTable").selectedIndex = "1";
+	}else{
+		document.getElementById("selectTable").selectedIndex = "0";
+	}	
 	
 	var $BodyWidth = $(document).width();  
 	var $ViewportWidth=$(window).width();  

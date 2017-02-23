@@ -37,7 +37,6 @@ table, tr, td {
 		var startDay = document.getElementById('startDay');
 		var endDay = document.getElementById('endDay');
 		setBoard();
-		showtime();
 	}
 
 	var xh = new XMLHttpRequest();
@@ -47,17 +46,16 @@ table, tr, td {
 			var pathName = document.location.pathname;
 			var index = pathName.substr(1).indexOf("/");
 			var result = pathName.substr(0, index + 1);
-			var url = result + "/AnnouncementServlet?select=查詢&";
+			var url = result + "/AnnouncementServlet?";
 			if (title.value != undefined && title.value != '') {
-// 				url = url + "title=" + title.value + "&";
-				url = url + "title=" + title.value;
+				url = url + "title=" + title.value + "&";
 			}
-// 			if (startDay.value != undefined && startDay.value != '') {
-// 				url = url + "startDay=" + startDay.value + "&";
-// 			}
-// 			if (endDay.value != undefined && endDay.value != '') {
-// 				url = url + "endDay=" + endDay.value;	
-// 			}
+			if (startDay.value != undefined && startDay.value != '') {
+				url = url + "startDay=" + startDay.value + "&";
+			}
+			if (endDay.value != undefined && endDay.value != '') {
+				url = url + "endDay=" + endDay.value;
+			}
 			xh.addEventListener("readystatechange", setBoardData, false);
 			xh.open("GET", url, true);
 			xh.send();
@@ -75,21 +73,23 @@ table, tr, td {
 				while (body.hasChildNodes()) {
 					body.removeChild(body.lastChild);
 				}
-
+				
+				var pathName = document.location.pathname;
+				var index = pathName.substr(1).indexOf("/");
+				var result = pathName.substr(0, index + 1);
 				for (var i = 0; i < board.length; i++) {
 					var tr = document.createElement("tr");
 					var td = document.createElement("td");
+					var a = document.createElement("a");
 
 					td = document.createElement("td");
 					td.appendChild(document.createTextNode(board[i].time));
 					tr.appendChild(td);
 
 					td = document.createElement("td");
-					td.appendChild(document.createTextNode(board[i].title));
-					tr.appendChild(td);
-
-					td = document.createElement("td");
-					td.appendChild(document.createTextNode(board[i].content));
+					a.setAttribute("href", result + "/BoardUD.jsp?anno_Time=" + board[i].time);
+					a.appendChild(document.createTextNode(board[i].title));
+					td.appendChild(a);
 					tr.appendChild(td);
 
 					body.appendChild(tr);
@@ -98,38 +98,6 @@ table, tr, td {
 				alert(xh.status + ":" + xh.statusText);
 			}
 		}
-	}
-
-	var now = null;
-	var hours = null;
-	var minutes = null;
-	var seconds = null;
-	var timeValue = null;
-	var clock = null;
-	function showtime() {
-		clock = document.getElementById("clock");
-		now = new Date();
-		hours = now.getHours();
-		minutes = now.getMinutes();
-		seconds = now.getSeconds();
-		timeValue = hours + "：";
-		if (minutes < 10) {
-			timeValue += " 0" + minutes + "：";
-			if (seconds < 10) {
-				timeValue += " 0" + seconds;
-			} else {
-				timeValue += seconds;
-			}
-		} else {
-			timeValue += minutes + "：";
-			if (seconds < 10) {
-				timeValue += " 0" + seconds;
-			} else {
-				timeValue += seconds;
-			}
-		}
-		clock.innerHTML = timeValue;
-		setTimeout("showtime()", 1000);
 	}
 </script>
 </head>
@@ -146,15 +114,15 @@ table, tr, td {
 				<h2>公告維護</h2>
 			</div>
 		</div>
-		<form action="<c:url value="/AnnouncementServlet" />" method="GET">
-			<div class="clock"><h2 id="clock"></h2></div>
+		<form action="<c:url value="/BoardInsert.jsp" />" method="GET">
 			<div>公告標題</div>
-			<input type="text" id="title" name="title" value="" />
-			<div id="sizing-addon3">起迄日期:</div>
+			<input type="text" id="title" name="title" value="" autocomplete="off" />
+			<div id="sizing-addon3">起迄日期</div>
 			<input type='date' id='startDay' name='startDay' value='' /> <br>
 			<input type='date' id='endDay' name='endDay' value='' /> <br> <br>
 			<input type="button" value="查詢" name="select" onclick="setBoard()" />
-			<input type="reset" value="重設" /> <input type="button" value="新增" name="insert" />
+			<input type="reset" value="重設" />
+			<input type="submit" value="新增" name="insert" />
 		</form>
 		<br>
 		<table id="boardTable">
@@ -162,7 +130,6 @@ table, tr, td {
 				<tr>
 					<th>公告時間</th>
 					<th>公告標題</th>
-					<th>公告內容</th>
 				</tr>
 			</thead>
 			<tbody>
