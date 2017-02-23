@@ -17,6 +17,9 @@ tr>td {
 td>input[type=text] {
 	width: 220px;
 }
+label{
+text-align: center;
+}
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src='js/jquery-3.1.1.min.js'></script>
@@ -32,7 +35,7 @@ td>input[type=text] {
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
-<title>Insert title here</title>
+<title>資料輸入</title>
 
 </head>
 <body>
@@ -49,7 +52,7 @@ td>input[type=text] {
 	<%@include file="SelectBar.jsp"%>
 	<script>
 		$('.navbar-nav>li').removeClass('now');
-		$('.navbar-nav>li:eq(1)').addClass('now');
+		$('.navbar-nav>li:eq(2)').addClass('now');
 	</script>
 
 	<div class='container-fluid'>
@@ -66,96 +69,75 @@ td>input[type=text] {
 				<div class='col-md-3'>
 					<table>
 						<tr>
-							<td>
-									<span class="input-group-addon info" >員工編號</span></td><td>
-									<input type='text' class='form-control' readonly
-										 value='${empno}' />
-								</td>
+							<td><span class="input-group-addon info">員工編號</span></td>
+							<td><input type='text' class='form-control' readonly
+								value='${empno}' /></td>
 						</tr>
 						<tr>
-							<td>
-									<span class="input-group-addon info" >姓名</span></td><td>
-									<input type='text' class='form-control' readonly
-										value='${empname}'  />
-								</td>
+							<td><span class="input-group-addon info">姓名</span></td>
+							<td><input type='text' class='form-control' readonly
+								value='${empname}' /></td>
 						</tr>
 						<tr>
-							<td>
-									<span class="input-group-addon info" >手機</span></td><td>
-									<input type="text" name="empphone" id="empphone"
-										class='form-control' autofocus
-										 value="${empphone}">
-								
+							<td><span class="input-group-addon info">手機</span></td>
+							<td><input type="text" name="empphone" id="empphone"
+								class='form-control' autofocus value="${empphone}">
+
 								<div id=empphoneerror>${error.empphone}</div></td>
 						</tr>
 						<tr>
-							<td>
-									<span class="input-group-addon info" >保險受益人</span></td><td>
-									<input type="text" name="empben" id="empben"
-										class='form-control'
-										value="${empben}">
-								
+							<td><span class="input-group-addon info">保險受益人</span></td>
+							<td><input type="text" name="empben" id="empben"
+								class='form-control' value="${empben}">
+
 								<div id=empbenerror>${error.empben}</div></td>
 						</tr>
 						<tr>
-							<td>
-									<span class="input-group-addon info">與受益人關係</span></td><td>
-									<input type="text" name="empbenrel" id="empbenrel"
-										class='form-control' 
-										value="${empbenrel}">
-								
+							<td><span class="input-group-addon info">與受益人關係</span></td>
+							<td><input type="text" name="empbenrel" id="empbenrel"
+								class='form-control' value="${empbenrel}">
+
 								<div id=empbenrelerror>${error.empbenrel}</div></td>
 						</tr>
 						<tr>
-							<td>
-									<span class="input-group-addon info" >緊急聯絡人</span></td><td>
-									<input type="text" name="empemg" id="empemg"
-										class='form-control'
-										value="${empemg}">
-								
+							<td><span class="input-group-addon info">緊急聯絡人</span></td>
+							<td><input type="text" name="empemg" id="empemg"
+								class='form-control' value="${empemg}">
+
 								<div id=empemgerror>${error.empemg}</div></td>
 						</tr>
 						<tr>
-							<td>
-									<span class="input-group-addon info" >緊急聯絡人電話</span></td><td>
-									<input type="text" name="empemgphone" id="empemgphone"
-										class='form-control' 
-										value="${empemgphone}">
-								
+							<td><span class="input-group-addon info">緊急聯絡人電話</span></td>
+							<td><input type="text" name="empemgphone" id="empemgphone"
+								class='form-control' value="${empemgphone}">
+
 								<div id=empemgphoneerror>${error.empemgphone}</div></td>
 						</tr>
 						<tr>
-							<td>
-									<span class="input-group-addon info" >信箱</span></td><td>
-									<input type="text" name="empemail" id="empemail"
-										class='form-control' 
-										value="${empemail}">
-								
+							<td><span class="input-group-addon info">信箱</span></td>
+							<td><input type="text" name="empemail" id="empemail"
+								class='form-control' value="${empemail}">
+
 								<div id=empemailerror>${error.empemailerror}</div></td>
 						</tr>
 						<tr>
-							<td>
-									<span class="input-group-addon info" >用餐</span></td><td>
-									<select name="empeat" 
-										class='form-control'>
-										<c:if test="${empeat=='葷'}">
-											<option value="葷" selected>葷</option>
-											<option value="素">素</option>
-										</c:if>
-										<c:if test="${empeat=='素'}">
-											<option value="葷">葷</option>
-											<option value="素" selected>素</option>
-										</c:if>
-									</select> (如有特別要求請填寫於備註)
-								</td>
+							<td><span class="input-group-addon info">用餐</span></td>
+							<td><select name="empeat" class='form-control'>
+									<c:if test="${empeat=='葷'}">
+										<option value="葷" selected>葷</option>
+										<option value="素">素</option>
+									</c:if>
+									<c:if test="${empeat=='素'}">
+										<option value="葷">葷</option>
+										<option value="素" selected>素</option>
+									</c:if>
+							</select> (如有特別要求請填寫於備註)</td>
 						</tr>
 						<tr>
-							<td>
-									<span class="input-group-addon info" >備註</span></td><td>
-									<input type="text" name="empnote" id="empnote"
-										 class='form-control'
-										value="${empnote}">
-								
+							<td><span class="input-group-addon info">備註</span></td>
+							<td><input type="text" name="empnote" id="empnote"
+								class='form-control' value="${empnote}">
+
 								<div id=empnoteerror></div></td>
 						</tr>
 					</table>
@@ -163,13 +145,14 @@ td>input[type=text] {
 						－眷屬親友資訊－<br> *眷屬包含直系及旁系二等親，納入補助計算<br>
 						*親友為旁系三等親以上及朋友，不納入補助計算<br> <br>
 						<!--新增、儲存 -->
+
 					<input type="button" value="新增欄位" id="insert" name="button" class='btn btn-primary'> <span>${error.famblock}</span> 
 					<input type="button" value="儲存" class='btn btn-primary' id="save" name="button">
 					<input type="hidden"  id="checkbox" name="checkbox">
 					<input type="hidden"  id="multiselect" name="multiselect">
 					<input type="hidden"  id="errorcount" name="errorcount">
 <!-- 					<div id="errormsg" name="errormsg"></div> -->
-						
+
 					</div>
 				</div>
 			</div>
@@ -178,29 +161,30 @@ td>input[type=text] {
 				<div class='col-md-1'></div>
 				<div class='col-md-11'>
 					<table id="familytable" class=' table table-bordered'>
-						<tr>
-							<th></th>
-							<th><em style="color: red">*</em>眷屬/親友</th>
-							<th><em style="color: red">*</em>姓名</th>
-							<th><em style="color: red">*</em>性別</th>
-							<th><em style="color: red">*</em>身份證字號</th>
-							<th><em style="color: red">*</em>生日</th>
-							<th><em style="color: red">*</em>手機</th>
-							<th>用餐/車位</th>
-							<th>特殊身份</th>
-							<th><em style="color: red">*</em>保險受益人</th>
-							<th><em style="color: red">*</em>保險受益人關係</th>
-							<th><em style="color: red">*</em>緊急聯絡人</th>
-							<th><em style="color: red">*</em>緊急聯絡人電話</th>
-							<th><em style="color: red">*</em>緊急聯絡人關係</th>
-							<th>備註</th>
-						</tr>
-
+						<thead>
+							<tr id='sss'>
+								<th></th>
+								<th><label><em style="color: red">*</em>眷屬/親友</label></th>
+								<th><label><em style="color: red">*</em>姓名</label></th>
+								<th><label><em style="color: red">*</em>性別</label></th>
+								<th><label><em style="color: red">*</em>身份證字號</label></th>
+								<th><label><em style="color: red">*</em>生日</label></th>
+								<th><label><em style="color: red">*</em>手機</label></th>
+								<th><label>用餐/車位</label></th>
+								<th><label>特殊身份</label></th>
+								<th><label><em style="color: red">*</em>保險受益人</label></th>
+								<th><label style="width:120px;"><em style="color: red">*</em>保險受益人關係</label></th>
+								<th><label><em style="color: red">*</em>緊急聯絡人</label></th>
+								<th><label style="width:120px;"><em style="color: red">*</em>緊急聯絡人電話</label></th>
+								<th><label style="width:120px;"><em style="color: red">*</em>緊急聯絡人關係</label></th>
+								<th><label>備註</label></th>
+							</tr>
+						</thead>
 						<c:if test="${famstartsize>0}">
 							<c:forEach var="start" items="${famstart}">
 								<tr>
 									<td><input type="button" name="delete" id="delete"
-										value="delete" class="${start.fam_Id} btn btn-success"></td>
+										value="delete" class="${start.fam_Id} btn btn-danger"></td>
 
 									<td><select name="famrel" class='form-control'
 										style="width: 80px;">
@@ -213,10 +197,12 @@ td>input[type=text] {
 												<option value="親友">親友</option>
 											</c:if>
 									</select></td>
-									<td><input type="text" name="famname" id="famname" style='width:90px;'
-										class='form-control' value="${start.fam_Name}">
+									<td><input type="text" name="famname" id="famname"
+										style='width: 90px;' class='form-control'
+										value="${start.fam_Name}">
 										<div class="famnameerror" name="famnameerror">${error.famneme}</div></td>
-									<td><select name="famsex" class='form-control' style='width:70px;'>
+									<td><select name="famsex" class='form-control'
+										style='width: 70px;'>
 											<!--  servlet抓name db抓值會抓進value值進去-->
 											<c:if test="${start.fam_Sex=='男'}">
 												<option value="女">女</option>
@@ -228,14 +214,16 @@ td>input[type=text] {
 											</c:if>
 									</select></td>
 
-									<td><input type="text" name="famid" style='width:110px;'
+									<td><input type="text" name="famid" style='width: 110px;'
 										class="famid form-control" value="${start.fam_Id}">
 										<div class="famiderror" name="famiderror">${error.famid}</div></td>
-									<td><input type="date" id="fambdate" name="fambdate" style='width:170px;'
-										class="fambdate form-control" value="${start.fam_Bdate}" />
+									<td><input type="date" id="fambdate" name="fambdate"
+										style='width: 170px;' class="fambdate form-control"
+										value="${start.fam_Bdate}" />
 										<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div></td>
-									<td><input type="text" name="famphone" id="famphone" style='width:90px;'
-										class='form-control' value="${start.fam_Phone}">
+									<td><input type="text" name="famphone" id="famphone"
+										style='width: 90px;' class='form-control'
+										value="${start.fam_Phone}">
 										<div class=famphoneerror>${error.famphone}</div></td>
 									<td><select name="fameat" style='width: 100px;'
 										class='form-control'>
@@ -257,7 +245,7 @@ td>input[type=text] {
 											</c:if>
 									</select> <c:if test="${start.fam_Car=='true'}">
 											<input id="${start.fam_No}_car" name="famcar" type="checkbox"
-												value="off" class="${start.fam_No}" >
+												value="off" class="${start.fam_No}">
 											<span>不占車位</span>
 										</c:if> <c:if test="${start.fam_Car=='false'}">
 											<input id="${start.fam_No}_car" name="famcar" type="checkbox"
@@ -297,24 +285,30 @@ td>input[type=text] {
 											</select>
 											<input type ="hidden" name="selectvalue" class="selectvalue">
 										</div></td>
+
 									<td><input type="text" name="famben" id="famben" style='width:90px;'
 										class='form-control' value="${start.fam_Ben}">
+
 										<div class="fambenerror">${error.famben}</div></td>
-									<td><input type="text" name="fambenrel" id="fambenrel" style='width:90px;'
-										class='form-control' value="${start.fam_BenRel}">
+									<td><input type="text" name="fambenrel" id="fambenrel"
+										style='width: 90px;' class='form-control'
+										value="${start.fam_BenRel}">
 										<div class="fambenrelerror">${error.fambenrel}</div></td>
-									<td><input type="text" name="famemg" id="famemg" style='width:90px;'
-										class='form-control' value="${start.fam_Emg}">
+									<td><input type="text" name="famemg" id="famemg"
+										style='width: 90px;' class='form-control'
+										value="${start.fam_Emg}">
 										<div class="famemgerror">${error.famemg}</div></td>
-									<td><input type="text" name="famemgphpone" style='width:90px;'
-										class='form-control' id="famemgphone"
+									<td><input type="text" name="famemgphpone"
+										style='width: 90px;' class='form-control' id="famemgphone"
 										value="${start.fam_EmgPhone}">
 										<div class="famemgphoneerror">${error.famemgphone}</div></td>
-									<td><input type="text" name="famemgrel" id="famemgrel" style='width:90px;'
-										class='form-control' value="${start.fam_EmgRel}">
+									<td><input type="text" name="famemgrel" id="famemgrel"
+										style='width: 90px;' class='form-control'
+										value="${start.fam_EmgRel}">
 										<div class="famemgrelerror">${error.famemgrel}</div></td>
-									<td><input type="text" name="famnote" id="famnote" style='width:200px;'
-										class='form-control' value="${start.fam_Note}">
+									<td><input type="text" name="famnote" id="famnote"
+										style='width: 200px;' class='form-control'
+										value="${start.fam_Note}">
 										<div class="famnoteerror"></div></td>
 									
 								</tr>
@@ -332,7 +326,7 @@ td>input[type=text] {
 		<!-- 空白欄位 -->
 		<tr name="repeat">
 			<td><input type="button" name="delete" id="delete"
-				class='btn btn-success' value="delete" class="block"></td>
+				class='btn btn-danger' value="delete" class="block"></td>
 			<td><select name="famrel" class='form-control'>
 					<option value="眷屬">眷屬</option>
 					<option value="親友">親友</option>
@@ -391,7 +385,7 @@ td>input[type=text] {
 				<div class="famnoteerror"></div></td>
 		</tr>
 	</table>
-<script>
+	<script>
 			var xh = new XMLHttpRequest();
 			
 			$("#familytable").on("click", "input[name='delete']",

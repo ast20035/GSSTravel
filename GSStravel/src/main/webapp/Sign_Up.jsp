@@ -39,16 +39,41 @@
 .table-bordered {
 	text-align: center;
 }
+
+.form-control {
+	font-size: 15px;
+	background-color: white;
+}
+
+label {
+	text-align: left;
+}
 </style>
-<title>Insert title here</title>
+<title>報名</title>
 </head>
+<script type="text/javascript">
+	var x = 1;
+	function wait() {
+		if (x == 1) {
+			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-primary' value='確定報名中.'/>";
+			x++;
+		} else if (x == 2) {
+			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-primary' value='確定報名中..'/>";
+			x++;
+		} else if (x == 3) {
+			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-primary' value='確定報名中...'/>";
+			x = 1;
+		}
+		setTimeout('wait()',1000);
+	}
+</script>
 <body>
 	<div class='container-fluid'>
 
 		<form action="<c:url value="/Sign_in"/>" method="get">
 			<div class='row'>
-				<div class='col-lg-2'></div>
-				<div class='col-lg-3'>
+				<div class='col-md-1'></div>
+				<div class='col-md-4'>
 					<div class='panel panel-primary'>
 						<div class='panel-heading'>
 							<h1>-本團報名資訊-</h1>
@@ -58,14 +83,14 @@
 							<table class='table table-condensed table1'>
 								<tr>
 									<td>活動名稱:</td>
-									<td><input style="border-style: none; color: #7700BB;"
-										type="text" value="${tra_Vo.tra_Name}" name="tra_Name"
+									<td><label style="border-style: none; color: #7700BB;">${tra_Vo.tra_Name}</label><input
+										type="hidden" value="${tra_Vo.tra_Name}" name="tra_Name"
 										readonly></td>
-								</tr>
 								<tr>
 									<td>活動代碼:</td>
-									<td><input style="border-style: none; color: #7700BB;"
-										type="text" value="${tra_Vo.tra_NO}" name="tra_No" readonly></td>
+									<td><label style="border-style: none; color: #7700BB;">${tra_Vo.tra_NO}</label><input
+										type="hidden" value="${tra_Vo.tra_NO}" name="tra_No" readonly>
+									</td>
 								</tr>
 								<tr>
 									<td colspan="2">目前已報名人數為<strong>${tra_count}</strong>人，依報名順序為:
@@ -81,8 +106,8 @@
 						</div>
 					</div>
 				</div>
-				<div class='col-lg-1 col-xs-1'></div>
-				<div class='col-lg-3'>
+				<div class='col-md-1'></div>
+				<div class='col-md-4'>
 					<div class='panel panel-primary'>
 						<div class='panel-heading'>
 							<h1>-報名人員-</h1>
@@ -91,14 +116,14 @@
 							<table class='table table-condensed table2'>
 								<tr>
 									<td>員編:</td>
-									<td><input style="border-style: none; color: #7700BB"
-										type="text" value="${emp_No}" name="emp_No" readonly>
+									<td><label style="border-style: none; color: #7700BB; width:150px;">${emp_No}</label><input
+										type="hidden" value="${emp_No}" name="emp_No" readonly>
 									</td>
 								</tr>
 								<tr>
 									<td>姓名:</td>
-									<td><input style="border-style: none; color: #7700BB"
-										type="text" value="${myName}" name="emp_No" readonly>
+									<td><label style="border-style: none; color: #7700BB;">${myName}</label><input
+										type="hidden" value="${myName}" name="emp_No" readonly>
 									</td>
 								</tr>
 								<tr>
@@ -147,9 +172,14 @@
 								</script>
 								<tr>
 									<td><input type="button" value='回上一頁'
-										class='btn btn-primary' onclick="window.location.href=GSS;" />
+										class='btn btn-primary' onclick="window.location.href=GSS;" /></td>
+									<td>
+										<!-- 										<input type="submit" value="確定報名" class='btn btn-primary' -->
+										<!-- 										onclick="this.form.submit(); a();this.disabled=true;" /> -->
 										<input type="submit" value="確定報名" class='btn btn-primary'
-										onclick="this.form.submit(); this.disabled=true;" /></td>
+										onclick="this.form.submit(); this.style.display = 'none';wait();" />
+										<span id="ck"></span>
+									</td>
 								</tr>
 							</table>
 						</div>

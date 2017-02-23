@@ -108,6 +108,7 @@ public class FineServlet extends HttpServlet {
 				int plus = 0;
 				int hundred = 0;
 				int check = 0;
+				int btn = 0;
 				int[] day = new int[temp1.length];
 				int[] dayCheck = new int[temp1.length];
 				if (temp1[0] != "") {
@@ -179,23 +180,33 @@ public class FineServlet extends HttpServlet {
 				}
 
 				if ("儲存罰則".equals(save)) {
+					List<FineVO> fResult1 = fineService.select();
 					fineService.delete(fineBean);
 					for (int i = 0; i < temp1.length; i++) {
 						fineBean.setFine_Dates(day[i]);
 						fineBean.setFine_Per(percent[i]);
 						fineService.insert(fineBean);
 					}
-					response.sendRedirect(request.getContextPath() + "/FineShowServlet");
+					List<FineVO> fResult2 = fineService.select();
+					if (fResult1.size() != fResult2.size()) {
+						btn = 1;
+					} else {
+						for (int i = 0; i < fResult1.size(); i++) {
+							if (fResult1.get(i).getFine_Dates() != fResult2.get(i).getFine_Dates()
+									|| fResult1.get(i).getFine_Per() != fResult2.get(i).getFine_Per()) {
+								btn = 1;
+							}
+						}
+					}
+					response.sendRedirect(request.getContextPath() + "/FineShowServlet?em=1&btn=" + btn);
 				}
 			}
 		}
 		if ("寄送罰則異動通知".equals(email)) {
 			power = true;
-			PrintWriter out = response.getWriter();
-			
-			
+
 			List<EmployeeVO> result = employeeService.selectEmp();
-			LinkedHashSet mailSet = new LinkedHashSet();	
+			LinkedHashSet mailSet = new LinkedHashSet();
 			String[] empMail = new String[result.size()];
 
 			email em = new email();
@@ -214,8 +225,6 @@ public class FineServlet extends HttpServlet {
 				i++;
 			}
 			em.send(emp, "罰則異動通知！", "您好！\n罰則有些許的變更，請注意您所報名的行程，謝謝！\n祝您旅途愉快！");
-			out.print("Email寄送成功！");
-//			response.sendRedirect(request.getContextPath() + "/FineShowServlet");
 		}
 		if ("罰則設定".equals(set)) {
 			PrintWriter out = response.getWriter();

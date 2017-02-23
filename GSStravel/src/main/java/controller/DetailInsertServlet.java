@@ -157,7 +157,9 @@ public class DetailInsertServlet extends HttpServlet {
 								return;
 							}
 						} catch (Exception e) {
-							session.setAttribute("DataError", "家屬資料輸入錯誤");
+							session.setAttribute("DataError", "儲存失敗");
+							resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No+"&doInsert=1" );
+							return;
 						}
 					}
 				} else {
@@ -165,7 +167,9 @@ public class DetailInsertServlet extends HttpServlet {
 					return;
 				}
 			} catch (Exception e) {
-				session.setAttribute("DataError", "員工資料輸入錯誤");
+				session.setAttribute("DataError", "儲存失敗");
+				resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No+"&doInsert=1" );
+				return;
 			}
 		}
 		if ("回前頁".equals(prodaction)) {

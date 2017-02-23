@@ -20,7 +20,7 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="" />
-<title>罰則設定表</title>
+<title>罰則設定</title>
 <style>
 input {
 	text-align: center;
@@ -30,7 +30,7 @@ input {
 	color: red;
 }
 
-td, th {
+td {
 	border: 2px outset black;
 	text-align: center;
 	/* 	padding: 0px 0px 0px 0px; */
@@ -41,38 +41,38 @@ table {
 	margin-top: 2%;
 }
 
-.tdbtn {
-	padding: 5px;
-	border: 0;
-}
-
 input[type=text] {
 	border: 0px;
 }
 </style>
 
 <script>
-	$(document).ready(function() {
-		$("#add").click(function() {
-			$("#fineTable").append("<tr><td class='tdbtn'><input type='button' class='remove btn btn-info ' value='－'/></td><td><input name='day' type='text' autofocus value='${row.fine_Dates}' autocomplete='off' /></td><td><input name='percent' type='text' value='${row.fine_Per}' autocomplete='off' /></td></tr>");
-		});
+	$(document)
+			.ready(
+					function() {
+						$("#add")
+								.click(
+										function() {
+											$("#fineTable")
+													.append(
+															"<tr><td class='tdbtn'><input type='button' class='remove btn btn-info ' value='－'/></td><td><input name='day' type='text' autofocus value='${row.fine_Dates}' autocomplete='off' /></td><td><input name='percent' type='text' value='${row.fine_Per}' autocomplete='off' /></td></tr>");
+										});
 
-		$(document).on("click", ".remove", function() {
-			$(this).parents("tr").remove();
-		});
-	});
+						$(document).on("click", ".remove", function() {
+							$(this).parents("tr").remove();
+						});
+					});
 </script>
 <script>
 	window.onload = function() {
 		setFine();
-		var $BodyWidth = $(document).width();  
-		var $ViewportWidth=$(window).width();  
-		var $ScrollLeft=$(this).scrollLeft();
-		if($BodyWidth>($ViewportWidth+$ScrollLeft)){   
-               $('#span').show();
-		} 
-		else if($BodyWidth==($ViewportWidth+$ScrollLeft)){   
-              $('#span').hide();
+		var $BodyWidth = $(document).width();
+		var $ViewportWidth = $(window).width();
+		var $ScrollLeft = $(this).scrollLeft();
+		if ($BodyWidth > ($ViewportWidth + $ScrollLeft)) {
+			$('#span').show();
+		} else if ($BodyWidth == ($ViewportWidth + $ScrollLeft)) {
+			$('#span').hide();
 		}
 	}
 
@@ -162,14 +162,14 @@ input[type=text] {
 			} else if (percent[i].value == "") {
 				alert("請輸入扣款比例！");
 				break;
-			} else if (day[i].value<=0 || !regDay.test(day[i].value)) {
+			} else if (day[i].value <= 0 || !regDay.test(day[i].value)) {
 				alert("取消日必須為正整數！");
 				break;
 			} else if (i == step && pk == 1) {
 				alert("取消日已存在！");
 				break;
-			} else if (percent[i].value<=0 || !regDay.test(percent[i].value)) {
-				if (percent[i].value<=0 || !regPercent.test(percent[i].value)) {
+			} else if (percent[i].value <= 0 || !regDay.test(percent[i].value)) {
+				if (percent[i].value <= 0 || !regPercent.test(percent[i].value)) {
 					alert("扣款比例必須為小於100的正數！");
 					break;
 				} else if (regPercent.test(percent[i].value)
@@ -189,7 +189,7 @@ input[type=text] {
 	<%@include file="SelectBar.jsp"%>
 	<script>
 		$('.navbar-nav>li').removeClass('now');
-		$('.navbar-nav>li:eq(4)').addClass('now');
+		$('.navbar-nav>li:eq(5)').addClass('now');
 	</script>
 	<div class='container-fluid'>
 		<div class='row'>
@@ -198,32 +198,32 @@ input[type=text] {
 				<h2>罰則設定</h2>
 			</div>
 		</div>
-		<form id="DataForm" action="<c:url value="/FineServlet" />" method="GET">
+		<form id="DataForm" action="<c:url value="/FineServlet" />"
+			method="GET">
 			<div class='row'>
 				<div class='col-md-1'></div>
 				<div class='col-md-2'>
-					<br> 
-					<input type="button" value="罰則明細" name="FineShow"
+					<br> <input type="button" value="罰則明細" name="FineShow"
 						onclick="window.location.href=resultjs+'/FineShowServlet'"
 						class='btn btn-primary' />
 				</div>
 				<div class='col-md-5'>
-
-					<em style="color: red; font-size: 12px;">*</em>為必填欄位<br><br>
 					<div class='btn-group'>
-					<input type="button" value="重新設定" name="FineShow"
-						onclick="window.location.href=resultjs+'/FineSetting.jsp'"
-						class='btn btn-success' />
-						<input type="button" value="儲存罰則" onclick="check()"
-						class='btn btn-success' /> </div><input type="hidden" id="FineSave" name="FineSave"
-						value="" />
+						<input type="button" value="重新設定" name="FineReset"
+							onclick="window.location.href=resultjs+'/FineSetting.jsp'"
+							class='btn btn-success' /> <input type="button" value="儲存罰則"
+							onclick="check()" class='btn btn-success' />
+					</div>
+					<input type="hidden" id="FineSave" name="FineSave" value="" />
 					<table id="fineTable" class='table-responsive'>
 						<thead>
 							<tr>
-								<th class='tdbtn'><input type="button" value="＋" id="add"
-									class='btn btn-info' /></th>
-								<th><em style="color: red">* </em>取消日<br><input type="text" value="（旅遊前 n 天通知）" readonly />
-								<th><em style="color: red">* </em>罰款扣款比例<br><input type="text" value="（1.x ～ 99.x）%" readonly /></th>
+								<th class='tdbtn thWH'><input type="button" value="＋"
+									id="add" class='btn btn-info' /></th>
+								<th class='thWH'><em style="color: red">* </em>取消日<br>
+								<input type="text" value="（旅遊前 n 天通知）" readonly /></th>
+								<th class='thWH'><em style="color: red">* </em>罰款扣款比例<br>
+								<input type="text" value="（1.x ～ 99.x）%" readonly /></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -232,7 +232,6 @@ input[type=text] {
 					<div class="error">${error.day}</div>
 					<div class="error">${error.percent}</div>
 					<div class="error">${error.pk}</div>
-
 				</div>
 				<div class='col-md-4'></div>
 			</div>

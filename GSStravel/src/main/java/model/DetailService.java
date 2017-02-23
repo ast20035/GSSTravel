@@ -206,30 +206,36 @@ public class DetailService {
 	}
 
 	// 羅集
-	public List<DetailBean> select(DetailBean bean) {
+	public List<DetailBean> select(DetailBean bean, int firstPage, int lastPage) {
 		List<DetailBean> result = new ArrayList<>();
 		detailDAO = new DetailDAO();
 		if (bean != null && bean.getTra_NO() != null) {
-			result = detailDAO.select(bean.getTra_NO());
+			result = detailDAO.select(bean.getTra_NO(), firstPage, lastPage);
 		}
 		return result;
 	}
 	
-	public List<DetailBean> selectCan(DetailBean bean) {
+	public List<DetailBean> selectCan(DetailBean bean, int firstPage, int lastPage) {
 		List<DetailBean> result = new ArrayList<>();
 		detailDAO = new DetailDAO();
 		if (bean != null && bean.getTra_NO() != null) {
-			result = detailDAO.selectCan(bean.getTra_NO());
+			result = detailDAO.selectCan(bean.getTra_NO(), firstPage, lastPage);
 		}
 		return result;
 	}
 	
-	public List<DetailBean> selectNotCan(DetailBean bean) {
+	public List<DetailBean> selectNotCan(DetailBean bean, int firstPage, int lastPage) {
 		List<DetailBean> result = new ArrayList<>();
 		detailDAO = new DetailDAO();
 		if (bean != null && bean.getTra_NO() != null) {
-			result = detailDAO.selectNotCan(bean.getTra_NO());
+			result = detailDAO.selectNotCan(bean.getTra_NO(), firstPage, lastPage);
 		}
+		return result;
+	}
+	
+	public int selectDatailCount(String tra_No){
+		detailDAO = new DetailDAO();
+		int result = detailDAO.selectDatailCount(tra_No);
 		return result;
 	}
 
@@ -431,5 +437,11 @@ public class DetailService {
 	}
 	public TravelVO Count(String tra_No) {
 		return travelDAO.Count(tra_No);
+	}
+	public int selectDetail_by_Tra_No(String tra_No){
+		return detailDAO.selectDetail_by_Tra_No(tra_No);
+	}
+	public int selectDetail_by_Tra_No_Can(String tra_No){
+		return detailDAO.selectDetail_by_Tra_No_Can(tra_No);
 	}
 }

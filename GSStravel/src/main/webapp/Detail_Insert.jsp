@@ -39,6 +39,7 @@ input[type='text'] {
 td, th {
 	padding: 10px;
 	border: 1px solid #DDDDDD;
+	min-width: 100px;
 }
 
 table {
@@ -50,7 +51,7 @@ table {
 	<%@include file="SelectBar.jsp"%>
 	<script>
 		$('.navbar-nav>li').removeClass('now');
-		$('.navbar-nav>li:eq(3)').addClass('now');
+		$('.navbar-nav>li:eq(4)').addClass('now');
 	</script>
 	<div class='container-fluid'>
 		<div class='row'>
@@ -72,10 +73,11 @@ table {
 							<th>報名總金額</th>
 						</tr>
 						<tr>
-							<td><input type="text" id="emp_No" name="emp_No" style='width:65px;'
-								class='form-control' onblur="select_emp_No()"
-								onfocus="clearName()"></td>
-							<td><select id="select" name="select" onchange="checkbox()" class='form-control select'></select></td>
+							<td><input type="text" id="emp_No" name="emp_No"
+								style='width: 65px;' class='form-control'
+								onblur="select_emp_No()" onfocus="clearName()"></td>
+							<td><select id="select" name="select" onchange="checkbox()"
+								class='form-control select'></select></td>
 							<td><input type="text" id="money" name="money"
 								class="money form-control" value="${money}" readonly></td>
 						</tr>
@@ -84,22 +86,24 @@ table {
 					<br />
 					<div class="div" style="display: none;">
 						<table border="1" style="font-size: 15px;">
-							<tr>
-								<th><em style="color: red">*</em>眷屬/親友</th>
-								<th><em style="color: red">*</em>姓名</th>
-								<th><em style="color: red">*</em>性別</th>
-								<th><em style="color: red">*</em>身份證字號</th>
-								<th><em style="color: red">*</em>生日</th>
-								<th><em style="color: red">*</em>手機</th>
-								<th>用餐/車位</th>
-								<th>特殊身份</th>
-								<th><em style="color: red">*</em>保險受益人</th>
-								<th><em style="color: red">*</em>保險受益人關係</th>
-								<th><em style="color: red">*</em>緊急聯絡人</th>
-								<th><em style="color: red">*</em>緊急聯絡人電話</th>
-								<th><em style="color: red">*</em>緊急聯絡人關係</th>
-								<th>備註</th>
-							</tr>
+							<thead>
+								<tr>
+									<th><em style="color: red">*</em>眷屬/親友</th>
+									<th><em style="color: red">*</em>姓名</th>
+									<th><em style="color: red">*</em>性別</th>
+									<th><em style="color: red">*</em>身份證字號</th>
+									<th><em style="color: red">*</em>生日</th>
+									<th><em style="color: red">*</em>手機</th>
+									<th>用餐/車位</th>
+									<th>特殊身份</th>
+									<th><em style="color: red">*</em>保險受益人</th>
+									<th><em style="color: red">*</em>保險受益人關係</th>
+									<th><em style="color: red">*</em>緊急聯絡人</th>
+									<th><em style="color: red">*</em>緊急聯絡人電話</th>
+									<th><em style="color: red">*</em>緊急聯絡人關係</th>
+									<th>備註</th>
+								</tr>
+							</thead>
 							<tr>
 								<td><select name="fam_Rel" class="center_a form-control"
 									style='width: 80px;'>
@@ -130,9 +134,9 @@ table {
 								</select> <input name="fam_Car" type="checkbox" value="不占車位">不占車位
 								</td>
 								<td><select
-									class="multiselect center_a form-control select " name="fam_spa"
-									id="multiselect" data-placeholder="請點擊" multiple="multiple"
-									style="width: 200px;">
+									class="multiselect center_a form-control select "
+									name="fam_spa" id="multiselect" data-placeholder="請點擊"
+									multiple="multiple" style="width: 200px;">
 										<option>幼童(0~3歲)</option>
 										<option>兒童(4~11歲)</option>
 										<option>持身心障礙手冊</option>
@@ -173,28 +177,33 @@ table {
 											value="${list.item_No}" onclick="checkedA()"></td>
 										<td><input type="text" class="line form-control"
 											value="${list.item_Name}" readonly></td>
-										<td><input type="text" class="line ${list.item_No} form-control"
+										<td><input type="text"
+											class="line ${list.item_No} form-control"
 											value="${list.item_Money}" readonly></td>
 									</tr>
 								</c:forEach>
 							</table>
 						</div>
 					</c:if>
-					<p style="color: red" class="Error"></p>
 					<p class="nofam"></p>
-					<br /> <input type="submit" class="insertSave btn btn-primary" id="insertSave"
-						name="prodaction" value="儲存" onclick="saveData()"> <input
-						type="submit" name="prodaction" value="回前頁" class='btn btn-primary'>
+					<br /> <input type="submit" class="insertSave btn btn-primary"
+						id="insertSave" name="prodaction" value="儲存" onclick="saveData()">
+					<input type="submit" name="prodaction" value="回前頁"
+						class='btn btn-primary'>
 				</form>
 			</div>
 		</div>
 	</div>
 </body>
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
-<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
+<link rel="stylesheet"
+	href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
+<link rel="stylesheet"
+	href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
+<link rel="stylesheet"
+	href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
 
-<script src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
+<script
+	src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
 
 <script>
 	
@@ -204,10 +213,7 @@ table {
 
 	var a1 = a2 = a3 = a4 = a5 = a6 = a7 = a8 = a9 = false;
 	$(function() {
-		$(".fam_Id")
-				.on(
-						"blur",
-						function() {
+		$(".fam_Id").on("blur",function() {
 							// 依照字母的編號排列，存入陣列備用。
 							var letters = new Array('A', 'B', 'C', 'D', 'E',
 									'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N',
@@ -441,28 +447,35 @@ table {
 			datatype : 'json',
 			success : function(data) {
 				var Msg = jQuery.parseJSON(data);
-				$(".Error").html(Msg.InError);
-				if (Msg.emp_Name != null) {
-					$("#select").append($("<option></option>").attr("class", 'emp_name').text(Msg.emp_Name));
-				}
-				if (Msg.fam_No) {
-					insertnewfam(Msg.fam_No);
-				}
-				$(".name").val(Msg.emp_Name);
-				if (Msg.fam_Name != null) {
-					var fam_Name = jQuery.parseJSON(Msg.fam_Name);
-					$.each(fam_Name, function(key, value) {
-						$("#select").append($("<option></option>").attr("class", 'fam_name').text(fam_Name[key]));
-					});
-					$("#select").append($("<option></option>").attr("class", 'fam_name').text("其他"));
-				}
-				if (Msg.emp_Max) {
-					alert(Msg.emp_Max);
+				if(Msg.InError!=null){
+					alert(Msg.InError);
+					$(".insertSave").attr("type", "button");
+				}else{
+					if (Msg.emp_Name != null) {
+						$("#select").append($("<option></option>").attr("class", 'emp_name').text(Msg.emp_Name));
+					}
+					if (Msg.emp_Max) {
+						alert(Msg.emp_Max);
+					}
+					if (Msg.fam_No) {
+						insertnewfam(Msg.fam_No);
+					}
+					$(".name").val(Msg.emp_Name);
+					if (Msg.fam_Name != null) {
+						var fam_Name = jQuery.parseJSON(Msg.fam_Name);
+						$.each(fam_Name, function(key, value) {
+							$("#select").append($("<option></option>").attr("class", 'fam_name').text(fam_Name[key]));
+						});
+						$("#select").append($("<option></option>").attr("class", 'fam_name').text("其他"));
+					}
+					
 				}
 			}
 		})
 	}
 	function clearName() {
+		$(".insertSave").attr("type", "submit");
+		$(".insertSave").prop("disabled", false);
 		$('.Error').text('');
 		$('.nofam').text('');
 		$("#select option").remove();
@@ -473,6 +486,8 @@ table {
 			$(".div").show();
 			$(".multiselect").prop("id", "multiselect");
 			$("#select").append($("<option></option>").attr("class", 'fam_name').text("其他"));
+		}else{
+			$(".insertSave").prop("disabled", true);
 		}
 	}
 	function checkedA() {
@@ -495,9 +510,10 @@ table {
 		}
 	}
 	var Error ='<%=session.getAttribute("DataError")%>';
-	<%session.removeAttribute("DataError");%>
+<%session.removeAttribute("DataError");%>
 	if (Error != "null") {
-		$(".Error").html(Msg.Error);
+		alert(Error);
+		$(".insertSave").attr("type", "button");
 	}
 </script>
 </html>

@@ -28,20 +28,20 @@ td, th {
 	padding: 10px;
 }
 </style>
-<title>Insert title here</title>
+<title>報名／查詢</title>
 <script>
-window.onload=function(){
-	var $BodyWidth = $(document).width();  
-	var $ViewportWidth=$(window).width();  
-	var $ScrollLeft=$(this).scrollLeft();
-	if($BodyWidth>($ViewportWidth+$ScrollLeft)){   
-           $('#span').show();
-	} 
-	else if($BodyWidth==($ViewportWidth+$ScrollLeft)){   
-          $('#span').hide();
-	}
-	
-};
+	window.onload = function() {
+		var $BodyWidth = $(document).width();
+		var $ViewportWidth = $(window).width();
+		var $ScrollLeft = $(this).scrollLeft();
+		if ($BodyWidth > ($ViewportWidth + $ScrollLeft)) {
+			$('#span').show();
+		} else if ($BodyWidth == ($ViewportWidth + $ScrollLeft)) {
+			$('#span').hide();
+		}
+
+	};
+
 </script>
 </head>
 
@@ -49,7 +49,7 @@ window.onload=function(){
 	<%@include file="SelectBar.jsp"%>
 	<script>
 		$('.navbar-nav>li').removeClass('now');
-		$('.navbar-nav>li:eq(0)').addClass('now');
+		$('.navbar-nav>li:eq(1)').addClass('now');
 	</script>
 	<div class='container-fluid'>
 
@@ -59,6 +59,9 @@ window.onload=function(){
 				<h2>報名／查詢</h2>
 				<br>
 				<h4 style="color: red">說明:當取消報名時，將該員工的所有名額一起取消，再重新報名，以避免排名不公</h4>
+				<br> <input type="button" value='歷史紀錄'
+					onclick='window.location.href=resultjs+"/Record"'
+					class='btn btn-primary' />
 			</div>
 		</div>
 		<div class='row'>
@@ -87,8 +90,20 @@ window.onload=function(){
 								<td class="t">${row.tra_Name}</td>
 								<td class="t">${row.tra_On}</td>
 								<td class="t">${row.tra_Off}</td>
-								<td class="t">${row.tra_Beg}</td>
-								<td class="t">${row.tra_End}</td>
+								<script>
+									var tra_Beg="${row.tra_Beg}";
+									tra_Beg=tra_Beg.substring(0,19);
+									document.write("<td>");
+							        document.write(tra_Beg);
+									document.write("</td>");
+								</script>
+								<script>
+									var tra_End="${row.tra_End}";
+									tra_End=tra_End.substring(0,19);
+									document.write("<td>");
+							        document.write(tra_End);
+									document.write("</td>");
+								</script>
 								<td class="t">${row.tra_Total}</td>
 								<td class="t">${row.sign_InTotal}</td>
 								<td class="t">${row.tra_Max}</td>
@@ -119,8 +134,59 @@ window.onload=function(){
 						</c:forEach>
 					</tbody>
 				</table>
+				共${count}筆 
+				<br />
+				<ul class="pagination">
+					<li><a onclick="before()">&laquo;</a></li>
+					<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
+					<c:if test="${Math.ceil(count/2)!=0}">
+						<c:forEach var="i" begin="1" end="${Math.ceil(count/10)-1}">
+							<li class="page" onclick="page(this)" value="${i}"><a>${i+1}</a></li>
+						</c:forEach>
+					</c:if>
+					<li><a onclick="next()">&raquo;</a></li>
+				</ul>
+				<br />
 			</div>
 		</div>
 	</div>
+	<script>
+	var i;
+	var $page = $(".page");
+	$("tr:gt(10)").css("display", "none");
+	function next() {
+		i = $(".active");
+		$page.removeClass("active");
+		if (i.val() < $page.length - 1) {
+			$page[i.val() + 1].className = "active";
+			light(i.val() + 1);
+		} else {
+			$page[0].className = "active";
+			light(0);
+		}
+	}
+	function before() {
+		i = $(".active");
+		$page.removeClass("active");
+		if (i.val() < $page.length && i.val() > 0) {
+			$page[i.val() - 1].className = "active";
+			light(i.val() - 1);
+		} else {
+			$page[$page.length - 1].className = "active";
+			light($page.length - 1);
+		}
+	}
+	function page(obj) {
+		$page.removeClass("active");
+		$(obj).prop("class", "active");
+		i = $(".active");
+		light(i.val());
+	}
+	function light(i) {
+		$("tr:gt(0)").css("display", "none");
+		$("tr:gt(" + i * 10 + "):lt(" + 10 + ")").css("display", "");
+	}
+	</script>
 </body>
 </html>
+	

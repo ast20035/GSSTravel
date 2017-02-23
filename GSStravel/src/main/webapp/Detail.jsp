@@ -34,7 +34,7 @@ margin-right: 3%;
 	<%@include file="SelectBar.jsp"%>
 	<script>
 			$('.navbar-nav>li').removeClass('now');
-			$('.navbar-nav>li:eq(3)').addClass('now');
+			$('.navbar-nav>li:eq(4)').addClass('now');
 		</script>
 	<div class='container-fluid'>
 		<div class='row'>
@@ -45,44 +45,50 @@ margin-right: 3%;
 		<div class='row'>
 		<div class='col-md-1'></div>
 			<div class='col-md-11'>
-				<form action=<c:url value="/detail"/> method="post">
+				<form id="myForm" action=<c:url value="/detail"/> method="post">
 					<p>活動代碼：${param.tra_no}</p>
-					<input type="hidden" name="tra_no" id="tra_no"
-						value="${param.tra_no}">
-						<select class="selectTable" >
+					<input type="hidden" name="tra_no" id="tra_no" value="${param.tra_no}">
+						<select name="selectTable" id="selectTable" onchange="dataSelect()">
 								<option>顯示全部</option>
-								<option>尚未取消</option>
+								<option>已報名</option>
 								<option>已取消</option>
 						</select>
-
+						<br/>
+			<ul class="tag pagination">
+				<li class="pagenumber" onclick="changepage(this)" value="10"><a>每頁10筆</a></oi>
+				<li class="pagenumber" onclick="changepage(this)" value="20"><a>每頁20筆</a></oi>
+				<li class="pagenumber" onclick="changepage(this)" value="50"><a>每頁50筆</a></li>
+				<li class="pagenumber" onclick="changepage(this)" value="100"><a>每頁100筆</a></li>
+			</ul>
 					<table id="deailtable">
+					<thead>
 						<tr>
 							<th></th>
-							<th>員工編號</th>
-							<th>身份</th>
+							<th ><label style='width:80px;'>員工編號</label></th>
+							<th><label style='width:50px;'>身份</label></th>
 							<th>姓名</th>
 							<th>性別</th>
 							<th>身份證字號</th>
 							<th>生日</th>
 							<th>手機</th>
 							<th>用餐/車位</th>
-							<th>特殊身份</th>
+							<th><label style='width:80px;'>特殊身份</label></th>
 							<th>保險受益人</th>
-							<th>與受益人關係</th>
+							<th><label style='width:100px;'>與受益人關係</label></th>
 							<th>緊急聯絡人</th>
-							<th>緊急聯絡人手機</th>
-							<th>報名時間</th>
-							<th>取消日期</th>
+							<th><label style='width:120px;'>緊急聯絡人手機</label></th>
+							<th><label style='width:80px;'>報名時間</label></th>
+							<th><label style='width:80px;'>取消日期</label></th>
 							<th>備註</th>
-							<th>取消原因</th>
+							<th><label style='width:80px;'>取消原因</label></th>
 						</tr>
-
+					</thead>
 						<c:if test="${not empty select}">
 							<c:forEach var="row" items="${select}">
 								<tr>
 									<td><c:if test="${empty row.det_CanDate}">
 											<c:if test="${traVO!=null}">
-												<button name="cancel" id="cancel" type="button" class='cancel btn btn-success' value="${row.det_No}" onclick="open_Can(this)">取消</button>
+												<button name="cancel" id="cancel" type="button" class='cancel btn btn-danger' value="${row.det_No}" onclick="open_Can(this)">取消</button>
 												<button name="edit" class="detEdit btn btn-success" id="detEdit" type="button" value="${row.det_No}">編輯</button>
 											</c:if>
 											<button name="prodaction" class="save btn btn-success"type="submit" id='save' value="save" style='display: none;'>儲存</button>
@@ -96,14 +102,14 @@ margin-right: 3%;
 										class='form-control' style="display: none"> <c:if
 											test="${row.rel == '員工'}">
 		     ${row.rel}
-		      <select style="display: none; width:90px;" class="fam_Rel form-control"
+		      <select style="display: none; width:100px;" class="fam_Rel form-control"
 												name="fam_Rel" disabled>
 												<option>員工</option>
 												<option>眷屬</option>
 												<option>親友</option>
 											</select>
 										</c:if> <c:if test="${row.rel != '員工'}">
-											<select name="fam_Rel" disabled class='form-control' style="width:90px;">
+											<select name="fam_Rel" disabled class='form-control' style="width:100px;">
 												<option>眷屬</option>
 												<option>親友</option>
 											</select>
@@ -191,17 +197,25 @@ margin-right: 3%;
 									<td><input type="text" name="emg_Phone" style='width:110px;'
 										class="emg_Phone form-control" value="${row.emgPhone}"
 										disabled></td>
-									<td ><p style='width:110px;'>${row.det_Date}</p></td>
+									<td ><b style='width:110px;'>${row.det_Date}</b></td>
 									<td ><em style='width:110px;'>${row.det_CanDate}</em></td>
 									<td><input type="text" name="note" value="${row.note}" style='width:150px;'
 										class='form-control' disabled></td>
-									<td><p style='width:200px;'>${row.det_canNote}</p></td>
+									<td><p style='width:200px;' class='form-control'>${row.det_canNote}</p></td>
 								</tr>
+								<input type="hidden" class="detailRow" style='width:90px;' value="${row.row}">
 							</c:forEach>
 						</c:if>
 					</table>
+					共 ${Count} 筆
+					<br />	
+					<ul class="allPage pagination" id="allPage">
+						<li><a onclick="before()">&laquo;</a></li>
+						<li class="page" onclick="page(this)" value="0"><a>1</a></li>
+					</ul>
 					<br />
-					<br />
+					<input type="hidden" name="detailPage" class="detailPage">
+					<input type="hidden" name="detailTag" class="detailTag" value="${tag}">
 					<button type="submit" name="prodaction" value="insert" class='btn btn-primary'>新增</button>
 					<!-- 柯(請勿刪除) -->
 					<input type="submit" name="excel" value="匯出Excel" class='btn btn-primary' />
@@ -217,21 +231,56 @@ margin-right: 3%;
 			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
 		<script
 			src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
-		<script type="text/javascript">
+<script type="text/javascript">
+var $pagenumber=$(".pagenumber");
+var $page=$(".page");
+var i;
 $(function(){ 
+	//每頁XX筆顯示藍底
+	var tagPage = $(".detailTag").val()
+	$pagenumber[0].className = "active";
+	if(tagPage == "100"){
+		$pagenumber.removeClass("active");
+		$pagenumber[3].className = "active";
+	}else if(tagPage == "20"){
+		$pagenumber.removeClass("active");
+		$pagenumber[1].className = "active";
+	}else if(tagPage == "50"){
+		$pagenumber.removeClass("active");
+		$pagenumber[2].className = "active";
+	}else{
+		$pagenumber.removeClass("active");
+		$pagenumber[0].className = "active";
+	}
+
+	//頁碼顯示
+	if($(".detailRow").val() != null){
+	var chosePage = Math.ceil($(".detailRow").val()/tagPage);
+	}else{
+		chosePage = 1;
+	}
+	var allData = ${Count};
+	var totalPage = Math.ceil(allData/tagPage);
+	for(var i=1; i<totalPage; i++){
+		$(".allPage").append('<li class="page" onclick="page(this)" value="'+i+'"><a>'+(i+1)+'</a></li>');
+	}
+	//下一頁》顯示
+	var li = document.createElement('li');
+	li.innerHTML='<a onclick="next()">&raquo;</a>';
+	document.getElementById("allPage").appendChild(li);
+	$page=$(".page");
+	$page.removeClass("active");
 	
-	 $(".selectTable").on("change",function(){
-		 if($(this).val() == "顯示全部"){
-			 $("em:empty").parent().parent().show();
-			 $("em:contains('-')").parent().parent().show();
-		 }else if($(this).val() == "尚未取消"){
-			 $("em:empty").parent().parent().show();
-			 $("em:contains('-')").parent().parent().hide();
-		 }else{
-			 $("em:contains('-')").parent().parent().show();
-			 $("em:empty").parent().parent().hide();
-		 }
-	})
+	$page[chosePage-1].className="active";
+
+	//選取報名/取消過濾
+	if("${view}" == "已取消"){
+		document.getElementById("selectTable").selectedIndex = "2";
+	}else if("${view}" == "已報名"){
+		document.getElementById("selectTable").selectedIndex = "1";
+	}else{
+		document.getElementById("selectTable").selectedIndex = "0";
+	}	
 	
 	var $BodyWidth = $(document).width();  
 	var $ViewportWidth=$(window).width();  
@@ -244,7 +293,6 @@ $(function(){
 	}
 	
 	 //多選下拉式選單
-	 
 	 $(".multiselect").hide();
     //性別選取
 	 for(var i=0; i<document.getElementsByName("tsex").length; i++){
@@ -276,7 +324,8 @@ $(function(){
 			}else{
 				document.getElementsByName("eat")[i].selectedIndex = 2;
 			}
-	}	
+	}
+
 	 $(".detEdit").click(function () {
 		 var thisTr = $(this).parents("tr")
 		 thisTr.find("input").removeAttr("disabled");
@@ -454,6 +503,48 @@ var Msg="<%=session.getAttribute("DetMsg")%>";
 					window.location = insert;
 				}
 			}
+function next(){
+	i=$(".active");
+	$page.removeClass("active");
+	if (i[1].value < $page.length - 1) {
+		$(".detailPage").val(i[1].value+2);
+		$page[i[1].value + 1].className = "active";
+	}else{
+		$page[0].className = "active";
+		$(".detailPage").val("1");
+	}
+	document.getElementById('myForm').submit();
+	
+}
+function before(){
+	i=$(".active");
+	$page.removeClass("active");
+	if (i[1].value < $page.length && i[1].value > 0) {
+		$page[i[1].value - 1].className = "active";
+		$(".detailPage").val(i[1].value);
+	}else{
+		$page[$page.length-1].className="active";
+		$(".detailPage").val($page.length);
+	}	
+	document.getElementById('myForm').submit();
+}
+function page(obj){
+	$page.removeClass("active");
+	$(obj).prop("class","active");
+	i=$(".active");
+	$(".detailPage").val(i[1].value+1);
+	document.getElementById('myForm').submit();
+}
+function changepage(obj){
+	$pagenumber.removeClass("active");
+	$(obj).prop("class", "active");
+	i = $(".active");
+	$(".detailTag").val(i[0].value);
+	document.getElementById('myForm').submit();
+}
+function dataSelect(){
+	document.getElementById('myForm').submit();
+}
 		</script>
 	</div>
 </body>

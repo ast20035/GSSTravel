@@ -18,18 +18,27 @@ import model.TravelVO;
 @WebServlet("/AllTravel")
 public class AllTravel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private TravelService travelService=new TravelService();
+	private TravelService travelService = new TravelService();
 	private Map<String, String> mp;
-    public AllTravel() {
-        super();  
-    }
+
+	public AllTravel() {
+		super();
+	}
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<TravelVO> result;
 		try {
 			HttpSession session = request.getSession();
 			Integer emp_No = (Integer) session.getAttribute("emp_No");
 			mp = travelService.selectTra_No(emp_No.toString());//代員工編號
-			result = travelService.select();			
+			result = travelService.select();
+			int count;
+			try{
+				count=result.size();
+			}catch(Exception e){
+				count=0;
+			}			
+			request.setAttribute("count", count);
 			request.setAttribute("select", result);
 			request.setAttribute("mp", mp);
 			request.getRequestDispatcher("/Travel.jsp").forward(request, response);
@@ -37,8 +46,10 @@ public class AllTravel extends HttpServlet {
 			e.printStackTrace();
 		}		
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		doGet(request, response);
 	}
 

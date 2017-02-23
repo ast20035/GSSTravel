@@ -9,9 +9,9 @@ import org.json.simple.JSONObject;
 public class FineService {
 	private IFineDAO ifineDao = new FineDAO();
 
-	public JSONArray to_Json(List<FineVO> fineBean){
+	public JSONArray to_Json(List<FineVO> fineBean) {
 		JSONArray array = new JSONArray();
-		for(FineVO v:fineBean){
+		for (FineVO v : fineBean) {
 			JSONObject obj = new JSONObject();
 			obj.put("day", v.getFine_Dates());
 			obj.put("percent", v.getFine_Per());
@@ -28,7 +28,7 @@ public class FineService {
 	public void insert(FineVO bean) {
 		ifineDao.insert(bean);
 	}
-	
+
 	public void delete(FineVO bean) {
 		ifineDao.delete(bean.getFine_Dates());
 	}

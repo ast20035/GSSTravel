@@ -18,9 +18,14 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
-<title>Insert title here</title>
+<title>GSS System</title>
 <script>
 	window.onload = function() {
+		$('#account, #pwd').keydown(function(event){
+			if(event.which==13){
+				document.getElementById('login.do').submit();
+			}
+		});
 		if ('${error.act ne true}' != null && '${error.act}' != '') {
 			alert('${error.act}');
 		} else {
@@ -53,7 +58,7 @@ form {
 	<div class='container-fluid active in'>
 		<div class='row' id='title'>
 		<div class='col-lg-4' ></div>
-			<div class='col-lg-2' >
+			<div class='col-lg-4' >
 				<h1>叡揚旅遊報名系統</h1>
 			</div>
 			<!-- 			<div class='col-lg-10'></div> -->

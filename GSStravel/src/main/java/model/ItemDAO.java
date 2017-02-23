@@ -17,7 +17,8 @@ public class ItemDAO implements IItemDAO {
 	private static final String roomMoney = "select item_No,item_Name,item_Money from Item where tra_No=? and item_name like '%住宿%'";
 	private static final String fareMoney = "select item_Name,item_Money from Item  where tra_No = ? and item_name not like '%住宿%'";
 	private static final String SELECT = "select * from Item where tra_No =?";
-	private static final String insert = "insert into Item(item_No, item_Name, item_Money,tra_No) values (?,?,?,?)";
+	//private static final String insert = "insert into Item(item_Name, item_Money,tra_No) values (?,?,?)";
+	private static final String insert = "insert into Item(item_Name, item_Money, tra_No, item_No) values (?,?,?,?)";
 	private static final String UPDATE = "update Item set item_Name=?, item_Money=? where tra_No=? and item_No=?";	
 	private static final String DELETE ="delete from Item where item_NO=? and tra_No=?";
 	private static final String SELECT_ALL_STMT = "SELECT item_Money FROM Item WHERE item_No=1 ORDER BY tra_No";//柯
@@ -32,7 +33,6 @@ public class ItemDAO implements IItemDAO {
 			e.printStackTrace();
 		}
 	}
-
 
 	@Override
 	public boolean delete(int item_No,String tra_No) {
@@ -75,11 +75,11 @@ public class ItemDAO implements IItemDAO {
 		ItemVO result = null;
 		try (Connection conn = ds.getConnection(); PreparedStatement insertdata = conn.prepareStatement(insert);) {
 			if (bean != null) {
-//				insert into Item(item_No, item_Name, item_Money,tra_No) values (?,?,?,?)
-				insertdata.setInt(1, bean.getItem_No());
-				insertdata.setString(2, bean.getItem_Name());
-				insertdata.setDouble(3, bean.getItem_Money());
-				insertdata.setString(4, bean.getTra_No());
+				
+				insertdata.setString(1, bean.getItem_Name());
+				insertdata.setDouble(2, bean.getItem_Money());
+				insertdata.setString(3, bean.getTra_No());
+				insertdata.setInt(4, bean.getItem_No());
 				int i = insertdata.executeUpdate();
 				if (i == 1) {
 					result = bean;
