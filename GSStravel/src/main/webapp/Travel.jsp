@@ -28,7 +28,7 @@ td, th {
 	padding: 10px;
 }
 </style>
-<title>Insert title here</title>
+<title>報名／查詢</title>
 <script>
 	window.onload = function() {
 		var $BodyWidth = $(document).width();

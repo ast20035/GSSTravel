@@ -41,7 +41,7 @@ table {
 	width: 1px;
 }
 </style>
-<title>Insert title here</title>
+<title>行程內容</title>
 </head>
 <body>
 	<div class='container-fluid'>

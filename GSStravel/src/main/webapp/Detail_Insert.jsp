@@ -39,6 +39,7 @@ input[type='text'] {
 td, th {
 	padding: 10px;
 	border: 1px solid #DDDDDD;
+	min-width: 100px;
 }
 
 table {
