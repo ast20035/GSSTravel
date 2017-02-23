@@ -61,9 +61,10 @@ td {
 				<textarea name="tra_Name" class="tra_Name" readonly>${tra_Name}</textarea>
 			</div>
 			<input type="hidden" name="tra_No" class="tra_No" value="${tra_No}">
+			
 			<ul class="pagination">
-				<li class="active pagenumber" onclick="changepage(this)" value="10"><a>¨C­¶10µ§</a></oi>
-				<li class="pagenumber" onclick="changepage(this)" value="20"><a>¨C­¶20µ§</a></oi>
+				<li class="active pagenumber" onclick="changepage(this)" value="10"><a>¨C­¶10µ§</a></li>
+				<li class="pagenumber" onclick="changepage(this)" value="20"><a>¨C­¶20µ§</a></li>
 				<li class="pagenumber" onclick="changepage(this)" value="50"><a>¨C­¶50µ§</a></li>
 				<li class="pagenumber" onclick="changepage(this)" value="100"><a>¨C­¶100µ§</a></li>
 			</ul>
@@ -140,7 +141,7 @@ td {
 			</table>
 			¦@${count}µ§
 			<br />
-			<ul class="pagination">
+			<ul id="myul" class="pagination">
 				<li><a onclick="before()">&laquo;</a></li>
 				<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
 					<c:if test="${Math.ceil(count/10)!=0}">
@@ -287,8 +288,10 @@ td {
 
 		})
 	}
+	
 	var $page = $(".page");
 	var $pagenumber=$(".pagenumber");
+	
 	
 	function next() {
 		i = $(".active");
@@ -320,12 +323,26 @@ td {
 	}
 	function light(page,i) {
 		$("tr:gt(0)").css("display", "none");
-		$("tr:gt(" + i * page + "):lt(" + (i + 1) * page + ")").css("display", "");
+		$("tr:gt(" + i * page + "):lt(" + page +")").css("display", "");
 	}
 	function changepage(obj){
 		$pagenumber.removeClass("active");
 		$(obj).prop("class", "active");
 		i = $(".active");
+		var count=${count};
+		$("#myul").find("li").remove();
+		$("#myul").append('<li><a onclick="before()">&laquo;</a></li>');
+			var sum=Math.ceil(count/i[0].value);
+				for(var a=0;a<sum;a++){
+					if(a==0){
+						$("#myul").append('<li class="page active" onclick="page(this)" value="'+a+'"><a>'+(a+1)+'</a></li>');	
+					}else{
+					$("#myul").append('<li class="page" onclick="page(this)" value="'+a+'"><a>'+(a+1)+'</a></li>');
+					}
+				}
+		$("#myul").append('<li><a onclick="next()">&raquo;</a></li>');
+		i = $(".active");
+		$page = $(".page");
 		light(i[0].value,i[1].value);
 	}
 </script>
