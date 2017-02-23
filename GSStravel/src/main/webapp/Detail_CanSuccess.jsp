@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,7 +20,16 @@
 	crossorigin="anonymous"></script>
 <title>報名取消</title>
 </head>
-<body onLoad="setTimeout(window.close, 1000)">
+<body onLoad="setTimeout(window.close, 1000)"  onunload=unLoad();>
 	<div class='container-fluid'>取消成功！</div>
+	
+	<script> 
+	function unLoad(){
+		var pathName = document.location.pathname;
+		var index = pathName.substr(1).indexOf("/");
+		var result = pathName.substr(0, index + 1);
+	    window.opener.location.href = result + "/detail?tra_no=" + ${det_canTraNo};
+	}
+	</script>
 </body>
 </html>

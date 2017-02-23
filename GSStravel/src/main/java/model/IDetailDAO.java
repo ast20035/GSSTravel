@@ -13,8 +13,8 @@ public interface IDetailDAO {
 	public int detail_Enter(String emp_No,String tra_No);//查詢是否報名過
 	public void updateDet_CanDate(String emp_No,String tra_No);//登記取消時間	
 	public abstract List<DetailBean> select(String tra_No, int firstPage, int lastPage);
-	public abstract List<DetailBean> selectCan(String tra_No);
-	public abstract List<DetailBean> selectNotCan(String tra_No);
+	public abstract List<DetailBean> selectCan(String tra_No, int firstPage, int lastPage);
+	public abstract List<DetailBean> selectNotCan(String tra_No, int firstPage, int lastPage);
 	public abstract int selectDatailCount(String tra_No);
 	public abstract String select_emp_Name(int Emp_No, String Emp_Name);
 	public abstract String select_fam_Name(int Emp_No, String Fam_Name);
@@ -42,4 +42,6 @@ public interface IDetailDAO {
 	public boolean selectFam_No(int fam_No,long tra_No);
 	public List<String> selectFam_Rel(int emp_No,long tra_No);
 	public List<DetailBean> selectExcel(String Tra_No);
+	public int selectDetail_by_Tra_No(String tra_No);
+	public int selectDetail_by_Tra_No_Can(String tra_No);
 	}

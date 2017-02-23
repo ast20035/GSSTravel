@@ -26,7 +26,14 @@ public class DetailBean {
 	private String det_CanDate;
 	private String Note;
 	private String det_canNote;
+	private int row;
 	
+	public int getRow() {
+		return row;
+	}
+	public void setRow(int row) {
+		this.row = row;
+	}
 	public String getPhone() {
 		return Phone;
 	}

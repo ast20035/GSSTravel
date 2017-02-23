@@ -128,11 +128,7 @@ table {
 					</c:forEach>
 				</table>
 				<br>
-				<script>
-					var GSS = '<c:url value="/AllTravel" />'
-				</script>
-				<input type="button" value='回到報名/查詢' class='btn  btn-primary'
-					onclick="window.location.href=GSS;" />
+				<button class='btn  btn-primary'><a href="javascript:history.back()" style="color:white;text-decoration:none;">回到上一頁</a></button>
 			</div>
 			<div class='col-lg-1'></div>
 		</div>

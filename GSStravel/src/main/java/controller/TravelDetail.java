@@ -29,10 +29,12 @@ public class TravelDetail extends HttpServlet {
 		
 		String tra_No = request.getParameter("tra_no");
 		List<TotalAmountFormBean> list = detailService.select(tra_No);
+		int count =detailService.selectDetail_by_Tra_No(tra_No);
 		if (list.size() != 0) {
 			TravelVO travelVO = detailService.Count(tra_No);
 			String tra_Name = list.get(0).getTra_Name();
 			
+			request.setAttribute("count", count);
 			request.setAttribute("travelVO", travelVO);
 			request.setAttribute("list", list);
 			request.setAttribute("tra_Name", tra_Name);

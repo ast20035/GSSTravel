@@ -161,6 +161,9 @@ h1, h2 {
 	padding: 5px;
 	border: 0;
 }
+#close5{
+margin-left: 5px;
+}
 </style>
 <nav class="navbar navbar-fixed-top topBar">
 	<div class="container">
@@ -177,7 +180,7 @@ h1, h2 {
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 			<li><a href="<c:url value='/Board.jsp'/>" id="close7">公告</a></li>
-				<li class='now dropdown'><a class='dropdown-toggle'
+				<li class='dropdown'><a class='dropdown-toggle'
 					role="button" aria-haspopup="true" aria-expanded="false"
 					data-toggle="dropdown">旅遊報名<span class="caret"></span></a>
 					<ul class='dropdown-menu' id="down1">
