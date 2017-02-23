@@ -55,7 +55,7 @@ margin-right: 3%;
 						</select>
 						<br/>
 			<ul class="tag pagination">
-				<li class="active pagenumber" onclick="changepage(this)" value="10"><a>每頁10筆</a></oi>
+				<li class="pagenumber" onclick="changepage(this)" value="10"><a>每頁10筆</a></oi>
 				<li class="pagenumber" onclick="changepage(this)" value="20"><a>每頁20筆</a></oi>
 				<li class="pagenumber" onclick="changepage(this)" value="50"><a>每頁50筆</a></li>
 				<li class="pagenumber" onclick="changepage(this)" value="100"><a>每頁100筆</a></li>
@@ -236,7 +236,9 @@ var $pagenumber=$(".pagenumber");
 var $page=$(".page");
 var i;
 $(function(){ 
+	//每頁XX筆顯示藍底
 	var tagPage = $(".detailTag").val()
+	$pagenumber[0].className = "active";
 	if(tagPage == "100"){
 		$pagenumber.removeClass("active");
 		$pagenumber[3].className = "active";
@@ -250,12 +252,15 @@ $(function(){
 		$pagenumber.removeClass("active");
 		$pagenumber[0].className = "active";
 	}
+
+	//頁碼顯示
 	var chosePage = Math.ceil($(".detailRow").val()/tagPage);
 	var allData = ${Count};
 	var totalPage = Math.ceil(allData/tagPage);
 	for(var i=1; i<totalPage; i++){
 		$(".allPage").append('<li class="page" onclick="page(this)" value="'+i+'"><a>'+(i+1)+'</a></li>');
 	}
+	//下一頁》顯示
 	var li = document.createElement('li');
 	li.innerHTML='<a onclick="next()">&raquo;</a>';
 	document.getElementById("allPage").appendChild(li);
@@ -263,13 +268,14 @@ $(function(){
 	$page.removeClass("active");
 	$page[chosePage-1].className="active";
 
-		if("${view}" == "已取消"){
-			document.getElementById("selectTable").selectedIndex = "2";
-		}else if("${view}" == "已報名"){
-			document.getElementById("selectTable").selectedIndex = "1";
-		}else{
-			document.getElementById("selectTable").selectedIndex = "0";
-		}	
+	//選取報名/取消過濾
+	if("${view}" == "已取消"){
+		document.getElementById("selectTable").selectedIndex = "2";
+	}else if("${view}" == "已報名"){
+		document.getElementById("selectTable").selectedIndex = "1";
+	}else{
+		document.getElementById("selectTable").selectedIndex = "0";
+	}	
 	
 	var $BodyWidth = $(document).width();  
 	var $ViewportWidth=$(window).width();  

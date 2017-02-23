@@ -45,7 +45,6 @@ public class DetailServlet extends HttpServlet {
 			tag = "10";
 		}
 		int intTag = Integer.parseInt(tag);
-		
 		String view = req.getParameter("selectTable");
 		int Count = detailService.selectDatailCount(tra_no);
 		
@@ -58,7 +57,11 @@ public class DetailServlet extends HttpServlet {
 		DetailBean bean = new DetailBean();
 		TravelVO travelVO = new TravelVO();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
+		
+		bean.setTra_NO(tra_no);
+		result = detailService.select(bean, 1, 10);
+		String page = req.getParameter("detailPage");
+		
 		HttpSession session = req.getSession();
 		session.removeAttribute("DetCanError");
 
@@ -305,9 +308,7 @@ public class DetailServlet extends HttpServlet {
 			resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_no);
 			return;
 		}
-		bean.setTra_NO(tra_no);
-		result = detailService.select(bean, 1, 10);
-		String page = req.getParameter("detailPage");
+
 		if(view != null && view.length() != 0){
 			if(view.equals("已取消")){
 				result = detailService.selectCan(bean,1,intTag);

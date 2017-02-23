@@ -19,7 +19,7 @@
 	crossorigin="anonymous"></script>
 <title>報名取消</title>
 </head>
-<body onLoad="setTimeout(window.close, 1000)">
+<body onLoad="setTimeout(window.close, 1000)"  onunload=unLoad();>
 	<div class='container-fluid'>取消成功！</div>
 </body>
 </html>

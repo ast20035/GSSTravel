@@ -48,7 +48,7 @@ fieldset {
 			</fieldset>
 		</form>
 		<script type="text/javascript">
-
+var tra_No;
 $(function () {
 	var temp = location.search;
 	var index = temp.indexOf("can_detNo=");
@@ -58,7 +58,7 @@ $(function () {
 	
 	var index4 = temp.indexOf("can_traNo=");
 	var index5 = "can_traNo".length+1;
-	var tra_No = temp.substring(index4+index5);
+	tra_No = temp.substring(index4+index5);
 	var index6 = tra_No.indexOf("&prodaction");
 	
 	if(index3>=0){
@@ -82,7 +82,10 @@ if(DetCanError!="null"){
 }
 
 function unLoad(){
-    window.opener.location.href = window.opener.location.href;
+	var pathName = document.location.pathname;
+	var index = pathName.substr(1).indexOf("/");
+	var result = pathName.substr(0, index + 1);
+    window.opener.location.href = result + "/detail?tra_no=" + tra_No;
 }
 </script>
 	</div>
