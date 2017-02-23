@@ -165,7 +165,8 @@ td>input[type=text] {
 						<!--新增、儲存 -->
 					<input type="button" value="新增欄位" id="insert" name="button" class='btn btn-primary'> <span>${error.famblock}</span> 
 					<input type="button" value="儲存" class='btn btn-primary' id="save" name="button">
-					<input type="hidden" value="checkbox" id="checkbox" name="checkbox">
+					<input type="hidden"  id="checkbox" name="checkbox">
+					<input type="hidden"  id="multiselect" name="multiselect">
 					<input type="hidden"  id="errorcount" name="errorcount">
 <!-- 					<div id="errormsg" name="errormsg"></div> -->
 						
@@ -269,10 +270,10 @@ td>input[type=text] {
 												data-placeholder="請選擇">
 
 												<c:if test="${start.fam_Bady=='false'}">
-													<option value="baby">幼童(0~3歲)</option>
+													<option value="bab">幼童(0~3歲)</option>
 												</c:if>
 												<c:if test="${start.fam_Bady}">
-													<option id="${start.fam_No}_span_1" value="baby" Selected>幼童(0~3歲)</option>
+													<option id="${start.fam_No}_span_1" value="bab" Selected>幼童(0~3歲)</option>
 												</c:if>
 												<c:if test="${start.fam_kid=='false'}">
 													<option value="kid">兒童(4~11歲)</option>
@@ -294,8 +295,8 @@ td>input[type=text] {
 													<option value="mom" Selected>孕婦(媽媽手冊)</option>
 												</c:if>
 											</select>
+											<input type ="hidden" name="selectvalue" class="selectvalue">
 										</div></td>
-
 									<td><input type="text" name="famben" id="famben" style='width:90px;'
 										class='form-control' value="${start.fam_Ben}">
 										<div class="fambenerror">${error.famben}</div></td>
@@ -315,6 +316,7 @@ td>input[type=text] {
 									<td><input type="text" name="famnote" id="famnote" style='width:200px;'
 										class='form-control' value="${start.fam_Note}">
 										<div class="famnoteerror"></div></td>
+									
 								</tr>
 							</c:forEach>
 
@@ -361,11 +363,12 @@ td>input[type=text] {
 			<td><div class='select'>
 					<select name="famspa" id="multiselect" multiple="multiple"
 						class='form-control select' data-placeholder="請選擇">
-						<option>幼童(0~3歲)</option>
-						<option>兒童(4~11歲)</option>
-						<option>持身心障礙手冊</option>
-						<option>孕婦(媽媽手冊)</option>
+						<option value="bab">幼童(0~3歲)</option>
+						<option value="kid">兒童(4~11歲)</option>
+						<option value="dis">持身心障礙手冊</option>
+						<option value="mom">孕婦(媽媽手冊)</option>
 					</select>
+					<input type ="hidden" name="selectvalue" class="selectvalue">
 				</div></td>
 			<!-- 		class="multiselect"   id="multiselect"-->
 			<td><input type="text" name="famben" id="famben"
@@ -503,19 +506,35 @@ td>input[type=text] {
 				}
 			}
 			
-			console.log($("#familytable select[name='famspa']").length);//抓到的select總共有幾筆
-			if($("#familytable select[name='famspa']").length > 0){
-				$("#familytable select[name='famspa']").each(function(){
-					var famspa =$(this).val();
-					
-					console.log(famspa);
-					console.log(JSON.stringify(famspa));// JSON.stringify 將陣列轉換為 JSON 字串
-				});
+			var pathName = document.location.pathname;
+			var index = pathName.substr(1).indexOf("/");
+			var result = pathName.substr(0, index + 1);
+			var url = result + "/FamilyServlet";
+			
+			var multiselect=null;
+			if($("#familytable select[name*='famspa']").length > 0){
+				$("#familytable select[name*='famspa']").on("blur",function(){
+					 multiselect  = $(this).val();
+					 var selectjson = JSON.stringify(multiselect);
+					 var famnameajax = $(this).closest("tr").find("input[name='famname']").val();				 
+					$.post(url,{"multiselect":selectjson,"famnameajax":famnameajax},function(){
+					});		
+				})
 			}
 			
 			
+			
+			
+// 			var bdate = null
+// 			$("#familytable input[name*='fambdate']").on("blur",function(){
+// 				bdate = $(this).val();
+// 				 $.post(url,{"bdate":bdate})
+// 			})
+			
+			
 				$("#save").click(function(){
-					$("#save").attr("type","submit");
+// 					$("#save").attr("type","submit");
+
 // 					if($("input[name*='famname']").val()==""){
 // 						alert("親屬姓名不能為空白");
 // // 						$("#save").attr("type","button");
@@ -525,39 +544,37 @@ td>input[type=text] {
 // 						$("#errorcount").val(1);
 // 					}
 					if($("#errorcount").val()=="1"){
-// 					console.log("xxxxxx");
-// 					$("#errormsg").text("親屬資料輸入錯誤");
 					$("#save").attr("type","button");
+					alert("親屬輸入錯誤");
 					}
 					
 					if($("#errorcount").val()=="0"){
-// 						console.log("yyyyyy")
-// 						$("#errormsg").text("");
-						
-						var idlength= $("#familytable input[name*='famcar']").length;//3
-						console.log(idlength);
-						var checkbox=[];
-						//checkbox.length=idlength;//0 1 2
-						
-						if($("#familytable input[name='famcar']").length > 0){
-							$("#familytable input[name='famcar'] ").each(function(){
-								if($(this).prop("checked")==false){//true
-										checkbox.push(1);//有勾
-								}
-								if($(this).prop("checked")==true){
-										checkbox.push(0);//沒有勾
-								}
-							})
-						}else{
-							console.log("沒有親屬 checkbox無值");
-						}
-						console.log(checkbox);
-						console.log(JSON.stringify(checkbox));// JSON.stringify 將陣列轉換為 JSON 字串
-						var checkboxjson=JSON.stringify(checkbox);
-//			 			console.log(JSON.parse(JSON.stringify(checkbox)));//，然後使用 JSON.parse 將字串轉換回陣列。
-						$("#checkbox").val(checkboxjson);//放一個隱藏的text傳值進去 按save時一次送出
-						$("#save").submit();//最後在submit
-					}
+	
+							//抓checkbox
+							var idlength= $("#familytable input[name*='famcar']").length;//3
+	// 						console.log(idlength);
+							var checkbox=[];
+							//checkbox.length=idlength;//0 1 2
+							
+							if($("#familytable input[name='famcar']").length > 0){
+								$("#familytable input[name='famcar'] ").each(function(){
+									if($(this).prop("checked")==false){//true
+											checkbox.push(1);//有勾
+									}
+									if($(this).prop("checked")==true){
+											checkbox.push(0);//沒有勾
+									}
+								})
+							}else{
+								console.log("沒有親屬 checkbox無值");
+							}
+							var checkboxjson=JSON.stringify(checkbox);
+	//			 			console.log(JSON.parse(JSON.stringify(checkbox)));//，然後使用 JSON.parse 將字串轉換回陣列。
+							$("#checkbox").val(checkboxjson);//放一個隱藏的text傳值進去 按save時一次送出
+							
+							
+						$("#save").attr("type","submit");
+					}// ==0
 				})
 		
 			$(function() {
@@ -883,6 +900,22 @@ td>input[type=text] {
 												});
 									//focus在新增欄位
 									$('#familytable input[name*="famname"]:last').focus();
+									
+										var pathName = document.location.pathname;
+										var index = pathName.substr(1).indexOf("/");
+										var result = pathName.substr(0, index + 1);
+										var url = result + "/FamilyServlet";
+										$(".repeat select[name*='famspa']").on("blur",function(){
+											 repeatselect  = $(this).val();
+											 console.log(repeatselect);
+											 var repeatselectjson = JSON.stringify(repeatselect);
+											 var repeatfamnameajax = $(this).closest("tr").find("input[name='famname']").val();
+											 console.log(repeatselectjson);
+											 console.log(repeatfamnameajax);
+											$.post(url,{"repeatselectjson":repeatselectjson,"repeatfamnameajax":repeatfamnameajax},function(){
+											});		
+										})
+										
 								});
 				
 				var empphone = /^09\d{2}-?\d{3}-?\d{3}$/;
@@ -1384,7 +1417,6 @@ td>input[type=text] {
 								$(this).next(".famemgrelerror").text("緊急聯絡人不能為空白");
 							}
 						});
-
 			});
 		</script>
 
