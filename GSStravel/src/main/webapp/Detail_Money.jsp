@@ -88,7 +88,7 @@ table {
 								<th>員工(/眷屬親友)編號</th>
 								<th>姓名(/隸屬於哪位員工)</th>
 								<th>年度可補助金額<br /> <span
-									style="color: red; font-size: 10px">未到職一年者按比例給予計算</span></th>
+									style="color: #FFC0CB; font-size: 10px">未到職一年者按比例給予計算</span></th>
 								<th>個人可補助金額</th>
 								<th>個人團費</th>
 								<th>其他增減費用明細說明</th>
