@@ -35,10 +35,7 @@ table {
 .container-fluid {
 	margin-top: 2%;
 }
-.form-control{
-font-size: 15px;
-background-color: white;
-}
+
 </style>
 <title>Insert title here</title>
 </head>
@@ -56,13 +53,14 @@ background-color: white;
 							<table class='table table-condensed'>
 								<tr>
 									<td>活動名稱:</td>
-									<td><input style="border-style: none; color: #7700BB;" class='form-control'
-										type="text" value="${tra_Vo.tra_Name}" name="tra_Name"
-										readonly></td>
+									<td><input type="hidden" value="${tra_Vo.tra_Name}"
+										name="tra_Name" readonly><label
+										style="border-style: none; color: #7700BB;">${tra_Vo.tra_Name}</label></td>
 								<tr>
 									<td>活動代碼:</td>
-									<td><input style="border-style: none; color: #7700BB;" class='form-control'
-										type="text" value="${tra_Vo.tra_NO}" name="tra_No" readonly>
+									<td><input type="hidden" value="${tra_Vo.tra_NO}"
+										name="tra_No" readonly><label
+										style="border-style: none; color: #7700BB;">${tra_Vo.tra_NO}</label>
 									</td>
 								</tr>
 								<tr>
@@ -89,21 +87,23 @@ background-color: white;
 							<table class='table table-condensed'>
 								<tr>
 									<td>員編:</td>
-									<td><input type="text"
-										style="border-style: none; color: #7700BB;" value="${emp_No}"
-										name="emp_No" readonly></td>
+									<td><input
+										type="hidden" value="${emp_No}" name="emp_No" readonly><label
+										style="border-style: none; color: #7700BB;">${emp_No}</label>
+									</td>
 								</tr>
 								<tr>
 									<td>姓名:</td>
-									<td><input type="text"
-										style="border-style: none; color: #7700BB;" value="${myName}"
-										name="emp_No" readonly></td>
+									<td><input
+										type="hidden" value="${myName}" name="emp_No" readonly><label
+										style="border-style: none; color: #7700BB;">${myName}</label>
+									</td>
 								</tr>
 								<tr>
 									<td>報名順序:</td>
-									<td><input type="text"
-										style="border-style: none; color: #7700BB;"
-										value="第${tra_order}名" name="emp_No" readonly></td>
+									<td><input type="hidden"
+										value="第${tra_order}名" name="emp_No" readonly><label
+										style="border-style: none; color: #7700BB;">第${tra_order}位</label></td>
 								</tr>
 								<tr>
 									<td colspan="2"><c:if test="${familySize>0}">
@@ -123,23 +123,23 @@ background-color: white;
 												</c:forEach>
 											</table>
 										</c:if> <br> <c:if test="${tra_Vo.tra_On!=tra_Vo.tra_Off}">
-											
-												<table class='table table-bordered table1'>
-													<tr>
-														<th></th>
-														<th>房型</th>
-														<th>費用</th>
-													</tr>
-													<c:forEach var="room" items="${itemVo}">
+
+											<table class='table table-bordered table1'>
+												<tr>
+													<th></th>
+													<th>房型</th>
+													<th>費用</th>
+												</tr>
+												<c:forEach var="room" items="${itemVo}">
 													<tr>
 														<td><input type=checkbox value="${room.item_Money} "
 															onclick="return false" name="room"></td>
 														<td>${room.item_Name}</td>
 														<td>${room.item_Money}</td>
 													</tr>
-													</c:forEach>
-												</table>
-											
+												</c:forEach>
+											</table>
+
 											<br>
 											<br>
 										</c:if></td>
@@ -165,15 +165,14 @@ background-color: white;
 								</tr>
 								<tr>
 									<td colspan="2" style="color: red">PS:團費試算僅供參考，需繳納費用以福委會通知為主</td>
-								<script>
-									var GSS = '<c:url value="/AllTravel" />'
-								</script>
+									<script>
+										var GSS = '<c:url value="/AllTravel" />'
+									</script>
 								<tr>
 									<td><br> <input type="button" value='回上一頁'
 										class='btn  btn-primary' onclick="window.location.href=GSS;" />
-										<input type="submit" value="取消報名" class='btn  btn-primary' 
-										onclick="confirmComplete()"/>
-									</td>
+										<input type="submit" value="取消報名" class='btn  btn-primary'
+										onclick="confirmComplete()" /></td>
 								</tr>
 							</table>
 						</div>

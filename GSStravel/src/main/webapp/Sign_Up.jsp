@@ -43,6 +43,9 @@
 font-size: 15px;
 background-color: white;
 }
+label{
+text-align: left;
+}
 </style>
 <title>Insert title here</title>
 </head>
@@ -62,14 +65,15 @@ background-color: white;
 							<table class='table table-condensed table1'>
 								<tr>
 									<td>活動名稱:</td>
-									<td><input style="border-style: none; color: #7700BB;" class='form-control'
-										type="text" value="${tra_Vo.tra_Name}" name="tra_Name"
-										readonly></td>
-								</tr>
+									<td><label
+										style="border-style: none; color: #7700BB;">${tra_Vo.tra_Name}</label><input type="hidden" value="${tra_Vo.tra_Name}"
+										name="tra_Name" readonly></td>
 								<tr>
 									<td>活動代碼:</td>
-									<td><input style="border-style: none; color: #7700BB;"  class='form-control'
-										type="text" value="${tra_Vo.tra_NO}" name="tra_No" readonly></td>
+									<td><label
+										style="border-style: none; color: #7700BB;">${tra_Vo.tra_NO}</label><input type="hidden" value="${tra_Vo.tra_NO}"
+										name="tra_No" readonly>
+									</td>
 								</tr>
 								<tr>
 									<td colspan="2">目前已報名人數為<strong>${tra_count}</strong>人，依報名順序為:
@@ -95,14 +99,16 @@ background-color: white;
 							<table class='table table-condensed table2'>
 								<tr>
 									<td>員編:</td>
-									<td><input style="border-style: none; color: #7700BB"
-										type="text" value="${emp_No}" name="emp_No" readonly>
+									<td><label
+										style="border-style: none; color: #7700BB;">${emp_No}</label><input
+										type="hidden" value="${emp_No}" name="emp_No" readonly>
 									</td>
 								</tr>
 								<tr>
 									<td>姓名:</td>
-									<td><input style="border-style: none; color: #7700BB"
-										type="text" value="${myName}" name="emp_No" readonly>
+									<td><label
+										style="border-style: none; color: #7700BB;">${myName}</label><input
+										type="hidden" value="${myName}" name="emp_No" readonly>
 									</td>
 								</tr>
 								<tr>
