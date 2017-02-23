@@ -39,7 +39,8 @@ td>strong {
 }
 </style>
 <script>
-		var btn=null;
+		var fineEmail=null;
+		var fineBoard=null;
 		var myImg=null;
 		var close1=null;
 		var close2=null;
@@ -48,12 +49,13 @@ td>strong {
 		var close5=null;
 		var close6=null;
 		var close7=null;
-		var closeBtn=null;
+		var closeFine=null;
 		var down1=null;
 		var down2=null;
 		
 		window.onload = function() {
-			btn = document.getElementById("FineEmail");
+			fineEmail = document.getElementById("FineEmail");
+			fineBoard = document.getElementById("FineBoard");
 			myImg = document.getElementById("img1"), xhr = null;
 			close1 = document.getElementById("close1");
 			close2 = document.getElementById("close2");
@@ -62,11 +64,11 @@ td>strong {
 			close5 = document.getElementById("close5");
 			close6 = document.getElementById("close6");
 			close7 = document.getElementById("close7");
-			closeBtn = document.getElementById("closeBtn");
+			closeFine = document.getElementById("closeFine");
 			down1 = document.getElementById("down1");
 			down2 = document.getElementById("down2");
 			if(${em == 1} && ${btn == 1}){
-				btn.removeAttribute("disabled");
+				fineEmail.removeAttribute("disabled");
 			}
 			var $BodyWidth = $(document).width();  
 			var $ViewportWidth=$(window).width();  
@@ -98,12 +100,13 @@ td>strong {
 				close5.disabled = true;
 				close6.removeAttribute("href");
 				close7.removeAttribute("href");
-				closeBtn.disabled = true;
+				closeFine.disabled = true;
+				fineBoard.disabled = true;
 				down1.setAttribute("style","display:none");
 				down2.setAttribute("style","display:none");
 				myImg.style.display = "inline";
-				btn.setAttribute("disabled", "disabled");
-				btn.value = "Email寄送中...";
+				fineEmail.setAttribute("disabled", "disabled");
+				fineEmail.value = "Email寄送中...";
 			} else if (xhr.readyState == 4) {
 				close1.setAttribute("href","<c:url value='/Register'/>");
 				close2.setAttribute("href","<c:url value='/search2.jsp'/>");
@@ -112,11 +115,12 @@ td>strong {
 				close5.disabled = false;
 				close6.setAttribute("href","<c:url value='/BoardMaintain.jsp'/>");
 				close7.setAttribute("href","<c:url value='/Board.jsp'/>");
-				closeBtn.disabled = false;
+				closeFine.disabled = false;
+				fineBoard.disabled = false;
 				down1.removeAttribute("style");
 				down2.removeAttribute("style");
 				myImg.style.display = "none";
-				btn.value = "Email寄送成功！";
+				fineEmail.value = "Email寄送成功！";
 			}
 		}
 </script>
@@ -140,12 +144,14 @@ td>strong {
 				<div class='col-md-1'></div>
 				<div class='col-md-2'>
 					<br> <input type="button" value="罰則設定" name="FineSetting"
-						class='btn btn-primary' id="closeBtn"
+						class='btn btn-primary' id="closeFine"
 						onclick="window.location.href=resultjs+'/FineSetting.jsp'" /><br>
-					<br> <input class='btn btn-primary' type="button"
+					<br>
+					<input class='btn btn-primary' type="submit" id="FineBoard" name="FineBoard" value="公告罰則異動"/> 
+					<br><br>
+					<input class='btn btn-primary' type="button"
 						id="FineEmail" name="FineEmail" value="寄送罰則異動通知" onclick="load()" disabled="disabled"/> 
 					<img src="images/ajax-loader.gif" id="img1" style="display: none" />
-					<div id="div1"></div>
 				</div>
 				<div class='col-md-7'>
 
