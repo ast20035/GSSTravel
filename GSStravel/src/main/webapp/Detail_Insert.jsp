@@ -180,7 +180,6 @@ table {
 							</table>
 						</div>
 					</c:if>
-					<p style="color: red" class="Error"></p>
 					<p class="nofam"></p>
 					<br /> <input type="submit" class="insertSave btn btn-primary" id="insertSave"
 						name="prodaction" value="儲存" onclick="saveData()"> <input
@@ -438,28 +437,35 @@ table {
 			datatype : 'json',
 			success : function(data) {
 				var Msg = jQuery.parseJSON(data);
-				$(".Error").html(Msg.InError);
-				if (Msg.emp_Name != null) {
-					$("#select").append($("<option></option>").attr("class", 'emp_name').text(Msg.emp_Name));
-				}
-				if (Msg.fam_No) {
-					insertnewfam(Msg.fam_No);
-				}
-				$(".name").val(Msg.emp_Name);
-				if (Msg.fam_Name != null) {
-					var fam_Name = jQuery.parseJSON(Msg.fam_Name);
-					$.each(fam_Name, function(key, value) {
-						$("#select").append($("<option></option>").attr("class", 'fam_name').text(fam_Name[key]));
-					});
-					$("#select").append($("<option></option>").attr("class", 'fam_name').text("其他"));
-				}
-				if (Msg.emp_Max) {
-					alert(Msg.emp_Max);
+				if(Msg.InError!=null){
+					alert(Msg.InError);
+					$(".insertSave").attr("type", "button");
+				}else{
+					if (Msg.emp_Name != null) {
+						$("#select").append($("<option></option>").attr("class", 'emp_name').text(Msg.emp_Name));
+					}
+					if (Msg.emp_Max) {
+						alert(Msg.emp_Max);
+					}
+					if (Msg.fam_No) {
+						insertnewfam(Msg.fam_No);
+					}
+					$(".name").val(Msg.emp_Name);
+					if (Msg.fam_Name != null) {
+						var fam_Name = jQuery.parseJSON(Msg.fam_Name);
+						$.each(fam_Name, function(key, value) {
+							$("#select").append($("<option></option>").attr("class", 'fam_name').text(fam_Name[key]));
+						});
+						$("#select").append($("<option></option>").attr("class", 'fam_name').text("其他"));
+					}
+					
 				}
 			}
 		})
 	}
 	function clearName() {
+		$(".insertSave").attr("type", "submit");
+		$(".insertSave").prop("disabled", false);
 		$('.Error').text('');
 		$('.nofam').text('');
 		$("#select option").remove();
@@ -470,6 +476,8 @@ table {
 			$(".div").show();
 			$(".multiselect").prop("id", "multiselect");
 			$("#select").append($("<option></option>").attr("class", 'fam_name').text("其他"));
+		}else{
+			$(".insertSave").prop("disabled", true);
 		}
 	}
 	function checkedA() {
@@ -494,7 +502,8 @@ table {
 	var Error ='<%=session.getAttribute("DataError")%>';
 	<%session.removeAttribute("DataError");%>
 	if (Error != "null") {
-		$(".Error").html(Msg.Error);
+		alert(Error);
+		$(".insertSave").attr("type", "button");
 	}
 </script>
 </html>
