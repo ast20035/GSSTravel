@@ -70,7 +70,6 @@
 			}
 			if (selectedValues != undefined && selectedValues != '') {
 				url = url + "loc=" + JSON.stringify(selectedValues);
-				alert(selectedValues);
 			}
 			xh.addEventListener("readystatechange", ajaxReturn)
 			xh.open("GET", url);
@@ -147,10 +146,10 @@
 </head>
 
 <body>
-	<%@include file="SelectBar.jsp"%>
+	<%@include file="Manage.jsp"%>
 	<script>
-		$('.navbar-nav>li').removeClass('now');
-		$('.navbar-nav>li:eq(4)').addClass('now');
+		$('.navbar-nav>li').removeClass('active');
+		$('.navbar-nav>li:eq(2)').addClass('active');
 	</script>
 	<div class='container-fluid'>
 		
