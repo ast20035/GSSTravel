@@ -21,13 +21,14 @@
 <link rel="stylesheet" type="text/css" href="" />
 <title>公告編輯</title>
 <style type="text/css">
-.container-fluid{
-margin-top: 5%;
-font-size: 20px;
+.container-fluid {
+	margin-top: 5%;
+	font-size: 20px;
 }
-input,textarea{
-margin-top:  10px;
-margin-bottom: 10px;
+
+input, textarea {
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 </style>
 <script>
@@ -100,7 +101,8 @@ margin-bottom: 10px;
 					textarea.setAttribute("id", "content");
 					textarea.setAttribute("name", "content");
 					textarea.setAttribute("class", "form-control");
-					textarea.setAttribute("style", "font-size:17px; resize:none;");
+					textarea.setAttribute("style",
+							"font-size:17px; resize:none;");
 					textarea.appendChild(document
 							.createTextNode(board[i].content));
 					div1.appendChild(textarea);
@@ -116,15 +118,22 @@ margin-bottom: 10px;
 </head>
 <body>
 	<div class='container-fluid'>
+		<div class="row">
+			<div class='col-md-offset-5'>
+				<h2>修改公告</h2>
+			</div>
+		</div>
+		<br>
 		<div class='row'>
 			<div class='col-md-offset-4 col-md-4'>
 				<form action="<c:url value="/AnnouncementUDServlet" />" method="GET">
 					<div id="boardDiv"></div>
 					<input type="submit" value="儲存" name="update"
 						class='btn btn-success' /> <input type="submit" value="刪除"
-						name="delete" class='btn btn-danger' />
-					<input type="button" class='btn btn-primary' value='回上一頁' onclick='window.location.href="BoardMaintain.jsp"'>
-					
+						name="delete" class='btn btn-danger' /> <input type="button"
+						class='btn btn-primary' value='回上一頁'
+						onclick='window.location.href="BoardMaintain.jsp"'>
+
 				</form>
 			</div>
 		</div>
