@@ -387,9 +387,7 @@ text-align: center;
 	</table>
 	<script>
 			var xh = new XMLHttpRequest();
-			function deletefunciton(){
-				$()
-			}
+			
 			
 			$("#familytable").on("click", "input[name='delete']",function xx(){//新增跟舊的都可以抓的到??其他的為何不能?
 				var pathName = document.location.pathname;
@@ -409,7 +407,7 @@ text-align: center;
 								alert(r);
 								if(r.match("delete")!=null){
 									console.log(r);
-									deletefunciton()//抓不到外面的方法 看一下選擇器問題  /在寫一個方法呼叫??
+// 									deletefunciton()//抓不到外面的方法 看一下選擇器問題  /在寫一個方法呼叫??
 								}
 								if(r.match("notdelete")!=null){
 									console.log(r);
@@ -418,6 +416,7 @@ text-align: center;
 							
 							}
 				})
+				
 				
 			})
 			
@@ -912,10 +911,16 @@ text-align: center;
 					if (xh.status == 200) {
 						if (xh.responseText != "") {
 							var ajaxreturn = xh.responseText;
-							alert(ajaxreturn);
-							if(ajaxreturn=="repeat"){
-								alert("zzzzzzzz");
+// 							alert(ajaxreturn);
+							if(ajaxreturn.match("repeat")!=null){
+								$("#errorcount").val(1);
+	 							$(".repeat td div[name='famiderror']:last").text(
+	 									"身分證字號重複");
 								
+							}else{
+								$("#errorcount").val(0);
+	 							$(".repeat td div[name='famiderror']:last")
+	 									.text("");
 							}
 							//查一下如果傳回值變成一串 該怎麼拆開 不然就直接寫兩個
 							//應該是說有回傳值 而且值等於那個字串 才執行下面的程式	
