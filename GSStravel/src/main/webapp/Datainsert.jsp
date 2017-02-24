@@ -387,118 +387,42 @@ text-align: center;
 	</table>
 	<script>
 			var xh = new XMLHttpRequest();
+			function deletefunciton(){
+				$()
+			}
 			
-			$("#familytable").on("click", "input[name='delete']",
-					function() {
-						//$("#familytable input[name='delete']").submit(function(){ $(this).parents("tr").remove();});
-						//on事件要綁定動態之後 還得要綁定 submit才可以抓的到值
-// 							$("this").blur(searchfamid());
-// 							$(this).parents("tr").remove();
-							//直接改成submit 讓他重新跳轉頁面不要刪欄位
-						//做成只有submit怎麼辦
-						
-						searchfamid();
-						$(this).parents("tr").remove();
-						});
-			
-	
-				var famid=0;
-			function searchfamid() {//按下delete去找他的famid
-				if (xh != null) {
-							$("input[name*='delete']").on("click",function(){
-								famid=$(this).attr("class");
-							});
-
-// 						$("#familytable").on("click", "input[name='delete']",function(){
-// 							famid=$(this).attr("class");
-// 						})
-// 							$("input[name*='delete']").click(function(){
-// 								famid=$(this).attr("class");
-// 							})
-					console.log(famid);
+			$("#familytable").on("click", "input[name='delete']",function xx(){//新增跟舊的都可以抓的到??其他的為何不能?
+				var pathName = document.location.pathname;
+				var index = pathName.substr(1).indexOf("/");
+				var result = pathName.substr(0, index + 1);
+				var url = result + "/FamilyServlet";
+				var ajaxfamid ={"ajaxfamid":$(this).closest("tr").find("input[name='famid']").val()};
+				console.log(ajaxfamid);
+// 				$('#form').serialize(),
+// 				 var famnameajax = $(this).closest("tr").find("input[name='famname']").val();	
+// 				$.post(url,{"multiselect":selectjson},function(){
+// 				});
 					
-					var pathName = document.location.pathname;
-					var index = pathName.substr(1).indexOf("/");
-					var result = pathName.substr(0, index + 1);
-					var url = result + "/FamilyServlet";
-
-// 					if (typeof famid != "undefined") {
-// 						var famnojson = JSON.stringify(famid);
-// 					}
-					xh.addEventListener("readystatechange", famidreturn);
-					xh.open("POST", url);
-					xh.setRequestHeader("Content-Type",
-							"application/x-www-form-urlencoded");
-					xh.send("famid=" + famid);
-				} else {
-					alert("Your browser doesn't support JSON!");
-				}
-			}
-			function famidreturn() { //其實不用判斷 原工email有沒有重複  因為原工不會有新增的問題 不用怕重複
-				if (xh.readyState == 4) {
-					if (xh.status == 200) {
-						if (xh.responseText != "") {
-							console.log(xh.responseText);		
-// 							console.log("親屬尚有在活動報名當中，不可以刪除此親屬資料");						
-						}else{
-							console.log("直接刪除");
-						}
-					}
-				}
-			}
+				$.ajax({
+					type:"POST",url:url,data:ajaxfamid,dataType:"text",
+						success:function(r){
+								alert(r);
+								if(r.match("delete")!=null){
+									console.log(r);
+									deletefunciton()//抓不到外面的方法 看一下選擇器問題  /在寫一個方法呼叫??
+								}
+								if(r.match("notdelete")!=null){
+									console.log(r);
+									alert("此筆親屬人已經報名行程，不可刪除");
+								}
+							
+							}
+				})
+				
+			})
 			
-			//search方法 在動態新增紐的famid 檢驗法的最下方
-			function search() {
-				if (xh != null) {
-					var famidnew = $(".repeat .famid").map(function() {
-						return $(this).val();
-					}).get();
-					console.log(famidnew);//輸出陣列出來
-					// 					console.log(famidold);
-					var pathName = document.location.pathname;
-					var index = pathName.substr(1).indexOf("/");
-					var result = pathName.substr(0, index + 1);
-					var url = result + "/FamilyServlet";//為servlet最上面的@WebServlet 路徑
 
-					if (typeof famidnew != "undefined") {
-						var id = JSON.stringify(famidnew);
-						console.log(id);//轉成json格式
-					}
-					//轉json 格式? 字串證列
-					xh.addEventListener("readystatechange", ajaxReturn);
-					xh.open("POST", url);
-					xh.setRequestHeader("Content-Type",
-							"application/x-www-form-urlencoded");
-					xh.send("id=" + id);
-
-				} else {
-					alert("Your browser doesn't support JSON!");
-				}
-			}
-			function ajaxReturn() {
-				if (xh.readyState == 4) {
-					if (xh.status == 200) {
-						if (xh.responseText != "") {
-// 							var ajaxreturn = xh.responseText;
-// 							console.log(ajaxreturn);
-							//查一下如果傳回值變成一串 該怎麼拆開 不然就直接寫兩個
-							//應該是說有回傳值 而且值等於那個字串 才執行下面的程式	
-							$("#save").attr("type", "button");
-							$(".repeat td div[name='famiderror']:last").css(
-									"border-color", "red");
-							$(".repeat td div[name='famiderror']:last").text(
-									"身分證字號重複");
-
-						} else {
-							$("#save").attr("type", "submit");
-							$(".repeat td div[name='famiderror']:last").css(
-									"border-color", "green");
-							$(".repeat td div[name='famiderror']:last")
-									.text("");
-						}
-					}
-				}
-			}
+			
 			
 			var pathName = document.location.pathname;
 			var index = pathName.substr(1).indexOf("/");
@@ -519,11 +443,37 @@ text-align: center;
 			
 			
 			
-// 			var bdate = null
-// 			$("#familytable input[name*='fambdate']").on("blur",function(){
-// 				bdate = $(this).val();
-// 				 $.post(url,{"bdate":bdate})
-// 			})
+			$("#familytable input[name*='fambdate']").on("blur",function(){
+// 				var today = new Date();
+// 				var bdate = $(this).val();
+// 				var mydate = new Date(bdate.replace("-", "/").replace("-", "/"));
+// 					var pathName = document.location.pathname;
+// 					var index = pathName.substr(1).indexOf("/");
+// 					var result = pathName.substr(0, index + 1);
+// 					var url = result + "/FamilyServlet";
+				var bdate = $(this).val();
+				console.log(bdate);//2011-11-11
+					  var today = new Date();
+					  var bdate = new Date(Date.parse(bdate.replace("-", "/")));
+					  var between = today.getTime() - bdate.getTime();//時間差的毫秒数 
+					  var between2 = Math.floor(between/(24*3600*1000));
+					  if(between2<365*3){
+						  $(this).closest("tr").find("select[name*='famspa']").attr("value","bab");
+						  console.log("xxxxx");
+					  }
+					  if(between2<365*11){
+						  if(between2>365*3){
+							 $(this).closest("tr").find("select[name*='famspa']").attr("value","kid");
+							 console.log("yyyyyyy");
+						  }
+					  }
+					
+				
+// 				 $.post(url,{"bdate":bdate},function(){
+// 					 alert("bdate return susses");
+// 				 })
+			})
+			
 			
 			
 				$("#save").click(function(){
@@ -539,7 +489,7 @@ text-align: center;
 // 					}
 					if($("#errorcount").val()=="1"){
 					$("#save").attr("type","button");
-					alert("親屬輸入錯誤");
+					alert("親屬資料未輸入完全");
 					}
 					
 					if($("#errorcount").val()=="0"){
@@ -583,16 +533,12 @@ text-align: center;
 									$(this).next("input[name='selectvalue']").val(spajson);
 									console.log($(this).next("input[name='selectvalue']").val());
 									console.log($(this).next("#familytable input[name='selectvalue']").val());
-//										$(this).next(".famnameerror").text("");
-//										xxx.push(spa);
 								});
-//									console.log(xxx);
-//									$("#multiselect").val(xxx);
 							}else{
 								//??無親屬抓進去
 							}
 							
-// 						$("#save").attr("type","submit");
+						$("#save").attr("type","submit");
 					}// ==0
 				})
 		
@@ -651,6 +597,7 @@ text-align: center;
 									//id
 									$(".repeat td").on("blur","input[name='famid']",function() {
 												if(this.value !=""){
+													search();
 														// 依照字母的編號排列，存入陣列備用。
 														var letters = new Array(
 																'A', 'B', 'C',
@@ -731,7 +678,7 @@ text-align: center;
 																				.css('border-color',"");}, 2000);
 															$(this).next(".famiderror").text("");
 														}
-														search();
+														
 												}else{//格是錯誤會瞬間消失?
 													$(this).css("border-color","red");
 													setTimeout(function() {$(".repeat td input[name='famid']")
@@ -919,6 +866,75 @@ text-align: center;
 												});
 									//focus在新增欄位
 									$('#familytable input[name*="famname"]:last').focus();
+									
+									$(" .repeat input[name*='fambdate']").on("blur",function(){
+										var pathName = document.location.pathname;
+										var index = pathName.substr(1).indexOf("/");
+										var result = pathName.substr(0, index + 1);
+										var url = result + "/FamilyServlet";
+											var bdaterepeat = $(this).val();
+											console.log(bdaterepeat);
+											 $.post(url,{"bdaterepeat":bdaterepeat},function(){
+												 alert("bdaterepeat return susses");
+											 })
+									})
+									
+									//search方法 在動態新增紐的famid 檢驗法的最下方
+			function search() {
+				if (xh != null) {
+					var famidnew = $(".repeat .famid").map(function() {
+						return $(this).val();
+					}).get();
+					console.log(famidnew);//輸出陣列出來
+					
+					var pathName = document.location.pathname;
+					var index = pathName.substr(1).indexOf("/");
+					var result = pathName.substr(0, index + 1);
+					var url = result + "/FamilyServlet";//為servlet最上面的@WebServlet 路徑
+
+					if (typeof famidnew != "undefined") {
+						var id = JSON.stringify(famidnew);
+						console.log(id);//轉成json格式
+					}
+					//轉json 格式? 字串證列
+					xh.addEventListener("readystatechange", ajaxReturn);
+					xh.open("POST", url);
+					xh.setRequestHeader("Content-Type",
+							"application/x-www-form-urlencoded");
+					xh.send("id=" + id);
+
+				} else {
+					alert("Your browser doesn't support JSON!");
+				}
+			}
+			function ajaxReturn() {
+				if (xh.readyState == 4) {
+					if (xh.status == 200) {
+						if (xh.responseText != "") {
+							var ajaxreturn = xh.responseText;
+							alert(ajaxreturn);
+							if(ajaxreturn=="repeat"){
+								alert("zzzzzzzz");
+								
+							}
+							//查一下如果傳回值變成一串 該怎麼拆開 不然就直接寫兩個
+							//應該是說有回傳值 而且值等於那個字串 才執行下面的程式	
+// 							$(".repeat td div[name='famiderror']:last").css(
+// 									"border-color", "red");
+// 							$("#errorcount").val(1);
+// 							$(".repeat td div[name='famiderror']:last").text(
+// 									"身分證字號重複");
+
+// 						} else {
+// 							$(".repeat td div[name='famiderror']:last").css(
+// 									"border-color", "green");
+// 							$("#errorcount").val(0);
+// 							$(".repeat td div[name='famiderror']:last")
+// 									.text("");
+						}
+					}
+				}
+			}
 									
 								});
 				
@@ -1230,7 +1246,7 @@ text-align: center;
 									$(this).css("border-color", "green");
 									$("#errorcount").val(0);
 									setTimeout(function() {$("input[name*='fambdate']").css('border-color', "");}, 2000);
-									$("#fambdateerror").text("");
+									$(this).next(".fambdateerror").text("");
 									
 								} else {
 									$(this).css("border-color", "red");

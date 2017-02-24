@@ -69,7 +69,7 @@ public class FamilyServlet extends HttpServlet {
 		String buttondelete = req.getParameter("delete");
 		String buttonsave = req.getParameter("button");
 		String ajaxid = req.getParameter("id");//判斷前端寫親屬身分證有無重複
-		String ajaxfamid = req.getParameter("famid");//用前端的親屬身分證去刪親屬
+		String ajaxfamid = req.getParameter("ajaxfamid");//用前端的親屬身分證去刪親屬
 		String ajaxcheckbox =req.getParameter("checkbox");
 		String ajaxmultiselect =req.getParameter("multiselect");
 		String ajaxfamname=req.getParameter("famnameajax");
@@ -92,7 +92,12 @@ public class FamilyServlet extends HttpServlet {
 					 x=x+3;
 					 ssss.add(y);
 				 }
-				 if(ssss.equals(null)!=true){
+				 if(ssss.isEmpty()){
+					 familyservice.updatefambab(fam_Nos,false);
+					 familyservice.updatefamkid(fam_Nos, false);
+					 familyservice.updatefamdis(fam_Nos, false);
+					 familyservice.updatefammom(fam_Nos, false);
+				 }else{
 					 if(ssss.contains("bab")){
 						 familyservice.updatefambab(fam_Nos,true);
 					 }else{
@@ -113,11 +118,7 @@ public class FamilyServlet extends HttpServlet {
 					 }else{
 						 familyservice.updatefammom(fam_Nos, false);
 					 }
-				 }else{
-					 familyservice.updatefambab(fam_Nos,false);
-					 familyservice.updatefamkid(fam_Nos, false);
-					 familyservice.updatefamdis(fam_Nos, false);
-					 familyservice.updatefammom(fam_Nos, false);
+					 
 				 }
 		}
 
@@ -125,8 +126,10 @@ public class FamilyServlet extends HttpServlet {
 		if(ajaxid != null) {//用來抓是否重複報名id會在前端顯示
 			String[] items = ajaxid.replaceAll("\\[", "").replaceAll("\"", "").replaceAll("\\]", "").split(",");
 			for (String dataid : items) {// 輸出
+				System.out.println(dataid);
 				if (id.contains(dataid)) {//
-					out.print("親屬身分證字號重複");//用來傳出
+					System.out.println("sssssss");
+					out.print("repeat");//用來傳出
 					//setAttribute需要用方法重新導向 回jsp頁面才可以顯示 ajax只有送過來 
 				}else{
 					out.print("");
@@ -134,43 +137,55 @@ public class FamilyServlet extends HttpServlet {
 			}
 		}
 		
-//		if(ajaxfamid!=null){
-//			if(ajaxfamid!="block"){//用ajax找到id 去刪家屬
-//				
-//				//Travel 的活動結束時間之後可以刪 並且在detail 的親屬no之外 才可以刪  join 方法?
-//				//假如在 travel 當中有此親屬 活動結束後可以刪 如果還沒結束的不能刪
-//				 int famno = familyservice.selectfam_byid(ajaxfamid);//用id找famno
-//			 	
-//				 List<java.sql.Date> listdate= familyservice.selectfam_Nodelete(famno);//用famno去找有活動的親屬
-//				 long betweenDate=0;
-//				 //假如無活動
-//				 //重整時會直接進入save動作?
-//				 if(famno!=0){
-//					 for(Date date: listdate){
-//						 System.out.println(date);
-//						 Calendar calendar = Calendar.getInstance();
-//						 long nowDate = calendar.getTime().getTime(); //Date.getTime() 獲得毫秒型 現在日期
-//						 long specialDate = date.getTime();//把要比較的值放這(親屬日期)
-//						 betweenDate = (specialDate - nowDate) / (1000 * 60 * 60 * 24);
-//						 
-//						 if(betweenDate>0){//字串輸出過去
-//							 System.out.println(betweenDate);
-//							 //不能刪除  只要有超出日期 即會有out.print出去
-//							 	//不再detail裡面還是抓的到值? id新的 而且刪不掉
-//							 out.print("xxxxxx");
-//							 
-//						 }else{
-//							//可以刪除  全部過期才會到此 才能刪除
-//							familyservice.delete(ajaxfamid);
-//						 }
-//					 }//迴圈結束
-//				 }else{//!famno!=0
-//					 out.print("");
-//				 }
-//			}else{
-//				out.print("");
-//			}
-//		}
+		if(ajaxfamid!=null){
+				//用ajax找到id 去刪家屬
+				//Travel 的活動結束時間之後可以刪 並且在detail 的親屬no之外 才可以刪  join 方法?
+				//假如在 travel 當中有此親屬 活動結束後可以刪 如果還沒結束的不能刪
+			System.out.println(ajaxfamid);
+				 int famno = familyservice.selectfam_byid(ajaxfamid);//用id找famno
+				 System.out.println(famno);
+				 List<java.sql.Date> listdate= familyservice.selectfam_Nodelete(famno);//用famno去找有活動的親屬
+				 long betweenDate=0;
+				 //假如無活動
+				 //重整時會直接進入save動作?
+				 
+				 if(famno!=0){
+					 if(listdate!=null){
+						 for(Date date: listdate){
+							 System.out.println(date);
+							 Calendar calendar = Calendar.getInstance();
+							 long nowDate = calendar.getTime().getTime(); //Date.getTime() 獲得毫秒型 現在日期
+							 long specialDate = date.getTime();//把要比較的值放這(親屬日期)
+							 betweenDate = (specialDate - nowDate) / (1000 * 60 * 60 * 24);
+							 System.out.println(betweenDate);
+							 System.out.println("xxxxxx");
+							 if(betweenDate>0){//比對 能不能刪除
+								 System.out.println(betweenDate);
+								 System.out.println("nodelete");
+								    //不能刪除  只要有超出日期 即會有out.print出去
+								 	//不再detail裡面還是抓的到值? id新的 而且刪不掉
+								 out.println("notdelete");
+								 
+							 }else{
+								//可以刪除  全部過期才會到此 才能刪除
+								 
+	//							familyservice.delete(ajaxfamid);
+								 System.out.println("delete");
+								out.println("delete");
+							 }
+							 
+						 }//迴圈結束
+					 }else{//detail沒有相符
+						 out.println("delete");
+					 }
+				 }else{//沒抓到親屬no 直接刪掉
+					 out.println("delete");
+				 }
+			}else{
+				//直接刪除(找不到id)
+				out.println("delete");
+			}
+		
 			
 
 
