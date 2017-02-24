@@ -136,10 +136,10 @@
 </head>
 
 <body>
-	<%@include file="SelectBar.jsp"%>
+	<%@include file="Manage.jsp"%>
 	<script>
-		$('.navbar-nav>li').removeClass('now');
-		$('.navbar-nav>li:eq(3)').addClass('now');
+		$('.navbar-nav>li').removeClass('Mnow');
+		$('.navbar-nav>li:eq(1)').addClass('Mnow');
 	</script>
 	<div class='container-fluid'>
 		<link rel="stylesheet"
@@ -207,7 +207,7 @@
 						</div>
 					</div>
 					<div class='col-md-offset-1 col-md-1'>
-					<input type="button" value="新增" onclick='window.location.href=resultjs+"/Travel_New.jsp";'
+					<input type="button" value="新增" onclick='window.location.href=resultjs+"/NewTravel";'
 								class='btn btn-success' /> 
 					</div>
 				</div>

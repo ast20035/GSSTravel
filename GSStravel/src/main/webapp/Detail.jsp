@@ -31,10 +31,10 @@ margin-right: 3%;
 </style>
 </head>
 <body>
-	<%@include file="SelectBar.jsp"%>
+	<%@include file="Manage.jsp"%>
 	<script>
-			$('.navbar-nav>li').removeClass('now');
-			$('.navbar-nav>li:eq(4)').addClass('now');
+			$('.navbar-nav>li').removeClass('Mnow');
+			$('.navbar-nav>li:eq(2)').addClass('Mnow');
 		</script>
 	<div class='container-fluid'>
 		<div class='row'>
@@ -55,10 +55,10 @@ margin-right: 3%;
 						</select>
 						<br/>
 			<ul class="tag pagination">
-				<li class="pagenumber" onclick="changepage(this)" value="10"><a>每頁10筆</a></oi>
-				<li class="pagenumber" onclick="changepage(this)" value="20"><a>每頁20筆</a></oi>
-				<li class="pagenumber" onclick="changepage(this)" value="50"><a>每頁50筆</a></li>
-				<li class="pagenumber" onclick="changepage(this)" value="100"><a>每頁100筆</a></li>
+				<li class="pagenumber" onclick="changepage(this)" value="10"><a role='button'>每頁10筆</a></oi>
+				<li class="pagenumber" onclick="changepage(this)" value="20"><a role='button'>每頁20筆</a></oi>
+				<li class="pagenumber" onclick="changepage(this)" value="50"><a role='button'>每頁50筆</a></li>
+				<li class="pagenumber" onclick="changepage(this)" value="100"><a role='button'>每頁100筆</a></li>
 			</ul>
 					<table id="deailtable">
 					<thead>
@@ -210,8 +210,8 @@ margin-right: 3%;
 					共 ${Count} 筆
 					<br />	
 					<ul class="allPage pagination" id="allPage">
-						<li><a onclick="before()">&laquo;</a></li>
-						<li class="page" onclick="page(this)" value="0"><a>1</a></li>
+						<li><a role='button' onclick="before()">&laquo;</a></li>
+						<li class="page"  onclick="page(this)" value="0"><a role='button'>1</a></li>
 					</ul>
 					<br />
 					<input type="hidden" name="detailPage" class="detailPage">
@@ -262,11 +262,11 @@ $(function(){
 	var allData = ${Count};
 	var totalPage = Math.ceil(allData/tagPage);
 	for(var i=1; i<totalPage; i++){
-		$(".allPage").append('<li class="page" onclick="page(this)" value="'+i+'"><a>'+(i+1)+'</a></li>');
+		$(".allPage").append('<li class="page" onclick="page(this)" value="'+i+'"><a role="button">'+(i+1)+'</a></li>');
 	}
 	//下一頁》顯示
 	var li = document.createElement('li');
-	li.innerHTML='<a onclick="next()">&raquo;</a>';
+	li.innerHTML='<a role="button" onclick="next()">&raquo;</a>';
 	document.getElementById("allPage").appendChild(li);
 	$page=$(".page");
 	$page.removeClass("active");

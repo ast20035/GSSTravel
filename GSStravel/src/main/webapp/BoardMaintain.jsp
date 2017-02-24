@@ -104,10 +104,10 @@ table, tr, td {
 </script>
 </head>
 <body>
-	<%@include file="SelectBar.jsp"%>
+	<%@include file="Manage.jsp"%>
 	<script>
-		$('.navbar-nav>li').removeClass('now');
-		$('.navbar-nav>li:eq(7)').addClass('now');
+		$('.navbar-nav>li').removeClass('Mnow');
+		$('.navbar-nav>li:eq(5)').addClass('Mnow');
 	</script>
 	<div class='container-fluid'>
 		<div class='row'>
