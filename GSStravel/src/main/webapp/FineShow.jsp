@@ -128,8 +128,8 @@ td>strong {
 <body>
 	<%@include file="Manage.jsp"%>
 	<script>
-		$('.navbar-nav>li').removeClass('active');
-		$('.navbar-nav>li:eq(3)').addClass('active');
+		$('.navbar-nav>li').removeClass('Mnow');
+		$('.navbar-nav>li:eq(3)').addClass('Mnow');
 	</script>
 	<div class='container-fluid'>
 		<div class='row'>
