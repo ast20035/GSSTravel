@@ -15,38 +15,28 @@ import javax.servlet.http.HttpServletResponse;
 import model.AnnouncementService;
 import model.AnnouncementVO;
 
-@WebServlet("/AnnouncementServlet")
-public class AnnouncementServlet extends HttpServlet {
+@WebServlet("/AnnouncementShowServlet")
+public class AnnouncementShowServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private AnnouncementService announcementService = new AnnouncementService();
 
-	public AnnouncementServlet() {
+	public AnnouncementShowServlet() {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-
-		String title = request.getParameter("title");
-		String startDay = request.getParameter("startDay");
-		String endDay = request.getParameter("endDay");
+		
+		SimpleDateFormat formatYMD = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		long beforeNow = (date.getTime() / 1000) - 60 * 60 * 24 * 31;
+		date.setTime(beforeNow * 1000);
+		String beforeDate = formatYMD.format(date);
+		
 		PrintWriter out = response.getWriter();
 		List<AnnouncementVO> result = announcementService.select();
-
-		if (title == null && startDay == null && endDay == null) {
-			out.print(announcementService.to_Json(result));
-			return;
-		}
-		if (title != null) {
-			result = announcementService.get_by_title(title);
-		}
-		if (startDay != null && startDay != "") {
-			result = announcementService.AfterOn(result, startDay);
-		}
-		if (endDay != null && endDay != "") {
-			result = announcementService.BeforeOff(result, endDay);
-		}
+		result = announcementService.AfterOn(result, beforeDate);
 		out.print(announcementService.to_Json(result));
 		return;
 	}

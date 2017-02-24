@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 
 import model.AnnouncementService;
 import model.AnnouncementVO;
-import model.FineVO;
 
 @WebServlet("/AnnouncementUDServlet")
 public class AnnouncementUDServlet extends HttpServlet {
@@ -47,13 +46,13 @@ public class AnnouncementUDServlet extends HttpServlet {
 			session.removeAttribute("time");
 			session.setAttribute("time", time);
 		}
-		AnnouncementVO bean = new AnnouncementVO();
+		
 		PrintWriter out = response.getWriter();
 
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		Date date = new Date();
 		String now = sdFormat.format(date);
-		
+
 		if ("儲存".equals(save)) {
 			announcementService.insert(now, title, content);
 			response.sendRedirect(request.getContextPath() + "/BoardMaintain.jsp");
