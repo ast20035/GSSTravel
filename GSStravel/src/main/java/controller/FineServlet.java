@@ -6,6 +6,7 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.AnnouncementService;
 import model.EmployeeService;
 import model.EmployeeVO;
 import model.FineService;
@@ -35,6 +37,7 @@ public class FineServlet extends HttpServlet {
 	private TravelService travelService = new TravelService();
 	private ItemService itemService = new ItemService();
 	private EmployeeService employeeService = new EmployeeService();
+	private AnnouncementService announcementService = new AnnouncementService();
 	int countI = 0;
 	int countJ = 0;
 
@@ -56,10 +59,15 @@ public class FineServlet extends HttpServlet {
 		String save = request.getParameter("FineSave");
 		String show = request.getParameter("FineShow");
 		String email = request.getParameter("FineEmail");
+		String board = request.getParameter("FineBoard");
 		FineVO fineBean = new FineVO();
 		TravelVO travelBean = new TravelVO();
 		ItemVO itemBean = new ItemVO();
 
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		Date nowDate = new Date();
+		String now = sdFormat.format(nowDate);
+		
 		boolean power = true;
 		if ("儲存罰則".equals(save)) {
 			power = false;
@@ -108,7 +116,6 @@ public class FineServlet extends HttpServlet {
 				int plus = 0;
 				int hundred = 0;
 				int check = 0;
-				int btn = 0;
 				int[] day = new int[temp1.length];
 				int[] dayCheck = new int[temp1.length];
 				if (temp1[0] != "") {
@@ -144,7 +151,8 @@ public class FineServlet extends HttpServlet {
 						}
 					}
 				}
-
+				
+				int btn = 0;
 				float[] percent = new float[temp2.length];
 				if (temp2[0] != "") {
 					try {
@@ -225,6 +233,11 @@ public class FineServlet extends HttpServlet {
 				i++;
 			}
 			em.send(emp, "罰則異動通知！", "您好！\n罰則有些許的變更，請注意您所報名的行程，謝謝！\n祝您旅途愉快！");
+		}
+		if ("公告罰則異動".equals(board)) {
+			power = true;
+			announcementService.insert(now, "罰則異動通知", "罰則有些許的變更，請注意您所報名的行程，謝謝！");
+			response.sendRedirect(request.getContextPath() + "/FineShowServlet");
 		}
 		if ("罰則設定".equals(set)) {
 			PrintWriter out = response.getWriter();

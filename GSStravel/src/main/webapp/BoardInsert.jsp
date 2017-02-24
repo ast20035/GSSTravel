@@ -27,8 +27,9 @@
 			<div>公告標題</div>
 			<input type="text" id="title" name="title" />
 			<div>公告內容</div>
-			<textarea cols="50" rows="12" id="content" name="content" style="resize: none"></textarea>
+			<textarea cols="50" rows="12" id="content" name="content" style="resize: none"></textarea><br>
 			<input type="submit" value="儲存" name="save" />
+			<button><a href="BoardMaintain.jsp">回上頁</a></button>
 		</div>
 	</form>
 </body>

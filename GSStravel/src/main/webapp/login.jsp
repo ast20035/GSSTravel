@@ -21,15 +21,15 @@
 <title>GSS System</title>
 <script>
 	window.onload = function() {
-		$('#account, #pwd').keydown(function(event){
-			if(event.which==13){
-				document.getElementById('login.do').submit();
-			}
-		});
 		if ('${error.act ne true}' != null && '${error.act}' != '') {
 			alert('${error.act}');
 		} else {
 			;
+		}
+	}
+	function ke(event){
+		if(event.which==13){
+			document.getElementById('login.do').submit();
 		}
 	}
 	function check() {
@@ -76,7 +76,7 @@ form {
 			<div class='form-group'>
 				<label for='pwd' class='control-label col-lg-4'>密碼:</label>
 				<div class='col-lg-3'>
-					<input type="password" name='pwd' id='pwd' class='form-control' required placeholder='請輸入密碼' />
+					<input type="password" name='pwd' id='pwd' class='form-control' required placeholder='請輸入密碼' onkeydown="ke(event);"/>
 				</div>
 			</div>
 			<div class='form-group'>
