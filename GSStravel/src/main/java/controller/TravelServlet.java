@@ -222,8 +222,8 @@ public class TravelServlet extends HttpServlet {
 			try {
 				edittraIntr = traIntr;
 			} catch (NumberFormatException e) {
-				e.printStackTrace();
-				errors.put("edittraIntr", "活動說明必須輸入");
+//				e.printStackTrace();
+//				errors.put("edittraIntr", "活動說明必須輸入");
 			}
 		}
 
@@ -348,7 +348,7 @@ public class TravelServlet extends HttpServlet {
 		/*----Update----*/
 		// else
 
-		if ("Update".equals(inputerrors)) {
+		if ("更新".equals(inputerrors)) {
 			/*--Travel--*/
 			travelview.setTra_Name(edittraName);
 			travelview.setTra_Loc(edittraLoc);
@@ -411,7 +411,7 @@ public class TravelServlet extends HttpServlet {
 //				}
 
 			TravelVO resultEdit = travelService.update(travelview);
-
+			
 			// ItemVO bean = new ItemVO();
 			// List<ItemVO> result1 = (List<ItemVO>) itemService.update(bean);
 			if (resultEdit == null) { // & result1 == null
@@ -419,6 +419,8 @@ public class TravelServlet extends HttpServlet {
 			} else {
 				session.setAttribute("update", resultEdit);
 			}
+			response.sendRedirect("Travel_Edit?tra_no="+traNo);
+			return;
 			/*----Delete----*/
 		} else if ("Delete".equals(inputerrors)) {
 			boolean result = travelService.delete(travelview);
@@ -428,7 +430,9 @@ public class TravelServlet extends HttpServlet {
 				session.setAttribute("delete", 1);
 			}
 		}
-		//request.getRequestDispatcher("/Travel_Edit.jsp").forward(request, response); // 測試用
+	request.getRequestDispatcher("/Travel_Edit.jsp").forward(request, response); // 測試用
+		//response.sendRedirect(request.getContextPath() + "/Travel_Edit.jsp");
+
 	}// doGet
 
 	@Override
