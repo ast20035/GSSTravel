@@ -20,7 +20,7 @@ public class NewTravel extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		String tra_No = new SimpleDateFormat("yyyy-MM-dd").format(new Date()).replaceAll("-", "");// 現在系統時間
+		String tra_No = new SimpleDateFormat("yyyy-MM-dd").format(new Date()).replaceAll("-", "");;
 		request.setAttribute("tra_No",tra_No);
 		request.getRequestDispatcher("/Travel_New.jsp").forward(request, response);
 	}
