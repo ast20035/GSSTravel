@@ -70,7 +70,6 @@
 			}
 			if (selectedValues != undefined && selectedValues != '') {
 				url = url + "loc=" + JSON.stringify(selectedValues);
-				alert(selectedValues);
 			}
 			xh.addEventListener("readystatechange", ajaxReturn)
 			xh.open("GET", url);

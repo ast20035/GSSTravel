@@ -57,7 +57,7 @@ table {
 		<div class='row'>
 			<div class='col-md-1'></div>
 			<div class='col-md-11'>
-				<h2>一報名明細新增一</h2>
+				<h2>報名明細新增</h2>
 			</div>
 		</div>
 		<div class='row'>
