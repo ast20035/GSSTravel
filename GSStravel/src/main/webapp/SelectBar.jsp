@@ -190,18 +190,7 @@ margin-left: 5px;
 
 				<li role="presentation"><a href="<c:url value='/Register'/>" id="close1">資料輸入</a></li>				
 				<c:if test='${emp_Role eq true}'>
-					<li><a href="<c:url value='/search2.jsp'/>" id="close2">行程維護</a></li>
-					<li><a href="<c:url value='/search.jsp'/>" id="close3">報名維護</a></li>
-					<li class='dropdown'><a class='dropdown-toggle' role="button"
-						aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"
-						href="<c:url value='/FineSetting.jsp'/>">罰則維護<span
-							class="caret"></span></a>
-						<ul class='dropdown-menu' id="down2">
-							<li><a href="<c:url value='/FineSetting.jsp'/>">罰則設定</a></li>
-							<li><a href="<c:url value='/FineShowServlet'/>">罰則明細</a></li>
-						</ul></li>
-					<li><a href="<c:url value='/search1.jsp'/>" id="close4">旅費統計</a></li>
-					<li><a href="<c:url value='/BoardMaintain.jsp'/>" id="close6">公告維護</a></li>
+					<li><a href="<c:url value='/search2.jsp'/>" id="close2">管理介面</a></li>
 				</c:if>
 				<li><input type="button" value='登出'
 					class="btn btn-warning navbar-btn" id="close5"

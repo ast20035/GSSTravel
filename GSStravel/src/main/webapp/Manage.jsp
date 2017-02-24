@@ -88,17 +88,6 @@ li>a {
 	color: #00FA9A;
 	font-weight: normal;
 }
-
-.now {
-	border-radius: 7px\7px;
-	background-color: white;
-}
-
-.now>a {
-	font-weight: bolder;
-	color: #00BFFF;
-}
-
 .title {
 	text-align: left;
 	font-style: italic;
@@ -172,11 +161,11 @@ margin-left: 5px;
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<label class="navbar-brand">GSS</label>
+			<label class="navbar-brand" role='text'>GSS</label>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li role="presentation"><a href="<c:url value='/Board.jsp'/>" id="close1">回公告</a></li>				
+				<li role="presentation"><a href="<c:url value='/Board.jsp'/>" id="close1">回首頁</a></li>				
 				<c:if test='${emp_Role eq true}'>
 					<li><a href="<c:url value='/search2.jsp'/>" id="close2">行程維護</a></li>
 					<li><a href="<c:url value='/search.jsp'/>" id="close3">報名維護</a></li>

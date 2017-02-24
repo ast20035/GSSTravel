@@ -19,7 +19,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
-<title>旅遊報名</title>
+<title>旅費統計</title>
 </head>
 
 <style>
@@ -52,8 +52,8 @@ table {
 <body>
 	<%@include file="Manage.jsp"%>
 	<script>
-		$('.navbar-nav>li').removeClass('now');
-		$('.navbar-nav>li:eq(6)').addClass('now');
+		$('.navbar-nav>li').removeClass('active');
+		$('.navbar-nav>li:eq(4)').addClass('active');
 	</script>
 	<div class='container-fluid'>
 		<div class='row'>

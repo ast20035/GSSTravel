@@ -106,8 +106,8 @@ table, tr, td {
 <body>
 	<%@include file="Manage.jsp"%>
 	<script>
-		$('.navbar-nav>li').removeClass('now');
-		$('.navbar-nav>li:eq(7)').addClass('now');
+		$('.navbar-nav>li').removeClass('active');
+		$('.navbar-nav>li:eq(5)').addClass('active');
 	</script>
 	<div class='container-fluid'>
 		<div class='row'>

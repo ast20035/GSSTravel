@@ -33,8 +33,8 @@ margin-right: 3%;
 <body>
 	<%@include file="Manage.jsp"%>
 	<script>
-			$('.navbar-nav>li').removeClass('now');
-			$('.navbar-nav>li:eq(4)').addClass('now');
+			$('.navbar-nav>li').removeClass('active');
+			$('.navbar-nav>li:eq(2)').addClass('active');
 		</script>
 	<div class='container-fluid'>
 		<div class='row'>
