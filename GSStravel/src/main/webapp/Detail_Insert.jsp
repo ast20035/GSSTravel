@@ -48,7 +48,7 @@ table {
 </style>
 </head>
 <body>
-	<%@include file="SelectBar.jsp"%>
+	<%@include file="Manage.jsp"%>
 	<script>
 		$('.navbar-nav>li').removeClass('now');
 		$('.navbar-nav>li:eq(4)').addClass('now');
