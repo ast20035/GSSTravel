@@ -207,7 +207,7 @@
 						</div>
 					</div>
 					<div class='col-md-offset-1 col-md-1'>
-					<input type="button" value="新增" onclick='window.location.href=resultjs+"/Travel_New.jsp";'
+					<input type="button" value="新增" onclick='window.location.href=resultjs+"/NewTravel";'
 								class='btn btn-success' /> 
 					</div>
 				</div>
