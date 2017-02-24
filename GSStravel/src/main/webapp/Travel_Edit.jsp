@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -299,10 +300,12 @@ margin-bottom: 4%;
 								<div class="row">
 									<div class="col-xs-4">
 										<div class="Input-group">
-
+									<fmt:parseDate value="${params.tra_Beg}" pattern="yyyy-MM-dd HH:mm:ss" var="myDate" />
+    								<fmt:formatDate value="${myDate}" pattern="yyyy-MM-dd HH:mm:ss"  var="ttt"/>
+  
 											<a>開始時間</a> <input type="text" name="edittraBeg"
 												id="edittraBeg" class='form-control' style='width: 200px;'
-												value="${params.tra_Beg}">
+												value="${ttt}">
 											<div id=edittraBegerror></div>
 										</div>
 									</div>
@@ -310,10 +313,11 @@ margin-bottom: 4%;
 
 									<div class="col-xs-4">
 										<div class="Input-group">
-
+										<fmt:parseDate value="${params.tra_End}" pattern="yyyy-MM-dd HH:mm:ss" var="myDateEnd" />
+    								<fmt:formatDate value="${myDateEnd}" pattern="yyyy-MM-dd HH:mm:ss"  var="ddd"/>
 											<a>結束時間</a> <input type="text" class='form-control'
 												style='width: 200px;' name="edittraEnd" id="edittraEnd"
-												value="${params.tra_End}">
+												value="${ddd}">
 
 											<div id=edittraEnderror></div>
 										</div>
