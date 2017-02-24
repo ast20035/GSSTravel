@@ -123,9 +123,9 @@ margin-bottom: 10px;
 		<div class='row'>
 			<div class='col-md-offset-4 col-md-4'>
 				<div id="boardDiv"></div><br>
-				<button class='btn btn-primary'>
-					<a style='color:white;' href="Board.jsp">回上頁</a>
-				</button>
+				<input type="button"
+							class='btn btn-primary' value='回上一頁'
+							onclick='window.location.href="BoardMaintain.jsp"'>
 			</div>
 		</div>
 	</div>
