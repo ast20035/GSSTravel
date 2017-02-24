@@ -28,7 +28,8 @@
 	function show_confirm() {
 		var r = confirm("確定取消?");
 		if (r == true) {
-			window.history.back()
+			//window.history.back()
+			window.location.href = 'search2.jsp';
 		}
 
 	}
@@ -413,7 +414,7 @@ margin-bottom: 4%;
 							id="edititemMoney" class='form-control' value="${row.item_Money}">
 							<div id=edititemMoneyerror></div></td>
 						<td><input type="submit" name="delete" id="delete"
-							class='btn btn-success' value="delete"></td>
+							class='btn btn-success' value="刪除"></td>
 
 
 						</c:forEach>
@@ -422,8 +423,8 @@ margin-bottom: 4%;
 					<a><input type="submit" id="inputdate" name="inputerrors"
 						value="更新" class='btn btn-primary'> <input type="button"
 						onclick="show_confirm()" value="取消更新" class='btn btn-primary'>
-						<input type="submit" name="inputerrors" value="刪除行程"
-						class='btn btn-primary'> </a>
+<!-- 						<input type="submit" name="inputerrors" value="刪除行程"class='btn btn-primary'>  -->
+						</a>
 				</form>
 				<table>
 
@@ -445,7 +446,7 @@ margin-bottom: 4%;
 							id="edititemMoney" class='form-control' value="${row.item_Money}">
 							<div id=edititemMoneyerror></div></td>
 						<td><input type="submit" name="delete" id="delete"
-							class='btn btn-success' value="delete"></td>
+							class='btn btn-success' value="刪除"></td>
 					</tr>
 				</table>
 
