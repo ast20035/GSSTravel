@@ -50,8 +50,7 @@ table {
 </style>
 
 <body>
-<%-- 	<%@include file="Manage.jsp"%> --%>
-	<%@include file="SelectBar.jsp"%>
+	<%@include file="Manage.jsp"%>
 	<script>
 		$('.navbar-nav>li').removeClass('Mnow');
 		$('.navbar-nav>li:eq(4)').addClass('Mnow');

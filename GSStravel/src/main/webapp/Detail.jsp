@@ -31,7 +31,7 @@ margin-right: 3%;
 </style>
 </head>
 <body>
-	<%@include file="SelectBar.jsp"%>
+	<%@include file="Manage.jsp"%>
 	<script>
 			$('.navbar-nav>li').removeClass('Mnow');
 			$('.navbar-nav>li:eq(2)').addClass('Mnow');
