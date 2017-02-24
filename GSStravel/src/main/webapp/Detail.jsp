@@ -31,7 +31,7 @@ margin-right: 3%;
 </style>
 </head>
 <body>
-	<%@include file="Manage.jsp"%>
+	<%@include file="SelectBar.jsp"%>
 	<script>
 			$('.navbar-nav>li').removeClass('active');
 			$('.navbar-nav>li:eq(2)').addClass('active');
