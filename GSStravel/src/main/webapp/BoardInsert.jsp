@@ -34,8 +34,14 @@ input, textarea {
 </head>
 <body>
 	<div class='container-fluid'>
+		<div class="row">
+			<div class='col-md-offset-5'>
+				<h2>新增公告</h2>
+			</div>
+		</div><br>
 		<div class='row'>
 			<div class='col-md-offset-4 col-md-4'>
+
 				<form action="<c:url value="/AnnouncementUDServlet" />" method="GET">
 					<div id="boardDiv">
 						<div>公告標題</div>
