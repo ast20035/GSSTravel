@@ -121,7 +121,7 @@ table, tr, td {
 				<option value="7">過去1週</option>
 				<option value="1">過去1天</option>
 			</select>
-			<br>
+			<br><br>
 			<table id="boardTable" class='table'>
 				<thead>
 					<tr>
