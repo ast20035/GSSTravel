@@ -116,7 +116,7 @@ table, tr, td {
 		</div>
 		<br>
 		<div class='col-md-offset-3 col-md-5'>
-			<select id="day" name="day" onchange="optionTime()" >
+			<select id="day" name="day" onchange="optionTime()" class='form-control' style='width:150px;'>
 				<option value="31">過去1個月</option>
 				<option value="7">過去1週</option>
 				<option value="1">過去1天</option>
