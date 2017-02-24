@@ -43,18 +43,7 @@ public class AnnouncementShowServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		List<AnnouncementVO> result = announcementService.select();
 		result = announcementService.AfterOn(result, beforeDate);
-
-		int countPage;
-		try {
-			countPage = result.size();
-		} catch (Exception e) {
-			countPage = 0;
-		}
-
-		JSONObject jObj = new JSONObject();
-		jObj.put("count", countPage);
-		jObj.put("fuck", announcementService.to_Json(result));
-		out.println(jObj);
+		out.println(announcementService.to_Json(result));
 		return;
 	}
 

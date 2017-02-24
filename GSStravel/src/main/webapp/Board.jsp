@@ -37,8 +37,8 @@ table, tr, td {
 		day = document.getElementById("day");
 		setBoard();
 	}
-
-	var day = null;
+	
+	var day=null;
 	function optionTime() {
 		day = document.getElementById("day");
 		setBoard();
@@ -72,7 +72,7 @@ table, tr, td {
 				while (body.hasChildNodes()) {
 					body.removeChild(body.lastChild);
 				}
-alert(board.count);
+
 				var pathName = document.location.pathname;
 				var index = pathName.substr(1).indexOf("/");
 				var result = pathName.substr(0, index + 1);
@@ -116,12 +116,12 @@ alert(board.count);
 		</div>
 		<br>
 		<div class='col-md-offset-3 col-md-5'>
-			<select id="day" name="day" onchange="optionTime()"
-				class='form-control' style='width: 150px;'>
+			<select id="day" name="day" onchange="optionTime()" class='form-control' style='width:150px;'>
 				<option value="31">過去1個月</option>
 				<option value="7">過去1週</option>
 				<option value="1">過去1天</option>
 			</select>
+			<br><br>
 			<table id="boardTable" class='table'>
 				<thead>
 					<tr>
@@ -132,55 +132,7 @@ alert(board.count);
 				<tbody>
 				</tbody>
 			</table>
-			<ul class="pagination">
-				<li><a onclick="before()">&laquo;</a></li>
-				<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
-				<c:set></c:set>
-				<c:if test="${Math.ceil(count/2)!=0}">
-					<c:forEach var="i" begin="1" end="${Math.ceil(count/10)-1}">
-						<li class="page" onclick="page(this)" value="${i}"><a>${i+1}</a></li>
-					</c:forEach>
-				</c:if>
-				<li><a onclick="next()">&raquo;</a></li>
-			</ul>
 		</div>
 	</div>
 </body>
-<script>
-	var i;
-	var $page = $(".page");
-	$("tr:gt(10)").css("display", "none");
-	function next() {
-		i = $(".active");
-		$page.removeClass("active");
-		if (i.val() < $page.length - 1) {
-			$page[i.val() + 1].className = "active";
-			light(i.val() + 1);
-		} else {
-			$page[0].className = "active";
-			light(0);
-		}
-	}
-	function before() {
-		i = $(".active");
-		$page.removeClass("active");
-		if (i.val() < $page.length && i.val() > 0) {
-			$page[i.val() - 1].className = "active";
-			light(i.val() - 1);
-		} else {
-			$page[$page.length - 1].className = "active";
-			light($page.length - 1);
-		}
-	}
-	function page(obj) {
-		$page.removeClass("active");
-		$(obj).prop("class", "active");
-		i = $(".active");
-		light(i.val());
-	}
-	function light(i) {
-		$("tr:gt(0)").css("display", "none");
-		$("tr:gt(" + i * 10 + "):lt(" + 10 + ")").css("display", "");
-	}
-</script>
 </html>

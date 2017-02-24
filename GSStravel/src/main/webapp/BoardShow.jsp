@@ -125,7 +125,7 @@ margin-bottom: 10px;
 				<div id="boardDiv"></div><br>
 				<input type="button"
 							class='btn btn-primary' value='回上一頁'
-							onclick='window.location.href="BoardMaintain.jsp"'>
+							onclick='window.location.href="Board.jsp"'>
 			</div>
 		</div>
 	</div>

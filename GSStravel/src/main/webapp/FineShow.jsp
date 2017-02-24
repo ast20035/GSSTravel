@@ -50,8 +50,6 @@ td>strong {
 		var close6=null;
 		var close7=null;
 		var closeFine=null;
-		var down1=null;
-		var down2=null;
 		
 		window.onload = function() {
 			fineEmail = document.getElementById("FineEmail");
@@ -65,8 +63,6 @@ td>strong {
 			close6 = document.getElementById("close6");
 			close7 = document.getElementById("close7");
 			closeFine = document.getElementById("closeFine");
-			down1 = document.getElementById("down1");
-			down2 = document.getElementById("down2");
 			if(${em == 1} && ${btn == 1}){
 				fineEmail.removeAttribute("disabled");
 			}
@@ -97,31 +93,46 @@ td>strong {
 				close2.removeAttribute("href");
 				close3.removeAttribute("href");
 				close4.removeAttribute("href");
-				close5.disabled = true;
+				close5.removeAttribute("href");
 				close6.removeAttribute("href");
-				close7.removeAttribute("href");
+				close7.disabled = true;
 				closeFine.disabled = true;
 				fineBoard.disabled = true;
-				down1.setAttribute("style","display:none");
-				down2.setAttribute("style","display:none");
 				myImg.style.display = "inline";
 				fineEmail.setAttribute("disabled", "disabled");
-				fineEmail.value = "Email寄送中...";
+				wait();
+// 				fineEmail.value = "Email寄送中...";
 			} else if (xhr.readyState == 4) {
-				close1.setAttribute("href","<c:url value='/Register'/>");
+				close1.setAttribute("href","<c:url value='/Board.jsp'/>");
 				close2.setAttribute("href","<c:url value='/search2.jsp'/>");
 				close3.setAttribute("href","<c:url value='/search.jsp'/>");
-				close4.setAttribute("href","<c:url value='/search1.jsp'/>");
-				close5.disabled = false;
+				close4.setAttribute("href","<c:url value='/FineSetting.jsp'/>");
+				close5.setAttribute("href","<c:url value='/search1.jsp'/>");
 				close6.setAttribute("href","<c:url value='/BoardMaintain.jsp'/>");
-				close7.setAttribute("href","<c:url value='/Board.jsp'/>");
+				close7.disabled = false;
 				closeFine.disabled = false;
 				fineBoard.disabled = false;
-				down1.removeAttribute("style");
-				down2.removeAttribute("style");
 				myImg.style.display = "none";
 				fineEmail.value = "Email寄送成功！";
 			}
+		}
+		
+		var x = 1;
+		function wait() {
+			if (x == 1) {
+				fineEmail.value = "Email寄送中.";
+				x++;
+			} else if (x == 2) {
+				fineEmail.value = "Email寄送中..";
+				x++;
+			} else if (x == 3) {
+				fineEmail.value = "Email寄送中...";
+				x = 1;
+			}
+			if(xhr.readyState == 4){
+				fineEmail.value = "Email寄送成功！";
+			}
+			setTimeout('wait()',1000);
 		}
 </script>
 </head>
