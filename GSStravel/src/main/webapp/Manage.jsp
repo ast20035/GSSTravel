@@ -83,7 +83,7 @@ tbody a:visited:after {
 	padding-top: 80px;;
 }
 
-li>a {
+.nav>li>a {
 	font-size: 15px;
 	color: #00FA9A;
 	font-weight: normal;
@@ -149,6 +149,9 @@ h1, h2 {
 }
 #close5{
 margin-left: 5px;
+}
+.Mnow{
+color:white;
 }
 </style>
 <nav class="navbar navbar-fixed-top topBar navbar navbar-inverse">

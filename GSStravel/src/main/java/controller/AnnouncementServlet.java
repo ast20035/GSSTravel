@@ -31,8 +31,24 @@ public class AnnouncementServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String startDay = request.getParameter("startDay");
 		String endDay = request.getParameter("endDay");
+		String delete = request.getParameter("delete");
 		PrintWriter out = response.getWriter();
 		List<AnnouncementVO> result = announcementService.select();
+		
+		SimpleDateFormat formatYMD = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		long beforeNow = (date.getTime() / 1000) - 60 * 60 * 24 * 365;
+		date.setTime(beforeNow * 1000);
+		String beforeDate = formatYMD.format(date);
+		
+		List<AnnouncementVO> resultDelete = announcementService.select();
+		resultDelete = announcementService.BeforeOff(resultDelete, beforeDate);
+		if("刪除一年前の公告".equals(delete)){
+			for(int i=0;i<resultDelete.size();i++){
+				announcementService.delete(resultDelete.get(i).getAnno_Time());
+			}
+			response.sendRedirect(request.getContextPath() + "/BoardMaintain.jsp");
+		}
 
 		if (title == null && startDay == null && endDay == null) {
 			out.print(announcementService.to_Json(result));
