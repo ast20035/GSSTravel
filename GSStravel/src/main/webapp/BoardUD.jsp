@@ -99,10 +99,8 @@ margin-bottom: 10px;
 					textarea.setAttribute("rows", "12");
 					textarea.setAttribute("id", "content");
 					textarea.setAttribute("name", "content");
-					textarea.setAttribute("style", "resize: none");
 					textarea.setAttribute("class", "form-control");
-					textarea.setAttribute("style",
-							"font-size:17px; resize:none;");
+					textarea.setAttribute("style", "font-size:17px; resize:none;");
 					textarea.appendChild(document
 							.createTextNode(board[i].content));
 					div1.appendChild(textarea);
@@ -122,7 +120,7 @@ margin-bottom: 10px;
 			<div class='col-md-offset-4 col-md-4'>
 				<form action="<c:url value="/AnnouncementUDServlet" />" method="GET">
 					<div id="boardDiv"></div>
-					<input type="submit" value="更新" name="update"
+					<input type="submit" value="儲存" name="update"
 						class='btn btn-primary' /> <input type="submit" value="刪除"
 						name="delete" class='btn btn-danger' />
 					<input type="button" class='btn btn-primary' value='回上一頁' onclick='window.location.href="BoardMaintain.jsp"'>
