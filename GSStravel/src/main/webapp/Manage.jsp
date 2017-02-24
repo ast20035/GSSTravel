@@ -80,8 +80,8 @@ tbody a:visited:after {
 </style>
 <style>
 .topBar {
-	 background: linear-gradient(to bottom, rgba(40,52,59,1) 0%,rgba(40,52,59,1) 6%,rgba(130,140,149,1) 74%); 
-	
+	background: linear-gradient(to bottom, rgba(40, 52, 59, 1) 0%,
+		rgba(40, 52, 59, 1) 6%, rgba(130, 140, 149, 1) 74%);
 }
 
 .container-fluid {
@@ -183,14 +183,8 @@ h1, h2 {
 				<c:if test='${emp_Role eq true}'>
 					<li><a href="<c:url value='/search2.jsp'/>" id="close2">行程維護</a></li>
 					<li><a href="<c:url value='/search.jsp'/>" id="close3">報名維護</a></li>
-					<li class='dropdown'><a class='dropdown-toggle' role="button"
-						aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"
-						href="<c:url value='/FineSetting.jsp'/>">罰則維護<span
-							class="caret"></span></a>
-						<ul class='dropdown-menu' id="down2">
-							<li><a href="<c:url value='/FineSetting.jsp'/>">罰則設定</a></li>
-							<li><a href="<c:url value='/FineShowServlet'/>">罰則明細</a></li>
-						</ul></li>
+					<li><a class='dropdown-toggle' role="button"
+						href="<c:url value='/FineSetting.jsp'/>">罰則維護</a>
 					<li><a href="<c:url value='/search1.jsp'/>" id="close4">旅費統計</a></li>
 					<li><a href="<c:url value='/BoardMaintain.jsp'/>" id="close6">公告維護</a></li>
 				</c:if>
