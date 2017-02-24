@@ -34,6 +34,13 @@ table, tr, td {
 </style>
 <script>
 	window.onload = function() {
+		day = document.getElementById("day");
+		setBoard();
+	}
+	
+	var day=null;
+	function optionTime() {
+		day = document.getElementById("day");
 		setBoard();
 	}
 
@@ -41,8 +48,15 @@ table, tr, td {
 
 	function setBoard() {
 		if (xh != null) {
+			var pathName = document.location.pathname;
+			var index = pathName.substr(1).indexOf("/");
+			var result = pathName.substr(0, index + 1);
+			var url = result + "/AnnouncementShowServlet?";
+			if (day.value != undefined && day.value != '') {
+				url = url + "day=" + day.value;
+			}
 			xh.addEventListener("readystatechange", setBoardData, false);
-			xh.open("GET", "AnnouncementShowServlet", true);
+			xh.open("GET", url, true);
 			xh.send();
 		} else {
 			alert("很抱歉，您的瀏覽器不支援AJAX功能！");
@@ -99,8 +113,15 @@ table, tr, td {
 			<div class='col-md-11'>
 				<h2>公告</h2>
 			</div>
-		</div><br>
+		</div>
+		<br>
 		<div class='col-md-offset-3 col-md-5'>
+			<select id="day" name="day" onchange="optionTime()" class='form-control' style='width:150px;'>
+				<option value="31">過去1個月</option>
+				<option value="7">過去1週</option>
+				<option value="1">過去1天</option>
+			</select>
+			<br><br>
 			<table id="boardTable" class='table'>
 				<thead>
 					<tr>

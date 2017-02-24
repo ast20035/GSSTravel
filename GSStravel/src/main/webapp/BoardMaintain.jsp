@@ -104,10 +104,10 @@ table, tr, td {
 </script>
 </head>
 <body>
-	<%@include file="SelectBar.jsp"%>
+	<%@include file="Manage.jsp"%>
 	<script>
-		$('.navbar-nav>li').removeClass('now');
-		$('.navbar-nav>li:eq(7)').addClass('now');
+		$('.navbar-nav>li').removeClass('Mnow');
+		$('.navbar-nav>li:eq(5)').addClass('Mnow');
 	</script>
 	<div class='container-fluid'>
 		<div class='row'>
@@ -141,7 +141,11 @@ table, tr, td {
 					</div>
 					<input type="submit" value="新增" name="insert"
 						class='btn btn-success' />
-
+				</form>
+				<br>
+				<form action="<c:url value="/AnnouncementServlet" />" method="GET">
+					<input type="submit" value="刪除一年前の公告"
+						name="delete" class='btn btn-danger' />
 				</form>
 			</div>
 		</div>

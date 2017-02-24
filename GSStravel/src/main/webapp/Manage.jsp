@@ -79,24 +79,19 @@ tbody a:visited:after {
 }
 </style>
 <style>
+.topBar {
+	background: linear-gradient(to bottom, rgba(40, 52, 59, 1) 0%,
+		rgba(40, 52, 59, 1) 6%, rgba(130, 140, 149, 1) 74%);
+}
+
 .container-fluid {
 	padding-top: 80px;;
 }
 
 .nav>li>a {
 	font-size: 15px;
-	color: #00FA9A;
+	color: white;
 	font-weight: normal;
-}
-
-.now {
-	border-radius: 7px\7px;
-	background-color: white;
-}
-
-.now>a {
-	font-weight: bolder;
-	color: #00BFFF;
 }
 
 .title {
@@ -132,9 +127,6 @@ h1, h2 {
 }
 
 .navbar {
-	background: linear-gradient(to bottom, rgba(30, 87, 153, 1) 0%,
-		rgba(82, 141, 196, 1) 55%, rgba(107, 166, 217, 0.7) 81%,
-		rgba(125, 185, 232, 0) 100%);
 	z-index: 15;
 	padding-top: 5px;
 	border: 0;
@@ -149,26 +141,30 @@ h1, h2 {
 }
 
 .nav>li>a:HOVER {
-	background-color: #DCDCDC;
+	background-color: black;
 }
 
 .thWH {
 	background-color: white;
-	color:black;
+	color: black;
 	border: 2px solid black;
 }
+
 .tdbtn {
 	padding: 5px;
 	border: 0;
 }
-#close5{
-margin-left: 5px;
+
+#close5 {
+	margin-left: 5px;
 }
+
 .Mnow {
-	border: 3px solid blue;
+	border-left: 2px solid blue;
+	border-right: 2px solid blue;
 }
 </style>
-<nav class="navbar navbar-fixed-top topBar">
+<nav class="navbar navbar-fixed-top topBar navbar">
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
@@ -178,22 +174,19 @@ margin-left: 5px;
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<label class="navbar-brand">GSS</label>
+			<label class="navbar-brand" role='text' style='color: white;'>GSS</label>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-			<li><a href="<c:url value='/Board.jsp'/>" id="close7">公告</a></li>
-				<li class='dropdown'><a class='dropdown-toggle'
-					role="button" aria-haspopup="true" aria-expanded="false"
-					data-toggle="dropdown">旅遊報名<span class="caret"></span></a>
-					<ul class='dropdown-menu' id="down1">
-						<li><a href="<c:url value='/AllTravel'/>">報名/查詢</a></li>
-						<li><a href="<c:url value='/Record'/>">報名記錄</a></li>
-					</ul></li>
-
-				<li role="presentation"><a href="<c:url value='/Register'/>" id="close1">資料輸入</a></li>				
+				<li role="presentation"><a href="<c:url value='/Board.jsp'/>"
+					id="close1">回首頁</a></li>
 				<c:if test='${emp_Role eq true}'>
-					<li><a href="<c:url value='/search2.jsp'/>" id="close2">管理介面</a></li>
+					<li><a href="<c:url value='/search2.jsp'/>" id="close2">行程維護</a></li>
+					<li><a href="<c:url value='/search.jsp'/>" id="close3">報名維護</a></li>
+					<li><a class='dropdown-toggle' role="button"
+						href="<c:url value='/FineSetting.jsp'/>">罰則維護</a>
+					<li><a href="<c:url value='/search1.jsp'/>" id="close4">旅費統計</a></li>
+					<li><a href="<c:url value='/BoardMaintain.jsp'/>" id="close6">公告維護</a></li>
 				</c:if>
 				<li><input type="button" value='登出'
 					class="btn btn-warning navbar-btn" id="close5"
