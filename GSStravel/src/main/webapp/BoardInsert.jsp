@@ -45,7 +45,7 @@ input, textarea {
 						<textarea cols="50" rows="12" id="content" name="content"
 							style="font-size: 17px; resize: none" class="form-control"></textarea>
 						<br> <input type="submit" value="儲存" name="save"
-							class='btn btn-primary' /> <input type="button"
+							class='btn btn-success' /> <input type="button"
 							class='btn btn-primary' value='回上一頁'
 							onclick='window.location.href="BoardMaintain.jsp"'>
 					</div>

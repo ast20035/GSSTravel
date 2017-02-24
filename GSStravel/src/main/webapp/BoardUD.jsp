@@ -121,7 +121,7 @@ margin-bottom: 10px;
 				<form action="<c:url value="/AnnouncementUDServlet" />" method="GET">
 					<div id="boardDiv"></div>
 					<input type="submit" value="儲存" name="update"
-						class='btn btn-primary' /> <input type="submit" value="刪除"
+						class='btn btn-success' /> <input type="submit" value="刪除"
 						name="delete" class='btn btn-danger' />
 					<input type="button" class='btn btn-primary' value='回上一頁' onclick='window.location.href="BoardMaintain.jsp"'>
 					

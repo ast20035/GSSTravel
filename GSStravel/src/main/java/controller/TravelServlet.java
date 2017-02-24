@@ -428,7 +428,7 @@ public class TravelServlet extends HttpServlet {
 				session.setAttribute("delete", 1);
 			}
 		}
-		request.getRequestDispatcher("/Travel_Edit.jsp").forward(request, response); // 測試用
+		//request.getRequestDispatcher("/Travel_Edit.jsp").forward(request, response); // 測試用
 	}// doGet
 
 	@Override
