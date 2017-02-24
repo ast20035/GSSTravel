@@ -283,7 +283,7 @@ text-align: center;
 													<option value="mom" Selected>孕婦(媽媽手冊)</option>
 												</c:if>
 											</select>
-											<input type ="hidden" name="selectvalue" class="selectvalue">
+											
 										</div></td>
 
 									<td><input type="text" name="famben" id="famben" style='width:90px;'
@@ -543,7 +543,7 @@ text-align: center;
 					}
 					
 					if($("#errorcount").val()=="0"){
-	
+						
 							//抓checkbox
 							var idlength= $("#familytable input[name*='famcar']").length;//3
 	// 						console.log(idlength);
@@ -567,7 +567,32 @@ text-align: center;
 							$("#checkbox").val(checkboxjson);//放一個隱藏的text傳值進去 按save時一次送出
 							
 							
-						$("#save").attr("type","submit");
+							//抓多選(新增的值)要用save按下後才能判斷   除非全部都用前端blur抓要新增的值在全部傳進去??
+							//下面都要改成去抓新增的值進去  新增的不能指部分新增 一定要全部一起進去才行 
+							//想一下進去抓到值之後要怎麼拆開 放進去familyvo?
+									//或是看能不能拆開成不同部分在放進去vo裡面?
+							
+							console.log($("#familytable select[name='famspa']").length);//抓到的select總共有幾筆
+							var xxx=[];
+							if($("#familytable select[name='famspa']").length > 0){
+								$("#familytable select[name='famspa']").each(function(){
+									var spa =$(this).val();
+									console.log(spa);
+									var spajson =JSON.stringify(spa);
+									console.log(spajson);// JSON.stringify 將陣列轉換為 JSON 字串
+									$(this).next("input[name='selectvalue']").val(spajson);
+									console.log($(this).next("input[name='selectvalue']").val());
+									console.log($(this).next("#familytable input[name='selectvalue']").val());
+//										$(this).next(".famnameerror").text("");
+//										xxx.push(spa);
+								});
+//									console.log(xxx);
+//									$("#multiselect").val(xxx);
+							}else{
+								//??無親屬抓進去
+							}
+							
+// 						$("#save").attr("type","submit");
 					}// ==0
 				})
 		
@@ -895,21 +920,6 @@ text-align: center;
 									//focus在新增欄位
 									$('#familytable input[name*="famname"]:last').focus();
 									
-										var pathName = document.location.pathname;
-										var index = pathName.substr(1).indexOf("/");
-										var result = pathName.substr(0, index + 1);
-										var url = result + "/FamilyServlet";
-										$(".repeat select[name*='famspa']").on("blur",function(){
-											 repeatselect  = $(this).val();
-											 console.log(repeatselect);
-											 var repeatselectjson = JSON.stringify(repeatselect);
-											 var repeatfamnameajax = $(this).closest("tr").find("input[name='famname']").val();
-											 console.log(repeatselectjson);
-											 console.log(repeatfamnameajax);
-											$.post(url,{"repeatselectjson":repeatselectjson,"repeatfamnameajax":repeatfamnameajax},function(){
-											});		
-										})
-										
 								});
 				
 				var empphone = /^09\d{2}-?\d{3}-?\d{3}$/;
