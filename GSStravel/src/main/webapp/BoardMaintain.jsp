@@ -141,7 +141,11 @@ table, tr, td {
 					</div>
 					<input type="submit" value="新增" name="insert"
 						class='btn btn-success' />
-
+				</form>
+				<br>
+				<form action="<c:url value="/AnnouncementServlet" />" method="GET">
+					<input type="submit" value="刪除一年前の公告"
+						name="delete" class='btn btn-danger' />
 				</form>
 			</div>
 		</div>

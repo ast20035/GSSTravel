@@ -79,15 +79,21 @@ tbody a:visited:after {
 }
 </style>
 <style>
+.topBar {
+	 background: linear-gradient(to bottom, rgba(40,52,59,1) 0%,rgba(40,52,59,1) 6%,rgba(130,140,149,1) 74%); 
+	
+}
+
 .container-fluid {
 	padding-top: 80px;;
 }
 
 .nav>li>a {
 	font-size: 15px;
-	color: #00FA9A;
+	color: white;
 	font-weight: normal;
 }
+
 .title {
 	text-align: left;
 	font-style: italic;
@@ -135,26 +141,30 @@ h1, h2 {
 }
 
 .nav>li>a:HOVER {
-	background-color: #DCDCDC;
+	background-color: black;
 }
 
 .thWH {
 	background-color: white;
-	color:black;
+	color: black;
 	border: 2px solid black;
 }
+
 .tdbtn {
 	padding: 5px;
 	border: 0;
 }
-#close5{
-margin-left: 5px;
+
+#close5 {
+	margin-left: 5px;
 }
-.Mnow{
-color:white;
+
+.Mnow {
+	border-left: 2px solid blue;
+	border-right: 2px solid blue;
 }
 </style>
-<nav class="navbar navbar-fixed-top topBar navbar navbar-inverse">
+<nav class="navbar navbar-fixed-top topBar navbar">
 	<div class="container">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
@@ -164,11 +174,12 @@ color:white;
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<label class="navbar-brand" role='text'>GSS</label>
+			<label class="navbar-brand" role='text' style='color: white;'>GSS</label>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li role="presentation"><a href="<c:url value='/Board.jsp'/>" id="close1">回首頁</a></li>				
+				<li role="presentation"><a href="<c:url value='/Board.jsp'/>"
+					id="close1">回首頁</a></li>
 				<c:if test='${emp_Role eq true}'>
 					<li><a href="<c:url value='/search2.jsp'/>" id="close2">行程維護</a></li>
 					<li><a href="<c:url value='/search.jsp'/>" id="close3">報名維護</a></li>

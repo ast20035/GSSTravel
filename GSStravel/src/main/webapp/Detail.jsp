@@ -48,7 +48,7 @@ margin-right: 3%;
 				<form id="myForm" action=<c:url value="/detail"/> method="post">
 					<p>活動代碼：${param.tra_no}</p>
 					<input type="hidden" name="tra_no" id="tra_no" value="${param.tra_no}">
-						<select name="selectTable" id="selectTable" onchange="dataSelect()">
+						<select name="selectTable" id="selectTable" onchange="dataSelect()" class='form-control' style='width:150px;'>
 								<option>顯示全部</option>
 								<option>已報名</option>
 								<option>已取消</option>

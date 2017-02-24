@@ -38,6 +38,11 @@ margin-bottom: 4%;
 </style>
 <title>行程編輯</title>
 </head>
+<script type="text/javascript">
+	if(${error!=null}){
+		alert("${error}");
+	}
+</script>
 <body>
 	<div class='container-fluid'>
 		<div class='row'>
@@ -52,7 +57,7 @@ margin-bottom: 4%;
 
 						<tr>
 							<td>活動代碼</td>
-							<td><input name="tra_No" value="${tra_No}" readonly class='form-control' style="width: 300px"
+							<td><input name="edittraNO" value="${tra_No}" readonly class='form-control' style="width: 300px"
 								type="text" /></td>
 							<td></td>
 						</tr>
@@ -178,11 +183,9 @@ margin-bottom: 4%;
 					</c:forEach>
 				</table>
 
-				<input type="submit"  value="新增" class='btn btn-primary'>
-				<button class='btn  btn-primary'><a href="<c:url value='/search2.jsp'/>" style="color:white;text-decoration:none;">回到上一頁</a></button>
-				 
-				
+				<input type="submit"  value="新增" class='btn btn-primary'>	
 			</form>
+			<button class='btn  btn-primary'><a href="<c:url value='/search2.jsp'/>" style="color:white;text-decoration:none;">回到上一頁</a></button>
 			<table>
 
 				<tr name="newtable">

@@ -56,7 +56,7 @@ public class AnnouncementUDServlet extends HttpServlet {
 		if ("儲存".equals(save)) {
 			announcementService.insert(now, title, content);
 			response.sendRedirect(request.getContextPath() + "/BoardMaintain.jsp");
-		} else if ("更新".equals(update)) {
+		} else if ("儲存".equals(update)) {
 			time = session.getAttribute("time").toString();
 			announcementService.update(now, title, content, time);
 			response.sendRedirect(request.getContextPath() + "/BoardMaintain.jsp");

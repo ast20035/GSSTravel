@@ -28,9 +28,12 @@ public class AnnouncementShowServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
+		String day = request.getParameter("day");
+		int count = Integer.parseInt(day);
+		
 		SimpleDateFormat formatYMD = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
-		long beforeNow = (date.getTime() / 1000) - 60 * 60 * 24 * 31;
+		long beforeNow = (date.getTime() / 1000) - 60 * 60 * 24 * count;
 		date.setTime(beforeNow * 1000);
 		String beforeDate = formatYMD.format(date);
 		

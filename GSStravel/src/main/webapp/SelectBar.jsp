@@ -164,8 +164,8 @@ h1, h2 {
 #close5{
 margin-left: 5px;
 }
-.Mnow{
-color:white;
+.Mnow {
+	border: 3px solid blue;
 }
 </style>
 <nav class="navbar navbar-fixed-top topBar">

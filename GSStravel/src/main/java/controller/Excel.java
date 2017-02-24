@@ -30,7 +30,7 @@ public class Excel {
 			String traEnd, String traTotal, String traMax, String traIntr, String traCon, String traAttr,
 			String traFile) {
 		try {
-			WritableWorkbook workbook = Workbook.createWorkbook(new File(saveFolder + "/" + traFile + ".xls"));
+			WritableWorkbook workbook = Workbook.createWorkbook(new File(saveFolder + "/" + traName + ".xls"));
 			WritableSheet sheet = workbook.createSheet("MySheet", 0);
 
 			WritableFont myFont = new WritableFont(WritableFont.createFont("標楷體"), 12);
