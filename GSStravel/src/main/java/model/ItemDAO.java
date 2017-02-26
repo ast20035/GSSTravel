@@ -73,9 +73,9 @@ public class ItemDAO implements IItemDAO {
 	@Override
 	public ItemVO insert(ItemVO bean) {
 		ItemVO result = null;
-		try (Connection conn = ds.getConnection(); PreparedStatement insertdata = conn.prepareStatement(insert);) {
-			if (bean != null) {
-				
+		try (Connection conn = ds.getConnection(); 
+				PreparedStatement insertdata = conn.prepareStatement(insert);) {
+			if (bean != null) {				
 				insertdata.setString(1, bean.getItem_Name());
 				insertdata.setDouble(2, bean.getItem_Money());
 				insertdata.setString(3, bean.getTra_No());

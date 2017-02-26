@@ -11,7 +11,7 @@ public interface ITravelDAO {
 	public List<TravelVO> search(String no,String name);
 	public Map<String,String> selectTra_NoTra_Beg();//所有活動行程編號跟對應的登記開始日期
 //	public TravelVO select(String tra_NO) getAll
-	public TravelVO insert(TravelVO bean);
+	public void insert(TravelVO bean);
 	public TravelVO update(TravelVO Travelupdate);
 	public boolean delete(String tra_NO);
 	public List<TravelVO> selectExcel();

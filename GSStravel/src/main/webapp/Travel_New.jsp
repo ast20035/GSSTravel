@@ -154,7 +154,7 @@ margin-bottom: 4%;
 
 					</tr>
 					<tr>
-						<td class="t">團費</td>
+						<td class="t" >團費</td>
 						<td class="t"><input type="text" name="item1"/></td>
 					</tr>
 					<tr>

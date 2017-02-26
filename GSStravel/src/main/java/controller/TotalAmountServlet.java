@@ -138,7 +138,7 @@ public class TotalAmountServlet extends HttpServlet {
 			String[] dept_No = request.getParameterValues("dept_No[]");
 			String[] No = request.getParameterValues("No[]");
 			String[] Name = request.getParameterValues("Name[]");
-			String[] years_Money = request.getParameterValues("Name[]");
+			String[] years_Money = request.getParameterValues("years_Money[]");
 			String[] person_Money = request.getParameterValues("person_Money[]");
 			String[] Money = request.getParameterValues("Money[]");
 			String[] det_Note = request.getParameterValues("det_Note[]");

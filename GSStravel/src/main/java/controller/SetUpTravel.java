@@ -1,18 +1,27 @@
 package controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.ItemService;
+import model.ItemVO;
+import model.TravelService;
+import model.TravelVO;
+
 @WebServlet("/SetUpTravel")
 public class SetUpTravel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private TravelService travelService=new TravelService();
+	private ItemService itemService=new ItemService();
 	public SetUpTravel() {
 		super();
 	}
@@ -35,23 +44,32 @@ public class SetUpTravel extends HttpServlet {
 		String tra_File = request.getParameter("edittraFile");
 		String[] rooms = request.getParameterValues("edititemName");
 		String[] roomsMoney = request.getParameterValues("edititemMoney");
+		
 		java.sql.Date tra_On = null;
 		java.sql.Date tra_Off = null;
 		java.sql.Timestamp tra_Beg = null;
 		java.sql.Timestamp tra_End = null;
-		int tra_Total;
-		int tra_Max;
+		int tra_Total = 0;
+		int tra_Max = 0;
 		
 		int ckTra_On=0;
 		int ckTra_Off=0;
+		int ckTra_On_Off=0;
 		int ckTra_Beg=0;
 		int ckTra_End=0;
+		int ckTra_Beg_End=0;
+		java.sql.Timestamp today = java.sql.Timestamp.valueOf(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		int ckTra_Total=0;
+		int ckTra_Max=0;
 		
-		float Money1;//團費
-		float Money2;//保險費
+		
+		float Money1 = 0;//團費
+		float Money2 = 0;//保險費
 		String item1 = request.getParameter("item1");
 		String item2 = request.getParameter("item2");
-
+		int ckItem1=0;
+		int ckItem2=0;
+		int ckRoom=0;
 		List<String> error = new ArrayList<>();
 
 		if (tra_Name.trim() == "" || tra_Name == null) {
@@ -65,7 +83,11 @@ public class SetUpTravel extends HttpServlet {
 		} else {
 			try {
 				tra_On = java.sql.Date.valueOf(On);
-				ckTra_On=1;
+				if(today.after(tra_On)){
+					error.add("旅遊開始日不正確!!旅遊開始日設定成過去");
+				}else{
+					ckTra_On=1;
+				}				
 			} catch (Exception e) {
 				error.add("旅遊開始日格式錯誤!!格式:yyyy-MM-dd");
 			}
@@ -84,6 +106,8 @@ public class SetUpTravel extends HttpServlet {
 		if(ckTra_On==1 && ckTra_Off==1){
 			if(tra_On.after(tra_Off)){
 				error.add("旅遊時間不正確!!旅遊開始日比旅遊結束日還要晚");
+			}else{
+				ckTra_On_Off=1;
 			}
 		}
 		
@@ -92,7 +116,11 @@ public class SetUpTravel extends HttpServlet {
 		} else {
 			try {
 				tra_Beg = java.sql.Timestamp.valueOf(Beg);
-				ckTra_Beg=1;
+				if(today.after(tra_Beg)){
+					error.add("旅遊登記日不正確!!旅遊登記日設定成過去");
+				}else{
+					ckTra_Beg=1;
+				}				
 			} catch (Exception e) {
 				error.add("旅遊登記日格式錯誤!!格式:yyyy-MM-dd HH:mm:ss");
 			}
@@ -110,6 +138,14 @@ public class SetUpTravel extends HttpServlet {
 		if(ckTra_Beg==1 && ckTra_End==1){
 			if(tra_Beg.after(tra_End)){
 				error.add("旅遊登記時間不正確!!旅遊登記開始日比旅遊登記結束日還要晚");
+			}else{
+				ckTra_Beg_End=1;
+			}
+		}
+		
+		if(ckTra_On_Off==1 && ckTra_Beg_End==1){
+			if(tra_Beg.after(tra_On)){
+				error.add("旅遊時間不正確!!旅遊登記開始日比旅遊開始日還要晚");
 			}
 		}
 
@@ -120,6 +156,8 @@ public class SetUpTravel extends HttpServlet {
 				tra_Total = Integer.valueOf(Total);
 				if (tra_Total < 0) {
 					error.add("活動總人數上限必須是正整數!!");
+				}else{
+					ckTra_Total=1;
 				}
 			} catch (Exception e) {
 				error.add("活動總人數上限必須是正整數!!");
@@ -128,16 +166,23 @@ public class SetUpTravel extends HttpServlet {
 		if (Max.trim() == "" || Max == null) {
 			error.add("本團人數上限不能為空");
 		} else {
-
 			try {
 				tra_Max = Integer.valueOf(Max);
 				if (tra_Max < 0) {
 					error.add("本團人數上限必須是正整數!!");
+				}else{
+					ckTra_Max=1;
 				}
 			} catch (Exception e) {
 				error.add("本團人數上限必須是正整數!!");
 			}
 		}
+		if(ckTra_Total==1 && ckTra_Max==1){
+			if(tra_Total<tra_Max){
+				error.add("活動總人數上限必須大於本團人數上限");
+			}
+		}
+		
 		if (tra_Intr.trim() == "" || tra_Intr == null) {
 			tra_Intr="無";
 		}
@@ -157,7 +202,9 @@ public class SetUpTravel extends HttpServlet {
 				Money1=Float.valueOf(item1);
 				if(Money1<0){
 					error.add("團費必須是正數");
-				}
+				}else{
+					ckItem1=1;
+				}				
 			}catch(Exception e){
 				error.add("團費必須是正數");
 			}
@@ -169,6 +216,8 @@ public class SetUpTravel extends HttpServlet {
 				Money2=Float.valueOf(item2);
 				if(Money2<0){
 					error.add("保險費必須是正數");
+				}else{
+					ckItem2=1;
 				}
 			}catch(Exception e){
 				error.add("保險費必須是正數");
@@ -186,6 +235,8 @@ public class SetUpTravel extends HttpServlet {
 						Money=Float.valueOf(roomsMoney[i]);
 						if(Money<0){
 							error.add("房間費用必須是正數");
+						}else{
+							ckRoom=1;
 						}
 					}catch(Exception e){
 						error.add("房間費用必須是正數");
@@ -194,36 +245,61 @@ public class SetUpTravel extends HttpServlet {
 			}			
 		}
 		
-		
-
 		if (error.size() != 0) {
 			request.setAttribute("tra_No", tra_No);
 			request.setAttribute("error", error);
 			request.getRequestDispatcher("/Travel_New.jsp").forward(request, response);
 		}
+		
+		TravelVO travelVO=new TravelVO();
+		travelVO.setTra_NO(tra_No);
+		travelVO.setTra_Name(tra_Name);
+		travelVO.setTra_Loc(tra_Loc);
+		travelVO.setTra_On(tra_On);
+		travelVO.setTra_Off(tra_Off);
+		travelVO.setTra_Beg(tra_Beg);
+		travelVO.setTra_End(tra_End);
+		travelVO.setTra_Total(tra_Total);
+		travelVO.setTra_Max(tra_Max);
+		travelVO.setTra_Intr(tra_Intr);
+		travelVO.setTra_Con(tra_Con);
+		travelVO.setTra_Atter(tra_Atter);
+		travelVO.setTra_File(tra_File);
 
-		// System.out.println(tra_No);
-		// System.out.println(tra_Name);
-		// System.out.println(tra_Loc);
-		// System.out.println(tra_On);
-		// System.out.println(tra_Off);
-		// System.out.println(tra_Beg);
-		// System.out.println(tra_End);
-		// System.out.println(tra_Total);
-		// System.out.println(tra_Max);
-		// System.out.println(tra_Intr);
-		// System.out.println(tra_Con);
-		// System.out.println(tra_Atter);
-		// System.out.println(tra_File);
-		// System.out.println(item1);
-		// System.out.println(item2);
-//		for(String a :rooms){
-//			System.out.println(a);
-//		}
-//		for(String a :roomsMoney){
-//			System.out.println(a);
-//		}
-
+		travelService.insert(travelVO);
+			
+		if(ckItem1==1){
+			ItemVO itemlVO=new ItemVO();
+			itemlVO.setItem_Name("團費");
+			itemlVO.setItem_Money(Money1);
+			itemlVO.setItem_No(1);
+			itemlVO.setTra_No(tra_No);
+			itemService.insert(itemlVO);
+		}
+		if(ckItem2==1){
+			ItemVO itemlVO=new ItemVO();
+			itemlVO.setItem_Name("保險費");
+			itemlVO.setItem_Money(Money2);
+			itemlVO.setItem_No(2);
+			itemlVO.setTra_No(tra_No);
+			itemService.insert(itemlVO);
+		}
+		if(ckRoom==1){
+			int item_No=3;
+			for(int i=0;i<rooms.length;i++){
+				ItemVO itemlVO=new ItemVO();
+				itemlVO.setItem_Name(rooms[i]);
+				itemlVO.setItem_Money(Float.parseFloat(roomsMoney[i]));
+				itemlVO.setItem_No(item_No);
+				itemlVO.setTra_No(tra_No);
+				itemService.insert(itemlVO);
+				item_No++;
+			}
+		}
+		request.setAttribute("tra_No", tra_No);
+		request.setAttribute("tra_Name", tra_Name);
+		request.getRequestDispatcher("/SetUpTravel.jsp").forward(request, response);
+			
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -177,8 +177,8 @@ table {
 				</form>
 				<c:if test="${session!=null}">
 					<script>
-				alert('${session}');
-			</script>
+						alert('${session}');
+					</script>
 				</c:if>
 			</div>
 		</div>
