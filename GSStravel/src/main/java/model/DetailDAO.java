@@ -398,6 +398,7 @@ public class DetailDAO implements IDetailDAO {
 			}
 			return result;
 		}
+		//計算報名總筆數
 	private static final String SELECT_DatailCount="SELECT count(det_No) as count FROM detail where tra_No = ?";
 	@Override
 	public int selectDatailCount(String tra_No){
@@ -542,7 +543,7 @@ public class DetailDAO implements IDetailDAO {
 			}
 			return result;
 		}
-		
+		//查詢員工在某一Tra_No花費的總金額
 		private static final String select_TotalMoney = "SELECT totalMoney FROM (SELECT Detail.Tra_No, Detail.emp_No,SUM(det_money) as totalMoney FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No full outer join Travel on Detail.tra_No = Travel.tra_No WHERE Detail.emp_No=? and Detail.Tra_No=? and det_CanDate is null GROUP BY  Detail.emp_No,Detail.Tra_No )temp1";
 		@Override
 		public float select_TotalMoney(int emp_No, String Tra_No) {
@@ -559,11 +560,25 @@ public class DetailDAO implements IDetailDAO {
 			}
 			return result;
 		}
-		
-		
-
+		//insert時用，查詢身份證字號是否已使用
+		private final String selectSameId = "SELECT 'ID已使用' as sameID FROM Employee join Family on Employee.emp_NO = Family.emp_NO WHERE emp_ID = ? or fam_Id = ?";
+		@Override
+		public String selectSameId(String id){
+			String result=null;
+			try (Connection conn = ds.getConnection();PreparedStatement stmt = conn.prepareStatement(selectSameId);) {
+				stmt.setString(1, id);
+				stmt.setString(2, id);
+				ResultSet rset = stmt.executeQuery();
+				while(rset.next()){
+					result = rset.getString("sameID");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
+		//由福委會新增親屬
 	private static final String INSERT_Detail = "insert into Detail(emp_No,fam_No,tra_No,det_Date,det_money) values(?,?,?,GETDATE(),?)";
-
 	@Override
 	public boolean insert(DetailVO bean) {
 		boolean b =true;
@@ -582,7 +597,7 @@ public class DetailDAO implements IDetailDAO {
 		}
 		return b;
 	}
-
+	//由福委會新增員工
 	private static final String INSERT_DetailEmp = "insert into Detail(emp_No,tra_No,det_Date,det_money) values(?,?,GETDATE(),?)";
 
 	@Override
@@ -601,7 +616,7 @@ public class DetailDAO implements IDetailDAO {
 		}
 		return b;
 	}
-	
+	//新增員工時，insert一筆TotalAmount
 	private static final String INSERT_TA = "INSERT INTO TotalAmount(tra_No,emp_No,TA_money,thisyear,yearsub) values(?,?,?,?,?)";
 
 	@Override
@@ -621,7 +636,7 @@ public class DetailDAO implements IDetailDAO {
 		return b;
 	}
 
-	// 更新取消日期=點選當下的時間
+	// 更新取消日期=點選當下的時間，連同親屬一起取消(員工)
 	private static final String UPDATE_CanDate = "update Detail set det_CanDate=GETDATE(), det_canNote=? where emp_No=? and tra_No=? and det_CanDate is null";
 
 	@Override
@@ -638,7 +653,7 @@ public class DetailDAO implements IDetailDAO {
 		return result;
 	}
 	
-	// 更新取消日期=點選當下的時間(親屬)
+	// 更新取消日期=點選當下的時間，單筆取消(親屬)
 		private static final String UPDATE_FamCanDate = "update Detail set det_CanDate=GETDATE(), det_canNote=? where det_No=? and det_CanDate is null";
 		@Override
 		public List<DetailBean> update_FamCanDate(int det_No, String det_canNote) {
@@ -686,7 +701,7 @@ public class DetailDAO implements IDetailDAO {
 		return b;
 	}
 
-	// 報名明細update員工table
+	//由報名明細update員工table
 	private static final String UPDATE_empData = "update Employee set emp_name=?, emp_Phone=?, emp_Sex=?, emp_ID=?, emp_Bdate=?, emp_Eat=?, emp_Ben=?, emp_BenRel=?, emp_Emg=?, emp_EmgPhone=?, emp_Note=?  where emp_No=?";
 
 	@Override
@@ -713,7 +728,7 @@ public class DetailDAO implements IDetailDAO {
 		return b;
 	}
 
-	// 報名明細update親屬table
+	//由報名明細update親屬table
 	private static final String UPDATE_famData = "update Family set fam_Rel=?,fam_Name=?,fam_Phone=?,fam_Sex=?,fam_Id=?,fam_Bdate=?,fam_Eat=?,fam_Car=?,fam_Bady=?,fam_kid=?,fam_Dis=?,fam_Mom=?,fam_Ben=?,fam_BenRel=?,fam_Emg=?,fam_EmgPhone=?,fam_Note=? where fam_No=?";
 
 	@Override
@@ -747,6 +762,7 @@ public class DetailDAO implements IDetailDAO {
 		return b;
 	}
 	
+	//取消or新增家屬時更新TotalAmount
 		private static final String UPDATE_TA = "update TotalAmount set TA_money=?, yearsub=? where emp_No=? and tra_No=?";
 
 		@Override
@@ -765,6 +781,7 @@ public class DetailDAO implements IDetailDAO {
 		return b;
 	}
 		
+		//將TotalAmount的輔助金變為未套用
 	private static final String UPDATE_TA_SUB = "update TotalAmount set yearsub=0 where yearsub=1 and emp_No=? and thisyear=?";
 	@Override
 	public boolean Update_TA_SUB(int emp_No, String thisyear) {
@@ -780,6 +797,7 @@ public class DetailDAO implements IDetailDAO {
 		return b;
 	}
 		
+	//取消員工時，刪除TotalAmount明細
 	private static final String DELETE_TA = "delete from TotalAmount where tra_No=? and emp_No=?";
 	@Override
 	public boolean DELETE_TA(String Tra_No, int Emp_No){
@@ -871,6 +889,7 @@ public class DetailDAO implements IDetailDAO {
 		}
 		return result;
 	}
+	
 	
 private final String selectDetail_by_Tra_No_Can="select count(det_No) as count from Detail where tra_No=? and det_CanDate is Not null";
 	
