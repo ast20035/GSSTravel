@@ -52,7 +52,7 @@ margin-bottom: 4%;
 		</div>
 		<div class='row'>
 			<div class='col-md-6 col-md-offset-1'>
-				<form action="<c:url value='/SetUpTravel'/>" method="GET">
+				<form action="<c:url value='/SetUpTravel'/>" method="POST">
 					<table class="t table">
 
 						<tr>
