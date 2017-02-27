@@ -250,6 +250,7 @@ public class SetUpTravel extends HttpServlet {
 			request.setAttribute("tra_No", tra_No);
 			request.setAttribute("error", error);
 			request.getRequestDispatcher("/Travel_New.jsp").forward(request, response);
+			return;
 		}
 
 		TravelVO travelVO = new TravelVO();
