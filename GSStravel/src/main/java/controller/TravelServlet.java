@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.AnnouncementService;
 import model.IItemDAO;
 import model.ItemDAO;
 import model.ItemService;
@@ -29,6 +31,11 @@ public class TravelServlet extends HttpServlet {
 
 	private TravelService travelService = new TravelService();
 	private ItemService itemService = new ItemService();
+	
+	//柯(請勿刪除)
+		private AnnouncementService announcementService = new AnnouncementService();
+	//柯(請勿刪除)
+		
 	/* 初始化 */
 
 	private SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd");
@@ -430,7 +437,15 @@ public class TravelServlet extends HttpServlet {
 				session.setAttribute("delete", 1);
 			}
 		}
-	request.getRequestDispatcher("/Travel_Edit.jsp").forward(request, response); // 測試用
+		
+		//柯(請勿刪除)
+			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			Date date = new Date();
+			String now = sdFormat.format(date);
+			announcementService.insert(now, traName+"行程異動", traCon);
+		//柯(請勿刪除)
+		
+		request.getRequestDispatcher("/Travel_Edit.jsp").forward(request, response); // 測試用
 		//response.sendRedirect(request.getContextPath() + "/Travel_Edit.jsp");
 
 	}// doGet

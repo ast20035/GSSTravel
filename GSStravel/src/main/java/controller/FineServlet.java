@@ -67,7 +67,7 @@ public class FineServlet extends HttpServlet {
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		Date nowDate = new Date();
 		String now = sdFormat.format(nowDate);
-		
+
 		boolean power = true;
 		if ("儲存罰則".equals(save)) {
 			power = false;
@@ -151,7 +151,7 @@ public class FineServlet extends HttpServlet {
 						}
 					}
 				}
-				
+
 				int btn = 0;
 				float[] percent = new float[temp2.length];
 				if (temp2[0] != "") {
@@ -206,6 +206,9 @@ public class FineServlet extends HttpServlet {
 							}
 						}
 					}
+					if (btn == 1) {
+						announcementService.insert(now, "罰則異動通知", "罰則有些許的變更，請注意您所報名的行程，謝謝！");
+					}
 					response.sendRedirect(request.getContextPath() + "/FineShowServlet?em=1&btn=" + btn);
 				}
 			}
@@ -233,11 +236,6 @@ public class FineServlet extends HttpServlet {
 				i++;
 			}
 			em.send(emp, "罰則異動通知！", "您好！\n罰則有些許的變更，請注意您所報名的行程，謝謝！\n祝您旅途愉快！");
-		}
-		if ("公告罰則異動".equals(board)) {
-			power = true;
-			announcementService.insert(now, "罰則異動通知", "罰則有些許的變更，請注意您所報名的行程，謝謝！");
-			response.sendRedirect(request.getContextPath() + "/FineShowServlet");
 		}
 		if ("罰則設定".equals(set)) {
 			PrintWriter out = response.getWriter();

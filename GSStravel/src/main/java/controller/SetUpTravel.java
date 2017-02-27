@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.AnnouncementService;
 import model.ItemService;
 import model.ItemVO;
 import model.TravelService;
@@ -22,6 +23,7 @@ public class SetUpTravel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TravelService travelService = new TravelService();
 	private ItemService itemService = new ItemService();
+	private AnnouncementService announcementService = new AnnouncementService();
 
 	public SetUpTravel() {
 		super();
@@ -300,6 +302,14 @@ public class SetUpTravel extends HttpServlet {
 		}
 		request.setAttribute("tra_No", tra_No);
 		request.setAttribute("tra_Name", tra_Name);
+		
+		//柯(請勿刪除)
+			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			Date date = new Date();
+			String now = sdFormat.format(date);
+			announcementService.insert(now, "新增"+tra_Name+"行程", tra_Con);
+		//柯(請勿刪除)
+		
 		request.getRequestDispatcher("/SetUpTravel.jsp").forward(request, response);
 
 	}

@@ -40,7 +40,6 @@ td>strong {
 </style>
 <script>
 		var fineEmail=null;
-		var fineBoard=null;
 		var myImg=null;
 		var close1=null;
 		var close2=null;
@@ -53,7 +52,6 @@ td>strong {
 		
 		window.onload = function() {
 			fineEmail = document.getElementById("FineEmail");
-			fineBoard = document.getElementById("FineBoard");
 			myImg = document.getElementById("img1"), xhr = null;
 			close1 = document.getElementById("close1");
 			close2 = document.getElementById("close2");
@@ -97,7 +95,6 @@ td>strong {
 				close6.removeAttribute("href");
 				close7.disabled = true;
 				closeFine.disabled = true;
-				fineBoard.disabled = true;
 				myImg.style.display = "inline";
 				fineEmail.setAttribute("disabled", "disabled");
 				wait();
@@ -111,7 +108,6 @@ td>strong {
 				close6.setAttribute("href","<c:url value='/BoardMaintain.jsp'/>");
 				close7.disabled = false;
 				closeFine.disabled = false;
-				fineBoard.disabled = false;
 				myImg.style.display = "none";
 				fineEmail.value = "Email寄送成功！";
 			}
@@ -158,8 +154,6 @@ td>strong {
 						class='btn btn-primary' id="closeFine"
 						onclick="window.location.href=resultjs+'/FineSetting.jsp'" /><br>
 					<br>
-					<input class='btn btn-primary' type="submit" id="FineBoard" name="FineBoard" value="公告罰則異動"/> 
-					<br><br>
 					<input class='btn btn-primary' type="button"
 						id="FineEmail" name="FineEmail" value="寄送罰則異動通知" onclick="load()" disabled="disabled"/> 
 					<img src="images/ajax-loader.gif" id="img1" style="display: none" />
