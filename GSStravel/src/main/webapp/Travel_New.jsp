@@ -33,7 +33,14 @@ table {
 	font-size: 15px;
 }
 body{
+margin-top: 2%;
 margin-bottom: 4%;
+}
+h2{
+color:	#00AAAA;
+font-weight:bold;
+border-left:6px solid gray;
+padding-left:10px;
 }
 </style>
 <title>行程編輯</title>
@@ -46,12 +53,14 @@ margin-bottom: 4%;
 <body>
 	<div class='container-fluid'>
 		<div class='row'>
-			<div class='col-md-1 col-md-offset-1'>
-				<h2>行程修改</h2>
+			<div class='col-md-2 col-md-offset-3'>
+				<h2>新增行程</h2>
 			</div>
 		</div>
+		<br>
+		<br>
 		<div class='row'>
-			<div class='col-md-6 col-md-offset-1'>
+			<div class='col-md-6 col-md-offset-3'>
 				<form action="<c:url value='/SetUpTravel'/>" method="POST">
 					<table class="t table">
 
@@ -70,7 +79,7 @@ margin-bottom: 4%;
 						</tr>
 						<tr>
 							<td>*活動地點</td>
-							<td><select name="edittraLoc" class='form-control' style='width:60px;'>
+							<td><select name="edittraLoc" class='form-control' style='width:80px;'>
 
 									<option value="北" ${params.tra_Loc == '北' ? 'selected' : ''}>北</option>
 									<option value="中" ${params.tra_Loc == '中' ? 'selected' : ''}>中</option>
@@ -155,16 +164,16 @@ margin-bottom: 4%;
 					</tr>
 					<tr>
 						<td class="t" >團費</td>
-						<td class="t"><input type="text" name="item1"/></td>
+						<td class="t"><input type="text" name="item1" class='form-control' style='width:100px;text-align: right;'/></td>
 					</tr>
 					<tr>
 						<td class="t">保險費</td>
-						<td class="t"><input type="text" name="item2"/></td>
+						<td class="t"><input type="text" name="item2" class='form-control'  style='width:100px;text-align: right;'/></td>
 					</tr>
 					<c:forEach var="row" items="${paramsi}">
 						<tr>
 
-							<td><SELECT name="edititemName" class='form-control'>
+							<td><SELECT name="edititemName" class='form-control' style='width:150px; '>
 									
 									<option value="住宿費(兩人房)"
 											${row.item_Name == '住宿費(兩人房)' ? 'selected' : ''}>住宿費(兩人房)</option>
@@ -184,12 +193,12 @@ margin-bottom: 4%;
 				</table>
 
 				<input type="submit"  value="新增" class='btn btn-primary'>	
-			</form>
-			<button class='btn  btn-primary'><a href="<c:url value='/search2.jsp'/>" style="color:white;text-decoration:none;">回到上一頁</a></button>
+				<button class='btn  btn-primary'><a href="<c:url value='/search2.jsp'/>" style="color:white;text-decoration:none;">回到上一頁</a></button>
+			</form>	
 			<table>
 
 				<tr name="newtable">
-					<td><SELECT name="edititemName" class='form-control'>
+					<td><SELECT name="edititemName" class='form-control' style='width:150px; '>
 							<option selected="selected" disabled="disabled">請選擇</option>
 							<option value="住宿費(兩人房)"
 									${row.item_Name == '住宿費(兩人房)' ? 'selected' : ''}>住宿費(兩人房)</option>
@@ -199,7 +208,7 @@ margin-bottom: 4%;
 									${row.item_Name == '住宿費(加床)' ? 'selected' : ''}>住宿費(加床)</option>
 
 					</SELECT></td>
-					<td><input type="text" name="edititemMoney" class='form-control'
+					<td><input type="text" name="edititemMoney" class='form-control' style='width:100px; text-align: right;'
 							value="${row.item_Money}"></td>
 					<td><input type="submit" name="delete" id="delete" class='btn btn-danger'
 							value="delete"></td>

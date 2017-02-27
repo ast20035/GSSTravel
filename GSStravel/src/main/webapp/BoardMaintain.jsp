@@ -154,7 +154,7 @@ table, tr, td {
 				</form>
 				<br>
 				<form action="<c:url value="/AnnouncementServlet" />" method="GET">
-					<select id="day" name="day" onchange="optionTime()" class='form-control' style='width: 150px;'>
+					<select id="day" name="day" onchange="optionTime()" class='form-control' style='width: 170px;'>
 						<option value="365">刪除1年前の公告</option>
 						<option value="183">刪除半年前の公告</option>
 						<option value="91">刪除3個月前の公告</option>
@@ -162,6 +162,7 @@ table, tr, td {
 						<option value="7">刪除1週前の公告</option>
 						<option value="1">刪除1天前の公告</option>
 					</select>
+					<br>
 					<input type="submit" value="刪除" name="delete" class='btn btn-danger' />
 				</form>
 			</div>

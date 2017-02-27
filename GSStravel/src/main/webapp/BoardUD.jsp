@@ -22,13 +22,21 @@
 <title>公告編輯</title>
 <style type="text/css">
 .container-fluid {
-	margin-top: 5%;
+	margin-top: 2%;
 	font-size: 20px;
 }
-
 input, textarea {
 	margin-top: 10px;
 	margin-bottom: 10px;
+	border: 0px;
+	border-top: 1px solid #DDDDDD;
+	border-bottom: 1px solid #DDDDDD;
+}
+h2{
+color:	#00AAAA;
+font-weight:bold;
+border-left:6px solid gray;
+padding-left:10px;
 }
 </style>
 <script>
@@ -119,10 +127,11 @@ input, textarea {
 <body>
 	<div class='container-fluid'>
 		<div class="row">
-			<div class='col-md-offset-5'>
+			<div class='col-md-offset-3 col-md-2'>
 				<h2>修改公告</h2>
 			</div>
 		</div>
+		<br>
 		<br>
 		<div class='row'>
 			<div class='col-md-offset-4 col-md-4'>

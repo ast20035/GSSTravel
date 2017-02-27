@@ -119,33 +119,33 @@ table {
 									</c:if></td>
 								<c:if test="${list.fam_Name==NULL}">
 									<td><input type="text" class="years_money years_Money"
-										value="${list.years_money}" style="border-width: 0" readonly></td>
+										value="${list.years_money}" style="border-width: 0;text-align: right;" readonly></td>
 									<td><input type="text" class="person_money person_Money"
-										value="" style="border-width: 0" readonly> <input
+										value="" style="border-width: 0;text-align: right;" readonly> <input
 										type="hidden" class="person" value="${list.emp_No}"></td>
 								</c:if>
 								<c:if test="${list.fam_Name!=NULL}">
 									<td><input type="text" class="years_Money" value="0.0"
-										style="border-width: 0" readonly></td>
+										style="border-width: 0;text-align: right;" readonly></td>
 									<td><c:if test="${list.fam_sub}">
 											<input type="text" class="personfam_money person_Money"
-												style="border-width: 0" value="0.0" readonly>
+												style="border-width: 0;text-align: right;" value="0.0" readonly>
 											<input type="hidden" class="person" value="${list.emp_No}">
 										</c:if> <c:if test="${!list.fam_sub}">
 											<input type="text" class="onmoney person_Money" value="0.0"
-												style="border-width: 0" readonly>
+												style="border-width: 0;text-align: right;" readonly>
 										</c:if></td>
 								</c:if>
 								<td><input type="text" name="money" class="money Money"
-									value="${list.det_money}" style="border-width: 0" readonly></td>
+									value="${list.det_money}" style="border-width: 0;text-align: right;" readonly></td>
 								<td><input type="text" name="det_note"
 									class="det_note det_Note form-control" value="${list.det_note}"></td>
-								<td><input type="text" name="det_noteMoney"
+								<td><input type="text" name="det_noteMoney" style='text-align: right;width:180px'
 									class="det_noteMoney det_NoteMoney form-control"
 									value="${list.det_noteMoney}" onkeyup="changeNotemoney()"></td>
 								<td><c:if test="${list.fam_No==0}">
 										<input type="text" name="TA_money" class="TA_money ta_Money"
-											value="" style="border-width: 0" readonly>
+											value="" style="border-width: 0;text-align: right;" readonly>
 									</c:if> <c:if test="${list.fam_No!=0}">
 										<input type="hidden" class="ta_Money" value="0">
 									</c:if></td>

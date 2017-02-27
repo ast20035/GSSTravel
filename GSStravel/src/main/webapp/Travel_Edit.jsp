@@ -215,7 +215,18 @@ table {
 	font-size: 15px;
 }
 body{
+margin-top: 2%;
 margin-bottom: 4%;
+}
+label{
+color:#33CCFF;
+font-weight: lighter;
+}
+h2{
+color:	#00AAAA;
+font-weight:bold;
+border-left:6px solid gray;
+padding-left:10px;
 }
 </style>
 <title>行程編輯</title>
@@ -224,12 +235,14 @@ margin-bottom: 4%;
 <body>
 	<div class='container-fluid'>
 		<div class='row'>
-			<div class='col-md-1 col-md-offset-1'>
-				<h3>行程修改</h3>
+			<div class='col-md-2 col-md-offset-3'>
+				<h2>行程修改</h2>
 			</div>
 		</div>
+		<br>
+		<br>
 		<div class='row'>
-			<div class='col-md-6 col-md-offset-1'>
+			<div class='col-md-6 col-md-offset-3'>
 				<form name="formtable" id="formtable"action="<c:url value='/Travel_Edit'/>" method="GET" form onsubmit="return formtable_b()">
 					<table class="t table">
 
@@ -253,7 +266,7 @@ margin-bottom: 4%;
 						<tr>
 							<td>*活動地點</td>
 							<td><select name="edittraLoc" id="edittraLoc"
-								class='form-control' style='width: 60px;'>
+								class='form-control' style='width: 80px;'>
 
 									<option value="北" ${params.tra_Loc == '北' ? 'selected' : ''}>北</option>
 									<option value="中" ${params.tra_Loc == '中' ? 'selected' : ''}>中</option>
@@ -275,7 +288,7 @@ margin-bottom: 4%;
 								<div class="row">
 									<div class="col-xs-4">
 										<div class="Input-group">
-											<a>開始日期</a> <input type="date" name="edittraOn"
+											<label>開始日期</label> <input type="date" name="edittraOn"
 												id="edittraOn" class='form-control' style='width: 150px;'
 												value="${params.tra_On}">
 											<div id=edittraOnerror></div>
@@ -287,7 +300,7 @@ margin-bottom: 4%;
 
 									<div class="col-xs-4">
 										<div class="Input-group">
-											<a>結束日期</a> <input type="date" class='form-control'
+											<label>結束日期</label> <input type="date" class='form-control'
 												style='width: 150px;' name="edittraOff" id="edittraOff"
 												value="${params.tra_Off}">
 											<div id=edittraOfferror></div>
@@ -307,7 +320,7 @@ margin-bottom: 4%;
 									<fmt:parseDate value="${params.tra_Beg}" pattern="yyyy-MM-dd HH:mm:ss" var="myDate" />
     								<fmt:formatDate value="${myDate}" pattern="yyyy-MM-dd HH:mm:ss"  var="ttt"/>
   
-											<a>開始時間</a> <input type="text" name="edittraBeg"
+											<label>開始時間</label> <input type="text" name="edittraBeg"
 												id="edittraBeg" class='form-control' style='width: 200px;'
 												value="${ttt}">
 											<div id=edittraBegerror></div>
@@ -319,7 +332,7 @@ margin-bottom: 4%;
 										<div class="Input-group">
 										<fmt:parseDate value="${params.tra_End}" pattern="yyyy-MM-dd HH:mm:ss" var="myDateEnd" />
     								<fmt:formatDate value="${myDateEnd}" pattern="yyyy-MM-dd HH:mm:ss"  var="ddd"/>
-											<a>結束時間</a> <input type="text" class='form-control'
+											<label>結束時間</label> <input type="text" class='form-control'
 												style='width: 200px;' name="edittraEnd" id="edittraEnd"
 												value="${ddd}">
 
@@ -407,7 +420,7 @@ margin-bottom: 4%;
 							<tr>
 
 								<td><SELECT name="edititemName" id="edititemName"
-									class='form-control'>
+									class='form-control' style='width:150px;'>
 										
 										<option value="團費" ${row.item_Name == '團費' ? 'selected' : ''}>團費</option>
 										<option value="保險費"
@@ -425,19 +438,19 @@ margin-bottom: 4%;
 							
 							
 								
-						<td><input type="text" name="edititemMoney"
+						<td><input type="text" name="edititemMoney" style='width:100px; text-align: right;'
 							id="edititemMoney" class='form-control' value="${row.item_Money}">
 							<div id=edititemMoneyerror></div></td>
 						<c:if test="${row.item_Name != '團費' && row.item_Name != '保險費'}">
 						<td>
-						<input type="submit" name="delete" id="delete" class='btn btn-success' value="刪除">
+						<input type="submit" name="delete" id="delete" class='btn btn-danger' value="刪除">
 						</td>
 						</c:if>
 						</c:if>
 						<c:if test="${row.item_Name != '團費' && row.item_Name != '保險費'}">
 							<tr>
 
-								<td><SELECT name="edititemName" id="edititemName"
+								<td><SELECT name="edititemName" id="edititemName" style='width:150px;'
 									class='form-control'>
 										
 <%-- 										<option value="團費" ${row.item_Name == '團費' ? 'selected' : ''}>團費</option> --%>
@@ -456,12 +469,12 @@ margin-bottom: 4%;
 							
 							
 								
-						<td><input type="text" name="edititemMoney"
+						<td><input type="text" name="edititemMoney"  style='width:100px; text-align: right;'
 							id="edititemMoney" class='form-control' value="${row.item_Money}">
 							<div id=edititemMoneyerror></div></td>
 						<c:if test="${row.item_Name != '團費' && row.item_Name != '保險費'}">
 						<td>
-						<input type="submit" name="delete" id="delete" class='btn btn-success' value="刪除">
+						<input type="submit" name="delete" id="delete" class='btn btn-danger' value="刪除">
 						</td>
 						</c:if>
 						</c:if>
@@ -477,7 +490,7 @@ margin-bottom: 4%;
 				<table>
 
 					<tr name="newtable">
-						<td><SELECT name="edititemName" id="edititemName"
+						<td><SELECT name="edititemName" id="edititemName" style='width:150px;'
 							class='form-control'>
 								<option selected="selected" disabled="disabled">請選擇</option>
 								<option value="住宿費(兩人房)"
@@ -490,11 +503,11 @@ margin-bottom: 4%;
 
 						</SELECT>
 							<div id=edititemNameerror></div></td>
-						<td><input type="text" name="edititemMoney"
+						<td><input type="text" name="edititemMoney" style='width:100px; text-align: right;'
 							id="edititemMoney" class='form-control' value="${row.item_Money}">
 							<div id=edititemMoneyerror></div></td>
 						<td><input type="submit" name="delete" id="delete"
-							class='btn btn-success' value="刪除"></td>
+							class='btn btn-danger' value="刪除"></td>
 					</tr>
 				</table>
 

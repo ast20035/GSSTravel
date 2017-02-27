@@ -93,18 +93,11 @@ tbody a:visited:after {
 	color: white;
 	font-weight: normal;
 }
-
-.title {
-	text-align: left;
-	font-style: italic;
-	color: #000088;
-	padding-bottom: 1px;
-	padding-top: 5px;
-}
-
 h1, h2 {
 	color: #7744FF;
 	font-weight: bolder;
+	border-left:6px solid gray;
+padding-left:10px;
 }
 
 .input-group-addon.info {
