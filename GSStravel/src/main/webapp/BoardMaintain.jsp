@@ -34,9 +34,16 @@ table, tr, td {
 </style>
 <script>
 	window.onload = function() {
+		day = document.getElementById("day");
 		var title = document.getElementById('title');
 		var startDay = document.getElementById('startDay');
 		var endDay = document.getElementById('endDay');
+		setBoard();
+	}
+	
+	var day=null;
+	function optionTime() {
+		day = document.getElementById("day");
 		setBoard();
 	}
 
@@ -55,7 +62,10 @@ table, tr, td {
 				url = url + "startDay=" + startDay.value + "&";
 			}
 			if (endDay.value != undefined && endDay.value != '') {
-				url = url + "endDay=" + endDay.value;
+				url = url + "endDay=" + endDay.value + "&";
+			}
+			if (day.value != undefined && day.value != '') {
+				url = url + "day=" + day.value;
 			}
 			xh.addEventListener("readystatechange", setBoardData, false);
 			xh.open("GET", url, true);
@@ -144,8 +154,15 @@ table, tr, td {
 				</form>
 				<br>
 				<form action="<c:url value="/AnnouncementServlet" />" method="GET">
-					<input type="submit" value="刪除一年前の公告"
-						name="delete" class='btn btn-danger' />
+					<select id="day" name="day" onchange="optionTime()" class='form-control' style='width: 150px;'>
+						<option value="365">刪除1年前の公告</option>
+						<option value="183">刪除半年前の公告</option>
+						<option value="91">刪除3個月前の公告</option>
+						<option value="31">刪除1個月前の公告</option>
+						<option value="7">刪除1週前の公告</option>
+						<option value="1">刪除1天前の公告</option>
+					</select>
+					<input type="submit" value="刪除" name="delete" class='btn btn-danger' />
 				</form>
 			</div>
 		</div>

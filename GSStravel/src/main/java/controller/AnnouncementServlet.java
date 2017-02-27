@@ -27,6 +27,9 @@ public class AnnouncementServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		
+		String day = request.getParameter("day");
+		int count = Integer.parseInt(day);
 
 		String title = request.getParameter("title");
 		String startDay = request.getParameter("startDay");
@@ -37,13 +40,13 @@ public class AnnouncementServlet extends HttpServlet {
 		
 		SimpleDateFormat formatYMD = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
-		long beforeNow = (date.getTime() / 1000) - 60 * 60 * 24 * 365;
+		long beforeNow = (date.getTime() / 1000) - 60 * 60 * 24 * count;
 		date.setTime(beforeNow * 1000);
 		String beforeDate = formatYMD.format(date);
 		
 		List<AnnouncementVO> resultDelete = announcementService.select();
 		resultDelete = announcementService.BeforeOff(resultDelete, beforeDate);
-		if("刪除一年前の公告".equals(delete)){
+		if("刪除".equals(delete)){
 			for(int i=0;i<resultDelete.size();i++){
 				announcementService.delete(resultDelete.get(i).getAnno_Time());
 			}

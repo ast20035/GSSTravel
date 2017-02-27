@@ -47,21 +47,15 @@ input[type=text] {
 </style>
 
 <script>
-	$(document)
-			.ready(
-					function() {
-						$("#add")
-								.click(
-										function() {
-											$("#fineTable")
-													.append(
-															"<tr><td class='tdbtn'><input type='button' class='remove btn btn-info ' value='－'/></td><td><input name='day' type='text' autofocus value='${row.fine_Dates}' autocomplete='off' /></td><td><input name='percent' type='text' value='${row.fine_Per}' autocomplete='off' /></td></tr>");
-										});
+$(document).ready(function() {
+	$("#add").click(function() {
+		$("#fineTable").append("<tr><td class='tdbtn'><input type='button' class='remove btn btn-info ' value='－'/></td><td><input name='day' type='text' autofocus value='${row.fine_Dates}' autocomplete='off' /></td><td><input name='percent' type='text' value='${row.fine_Per}' autocomplete='off' /></td></tr>");
+	});
 
-						$(document).on("click", ".remove", function() {
-							$(this).parents("tr").remove();
-						});
-					});
+	$(document).on("click", ".remove", function() {
+		$(this).parents("tr").remove();
+	});
+});
 </script>
 <script>
 	window.onload = function() {
@@ -183,6 +177,27 @@ input[type=text] {
 			}
 		}
 	}
+	
+// 	function chkPwd() {
+//         var thePwd = document.getElementById("pwd").value;
+//         var re = new RegExp("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{6,}$");
+//         if (thePwd == "") {
+//             document.getElementById("pwd1").innerHTML = "<img src='Images/error.png' />You must enter the password !!";
+//             document.getElementById("pwd1").style.color = "red";
+//         }
+//         else if (thePwd.length >= 6) {
+//             if (re.test(thePwd)) {
+//                 document.getElementById("pwd1").innerHTML = "<img src='Images/correct.png' />The password is correct !!";
+//                 document.getElementById("pwd1").style.color = "green";
+//             } else {
+//                 document.getElementById("pwd1").innerHTML = "<img src='Images/warning.png' />The password is incorrect !!";
+//                 document.getElementById("pwd1").style.color = "#D9B300";
+//             }
+//         } else {
+//             document.getElementById("pwd1").innerHTML = "<img src='Images/error.png' />The length of password is less then 6 !!";
+//             document.getElementById("pwd1").style.color = "red";
+//         }
+//     }
 </script>
 </head>
 <body>
