@@ -133,7 +133,7 @@ public class DetailInsertServlet extends HttpServlet {
 							familyVO.setFam_EmgPhone(fam_EmgPhone);
 							familyVO.setFam_EmgRel(fam_EmgRel);
 							familyVO.setFam_Note(fam_Note);
-							String sId = detailService.selectSameId(fam_Id);
+							String sId = detailService.selectSameId(fam_Id, emp_no);
 							if (sId == null) {
 								boolean a = familyService.insert_fam(familyVO);
 								if (a) {

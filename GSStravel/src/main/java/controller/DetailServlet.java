@@ -193,6 +193,10 @@ public class DetailServlet extends HttpServlet {
 			//儲存家屬&親友
 			if (!rel.equals("員工")) {
 				try {
+					String temp_FamNo = req.getParameter("fam_No");
+					String car = req.getParameter("car");
+					String spe = req.getParameter("text_multiselect");
+					int fam_No = Integer.parseInt(temp_FamNo);
 					if (name.trim().length() == 0 || name == null) {
 						session.setAttribute("CanError", "儲存失敗！");
 					} else if (ben.trim().length() == 0 || ben == null) {
@@ -209,11 +213,9 @@ public class DetailServlet extends HttpServlet {
 						session.setAttribute("CanError", "儲存失敗！");
 					} else if (sex.equals("女") && !ID.substring(1, 2).equals("2")) {
 						session.setAttribute("CanError", "儲存失敗！");
+					} else if (detailService.selectSameId2(ID, fam_No) != null) {
+						session.setAttribute("CanError", "身份證字號重複！");
 					}else {
-						String temp_FamNo = req.getParameter("fam_No");
-						String car = req.getParameter("car");
-						String spe = req.getParameter("text_multiselect");
-						int fam_No = Integer.parseInt(temp_FamNo);
 						FamilyVO Fbean = new FamilyVO();
 						Fbean.setFam_Name(name);
 						Fbean.setFam_Rel(rel);
