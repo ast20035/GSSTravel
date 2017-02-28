@@ -44,52 +44,16 @@
 	input[type=text] {
 		border: 0px;
 	}
-	
-	.color-red {
-		border-color: red;
-	}
-	.color-green {
-		border-color: green;
-	}
 </style>
 <script>
 	$(document).ready(function() {
 		$("#add").click(function() {
-			$("#fineTable").append("<tr><td class='tdbtn'><input type='button' class='remove btn btn-info ' value='－'/></td><td><input name='day' class='day' type='text' autofocus value='${row.fine_Dates}' autocomplete='off' onblur='checkDay(this)' /></td><td><input name='percent' class='percent' type='text' value='${row.fine_Per}' autocomplete='off' onblur='checkPercent(this)' /></td></tr>");
+			$("#fineTable").append("<tr><td class='tdbtn'><input type='button' class='remove btn btn-info ' value='－'/></td><td><input name='day' type='text' autofocus value='${row.fine_Dates}' autocomplete='off' onblur='checkDay(this)' /></td><td><input name='percent' type='text' value='${row.fine_Per}' autocomplete='off' onblur='checkPercent(this)' /></td></tr>");
 		});
 	
 		$(document).on("click", ".remove", function() {
 			$(this).parents("tr").remove();
 		});
-		
-// 		var regDay = new RegExp("^[0-9]{1,}$");
-// 		var regPercent = new RegExp("^([0-9]{1,2})([.]{1})([0-9]{1,})$");
-// 		$(".day").on("blur", ".day", function(){
-// 			if($(this).val()==""){
-// 				$(this).css("border-color","red");
-// 			}else{
-// 				if(regDay.test($(this).val())){
-// 					$(this).css("border-color","green")
-// 				}else{
-// 					$(this).css("border-color","red");
-// 				}
-// 			}
-// 	    });
-// 	    $(".percent").on("blur", ".percent", function(){
-// 	    	if($(this).val()==""){
-// 				$(this).css("border-color","red");
-// 			}else{
-// 		    	if(regDay.test($(this).val())){
-// 		    		if(regPercent.test($(this).val())){
-// 		    			$(this).css("border-color","green")
-// 		    		}else{
-// 		    			$(this).css("border-color","red");
-// 		    		}
-// 				}else{
-// 					$(this).css("border-color","red");
-// 				}
-// 			}
-// 	    });
 	});
 </script>
 <script>
@@ -143,7 +107,6 @@
 					var buttonDay = document.createElement("input");
 					buttonDay.setAttribute("type", "text");
 					buttonDay.setAttribute("name", "day");
-					buttonDay.setAttribute("class", "day");
 					buttonDay.setAttribute("value", fine[i].day);
 					buttonDay.setAttribute("autocomplete", "off");
 					buttonDay.setAttribute("onblur", "checkDay(this)");
@@ -154,7 +117,6 @@
 					var buttonPercent = document.createElement("input");
 					buttonPercent.setAttribute("type", "text");
 					buttonPercent.setAttribute("name", "percent");
-					buttonPercent.setAttribute("class", "percent");
 					buttonPercent.setAttribute("value", fine[i].percent);
 					buttonPercent.setAttribute("autocomplete", "off");
 					buttonPercent.setAttribute("onblur", "checkPercent(this)");
@@ -169,24 +131,32 @@
 		}
 	}
 	
+	
 	function checkDay(day) {
 		var regDay = new RegExp("^[0-9]{1,}$");
-		if (isNaN(day.value)) {
-			$(day).addClass("color-red");
-			$(day).removeClass("color-green");
-        } 
-// 		else if (regDay.test(theDay)) {
-//         	$(this).css("border-color","green");
-//         } 
-        else {
-        	$(day).addClass("color-green");
-			$(day).removeClass("color-red");
-        }
+		if (day.value == "") {
+			day.style.border = "1px solid red";
+		} else if (day.value <= 0 || !regDay.test(day.value)) {
+			day.style.border = "1px solid red";
+		} else {
+			day.style.border = "1px solid green";
+		}
 	}
-	
+
 	function checkPercent(percent) {
 		var regDay = new RegExp("^[0-9]{1,}$");
 		var regPercent = new RegExp("^([0-9]{1,2})([.]{1})([0-9]{1,})$");
+		if (percent.value == "") {
+			percent.style.border = "1px solid red";
+		} else if (percent.value <= 0 || !regDay.test(percent.value) || percent.value >= 100) {
+			if (percent.value <= 0 || !regPercent.test(percent.value) || percent.value >= 100) {
+				percent.style.border = "1px solid red";
+			}else if (percent.value > 0 && regPercent.test(percent.value) && percent.value < 100) {
+				percent.style.border = "1px solid green";
+			}
+		} else {
+			percent.style.border = "1px solid green";
+		}
 	}
 
 	function check() {
@@ -221,11 +191,11 @@
 			} else if (i == step && pk == 1) {
 				alert("取消日已存在！");
 				break;
-			} else if (percent[i].value <= 0 || !regDay.test(percent[i].value)) {
-				if (percent[i].value <= 0 || !regPercent.test(percent[i].value)) {
+			} else if (percent[i].value <= 0 || !regDay.test(percent[i].value) || percent[i].value >= 100) {
+				if (percent[i].value <= 0 || !regPercent.test(percent[i].value) || percent[i].value >= 100) {
 					alert("扣款比例必須為小於100的正數！");
 					break;
-				} else if (regPercent.test(percent[i].value)
+				} else if (percent[i].value > 0 && regPercent.test(percent[i].value) && percent[i].value < 100
 						&& i == day.length - 1) {
 					$("#FineSave").val("儲存罰則");
 					$("#DataForm").submit();
