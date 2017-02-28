@@ -148,13 +148,13 @@ padding-left:10px;
 	border: 0;
 }
 
-#close5 {
+#close7 {
 	margin-left: 5px;
 }
 
 .Mnow {
-	border-left: 2px solid blue;
-	border-right: 2px solid blue;
+	border-left: 3px solid blue;
+	border-right: 3px solid blue;
 }
 </style>
 <nav class="navbar navbar-fixed-top topBar navbar">
