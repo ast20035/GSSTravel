@@ -14,8 +14,8 @@ import javax.mail.internet.MimeMessage;
 public class email {
 	private String host = "smtp.gmail.com";
 	private int port = 587;
-	private final String username = "gsstravelteam2@gmail.com";
-	private final String password = "bjo4u;6vu/4zj6fu4u,4";// 叡揚幸福企業
+	private final String username = "gsstravelteam2@gmail.com";// EEIT91整組共用的email
+	private final String password = "bjo4u;6vu/4zj6fu4u,4";// 叡揚幸福企業(鍵盤照打)
 
 	// email:寄給誰 ;title:標題 ;content:內容
 	public void send(String email, String title, String content) {

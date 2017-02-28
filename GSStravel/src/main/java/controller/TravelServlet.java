@@ -31,10 +31,7 @@ public class TravelServlet extends HttpServlet {
 
 	private TravelService travelService = new TravelService();
 	private ItemService itemService = new ItemService();
-	
-	//柯(請勿刪除)
-		private AnnouncementService announcementService = new AnnouncementService();
-	//柯(請勿刪除)
+	private AnnouncementService announcementService = new AnnouncementService();
 		
 	/* 初始化 */
 
@@ -81,8 +78,7 @@ public class TravelServlet extends HttpServlet {
 		Map<String, String> errors = new HashMap<String, String>();
 		request.setAttribute("errors", errors);
 		
-
-		// 柯(請勿刪除)
+		// 匯出Excel
 		if ("匯出Excel".equals(excel)) {
 			TravelVO travelBean = new TravelVO();
 			List<TravelVO> tResult = travelService.selectExcel(travelBean);
@@ -97,10 +93,7 @@ public class TravelServlet extends HttpServlet {
 						tResult.get(i).getTra_File());
 			}
 			request.getRequestDispatcher("/search2.jsp").forward(request, response);
-		} // 柯(請勿刪除)
-		
-
-		
+		}
 		
 		/*
 		 * if("Insert".equals(inputerrors) || "Update".equals(prodaction) ||

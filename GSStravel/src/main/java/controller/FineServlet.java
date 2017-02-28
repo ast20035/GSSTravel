@@ -59,12 +59,11 @@ public class FineServlet extends HttpServlet {
 		String save = request.getParameter("FineSave");
 		String show = request.getParameter("FineShow");
 		String email = request.getParameter("FineEmail");
-		String board = request.getParameter("FineBoard");
 		FineVO fineBean = new FineVO();
 		TravelVO travelBean = new TravelVO();
 		ItemVO itemBean = new ItemVO();
 
-		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:24小時制
 		Date nowDate = new Date();
 		String now = sdFormat.format(nowDate);
 
@@ -81,8 +80,8 @@ public class FineServlet extends HttpServlet {
 				fineService.delete(fineBean);
 				List<TravelVO> tResult = travelService.select(travelBean);
 				List<FineVO> fResult = fineService.select();
-				countI = fResult.size() - 1;
-				countJ = tResult.size() - 1;
+				countI = fResult.size() - 1;// 記錄罰則筆數方便jsp輸出用
+				countJ = tResult.size() - 1;// 記錄行程筆數方變jsp輸出用
 				request.setAttribute("countI", countI);
 				request.setAttribute("countJ", countJ);
 				RequestDispatcher rd = request.getRequestDispatcher("/FineShow.jsp");
@@ -90,7 +89,7 @@ public class FineServlet extends HttpServlet {
 			} else {
 				int count1 = 0;
 				int count2 = 0;
-				if ("儲存罰則".equals(save)) {
+				if ("儲存罰則".equals(save)) {// 後端擋住尚未輸入罰則天數
 					for (int i = 0; i < temp1.length; i++) {
 						if (temp1[i] == "") {
 							count1 = 1;
@@ -100,7 +99,7 @@ public class FineServlet extends HttpServlet {
 						error.put("day", "請輸入取消日！");
 					}
 				}
-				if ("儲存罰則".equals(save)) {
+				if ("儲存罰則".equals(save)) {// 後端擋住尚未輸入罰則扣款比例
 					for (int i = 0; i < temp1.length; i++) {
 						if (temp2[i] == "") {
 							count2 = 1;
@@ -120,14 +119,14 @@ public class FineServlet extends HttpServlet {
 				int[] dayCheck = new int[temp1.length];
 				if (temp1[0] != "") {
 					try {
-						for (int i = 0; i < temp1.length; i++) {
+						for (int i = 0; i < temp1.length; i++) {// 轉換罰則取消日
 							day[i] = Integer.parseInt(temp1[i]);
 							dayCheck[i] = Integer.parseInt(temp1[i]);
 							if (day[i] <= 0) {
 								plus = 1;
 							}
 						}
-						for (int j = 0; j < temp1.length - 1; j++) {
+						for (int j = 0; j < temp1.length - 1; j++) {// 檢查罰則取消日是否重複
 							for (int k = j + 1; k < temp1.length; k++) {
 								if (day[j] == dayCheck[k]) {
 									check = 1;
@@ -156,7 +155,7 @@ public class FineServlet extends HttpServlet {
 				float[] percent = new float[temp2.length];
 				if (temp2[0] != "") {
 					try {
-						for (int i = 0; i < temp2.length; i++) {
+						for (int i = 0; i < temp2.length; i++) {// 轉換罰則扣款比例
 							percent[i] = Float.parseFloat(temp2[i]);
 							if (percent[i] <= 0 || percent[i] > 100) {
 								hundred = 1;
@@ -178,7 +177,7 @@ public class FineServlet extends HttpServlet {
 				}
 
 				if ("儲存罰則".equals(save)) {
-					if (error != null && !error.isEmpty()) {
+					if (error != null && !error.isEmpty()) {// 如果以上有錯誤則無法成功顯示罰則
 						List<FineVO> result = fineService.select();
 						request.setAttribute("select", result);
 						RequestDispatcher rd = request.getRequestDispatcher("/FineSetting.jsp");
@@ -189,14 +188,14 @@ public class FineServlet extends HttpServlet {
 
 				if ("儲存罰則".equals(save)) {
 					List<FineVO> fResult1 = fineService.select();
-					fineService.delete(fineBean);
+					fineService.delete(fineBean);// 每次儲存時刪除全部罰則
 					for (int i = 0; i < temp1.length; i++) {
 						fineBean.setFine_Dates(day[i]);
 						fineBean.setFine_Per(percent[i]);
-						fineService.insert(fineBean);
+						fineService.insert(fineBean);// 再新增全部罰則
 					}
 					List<FineVO> fResult2 = fineService.select();
-					if (fResult1.size() != fResult2.size()) {
+					if (fResult1.size() != fResult2.size()) {// 判斷儲存後罰則是否有異動
 						btn = 1;
 					} else {
 						for (int i = 0; i < fResult1.size(); i++) {
@@ -206,7 +205,7 @@ public class FineServlet extends HttpServlet {
 							}
 						}
 					}
-					if (btn == 1) {
+					if (btn == 1) {// 有異動才能寄發email
 						announcementService.insert(now, "罰則異動通知", "罰則有些許的變更，請注意您所報名的行程，謝謝！");
 					}
 					response.sendRedirect(request.getContextPath() + "/FineShowServlet?em=1&btn=" + btn);
@@ -230,7 +229,7 @@ public class FineServlet extends HttpServlet {
 			}
 			int i = 0;
 			String emp = "";
-			while (mailIt.hasNext()) {
+			while (mailIt.hasNext()) {// 取得所有員工的email並寄發罰則異動通知
 				mail[i] = mailIt.next().toString();
 				emp = emp + mail[i] + ",";
 				i++;
@@ -240,7 +239,7 @@ public class FineServlet extends HttpServlet {
 		if ("罰則設定".equals(set)) {
 			PrintWriter out = response.getWriter();
 			List<FineVO> result = fineService.select();
-			out.print(fineService.to_Json(result));
+			out.print(fineService.to_Json(result));// 顯示目前所有罰則
 			return;
 		}
 		if ("罰則明細".equals(show)) {
@@ -248,8 +247,8 @@ public class FineServlet extends HttpServlet {
 			List<TravelVO> tResult = travelService.select(travelBean);
 			List<FineVO> fResult = fineService.select();
 			List<ItemVO> iResult = itemService.select(itemBean);
-			countI = fResult.size() - 1;
-			countJ = tResult.size() - 1;
+			countI = fResult.size() - 1;// 記錄罰則筆數方便jsp輸出用
+			countJ = tResult.size() - 1;// 記錄全部行程筆數方便jsp輸出用
 			request.setAttribute("countI", countI);
 			request.setAttribute("countJ", countJ);
 			request.setAttribute("tSelect", tResult);
@@ -263,7 +262,7 @@ public class FineServlet extends HttpServlet {
 			String[][] afterDay = new String[tResult.size()][fResult.size() + 1];
 			List<String> days = new ArrayList<String>();
 			Format formatter = new SimpleDateFormat("yyyy-MM-dd");
-			for (int i = 0; i < tResult.size(); i++) {
+			for (int i = 0; i < tResult.size(); i++) {// 計算出依據罰則取消日天數而得的日期
 				long date = tResult.get(i).getTra_On().getTime() / 1000;
 				startDay = tResult.get(i).getTra_On().toString();
 				days.add(startDay);
