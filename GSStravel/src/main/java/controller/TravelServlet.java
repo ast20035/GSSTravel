@@ -63,10 +63,7 @@ public class TravelServlet extends HttpServlet {
 		String traCon = request.getParameter("edittraCon");
 		String traAtter = request.getParameter("edittraAtter");
 		String traFile = request.getParameter("edittraFile");
-		
-		//柯(請勿刪除)
-			String excel = request.getParameter("excel");
-		//柯(請勿刪除)
+		String excel = request.getParameter("excel");
 
 		String[] itemNo = request.getParameterValues("edititemNo");
 		String[] itemName = request.getParameterValues("edititemName");
@@ -349,6 +346,12 @@ public class TravelServlet extends HttpServlet {
 		// else
 
 		if ("更新".equals(inputerrors)) {
+			
+			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:24小時制
+			Date date = new Date();
+			String now = sdFormat.format(date);// 取得現在時間
+			announcementService.insert(now, traName+"行程異動", traCon);// 新增公告
+			
 			/*--Travel--*/
 			travelview.setTra_Name(edittraName);
 			travelview.setTra_Loc(edittraLoc);
@@ -430,17 +433,8 @@ public class TravelServlet extends HttpServlet {
 				session.setAttribute("delete", 1);
 			}
 		}
-		
-		//柯(請勿刪除)
-			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-			Date date = new Date();
-			String now = sdFormat.format(date);
-			announcementService.insert(now, traName+"行程異動", traCon);
-		//柯(請勿刪除)
-		
 		request.getRequestDispatcher("/Travel_Edit.jsp").forward(request, response); // 測試用
 		//response.sendRedirect(request.getContextPath() + "/Travel_Edit.jsp");
-
 	}// doGet
 
 	@Override
