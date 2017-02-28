@@ -561,13 +561,14 @@ public class DetailDAO implements IDetailDAO {
 			return result;
 		}
 		//insert時用，查詢身份證字號是否已使用
-		private final String selectSameId = "SELECT 'ID已使用' as sameID FROM Employee join Family on Employee.emp_NO = Family.emp_NO WHERE emp_ID = ? or fam_Id = ?";
+		private static final String selectSameId = "SELECT 'ID已使用' as sameID FROM Employee join Family on Employee.emp_NO = Family.emp_NO WHERE emp_ID = ? or fam_Id = ? and Employee.emp_NO = ?";
 		@Override
-		public String selectSameId(String id){
+		public String selectSameId(String id, int emp_No){
 			String result=null;
 			try (Connection conn = ds.getConnection();PreparedStatement stmt = conn.prepareStatement(selectSameId);) {
 				stmt.setString(1, id);
 				stmt.setString(2, id);
+				stmt.setInt(3, emp_No);
 				ResultSet rset = stmt.executeQuery();
 				while(rset.next()){
 					result = rset.getString("sameID");
@@ -576,6 +577,25 @@ public class DetailDAO implements IDetailDAO {
 				e.printStackTrace();
 			}
 			return result;
+		}
+		
+		//update親屬資料時用，查詢身份證字號是否已使用
+		private static final String selectSameId2 = "SELECT 'ID已重複' as sameID FROM Family where fam_id=? and fam_no <> ?";
+		@Override
+		public String Select_SamId2(String fam_id, int fam_No){
+			String result=null;
+			try (Connection conn = ds.getConnection();PreparedStatement stmt = conn.prepareStatement(selectSameId2);) {
+				stmt.setString(1, fam_id);
+				stmt.setInt(2, fam_No);
+				ResultSet rset = stmt.executeQuery();
+				while(rset.next()){
+					result = rset.getString("sameID");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return result;
+			
 		}
 		//由福委會新增親屬
 	private static final String INSERT_Detail = "insert into Detail(emp_No,fam_No,tra_No,det_Date,det_money) values(?,?,?,GETDATE(),?)";

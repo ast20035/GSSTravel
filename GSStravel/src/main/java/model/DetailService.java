@@ -248,9 +248,15 @@ public class DetailService {
 		return result;
 	}
 	
-	public String selectSameId(String id) {
+	public String selectSameId(String id, int emp_No) {
 		detailDAO = new DetailDAO();
-		String result = detailDAO.selectSameId(id);
+		String result = detailDAO.selectSameId(id, emp_No);
+		return result;
+	}
+	
+	public String selectSameId2(String fam_id, int fam_No) {
+		detailDAO = new DetailDAO();
+		String result = detailDAO.Select_SamId2(fam_id, fam_No);
 		return result;
 	}
 

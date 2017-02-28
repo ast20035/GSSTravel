@@ -255,11 +255,15 @@ $(function(){
 
 	//頁碼顯示
 	if($(".detailRow").val() != null){
+		//由目前頁面顯示最後一筆的 Row 除以 每頁顯示筆數作無條件進入 = 現在的頁碼
 	var chosePage = Math.ceil($(".detailRow").val()/tagPage);
 	}else{
+		//初始頁碼預設為1
 		chosePage = 1;
 	}
+	//資料總筆數
 	var allData = ${Count};
+	//資料總筆數 除以 每頁顯示筆數 = 總頁數
 	var totalPage = Math.ceil(allData/tagPage);
 	for(var i=1; i<totalPage; i++){
 		$(".allPage").append('<li class="page" onclick="page(this)" value="'+i+'"><a role="button">'+(i+1)+'</a></li>');
@@ -273,7 +277,7 @@ $(function(){
 	
 	$page[chosePage-1].className="active";
 
-	//選取報名/取消過濾
+	//顯示全部、已報名、已取消的藍底顯示
 	if("${view}" == "已取消"){
 		document.getElementById("selectTable").selectedIndex = "2";
 	}else if("${view}" == "已報名"){
@@ -326,8 +330,11 @@ $(function(){
 			}
 	}
 
+	//點選編輯動作
 	 $(".detEdit").click(function () {
+		 //抓取該編輯按鈕所在的tr
 		 var thisTr = $(this).parents("tr")
+		 //將該tr底下的欄位解除disabled
 		 thisTr.find("input").removeAttr("disabled");
 		 thisTr.find("select").removeAttr("disabled");
 		 thisTr.find("radio").removeAttr("disabled");
@@ -341,6 +348,7 @@ $(function(){
 		 });
 		 thisTr.find(".text_multiselect").val(thisTr.find("p").text());
 		 
+		 //身分證字號判斷
 		 thisTr.find(".TWID").on("blur",function (){
 				  // 依照字母的編號排列，存入陣列備用。
 				  var letters = new Array('A', 'B', 'C', 'D', 
@@ -359,8 +367,10 @@ $(function(){
 				  // 第二個字為1或2，後面跟著8個數字，不分大小寫。
 				  var sex = thisTr.find(".sex").val();
 				  if(sex == "男"){
+					  //當性別為男時，第二碼為1
 				  var regExpID=/^[a-z](1)\d{8}$/i;
 				  }else{
+					  //當性別為女時，第二碼為2
 					  var regExpID=/^[a-z](2)\d{8}$/i;
 				  }
 				  // 使用「正規表達式」檢驗格式
@@ -402,6 +412,7 @@ $(function(){
 				  thisTr.find(".save").attr("type","submit");
 				}})
 				
+				//手機、緊急聯絡人手機檢驗(09xxxxxxxx)
 				var cellPhone=/^09\d{2}-?\d{3}-?\d{3}$/;
 				thisTr.find(".Phone").on("blur",function(){
 					if(cellPhone.test($(this).val())){
@@ -422,6 +433,7 @@ $(function(){
 					}
 				});
 				
+				//姓名、保險受益人、保險受益人關係、緊急聯絡人、緊急聯絡人關係驗證(不能為空值)
 				var thisName=/^.*\s*[^\s]/;
 				thisTr.find(".name").blur(function(){
 					if(thisName.test($(this).val())){
@@ -460,12 +472,14 @@ $(function(){
 					}
 				});
 				
-				
+				//生日驗證(yyyy-MM-dd)
 				var fambdate=/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
 				thisTr.find(".Bdate").on("blur",function(){
 					if(fambdate.test($(this).val())){
+						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
+						$(this).css("border-color","red");
 						thisTr.find(".save").attr("type","button");
 					}
 				});
@@ -477,18 +491,19 @@ $(function(){
 			     });  
 			})
 
-	 
+	 //當儲存按鈕的type是button時無法儲存
 	 $(".save").click(function () {
 		 if(this.type=='button'){
 			 alert("儲存失敗！");
 		 }
 	 });
+//點選取消按鈕時跳出小視窗
 function open_Can(obj) {
     var CanUrl = '/GSStravel/Detail_Cancel.jsp?can_detNo=' + obj.value + "&can_traNo=" + document.getElementById("tra_no").value;
     window.open(CanUrl, '_bank', 'width=300,height=250,top=100,left=400');
 };
 
-
+//警告視窗
 var CanError="<%=session.getAttribute("CanError")%>";
 <%session.removeAttribute("CanError");%>
 if(CanError!="null"){
@@ -503,6 +518,7 @@ var Msg="<%=session.getAttribute("DetMsg")%>";
 					window.location = insert;
 				}
 			}
+//點選下一頁的藍底顯示
 function next(){
 	i=$(".active");
 	$page.removeClass("active");
@@ -516,6 +532,7 @@ function next(){
 	document.getElementById('myForm').submit();
 	
 }
+//點選上一頁的藍底顯示
 function before(){
 	i=$(".active");
 	$page.removeClass("active");
@@ -528,6 +545,7 @@ function before(){
 	}	
 	document.getElementById('myForm').submit();
 }
+//點選頁碼的藍底顯示
 function page(obj){
 	$page.removeClass("active");
 	$(obj).prop("class","active");
@@ -535,6 +553,7 @@ function page(obj){
 	$(".detailPage").val(i[1].value+1);
 	document.getElementById('myForm').submit();
 }
+//點選每頁顯示XX筆的藍底顯示
 function changepage(obj){
 	$pagenumber.removeClass("active");
 	$(obj).prop("class", "active");
@@ -542,6 +561,7 @@ function changepage(obj){
 	$(".detailTag").val(i[0].value);
 	document.getElementById('myForm').submit();
 }
+//change顯示全部、已報名、已取消的下拉式選單直接submit表單
 function dataSelect(){
 	document.getElementById('myForm').submit();
 }
