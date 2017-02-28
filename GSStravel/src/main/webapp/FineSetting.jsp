@@ -44,13 +44,6 @@
 	input[type=text] {
 		border: 0px;
 	}
-	
-	.color-red {
-		border-color: red;
-	}
-	.color-green {
-		border-color: green;
-	}
 </style>
 <script>
 	$(document).ready(function() {
@@ -61,35 +54,6 @@
 		$(document).on("click", ".remove", function() {
 			$(this).parents("tr").remove();
 		});
-		
-// 		var regDay = new RegExp("^[0-9]{1,}$");
-// 		var regPercent = new RegExp("^([0-9]{1,2})([.]{1})([0-9]{1,})$");
-// 		$(".day").on("blur", ".day", function(){
-// 			if($(this).val()==""){
-// 				$(this).css("border-color","red");
-// 			}else{
-// 				if(regDay.test($(this).val())){
-// 					$(this).css("border-color","green")
-// 				}else{
-// 					$(this).css("border-color","red");
-// 				}
-// 			}
-// 	    });
-// 	    $(".percent").on("blur", ".percent", function(){
-// 	    	if($(this).val()==""){
-// 				$(this).css("border-color","red");
-// 			}else{
-// 		    	if(regDay.test($(this).val())){
-// 		    		if(regPercent.test($(this).val())){
-// 		    			$(this).css("border-color","green")
-// 		    		}else{
-// 		    			$(this).css("border-color","red");
-// 		    		}
-// 				}else{
-// 					$(this).css("border-color","red");
-// 				}
-// 			}
-// 	    });
 	});
 </script>
 <script>
