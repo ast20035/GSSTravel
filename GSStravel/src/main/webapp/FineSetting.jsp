@@ -106,7 +106,7 @@
 	}
 
 	var xh = new XMLHttpRequest();
-
+	
 	function setFine() {
 		if (xh != null) {
 			xh.addEventListener("readystatechange", setFineData, false);
