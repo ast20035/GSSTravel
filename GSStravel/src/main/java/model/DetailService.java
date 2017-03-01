@@ -26,7 +26,12 @@ public class DetailService {
 	public List<DetailBean> selectExcel(DetailBean bean) {
 		return detailDAO.selectExcel(bean.getTra_NO());
 	}
-
+	public List<DetailBean> selectExcel2(DetailBean bean) {
+		return detailDAO.selectExcel2(bean.getTra_NO());
+	}
+	public List<DetailBean> selectExcel3(DetailBean bean) {
+		return detailDAO.selectExcel3(bean.getTra_NO());
+	}
 	public List<String> selectFam_Rel(int emp_No, long tra_No) {
 		detailDAO = new DetailDAO();
 		return detailDAO.selectFam_Rel(emp_No, tra_No);
