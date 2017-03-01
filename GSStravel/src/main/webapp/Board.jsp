@@ -153,6 +153,7 @@ table, tr, td {
 			<ul id="myul" class="pagination">
 			</ul>
 		</div>
+		<iframe src="<c:url value='/QandAServlet' />" ></iframe>
 	</div>
 </body>
 <script>
