@@ -90,6 +90,7 @@ public class TravelServlet extends HttpServlet {
 						tResult.get(i).getTra_File());
 			}
 			request.getRequestDispatcher("/search2.jsp").forward(request, response);
+			return;
 		}
 		
 		/*

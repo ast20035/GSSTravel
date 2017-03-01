@@ -34,7 +34,6 @@
 			//window.history.back()
 			window.location.href = 'search2.jsp';
 		}
-
 	}
 
 	String.prototype.IsGreatThan = function(mvarCompareTo) {
@@ -125,7 +124,6 @@
 		else {
 			x = 1;
 		}
-
 		if (edittraOn.value != "") {
 			if (editdate.test($(edittraOn).val())) {
 				if (edittraOff.value != "") {
@@ -144,9 +142,14 @@
 						eval("document.formtable['edittraOff'].focus()");
 						return false;
 					}
+<<<<<<< HEAD
 				}
 
 			} else {
+=======
+				} 
+			}else {
+>>>>>>> branch 'master' of https://github.com/freelife1018/GSSTravel.git
 				alert("活動開始日期格式錯誤");
 				eval("document.formtable['edittraOn'].focus()");
 				return false;
@@ -184,10 +187,15 @@
 						eval("document.formtable['edittraEnd'].focus()");
 						return false;
 					}
+<<<<<<< HEAD
 
 				}
 
 			} else {
+=======
+				} 
+			}else {
+>>>>>>> branch 'master' of https://github.com/freelife1018/GSSTravel.git
 				alert("登記開始日期格式錯誤");
 				eval("document.formtable['edittraBeg'].focus()");
 				return false;
@@ -213,9 +221,14 @@
 						eval("document.formtable['edittraMax'].focus()");
 						return false;
 					}
+<<<<<<< HEAD
 				}
 
 			} else {
+=======
+				} 
+			}else {
+>>>>>>> branch 'master' of https://github.com/freelife1018/GSSTravel.git
 				alert("活動總人數格式錯誤");
 				eval("document.formtable['edittraTotal'].focus()");
 				return false;
@@ -544,10 +557,10 @@ h2 {
 
 				<script>
 					/*按扭動作*/
-
 					$(function() {
 						$("tr[name='newtable']").hide();
 						//動態新增tr
+
 						$("#insert")
 								.click(
 										function(event) {$("#Itemtable").append('<tr class=newtable>'+ $("tr[name='newtable']").html()
@@ -581,14 +594,13 @@ h2 {
 															
 
 										})
+
 						//刪除動態tr		
 						$("#Itemtable").on("click", "input[name='delete']",
 								function() {
 									$(this).parents("tr").remove();
 								});
-
 					});
-
 					/*欄位判斷*/
 					var edittraName = /./;
 					$("#edittraName").blur(function() {
@@ -600,7 +612,6 @@ h2 {
 							$(this).css("border-color", "red")
 						}
 					})
-
 					var edittraLoc = /./;
 					$("#edittraLoc").blur(function() {
 						if (edittraLoc.test($(this).val())) {
@@ -611,9 +622,7 @@ h2 {
 							$(this).css("border-color", "red")
 						}
 					})
-
 					var edittraOn = /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
-
 					$("#edittraOn").blur(function() {
 						if (this.value != "") {
 							if (edittraOn.test($(this).val())) {
@@ -623,16 +632,12 @@ h2 {
 								$('#edittraOnerror').text('開始日期格式錯誤')
 								$(this).css("border-color", "red")
 							}
-
 						} else {
 							$('#edittraOnerror').text('請輸入開始日期')
 							$(this).css("border-color", "red")
 						}
-
 					});
-
 					var edittraOff = /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
-
 					$("#edittraOff").blur(function() {
 						if (this.value != "") {
 							if (edittraOn.test($(this).val())) {
@@ -642,7 +647,6 @@ h2 {
 								$('#edittraOfferror').text('開始日期格式錯誤')
 								$(this).css("border-color", "red")
 							}
-
 						} else {
 							//alert('開始日期格式錯誤');
 							$('#edittraOfferror').text('請輸入結束日期')
@@ -661,7 +665,6 @@ h2 {
 								$('#edittraBegerror').text('開始日期格式錯誤')
 								$(this).css("border-color", "red")
 							}
-
 						} else {
 							//alert('開始日期格式錯誤');
 							$('#edittraBegerror').text('請輸入開始日期')
@@ -680,7 +683,6 @@ h2 {
 								$('#edittraEnderror').text('開始日期格式錯誤')
 								$(this).css("border-color", "red")
 							}
-
 						} else {
 							//alert('開始日期格式錯誤');
 							$('#edittraEnderror').text('請輸入開始日期')
@@ -699,7 +701,6 @@ h2 {
 								$('#edittraTotalerror').text('只能輸入數字')
 								$(this).css("border-color", "red")
 							}
-
 						} else {
 							//alert('開始日期格式錯誤');
 							$('#edittraTotalerror').text('請輸入總人數')
@@ -718,7 +719,6 @@ h2 {
 								$('#edittraMaxerror').text('只能輸入數字')
 								$(this).css("border-color", "red")
 							}
-
 						} else {
 							//alert('開始日期格式錯誤');
 							$('#edittraMaxerror').text('請輸入本團人數')
