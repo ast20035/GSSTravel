@@ -17,6 +17,7 @@ public class AnnouncementService {
 			obj.put("time", v.getAnno_Time().substring(0, 19));
 			obj.put("title", v.getAnno_Title());
 			obj.put("content", v.getAnno_Content());
+			obj.put("important", v.getAnno_Important());
 			array.add(obj);
 		}
 		return array;
@@ -59,12 +60,12 @@ public class AnnouncementService {
 		return result;
 	}
 
-	public void insert(String now, String title, String content) {
-		iannouncementDao.insert(now, title, content);
+	public void insert(String now, String title, String content, String important) {
+		iannouncementDao.insert(now, title, content, important);
 	}
 
-	public void update(String now, String title, String content, String date) {
-		iannouncementDao.update(now, title, content, date);
+	public void update(String now, String title, String content, String important, String date) {
+		iannouncementDao.update(now, title, content, important, date);
 	}
 
 	public void delete(String date) {

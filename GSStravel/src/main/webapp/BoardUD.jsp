@@ -71,8 +71,14 @@ h2 {
 		setBoard();
 	}
 	var xh = new XMLHttpRequest();
-<%String time = request.getParameter("anno_Time");
-			request.setAttribute("time", time);%>
+	
+	<%
+	String time = request.getParameter("anno_Time");
+	request.setAttribute("time", time);
+	String important = request.getParameter("anno_Important");
+	request.setAttribute("important", important);
+	%>
+
 	var time = "${time}";
 	function setBoard() {
 		if (xh != null) {
@@ -125,6 +131,7 @@ h2 {
 					title.setAttribute("class", "form-control");
 					title.setAttribute("style", "font-size:17px");
 					title.setAttribute("value", board[i].title);
+					
 					div1.appendChild(title);
 
 					div2 = document.createElement("div");
@@ -152,6 +159,22 @@ h2 {
 		}
 	}
 </script>
+<script>
+	function optionTime() {
+		var day = document.getElementById("day");
+		var normal = document.getElementById("normal");
+		var important = document.getElementById("important");
+		if (day.value == 1) {
+			day.style.color = "red";
+			normal.style.color = "black";
+			important.style.color = "red";
+		} else if (day.value == 2) {
+			day.style.color = "black";
+			normal.style.color = "black";
+			important.style.color = "red";
+		}
+	}
+</script>
 </head>
 <body>
 	<div class='container-fluid'>
@@ -164,6 +187,18 @@ h2 {
 		<div class='row'>
 			<div class='col-md-offset-4 col-md-4'>
 				<form action="<c:url value="/AnnouncementUDServlet" />" method="GET">
+						<c:if test="${important==1}">
+							<select id="day" name="day" onchange="optionTime()" class='form-control' style='width:150px; color: red'>
+								<option id="important" value="1" style="color: red">重要公告</option>
+								<option id="normal" value="2" style="color: black">一般公告</option>
+							</select>
+						</c:if>
+						<c:if test="${important==2}">
+							<select id="day" name="day" onchange="optionTime()" class='form-control' style='width:150px; color: black'>
+								<option id="normal" value="2" style="color: black">一般公告</option>
+								<option id="important" value="1" style="color: red">重要公告</option>
+							</select>
+						</c:if>
 					<div id="boardDiv"></div>
 					<div class='dclasslast'>
 						<input type="submit" value="儲存" name="update"
