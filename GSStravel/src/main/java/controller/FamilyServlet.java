@@ -63,13 +63,8 @@ public class FamilyServlet extends HttpServlet {
 		String[] famemgphpone = req.getParameterValues("famemgphpone");
 		String[] famemgrel = req.getParameterValues("famemgrel");
 		String[] famnote = req.getParameterValues("famnote");
-		String[] repeatselectvalue = req.getParameterValues("selectvalue");
-//		if(repeatselectvalue!= null){
-//		System.out.println(repeatselectvalue);
-//			for(String xxx:repeatselectvalue){
-//				System.out.println(xxx);
-//			}
-//		}
+		String[] selectvalue =req.getParameterValues("selectvalue");
+		String[] repeatselectvalue = req.getParameterValues("repeatselectvalue");
 		
 //		String buttondelete = req.getParameter("delete");
 		String buttonsave = req.getParameter("button");
@@ -83,7 +78,8 @@ public class FamilyServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		Integer emp_No = (Integer) session.getAttribute("emp_No");
 		List<String> id = familyservice.selectid(emp_No);
-
+		Map<Integer ,List<Boolean>> mp=new HashMap<>();
+		List<Boolean> bl=new ArrayList<>();
 		//用ajax找出原本帶出親屬的多選值 更新資料庫
 		if(ajaxmultiselect != null){
 			 int fam_Nos= familyservice.selectfam_No(ajaxfamname);//4567
@@ -104,27 +100,36 @@ public class FamilyServlet extends HttpServlet {
 					 familyservice.updatefammom(fam_Nos, false);
 				 }else{
 					 if(ssss.contains("bab")){
+						 bl.add(true);
 						 familyservice.updatefambab(fam_Nos,true);
 					 }else{
+						 bl.add(false);
 						 familyservice.updatefambab(fam_Nos,false);
 					 }
 					 if(ssss.contains("kid")){
+						 bl.add(true);
 						 familyservice.updatefamkid(fam_Nos, true);
 					 }else{
+						 bl.add(false);
 						 familyservice.updatefamkid(fam_Nos, false);
 					 }
 					 if(ssss.contains("dis")){
+						 bl.add(true);
 						 familyservice.updatefamdis(fam_Nos, true);
 					 }else{
+						 bl.add(false);
 						 familyservice.updatefamdis(fam_Nos, false);
 					 }
 					 if(ssss.contains("mom")){
+						 bl.add(true);
 						 familyservice.updatefammom(fam_Nos, true);
 					 }else{
+						 bl.add(false);
 						 familyservice.updatefammom(fam_Nos, false);
 					 }
-					 
+					 mp.put(fam_Nos, bl);
 				 }
+				 out.print(mp);
 		}
 
 		//判斷身分證id是否重複輸入
@@ -149,14 +154,9 @@ public class FamilyServlet extends HttpServlet {
 				 System.out.println(famno);
 				 List<java.sql.Date> listdate= familyservice.selectfam_Nodelete(famno);//用famno去找有活動的親屬
 				 long betweenDate=0;
-//				 System.out.println("xxxxxxxxxxxxx");
 				 if(famno!=0){
-//					 System.out.println("yyyyyyyyyyyyy");
 					 if(listdate.size()!=0){
-//						 System.out.println("zzzzzzz");
 						 for(Date date: listdate){
-//							 System.out.println(date);
-//							 System.out.println("kkkkkkkkkk");
 							 Calendar calendar = Calendar.getInstance();
 							 long nowDate = calendar.getTime().getTime(); //獲得毫秒型 現在日期
 							 long specialDate = date.getTime();//把要比較的值放這(親屬日期)
@@ -188,7 +188,7 @@ public class FamilyServlet extends HttpServlet {
 		
 		//按下儲存submit回來
 		if ("儲存".equals(buttonsave)) {//前面""抓value 
-			
+
 			Map<String, String> errormsg = new HashMap<String, String>();
 			req.setAttribute("error", errormsg);
 			
@@ -311,53 +311,53 @@ public class FamilyServlet extends HttpServlet {
 					 }
 				 }
 				 
-				//親屬抓insert 多選
-				List<String>ssss=new ArrayList<>();
-				List<Boolean>yyyy = new ArrayList<>();
-				if(repeatselectvalue!= null){
-					System.out.println(repeatselectvalue);
-					 
-						for(String xxx:repeatselectvalue){
-							System.out.println(xxx);//抓得到
-							 String value=xxx.replace("[", "").replace("]", "").replace(",","").replace("\"", "");
-							 System.out.println(value);
-							 for(int x=0;x<value.length();){
-								 String y =value.substring(x, x+3);
-								 x=x+3;
-								 ssss.add(y);
-								if(ssss.isEmpty()){
-									yyyy.add(false);
-									yyyy.add(false);
-									yyyy.add(false);
-									yyyy.add(false);
-								 }else{
-									 if(ssss.contains("bab")){
-										 yyyy.add(true);
-									 }else{
-										 yyyy.add(false);
-									 }
-									 if(ssss.contains("kid")){
-										 yyyy.add(true);
-									 }else{
-										 yyyy.add(false);
-									 }
-									 if(ssss.contains("dis")){
-										 yyyy.add(true);
-									 }else{
-										 yyyy.add(false);
-									 }
-									 if(ssss.contains("mom")){
-										 yyyy.add(true);
-									 }else{
-										 yyyy.add(false);
-									 }
-									 
-								 }
-								 
-							 }
-						}
-					}
-				 
+//				//親屬抓insert 多選
+//				List<String>ssss=new ArrayList<>();
+//				List<Boolean>yyyy = new ArrayList<>();
+//				if(repeatselectvalue!= null){
+//					System.out.println(repeatselectvalue);
+//					 
+//						for(String xxx:repeatselectvalue){
+//							System.out.println(xxx);//抓得到
+//							 String value=xxx.replace("[", "").replace("]", "").replace(",","").replace("\"", "");
+//							 System.out.println(value);
+//							 for(int x=0;x<value.length();){
+//								 String y =value.substring(x, x+3);
+//								 x=x+3;
+//								 ssss.add(y);
+//								if(ssss.isEmpty()){
+//									yyyy.add(false);
+//									yyyy.add(false);
+//									yyyy.add(false);
+//									yyyy.add(false);
+//								 }else{
+//									 if(ssss.contains("bab")){
+//										 yyyy.add(true);
+//									 }else{
+//										 yyyy.add(false);
+//									 }
+//									 if(ssss.contains("kid")){
+//										 yyyy.add(true);
+//									 }else{
+//										 yyyy.add(false);
+//									 }
+//									 if(ssss.contains("dis")){
+//										 yyyy.add(true);
+//									 }else{
+//										 yyyy.add(false);
+//									 }
+//									 if(ssss.contains("mom")){
+//										 yyyy.add(true);
+//									 }else{
+//										 yyyy.add(false);
+//									 }
+//									 
+//								 }
+//								 
+//							 }
+//						}
+//					}
+//				 
 				 
 				idlength = famid.length;
 				for (int i = 0; i < idlength; i++) {// 0 1 2 3
@@ -392,8 +392,6 @@ public class FamilyServlet extends HttpServlet {
 						familyvo.setFam_Car(false);
 					}
 
-					
-					
 					familyvo.setFam_Ben(famben[i]);
 					familyvo.setFam_BenRel(fambenrel[i]);
 					familyvo.setFam_Emg(famemg[i]);
@@ -407,11 +405,30 @@ public class FamilyServlet extends HttpServlet {
 
 					
 					
+					if(selectvalue!= null){
+						for(String yyy : selectvalue){
+							System.out.println(yyy);
+						}
+					}
+					
+//					if(repeatselectvalue!= null){
+//					System.out.println(repeatselectvalue);
+//						for(String xxx:repeatselectvalue){
+//							System.out.println(xxx);
+//						}
+//					}
+					
+					
+					
 					if (id.contains(famid[i]) == true) {//資料庫找身分證是否重複 有重複用update 沒有重複用insert
 						familyservice.update(familyvo);
 						System.out.println("update " + famid[i] + " famno=" + famno);
 
 					} else {
+
+						familyservice.insert(familyvo);
+						System.out.println("insert " + famid[i]);
+
 							//i   j  0123 4567
 //						Integer j=i;
 //							if(yyyy.size()>0){
@@ -442,9 +459,7 @@ public class FamilyServlet extends HttpServlet {
 //						}
 						
 						
-						familyservice.insert(familyvo);
-						System.out.println("insert " + famid[i]);
-
+						
 					}
 
 				} // 回圈結束

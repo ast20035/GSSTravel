@@ -1,4 +1,3 @@
-<%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -292,7 +291,7 @@ text-align: center;
 													<option value="mom" Selected>孕婦(媽媽手冊)</option>
 												</c:if>
 											</select>
-											
+											<input type ="hidden" name="selectvalue" class="selectvalue">
 										</div></td>
 
 									<td><input type="text" name="famben" id="famben" style='width:90px;'
@@ -379,7 +378,7 @@ text-align: center;
 						<option value="dis">持身心障礙手冊</option>
 						<option value="mom">孕婦(媽媽手冊)</option>
 					</select>
-					<input type ="hidden" name="selectvalue" class="selectvalue">
+					<input type ="hidden" name="repeatselectvalue" class="repeatselectvalue">
 				</div></td>
 			<td><input type="text" name="famben" id="famben" 
 				class='form-control'>
@@ -432,40 +431,30 @@ text-align: center;
 											}
 										});
 								}
-								
-// 								if(r.indexOf('delete')!=-1){
-// 									console.log(r);// OK抓到
-// // 									$("#familytable").on("mouseup", "input[name='delete']",function xx(){
-// // 										$(this).parents("tr").remove();
-// // 									});
-// // 									$("#familytable").click(function(){
-// // 										$(this).parents("tr").remove();
-// // 									})
-// 									alert(r);
-// 								}
 						}
 				})
 			})
 			
 
 			
-			//判斷親屬的特殊身分
-			var pathName = document.location.pathname;
-			var index = pathName.substr(1).indexOf("/");
-			var result = pathName.substr(0, index + 1);
-			var url = result + "/FamilyServlet";
+// 			//判斷親屬的特殊身分
+// 			var pathName = document.location.pathname;
+// 			var index = pathName.substr(1).indexOf("/");
+// 			var result = pathName.substr(0, index + 1);
+// 			var url = result + "/FamilyServlet";
 			
-			var multiselect=null;
-			if($("#familytable select[name*='famspa']").length > 0){
-				$("#familytable select[name*='famspa']").on("blur",function(){
-					 multiselect  = $(this).val();
-					 var selectjson = JSON.stringify(multiselect);
-					 var famnameajax = $(this).closest("tr").find("input[name='famname']").val();				 
-					$.post(url,{"multiselect":selectjson,"famnameajax":famnameajax},function(){
-						
-					});		
-				})
-			}
+
+// 			var multiselect=null;
+// 			if($("#familytable select[name*='famspa']").length > 0){
+// 				$("#familytable select[name*='famspa']").on("blur",function(){
+// 					 multiselect  = $(this).val();
+// 					 var selectjson = JSON.stringify(multiselect);
+// 					 var famnameajax = $(this).closest("tr").find("input[name='famname']").val();				 
+// 					$.post(url,{"multiselect":selectjson,"famnameajax":famnameajax},function(data){
+	
+// 					});		
+// 				})
+// 			}
 			
 			
 			
@@ -534,9 +523,14 @@ text-align: center;
 									console.log(spa);
 									var spajson =JSON.stringify(spa);
 									console.log(spajson);// JSON.stringify 將陣列轉換為 JSON 字串
-									$(this).next("input[name='selectvalue']").val(spajson);
-									console.log($(this).next("input[name='selectvalue']").val());
-									console.log($(this).next("#familytable input[name='selectvalue']").val());
+									$(this).closest("tr").find("input[name='selectvalue']").val(spajson);
+									console.log($(this).closest("tr").find("input[name='selectvalue']").val());
+									
+									
+// 									console.log(spajson);//抓到json字串
+// 									$(this).next("input[name='selectvalue']").val(spajson);
+// 									$(this).closest("tr").find("input[name='selectvalue']").val(spajson);
+// 									console.log($(this).closest("tr").find("input[name='selectvalue']").val());//抓到
 								});
 							}else{
 								//??無親屬抓進去
@@ -942,9 +936,9 @@ text-align: center;
 						console.log(spa);//抓到
 						var spajson =JSON.stringify(spa);
 						console.log(spajson);//抓到json字串
-						$(this).next("input[name='selectvalue']").val(spajson);
-						$(this).closest("tr").find("input[name='selectvalue']").val(spajson);
-						console.log($(this).closest("tr").find("input[name='selectvalue']").val());//抓到
+// 						$(this).next("input[name='selectvalue']").val(spajson);
+						$(this).closest("tr").find("input[name='repeatselectvalue']").val(spajson);
+						console.log($(this).closest("tr").find("input[name='repeatselectvalue']").val());//抓到
 
 
 					});

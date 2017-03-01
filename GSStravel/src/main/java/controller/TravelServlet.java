@@ -351,7 +351,7 @@ public class TravelServlet extends HttpServlet {
 			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:24小時制
 			Date date = new Date();
 			String now = sdFormat.format(date);// 取得現在時間
-			announcementService.insert(now, traName+"行程異動", traCon);// 新增公告
+			announcementService.insert(now, traName+"行程異動", traCon, "2");// 新增公告
 			
 			/*--Travel--*/
 			travelview.setTra_Name(edittraName);

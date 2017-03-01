@@ -40,7 +40,7 @@ table, tr, td {
 		var endDay = document.getElementById('endDay');
 		setBoard();
 	}
-	
+
 	var day=null;
 	function optionTime() {
 		day = document.getElementById("day");
@@ -48,7 +48,7 @@ table, tr, td {
 	}
 
 	var xh = new XMLHttpRequest();
-
+	
 	function setBoard() {
 		if (xh != null) {
 			var pathName = document.location.pathname;
@@ -92,15 +92,32 @@ table, tr, td {
 					var tr = document.createElement("tr");
 					var td = document.createElement("td");
 					var a = document.createElement("a");
-
+					
 					td = document.createElement("td");
 					td.appendChild(document.createTextNode(board[i].time));
+					if("${beforeDateNew}"<=board[i].time){
+						var img = document.createElement("img");
+						img.setAttribute("src", "images/new.gif");
+						td.appendChild(img);
+					}
+					
+					if(board[i].important==1){
+						td.setAttribute("style", "color:red");
+					}
+					if(board[i].important==2){
+						td.setAttribute("style", "color:black");
+					}
 					tr.appendChild(td);
 
 					td = document.createElement("td");
-					a.setAttribute("href", result + "/BoardUD.jsp?anno_Time="
-							+ board[i].time);
+					a.setAttribute("href", result + "/BoardUD.jsp?anno_Time=" + board[i].time + "&anno_Important=" + board[i].important);
 					a.appendChild(document.createTextNode(board[i].title));
+					if(board[i].important==1){
+						a.setAttribute("style", "color:red");
+					}
+					if(board[i].important==2){
+						a.setAttribute("style", "color:black");
+					}
 					td.appendChild(a);
 					tr.appendChild(td);
 

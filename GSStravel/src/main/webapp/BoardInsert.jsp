@@ -31,6 +31,22 @@ input, textarea {
 	margin-bottom: 10px;
 }
 </style>
+<script>
+	function optionTime() {
+		var day = document.getElementById("day");
+		var normal = document.getElementById("normal");
+		var important = document.getElementById("important");
+		if (day.value == 1) {
+			day.style.color = "red";
+			normal.style.color = "black";
+			important.style.color = "red";
+		} else if (day.value == 2) {
+			day.style.color = "black";
+			normal.style.color = "black";
+			important.style.color = "red";
+		}
+	}
+</script>
 </head>
 <body>
 	<div class='container-fluid'>
@@ -41,9 +57,13 @@ input, textarea {
 		</div><br>
 		<div class='row'>
 			<div class='col-md-offset-4 col-md-4'>
-
 				<form action="<c:url value="/AnnouncementUDServlet" />" method="GET">
 					<div id="boardDiv">
+						<select id="day" name="day" onchange="optionTime()" class='form-control' style='width:150px;'>
+							<option id="normal" value="2">一般公告</option>
+							<option id="important" value="1" style="color: red">重要公告</option>
+						</select>
+						<br>
 						<div>公告標題</div>
 						<input type="text" id="title" name="title" class="form-control"
 							style="font-size: 17px" />

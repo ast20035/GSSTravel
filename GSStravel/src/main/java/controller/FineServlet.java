@@ -205,14 +205,14 @@ public class FineServlet extends HttpServlet {
 							}
 						}
 					}
-					if (btn == 1) {// 有異動才能寄發email
-						announcementService.insert(now, "罰則異動通知", "罰則有些許的變更，請注意您所報名的行程，謝謝！");
+					if (btn == 1) {// 有異動才能發出公告
+						announcementService.insert(now, "罰則異動通知", "罰則有些許的變更，請注意您所報名的行程，謝謝！", "1");
 					}
 					response.sendRedirect(request.getContextPath() + "/FineShowServlet?em=1&btn=" + btn);
 				}
 			}
 		}
-		if ("寄送罰則異動通知".equals(email)) {
+		if ("寄送罰則異動通知".equals(email)) {// 有異動才能寄發email
 			power = true;
 
 			List<EmployeeVO> result = employeeService.selectEmp();

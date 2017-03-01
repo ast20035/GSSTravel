@@ -86,7 +86,7 @@ tbody a:visited:after {
 .nav>li>a {
 	font-size: 15px;
 	color: 	#220088;
-	font-weight: bolder;
+	font-weight: bold;
 }
 
 .now {

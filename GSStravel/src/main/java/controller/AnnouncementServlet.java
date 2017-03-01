@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.AnnouncementService;
 import model.AnnouncementVO;
@@ -44,6 +45,14 @@ public class AnnouncementServlet extends HttpServlet {
 		date.setTime(beforeNow * 1000);
 		String beforeDate = formatYMD.format(date);
 		
+		HttpSession session = request.getSession();
+		SimpleDateFormat formatNewYMD1 = new SimpleDateFormat("yyyy-MM-dd");
+		Date dateNew = new Date();
+		long beforeNowNew = (dateNew.getTime() / 1000) - 60 * 60 * 24 * 7;// 所選擇的期間
+		dateNew.setTime(beforeNowNew * 1000);
+		String beforeDateNew = formatNewYMD1.format(dateNew);
+		session.setAttribute("beforeDateNew", beforeDateNew);
+
 		List<AnnouncementVO> resultDelete = announcementService.select();
 		resultDelete = announcementService.BeforeOff(resultDelete, beforeDate);
 		if("刪除".equals(delete)){
