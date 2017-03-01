@@ -53,7 +53,7 @@ public class DetailServlet extends HttpServlet {
 		TravelVO traVO = travelService.Count(tra_no);           //查看此行程是否已過期，已過期無法取消編輯新增
 
 		String excel = req.getParameter("excel");
-
+		
 		DetailBean bean = new DetailBean();
 		TravelVO travelVO = new TravelVO();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -65,8 +65,8 @@ public class DetailServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		session.removeAttribute("DetCanError");
 
-		// 點選匯出Excel動作
-		if ("匯出Excel".equals(excel)) {
+		// 點選匯出Excel動作(全部)
+		if ("全部資料".equals(excel)) {
 			bean.setTra_NO(tra_no);
 			List<DetailBean> dResult = detailService.selectExcel(bean);
 			int count = dResult.size();
@@ -122,12 +122,137 @@ public class DetailServlet extends HttpServlet {
 			}
 			ex.detailExcel(count, exDetNo, bean.getTra_NO(), exEmpNo, exFamNo, exRel, exName, exSex, exID, exBDate,
 					exPhone, exEat, exCar, exFamBaby, exFamKid, exFamDis, exFamMom, exBen, exBenRel, exEmg, exEmgPhone,
-					exDetDate, exDetCanDate, exNote, exDetCanNote);
+					exDetDate, exDetCanDate, exNote, exDetCanNote,excel);
 			req.getRequestDispatcher("/File_Detail.jsp").forward(req, resp);
 			return;
 			
-		} // 柯(請勿刪除)
+		}
 
+		// 點選匯出Excel動作(已報名)
+		if ("已報名".equals(excel)) {
+			bean.setTra_NO(tra_no);
+			List<DetailBean> dResult = detailService.selectExcel2(bean);
+			int count = dResult.size();
+			String[] exDetNo = new String[count];
+			String[] exEmpNo = new String[count];
+			String[] exFamNo = new String[count];
+			String[] exRel = new String[count];
+			String[] exName = new String[count];
+			String[] exSex = new String[count];
+			String[] exID = new String[count];
+			String[] exBDate = new String[count];
+			String[] exPhone = new String[count];
+			String[] exEat = new String[count];
+			String[] exCar = new String[count];
+			String[] exFamBaby = new String[count];
+			String[] exFamKid = new String[count];
+			String[] exFamDis = new String[count];
+			String[] exFamMom = new String[count];
+			String[] exBen = new String[count];
+			String[] exBenRel = new String[count];
+			String[] exEmg = new String[count];
+			String[] exEmgPhone = new String[count];
+			String[] exDetDate = new String[count];
+			String[] exDetCanDate = new String[count];
+			String[] exNote = new String[count];
+			String[] exDetCanNote = new String[count];
+			File dir = new File("C:/detail");
+			Excel ex = new Excel(dir);
+			for (int i = 0; i < count; i++) {
+				exDetNo[i] = dResult.get(i).getDet_No() + "";
+				exEmpNo[i] = dResult.get(i).getEmp_No() + "";
+				exFamNo[i] = dResult.get(i).getFam_No() + "";
+				exRel[i] = dResult.get(i).getRel();
+				exName[i] = dResult.get(i).getName();
+				exSex[i] = dResult.get(i).getSex();
+				exID[i] = dResult.get(i).getID();
+				exBDate[i] = dResult.get(i).getBdate() + "";
+				exPhone[i] = dResult.get(i).getPhone();
+				exEat[i] = dResult.get(i).getEat();
+				exCar[i] = dResult.get(i).getCar() + "";
+				exFamBaby[i] = dResult.get(i).getFam_Bady() + "";
+				exFamKid[i] = dResult.get(i).getFam_kid() + "";
+				exFamDis[i] = dResult.get(i).getFam_Dis() + "";
+				exFamMom[i] = dResult.get(i).getFam_Mom() + "";
+				exBen[i] = dResult.get(i).getBen();
+				exBenRel[i] = dResult.get(i).getBenRel();
+				exEmg[i] = dResult.get(i).getEmg();
+				exEmgPhone[i] = dResult.get(i).getEmgPhone();
+				exDetDate[i] = dResult.get(i).getDet_Date();
+				exDetCanDate[i] = dResult.get(i).getDet_CanDate();
+				exNote[i] = dResult.get(i).getNote();
+				exDetCanNote[i] = dResult.get(i).getDet_canNote();
+			}
+			ex.detailExcel(count, exDetNo, bean.getTra_NO(), exEmpNo, exFamNo, exRel, exName, exSex, exID, exBDate,
+					exPhone, exEat, exCar, exFamBaby, exFamKid, exFamDis, exFamMom, exBen, exBenRel, exEmg, exEmgPhone,
+					exDetDate, exDetCanDate, exNote, exDetCanNote,excel);
+			req.getRequestDispatcher("/File_Detail.jsp").forward(req, resp);
+			return;
+			
+		}
+		// 點選匯出Excel動作(已取消)
+		if ("已取消".equals(excel)) {
+			bean.setTra_NO(tra_no);
+			List<DetailBean> dResult = detailService.selectExcel3(bean);
+			int count = dResult.size();
+			String[] exDetNo = new String[count];
+			String[] exEmpNo = new String[count];
+			String[] exFamNo = new String[count];
+			String[] exRel = new String[count];
+			String[] exName = new String[count];
+			String[] exSex = new String[count];
+			String[] exID = new String[count];
+			String[] exBDate = new String[count];
+			String[] exPhone = new String[count];
+			String[] exEat = new String[count];
+			String[] exCar = new String[count];
+			String[] exFamBaby = new String[count];
+			String[] exFamKid = new String[count];
+			String[] exFamDis = new String[count];
+			String[] exFamMom = new String[count];
+			String[] exBen = new String[count];
+			String[] exBenRel = new String[count];
+			String[] exEmg = new String[count];
+			String[] exEmgPhone = new String[count];
+			String[] exDetDate = new String[count];
+			String[] exDetCanDate = new String[count];
+			String[] exNote = new String[count];
+			String[] exDetCanNote = new String[count];
+			File dir = new File("C:/detail");
+			Excel ex = new Excel(dir);
+			for (int i = 0; i < count; i++) {
+				exDetNo[i] = dResult.get(i).getDet_No() + "";
+				exEmpNo[i] = dResult.get(i).getEmp_No() + "";
+				exFamNo[i] = dResult.get(i).getFam_No() + "";
+				exRel[i] = dResult.get(i).getRel();
+				exName[i] = dResult.get(i).getName();
+				exSex[i] = dResult.get(i).getSex();
+				exID[i] = dResult.get(i).getID();
+				exBDate[i] = dResult.get(i).getBdate() + "";
+				exPhone[i] = dResult.get(i).getPhone();
+				exEat[i] = dResult.get(i).getEat();
+				exCar[i] = dResult.get(i).getCar() + "";
+				exFamBaby[i] = dResult.get(i).getFam_Bady() + "";
+				exFamKid[i] = dResult.get(i).getFam_kid() + "";
+				exFamDis[i] = dResult.get(i).getFam_Dis() + "";
+				exFamMom[i] = dResult.get(i).getFam_Mom() + "";
+				exBen[i] = dResult.get(i).getBen();
+				exBenRel[i] = dResult.get(i).getBenRel();
+				exEmg[i] = dResult.get(i).getEmg();
+				exEmgPhone[i] = dResult.get(i).getEmgPhone();
+				exDetDate[i] = dResult.get(i).getDet_Date();
+				exDetCanDate[i] = dResult.get(i).getDet_CanDate();
+				exNote[i] = dResult.get(i).getNote();
+				exDetCanNote[i] = dResult.get(i).getDet_canNote();
+			}
+			ex.detailExcel(count, exDetNo, bean.getTra_NO(), exEmpNo, exFamNo, exRel, exName, exSex, exID, exBDate,
+					exPhone, exEat, exCar, exFamBaby, exFamKid, exFamDis, exFamMom, exBen, exBenRel, exEmg, exEmgPhone,
+					exDetDate, exDetCanDate, exNote, exDetCanNote,excel);
+			req.getRequestDispatcher("/File_Detail.jsp").forward(req, resp);
+			return;
+			
+		}
+		
 		List<ItemVO> itemVO = null;
 		List<ItemVO> room = null;
 		//新增動作
