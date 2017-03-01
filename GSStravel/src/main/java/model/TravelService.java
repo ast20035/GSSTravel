@@ -15,8 +15,54 @@ public class TravelService {
 	private ITravelDAO travelDAO = new TravelDAO();
 	private IDetailDAO detailDAO = new DetailDAO();
 
-	public List<TravelVO> select() throws SQLException {
-		return travelDAO.getAll();
+	public List<TravelVO> select(Integer emp_No) throws SQLException {
+		List<TravelVO> vos = travelDAO.endTravel();
+		List<TravelVO> AllVOs = travelDAO.getAll();
+		List<TravelVO> TravelVOs = travelDAO.entrtTravel(emp_No);
+		if(TravelVOs.size()==0){
+			if (vos != null) {
+				for(int i=0;i<AllVOs.size();i++){
+					for(int j=0;j<vos.size();j++){
+						if(AllVOs.get(i).getTra_NO().equals(vos.get(j).getTra_NO())){
+							AllVOs.remove(i);
+						}
+					}
+				}
+				for (TravelVO vo : AllVOs) {
+					TravelVOs.add(vo);
+				}
+				for (TravelVO vo : vos) {
+					TravelVOs.add(vo);
+				}
+			}
+		}else{
+			if(AllVOs != null){
+				for(int i=0;i<TravelVOs.size();i++){
+					for(int j=0;j<AllVOs.size();j++){
+						if(TravelVOs.get(i).getTra_NO().equals(AllVOs.get(j).getTra_NO())){
+							AllVOs.remove(j);
+						}
+					}
+				}
+				
+				if (vos != null) {
+					for(int i=0;i<AllVOs.size();i++){
+						for(int j=0;j<vos.size();j++){
+							if(AllVOs.get(i).getTra_NO().equals(vos.get(j).getTra_NO())){
+								AllVOs.remove(i);
+							}
+						}
+					}
+				}
+				for (TravelVO vo : AllVOs) {
+					TravelVOs.add(vo);
+				}
+				for (TravelVO vo : vos) {
+					TravelVOs.add(vo);
+				}			
+			}
+		}	
+		return TravelVOs;
 	}
 
 	public TravelVO select(long tra_NO) {
@@ -182,31 +228,31 @@ public class TravelService {
 	public TravelVO Count(String tra_No) {
 		return travelDAO.Count(tra_No);
 	}
-	
-	public String getTra_No(){
+
+	public String getTra_No() {
 		List<String> tra_Nos = travelDAO.selectTra_No();
 		String tra_No = new SimpleDateFormat("yyyy-MM-dd").format(new Date()).replaceAll("-", "");
 		String cklastFour = null;
-		for(String nos:tra_Nos){
-			String no=nos.substring(0, 8);
-			if(no.equals(tra_No)){
-				String x= nos.substring(8);
-				Long lastFour=Long.valueOf(x)+1;
-				int lengths=lastFour.toString().length();
-				if(lengths==1){
-					cklastFour="000"+lastFour.toString();
-				}else if(lengths==2){
-					cklastFour="00"+lastFour.toString();
-				}else if(lengths==3){
-					cklastFour="0"+lastFour.toString();
-				}else{
-					cklastFour=lastFour.toString();
-				}				
-			}else{
-				cklastFour="0001";
+		for (String nos : tra_Nos) {
+			String no = nos.substring(0, 8);
+			if (no.equals(tra_No)) {
+				String x = nos.substring(8);
+				Long lastFour = Long.valueOf(x) + 1;
+				int lengths = lastFour.toString().length();
+				if (lengths == 1) {
+					cklastFour = "000" + lastFour.toString();
+				} else if (lengths == 2) {
+					cklastFour = "00" + lastFour.toString();
+				} else if (lengths == 3) {
+					cklastFour = "0" + lastFour.toString();
+				} else {
+					cklastFour = lastFour.toString();
+				}
+			} else {
+				cklastFour = "0001";
 			}
 		}
-		tra_No=tra_No+cklastFour;
+		tra_No = tra_No + cklastFour;
 		return tra_No;
-	}	
+	}
 }

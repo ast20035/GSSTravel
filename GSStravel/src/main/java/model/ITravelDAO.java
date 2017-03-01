@@ -17,4 +17,6 @@ public interface ITravelDAO {
 	public List<TravelVO> selectExcel();
 	public TravelVO Count(String tra_No);	//此行程的可報名總人數&個人可報名總人數
 	public String SELECTsubTra(String tra_No);     //目前套用的輔助金是否已使用 NULL=已使用
+	public List<TravelVO> endTravel();
+	public List<TravelVO> entrtTravel(Integer emp_No);
 }

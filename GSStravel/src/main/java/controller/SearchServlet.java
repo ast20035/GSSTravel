@@ -40,7 +40,7 @@ public class SearchServlet extends HttpServlet {
 		TravelService ts=new TravelService();
 		List<TravelVO> tv = null;
 		try {
-			tv = ts.select();
+			tv = ts.select(Integer.valueOf(number));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
