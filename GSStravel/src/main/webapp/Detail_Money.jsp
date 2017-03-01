@@ -46,7 +46,12 @@ td {
 table {
 	font-size: 15px;
 }
-
+.color-red{
+	border-color:red
+}
+.color-green{
+	border-color:green
+}
 </style>
 
 <body>
@@ -119,33 +124,33 @@ table {
 									</c:if></td>
 								<c:if test="${list.fam_Name==NULL}">
 									<td><input type="text" class="years_money years_Money"
-										value="${list.years_money}" style="border-width: 0" readonly></td>
+										value="${list.years_money}" style="border-width: 0;text-align: right;" readonly></td>
 									<td><input type="text" class="person_money person_Money"
-										value="" style="border-width: 0" readonly> <input
+										value="" style="border-width: 0;text-align: right;" readonly> <input
 										type="hidden" class="person" value="${list.emp_No}"></td>
 								</c:if>
 								<c:if test="${list.fam_Name!=NULL}">
 									<td><input type="text" class="years_Money" value="0.0"
-										style="border-width: 0" readonly></td>
+										style="border-width: 0;text-align: right;" readonly></td>
 									<td><c:if test="${list.fam_sub}">
 											<input type="text" class="personfam_money person_Money"
-												style="border-width: 0" value="0.0" readonly>
+												style="border-width: 0;text-align: right;" value="0.0" readonly>
 											<input type="hidden" class="person" value="${list.emp_No}">
 										</c:if> <c:if test="${!list.fam_sub}">
 											<input type="text" class="onmoney person_Money" value="0.0"
-												style="border-width: 0" readonly>
+												style="border-width: 0;text-align: right;" readonly>
 										</c:if></td>
 								</c:if>
 								<td><input type="text" name="money" class="money Money"
-									value="${list.det_money}" style="border-width: 0" readonly></td>
+									value="${list.det_money}" style="border-width: 0;text-align: right;" readonly></td>
 								<td><input type="text" name="det_note"
 									class="det_note det_Note form-control" value="${list.det_note}"></td>
-								<td><input type="text" name="det_noteMoney"
+								<td><input type="text" name="det_noteMoney" style='text-align: right;width:180px'
 									class="det_noteMoney det_NoteMoney form-control"
-									value="${list.det_noteMoney}" onkeyup="changeNotemoney()"></td>
+									value="${list.det_noteMoney}" onkeyup="changeNotemoney()" onblur="checkmoney(this)"></td>
 								<td><c:if test="${list.fam_No==0}">
 										<input type="text" name="TA_money" class="TA_money ta_Money"
-											value="" style="border-width: 0" readonly>
+											value="" style="border-width: 0;text-align: right;" readonly>
 									</c:if> <c:if test="${list.fam_No!=0}">
 										<input type="hidden" class="ta_Money" value="0">
 									</c:if></td>
@@ -156,12 +161,10 @@ table {
 					<div id='mydiv'>
 						<ul id="myul" class="pagination">
 							<li><a role='button' onclick="before()">&laquo;</a></li>
-							<li class="page active" onclick="page(this)" value="0"><a
-								role='button'>1</a></li>
+							<li class="page active" onclick="page(this)" value="0"><a role='button'>1</a></li>
 							<c:if test="${Math.ceil(count/10)!=0}">
 								<c:forEach var="i" begin="1" end="${Math.ceil(count/10)-1}">
-									<li class="page" onclick="page(this)" value="${i}"><a
-										role='button'>${i+1}</a></li>
+									<li class="page" onclick="page(this)" value="${i}"><a role='button'>${i+1}</a></li>
 								</c:forEach>
 							</c:if>
 							<li><a role='button' onclick="next()">&raquo;</a></li>
@@ -177,8 +180,8 @@ table {
 				</form>
 				<c:if test="${session!=null}">
 					<script>
-				alert('${session}');
-			</script>
+						alert('${session}');
+					</script>
 				</c:if>
 			</div>
 		</div>
@@ -305,7 +308,9 @@ table {
 				det_NoteMoney : det_NoteMoney,
 				ta_Money : ta_Money
 			},
-
+			success:function(){
+				window.location = "/GSStravel/File_Detail_Money.jsp?tra_No="+tra_No+"&tra_Name="+tra_Name;
+			},
 		})
 	}
 	
@@ -364,6 +369,17 @@ table {
 		i = $(".active");
 		$page = $(".page");
 		light(i[0].value,i[1].value);
+	}
+	function checkmoney(obj){
+		if(isNaN(obj.value)){
+			$(obj).addClass("color-red");
+			$(obj).removeClass("color-green");
+		}
+		else{
+			$(obj).addClass("color-green");	
+			$(obj).removeClass("color-red");
+		}
+		
 	}
 </script>
 </html>

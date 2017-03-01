@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.junit.runner.Request;
+
 import model.DetailBean;
 import model.DetailService;
 import model.EmployeeVO;
@@ -38,35 +40,33 @@ public class DetailServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String prodaction = req.getParameter("prodaction");
 		String tra_no = req.getParameter("tra_no");
-		String can_detNo = req.getParameter("can_detNo");
+		String can_detNo = req.getParameter("can_detNo");    //點選取消的明細流水號
 		String doInsert = req.getParameter("doInsert");
-		String tag = req.getParameter("detailTag");
-		if(tag == null || tag.length() ==0){
+		String tag = req.getParameter("detailTag");    //顯示10 20 50 100筆資料的控制
+		if(tag == null || tag.length() ==0){           //初始預設為10
 			tag = "10";
 		}
 		int intTag = Integer.parseInt(tag);
-		String view = req.getParameter("selectTable");
-		int Count = detailService.selectDatailCount(tra_no);
+		String view = req.getParameter("selectTable");          //顯示全部 已報名 已取消過濾器
+		int Count = detailService.selectDatailCount(tra_no);    //資料總筆數
 		
-		TravelVO traVO = travelService.Count(tra_no);
+		TravelVO traVO = travelService.Count(tra_no);           //查看此行程是否已過期，已過期無法取消編輯新增
 
-		// 柯(請勿刪除)
 		String excel = req.getParameter("excel");
-		// 柯(請勿刪除)
-
+		
 		DetailBean bean = new DetailBean();
 		TravelVO travelVO = new TravelVO();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		bean.setTra_NO(tra_no);
-		result = detailService.select(bean, 1, 10);
+		result = detailService.select(bean, 1, 10);    //初次進入頁面時，顯示第1~10筆的資料
 		String page = req.getParameter("detailPage");
 		
 		HttpSession session = req.getSession();
 		session.removeAttribute("DetCanError");
 
-		// 柯(請勿刪除)
-		if ("匯出Excel".equals(excel)) {
+		// 點選匯出Excel動作(全部)
+		if ("全部資料".equals(excel)) {
 			bean.setTra_NO(tra_no);
 			List<DetailBean> dResult = detailService.selectExcel(bean);
 			int count = dResult.size();
@@ -122,11 +122,140 @@ public class DetailServlet extends HttpServlet {
 			}
 			ex.detailExcel(count, exDetNo, bean.getTra_NO(), exEmpNo, exFamNo, exRel, exName, exSex, exID, exBDate,
 					exPhone, exEat, exCar, exFamBaby, exFamKid, exFamDis, exFamMom, exBen, exBenRel, exEmg, exEmgPhone,
-					exDetDate, exDetCanDate, exNote, exDetCanNote);
-		} // 柯(請勿刪除)
+					exDetDate, exDetCanDate, exNote, exDetCanNote,excel);
+			req.getRequestDispatcher("/File_Detail.jsp").forward(req, resp);
+			return;
+			
+		}
 
+		// 點選匯出Excel動作(已報名)
+		if ("已報名".equals(excel)) {
+			bean.setTra_NO(tra_no);
+			List<DetailBean> dResult = detailService.selectExcel2(bean);
+			int count = dResult.size();
+			String[] exDetNo = new String[count];
+			String[] exEmpNo = new String[count];
+			String[] exFamNo = new String[count];
+			String[] exRel = new String[count];
+			String[] exName = new String[count];
+			String[] exSex = new String[count];
+			String[] exID = new String[count];
+			String[] exBDate = new String[count];
+			String[] exPhone = new String[count];
+			String[] exEat = new String[count];
+			String[] exCar = new String[count];
+			String[] exFamBaby = new String[count];
+			String[] exFamKid = new String[count];
+			String[] exFamDis = new String[count];
+			String[] exFamMom = new String[count];
+			String[] exBen = new String[count];
+			String[] exBenRel = new String[count];
+			String[] exEmg = new String[count];
+			String[] exEmgPhone = new String[count];
+			String[] exDetDate = new String[count];
+			String[] exDetCanDate = new String[count];
+			String[] exNote = new String[count];
+			String[] exDetCanNote = new String[count];
+			File dir = new File("C:/detail");
+			Excel ex = new Excel(dir);
+			for (int i = 0; i < count; i++) {
+				exDetNo[i] = dResult.get(i).getDet_No() + "";
+				exEmpNo[i] = dResult.get(i).getEmp_No() + "";
+				exFamNo[i] = dResult.get(i).getFam_No() + "";
+				exRel[i] = dResult.get(i).getRel();
+				exName[i] = dResult.get(i).getName();
+				exSex[i] = dResult.get(i).getSex();
+				exID[i] = dResult.get(i).getID();
+				exBDate[i] = dResult.get(i).getBdate() + "";
+				exPhone[i] = dResult.get(i).getPhone();
+				exEat[i] = dResult.get(i).getEat();
+				exCar[i] = dResult.get(i).getCar() + "";
+				exFamBaby[i] = dResult.get(i).getFam_Bady() + "";
+				exFamKid[i] = dResult.get(i).getFam_kid() + "";
+				exFamDis[i] = dResult.get(i).getFam_Dis() + "";
+				exFamMom[i] = dResult.get(i).getFam_Mom() + "";
+				exBen[i] = dResult.get(i).getBen();
+				exBenRel[i] = dResult.get(i).getBenRel();
+				exEmg[i] = dResult.get(i).getEmg();
+				exEmgPhone[i] = dResult.get(i).getEmgPhone();
+				exDetDate[i] = dResult.get(i).getDet_Date();
+				exDetCanDate[i] = dResult.get(i).getDet_CanDate();
+				exNote[i] = dResult.get(i).getNote();
+				exDetCanNote[i] = dResult.get(i).getDet_canNote();
+			}
+			ex.detailExcel(count, exDetNo, bean.getTra_NO(), exEmpNo, exFamNo, exRel, exName, exSex, exID, exBDate,
+					exPhone, exEat, exCar, exFamBaby, exFamKid, exFamDis, exFamMom, exBen, exBenRel, exEmg, exEmgPhone,
+					exDetDate, exDetCanDate, exNote, exDetCanNote,excel);
+			req.getRequestDispatcher("/File_Detail.jsp").forward(req, resp);
+			return;
+			
+		}
+		// 點選匯出Excel動作(已取消)
+		if ("已取消".equals(excel)) {
+			bean.setTra_NO(tra_no);
+			List<DetailBean> dResult = detailService.selectExcel3(bean);
+			int count = dResult.size();
+			String[] exDetNo = new String[count];
+			String[] exEmpNo = new String[count];
+			String[] exFamNo = new String[count];
+			String[] exRel = new String[count];
+			String[] exName = new String[count];
+			String[] exSex = new String[count];
+			String[] exID = new String[count];
+			String[] exBDate = new String[count];
+			String[] exPhone = new String[count];
+			String[] exEat = new String[count];
+			String[] exCar = new String[count];
+			String[] exFamBaby = new String[count];
+			String[] exFamKid = new String[count];
+			String[] exFamDis = new String[count];
+			String[] exFamMom = new String[count];
+			String[] exBen = new String[count];
+			String[] exBenRel = new String[count];
+			String[] exEmg = new String[count];
+			String[] exEmgPhone = new String[count];
+			String[] exDetDate = new String[count];
+			String[] exDetCanDate = new String[count];
+			String[] exNote = new String[count];
+			String[] exDetCanNote = new String[count];
+			File dir = new File("C:/detail");
+			Excel ex = new Excel(dir);
+			for (int i = 0; i < count; i++) {
+				exDetNo[i] = dResult.get(i).getDet_No() + "";
+				exEmpNo[i] = dResult.get(i).getEmp_No() + "";
+				exFamNo[i] = dResult.get(i).getFam_No() + "";
+				exRel[i] = dResult.get(i).getRel();
+				exName[i] = dResult.get(i).getName();
+				exSex[i] = dResult.get(i).getSex();
+				exID[i] = dResult.get(i).getID();
+				exBDate[i] = dResult.get(i).getBdate() + "";
+				exPhone[i] = dResult.get(i).getPhone();
+				exEat[i] = dResult.get(i).getEat();
+				exCar[i] = dResult.get(i).getCar() + "";
+				exFamBaby[i] = dResult.get(i).getFam_Bady() + "";
+				exFamKid[i] = dResult.get(i).getFam_kid() + "";
+				exFamDis[i] = dResult.get(i).getFam_Dis() + "";
+				exFamMom[i] = dResult.get(i).getFam_Mom() + "";
+				exBen[i] = dResult.get(i).getBen();
+				exBenRel[i] = dResult.get(i).getBenRel();
+				exEmg[i] = dResult.get(i).getEmg();
+				exEmgPhone[i] = dResult.get(i).getEmgPhone();
+				exDetDate[i] = dResult.get(i).getDet_Date();
+				exDetCanDate[i] = dResult.get(i).getDet_CanDate();
+				exNote[i] = dResult.get(i).getNote();
+				exDetCanNote[i] = dResult.get(i).getDet_canNote();
+			}
+			ex.detailExcel(count, exDetNo, bean.getTra_NO(), exEmpNo, exFamNo, exRel, exName, exSex, exID, exBDate,
+					exPhone, exEat, exCar, exFamBaby, exFamKid, exFamDis, exFamMom, exBen, exBenRel, exEmg, exEmgPhone,
+					exDetDate, exDetCanDate, exNote, exDetCanNote,excel);
+			req.getRequestDispatcher("/File_Detail.jsp").forward(req, resp);
+			return;
+			
+		}
+		
 		List<ItemVO> itemVO = null;
 		List<ItemVO> room = null;
+		//新增動作
 		if ("insert".equals(prodaction) || ("1").equals(doInsert)) {
 			Long tra_No = Long.parseLong(tra_no);
 			travelVO = detailService.Count(tra_no);
@@ -175,6 +304,7 @@ public class DetailServlet extends HttpServlet {
 			}
 		}
 
+		//儲存動作
 		if ("save".equals(prodaction)) {
 			String tempEmp_No = req.getParameter("emp_No");
 			int emp_No = Integer.parseInt(tempEmp_No);
@@ -190,8 +320,13 @@ public class DetailServlet extends HttpServlet {
 			String emg = req.getParameter("emg");
 			String emg_Phone = req.getParameter("emg_Phone");
 			String note = req.getParameter("note");
+			//儲存家屬&親友
 			if (!rel.equals("員工")) {
 				try {
+					String temp_FamNo = req.getParameter("fam_No");
+					String car = req.getParameter("car");
+					String spe = req.getParameter("text_multiselect");
+					int fam_No = Integer.parseInt(temp_FamNo);
 					if (name.trim().length() == 0 || name == null) {
 						session.setAttribute("CanError", "儲存失敗！");
 					} else if (ben.trim().length() == 0 || ben == null) {
@@ -208,11 +343,9 @@ public class DetailServlet extends HttpServlet {
 						session.setAttribute("CanError", "儲存失敗！");
 					} else if (sex.equals("女") && !ID.substring(1, 2).equals("2")) {
 						session.setAttribute("CanError", "儲存失敗！");
-					} else {
-						String temp_FamNo = req.getParameter("fam_No");
-						String car = req.getParameter("car");
-						String spe = req.getParameter("text_multiselect");
-						int fam_No = Integer.parseInt(temp_FamNo);
+					} else if (detailService.selectSameId2(ID, fam_No) != null) {
+						session.setAttribute("CanError", "身份證字號重複！");
+					}else {
 						FamilyVO Fbean = new FamilyVO();
 						Fbean.setFam_Name(name);
 						Fbean.setFam_Rel(rel);
@@ -263,6 +396,7 @@ public class DetailServlet extends HttpServlet {
 				}
 				resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_no);
 				return;
+				//儲存員工資料，無親屬編號、特殊身分、車位欄位
 			} else {
 				try {
 					if (name.trim().length() == 0 || name == null) {
@@ -281,7 +415,7 @@ public class DetailServlet extends HttpServlet {
 						session.setAttribute("CanError", "儲存失敗！");
 					} else if (sex.equals("女") && !ID.substring(1, 2).equals("2")) {
 						session.setAttribute("CanError", "儲存失敗！");
-					} else {
+					}else {
 						EmployeeVO Ebean = new EmployeeVO();
 						Ebean.setEmp_Name(name);
 						Ebean.setEmp_Phone(Phone);
@@ -310,6 +444,7 @@ public class DetailServlet extends HttpServlet {
 			return;
 		}
 
+		//當點選上方過濾器or下方頁碼時觸發動作
 		if(view != null && view.length() != 0){
 			if(view.equals("已取消")){
 				result = detailService.selectCan(bean,1,intTag);

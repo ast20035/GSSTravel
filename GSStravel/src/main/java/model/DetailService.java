@@ -26,7 +26,12 @@ public class DetailService {
 	public List<DetailBean> selectExcel(DetailBean bean) {
 		return detailDAO.selectExcel(bean.getTra_NO());
 	}
-
+	public List<DetailBean> selectExcel2(DetailBean bean) {
+		return detailDAO.selectExcel2(bean.getTra_NO());
+	}
+	public List<DetailBean> selectExcel3(DetailBean bean) {
+		return detailDAO.selectExcel3(bean.getTra_NO());
+	}
 	public List<String> selectFam_Rel(int emp_No, long tra_No) {
 		detailDAO = new DetailDAO();
 		return detailDAO.selectFam_Rel(emp_No, tra_No);
@@ -247,17 +252,32 @@ public class DetailService {
 		}
 		return result;
 	}
+	
+	public String selectSameId(String id, int emp_No) {
+		detailDAO = new DetailDAO();
+		String result = detailDAO.selectSameId(id, emp_No);
+		return result;
+	}
+	
+	public String selectSameId2(String fam_id, int fam_No) {
+		detailDAO = new DetailDAO();
+		String result = detailDAO.Select_SamId2(fam_id, fam_No);
+		return result;
+	}
 
+	//新增親屬
 	public boolean insert(DetailVO bean) {
 		detailDAO = new DetailDAO();
 		travelDAO = new TravelDAO();
 		if (bean != null) {
 			detailDAO.insert(bean);
+			//計算目前套用的輔助金總金額
 			String emp_SubTra = detailDAO.SELECT_emp_SubTra(bean.getEmp_No());
 			Float TA_money = detailDAO.select_TotalMoney(bean.getEmp_No(), bean.getTra_No());
-
+			//新增的旅遊先不套用輔助金
 			detailDAO.Update_TA(TA_money, false, bean.getEmp_No(), bean.getTra_No());
 
+			//如果目前員工有使用輔助金且尚未過期，就計算花費最多的行程並套用輔助金
 			if (travelDAO.SELECTsubTra(emp_SubTra) != null) {
 				String top1_Tra_No = detailDAO.SELECT_top1_Tra_No(bean.getEmp_No());
 				detailDAO.UPDATE_emp_SubTra(top1_Tra_No, bean.getEmp_No());
@@ -272,6 +292,7 @@ public class DetailService {
 		}
 	}
 
+	//新增員工
 	public boolean insert_emp(DetailVO bean) {
 		detailDAO = new DetailDAO();
 		travelDAO = new TravelDAO();
@@ -280,11 +301,14 @@ public class DetailService {
 			Float TA_money = detailDAO.select_TotalMoney(bean.getEmp_No(), bean.getTra_No());
 			String emp_SubTra = detailDAO.SELECT_emp_SubTra(bean.getEmp_No());
 
+			//如果員工尚未使用輔助金，就將新增的行程直接套用
 			if (emp_SubTra == null) {
 				detailDAO.INSERT_TA(bean.getTra_No(), bean.getEmp_No(), TA_money, thisyear, true);
 				detailDAO.UPDATE_emp_SubTra(bean.getTra_No(), bean.getEmp_No());
 			} else {
+				//如果已使用就將新增的行程先設為未使用輔助金
 				detailDAO.INSERT_TA(bean.getTra_No(), bean.getEmp_No(), TA_money, thisyear, false);
+				//如果員工的輔助金尚未過期，則將計算最高的輔助金金額並套用
 				if (travelDAO.SELECTsubTra(emp_SubTra) != null) {
 					String top1_Tra_No = detailDAO.SELECT_top1_Tra_No(bean.getEmp_No());
 					detailDAO.UPDATE_emp_SubTra(top1_Tra_No, bean.getEmp_No());
@@ -299,6 +323,7 @@ public class DetailService {
 		}
 	}
 
+	//取消旅遊行程
 	public List<DetailBean> update(DetailBean bean) {
 		List<DetailBean> result = null;
 		detailDAO = new DetailDAO();
@@ -307,16 +332,21 @@ public class DetailService {
 			String Rel = detailDAO.Select_Rel(bean.getDet_No());
 			int emp_No = detailDAO.select_emp_No(bean.getDet_No());
 			String emp_SubTra = detailDAO.SELECT_emp_SubTra(emp_No);
+			//取消員工報名明細，並轉移輔助金
 			if (Rel.equals("員工")) {
 				String canTra_No = bean.getTra_NO();
+				//查看員工輔助金是否已過期
 				if (emp_SubTra == null || travelDAO.SELECTsubTra(emp_SubTra) != null) {
 					String top1_Tra_No = detailDAO.SELECT_top1_Tra_No(emp_No);
 					String top2_Tra_No = detailDAO.SELECT_top2_Tra_No(emp_No);
+					//取消的報名行程=員工目前套用的輔助金行程=花費最高的行程時，轉移輔助金
 					if (canTra_No.equals(emp_SubTra)) {
 						if (emp_SubTra.equals(top1_Tra_No)) {
+							//如果花費最高的行程=花費第二高的行程時，表示此員工已無任何已報名行程，則將輔助金設為未使用
 							if (top1_Tra_No.equals(top2_Tra_No)) {
 								detailDAO.UPDATE_emp_Sub(emp_No);
 							} else {
+								//如果員工有花費第二高的行程時，將輔助金轉移至此行程
 								detailDAO.UPDATE_emp_SubTra(top2_Tra_No, emp_No);
 								Float top2_Tra_No_money = detailDAO.select_TotalMoney(emp_No, top2_Tra_No);
 								detailDAO.Update_TA(top2_Tra_No_money, true, emp_No, top2_Tra_No);
@@ -324,12 +354,15 @@ public class DetailService {
 						}
 					}
 				}
+				//刪除此行程在TotalAmount的資料
 				detailDAO.DELETE_TA(canTra_No, emp_No);
 				result = detailDAO.update(emp_No, bean.getDet_canNote(), bean.getTra_NO());
-			} else {
+			} else {//取消家屬報名明細
 				detailDAO.update_FamCanDate(bean.getDet_No(), bean.getDet_canNote());
 				Float TA_money = detailDAO.select_TotalMoney(emp_No, bean.getTra_NO());
+				//先將此行程的輔助金更新為未使用
 				detailDAO.Update_TA(TA_money, false, emp_No, bean.getTra_NO());
+				//如果附屬員工的輔助金尚未過期，則將輔助金轉為至花費最高的行程
 				if (travelDAO.SELECTsubTra(emp_SubTra) != null) {
 					String top1_Tra_No = detailDAO.SELECT_top1_Tra_No(emp_No);
 					detailDAO.UPDATE_emp_SubTra(top1_Tra_No, emp_No);
@@ -350,8 +383,6 @@ public class DetailService {
 		return result;
 	}
 
-
-
 	public Boolean update_famData(FamilyVO bean) {
 		Boolean result = false;
 		if (bean != null) {
@@ -360,6 +391,8 @@ public class DetailService {
 		}
 		return result;
 	}
+	
+	//身份證字號判斷
 	public final Pattern TWPID_PATTERN = Pattern.compile("[ABCDEFGHJKLMNPQRSTUVXYWZIO][12]\\d{8}");
 
 	public boolean isValidTWPID(String twpid) {

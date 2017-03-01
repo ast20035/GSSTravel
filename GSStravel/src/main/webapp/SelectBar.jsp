@@ -85,32 +85,25 @@ tbody a:visited:after {
 
 .nav>li>a {
 	font-size: 15px;
-	color: #00FA9A;
-	font-weight: normal;
+	color: 	#220088;
+	font-weight: bolder;
 }
 
 .now {
 	border-radius: 7px\7px;
 	background-color: white;
 }
-
 .nav>.now>a {
 	font-weight: bolder;
 	color:#003377;
 	
 }
 
-.title {
-	text-align: left;
-	font-style: italic;
-	color: #000088;
-	padding-bottom: 1px;
-	padding-top: 5px;
-}
-
 h1, h2 {
 	color: #7744FF;
 	font-weight: bolder;
+	border-left: 6px solid gray;
+	padding-left: 10px;
 }
 
 .input-group-addon.info {
@@ -133,9 +126,10 @@ h1, h2 {
 }
 
 .navbar {
-	background: linear-gradient(to bottom, rgba(30, 87, 153, 1) 0%,
-		rgba(82, 141, 196, 1) 55%, rgba(107, 166, 217, 0.7) 81%,
-		rgba(125, 185, 232, 0) 100%);
+/* 	background: linear-gradient(to bottom, rgba(30, 87, 153, 1) 0%, */
+/* 		rgba(82, 141, 196, 1) 55%, rgba(107, 166, 217, 0.7) 81%, */
+/* 		rgba(125, 185, 232, 0) 100%); */
+background:linear-gradient(to bottom, #539fe1 0%,#0a77d5 3%,#87bcea 75%);
 	z-index: 15;
 	padding-top: 5px;
 	border: 0;

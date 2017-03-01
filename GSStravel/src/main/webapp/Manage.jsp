@@ -93,18 +93,11 @@ tbody a:visited:after {
 	color: white;
 	font-weight: normal;
 }
-
-.title {
-	text-align: left;
-	font-style: italic;
-	color: #000088;
-	padding-bottom: 1px;
-	padding-top: 5px;
-}
-
 h1, h2 {
 	color: #7744FF;
 	font-weight: bolder;
+	border-left:6px solid gray;
+padding-left:10px;
 }
 
 .input-group-addon.info {
@@ -155,13 +148,13 @@ h1, h2 {
 	border: 0;
 }
 
-#close5 {
+#close7 {
 	margin-left: 5px;
 }
 
 .Mnow {
-	border-left: 2px solid blue;
-	border-right: 2px solid blue;
+	border-left: 3px solid blue;
+	border-right: 3px solid blue;
 }
 .navbar-brand{
 color:	#FFAA33;
@@ -203,7 +196,7 @@ color:	#FFAA33;
 					</ul></li>
 				</c:if>
 				<li><input type="button" value='登出'
-					class="btn btn-warning navbar-btn" id="close5"
+					class="btn btn-warning navbar-btn" id="close7"
 					onclick="window.location.href=resultjs+'/LogOut.do';"></li>
 			</ul>
 		</div>

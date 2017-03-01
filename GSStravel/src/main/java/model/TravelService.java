@@ -163,12 +163,8 @@ public class TravelService {
 		return result;
 	}
 
-	public TravelVO insert(TravelVO bean) {
-		TravelVO result = null;
-		if (bean != null) {
-			result = travelDAO.insert(bean);
-		}
-		return result;
+	public void insert(TravelVO bean) {
+		travelDAO.insert(bean);
 	}
 
 	public TravelVO update(TravelVO Travelupdate) {
@@ -190,4 +186,31 @@ public class TravelService {
 	public TravelVO Count(String tra_No) {
 		return travelDAO.Count(tra_No);
 	}
+	
+	public String getTra_No(){
+		List<String> tra_Nos = travelDAO.selectTra_No();
+		String tra_No = new SimpleDateFormat("yyyy-MM-dd").format(new Date()).replaceAll("-", "");
+		String cklastFour = null;
+		for(String nos:tra_Nos){
+			String no=nos.substring(0, 8);
+			if(no.equals(tra_No)){
+				String x= nos.substring(8);
+				Long lastFour=Long.valueOf(x)+1;
+				int lengths=lastFour.toString().length();
+				if(lengths==1){
+					cklastFour="000"+lastFour.toString();
+				}else if(lengths==2){
+					cklastFour="00"+lastFour.toString();
+				}else if(lengths==3){
+					cklastFour="0"+lastFour.toString();
+				}else{
+					cklastFour=lastFour.toString();
+				}				
+			}else{
+				cklastFour="0001";
+			}
+		}
+		tra_No=tra_No+cklastFour;
+		return tra_No;
+	}	
 }

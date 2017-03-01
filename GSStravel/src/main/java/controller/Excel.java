@@ -19,6 +19,7 @@ import jxl.write.WriteException;
 public class Excel {
 	static File saveFolder;
 
+	// 如果沒有資料夾就創一個
 	public Excel(File saveFolder) {
 		this.saveFolder = saveFolder;
 		if (!saveFolder.exists()) {
@@ -30,7 +31,7 @@ public class Excel {
 			String traEnd, String traTotal, String traMax, String traIntr, String traCon, String traAttr,
 			String traFile) {
 		try {
-			WritableWorkbook workbook = Workbook.createWorkbook(new File(saveFolder + "/" + traName + ".xls"));
+			WritableWorkbook workbook = Workbook.createWorkbook(new File(saveFolder + "/" + traName + ".xls"));// 檔名
 			WritableSheet sheet = workbook.createSheet("MySheet", 0);
 
 			WritableFont myFont = new WritableFont(WritableFont.createFont("標楷體"), 12);
@@ -64,9 +65,9 @@ public class Excel {
 				for (int j = 0; j < 2; j++) { // 0,1
 					if (j == 0) {
 						if (i == 10) {
-							sheet.setRowView(i, rowSize11);
-							sheet.setColumnView(j, columnSizeA);
-							sheet.addCell(new Label(j, i, name[i], cellFormatTitle));
+							sheet.setRowView(i, rowSize11);// 列的寬度
+							sheet.setColumnView(j, columnSizeA);// 欄的寬度
+							sheet.addCell(new Label(j, i, name[i], cellFormatTitle));// 寫進EXCEL儲存格裡
 						} else {
 							sheet.setRowView(i, rowSize);
 							sheet.setColumnView(j, columnSizeA);
@@ -98,9 +99,9 @@ public class Excel {
 			String[] famName, String[] famSex, String[] famID, String[] famBdate, String[] famPhone, String[] famEat,
 			String[] famCar, String[] famBaby, String[] famKid, String[] famDis, String[] famMom, String[] famBen,
 			String[] famBenRel, String[] famEmg, String[] famEmgPhone, String[] detDate, String[] detCanDate,
-			String[] famNote, String[] detCanNote) {
+			String[] famNote, String[] detCanNote, String ExcelData) {
 		try {
-			WritableWorkbook workbook = Workbook.createWorkbook(new File(saveFolder + "/報名明細-" + traNo + ".xls"));
+			WritableWorkbook workbook = Workbook.createWorkbook(new File(saveFolder + "/報名明細-" + traNo +"-"+ExcelData+ ".xls"));
 			WritableSheet sheet = workbook.createSheet("MySheet", 0);
 
 			WritableFont myFont = new WritableFont(WritableFont.createFont("標楷體"), 12);
