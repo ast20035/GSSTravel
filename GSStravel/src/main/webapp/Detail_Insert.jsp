@@ -48,16 +48,16 @@ table {
 </style>
 </head>
 <body>
-	<%@include file="SelectBar.jsp"%>
+	<%@include file="Manage.jsp"%>
 	<script>
-		$('.navbar-nav>li').removeClass('now');
-		$('.navbar-nav>li:eq(4)').addClass('now');
+		$('.navbar-nav>li').removeClass('active');
+		$('.navbar-nav>li:eq(2)').addClass('active');
 	</script>
 	<div class='container-fluid'>
 		<div class='row'>
 			<div class='col-md-1'></div>
 			<div class='col-md-11'>
-				<h2>一報名明細新增一</h2>
+				<h2>報名明細新增</h2>
 			</div>
 		</div>
 		<div class='row'>
@@ -210,9 +210,10 @@ table {
 	$(".multiselect").kendoMultiSelect({
 		autoClose : false
 	});
-
+	// 姓名、身分證、生日、手機、保險受益人、保險受益人關係、緊急聯絡人、緊急聯絡人電話、緊急聯絡人關係欄位判斷(其中一個是false就無法submit)
 	var a1 = a2 = a3 = a4 = a5 = a6 = a7 = a8 = a9 = false;
 	$(function() {
+		//身份證字號驗證
 		$(".fam_Id").on("blur",function() {
 							// 依照字母的編號排列，存入陣列備用。
 							var letters = new Array('A', 'B', 'C', 'D', 'E',
@@ -230,9 +231,10 @@ table {
 							// 撰寫「正規表達式」。第一個字為英文字母，
 							// 第二個字為1或2，後面跟著8個數字，不分大小寫。
 							var sex = $(".fam_Sex").val();
+							//性別為男時，第二碼為1
 							if (sex == "男") {
 								var regExpID = /^[a-z](1)\d{8}$/i;
-							} else {
+							} else {//性別為女時，第二碼為2
 								var regExpID = /^[a-z](2)\d{8}$/i;
 							}
 							// 使用「正規表達式」檢驗格式
@@ -285,6 +287,8 @@ table {
 							}
 
 						})
+						
+		//手機、緊急聯絡人手機檢驗(09xxxxxxxx)
 		var cellPhone = /^09\d{2}-?\d{3}-?\d{3}$/;
 		$(".fam_Phone").on("blur", function() {
 			if (cellPhone.test($(this).val())) {
@@ -320,7 +324,7 @@ table {
 				$(".insertSave").attr("type", "button");
 			}
 		});
-
+		//姓名、保險受益人、保險受益人關係、緊急聯絡人、緊急聯絡人關係驗證(不能為空值)
 		var thisName = /^.*\s*[^\s]/;
 		$(".fam_Name").blur(function() {
 			if (thisName.test($(this).val())) {
@@ -408,7 +412,7 @@ table {
 				$(".insertSave").attr("type", "button");
 			}
 		});
-
+		//生日驗證(yyyy-MM-dd)
 		var fambdate = /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
 		$(".fam_Bdate").on("blur", function() {
 			if (fambdate.test($(this).val())) {
@@ -430,7 +434,7 @@ table {
 		});
 
 	});
-
+	//當儲存按鈕的type是button時無法儲存
 	function saveData() {
 		if (document.getElementById("insertSave").type == 'button') {
 			alert("儲存失敗！");

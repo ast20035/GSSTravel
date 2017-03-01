@@ -22,7 +22,7 @@ import model.FamilyService;
 import model.FamilyVO;
 
 @WebServlet("/Register")
-public class Register extends HttpServlet {
+public class Register extends HttpServlet {//資料輸入時進入畫面從這邊進入 (從資料庫帶入原本 員工 親屬資料) 
 	private EmployeeService employeeservice = new EmployeeService();
 	private FamilyService familyservice= new FamilyService();
 	
@@ -34,7 +34,7 @@ public class Register extends HttpServlet {
 		Integer emp_No = (Integer) session.getAttribute("emp_No");
 		long tra_No = 0;
 		
-		EmployeeVO empstart = employeeservice.select(emp_No.toString());
+		EmployeeVO empstart = employeeservice.select(emp_No.toString());//用session帶進來員工編號找出資料
 		req.setAttribute("empno", emp_No);
 		req.setAttribute("empname", empstart.getEmp_Name());
 		req.setAttribute("empphone", empstart.getEmp_Phone());
@@ -46,38 +46,38 @@ public class Register extends HttpServlet {
 		req.setAttribute("empnote",empstart.getEmp_Note());
 		req.setAttribute("empemail",empstart.getEmp_Mail());
 
-		List<FamilyVO> famstart=familyservice.selectFam(emp_No.toString(),tra_No);
+		List<FamilyVO> famstart=familyservice.selectFam(emp_No.toString(),tra_No);//用session找出親屬資料
 		req.setAttribute("famstartsize", famstart.size());
 		req.setAttribute("famstart", famstart);
 				
 
-			long betweenDate =0;
-			FamilyVO start=null;
-			for(int i=0;i<famstart.size();i++){//0 1 2 3 4
-				 start=famstart.get(i);
-				 Date bdate = start.getFam_Bdate();	 
-				 Calendar calendar = Calendar.getInstance();
-				 long nowDate = calendar.getTime().getTime(); //Date.getTime() 獲得毫秒型 現在日期
-				 
-				 long specialDate = bdate.getTime();//把要比較的值放這(親屬日期)
-				 betweenDate = (nowDate - specialDate) / (1000 * 60 * 60 * 24); //計算間隔多少天，則除以毫秒到天的轉換公式			 
-//				 System.out.println(betweenDate);  //10353 1745 43 43 43 
-				 if(betweenDate<365*3){
-					 start.setFam_Bady(true);
-				 }else{
-					 start.setFam_Bady(false);
-				 }
-				 if(betweenDate<365*11){
-					 if(betweenDate>365*3){
-					 start.setFam_kid(true);
-					 start.setFam_Bady(false);
-					 }
-				 }else{
-					 start.setFam_kid(false);
-				 }
-
-				 
-			}
+//			long betweenDate =0;
+//			FamilyVO start=null;
+//			for(int i=0;i<famstart.size();i++){//0 1 2 3 4
+//				 start=famstart.get(i);
+//				 Date bdate = start.getFam_Bdate();	 
+//				 Calendar calendar = Calendar.getInstance();
+//				 long nowDate = calendar.getTime().getTime(); //Date.getTime() 獲得毫秒型 現在日期
+//				 
+//				 long specialDate = bdate.getTime();//把要比較的值放這(親屬日期)
+//				 betweenDate = (nowDate - specialDate) / (1000 * 60 * 60 * 24); //計算間隔多少天，則除以毫秒到天的轉換公式			 
+////				 System.out.println(betweenDate);  //10353 1745 43 43 43 
+//				 if(betweenDate<365*3){
+//					 start.setFam_Bady(true);
+//				 }else{
+//					 start.setFam_Bady(false);
+//				 }
+//				 if(betweenDate<365*11){
+//					 if(betweenDate>365*3){
+//					 start.setFam_kid(true);
+//					 start.setFam_Bady(false);
+//					 }
+//				 }else{
+//					 start.setFam_kid(false);
+//				 }
+//
+//				 
+//			}
 			
 		req.getRequestDispatcher("Datainsert.jsp").forward(req, res);
     }

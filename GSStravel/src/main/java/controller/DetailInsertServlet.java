@@ -135,32 +135,39 @@ public class DetailInsertServlet extends HttpServlet {
 							familyVO.setFam_EmgPhone(fam_EmgPhone);
 							familyVO.setFam_EmgRel(fam_EmgRel);
 							familyVO.setFam_Note(fam_Note);
-							boolean a = familyService.insert_fam(familyVO);
-							if (a) {
-								int fam_no = familyService.select_byname(emp_no, fam_Name);
-								detailVO.setEmp_No(emp_no);
-								detailVO.setTra_No(tra_No);
-								detailVO.setDet_money(det_money);
-								detailVO.setFam_No(fam_no);
-								boolean b = detailService.insert(detailVO);
-								if (b) {
-									session.setAttribute("CanError", "家屬新增成功");
-									resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No);
-									return;
+							String sId = detailService.selectSameId(fam_Id, emp_no);
+							if (sId == null) {
+								boolean a = familyService.insert_fam(familyVO);
+								if (a) {
+									int fam_no = familyService.select_byname(emp_no, fam_Name);
+									detailVO.setEmp_No(emp_no);
+									detailVO.setTra_No(tra_No);
+									detailVO.setDet_money(det_money);
+									detailVO.setFam_No(fam_no);
+									boolean b = detailService.insert(detailVO);
+									if (b) {
+										session.setAttribute("CanError", "家屬新增成功");
+										resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No);
+										return;
 
+									} else {
+										session.setAttribute("CanError", "家屬新增失敗");
+										resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No);
+										return;
+									}
 								} else {
 									session.setAttribute("CanError", "家屬新增失敗");
 									resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No);
 									return;
 								}
-							} else {
-								session.setAttribute("CanError", "家屬新增失敗");
+							}else{
+								session.setAttribute("CanError", "身份證字號重複");
 								resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No);
 								return;
 							}
 						} catch (Exception e) {
 							session.setAttribute("DataError", "儲存失敗");
-							resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No+"&doInsert=1" );
+							resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No + "&doInsert=1");
 							return;
 						}
 					}
@@ -170,7 +177,7 @@ public class DetailInsertServlet extends HttpServlet {
 				}
 			} catch (Exception e) {
 				session.setAttribute("DataError", "儲存失敗");
-				resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No+"&doInsert=1" );
+				resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No + "&doInsert=1");
 				return;
 			}
 		}

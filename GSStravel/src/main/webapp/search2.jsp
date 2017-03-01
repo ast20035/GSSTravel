@@ -30,14 +30,13 @@
 			autoClose : false
 		});
 		search();
-		var $BodyWidth = $(document).width();  
-		var $ViewportWidth=$(window).width();  
-		var $ScrollLeft=$(this).scrollLeft();
-		if($BodyWidth>($ViewportWidth+$ScrollLeft)){   
-               $('#span').show();
-		} 
-		else if($BodyWidth==($ViewportWidth+$ScrollLeft)){   
-              $('#span').hide();
+		var $BodyWidth = $(document).width();
+		var $ViewportWidth = $(window).width();
+		var $ScrollLeft = $(this).scrollLeft();
+		if ($BodyWidth > ($ViewportWidth + $ScrollLeft)) {
+			$('#span').show();
+		} else if ($BodyWidth == ($ViewportWidth + $ScrollLeft)) {
+			$('#span').hide();
 		}
 	};
 	var xh = new XMLHttpRequest();
@@ -137,11 +136,11 @@
 </head>
 
 <body>
-		<%@include file="SelectBar.jsp"%>
-		<script>
-			$('.navbar-nav>li').removeClass('now');
-			$('.navbar-nav>li:eq(3)').addClass('now');
-		</script>
+	<%@include file="Manage.jsp"%>
+	<script>
+		$('.navbar-nav>li').removeClass('Mnow');
+		$('.navbar-nav>li:eq(1)').addClass('Mnow');
+	</script>
 	<div class='container-fluid'>
 		<link rel="stylesheet"
 			href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
@@ -157,12 +156,13 @@
 				<h2>行程維護</h2>
 			</div>
 		</div>
-		<div class='row'>
-			<div class='col-md-1'></div>
-			<div class='col-md-2'>
-				<br>
-				<fieldset>
-					<form action=<c:url value="/Travel_Edit"/> method="get">
+
+		<br>
+		<fieldset>
+			<form action=<c:url value="/Travel_Edit"/> method="get">
+				<div class='row'>
+					<div class='col-md-1'></div>
+					<div class='col-md-2'>
 						<div class='input-group'>
 							<span class="input-group-addon info" id="sizing-addon1">活動代碼:</span><input
 								type='text' id='id' value='' aria-describedby="sizing-addon1"
@@ -170,22 +170,22 @@
 						</div>
 						<br>
 						<div class='input-group'>
-							<span class="input-group-addon info" id="sizing-addon2">活動名稱:</span> <input
-								type='text' id='tra_name' value=''
+							<span class="input-group-addon info" id="sizing-addon2">活動名稱:</span>
+							<input type='text' id='tra_name' value=''
 								aria-describedby="sizing-addon2" class='form-control' />
 						</div>
 						<br>
 						<div class='input-group'>
-							<span class="input-group-addon info" id="sizing-addon3"> 起迄日期:</span><input
-								type='date' id='Sdate' name='startDay' value=''
+							<span class="input-group-addon info" id="sizing-addon3">
+								起迄日期:</span><input type='date' id='Sdate' name='startDay' value=''
 								aria-describedby="sizing-addon3" class='form-control' /> <input
 								type='date' id='Edate' name='endDay' value=''
 								class='form-control' />
 						</div>
 						<br>
 						<div class='input-group select'>
-							<span class="input-group-addon info" id="sizing-addon3">活動地點:</span> <select
-								class="multiselect" name="loca" multiple="multiple"
+							<span class="input-group-addon info" id="sizing-addon3">活動地點:</span>
+							<select class="multiselect" name="loca" multiple="multiple"
 								data-placeholder="請選擇" style="width: 300px;">
 								<option>東</option>
 								<option>西</option>
@@ -194,20 +194,26 @@
 
 							</select>
 						</div>
-						<br> 
+						<br>
+					</div>
+				</div>
+				<div class='row'>
+					<div class='col-md-offset-1 col-md-2'>
 						<div class='btn-group'>
-						<input type="button" value="查詢" onclick="search()"  class='btn btn-primary'/> 
-						<input  class='btn btn-primary' type="reset">
-						
-						<!-- 柯(請勿刪除) -->
-							<input type="submit" class='btn btn-primary' name="excel" value="匯出Excel"/>
-						<!-- 柯(請勿刪除) -->
-						
+							<input type="button" value="查詢" onclick="search()"
+								class='btn btn-primary' /> <input class='btn btn-primary'
+								type="reset"> <input type="submit"
+								class='btn btn-primary' name="excel" value="匯出Excel" />
 						</div>
-					</form>
-				</fieldset>
-			</div>
-		</div>
+					</div>
+					<div class='col-md-offset-1 col-md-1'>
+					<input type="button" value="新增" onclick='window.location.href=resultjs+"/NewTravel";'
+								class='btn btn-success' /> 
+					</div>
+				</div>
+			</form>
+		</fieldset>
+
 		<div class='row'>
 			<div class='col-md-1'></div>
 			<div class='col-md-10'>

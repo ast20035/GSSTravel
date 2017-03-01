@@ -39,7 +39,7 @@ td>strong {
 }
 </style>
 <script>
-		var btn=null;
+		var fineEmail=null;
 		var myImg=null;
 		var close1=null;
 		var close2=null;
@@ -48,12 +48,10 @@ td>strong {
 		var close5=null;
 		var close6=null;
 		var close7=null;
-		var closeBtn=null;
-		var down1=null;
-		var down2=null;
+		var closeFine=null;
 		
 		window.onload = function() {
-			btn = document.getElementById("FineEmail");
+			fineEmail = document.getElementById("FineEmail");
 			myImg = document.getElementById("img1"), xhr = null;
 			close1 = document.getElementById("close1");
 			close2 = document.getElementById("close2");
@@ -62,11 +60,9 @@ td>strong {
 			close5 = document.getElementById("close5");
 			close6 = document.getElementById("close6");
 			close7 = document.getElementById("close7");
-			closeBtn = document.getElementById("closeBtn");
-			down1 = document.getElementById("down1");
-			down2 = document.getElementById("down2");
+			closeFine = document.getElementById("closeFine");
 			if(${em == 1} && ${btn == 1}){
-				btn.removeAttribute("disabled");
+				fineEmail.removeAttribute("disabled");
 			}
 			var $BodyWidth = $(document).width();  
 			var $ViewportWidth=$(window).width();  
@@ -95,37 +91,52 @@ td>strong {
 				close2.removeAttribute("href");
 				close3.removeAttribute("href");
 				close4.removeAttribute("href");
-				close5.disabled = true;
+				close5.removeAttribute("href");
 				close6.removeAttribute("href");
-				close7.removeAttribute("href");
-				closeBtn.disabled = true;
-				down1.setAttribute("style","display:none");
-				down2.setAttribute("style","display:none");
+				close7.disabled = true;
+				closeFine.disabled = true;
 				myImg.style.display = "inline";
-				btn.setAttribute("disabled", "disabled");
-				btn.value = "Email寄送中...";
+				fineEmail.setAttribute("disabled", "disabled");
+				wait();
+// 				fineEmail.value = "Email寄送中...";
 			} else if (xhr.readyState == 4) {
-				close1.setAttribute("href","<c:url value='/Register'/>");
+				close1.setAttribute("href","<c:url value='/Board.jsp'/>");
 				close2.setAttribute("href","<c:url value='/search2.jsp'/>");
 				close3.setAttribute("href","<c:url value='/search.jsp'/>");
-				close4.setAttribute("href","<c:url value='/search1.jsp'/>");
-				close5.disabled = false;
+				close4.setAttribute("href","<c:url value='/FineSetting.jsp'/>");
+				close5.setAttribute("href","<c:url value='/search1.jsp'/>");
 				close6.setAttribute("href","<c:url value='/BoardMaintain.jsp'/>");
-				close7.setAttribute("href","<c:url value='/Board.jsp'/>");
-				closeBtn.disabled = false;
-				down1.removeAttribute("style");
-				down2.removeAttribute("style");
+				close7.disabled = false;
+				closeFine.disabled = false;
 				myImg.style.display = "none";
-				btn.value = "Email寄送成功！";
+				fineEmail.value = "Email寄送成功！";
 			}
+		}
+		
+		var x = 1;
+		function wait() {
+			if (x == 1) {
+				fineEmail.value = "Email寄送中.";
+				x++;
+			} else if (x == 2) {
+				fineEmail.value = "Email寄送中..";
+				x++;
+			} else if (x == 3) {
+				fineEmail.value = "Email寄送中...";
+				x = 1;
+			}
+			if(xhr.readyState == 4){
+				fineEmail.value = "Email寄送成功！";
+			}
+			setTimeout('wait()',1000);
 		}
 </script>
 </head>
 <body>
-	<%@include file="SelectBar.jsp"%>
+	<%@include file="Manage.jsp"%>
 	<script>
-		$('.navbar-nav>li').removeClass('now');
-		$('.navbar-nav>li:eq(5)').addClass('now');
+		$('.navbar-nav>li').removeClass('Mnow');
+		$('.navbar-nav>li:eq(3)').addClass('Mnow');
 	</script>
 	<div class='container-fluid'>
 		<div class='row'>
@@ -140,12 +151,12 @@ td>strong {
 				<div class='col-md-1'></div>
 				<div class='col-md-2'>
 					<br> <input type="button" value="罰則設定" name="FineSetting"
-						class='btn btn-primary' id="closeBtn"
+						class='btn btn-primary' id="closeFine"
 						onclick="window.location.href=resultjs+'/FineSetting.jsp'" /><br>
-					<br> <input class='btn btn-primary' type="button"
+					<br>
+					<input class='btn btn-primary' type="button"
 						id="FineEmail" name="FineEmail" value="寄送罰則異動通知" onclick="load()" disabled="disabled"/> 
 					<img src="images/ajax-loader.gif" id="img1" style="display: none" />
-					<div id="div1"></div>
 				</div>
 				<div class='col-md-7'>
 

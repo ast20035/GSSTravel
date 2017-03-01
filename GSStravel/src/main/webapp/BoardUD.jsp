@@ -19,16 +19,60 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="" />
-<title>公告維護</title>
+<title>公告編輯</title>
+<style type="text/css">
+.container-fluid {
+	margin-top: 2%;
+	font-size: 20px;
+}
+
+input, textarea {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border: 0px;
+	border-top: 1px solid #DDDDDD;
+	border-bottom: 1px solid #DDDDDD;
+	border: 0px;
+}
+
+h2 {
+	color: #00AAAA;
+	font-weight: bold;
+	border-left: 6px solid gray;
+	padding-left: 10px;
+}
+
+.dclass {
+	border: 0px;
+	border-top: 1px solid #DDDDDD;
+	border-bottom: 1px solid #DDDDDD;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+.dclassfirst {
+	border: 0px;
+	border-bottom: 1px solid #DDDDDD;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+.dclasslast {
+	border: 0px;
+	border-top: 1px solid #DDDDDD;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+</style>
 <script>
 	window.onload = function() {
 		setBoard();
 	}
 	var xh = new XMLHttpRequest();
-	<% 
-		String time = request.getParameter("anno_Time");
-		request.setAttribute("time",time);
-	%>
+<%String time = request.getParameter("anno_Time");
+			request.setAttribute("time", time);%>
 	var time = "${time}";
 	function setBoard() {
 		if (xh != null) {
@@ -36,7 +80,7 @@
 			var index = pathName.substr(1).indexOf("/");
 			var result = pathName.substr(0, index + 1);
 			xh.addEventListener("readystatechange", setBoardData, false);
-			xh.open("GET", "AnnouncementUDServlet?anno_Time="+time, true);
+			xh.open("GET", "AnnouncementUDServlet?anno_Time=" + time, true);
 			xh.send();
 		} else {
 			alert("很抱歉，您的瀏覽器不支援AJAX功能！");
@@ -56,27 +100,48 @@
 				for (var i = 0; i < board.length; i++) {
 					var div1 = document.createElement("div");
 					var div2 = document.createElement("div");
+					div2.appendChild(document.createTextNode("公告時間"));
+					div2.setAttribute("class", "dclassfirst");
+					div1.appendChild(div2);
+
+					var time = document.createElement("input");
+					time.setAttribute("type", "text");
+					time.setAttribute("id", "time");
+					time.setAttribute("name", "time");
+					time.setAttribute("class", "form-control");
+					time.setAttribute("style", "font-size:17px");
+					time.setAttribute("value", board[i].time);
+					div1.appendChild(time);
+
+					div2 = document.createElement("div");
 					div2.appendChild(document.createTextNode("公告標題"));
+					div2.setAttribute("class", "dclass");
 					div1.appendChild(div2);
 
 					var title = document.createElement("input");
 					title.setAttribute("type", "text");
 					title.setAttribute("id", "title");
 					title.setAttribute("name", "title");
+					title.setAttribute("class", "form-control");
+					title.setAttribute("style", "font-size:17px");
 					title.setAttribute("value", board[i].title);
 					div1.appendChild(title);
 
 					div2 = document.createElement("div");
 					div2.appendChild(document.createTextNode("公告內容"));
+					div2.setAttribute("class", "dclass");
 					div1.appendChild(div2);
 
 					var textarea = document.createElement("textarea");
-					textarea.setAttribute("cols","50");
-					textarea.setAttribute("rows","12");
+					textarea.setAttribute("cols", "50");
+					textarea.setAttribute("rows", "12");
 					textarea.setAttribute("id", "content");
 					textarea.setAttribute("name", "content");
-					textarea.setAttribute("style","resize: none");
-					textarea.appendChild(document.createTextNode(board[i].content));
+					textarea.setAttribute("class", "form-control");
+					textarea.setAttribute("style",
+							"font-size:17px; resize:none;");
+					textarea.appendChild(document
+							.createTextNode(board[i].content));
 					div1.appendChild(textarea);
 
 					body.appendChild(div1);
@@ -89,12 +154,27 @@
 </script>
 </head>
 <body>
-	<form action="<c:url value="/AnnouncementUDServlet" />" method="GET">
-		<div id="boardDiv">
+	<div class='container-fluid'>
+		<div class="row">
+			<div class='col-md-offset-3 col-md-2'>
+				<h2>修改公告</h2>
+			</div>
 		</div>
-		<input type="submit" value="更新" name="update" />
-		<input type="submit" value="刪除" name="delete" />
-		<button><a href="javascript:history.back()">回上頁</a></button>
-	</form>
+		<br> <br>
+		<div class='row'>
+			<div class='col-md-offset-4 col-md-4'>
+				<form action="<c:url value="/AnnouncementUDServlet" />" method="GET">
+					<div id="boardDiv"></div>
+					<div class='dclasslast'>
+						<input type="submit" value="儲存" name="update"
+							class='btn btn-success' /> <input type="submit" value="刪除"
+							name="delete" class='btn btn-danger' /> <input type="button"
+							class='btn btn-primary' value='回上一頁'
+							onclick='window.location.href="BoardMaintain.jsp"'>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

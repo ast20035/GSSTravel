@@ -42,6 +42,18 @@ table {
 </style>
 <title>報名取消</title>
 <script type="text/javascript">
+	function confirmComplete() {
+		var answer = confirm("是否確定要取消???");
+		if (answer == true) {
+			document.getElementById("ckback").style.display = 'none';
+			document.getElementById("back").innerHTML = "<input type='button' class='btn btn-primary' value='回上一頁' onclick='return false;'/>";
+ 			document.getElementById("ckCancel").style.display = 'none';
+			wait();
+			return true;
+		}else{
+			return false;
+		}
+	}
 	var x = 1;
 	function wait() {
 		if (x == 1) {
@@ -73,7 +85,7 @@ table {
 								<tr>
 									<td>活動名稱:</td>
 									<td><input type="hidden" value="${tra_Vo.tra_Name}"
-										name="tra_Name" readonly><label 
+										name="tra_Name" readonly><label
 										style="border-style: none; color: #7700BB;">${tra_Vo.tra_Name}</label></td>
 								<tr>
 									<td>活動代碼:</td>
@@ -108,7 +120,7 @@ table {
 									<td>員編:</td>
 									<td><input type="hidden" value="${emp_No}" name="emp_No"
 										readonly><label
-										style="border-style: none; color: #7700BB; width:300px;">${emp_No}</label>
+										style="border-style: none; color: #7700BB; width: 300px;">${emp_No}</label>
 									</td>
 								</tr>
 								<tr>
@@ -189,10 +201,11 @@ table {
 									</script>
 								<tr>
 									<td><br> <input type="button" value='回上一頁'
-										class='btn  btn-primary' onclick="window.location.href=GSS;" /></td>
+										class='btn  btn-primary' onclick="window.location.href=GSS;" id="ckback" />
+										<span id="back"></span></td>
 									<td><br> <input type="submit" value="取消報名"
-										class='btn  btn-primary'
-										onclick="confirmComplete();this.style.display = 'none';wait();" /><span
+										class='btn  btn-primary' id="ckCancel"
+										onclick="return confirmComplete();" /><span
 										id="ck"></span></td>
 								</tr>
 							</table>
@@ -204,14 +217,5 @@ table {
 		</form>
 	</div>
 </body>
-<script type="text/javascript">
-	function confirmComplete() {
-		var answer = confirm("是否確定要取消???");
-		if (answer == true) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-</script>
+
 </html>

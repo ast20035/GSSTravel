@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 
 import model.AnnouncementService;
 import model.AnnouncementVO;
-import model.FineVO;
 
 @WebServlet("/AnnouncementUDServlet")
 public class AnnouncementUDServlet extends HttpServlet {
@@ -38,7 +37,7 @@ public class AnnouncementUDServlet extends HttpServlet {
 		String content = request.getParameter("content");
 
 		HttpSession session = request.getSession();
-		time = request.getParameter("anno_Time");
+		time = request.getParameter("anno_Time");// 記錄公告時間方便修改用
 
 		if (session.getAttribute("time") == null) {
 			session.setAttribute("time", time);
@@ -47,26 +46,26 @@ public class AnnouncementUDServlet extends HttpServlet {
 			session.removeAttribute("time");
 			session.setAttribute("time", time);
 		}
-		AnnouncementVO bean = new AnnouncementVO();
+		
 		PrintWriter out = response.getWriter();
 
-		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:24小時制
 		Date date = new Date();
 		String now = sdFormat.format(date);
-		
+
 		if ("儲存".equals(save)) {
-			announcementService.insert(now, title, content);
+			announcementService.insert(now, title, content);// 新增公告
 			response.sendRedirect(request.getContextPath() + "/BoardMaintain.jsp");
-		} else if ("更新".equals(update)) {
+		} else if ("儲存".equals(update)) {
 			time = session.getAttribute("time").toString();
-			announcementService.update(now, title, content, time);
+			announcementService.update(now, title, content, time);// 修改公告
 			response.sendRedirect(request.getContextPath() + "/BoardMaintain.jsp");
 		} else if ("刪除".equals(delete)) {
 			time = session.getAttribute("time").toString();
-			announcementService.delete(time);
+			announcementService.delete(time);// 刪除公告
 			response.sendRedirect(request.getContextPath() + "/BoardMaintain.jsp");
 		} else {
-			List<AnnouncementVO> result = announcementService.get_by_time(time);
+			List<AnnouncementVO> result = announcementService.get_by_time(time);// 依照公告時間顯示公告
 			out.print(announcementService.to_Json(result));
 			return;
 		}

@@ -2,8 +2,8 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,9 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.AnnouncementService;
 import model.AnnouncementVO;
-import model.FineVO;
-import model.TravelService;
-import model.TravelVO;
 
 @WebServlet("/AnnouncementServlet")
 public class AnnouncementServlet extends HttpServlet {
@@ -30,24 +27,45 @@ public class AnnouncementServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		
+		String day = request.getParameter("day");
+		int count = Integer.parseInt(day);
 
 		String title = request.getParameter("title");
 		String startDay = request.getParameter("startDay");
 		String endDay = request.getParameter("endDay");
+		String delete = request.getParameter("delete");
 		PrintWriter out = response.getWriter();
 		List<AnnouncementVO> result = announcementService.select();
+		
+		SimpleDateFormat formatYMD = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		long beforeNow = (date.getTime() / 1000) - 60 * 60 * 24 * count;// 所選擇的期間
+		date.setTime(beforeNow * 1000);
+		String beforeDate = formatYMD.format(date);
+		
+		List<AnnouncementVO> resultDelete = announcementService.select();
+		resultDelete = announcementService.BeforeOff(resultDelete, beforeDate);
+		if("刪除".equals(delete)){
+			for(int i=0;i<resultDelete.size();i++){
+				announcementService.delete(resultDelete.get(i).getAnno_Time());// 刪除該期間的公告
+			}
+			response.sendRedirect(request.getContextPath() + "/BoardMaintain.jsp");
+		}
+
+		// 查詢條件
 		if (title == null && startDay == null && endDay == null) {
 			out.print(announcementService.to_Json(result));
 			return;
 		}
 		if (title != null) {
-			result = announcementService.get_by_title(title);
+			result = announcementService.get_by_title(title);// 標題模糊查詢
 		}
 		if (startDay != null && startDay != "") {
-			result = announcementService.AfterOn(result, startDay);
+			result = announcementService.AfterOn(result, startDay);// 時間之後查詢
 		}
 		if (endDay != null && endDay != "") {
-			result = announcementService.BeforeOff(result, endDay);
+			result = announcementService.BeforeOff(result, endDay);// 時間之前查詢
 		}
 		out.print(announcementService.to_Json(result));
 		return;

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.AnnouncementService;
 import model.IItemDAO;
 import model.ItemDAO;
 import model.ItemService;
@@ -29,6 +31,8 @@ public class TravelServlet extends HttpServlet {
 
 	private TravelService travelService = new TravelService();
 	private ItemService itemService = new ItemService();
+	private AnnouncementService announcementService = new AnnouncementService();
+		
 	/* 初始化 */
 
 	private SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd");
@@ -59,10 +63,7 @@ public class TravelServlet extends HttpServlet {
 		String traCon = request.getParameter("edittraCon");
 		String traAtter = request.getParameter("edittraAtter");
 		String traFile = request.getParameter("edittraFile");
-		
-		//柯(請勿刪除)
-			String excel = request.getParameter("excel");
-		//柯(請勿刪除)
+		String excel = request.getParameter("excel");
 
 		String[] itemNo = request.getParameterValues("edititemNo");
 		String[] itemName = request.getParameterValues("edititemName");
@@ -74,8 +75,7 @@ public class TravelServlet extends HttpServlet {
 		Map<String, String> errors = new HashMap<String, String>();
 		request.setAttribute("errors", errors);
 		
-
-		// 柯(請勿刪除)
+		// 匯出Excel
 		if ("匯出Excel".equals(excel)) {
 			TravelVO travelBean = new TravelVO();
 			List<TravelVO> tResult = travelService.selectExcel(travelBean);
@@ -90,10 +90,7 @@ public class TravelServlet extends HttpServlet {
 						tResult.get(i).getTra_File());
 			}
 			request.getRequestDispatcher("/search2.jsp").forward(request, response);
-		} // 柯(請勿刪除)
-		
-
-		
+		}
 		
 		/*
 		 * if("Insert".equals(inputerrors) || "Update".equals(prodaction) ||
@@ -222,8 +219,8 @@ public class TravelServlet extends HttpServlet {
 			try {
 				edittraIntr = traIntr;
 			} catch (NumberFormatException e) {
-				e.printStackTrace();
-				errors.put("edittraIntr", "活動說明必須輸入");
+//				e.printStackTrace();
+//				errors.put("edittraIntr", "活動說明必須輸入");
 			}
 		}
 
@@ -348,7 +345,13 @@ public class TravelServlet extends HttpServlet {
 		/*----Update----*/
 		// else
 
-		if ("Update".equals(inputerrors)) {
+		if ("更新".equals(inputerrors)) {
+			
+			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:24小時制
+			Date date = new Date();
+			String now = sdFormat.format(date);// 取得現在時間
+			announcementService.insert(now, traName+"行程異動", traCon);// 新增公告
+			
 			/*--Travel--*/
 			travelview.setTra_Name(edittraName);
 			travelview.setTra_Loc(edittraLoc);
@@ -411,7 +414,7 @@ public class TravelServlet extends HttpServlet {
 //				}
 
 			TravelVO resultEdit = travelService.update(travelview);
-
+			
 			// ItemVO bean = new ItemVO();
 			// List<ItemVO> result1 = (List<ItemVO>) itemService.update(bean);
 			if (resultEdit == null) { // & result1 == null
@@ -419,6 +422,8 @@ public class TravelServlet extends HttpServlet {
 			} else {
 				session.setAttribute("update", resultEdit);
 			}
+			response.sendRedirect("Travel_Edit?tra_no="+traNo);
+			return;
 			/*----Delete----*/
 		} else if ("Delete".equals(inputerrors)) {
 			boolean result = travelService.delete(travelview);
@@ -429,6 +434,7 @@ public class TravelServlet extends HttpServlet {
 			}
 		}
 		request.getRequestDispatcher("/Travel_Edit.jsp").forward(request, response); // 測試用
+		//response.sendRedirect(request.getContextPath() + "/Travel_Edit.jsp");
 	}// doGet
 
 	@Override

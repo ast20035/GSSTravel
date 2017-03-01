@@ -20,16 +20,44 @@
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="" />
 <title>公告維護</title>
+<style type="text/css">
+.container-fluid {
+	margin-top: 5%;
+	font-size: 20px;
+}
+
+input, textarea {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+</style>
 </head>
 <body>
-	<form action="<c:url value="/AnnouncementUDServlet" />" method="GET">
-		<div id="boardDiv">
-			<div>公告標題</div>
-			<input type="text" id="title" name="title" />
-			<div>公告內容</div>
-			<textarea cols="50" rows="12" id="content" name="content" style="resize: none"></textarea>
-			<input type="submit" value="儲存" name="save" />
+	<div class='container-fluid'>
+		<div class="row">
+			<div class='col-md-offset-5'>
+				<h2>新增公告</h2>
+			</div>
+		</div><br>
+		<div class='row'>
+			<div class='col-md-offset-4 col-md-4'>
+
+				<form action="<c:url value="/AnnouncementUDServlet" />" method="GET">
+					<div id="boardDiv">
+						<div>公告標題</div>
+						<input type="text" id="title" name="title" class="form-control"
+							style="font-size: 17px" />
+						<div>公告內容</div>
+						<textarea cols="50" rows="12" id="content" name="content"
+							style="font-size: 17px; resize: none" class="form-control"></textarea>
+						<br> <input type="submit" value="儲存" name="save"
+							class='btn btn-success' /> <input type="button"
+							class='btn btn-primary' value='回上一頁'
+							onclick='window.location.href="BoardMaintain.jsp"'>
+					</div>
+				</form>
+			</div>
 		</div>
-	</form>
+	</div>
 </body>
 </html>

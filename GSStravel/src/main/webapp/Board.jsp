@@ -24,6 +24,7 @@
 table, tr, td {
 	border: 1px solid black;
 }
+
 .clock {
 	border: 1px solid black;
 	width: 200px;
@@ -33,6 +34,13 @@ table, tr, td {
 </style>
 <script>
 	window.onload = function() {
+		day = document.getElementById("day");
+		setBoard();
+	}
+	
+	var day=null;
+	function optionTime() {
+		day = document.getElementById("day");
 		setBoard();
 	}
 
@@ -40,8 +48,15 @@ table, tr, td {
 
 	function setBoard() {
 		if (xh != null) {
+			var pathName = document.location.pathname;
+			var index = pathName.substr(1).indexOf("/");
+			var result = pathName.substr(0, index + 1);
+			var url = result + "/AnnouncementShowServlet?";
+			if (day.value != undefined && day.value != '') {
+				url = url + "day=" + day.value;
+			}
 			xh.addEventListener("readystatechange", setBoardData, false);
-			xh.open("GET", "AnnouncementServlet", true);
+			xh.open("GET", url, true);
 			xh.send();
 		} else {
 			alert("很抱歉，您的瀏覽器不支援AJAX功能！");
@@ -57,7 +72,7 @@ table, tr, td {
 				while (body.hasChildNodes()) {
 					body.removeChild(body.lastChild);
 				}
-				
+
 				var pathName = document.location.pathname;
 				var index = pathName.substr(1).indexOf("/");
 				var result = pathName.substr(0, index + 1);
@@ -71,7 +86,8 @@ table, tr, td {
 					tr.appendChild(td);
 
 					td = document.createElement("td");
-					a.setAttribute("href", result + "/BoardShow.jsp?anno_Time=" + board[i].time);
+					a.setAttribute("href", result + "/BoardShow.jsp?anno_Time="
+							+ board[i].time);
 					a.appendChild(document.createTextNode(board[i].title));
 					td.appendChild(a);
 					tr.appendChild(td);
@@ -98,16 +114,25 @@ table, tr, td {
 				<h2>公告</h2>
 			</div>
 		</div>
-		<table id="boardTable">
-			<thead>
-				<tr>
-					<th>公告時間</th>
-					<th>公告標題</th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
+		<br>
+		<div class='col-md-offset-3 col-md-5'>
+			<select id="day" name="day" onchange="optionTime()" class='form-control' style='width:150px;'>
+				<option value="31">過去1個月</option>
+				<option value="7">過去1週</option>
+				<option value="1">過去1天</option>
+			</select>
+			<br><br>
+			<table id="boardTable" class='table'>
+				<thead>
+					<tr>
+						<th>公告時間</th>
+						<th>公告標題</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </body>
 </html>

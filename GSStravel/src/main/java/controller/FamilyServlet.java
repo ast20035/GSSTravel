@@ -57,101 +57,142 @@ public class FamilyServlet extends HttpServlet {
 		String[] fambdatedate = req.getParameterValues("fambdate");
 		String[] famphone = req.getParameterValues("famphone");
 		String[] fameat = req.getParameterValues("fameat");
-		String[] famspa = req.getParameterValues("famspa");
 		String[] famben = req.getParameterValues("famben");
 		String[] fambenrel = req.getParameterValues("fambenrel");
 		String[] famemg = req.getParameterValues("famemg");
 		String[] famemgphpone = req.getParameterValues("famemgphpone");
 		String[] famemgrel = req.getParameterValues("famemgrel");
 		String[] famnote = req.getParameterValues("famnote");
-		System.out.println(famspa);
-		for(String xxx:famspa){
-			System.out.println(xxx);
-		}
+		String[] repeatselectvalue = req.getParameterValues("selectvalue");
+//		if(repeatselectvalue!= null){
+//		System.out.println(repeatselectvalue);
+//			for(String xxx:repeatselectvalue){
+//				System.out.println(xxx);
+//			}
+//		}
 		
-		
-		String buttondelete = req.getParameter("delete");
+//		String buttondelete = req.getParameter("delete");
 		String buttonsave = req.getParameter("button");
 		String ajaxid = req.getParameter("id");//判斷前端寫親屬身分證有無重複
-		String ajaxfamid = req.getParameter("famid");//用前端的親屬身分證去刪親屬
+		String ajaxfamid = req.getParameter("ajaxfamid");//用前端的親屬身分證去刪親屬
 		String ajaxcheckbox =req.getParameter("checkbox");
+		String ajaxmultiselect =req.getParameter("multiselect");
+		String ajaxfamname=req.getParameter("famnameajax");
 		PrintWriter out = res.getWriter();//ajax輸出???
 		
 		HttpSession session = req.getSession();
 		Integer emp_No = (Integer) session.getAttribute("emp_No");
 		List<String> id = familyservice.selectid(emp_No);
 
-		
-		
-		if (ajaxid != null) {//用來抓是否重複報名id會在前端顯示
+		//用ajax找出原本帶出親屬的多選值 更新資料庫
+		if(ajaxmultiselect != null){
+			 int fam_Nos= familyservice.selectfam_No(ajaxfamname);//4567
+			 System.out.println(ajaxmultiselect);
+			 System.out.println(ajaxfamname);
+			 System.out.println(fam_Nos);
+				 String xxx=ajaxmultiselect.replace("[", "").replace("]", "").replace(",","").replace("\"", "");					 			 
+				 List<String>ssss=new ArrayList<>();
+				 for(int x=0;x<xxx.length();){
+					 String y=xxx.substring(x, x+3);//mom
+					 x=x+3;
+					 ssss.add(y);
+				 }
+				 if(ssss.isEmpty()){
+					 familyservice.updatefambab(fam_Nos,false);
+					 familyservice.updatefamkid(fam_Nos, false);
+					 familyservice.updatefamdis(fam_Nos, false);
+					 familyservice.updatefammom(fam_Nos, false);
+				 }else{
+					 if(ssss.contains("bab")){
+						 familyservice.updatefambab(fam_Nos,true);
+					 }else{
+						 familyservice.updatefambab(fam_Nos,false);
+					 }
+					 if(ssss.contains("kid")){
+						 familyservice.updatefamkid(fam_Nos, true);
+					 }else{
+						 familyservice.updatefamkid(fam_Nos, false);
+					 }
+					 if(ssss.contains("dis")){
+						 familyservice.updatefamdis(fam_Nos, true);
+					 }else{
+						 familyservice.updatefamdis(fam_Nos, false);
+					 }
+					 if(ssss.contains("mom")){
+						 familyservice.updatefammom(fam_Nos, true);
+					 }else{
+						 familyservice.updatefammom(fam_Nos, false);
+					 }
+					 
+				 }
+		}
+
+		//判斷身分證id是否重複輸入
+		if(ajaxid != null) {
 			String[] items = ajaxid.replaceAll("\\[", "").replaceAll("\"", "").replaceAll("\\]", "").split(",");
-			for (String dataid : items) {// 輸出
-				if (id.contains(dataid)) {//
-					out.print("親屬身分證字號重複");//用來傳出
-					//setAttribute需要用方法重新導向 回jsp頁面才可以顯示 ajax只有送過來 
+			for (String dataid : items) {
+				System.out.println(dataid);
+				if (id.contains(dataid)) {
+					out.print("repeat");//用來傳出
 				}else{
 					out.print("");
 				}
 			}
+		}else{
+			out.print("");
 		}
 		
-//		if(ajaxfamid!=null){
-//			if(ajaxfamid!="block"){//用ajax找到id 去刪家屬
-//				
-//				//Travel 的活動結束時間之後可以刪 並且在detail 的親屬no之外 才可以刪  join 方法?
-//				//假如在 travel 當中有此親屬 活動結束後可以刪 如果還沒結束的不能刪
-//				 int famno = familyservice.selectfam_byid(ajaxfamid);//用id找famno
-//			 	
-//				 List<java.sql.Date> listdate= familyservice.selectfam_Nodelete(famno);//用famno去找有活動的親屬
-//				 long betweenDate=0;
-//				 //假如無活動
-//				 //重整時會直接進入save動作?
-//				 if(famno!=0){
-//					 for(Date date: listdate){
-//						 System.out.println(date);
-//						 Calendar calendar = Calendar.getInstance();
-//						 long nowDate = calendar.getTime().getTime(); //Date.getTime() 獲得毫秒型 現在日期
-//						 long specialDate = date.getTime();//把要比較的值放這(親屬日期)
-//						 betweenDate = (specialDate - nowDate) / (1000 * 60 * 60 * 24);
-//						 
-//						 if(betweenDate>0){//字串輸出過去
-//							 System.out.println(betweenDate);
-//							 //不能刪除  只要有超出日期 即會有out.print出去
-//							 	//不再detail裡面還是抓的到值? id新的 而且刪不掉
-//							 out.print("xxxxxx");
-//							 
-//						 }else{
-//							//可以刪除  全部過期才會到此 才能刪除
-//							familyservice.delete(ajaxfamid);
-//						 }
-//					 }//迴圈結束
-//				 }else{//!famno!=0
-//					 out.print("");
-//				 }
-//			}else{
-//				out.print("");
-//			}
-//		}
-			
+		//按下delete鍵的動作
+		if(ajaxfamid!=null){
+			System.out.println(ajaxfamid);
+				 int famno = familyservice.selectfam_byid(ajaxfamid);//用id找famno
+				 System.out.println(famno);
+				 List<java.sql.Date> listdate= familyservice.selectfam_Nodelete(famno);//用famno去找有活動的親屬
+				 long betweenDate=0;
+				 System.out.println("xxxxxxxxxxxxx");
+				 if(famno!=0){
+					 System.out.println("yyyyyyyyyyyyy");
+					 if(listdate.size()!=0){
+						 System.out.println("zzzzzzz");
+						 for(Date date: listdate){
+//							 System.out.println(date);
+							 System.out.println("kkkkkkkkkk");
+							 Calendar calendar = Calendar.getInstance();
+							 long nowDate = calendar.getTime().getTime(); //獲得毫秒型 現在日期
+							 long specialDate = date.getTime();//把要比較的值放這(親屬日期)
+							 betweenDate = (specialDate - nowDate) / (1000 * 60 * 60 * 24);
+							 System.out.println(betweenDate);
+							 if(betweenDate>0){//比對 能不能刪除
+								 System.out.println(betweenDate);
+								 System.out.println("not");
+								 out.println("not");
+							 }else{
+								//可以刪除  全部過期才會到此 才能刪除
+								familyservice.delete(ajaxfamid);
+								System.out.println("delete");
+								out.println("delete");
+							 }
+						 }//迴圈結束
+					 }else{//detail沒有相符
+						 familyservice.delete(ajaxfamid);
+						 System.out.println("delete2");
+						 out.println("delete");
+					 }
+				 }else{//沒抓到親屬no 直接刪掉
+					 familyservice.delete(ajaxfamid);
+					 System.out.println("delete3");
+					 out.println("delete");
+				 }
+			}
+
 		
-//		List<String> email = employeeservice.selectEmail();
-//		System.out.println(email);
-//		if(ajaxemail!=null){
-//			String[] items = ajaxemail.replaceAll("\\[", "").replaceAll("\"", "").replaceAll("\\]", "").split(",");
-//			for(String dataemail: items){
-//				System.out.println(dataemail);
-//				if(email.contains(dataemail)){
-//					out.print("員工信箱重複");//一樣 可能會抓到兩個print 一起出來??
-//				}
-//			}
-//		}
-		
-		
+		//按下儲存submit回來
 		if ("儲存".equals(buttonsave)) {//前面""抓value 
+			
 			Map<String, String> errormsg = new HashMap<String, String>();
 			req.setAttribute("error", errormsg);
-
-			// 員工 轉值
+			
+			// 員工判斷空值 轉型態
 			if (empphone == null || empphone.length() == 0) {
 				errormsg.put("empphone", "員工電話不能為空值");
 			}
@@ -172,7 +213,6 @@ public class FamilyServlet extends HttpServlet {
 			}
 
 
-			// 親屬 轉值 家屬為null?
 			// 判斷 假如只有一行空白刪除空白欄位 跟 兩行以上 一行有一行空白 把空白判斷掉
 			List<Date> fambdate = new ArrayList<Date>();
 			int idlength = 0;
@@ -225,7 +265,7 @@ public class FamilyServlet extends HttpServlet {
 				}
 
 			}
-
+			
 			if (errormsg != null && !errormsg.isEmpty()) {
 				System.out.println("親屬員工檢查錯誤");
 				req.getRequestDispatcher("Register").forward(req, res);
@@ -234,7 +274,8 @@ public class FamilyServlet extends HttpServlet {
 				System.out.println("親屬員工檢查完畢");
 			}
 
-			// 網路頁面上取值
+			
+			// 網路頁面上取值 抓員工值
 			EmployeeVO employeevo = new EmployeeVO();
 			employeevo.setEmp_No(emp_No);
 			employeevo.setEmp_Phone(empphone);
@@ -252,11 +293,10 @@ public class FamilyServlet extends HttpServlet {
 			employeeservice.update(employeevo);
 			System.out.println("員工資料更改完畢");
 			
-			
-			if (famid != null) {// 這邊判斷匯錯 因為空值也算一筆?
+			idlength = famid.length;
+			if (famid != null) {
 				
 				ArrayList<Boolean> carcheckbox =new ArrayList<Boolean>();
-//				System.out.println(ajaxcheckbox);
 				String[] items = ajaxcheckbox.replaceAll("\\[", "").replaceAll("\\]", "").split(",");
 				String[] results = new String[items.length];
 				 for (int j = 0; j < items.length; j++) {
@@ -269,15 +309,70 @@ public class FamilyServlet extends HttpServlet {
 					 if(element.equals("1")){
 						 carcheckbox.add(true);
 					 }
-					 		//還是用判斷並把boolean塞進去?//改成數字後看看?datainsert.jsp
 				 }
+				 
+				//親屬抓insert 多選
+				List<String>ssss=new ArrayList<>();
+				List<Boolean>yyyy = new ArrayList<>();
+				if(repeatselectvalue!= null){
+					System.out.println(repeatselectvalue);
+					 
+						for(String xxx:repeatselectvalue){
+							System.out.println(xxx);//抓得到
+							 String value=xxx.replace("[", "").replace("]", "").replace(",","").replace("\"", "");
+							 System.out.println(value);
+							 for(int x=0;x<value.length();){
+								 String y =value.substring(x, x+3);
+								 x=x+3;
+								 ssss.add(y);
+								if(ssss.isEmpty()){
+									yyyy.add(false);
+									yyyy.add(false);
+									yyyy.add(false);
+									yyyy.add(false);
+								 }else{
+									 if(ssss.contains("bab")){
+										 yyyy.add(true);
+									 }else{
+										 yyyy.add(false);
+									 }
+									 if(ssss.contains("kid")){
+										 yyyy.add(true);
+									 }else{
+										 yyyy.add(false);
+									 }
+									 if(ssss.contains("dis")){
+										 yyyy.add(true);
+									 }else{
+										 yyyy.add(false);
+									 }
+									 if(ssss.contains("mom")){
+										 yyyy.add(true);
+									 }else{
+										 yyyy.add(false);
+									 }
+									 
+								 }
+								 
+							 }
+							 
+						}
+						for(String ddd:ssss){
+							System.out.println(ddd);
+						}
+//						for(Boolean zzz:yyyy){
+//							System.out.println(zzz);
+//						}
+
+						
+					}
+				 
+				 
 				idlength = famid.length;
 				for (int i = 0; i < idlength; i++) {// 0 1 2 3
+					
 					FamilyVO familyvo = new FamilyVO();
 					familyvo.setEmp_No(emp_No);
-					// 這邊的famno 帶錯 如果用name來入找famno會讓famno變成0( 新改的name
-					// 會讓famno變0(找不到)
-					// 假如 name抓不到改成用其他直抓famno 4 5 6
 					Integer famno = familyservice.selectfam_No(famname[i]);
 					Integer famnobyid = familyservice.selectfam_byid(famid[i]);
 					if (famno != 0) {
@@ -294,25 +389,20 @@ public class FamilyServlet extends HttpServlet {
 					familyvo.setFam_Phone(famphone[i]);
 					familyvo.setFam_Eat(fameat[i]);
 
-					// 測試
+					//用來帶入  不占車位的勾選是與否
 					if(carcheckbox!=null && carcheckbox.size()!=0){
 						if(carcheckbox.get(i)==true){
-//							System.out.println(true);
 							familyvo.setFam_Car(true);
 						}
 						if(carcheckbox.get(i)==false){
-//							System.out.println(false);
 							familyvo.setFam_Car(false);
 						}
 					}else{
-					familyvo.setFam_Car(false);
+						familyvo.setFam_Car(false);
 					}
-					
-					familyvo.setFam_Bady(false);
-					familyvo.setFam_kid(false);
-					familyvo.setFam_Dis(true);
-					familyvo.setFam_Mom(true);
 
+					
+					
 					familyvo.setFam_Ben(famben[i]);
 					familyvo.setFam_BenRel(fambenrel[i]);
 					familyvo.setFam_Emg(famemg[i]);
@@ -324,23 +414,46 @@ public class FamilyServlet extends HttpServlet {
 						familyvo.setFam_Note(null);
 					}
 
-					if (id.contains(famid[i]) == true) {
-
+					
+					
+					if (id.contains(famid[i]) == true) {//資料庫找身分證是否重複 有重複用update 沒有重複用insert
 						familyservice.update(familyvo);
 						System.out.println("update " + famid[i] + " famno=" + famno);
 
 					} else {
-						familyservice.insert(familyvo);
+							//i   j  0123 4567
+						Integer j=i;
+							if(yyyy.size()>0){
+								if(i==0){
+									familyvo.setFam_Bady(yyyy.get(0));
+									familyvo.setFam_kid(yyyy.get(1));
+									familyvo.setFam_Dis(yyyy.get(2));
+									familyvo.setFam_Mom(yyyy.get(3));
+								}else{
+//									Integer j=3*i;
+									familyvo.setFam_Bady(yyyy.get(i+j));
+									familyvo.setFam_kid(yyyy.get(i+j+1));
+									familyvo.setFam_Dis(yyyy.get(i+j+2));
+									familyvo.setFam_Mom(yyyy.get(i+j+3));
+								}
+								
+							}else{
+								familyvo.setFam_Bady(false);
+								familyvo.setFam_kid(false);
+								familyvo.setFam_Dis(false);
+								familyvo.setFam_Mom(false);
+							}
+						
+						
+//						familyservice.insert(familyvo);
 						System.out.println("insert " + famid[i]);
 
 					}
 
 				} // 回圈結束
 				req.getRequestDispatcher("Register").forward(req, res);
-			} else {
-				req.getRequestDispatcher("Register").forward(req, res);
-			} // 判斷 有沒有親屬資料
-
+			}
+			
 		} // 按下save的執行動作 結束
   
 	}

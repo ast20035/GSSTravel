@@ -37,4 +37,16 @@ public class FamilyService {
 	public List<Date> selectfam_Nodelete(int famno){
 		return familyDAO.selectfam_Nodelete(famno);
 	}
+	public void updatefambab(Integer famno,Boolean fambab){
+		familyDAO.updatefambab(famno,fambab);
+	}
+	public void updatefamkid(Integer famno,Boolean famkid){
+		familyDAO.updatefamkid(famno,famkid);
+	}
+	public void updatefamdis(Integer famno,Boolean famdis){
+		familyDAO.updatefamdis(famno,famdis);
+	}
+	public void updatefammom(Integer famno,Boolean fammom){
+		familyDAO.updatefammom(famno,fammom);
+	}
 }

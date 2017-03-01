@@ -36,7 +36,7 @@ public class TravelDAO implements ITravelDAO {
 	private static final String selectTra_NoTra_Beg = "select tra_No,tra_Beg from Travel";
 	private static final String selectTra_No = "select tra_No from Travel";
 	private static final String SEARCH_BY_NO_NAME = " select * from travel where tra_No like ? and tra_Name like ? ";
-	private static final String insert = "insert into Travel(tra_Name, tra_Loc, tra_On, tra_Off, tra_Beg, tra_End, tra_Total, tra_Max, tra_Intr, tra_Con, tra_Atter, tra_File, tra_NO) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String insert = "insert into Travel(tra_No, tra_Name, tra_Loc, tra_On, tra_Off, tra_Beg, tra_End, tra_Total, tra_Max, tra_Intr, tra_Con, tra_Atter, tra_File) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String UPDATE = "update Travel set tra_Name=?, tra_Loc=?, tra_On=?, tra_Off=?, tra_Beg=?, tra_End=?, tra_Total=?, tra_Max=?, tra_Intr=?, tra_Con=?, tra_Atter=?, tra_File=? where tra_NO=?";
 	private static final String DELETE = "delete from Travel where tra_NO=?";
 	private static final String SELECT_EXCEL = "SELECT * FROM Travel";
@@ -91,38 +91,27 @@ public class TravelDAO implements ITravelDAO {
 	}
 
 	@Override
-	public TravelVO insert(TravelVO bean) {
-		TravelVO result = null;
-		try (Connection conn = ds.getConnection(); PreparedStatement insertdata = conn.prepareStatement(insert);) {
-			if (bean != null) {
-
-				insertdata.setString(1, bean.getTra_Name());
-				insertdata.setString(2, bean.getTra_Loc());
-				Long ondate = bean.getTra_On().getTime();
-				insertdata.setDate(3, new java.sql.Date(ondate));
-				Long offdate = bean.getTra_Off().getTime();
-				insertdata.setDate(4, new java.sql.Date(offdate));
-				Long ontime = bean.getTra_Beg().getTime();
-				insertdata.setTimestamp(5, new java.sql.Timestamp(ontime));
-				Long offtime = bean.getTra_End().getTime();
-				insertdata.setTimestamp(6, new java.sql.Timestamp(offtime));
-				insertdata.setInt(7, bean.getTra_Total());
-				insertdata.setInt(8, bean.getTra_Max());
-				insertdata.setString(9, bean.getTra_Intr());
-				insertdata.setString(10, bean.getTra_Con());
-				insertdata.setString(11, bean.getTra_Atter());
-				insertdata.setString(12, bean.getTra_File());
-				insertdata.setString(13, bean.getTra_NO()); // 整合時取消
-				int i = insertdata.executeUpdate();
-				if (i == 1) {
-					result = bean;
-				}
-			}
+	public void insert(TravelVO bean) {
+		
+		try (Connection conn = ds.getConnection(); 
+			PreparedStatement insertdata = conn.prepareStatement(insert);) {
+			insertdata.setString(1, bean.getTra_NO());
+			insertdata.setString(2, bean.getTra_Name());
+			insertdata.setString(3, bean.getTra_Loc());
+			insertdata.setDate(4, bean.getTra_On());
+			insertdata.setDate(5, bean.getTra_Off());
+			insertdata.setTimestamp(6, bean.getTra_Beg());
+			insertdata.setTimestamp(7, bean.getTra_End());
+			insertdata.setInt(8, bean.getTra_Total());
+			insertdata.setInt(9, bean.getTra_Max());
+			insertdata.setString(10, bean.getTra_Intr());
+			insertdata.setString(11, bean.getTra_Con());
+			insertdata.setString(12, bean.getTra_Atter());
+			insertdata.setString(13, bean.getTra_File());
+			insertdata.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-
-		return result;
+		}		
 	}
 
 	@Override

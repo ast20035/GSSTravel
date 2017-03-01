@@ -19,102 +19,91 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
+<link href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"
+	rel="stylesheet" />
+
+<script src='js/jquery.inputmask.date.extensions.js'></script>
+<script src='js/jquery-3.1.1.min.js'></script>
 <script type="text/javascript">
 	
 </script>
 
 <style type="text/css">
-table{
-font-size: 15px;
+table {
+	font-size: 15px;
+}
+body{
+margin-top: 2%;
+margin-bottom: 4%;
+}
+h2{
+color:	#00AAAA;
+font-weight:bold;
+border-left:6px solid gray;
+padding-left:10px;
 }
 </style>
-<title>新增行程</title>
+<title>行程編輯</title>
 </head>
+<script type="text/javascript">
+	if(${error!=null}){
+		alert("${error}");
+	}
+</script>
 <body>
 	<div class='container-fluid'>
 		<div class='row'>
-			<div class='col-md-1 col-md-offset-1'>
+			<div class='col-md-2 col-md-offset-3'>
 				<h2>新增行程</h2>
 			</div>
 		</div>
-		<div class='col-md-6 col-md-offset-1'>
-			<form action="<c:url value='/Travel_Edit'/>" method="GET" class='form'>
-				<table class="t table">
+		<br>
+		<br>
+		<div class='row'>
+			<div class='col-md-6 col-md-offset-3'>
+				<form action="<c:url value='/SetUpTravel'/>" method="POST">
+					<table class="t table">
 
-					<tr>
-						<td>活動代碼</td>
-						<td><input type="text" name="edittraNO" class='form-control' readonly
-							value="${params.tra_NO}" style="width: 300px"></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><em style="color: red">*</em>活動名稱</td>
+						<tr>
+							<td>活動代碼</td>
+							<td><input name="edittraNO" value="${tra_No}" readonly class='form-control' style="width: 300px"
+								type="text" /></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><em style="color: red">*</em>活動名稱</td>
 
-						<td><input type="text" name="edittraName" class='form-control' autofocus
-							value="${params.tra_Name}" style="width: 300px"></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><em style="color: red">*</em>活動地點</td>
-						<td><SELECT name="edittraLoc" class='form-control' style='width:60px;'>
-								<OPTION selected>${params.tra_Loc}</OPTION>
-								<!-- <option selected="selected" value="null">請選擇地點</option> -->
-								<OPTION value="北">北</OPTION>
-								<OPTION value="中">中</OPTION>
-								<OPTION value="南">南</OPTION>
-								<OPTION value="東">東</OPTION>
-								<OPTION value="外島">外島</OPTION>
-						</SELECT></td>
-						<!-- 
-<select class="" name ="edittraName"  m data-placeholder="請選擇" style="width: 200px;">
-			 <c:if test="${start.fam_Bady=='false'} ${start.fam_kid=='false'} ${start.fam_Dis=='false'} ${start.fam_Mom=='false'}" >
-			 <option value="no" Selected>請選擇</option>
-			 </c:if>
-			 
-		     <c:if test="${start.fam_Bady=='false'}">
-		     <option value="baby">幼童(0~3歲)</option>
-			 </c:if>
-			 <c:if test="${start.fam_Bady}">
-			 <option value="baby" Selected>幼童(0~3歲)</option>
-			 </c:if>
-			 
-			 <c:if test="${start.fam_kid=='false'}">
-		     <option value="kid">兒童(4~11歲)</option>
-			 </c:if>
-			 <c:if test="${start.fam_kid}">
-			 <option value="kid" Selected>兒童(4~11歲)</option>
-			 </c:if>
-		      <c:if test="${start.fam_Dis=='false'}">
-		     <option value="dis">持身心障礙手冊</option>
-		     </c:if>
-		      <c:if test="${start.fam_Dis}">
-		     <option value="dis" Selected>持身心障礙手冊</option>
-		     </c:if>
-		     <c:if test="${start.fam_Mom=='false'}">
-		     <option value="mom">孕婦(媽媽手冊)</option>
-		      </c:if>
-		      <c:if test="${start.fam_Mom}">
-		     <option value="mom" Selected>孕婦(媽媽手冊)</option>
-		      </c:if>
-		     </select>
+							<td><input type="text" name="edittraName" class='form-control'
+								value="" style="width: 300px"></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>*活動地點</td>
+							<td><select name="edittraLoc" class='form-control' style='width:80px;'>
 
-	-->
+									<option value="北" ${params.tra_Loc == '北' ? 'selected' : ''}>北</option>
+									<option value="中" ${params.tra_Loc == '中' ? 'selected' : ''}>中</option>
+									<option value="南" ${params.tra_Loc == '南' ? 'selected' : ''}>南</option>
+									<option value="東" ${params.tra_Loc == '東' ? 'selected' : ''}>東</option>
+									<option value="外島" ${params.tra_Loc == '外島' ? 'selected' : ''}>外島</option>
 
-						<!--<td><input type="text" name="edittraLoc" value="${params.tra_Loc}"></td>-->
-						<td></td>
-					</tr>
-					<tr>
-						<td><em style="color: red">*</em>活動日期</td>
+
+							</select></td>
+							<td></td>
+						</tr>
+						<tr>
+							<tr>
+						<td>*活動日期</td>
 
 						<td><input type="text" name="edittraOn" class='form-control' style='width:150px;'
-							value="${params.tra_On}"><a> ~</a> <input type="text" class='form-control' style='width:150px;'
-							name="edittraOff" value="${params.tra_Off}"></td>
+								value=""><a> ~</a> <input type="text" class='form-control' style='width:150px;'
+								name="edittraOff" value=""></td>
 					</tr>
 					<tr>
-						<td><em style="color: red">*</em>登記時間</td>
+						<td>*登記時間</td> 
 						<td><input type="text" name="edittraBeg" class='form-control' style='width:200px;'
-							value="${params.tra_Beg}"><a> ~</a> <input type="text" class='form-control' style='width:200px;'
-							name="edittraEnd" value="${params.tra_End}"></td>
+								value=""><a> ~</a> <input type="text" class='form-control' style='width:200px;'
+								name="edittraEnd" value=""></td>
 
 						<td></td>
 					</tr>
@@ -122,71 +111,131 @@ font-size: 15px;
 						<td><em style="color: red">*</em>活動總人數上限</td>
 
 						<td><input type="text" name="edittraTotal" class='form-control' style='width:80px;'
-							value="${params.tra_Total}"></td>
+								value=""></td>
 						<td></td>
 					</tr>
 					<tr>
 						<td><em style="color: red">*</em>本團人數上限</td>
 
 						<td><input type="text" name="edittraMax" class='form-control' style='width:80px;'
-							value="${params.tra_Max}"></td>
+								value=""></td>
 						<td></td>
 					</tr>
 					<tr>
 						<td><em style="color: red">*</em>活動說明</td>
-						<td><textarea cols="50" rows="8" name="edittraIntr" class='form-control'>${params.tra_Intr}</textarea></td>
+						<td><textarea cols="50" rows="8" name="edittraIntr" class='form-control'></textarea></td>
 						<td></td>
 					</tr>
 					<tr>
 						<td><em style="color: red">*</em>活動內容</td>
-						<td><textarea cols="50" rows="12" name="edittraCon" class='form-control'>${params.tra_Con}</textarea></td>
+						<td><textarea cols="50" rows="12" class='form-control' name="edittraCon"></textarea></td>
 						<td></td>
 					</tr>
 					<tr>
 						<td><em style="color: red">*</em>注意事項</td>
 
 						<td><textarea cols="50" rows="5" name="edittraAtter"
-									class='form-control' value="${params.tra_Atter}"></textarea></td>
+									class='form-control'  value=""></textarea></td>
 						<td></td>
 					</tr>
 					<tr>
 						<td>附件</td>
 
 						<td><input type="text" name="edittraFile" class='form-control' style='width:300px;'
-							value="${params.tra_File}"></td>
+								value=""></td>
 						<td></td>
 					</tr>
+
+
 					<tr>
 						<td>費用</td>
+						<td><input type="button" value="新增欄位" id="insert" class='btn btn-success'
+								name="button"></td>
+					</tr>
+				</table>
+
+				<table id="Itemtable" class="t table">
+
+					<tr>
+
 						<td class="t">項目</td>
 						<td class="t">金額</td>
 
 					</tr>
-
+					<tr>
+						<td class="t" >團費</td>
+						<td class="t"><input type="text" name="item1" class='form-control' style='width:100px;text-align: right;'/></td>
+					</tr>
+					<tr>
+						<td class="t">保險費</td>
+						<td class="t"><input type="text" name="item2" class='form-control'  style='width:100px;text-align: right;'/></td>
+					</tr>
 					<c:forEach var="row" items="${paramsi}">
 						<tr>
 
-							<!-- 			<td></td> -->
-							<%-- 			<td><input type="text"  value="${row.item_Name}"></td> --%>
-							<%-- 			<td><input type="text"  value="${row.item_Money}"></td> --%>
-							<!-- 			<!--<td><input type="text"  value="${row.tra_No}"></td> -->
-							<!-- 			<td><input type="text"  value="${row.item_No}"></td>-->
-							<%-- 			<td class="t">tra_No : ${row.tra_No}</td> --%>
-							<%-- 			<td class="t">item_No : ${row.item_No}</td> --%>
+							<td><SELECT name="edititemName" class='form-control' style='width:150px; '>
+									
+									<option value="住宿費(兩人房)"
+											${row.item_Name == '住宿費(兩人房)' ? 'selected' : ''}>住宿費(兩人房)</option>
+									<option value="住宿費(通鋪8人)"
+											${row.item_Name == '住宿費(通鋪8人)' ? 'selected' : ''}>住宿費(通鋪8人)</option>
+									<option value="住宿費(加床)"
+											${row.item_Name == '住宿費(加床)' ? 'selected' : ''}>住宿費(加床)</option>
 
+							</SELECT></td>
+							<td><input type="text" name="edititemMoney" class='form-control'
+									value="${row.item_Money}"></td>
+							<td><input type="submit" name="delete" id="delete" class='btn btn-danger'
+									value="delete"></td>
 						</tr>
+
 					</c:forEach>
-
-					<tr>
-						<td><input type="submit" name="inputerrors" value="Insert" class='btn btn-primary'>
-							<input type="submit" name="" value="取消" class='btn btn-primary'></td>
-					</tr>
 				</table>
-			</form>
-		</div>
-		<!-- 	<button><a href="<c:url value="/AllTravel"></c:url>" class="a">回上一頁</a></button><button><a href="<c:url value="/Login_Information?tra_No=${traveResult.tra_NO}&emp_No=${emp_No}" ></c:url>" class="a">報名</a></button>
-	 -->
 
-	</div>
+				<input type="submit"  value="新增" class='btn btn-primary'>	
+				<button class='btn  btn-primary'><a href="<c:url value='/search2.jsp'/>" style="color:white;text-decoration:none;">回到上一頁</a></button>
+			</form>	
+			<table>
+
+				<tr name="newtable">
+					<td><SELECT name="edititemName" class='form-control' style='width:150px; '>
+							<option selected="selected" disabled="disabled">請選擇</option>
+							<option value="住宿費(兩人房)"
+									${row.item_Name == '住宿費(兩人房)' ? 'selected' : ''}>住宿費(兩人房)</option>
+							<option value="住宿費(通鋪8人)"
+									${row.item_Name == '住宿費(通鋪8人)' ? 'selected' : ''}>住宿費(通鋪8人)</option>
+							<option value="住宿費(加床)"
+									${row.item_Name == '住宿費(加床)' ? 'selected' : ''}>住宿費(加床)</option>
+
+					</SELECT></td>
+					<td><input type="text" name="edititemMoney" class='form-control' style='width:100px; text-align: right;'
+							value="${row.item_Money}"></td>
+					<td><input type="submit" name="delete" id="delete" class='btn btn-danger'
+							value="delete"></td>
+				</tr>
+			</table>
+
+			<script>
+				$(function() {
+					$("tr[name='newtable']").hide();
+					//動態新增tr
+					$("#insert").click(
+							function(event) {
+								$("#Itemtable").append(
+										'<tr class=newtable>'
+												+ $("tr[name='newtable']")
+														.html() + '</tr>');
+
+							})
+					//刪除動態tr		
+					$("#Itemtable").on("click", "input[name='delete']",
+							function() {
+								$(this).parents("tr").remove();
+							});
+
+				});
+			</script>
+			</div>
+		</div></div>
 </body>
 </html>

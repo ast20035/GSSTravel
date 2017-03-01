@@ -24,6 +24,7 @@
 table, tr, td {
 	border: 1px solid black;
 }
+
 .clock {
 	border: 1px solid black;
 	width: 200px;
@@ -33,9 +34,16 @@ table, tr, td {
 </style>
 <script>
 	window.onload = function() {
+		day = document.getElementById("day");
 		var title = document.getElementById('title');
 		var startDay = document.getElementById('startDay');
 		var endDay = document.getElementById('endDay');
+		setBoard();
+	}
+	
+	var day=null;
+	function optionTime() {
+		day = document.getElementById("day");
 		setBoard();
 	}
 
@@ -54,7 +62,10 @@ table, tr, td {
 				url = url + "startDay=" + startDay.value + "&";
 			}
 			if (endDay.value != undefined && endDay.value != '') {
-				url = url + "endDay=" + endDay.value;
+				url = url + "endDay=" + endDay.value + "&";
+			}
+			if (day.value != undefined && day.value != '') {
+				url = url + "day=" + day.value;
 			}
 			xh.addEventListener("readystatechange", setBoardData, false);
 			xh.open("GET", url, true);
@@ -73,7 +84,7 @@ table, tr, td {
 				while (body.hasChildNodes()) {
 					body.removeChild(body.lastChild);
 				}
-				
+
 				var pathName = document.location.pathname;
 				var index = pathName.substr(1).indexOf("/");
 				var result = pathName.substr(0, index + 1);
@@ -87,7 +98,8 @@ table, tr, td {
 					tr.appendChild(td);
 
 					td = document.createElement("td");
-					a.setAttribute("href", result + "/BoardUD.jsp?anno_Time=" + board[i].time);
+					a.setAttribute("href", result + "/BoardUD.jsp?anno_Time="
+							+ board[i].time);
 					a.appendChild(document.createTextNode(board[i].title));
 					td.appendChild(a);
 					tr.appendChild(td);
@@ -102,10 +114,10 @@ table, tr, td {
 </script>
 </head>
 <body>
-	<%@include file="SelectBar.jsp"%>
+	<%@include file="Manage.jsp"%>
 	<script>
-		$('.navbar-nav>li').removeClass('now');
-		$('.navbar-nav>li:eq(7)').addClass('now');
+		$('.navbar-nav>li').removeClass('Mnow');
+		$('.navbar-nav>li:eq(5)').addClass('Mnow');
 	</script>
 	<div class='container-fluid'>
 		<div class='row'>
@@ -114,27 +126,62 @@ table, tr, td {
 				<h2>公告維護</h2>
 			</div>
 		</div>
-		<form action="<c:url value="/BoardInsert.jsp" />" method="GET">
-			<div>公告標題</div>
-			<input type="text" id="title" name="title" value="" autocomplete="off" />
-			<div id="sizing-addon3">起迄日期</div>
-			<input type='date' id='startDay' name='startDay' value='' /> <br>
-			<input type='date' id='endDay' name='endDay' value='' /> <br> <br>
-			<input type="button" value="查詢" name="select" onclick="setBoard()" />
-			<input type="reset" value="重設" />
-			<input type="submit" value="新增" name="insert" />
-		</form>
+		<div class='row'>
+			<div class='col-md-offset-1 col-md-2'>
+				<form action="<c:url value="/BoardInsert.jsp" />" method="GET">
+					<div class='input-group'>
+						<span class="input-group-addon info" id="sizing-addon1">公告標題</span>
+						<input type="text" id="title" name="title" value=""
+							aria-describedby="sizing-addon1" class='form-control'
+							autocomplete="off" />
+					</div>
+					<br>
+					<div class='input-group'>
+						<span class="input-group-addon info" id="sizing-addon2">起迄日期</span>
+						<input type='date' id='startDay' name='startDay' value=''
+							aria-describedby="sizing-addon2" class='form-control' /> <br>
+						<input type='date' id='endDay' name='endDay' value=''
+							aria-describedby="sizing-addon2" class='form-control' />
+					</div>
+					<br> <br>
+					<div class='btn-group'>
+						<input type="button" value="查詢" name="select" onclick="setBoard()"
+							class='btn btn-primary' /> <input type="reset" value="重設"
+							class='btn btn-primary' />
+					</div>
+					<input type="submit" value="新增" name="insert"
+						class='btn btn-success' />
+				</form>
+				<br>
+				<form action="<c:url value="/AnnouncementServlet" />" method="GET">
+					<select id="day" name="day" onchange="optionTime()" class='form-control' style='width: 170px;'>
+						<option value="365">刪除1年前の公告</option>
+						<option value="183">刪除半年前の公告</option>
+						<option value="91">刪除3個月前の公告</option>
+						<option value="31">刪除1個月前の公告</option>
+						<option value="7">刪除1週前の公告</option>
+						<option value="1">刪除1天前の公告</option>
+					</select>
+					<br>
+					<input type="submit" value="刪除" name="delete" class='btn btn-danger' />
+				</form>
+			</div>
+		</div>
 		<br>
-		<table id="boardTable">
-			<thead>
-				<tr>
-					<th>公告時間</th>
-					<th>公告標題</th>
-				</tr>
-			</thead>
-			<tbody>
-			</tbody>
-		</table>
+		<div class='row'>
+			<div class='col-md-offset-1 col-md-5'>
+				<table id="boardTable" class='table'>
+					<thead>
+						<tr>
+							<th>公告時間</th>
+							<th>公告標題</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
