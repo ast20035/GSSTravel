@@ -86,12 +86,17 @@ tbody a:visited:after {
 .nav>li>a {
 	font-size: 15px;
 	color: 	#220088;
-	font-weight: bolder;
+	font-weight: bold;
 }
 
 .now {
 	border-radius: 7px\7px;
 	background-color: white;
+}
+.nav>.now>a {
+	font-weight: bolder;
+	color:#003377;
+	
 }
 
 h1, h2 {
@@ -140,6 +145,12 @@ background:linear-gradient(to bottom, #539fe1 0%,#0a77d5 3%,#87bcea 75%);
 
 .nav>li>a:HOVER {
 	background-color: #DCDCDC;
+	color: #990099;
+}
+
+.nav>li>a:focus {
+	background-color: #DCDCDC;
+	color: #990099;
 }
 
 .thWH {
@@ -157,8 +168,12 @@ background:linear-gradient(to bottom, #539fe1 0%,#0a77d5 3%,#87bcea 75%);
 	margin-left: 5px;
 }
 
-.Mnow {
-	border: 3px solid blue;
+.navbar-brand {
+	color: #FFAA33;
+}
+
+.navbar-brand:HOVER {
+	color: #FFAA33;
 }
 </style>
 <nav class="navbar navbar-fixed-top topBar">
@@ -171,14 +186,13 @@ background:linear-gradient(to bottom, #539fe1 0%,#0a77d5 3%,#87bcea 75%);
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<label class="navbar-brand">GSS</label>
+			<a class="navbar-brand" href="<c:url value='/Board.jsp'/>">GSS</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="<c:url value='/Board.jsp'/>" id="close7">公告</a></li>
-				<li class='dropdown'><a class='dropdown-toggle' role="button"
-					aria-haspopup="true" aria-expanded="false" data-toggle="dropdown">旅遊報名<span
-						class="caret"></span></a>
+				<li><a href="<c:url value='/Board.jsp'/>" id="close7">首頁</a></li>
+				<li class='dropdown'><a class='dropdown-toggle' href='#'
+					role="button" data-toggle="dropdown">旅遊報名<span class="caret"></span></a>
 					<ul class='dropdown-menu' id="down1">
 						<li><a href="<c:url value='/AllTravel'/>">報名/查詢</a></li>
 						<li><a href="<c:url value='/Record'/>">報名記錄</a></li>

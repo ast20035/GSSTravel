@@ -149,14 +149,14 @@ public class FamilyServlet extends HttpServlet {
 				 System.out.println(famno);
 				 List<java.sql.Date> listdate= familyservice.selectfam_Nodelete(famno);//用famno去找有活動的親屬
 				 long betweenDate=0;
-				 System.out.println("xxxxxxxxxxxxx");
+//				 System.out.println("xxxxxxxxxxxxx");
 				 if(famno!=0){
-					 System.out.println("yyyyyyyyyyyyy");
+//					 System.out.println("yyyyyyyyyyyyy");
 					 if(listdate.size()!=0){
-						 System.out.println("zzzzzzz");
+//						 System.out.println("zzzzzzz");
 						 for(Date date: listdate){
 //							 System.out.println(date);
-							 System.out.println("kkkkkkkkkk");
+//							 System.out.println("kkkkkkkkkk");
 							 Calendar calendar = Calendar.getInstance();
 							 long nowDate = calendar.getTime().getTime(); //獲得毫秒型 現在日期
 							 long specialDate = date.getTime();//把要比較的值放這(親屬日期)
@@ -355,16 +355,7 @@ public class FamilyServlet extends HttpServlet {
 								 }
 								 
 							 }
-							 
 						}
-						for(String ddd:ssss){
-							System.out.println(ddd);
-						}
-//						for(Boolean zzz:yyyy){
-//							System.out.println(zzz);
-//						}
-
-						
 					}
 				 
 				 
@@ -422,30 +413,36 @@ public class FamilyServlet extends HttpServlet {
 
 					} else {
 							//i   j  0123 4567
-						Integer j=i;
-							if(yyyy.size()>0){
-								if(i==0){
-									familyvo.setFam_Bady(yyyy.get(0));
-									familyvo.setFam_kid(yyyy.get(1));
-									familyvo.setFam_Dis(yyyy.get(2));
-									familyvo.setFam_Mom(yyyy.get(3));
-								}else{
-//									Integer j=3*i;
-									familyvo.setFam_Bady(yyyy.get(i+j));
-									familyvo.setFam_kid(yyyy.get(i+j+1));
-									familyvo.setFam_Dis(yyyy.get(i+j+2));
-									familyvo.setFam_Mom(yyyy.get(i+j+3));
-								}
-								
-							}else{
-								familyvo.setFam_Bady(false);
-								familyvo.setFam_kid(false);
-								familyvo.setFam_Dis(false);
-								familyvo.setFam_Mom(false);
-							}
+//						Integer j=i;
+//							if(yyyy.size()>0){
+//								if(i==0){
+//									familyvo.setFam_Bady(yyyy.get(0));
+//									familyvo.setFam_kid(yyyy.get(1));
+//									familyvo.setFam_Dis(yyyy.get(2));
+//									familyvo.setFam_Mom(yyyy.get(3));
+//								}else{
+////									Integer j=3*i;
+//									familyvo.setFam_Bady(yyyy.get(i+j));
+//									familyvo.setFam_kid(yyyy.get(i+j+1));
+//									familyvo.setFam_Dis(yyyy.get(i+j+2));
+//									familyvo.setFam_Mom(yyyy.get(i+j+3));
+//								}
+//								
+//							}else{
+//								familyvo.setFam_Bady(false);
+//								familyvo.setFam_kid(false);
+//								familyvo.setFam_Dis(false);
+//								familyvo.setFam_Mom(false);
+//							}
+//						for(int k=0;k<=ssss.size();){
+//							if(k==0){
+//								if()
+//								return false
+//							}
+//						}
 						
 						
-//						familyservice.insert(familyvo);
+						familyservice.insert(familyvo);
 						System.out.println("insert " + famid[i]);
 
 					}

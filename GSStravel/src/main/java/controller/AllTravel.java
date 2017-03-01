@@ -31,7 +31,7 @@ public class AllTravel extends HttpServlet {
 			HttpSession session = request.getSession();
 			Integer emp_No = (Integer) session.getAttribute("emp_No");
 			mp = travelService.selectTra_No(emp_No.toString());//代員工編號
-			result = travelService.select();
+			result = travelService.select(emp_No);
 			int count;
 			try{
 				count=result.size();
