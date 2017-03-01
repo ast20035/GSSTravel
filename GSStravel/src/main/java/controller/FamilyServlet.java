@@ -64,12 +64,12 @@ public class FamilyServlet extends HttpServlet {
 		String[] famemgrel = req.getParameterValues("famemgrel");
 		String[] famnote = req.getParameterValues("famnote");
 		String[] repeatselectvalue = req.getParameterValues("selectvalue");
-//		if(repeatselectvalue!= null){
-//		System.out.println(repeatselectvalue);
-//			for(String xxx:repeatselectvalue){
-//				System.out.println(xxx);
-//			}
-//		}
+		if(repeatselectvalue!= null){
+		System.out.println(repeatselectvalue);
+			for(String xxx:repeatselectvalue){
+				System.out.println(xxx);
+			}
+		}
 		
 //		String buttondelete = req.getParameter("delete");
 		String buttonsave = req.getParameter("button");
