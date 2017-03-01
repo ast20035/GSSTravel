@@ -18,8 +18,9 @@ import model.TravelVO;
 public class TravelDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DetailService detailService = new DetailService();
-	//private EmployeeService employeeService = new EmployeeService();
 
+	
+	//搜尋此Travel的報名人員之旅費統計
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
