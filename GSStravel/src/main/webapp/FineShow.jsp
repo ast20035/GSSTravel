@@ -48,6 +48,7 @@ td>strong {
 		var close5=null;
 		var close6=null;
 		var close7=null;
+		var close8=null;
 		var closeFine=null;
 		
 		window.onload = function() {
@@ -60,8 +61,9 @@ td>strong {
 			close5 = document.getElementById("close5");
 			close6 = document.getElementById("close6");
 			close7 = document.getElementById("close7");
+			close8 = document.getElementById("close8");
 			closeFine = document.getElementById("closeFine");
-			if(${em == 1} && ${btn == 1}){
+			if("${em}" == 1 && "${btn}" == 1){
 				fineEmail.removeAttribute("disabled");
 			}
 			var $BodyWidth = $(document).width();  
@@ -93,7 +95,8 @@ td>strong {
 				close4.removeAttribute("href");
 				close5.removeAttribute("href");
 				close6.removeAttribute("href");
-				close7.disabled = true;
+				close7.removeAttribute("href");
+				close8.disabled = true;
 				closeFine.disabled = true;
 				myImg.style.display = "inline";
 				fineEmail.setAttribute("disabled", "disabled");
@@ -106,7 +109,8 @@ td>strong {
 				close4.setAttribute("href","<c:url value='/FineSetting.jsp'/>");
 				close5.setAttribute("href","<c:url value='/search1.jsp'/>");
 				close6.setAttribute("href","<c:url value='/BoardMaintain.jsp'/>");
-				close7.disabled = false;
+				close7.setAttribute("href","<c:url value='/TaCo_Q&A_EightLegs'/>");
+				close8.disabled = false;
 				closeFine.disabled = false;
 				myImg.style.display = "none";
 				fineEmail.value = "Email寄送成功！";

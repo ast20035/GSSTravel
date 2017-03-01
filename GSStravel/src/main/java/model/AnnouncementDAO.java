@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 public class AnnouncementDAO implements IAnnouncementDAO {
 	private static final String SEARCH_BY_TITLE = " SELECT * FROM Announcement where anno_Title LIKE ?";
 	private static final String SELECT_ONE_STMT = "SELECT * FROM Announcement WHERE anno_Time=?";
-	private static final String SELECT_ALL_STMT = "SELECT * FROM Announcement ORDER BY anno_Time DESC";
+	private static final String SELECT_ALL_STMT = "SELECT * FROM Announcement ORDER BY anno_Important ASC, anno_Time DESC";
 	public static final String INSERT_STMT = "INSERT INTO Announcement VALUES(?, ?, ?, ?)";
 	private static final String UPDATE_STMT = "UPDATE Announcement SET anno_Time=?, anno_Title=?, anno_Content=?, anno_Important=? WHERE anno_Time=?";
 	private static final String DELETE_STMT = "DELETE FROM Announcement WHERE anno_Time=?";
