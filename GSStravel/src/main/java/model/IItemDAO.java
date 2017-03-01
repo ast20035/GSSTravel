@@ -12,4 +12,5 @@ public interface IItemDAO {
 	public boolean delete(int item_No,String tra_No);
 	public List<ItemVO> select();//柯
 	public List<ItemVO> selectOne(String no);//柯
+	public void deleteTravelItem(String tra_No);
 }

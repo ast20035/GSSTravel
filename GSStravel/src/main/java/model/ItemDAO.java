@@ -23,7 +23,7 @@ public class ItemDAO implements IItemDAO {
 	private static final String DELETE ="delete from Item where item_NO=? and tra_No=?";
 	private static final String SELECT_ALL_STMT = "SELECT item_Money FROM Item WHERE item_No=1 ORDER BY tra_No";//柯
 	private static final String SELECT_ONE_STMT = "SELECT item_Money FROM Item WHERE item_No=1 AND tra_No=?";//柯
-	
+	private static final String deleteTravelItem="delete from Item where tra_No=?";
 	public ItemDAO() {
 		super();
 		try {
@@ -32,6 +32,17 @@ public class ItemDAO implements IItemDAO {
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void deleteTravelItem(String tra_No) {
+		try(
+				Connection conn = ds.getConnection();	
+				PreparedStatement stmt = conn.prepareStatement(deleteTravelItem);) {			
+			stmt.setString(1, tra_No);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	
 	}
 
 	@Override

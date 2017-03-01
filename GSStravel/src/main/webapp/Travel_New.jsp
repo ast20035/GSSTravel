@@ -32,15 +32,17 @@
 table {
 	font-size: 15px;
 }
-body{
-margin-top: 2%;
-margin-bottom: 4%;
+
+body {
+	margin-top: 2%;
+	margin-bottom: 4%;
 }
-h2{
-color:	#00AAAA;
-font-weight:bold;
-border-left:6px solid gray;
-padding-left:10px;
+
+h2 {
+	color: #00AAAA;
+	font-weight: bold;
+	border-left: 6px solid gray;
+	padding-left: 10px;
 }
 </style>
 <title>行程編輯</title>
@@ -57,8 +59,7 @@ padding-left:10px;
 				<h2>新增行程</h2>
 			</div>
 		</div>
-		<br>
-		<br>
+		<br> <br>
 		<div class='row'>
 			<div class='col-md-6 col-md-offset-3'>
 				<form action="<c:url value='/SetUpTravel'/>" method="POST">
@@ -66,20 +67,21 @@ padding-left:10px;
 
 						<tr>
 							<td>活動代碼</td>
-							<td><input name="edittraNO" value="${tra_No}" readonly class='form-control' style="width: 300px"
-								type="text" /></td>
+							<td><input name="edittraNO" value="${tra_No}" readonly
+								class='form-control' style="width: 300px" type="text" /></td>
 							<td></td>
 						</tr>
 						<tr>
 							<td><em style="color: red">*</em>活動名稱</td>
 
-							<td><input type="text" name="edittraName" class='form-control'
-								value="" style="width: 300px"></td>
+							<td><input type="text" name="edittraName"
+								class='form-control' value="" style="width: 300px"></td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>*活動地點</td>
-							<td><select name="edittraLoc" class='form-control' style='width:80px;'>
+							<td><select name="edittraLoc" class='form-control'
+								style='width: 80px;'>
 
 									<option value="北" ${params.tra_Loc == '北' ? 'selected' : ''}>北</option>
 									<option value="中" ${params.tra_Loc == '中' ? 'selected' : ''}>中</option>
@@ -92,130 +94,142 @@ padding-left:10px;
 							<td></td>
 						</tr>
 						<tr>
-							<tr>
-						<td>*活動日期</td>
+						<tr>
+							<td>*活動日期</td>
 
-						<td><input type="text" name="edittraOn" class='form-control' style='width:150px;'
-								value=""><a> ~</a> <input type="text" class='form-control' style='width:150px;'
+							<td><input type="text" name="edittraOn" class='form-control'
+								style='width: 150px;' value=""><a> ~</a> <input
+								type="text" class='form-control' style='width: 150px;'
 								name="edittraOff" value=""></td>
-					</tr>
-					<tr>
-						<td>*登記時間</td> 
-						<td><input type="text" name="edittraBeg" class='form-control' style='width:200px;'
-								value=""><a> ~</a> <input type="text" class='form-control' style='width:200px;'
+						</tr>
+						<tr>
+							<td>*登記時間</td>
+							<td><input type="text" name="edittraBeg"
+								class='form-control' style='width: 200px;' value=""><a>
+									~</a> <input type="text" class='form-control' style='width: 200px;'
 								name="edittraEnd" value=""></td>
 
-						<td></td>
-					</tr>
-					<tr>
-						<td><em style="color: red">*</em>活動總人數上限</td>
-
-						<td><input type="text" name="edittraTotal" class='form-control' style='width:80px;'
-								value=""></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><em style="color: red">*</em>本團人數上限</td>
-
-						<td><input type="text" name="edittraMax" class='form-control' style='width:80px;'
-								value=""></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><em style="color: red">*</em>活動說明</td>
-						<td><textarea cols="50" rows="8" name="edittraIntr" class='form-control'></textarea></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><em style="color: red">*</em>活動內容</td>
-						<td><textarea cols="50" rows="12" class='form-control' name="edittraCon"></textarea></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td><em style="color: red">*</em>注意事項</td>
-
-						<td><textarea cols="50" rows="5" name="edittraAtter"
-									class='form-control'  value=""></textarea></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>附件</td>
-
-						<td><input type="text" name="edittraFile" class='form-control' style='width:300px;'
-								value=""></td>
-						<td></td>
-					</tr>
-
-
-					<tr>
-						<td>費用</td>
-						<td><input type="button" value="新增欄位" id="insert" class='btn btn-success'
-								name="button"></td>
-					</tr>
-				</table>
-
-				<table id="Itemtable" class="t table">
-
-					<tr>
-
-						<td class="t">項目</td>
-						<td class="t">金額</td>
-
-					</tr>
-					<tr>
-						<td class="t" >團費</td>
-						<td class="t"><input type="text" name="item1" class='form-control' style='width:100px;text-align: right;'/></td>
-					</tr>
-					<tr>
-						<td class="t">保險費</td>
-						<td class="t"><input type="text" name="item2" class='form-control'  style='width:100px;text-align: right;'/></td>
-					</tr>
-					<c:forEach var="row" items="${paramsi}">
+							<td></td>
+						</tr>
 						<tr>
+							<td><em style="color: red">*</em>活動總人數上限</td>
 
-							<td><SELECT name="edititemName" class='form-control' style='width:150px; '>
-									
-									<option value="住宿費(兩人房)"
-											${row.item_Name == '住宿費(兩人房)' ? 'selected' : ''}>住宿費(兩人房)</option>
-									<option value="住宿費(通鋪8人)"
-											${row.item_Name == '住宿費(通鋪8人)' ? 'selected' : ''}>住宿費(通鋪8人)</option>
-									<option value="住宿費(加床)"
-											${row.item_Name == '住宿費(加床)' ? 'selected' : ''}>住宿費(加床)</option>
+							<td><input type="text" name="edittraTotal"
+								class='form-control' style='width: 80px;' value=""></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><em style="color: red">*</em>本團人數上限</td>
 
-							</SELECT></td>
-							<td><input type="text" name="edititemMoney" class='form-control'
-									value="${row.item_Money}"></td>
-							<td><input type="submit" name="delete" id="delete" class='btn btn-danger'
-									value="delete"></td>
+							<td><input type="text" name="edittraMax"
+								class='form-control' style='width: 80px;' value=""></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><em style="color: red">*</em>活動說明</td>
+							<td><textarea cols="50" rows="8" name="edittraIntr"
+									class='form-control'></textarea></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><em style="color: red">*</em>活動內容</td>
+							<td><textarea cols="50" rows="12" class='form-control'
+									name="edittraCon"></textarea></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><em style="color: red">*</em>注意事項</td>
+
+							<td><textarea cols="50" rows="5" name="edittraAtter"
+									class='form-control' value=""></textarea></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>附件</td>
+
+							<td><input type="text" name="edittraFile"
+								class='form-control' style='width: 300px;' value=""></td>
+							<td></td>
 						</tr>
 
-					</c:forEach>
-				</table>
 
-				<input type="submit"  value="新增" class='btn btn-primary'>	
-				<button class='btn  btn-primary'><a href="<c:url value='/search2.jsp'/>" style="color:white;text-decoration:none;">回到上一頁</a></button>
-			</form>	
-			<table>
+						<tr>
+							<td>費用</td>
+							<td><input type="button" value="新增欄位" id="insert"
+								class='btn btn-success' name="button"></td>
+						</tr>
+					</table>
 
-				<tr name="newtable">
-					<td><SELECT name="edititemName" class='form-control' style='width:150px; '>
-							<option selected="selected" disabled="disabled">請選擇</option>
-							<option value="住宿費(兩人房)"
+					<table id="Itemtable" class="t table">
+
+						<tr>
+
+							<td class="t">項目</td>
+							<td class="t">金額</td>
+
+						</tr>
+						<tr>
+							<td class="t">團費</td>
+							<td class="t"><input type="text" name="item1"
+								class='form-control' style='width: 100px; text-align: right;' /></td>
+						</tr>
+						<tr>
+							<td class="t">保險費</td>
+							<td class="t"><input type="text" name="item2"
+								class='form-control' style='width: 100px; text-align: right;' /></td>
+						</tr>
+						<c:forEach var="row" items="${paramsi}">
+							<tr>
+
+								<td><SELECT name="edititemName" class='form-control'
+									style='width: 150px;'>
+
+										<option value="住宿費(兩人房)"
+											${row.item_Name == '住宿費(兩人房)' ? 'selected' : ''}>住宿費(兩人房)</option>
+										<option value="住宿費(通鋪8人)"
+											${row.item_Name == '住宿費(通鋪8人)' ? 'selected' : ''}>住宿費(通鋪8人)</option>
+										<option value="住宿費(加床)"
+											${row.item_Name == '住宿費(加床)' ? 'selected' : ''}>住宿費(加床)</option>
+
+								</SELECT></td>
+								<td><input type="text" name="edititemMoney"
+									class='form-control' value="${row.item_Money}"></td>
+								<td><input type="submit" name="delete" id="delete"
+									class='btn btn-danger' value="delete"></td>
+							</tr>
+
+						</c:forEach>
+					</table>
+					<script>
+									var search2 = '<c:url value='/search2.jsp'/>'
+					</script>
+					<input type="submit" value="新增" class='btn btn-primary'> <input
+						type="button" value='回上一頁' class='btn btn-primary'
+						onclick="window.location.href=search2;" />
+				</form>
+				<table>
+
+					<tr name="newtable">
+						<td><SELECT name="edititemName" class='form-control'
+							style='width: 150px;'>
+								<option selected="selected" disabled="disabled">請選擇</option>
+								<option value="住宿費(兩人房)"
 									${row.item_Name == '住宿費(兩人房)' ? 'selected' : ''}>住宿費(兩人房)</option>
-							<option value="住宿費(通鋪8人)"
+								<option value="住宿費(通鋪8人)"
 									${row.item_Name == '住宿費(通鋪8人)' ? 'selected' : ''}>住宿費(通鋪8人)</option>
-							<option value="住宿費(加床)"
+								<option value="住宿費(加床)"
 									${row.item_Name == '住宿費(加床)' ? 'selected' : ''}>住宿費(加床)</option>
 
-					</SELECT></td>
-					<td><input type="text" name="edititemMoney" class='form-control' style='width:100px; text-align: right;'
+						</SELECT></td>
+						<td><input type="text" name="edititemMoney"
+							class='form-control' style='width: 100px; text-align: right;'
 							value="${row.item_Money}"></td>
-					<td><input type="submit" name="delete" id="delete" class='btn btn-danger'
-							value="delete"></td>
-				</tr>
-			</table>
+						<td><input type="submit" name="delete" id="delete"
+							class='btn btn-danger' value="delete"></td>
+					</tr>
+				</table>
 
-			<script>
+				<script>
 				$(function() {
 					$("tr[name='newtable']").hide();
 					//動態新增tr
@@ -236,6 +250,7 @@ padding-left:10px;
 				});
 			</script>
 			</div>
-		</div></div>
+		</div>
+	</div>
 </body>
 </html>

@@ -48,4 +48,5 @@ public interface IDetailDAO {
 	public List<DetailBean> selectExcel3(String Tra_No);
 	public int selectDetail_by_Tra_No(String tra_No);
 	public int selectDetail_by_Tra_No_Can(String tra_No);
+	public Boolean ckselect(String tra_NO);
 	}

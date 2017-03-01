@@ -20,4 +20,5 @@ public interface ITravelDAO {
 	public String SELECTsubTra(String tra_No);     //目前套用的輔助金是否已使用 NULL=已使用
 	public List<TravelVO> endTravel();
 	public List<TravelVO> entrtTravel(Integer emp_No);
+	public void deleteTravel(String tra_No) ;
 }
