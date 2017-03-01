@@ -106,6 +106,21 @@ table, tr, td {
 
 					body.appendChild(tr);
 				}
+				var count=board.length;
+				$("#myul").find("li").remove();
+				$("#myul").append('<li><a role="button" onclick="before()">&laquo;</a></li>');
+				var sum=Math.ceil(count/10);
+				for(var a=0;a<sum;a++){
+					if(a==0){
+						$("#myul").append('<li class="page active" onclick="page(this)" value="'+a+'"><a role="button">'+(a+1)+'</a></li>');	
+					}else{
+						$("#myul").append('<li class="page" onclick="page(this)" value="'+a+'"><a  role="button">'+(a+1)+'</a></li>');
+					}
+				}
+				$("#myul").append('<li><a role="button" onclick="next()">&raquo;</a></li>');
+				i = $(".active");
+				$page = $(".page");
+				light(i.val());
 			} else {
 				alert(xh.status + ":" + xh.statusText);
 			}
@@ -143,7 +158,7 @@ table, tr, td {
 						<input type='date' id='endDay' name='endDay' value=''
 							aria-describedby="sizing-addon2" class='form-control' />
 					</div>
-					<br> <br>
+					<br>
 					<div class='btn-group'>
 						<input type="button" value="查詢" name="select" onclick="setBoard()"
 							class='btn btn-primary' /> <input type="reset" value="重設"
@@ -155,15 +170,13 @@ table, tr, td {
 				<br>
 				<form action="<c:url value="/AnnouncementServlet" />" method="GET">
 					<select id="day" name="day" onchange="optionTime()" class='form-control' style='width: 170px;'>
-						<option value="365">刪除1年前の公告</option>
-						<option value="183">刪除半年前の公告</option>
-						<option value="91">刪除3個月前の公告</option>
-						<option value="31">刪除1個月前の公告</option>
-						<option value="7">刪除1週前の公告</option>
-						<option value="1">刪除1天前の公告</option>
+						<option value="365">刪除1年前的公告</option>
+						<option value="183">刪除半年前的公告</option>
+						<option value="91">刪除3個月前的公告</option>
+						<option value="31">刪除1個月前的公告</option>
 					</select>
 					<br>
-					<input type="submit" value="刪除" name="delete" class='btn btn-danger' />
+					<input type="submit" value="刪除" name="delete" class='btn btn-danger ' />
 				</form>
 			</div>
 		</div>
@@ -180,8 +193,47 @@ table, tr, td {
 					<tbody>
 					</tbody>
 				</table>
+				<ul id="myul" class="pagination">
+				</ul>
 			</div>
 		</div>
 	</div>
 </body>
+<script>
+	var i;
+	var $page = $(".page");
+	$("tr:gt(10)").css("display", "none");
+	function next() {
+		i = $(".active");
+		$page.removeClass("active");
+		if (i.val() < $page.length - 1) {
+			$page[i.val() + 1].className = "active";
+			light(i.val() + 1);
+		} else {
+			$page[0].className = "active";
+			light(0);
+		}
+	}
+	function before() {
+		i = $(".active");
+		$page.removeClass("active");
+		if (i.val() < $page.length && i.val() > 0) {
+			$page[i.val() - 1].className = "active";
+			light(i.val() - 1);
+		} else {
+			$page[$page.length - 1].className = "active";
+			light($page.length - 1);
+		}
+	}
+	function page(obj) {
+		$page.removeClass("active");
+		$(obj).prop("class", "active");
+		i = $(".active");
+		light(i.val());
+	}
+	function light(i) {
+		$("tr:gt(0)").css("display", "none");
+		$("tr:gt(" + i * 10 + "):lt(" + 10 + ")").css("display", "");
+	}
+</script>
 </html>

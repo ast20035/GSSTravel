@@ -5,6 +5,7 @@ import java.util.Map;
 
 public interface ITravelDAO {
 	public List<TravelVO> getAll(); //所有的活動行程
+	public List<TravelVO> getAll_forSearch(); //已tra_No排序的所有行程
 	public TravelVO getAll(long tra_NO);//單筆活動行程
 	public Map<String,String> selectTra_NoTra_End();//所有活動行程編號跟對應的登記結束日期
 	public List<String> selectTra_No();//所有活動行程編號

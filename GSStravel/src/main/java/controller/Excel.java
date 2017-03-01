@@ -99,9 +99,9 @@ public class Excel {
 			String[] famName, String[] famSex, String[] famID, String[] famBdate, String[] famPhone, String[] famEat,
 			String[] famCar, String[] famBaby, String[] famKid, String[] famDis, String[] famMom, String[] famBen,
 			String[] famBenRel, String[] famEmg, String[] famEmgPhone, String[] detDate, String[] detCanDate,
-			String[] famNote, String[] detCanNote) {
+			String[] famNote, String[] detCanNote, String ExcelData) {
 		try {
-			WritableWorkbook workbook = Workbook.createWorkbook(new File(saveFolder + "/報名明細-" + traNo + ".xls"));
+			WritableWorkbook workbook = Workbook.createWorkbook(new File(saveFolder + "/報名明細-" + traNo +"-"+ExcelData+ ".xls"));
 			WritableSheet sheet = workbook.createSheet("MySheet", 0);
 
 			WritableFont myFont = new WritableFont(WritableFont.createFont("標楷體"), 12);

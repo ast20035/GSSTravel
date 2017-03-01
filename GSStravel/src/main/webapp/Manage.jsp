@@ -156,6 +156,15 @@ padding-left:10px;
 	border-left: 3px solid blue;
 	border-right: 3px solid blue;
 }
+.navbar-brand{
+color:	#FFAA33;
+}
+.navbar-brand:HOVER{
+color:	#FFAA33;
+}
+.nav>li>#aBar:focus {
+	color: black;
+}
 </style>
 <nav class="navbar navbar-fixed-top topBar navbar">
 	<div class="container">
@@ -167,7 +176,7 @@ padding-left:10px;
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<label class="navbar-brand" role='text' style='color: white;'>GSS</label>
+			<a class="navbar-brand" href="<c:url value='/Board.jsp'/>">GSS</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
@@ -177,9 +186,14 @@ padding-left:10px;
 					<li><a href="<c:url value='/search2.jsp'/>" id="close2">行程維護</a></li>
 					<li><a href="<c:url value='/search.jsp'/>" id="close3">報名維護</a></li>
 					<li><a class='dropdown-toggle' role="button"
-						href="<c:url value='/FineSetting.jsp'/>" id="close4">罰則維護</a>
-					<li><a href="<c:url value='/search1.jsp'/>" id="close5">旅費統計</a></li>
-					<li><a href="<c:url value='/BoardMaintain.jsp'/>" id="close6">公告維護</a></li>
+						href="<c:url value='/FineSetting.jsp'/>">罰則維護</a>
+					<li><a href="<c:url value='/search1.jsp'/>" id="close4">旅費統計</a></li>
+					<li class='dropdown'><a class='dropdown-toggle' href='#' id='aBar'
+					role="button" data-toggle="dropdown">首頁管理<span class="caret"></span></a>
+					<ul class='dropdown-menu' id="close6">
+						<li><a href="<c:url value='/BoardMaintain.jsp'/>">公告維護</a></li>
+						<li><a href="<c:url value='/TaCo_Q&A_EightLegs'/>">Q&A維護</a></li>
+					</ul></li>
 				</c:if>
 				<li><input type="button" value='登出'
 					class="btn btn-warning navbar-btn" id="close7"

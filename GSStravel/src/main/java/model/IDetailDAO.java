@@ -44,6 +44,8 @@ public interface IDetailDAO {
 	public boolean selectFam_No(int fam_No,long tra_No);
 	public List<String> selectFam_Rel(int emp_No,long tra_No);
 	public List<DetailBean> selectExcel(String Tra_No);
+	public List<DetailBean> selectExcel2(String Tra_No);
+	public List<DetailBean> selectExcel3(String Tra_No);
 	public int selectDetail_by_Tra_No(String tra_No);
 	public int selectDetail_by_Tra_No_Can(String tra_No);
 	}
