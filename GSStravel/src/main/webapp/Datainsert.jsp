@@ -378,7 +378,7 @@ text-align: center;
 						<option value="dis">持身心障礙手冊</option>
 						<option value="mom">孕婦(媽媽手冊)</option>
 					</select>
-					<input type ="hidden" name="selectvalue" class="selectvalue">
+					<input type ="hidden" name="repeatselectvalue" class="repeatselectvalue">
 				</div></td>
 			<td><input type="text" name="famben" id="famben" 
 				class='form-control'>
@@ -431,17 +431,6 @@ text-align: center;
 											}
 										});
 								}
-								
-// 								if(r.indexOf('delete')!=-1){
-// 									console.log(r);// OK抓到
-// // 									$("#familytable").on("mouseup", "input[name='delete']",function xx(){
-// // 										$(this).parents("tr").remove();
-// // 									});
-// // 									$("#familytable").click(function(){
-// // 										$(this).parents("tr").remove();
-// // 									})
-// 									alert(r);
-// 								}
 						}
 				})
 			})
@@ -947,9 +936,9 @@ text-align: center;
 						console.log(spa);//抓到
 						var spajson =JSON.stringify(spa);
 						console.log(spajson);//抓到json字串
-						$(this).next("input[name='selectvalue']").val(spajson);
-						$(this).closest("tr").find("input[name='selectvalue']").val(spajson);
-						console.log($(this).closest("tr").find("input[name='selectvalue']").val());//抓到
+// 						$(this).next("input[name='selectvalue']").val(spajson);
+						$(this).closest("tr").find("input[name='repeatselectvalue']").val(spajson);
+						console.log($(this).closest("tr").find("input[name='repeatselectvalue']").val());//抓到
 
 
 					});
