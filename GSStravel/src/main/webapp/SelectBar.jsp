@@ -94,9 +94,10 @@ tbody a:visited:after {
 	background-color: white;
 }
 
-.now>a {
+.nav>.now>a {
 	font-weight: bolder;
-	color: #00BFFF;
+	color:#003377;
+	
 }
 
 .title {
@@ -150,22 +151,35 @@ h1, h2 {
 
 .nav>li>a:HOVER {
 	background-color: #DCDCDC;
+	color: #990099;
+}
+
+.nav>li>a:focus {
+	background-color: #DCDCDC;
+	color: #990099;
 }
 
 .thWH {
 	background-color: white;
-	color:black;
+	color: black;
 	border: 2px solid black;
 }
+
 .tdbtn {
 	padding: 5px;
 	border: 0;
 }
-#close5{
-margin-left: 5px;
+
+#close5 {
+	margin-left: 5px;
 }
-.Mnow {
-	border: 3px solid blue;
+
+.navbar-brand {
+	color: #FFAA33;
+}
+
+.navbar-brand:HOVER {
+	color: #FFAA33;
 }
 </style>
 <nav class="navbar navbar-fixed-top topBar">
@@ -178,20 +192,20 @@ margin-left: 5px;
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<label class="navbar-brand">GSS</label>
+			<a class="navbar-brand" href="<c:url value='/Board.jsp'/>">GSS</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-			<li><a href="<c:url value='/Board.jsp'/>" id="close7">公告</a></li>
-				<li class='dropdown'><a class='dropdown-toggle'
-					role="button" aria-haspopup="true" aria-expanded="false"
-					data-toggle="dropdown">旅遊報名<span class="caret"></span></a>
+				<li><a href="<c:url value='/Board.jsp'/>" id="close7">首頁</a></li>
+				<li class='dropdown'><a class='dropdown-toggle' href='#'
+					role="button" data-toggle="dropdown">旅遊報名<span class="caret"></span></a>
 					<ul class='dropdown-menu' id="down1">
 						<li><a href="<c:url value='/AllTravel'/>">報名/查詢</a></li>
 						<li><a href="<c:url value='/Record'/>">報名記錄</a></li>
 					</ul></li>
 
-				<li role="presentation"><a href="<c:url value='/Register'/>" id="close1">資料輸入</a></li>				
+				<li role="presentation"><a href="<c:url value='/Register'/>"
+					id="close1">資料輸入</a></li>
 				<c:if test='${emp_Role eq true}'>
 					<li><a href="<c:url value='/search2.jsp'/>" id="close2">管理介面</a></li>
 				</c:if>
