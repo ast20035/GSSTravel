@@ -22,7 +22,7 @@ import model.FamilyService;
 import model.FamilyVO;
 
 @WebServlet("/Register")
-public class Register extends HttpServlet {
+public class Register extends HttpServlet {//資料輸入時進入畫面從這邊進入 (從資料庫帶入原本 員工 親屬資料) 
 	private EmployeeService employeeservice = new EmployeeService();
 	private FamilyService familyservice= new FamilyService();
 	
@@ -34,7 +34,7 @@ public class Register extends HttpServlet {
 		Integer emp_No = (Integer) session.getAttribute("emp_No");
 		long tra_No = 0;
 		
-		EmployeeVO empstart = employeeservice.select(emp_No.toString());
+		EmployeeVO empstart = employeeservice.select(emp_No.toString());//用session帶進來員工編號找出資料
 		req.setAttribute("empno", emp_No);
 		req.setAttribute("empname", empstart.getEmp_Name());
 		req.setAttribute("empphone", empstart.getEmp_Phone());
@@ -46,7 +46,7 @@ public class Register extends HttpServlet {
 		req.setAttribute("empnote",empstart.getEmp_Note());
 		req.setAttribute("empemail",empstart.getEmp_Mail());
 
-		List<FamilyVO> famstart=familyservice.selectFam(emp_No.toString(),tra_No);
+		List<FamilyVO> famstart=familyservice.selectFam(emp_No.toString(),tra_No);//用session找出親屬資料
 		req.setAttribute("famstartsize", famstart.size());
 		req.setAttribute("famstart", famstart);
 				
