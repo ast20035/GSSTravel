@@ -83,6 +83,12 @@ table, tr, td {
 
 					td = document.createElement("td");
 					td.appendChild(document.createTextNode(board[i].time));
+					if("${beforeDateNew}"<=board[i].time){
+						var img = document.createElement("img");
+						img.setAttribute("src", "images/new.gif");
+						td.appendChild(img);
+					}
+					
 					if(board[i].important==1){
 						td.setAttribute("style", "color:red");
 					}
