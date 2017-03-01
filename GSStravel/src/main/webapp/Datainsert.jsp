@@ -460,7 +460,7 @@ text-align: center;
 					 multiselect  = $(this).val();
 					 var selectjson = JSON.stringify(multiselect);
 					 var famnameajax = $(this).closest("tr").find("input[name='famname']").val();				 
-					$.post(url,{"multiselect":selectjson,"famnameajax":famnameajax},function(){
+					$.post(url,{"multiselect":selectjson,"famnameajax":famnameajax},function(data){
 						
 					});		
 				})
