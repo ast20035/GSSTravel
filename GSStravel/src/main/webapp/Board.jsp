@@ -150,10 +150,8 @@ table, tr, td {
 				<tbody>
 				</tbody>
 			</table>
-			<br />
 			<ul id="myul" class="pagination">
 			</ul>
-			<br />
 		</div>
 	</div>
 </body>
