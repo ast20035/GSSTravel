@@ -31,6 +31,7 @@ public class TravelDAO implements ITravelDAO {
 	}
 
 	private static final String GET_ALL_STMT = "SELECT tra_NO, tra_Name,tra_On, tra_Off, tra_Beg, tra_End, tra_Total, tra_Max,tra_Intr,tra_Con,tra_Atter,tra_File, tra_Loc  FROM Travel ORDER BY tra_Beg desc";
+	private static final String GET_ALL_STMT_forSearch = "SELECT tra_NO, tra_Name,tra_On, tra_Off, tra_Beg, tra_End, tra_Total, tra_Max,tra_Intr,tra_Con,tra_Atter,tra_File, tra_Loc  FROM Travel ORDER BY tra_NO desc";
 	private static final String selectFortravel = "SELECT tra_NO, tra_Name,tra_On, tra_Off, tra_Beg, tra_End, tra_Total, tra_Max,tra_Intr,tra_Con,tra_Atter,tra_File, tra_Loc  FROM Travel where tra_NO= ?";
 	private static final String selectTra_NoTra_End = "select tra_No,tra_End from Travel";
 	private static final String selectTra_NoTra_Beg = "select tra_No,tra_Beg from Travel";
@@ -130,6 +131,40 @@ public class TravelDAO implements ITravelDAO {
 		List<TravelVO> result = null;
 		try (Connection conn = ds.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(GET_ALL_STMT);
+				ResultSet rset = stmt.executeQuery();) {
+			IDetailDAO detailDAO = new DetailDAO();
+			result = new ArrayList<TravelVO>();
+			while (rset.next()) {
+				TravelVO vo = new TravelVO();
+				vo.setTra_NO(rset.getString("tra_NO"));
+				vo.setTra_Name(rset.getString("tra_Name"));
+				vo.setTra_On(rset.getDate("tra_On"));
+				vo.setTra_Off(rset.getDate("tra_Off"));
+				vo.setTra_Beg(rset.getTimestamp("tra_Beg"));
+				vo.setTra_End(rset.getTimestamp("tra_End"));
+				vo.setTra_Total(rset.getInt("tra_Total"));
+				vo.setTra_Max(rset.getInt("tra_Max"));
+				vo.setTra_Intr(rset.getString("tra_Intr"));
+				vo.setTra_Con(rset.getString("tra_Con"));
+				vo.setTra_Atter(rset.getString("tra_Atter"));
+				vo.setTra_File(rset.getString("tra_File"));
+				vo.setTra_Loc(rset.getString("tra_Loc"));
+				vo.setSign_InTotal(detailDAO.tra_count(Long.parseLong(rset.getString("tra_NO"))));
+				result.add(vo);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	@Override
+	public List<TravelVO> getAll_forSearch(){
+		
+		List<TravelVO> result = null;
+		try (Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(GET_ALL_STMT_forSearch);
 				ResultSet rset = stmt.executeQuery();) {
 			IDetailDAO detailDAO = new DetailDAO();
 			result = new ArrayList<TravelVO>();

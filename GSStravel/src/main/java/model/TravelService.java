@@ -18,6 +18,10 @@ public class TravelService {
 	public List<TravelVO> select() throws SQLException {
 		return travelDAO.getAll();
 	}
+	
+	public List<TravelVO> select_forSearch() throws SQLException {
+		return travelDAO.getAll_forSearch();
+	}
 
 	public TravelVO select(long tra_NO) {
 		return travelDAO.getAll(tra_NO);
