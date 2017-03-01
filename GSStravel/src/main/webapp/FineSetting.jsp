@@ -135,11 +135,11 @@
 	function checkDay(day) {
 		var regDay = new RegExp("^[0-9]{1,}$");
 		if (day.value == "") {
-			day.style.border = "1px solid red";
+			day.style.border = "2px solid red";
 		} else if (day.value <= 0 || !regDay.test(day.value)) {
-			day.style.border = "1px solid red";
+			day.style.border = "2px solid red";
 		} else {
-			day.style.border = "1px solid green";
+			day.style.border = "2px solid green";
 		}
 	}
 
@@ -147,15 +147,15 @@
 		var regDay = new RegExp("^[0-9]{1,}$");
 		var regPercent = new RegExp("^([0-9]{1,2})([.]{1})([0-9]{1,})$");
 		if (percent.value == "") {
-			percent.style.border = "1px solid red";
+			percent.style.border = "2px solid red";
 		} else if (percent.value <= 0 || !regDay.test(percent.value) || percent.value >= 100) {
 			if (percent.value <= 0 || !regPercent.test(percent.value) || percent.value >= 100) {
-				percent.style.border = "1px solid red";
+				percent.style.border = "2px solid red";
 			}else if (percent.value > 0 && regPercent.test(percent.value) && percent.value < 100) {
-				percent.style.border = "1px solid green";
+				percent.style.border = "2px solid green";
 			}
 		} else {
-			percent.style.border = "1px solid green";
+			percent.style.border = "2px solid green";
 		}
 	}
 

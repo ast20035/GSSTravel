@@ -34,7 +34,7 @@ public class SetUpTravel extends HttpServlet {
 
 		String tra_No = request.getParameter("edittraNO");
 		String tra_Name = new String(request.getParameter("edittraName").getBytes("iso-8859-1"), "utf-8");
-		String tra_Loc = request.getParameter("edittraLoc");
+		String tra_Loc = new String(request.getParameter("edittraLoc").getBytes("iso-8859-1"), "utf-8");
 		String On = request.getParameter("edittraOn");
 		String Off = request.getParameter("edittraOff");
 		String Beg = request.getParameter("edittraBeg");
