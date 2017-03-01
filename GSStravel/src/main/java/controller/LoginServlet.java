@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +25,15 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+		SimpleDateFormat formatNewYMD1 = new SimpleDateFormat("yyyy-MM-dd");
+		Date dateNew = new Date();
+		long beforeNowNew = (dateNew.getTime() / 1000) - 60 * 60 * 24 * 7;// 一星期之內為最新公告
+		dateNew.setTime(beforeNowNew * 1000);
+		String beforeDateNew = formatNewYMD1.format(dateNew);
+		session.setAttribute("beforeDateNew", beforeDateNew);
+		
 		String act = request.getParameter("account");
 		String pwd = request.getParameter("pwd");
 		int account = 0;
@@ -54,7 +65,7 @@ public class LoginServlet extends HttpServlet {
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}else{
 			
-			HttpSession session=request.getSession();
+//			HttpSession session=request.getSession();
 			session.setAttribute("emp_No", result.getEmp_No());
 			session.setAttribute("emp_Name", result.getEmp_Name());
 			session.setAttribute("emp_Role", result.isEmp_Role());

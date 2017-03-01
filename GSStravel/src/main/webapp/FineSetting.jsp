@@ -48,7 +48,7 @@
 <script>
 	$(document).ready(function() {
 		$("#add").click(function() {
-			$("#fineTable").append("<tr><td class='tdbtn'><input type='button' class='remove btn btn-info ' value='－'/></td><td><input name='day' type='text' autofocus value='${row.fine_Dates}' autocomplete='off' onblur='checkDay(this)' /></td><td><input name='percent' type='text' value='${row.fine_Per}' autocomplete='off' onblur='checkPercent(this)' /></td></tr>");
+			$("#fineTable").append("<tr><td class='tdbtn'><input type='button' class='remove btn btn-info ' value='－'/></td><td><input name='day' type='text' autofocus value='${row.fine_Dates}' autocomplete='off' onblur='checkDay(this)' onfocus='focusDay(this)' /></td><td><input name='percent' type='text' value='${row.fine_Per}' autocomplete='off' onblur='checkPercent(this)' onfocus='focusPercent(this)' /></td></tr>");
 		});
 	
 		$(document).on("click", ".remove", function() {
@@ -109,6 +109,7 @@
 					buttonDay.setAttribute("name", "day");
 					buttonDay.setAttribute("value", fine[i].day);
 					buttonDay.setAttribute("autocomplete", "off");
+					buttonDay.setAttribute("onfocus", "focusDay(this)");
 					buttonDay.setAttribute("onblur", "checkDay(this)");
 					td.appendChild(buttonDay);
 					tr.appendChild(td);
@@ -119,6 +120,7 @@
 					buttonPercent.setAttribute("name", "percent");
 					buttonPercent.setAttribute("value", fine[i].percent);
 					buttonPercent.setAttribute("autocomplete", "off");
+					buttonPercent.setAttribute("onfocus", "focusPercent(this)");
 					buttonPercent.setAttribute("onblur", "checkPercent(this)");
 					td.appendChild(buttonPercent);
 					tr.appendChild(td);
@@ -131,6 +133,13 @@
 		}
 	}
 	
+	function focusDay(day) {
+		day.style.border = "";
+	}
+	
+	function focusPercent(percent) {
+		percent.style.border = "";
+	}
 	
 	function checkDay(day) {
 		var regDay = new RegExp("^[0-9]{1,}$");
