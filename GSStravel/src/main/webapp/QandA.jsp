@@ -33,6 +33,16 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<button onclick="window.location = '/GSStravel/QandAQuestion.jsp';">我要詢問問題</button>
+	<% String temp = session.getAttribute("emp_Role").toString();
+		boolean emp_Role = Boolean.parseBoolean(temp);
+		if(!emp_Role){%>
+			<button onclick="window.location = '/GSStravel/QandAServlet?prodaction=question';">我要詢問問題</button>
+		<%}%>
+<script>
+if(${Msg!=null}){
+	alert("${Msg.message}");
+}
+</script>
+
 </body>
 </html>

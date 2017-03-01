@@ -13,4 +13,7 @@ public class QandAService {
 	public QandAVO getALL(int qa_No){
 		return qaDAO.getALL(qa_No);
 	}
+	public boolean insertAnswer(QandAVO bean){
+		return qaDAO.insertAnswer(bean);
+	}
 }
