@@ -10,4 +10,5 @@ public interface ITotalAmountDAO {
 	public int counts(String emp_No);
 	public TotalAmountVO select(String emp_No,String tra_NO);
 	boolean select_yearsub(int emp_No ,String tra_No);
+	
 }

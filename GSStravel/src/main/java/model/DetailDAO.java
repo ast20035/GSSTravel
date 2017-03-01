@@ -45,7 +45,24 @@ public class DetailDAO implements IDetailDAO {
 	private static final String SELECT_EXCEL2 = "SELECT det_No, Detail.emp_No, ISNULL(Detail.fam_No,Detail.emp_No) as number, ISNULL(fam_Rel,'員工') as Rel, ISNULL(fam_Name, emp_Name) as Name, ISNULL(fam_Sex,emp_Sex) as Sex, ISNULL(fam_ID, emp_ID) as ID,ISNULL(fam_Bdate,emp_Bdate) as Bdate, ISNULL(fam_Phone,emp_Phone) as Phone,ISNULL(fam_eat,emp_Eat) as Eat, ISNULL(fam_Car,1) as Car, fam_Bady, fam_kid, fam_Dis, fam_Mom,ISNULL(fam_Ben,emp_Ben) as Ben, ISNULL(fam_BenRel,emp_BenRel) as BenRel, ISNULL(fam_Emg,emp_Emg) as Emg, ISNULL(fam_EmgPhone,emp_EmgPhone) as EmgPhone, det_Date, det_CanDate as CanDate, ISNULL(fam_Note,emp_Note) as Note, det_canNote FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No WHERE Tra_No = ? and det_CanDate is null order by CanDate";
 	private static final String SELECT_EXCEL3 = "SELECT det_No, Detail.emp_No, ISNULL(Detail.fam_No,Detail.emp_No) as number, ISNULL(fam_Rel,'員工') as Rel, ISNULL(fam_Name, emp_Name) as Name, ISNULL(fam_Sex,emp_Sex) as Sex, ISNULL(fam_ID, emp_ID) as ID,ISNULL(fam_Bdate,emp_Bdate) as Bdate, ISNULL(fam_Phone,emp_Phone) as Phone,ISNULL(fam_eat,emp_Eat) as Eat, ISNULL(fam_Car,1) as Car, fam_Bady, fam_kid, fam_Dis, fam_Mom,ISNULL(fam_Ben,emp_Ben) as Ben, ISNULL(fam_BenRel,emp_BenRel) as BenRel, ISNULL(fam_Emg,emp_Emg) as Emg, ISNULL(fam_EmgPhone,emp_EmgPhone) as EmgPhone, det_Date, det_CanDate as CanDate, ISNULL(fam_Note,emp_Note) as Note, det_canNote FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No WHERE Tra_No = ? and det_CanDate is not null order by CanDate";
 	private static final String selectALL = "select * from Detail where emp_No=? and fam_No is null order by det_Date desc";
+	private static final String ckselect="select * from Detail where tra_No=?";
 	
+	public Boolean ckselect(String tra_No){
+		Boolean bl = false;
+		try(
+			Connection conn=ds.getConnection();
+			PreparedStatement stem=conn.prepareStatement(ckselect);
+				){
+			stem.setString(1, tra_No);
+			ResultSet rest = stem.executeQuery();
+			while(rest.next()){
+				bl=true;
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return bl;
+	}
 	
 	public List<DetailVO> selectALL(String emp_No) {
 		List<DetailVO> DetailVOs=new ArrayList<>();
