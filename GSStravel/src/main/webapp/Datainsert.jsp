@@ -454,7 +454,7 @@ text-align: center;
 // 			var result = pathName.substr(0, index + 1);
 // 			var url = result + "/FamilyServlet";
 			
-<<<<<<< HEAD
+
 // 			var multiselect=null;
 // 			if($("#familytable select[name*='famspa']").length > 0){
 // 				$("#familytable select[name*='famspa']").on("blur",function(){
