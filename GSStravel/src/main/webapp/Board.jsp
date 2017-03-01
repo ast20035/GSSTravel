@@ -83,12 +83,24 @@ table, tr, td {
 
 					td = document.createElement("td");
 					td.appendChild(document.createTextNode(board[i].time));
+					if(board[i].important==1){
+						td.setAttribute("style", "color:red");
+					}
+					if(board[i].important==2){
+						td.setAttribute("style", "color:black");
+					}
 					tr.appendChild(td);
 
 					td = document.createElement("td");
 					a.setAttribute("href", result + "/BoardShow.jsp?anno_Time="
 							+ board[i].time);
 					a.appendChild(document.createTextNode(board[i].title));
+					if(board[i].important==1){
+						a.setAttribute("style", "color:red");
+					}
+					if(board[i].important==2){
+						a.setAttribute("style", "color:black");
+					}
 					td.appendChild(a);
 					tr.appendChild(td);
 

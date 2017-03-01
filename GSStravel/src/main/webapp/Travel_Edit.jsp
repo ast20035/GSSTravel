@@ -7,8 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<script src='js/jquery.simple-dtpicker.js'></script>
-
+<!-- <script src='js/jquery.simple-dtpicker.js'></script> -->
 <script src='js/jquery-3.1.1.min.js'></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -34,6 +33,7 @@
 			//window.history.back()
 			window.location.href = 'search2.jsp';
 		}
+
 	}
 
 	String.prototype.IsGreatThan = function(mvarCompareTo) {
@@ -44,6 +44,14 @@
 	}
 
 	/* 點選更新後，欄位再次判斷，無誤再送出資料 */
+	
+// 	function getElements()
+//   {
+//   var x=document.getElementsByName("edititemMoney");
+//   alert(x.length);
+//   }
+
+	
 
 	function formtable_b(form) {
 		var edittraName = document.getElementById("edittraName");
@@ -59,7 +67,9 @@
 		var edittraAtter = document.getElementById("edittraAtter");
 		var edittraTotal = document.getElementById("edittraTotal");
 		var edittraMax = document.getElementById("edittraMax");
-		var edititemMoney = document.getElementById("input[id*='edititemMoney']");
+
+ 		var edititemMoney = document.getElementsByName("edititemMoney");
+
 		var editdate = /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
 		var editdateTime = /20\d{2}(-|\/)((0[1-9])|(1[0-2]))(-|\/)((0[1-9])|([1-2][0-9])|(3[0-1]))(T|\s)(([0-1][0-9])|(2[0-3])):([0-5][0-9]):([0-5][0-9])/;
 		var edittraPerson = /^\d*$/;
@@ -67,6 +77,7 @@
 		var y = 0;
 		var z = 0;
 		var p = 0;
+		var m = 0;
 		if (edittraName.value == "") {
 			alert("活動名稱為空值");
 			eval("document.formtable['edittraName'].focus()");
@@ -100,30 +111,35 @@
 			eval("document.formtable['edittraMax'].focus()");
 			return false;
 		}
-		// 		else if (edittraIntr.value == "") {
-		// 			alert("請輸入活動說明");
-		// 			eval("document.formtable['edittraIntr'].focus()");
-		// 			return false;
-		// 		}
+
 		else if (edittraCon.value == "") {
 			alert("請輸入活動內容");
 			eval("document.formtable['edittraCon'].focus()");
 			return false;
 		}
-		// 		else if (edittraAtter.value == "") {
-		// 			alert("請輸入注意事項");
-		// 			eval("document.formtable['edittraAtter'].focus()");
-		// 			return false;
-		// 		}
-		else if (edititemMoney.value == "") {
-			alert("請輸入金額");
-			
-			return false;
-		}
-		
-		else {
+
+		else  {
+		    for(var money=0;money<edititemMoney.length;money++){
+			    if(edititemMoney[money].value == ""){
+			    	//console.log(1);
+				    alert("請輸入金額");
+			        return false;
+			    }
+			    else;
+			}
+			//x = 1;
+		    for(var name=0;name<edititemName.length;name++){
+			    if(edititemName[name].value == "請選擇"){
+			    	//console.log(1);
+				    alert("請選擇費用項目");
+			        return false;
+			    }
+			    else;
+			}
 			x = 1;
 		}
+
+
 		if (edittraOn.value != "") {
 			if (editdate.test($(edittraOn).val())) {
 				if (edittraOff.value != "") {
@@ -132,6 +148,7 @@
 						if (Date.parse($(edittraOn).val()).valueOf() > Date
 								.parse($(edittraOff).val()).valueOf()) {
 							alert("活動開始時間不能晚於結束時間！");
+							eval("document.formtable['edittraOn'].focus()");
 							return false;
 						} else {
 
@@ -142,14 +159,9 @@
 						eval("document.formtable['edittraOff'].focus()");
 						return false;
 					}
-<<<<<<< HEAD
 				}
 
 			} else {
-=======
-				} 
-			}else {
->>>>>>> branch 'master' of https://github.com/freelife1018/GSSTravel.git
 				alert("活動開始日期格式錯誤");
 				eval("document.formtable['edittraOn'].focus()");
 				return false;
@@ -187,15 +199,10 @@
 						eval("document.formtable['edittraEnd'].focus()");
 						return false;
 					}
-<<<<<<< HEAD
 
 				}
 
 			} else {
-=======
-				} 
-			}else {
->>>>>>> branch 'master' of https://github.com/freelife1018/GSSTravel.git
 				alert("登記開始日期格式錯誤");
 				eval("document.formtable['edittraBeg'].focus()");
 				return false;
@@ -209,8 +216,9 @@
 						m = edittraMax.value;
 						t = edittraTotal.value;
 						if (Number(edittraMax.value) > Number(edittraTotal.value)) { //方法1
-							// 							if(m.IsGreatThan(t)){	//方法2
+							// 							if(m.IsGreatThan(t))	//方法2
 							alert("本團人數不能多於活動總人數！");
+							eval("document.formtable['edittraMax'].focus()");
 							return false;
 						} else {
 							//alert("行程已修改GXX");
@@ -221,21 +229,34 @@
 						eval("document.formtable['edittraMax'].focus()");
 						return false;
 					}
-<<<<<<< HEAD
 				}
 
 			} else {
-=======
-				} 
-			}else {
->>>>>>> branch 'master' of https://github.com/freelife1018/GSSTravel.git
 				alert("活動總人數格式錯誤");
 				eval("document.formtable['edittraTotal'].focus()");
 				return false;
 			}
 		}
+		
+		for(var money=0;money<edititemMoney.length;money++){
+		    if(edittraPerson.test(edititemMoney[money].value)){
+		    	//console.log(1);
+// 			    alert("金額格式錯誤");
+// 		        return false;
+		    	m = 1;
+		    }
+		    else{
+		    	alert("金額格式錯誤");
+			    return false;	
+		    }
+		    
+		}
+		
+		
+		
+			
 
-		if (x == 1 && y == 1 && z == 1 && p == 1) {
+		if (x == 1 && y == 1 && z == 1 && p == 1 && m==1) {
 
 			alert("行程已修改");
 			return true;
@@ -477,11 +498,10 @@ h2 {
 
 
 
-									<td>
-									<fmt:formatNumber value="${row.item_Money}" pattern="#" type="number" var="mmm"/>
-									<input type="text" name="edititemMoney" 
-										style='width: 100px; text-align: right;' id="edititemMoney"
-										class='form-control' value="${mmm}">
+									<td><fmt:formatNumber value="${row.item_Money}"
+											pattern="#" type="number" var="mmm" /> <input type="text"
+										name="edititemMoney" style='width: 100px; text-align: right;'
+										id="edititemMoney" class='form-control' value="${mmm}">
 										<div class="edititemMoneyerror2"></div></td>
 
 									<c:if test="${row.item_Name != '團費' && row.item_Name != '保險費'}">
@@ -507,13 +527,12 @@ h2 {
 
 
 
-									<td>
-									<fmt:formatNumber value="${row.item_Money}" pattern="#" type="number" var="mmm2"/>
-									<input type="text" name="edititemMoney"
-										style='width: 100px; text-align: right;' id="edititemMoney"
-										class='form-control' value="${mmm2}">
+									<td><fmt:formatNumber value="${row.item_Money}"
+											pattern="#" type="number" var="mmm2" /> <input type="text"
+										name="edititemMoney" style='width: 100px; text-align: right;'
+										id="edititemMoney" class='form-control' value="${mmm2}">
 										<div class="edititemMoneyerror2"></div></td>
-										
+
 									<c:if test="${row.item_Name != '團費' && row.item_Name != '保險費'}">
 										<td><input type="submit" name="delete" id="delete"
 											class='btn btn-danger' value="刪除"></td>
@@ -523,33 +542,33 @@ h2 {
 					</table>
 
 					<a><input type="submit" id="inputdate" name="inputerrors"
-						value="更新" class='btn btn-primary'> <input type="button"
-						onclick="show_confirm()" value="取消更新" class='btn btn-primary'>
-						<!-- 						<input type="submit" name="inputerrors" value="刪除行程"class='btn btn-primary'>  -->
+						value="更新" class='btn btn-primary' onclick="getElements()">
+						<input type="button" onclick="show_confirm()" value="取消更新"
+						class='btn btn-primary'> <!-- 						<input type="submit" name="inputerrors" value="刪除行程"class='btn btn-primary'>  -->
 					</a>
 				</form>
 				<table>
 					<!-- 動態新增用 -->
 					<tr name="newtable">
-						<td><SELECT name="edititemName" id="edititemName"
-							style='width: 150px;' class='form-control'>
-								<option selected="selected" disabled="disabled">請選擇</option>
-								<option value="住宿費(兩人房)"
-									${row.item_Name == '住宿費(兩人房)' ? 'selected' : ''}>住宿費(兩人房)</option>
-								<option value="住宿費(通鋪8人)"
-									${row.item_Name == '住宿費(通鋪8人)' ? 'selected' : ''}>住宿費(通鋪8人)</option>
-								<option value="住宿費(加床)"
-									${row.item_Name == '住宿費(加床)' ? 'selected' : ''}>住宿費(加床)</option>
+<!-- 						<td><SELECT name="edititemName" id="edititemName" -->
+<!-- 							style='width: 150px;' class='form-control'> -->
+<!-- 								<option selected="selected" disabled="disabled">請選擇</option> -->
+<!-- 								<option value="住宿費(兩人房)" -->
+<%-- 									${row.item_Name == '住宿費(兩人房)' ? 'selected' : ''}>住宿費(兩人房)</option> --%>
+<!-- 								<option value="住宿費(通鋪8人)" -->
+<%-- 									${row.item_Name == '住宿費(通鋪8人)' ? 'selected' : ''}>住宿費(通鋪8人)</option> --%>
+<!-- 								<option value="住宿費(加床)" -->
+<%-- 									${row.item_Name == '住宿費(加床)' ? 'selected' : ''}>住宿費(加床)</option> --%>
 
 
-						</SELECT>
-							<div class="edititemNameerror2"></div></td>
-						<td><input type="text" name="edititemMoney"
-							style='width: 100px; text-align: right;' id="edititemMoney"
-							class='form-control' value="${row.item_Money}">
-							<div class="edititemMoneyerror2"></div></td>
-						<td><input type="submit" name="delete" id="delete"
-							class='btn btn-danger' value="刪除"></td>
+<!-- 						</SELECT> -->
+<!-- 							<div class="edititemNameerror2"></div></td> -->
+<!-- 						<td><input type="text" name="edititemMoney" -->
+<!-- 							style='width: 100px; text-align: right;' id="edititemMoney" -->
+<%-- 							class='form-control' value="${row.item_Money}"> --%>
+<!-- 							<div class="edititemMoneyerror2"></div></td> -->
+<!-- 						<td><input type="submit" name="delete" id="delete" -->
+<!-- 							class='btn btn-danger' value="刪除"></td> -->
 					</tr>
 
 
@@ -557,15 +576,16 @@ h2 {
 
 				<script>
 					/*按扭動作*/
+
 					$(function() {
 						$("tr[name='newtable']").hide();
 						//動態新增tr
-
 						$("#insert")
 								.click(
-										function(event) {$("#Itemtable").append('<tr class=newtable>'+ $("tr[name='newtable']").html()
-																	+ '</tr>');
-
+// 										function(event) {$("#Itemtable").append('<tr class=newtable>'+ $("tr[name='newtable']").html()
+// 																	+ '</tr>');
+										function(event) {$("#Itemtable").append('<tr class=newtable>'+ "<td><SELECT name='edititemName' id='edititemName' style='width: 150px;' class='form-control'><option selected='selected' disabled='disabled'>請選擇</option><option value='住宿費(兩人房)' ${row.item_Name == '住宿費(兩人房)' ? 'selected' : ''}>住宿費(兩人房)</option><option value='住宿費(通鋪8人)' ${row.item_Name == '住宿費(通鋪8人)' ? 'selected' : ''}>住宿費(通鋪8人)</option><option value='住宿費(加床)' ${row.item_Name == '住宿費(加床)' ? 'selected' : ''}>住宿費(加床)</option></SELECT><div class='edititemNameerror2'></div></td><td><input type='text' name='edititemMoney' style='width: 100px; text-align: right;' id='edititemMoney' class='form-control' value='${row.item_Money}''><div class='edititemMoneyerror2'></div></td><td><input type='submit' name='delete' id='delete' class='btn btn-danger' value='刪除'></td>"
+												+ '</tr>');
 										var edititemMoney = /^\d*$/;
 											$(".newtable td").on("blur","input[name='edititemMoney']",
 															function() {if (this.value != "") {
@@ -594,13 +614,14 @@ h2 {
 															
 
 										})
-
 						//刪除動態tr		
 						$("#Itemtable").on("click", "input[name='delete']",
 								function() {
 									$(this).parents("tr").remove();
 								});
+
 					});
+
 					/*欄位判斷*/
 					var edittraName = /./;
 					$("#edittraName").blur(function() {
@@ -612,6 +633,7 @@ h2 {
 							$(this).css("border-color", "red")
 						}
 					})
+
 					var edittraLoc = /./;
 					$("#edittraLoc").blur(function() {
 						if (edittraLoc.test($(this).val())) {
@@ -622,7 +644,9 @@ h2 {
 							$(this).css("border-color", "red")
 						}
 					})
+
 					var edittraOn = /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
+
 					$("#edittraOn").blur(function() {
 						if (this.value != "") {
 							if (edittraOn.test($(this).val())) {
@@ -632,12 +656,16 @@ h2 {
 								$('#edittraOnerror').text('開始日期格式錯誤')
 								$(this).css("border-color", "red")
 							}
+
 						} else {
 							$('#edittraOnerror').text('請輸入開始日期')
 							$(this).css("border-color", "red")
 						}
+
 					});
+
 					var edittraOff = /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
+
 					$("#edittraOff").blur(function() {
 						if (this.value != "") {
 							if (edittraOn.test($(this).val())) {
@@ -647,6 +675,7 @@ h2 {
 								$('#edittraOfferror').text('開始日期格式錯誤')
 								$(this).css("border-color", "red")
 							}
+
 						} else {
 							//alert('開始日期格式錯誤');
 							$('#edittraOfferror').text('請輸入結束日期')
@@ -665,6 +694,7 @@ h2 {
 								$('#edittraBegerror').text('開始日期格式錯誤')
 								$(this).css("border-color", "red")
 							}
+
 						} else {
 							//alert('開始日期格式錯誤');
 							$('#edittraBegerror').text('請輸入開始日期')
@@ -683,6 +713,7 @@ h2 {
 								$('#edittraEnderror').text('開始日期格式錯誤')
 								$(this).css("border-color", "red")
 							}
+
 						} else {
 							//alert('開始日期格式錯誤');
 							$('#edittraEnderror').text('請輸入開始日期')
@@ -701,6 +732,7 @@ h2 {
 								$('#edittraTotalerror').text('只能輸入數字')
 								$(this).css("border-color", "red")
 							}
+
 						} else {
 							//alert('開始日期格式錯誤');
 							$('#edittraTotalerror').text('請輸入總人數')
@@ -719,6 +751,7 @@ h2 {
 								$('#edittraMaxerror').text('只能輸入數字')
 								$(this).css("border-color", "red")
 							}
+
 						} else {
 							//alert('開始日期格式錯誤');
 							$('#edittraMaxerror').text('請輸入本團人數')

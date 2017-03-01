@@ -18,8 +18,8 @@ public class AnnouncementDAO implements IAnnouncementDAO {
 	private static final String SEARCH_BY_TITLE = " SELECT * FROM Announcement where anno_Title LIKE ?";
 	private static final String SELECT_ONE_STMT = "SELECT * FROM Announcement WHERE anno_Time=?";
 	private static final String SELECT_ALL_STMT = "SELECT * FROM Announcement ORDER BY anno_Time DESC";
-	public static final String INSERT_STMT = "INSERT INTO Announcement VALUES(?, ?, ?)";
-	private static final String UPDATE_STMT = "UPDATE Announcement SET anno_Time=?, anno_Title=?, anno_Content=? WHERE anno_Time=?";
+	public static final String INSERT_STMT = "INSERT INTO Announcement VALUES(?, ?, ?, ?)";
+	private static final String UPDATE_STMT = "UPDATE Announcement SET anno_Time=?, anno_Title=?, anno_Content=?, anno_Important=? WHERE anno_Time=?";
 	private static final String DELETE_STMT = "DELETE FROM Announcement WHERE anno_Time=?";
 
 	private DataSource dataSource;
@@ -68,6 +68,7 @@ public class AnnouncementDAO implements IAnnouncementDAO {
 				bean.setAnno_Time(rset.getString("anno_Time"));
 				bean.setAnno_Title(rset.getString("anno_Title"));
 				bean.setAnno_Content(rset.getString("anno_Content"));
+				bean.setAnno_Important(rset.getString("anno_Important"));
 				result.add(bean);
 			}
 		} catch (SQLException e) {
@@ -88,6 +89,7 @@ public class AnnouncementDAO implements IAnnouncementDAO {
 				result.setAnno_Time(rset.getString("anno_Time"));
 				result.setAnno_Title(rset.getString("anno_Title"));
 				result.setAnno_Content(rset.getString("anno_Content"));
+				result.setAnno_Important(rset.getString("anno_Important"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -114,6 +116,7 @@ public class AnnouncementDAO implements IAnnouncementDAO {
 				bean.setAnno_Time((rset.getString("anno_Time")));
 				bean.setAnno_Title(rset.getString("anno_Title"));
 				bean.setAnno_Content(rset.getString("anno_Content"));
+				bean.setAnno_Important(rset.getString("anno_Important"));
 				result.add(bean);
 			}
 		} catch (SQLException e) {
@@ -122,25 +125,27 @@ public class AnnouncementDAO implements IAnnouncementDAO {
 		return result;
 	}
 
-	public void insert(String now, String title, String content) {
+	public void insert(String now, String title, String content, String important) {
 		try (Connection conn = dataSource.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(INSERT_STMT);) {
 			stmt.setString(1, now);
 			stmt.setString(2, title);
 			stmt.setString(3, content);
+			stmt.setString(4, important);
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void update(String now, String title, String content, String date) {
+	public void update(String now, String title, String content, String important, String date) {
 		try (Connection conn = dataSource.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(UPDATE_STMT);) {
 			stmt.setString(1, now);
 			stmt.setString(2, title);
 			stmt.setString(3, content);
-			stmt.setString(4, date);
+			stmt.setString(4, important);
+			stmt.setString(5, date);
 			stmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
