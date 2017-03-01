@@ -91,4 +91,21 @@ public class QandADAO implements IQandADAO{
 		}
 		return bean;
 	}
+	private final String updateAnswer="update QandA set Answer_No=? , Answer_Text=? where QA_No=?";
+	@Override
+	public boolean insertAnswer(QandAVO bean){
+		boolean b=false;
+		try (Connection conn = ds.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(updateAnswer);) {
+			stmt.setInt(1, bean.getAnswer_No());
+			stmt.setString(2, bean.getAnswer_Text());
+			stmt.setInt(3, bean.getQa_No());
+			stmt.executeUpdate();
+			b=true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return b;
+	}
+
 }

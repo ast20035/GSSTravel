@@ -18,6 +18,10 @@ public class QandAServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String prodaction=request.getParameter("prodaction");
+		if("question".equals(prodaction)){
+		
+		}
 		QandAService QAService =new QandAService();
 		List<QandAVO> list = new ArrayList<QandAVO>();
 		list=QAService.selectALL();

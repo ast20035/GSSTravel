@@ -22,9 +22,11 @@ public class QandAInsertServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		QandAService QAService =new QandAService();
 		Map<String,String> Msg = new HashMap<String, String>();
+		request.setAttribute("Msg", Msg);
 		
 		String prodaction =request.getParameter("prodaction");
-		request.setAttribute("Msg", Msg);
+		boolean b;
+		
 		if("insertQuestion".equals(prodaction)){
 			QandAVO bean = new QandAVO();
 			String temp= request.getParameter("Question_No");
@@ -37,10 +39,32 @@ public class QandAInsertServlet extends HttpServlet {
 			bean.setTra_No(tra_No);
 			bean.setQuestion_Title(Qestion_Title);
 			bean.setQuestion_Text(Qestion_Text);
-			QAService.insertQuestion(bean);
+			b=QAService.insertQuestion(bean);
+			if(b){
+				Msg.put("message", "詢問成功，請等候福委會通知");
+			}
+			else{
+				Msg.put("message", "詢問失敗");
+			}
 		}
 		if("insertAnswer".equals(prodaction)){
+			QandAVO bean = new QandAVO();
+			String temp = request.getParameter("qa_No");
+			String temp2= request.getParameter("answer_No");
+			String answer_Text=request.getParameter("answer_Text");
+			int qa_No=Integer.parseInt(temp);
+			int answer_No=Integer.parseInt(temp2);
 			
+			bean.setQa_No(qa_No);
+			bean.setAnswer_No(answer_No);
+			bean.setAnswer_Text(answer_Text);
+			b=QAService.insertAnswer(bean);
+			if(b){
+				Msg.put("message", "回應成功");
+			}
+			else{
+				Msg.put("message", "回應失敗");
+			}
 		}
 		response.sendRedirect("/GSStravel/QandAServlet");
 		return;

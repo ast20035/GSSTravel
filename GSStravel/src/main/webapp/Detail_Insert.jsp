@@ -30,12 +30,6 @@ input[type='text'] {
 .center_a {
 	font-size: 15px;
 }
-</style>
-<script src="js/jquery-1.12.3.min.js"></script>
-<script type="text/javascript">
-	
-</script>
-<style>
 td, th {
 	padding: 10px;
 	border: 1px solid #DDDDDD;
@@ -46,6 +40,7 @@ table {
 	margin-right: 50px;
 }
 </style>
+<script src="js/jquery-1.12.3.min.js"></script>
 </head>
 <body>
 	<%@include file="Manage.jsp"%>

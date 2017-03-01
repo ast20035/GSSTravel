@@ -6,4 +6,5 @@ public interface IQandADAO {
 	public List<QandAVO> selectALL();
 	public boolean insertQuestion(QandAVO bean);
 	public QandAVO getALL(int qa_No);
+	public boolean insertAnswer(QandAVO bean);
 }
