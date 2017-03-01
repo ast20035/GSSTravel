@@ -3,9 +3,10 @@
 <%
 
 	String tra_No=request.getParameter("tra_no");
-	
+	String excelData = request.getParameter("excel");
+
     String path = "C:\\detail\\";                    //檔案主要放置目錄
-    String filename = "報名明細-"+tra_No+".xls";//檔案名
+    String filename = "報名明細-"+tra_No+"-"+excelData+".xls";//檔案名
     out.println("tra_No="+tra_No);
     out.println("filename="+filename);
     

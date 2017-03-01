@@ -217,9 +217,10 @@ margin-right: 3%;
 					<input type="hidden" name="detailPage" class="detailPage">
 					<input type="hidden" name="detailTag" class="detailTag" value="${tag}">
 					<button type="submit" name="prodaction" value="insert" class='btn btn-primary'>新增</button>
-					<!-- 柯(請勿刪除) -->
-					<input type="submit" name="excel" value="匯出Excel" class='btn btn-primary' />
-					<!-- 柯(請勿刪除) -->
+					
+					<button type="submit" name="excel" value="全部資料" class='excel1 btn btn-primary' style='display: none;'>匯出Excel</button>
+					<button type="submit" name="excel" value="已報名" class='excel2 btn btn-primary' style='display: none;'>匯出Excel</button>
+					<button type="submit" name="excel" value="已取消" class='excel3 btn btn-primary' style='display: none;'>匯出Excel</button>
 				</form>
 			</div>
 		</div>
@@ -280,10 +281,19 @@ $(function(){
 	//顯示全部、已報名、已取消的藍底顯示
 	if("${view}" == "已取消"){
 		document.getElementById("selectTable").selectedIndex = "2";
+		$('.excel1').hide();
+		$('.excel2').hide();
+		$('.excel3').show();
 	}else if("${view}" == "已報名"){
 		document.getElementById("selectTable").selectedIndex = "1";
+		$('.excel1').hide();
+		$('.excel3').hide();
+		$('.excel2').show();
 	}else{
 		document.getElementById("selectTable").selectedIndex = "0";
+		$('.excel3').hide();
+		$('.excel2').hide();
+		$('.excel1').show();
 	}	
 	
 	var $BodyWidth = $(document).width();  

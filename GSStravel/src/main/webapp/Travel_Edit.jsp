@@ -35,16 +35,16 @@
 			window.location.href = 'search2.jsp';
 		}
 	}
-	
-	String.prototype.IsGreatThan = function(mvarCompareTo){
-		  if(isNaN(parseFloat(this))||isNaN(parseFloat(mvarCompareTo))) 
-		    return this>mvarCompareTo;
-		  else
-		return parseFloat(this)>parseFloat(mvarCompareTo);
-		}
-	
-/* 點選更新後，欄位再次判斷，無誤再送出資料 */
- 
+
+	String.prototype.IsGreatThan = function(mvarCompareTo) {
+		if (isNaN(parseFloat(this)) || isNaN(parseFloat(mvarCompareTo)))
+			return this > mvarCompareTo;
+		else
+			return parseFloat(this) > parseFloat(mvarCompareTo);
+	}
+
+	/* 點選更新後，欄位再次判斷，無誤再送出資料 */
+
 	function formtable_b(form) {
 		var edittraName = document.getElementById("edittraName");
 		var edittraLoc = document.getElementById("edittraLoc");
@@ -59,8 +59,9 @@
 		var edittraAtter = document.getElementById("edittraAtter");
 		var edittraTotal = document.getElementById("edittraTotal");
 		var edittraMax = document.getElementById("edittraMax");
+		var edititemMoney = document.getElementById("input[id*='edititemMoney']");
 		var editdate = /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
-		var editdateTime =/20\d{2}(-|\/)((0[1-9])|(1[0-2]))(-|\/)((0[1-9])|([1-2][0-9])|(3[0-1]))(T|\s)(([0-1][0-9])|(2[0-3])):([0-5][0-9]):([0-5][0-9])/;
+		var editdateTime = /20\d{2}(-|\/)((0[1-9])|(1[0-2]))(-|\/)((0[1-9])|([1-2][0-9])|(3[0-1]))(T|\s)(([0-1][0-9])|(2[0-3])):([0-5][0-9]):([0-5][0-9])/;
 		var edittraPerson = /^\d*$/;
 		var x = 0;
 		var y = 0;
@@ -78,42 +79,48 @@
 			alert("請輸入活動開始日期");
 			eval("document.formtable['edittraOn'].focus()");
 			return false;
-		}else if (edittraOff.value == "") {
+		} else if (edittraOff.value == "") {
 			alert("請輸入活動結束日期");
 			eval("document.formtable['edittraOff'].focus()");
 			return false;
-		}else if (edittraBeg.value == "") {
+		} else if (edittraBeg.value == "") {
 			alert("請輸入登記開始日期");
 			eval("document.formtable['edittraBeg'].focus()");
 			return false;
-		}else if (edittraEnd.value == "") {
+		} else if (edittraEnd.value == "") {
 			alert("請輸入登記結束日期");
 			eval("document.formtable['edittraEnd'].focus()");
 			return false;
-		}else if (edittraTotal.value == 0) {
+		} else if (edittraTotal.value == 0) {
 			alert("請輸入活動總人數上限");
 			eval("document.formtable['edittraTotal'].focus()");
 			return false;
-		}else if (edittraMax.value == 0) {
+		} else if (edittraMax.value == 0) {
 			alert("請輸入本團人數上限");
 			eval("document.formtable['edittraMax'].focus()");
 			return false;
 		}
-// 		else if (edittraIntr.value == "") {
-// 			alert("請輸入活動說明");
-// 			eval("document.formtable['edittraIntr'].focus()");
-// 			return false;
-// 		}
+		// 		else if (edittraIntr.value == "") {
+		// 			alert("請輸入活動說明");
+		// 			eval("document.formtable['edittraIntr'].focus()");
+		// 			return false;
+		// 		}
 		else if (edittraCon.value == "") {
 			alert("請輸入活動內容");
 			eval("document.formtable['edittraCon'].focus()");
 			return false;
 		}
-// 		else if (edittraAtter.value == "") {
-// 			alert("請輸入注意事項");
-// 			eval("document.formtable['edittraAtter'].focus()");
-// 			return false;
-// 		}
+		// 		else if (edittraAtter.value == "") {
+		// 			alert("請輸入注意事項");
+		// 			eval("document.formtable['edittraAtter'].focus()");
+		// 			return false;
+		// 		}
+		else if (edititemMoney.value == "") {
+			alert("請輸入金額");
+			
+			return false;
+		}
+		
 		else {
 			x = 1;
 		}
@@ -122,82 +129,117 @@
 				if (edittraOff.value != "") {
 					if (editdate.test($(edittraOff).val())) {
 						//alert("行程已修改GG");
-						if(Date.parse($(edittraOn).val()).valueOf() > Date.parse($(edittraOff).val()).valueOf()){
+						if (Date.parse($(edittraOn).val()).valueOf() > Date
+								.parse($(edittraOff).val()).valueOf()) {
 							alert("活動開始時間不能晚於結束時間！");
 							return false;
-							}else{
-								
- 						y = 1;
-					}
+						} else {
+
+							y = 1;
+						}
 					} else {
 						alert("活動結束日期格式錯誤");
 						eval("document.formtable['edittraOff'].focus()");
 						return false;
 					}
+<<<<<<< HEAD
+				}
+
+			} else {
+=======
 				} 
 			}else {
+>>>>>>> branch 'master' of https://github.com/freelife1018/GSSTravel.git
 				alert("活動開始日期格式錯誤");
 				eval("document.formtable['edittraOn'].focus()");
 				return false;
 			}
 		}
-		
+
 		if (edittraBeg.value != "") {
 			if (editdateTime.test($(edittraBeg).val())) {
 				if (edittraEnd.value != "") {
 					if (editdateTime.test($(edittraEnd).val())) {
-						if(Date.parse($(edittraBeg).val()).valueOf() > Date.parse($(edittraEnd).val()).valueOf()){
-							alert("登記開始時間不能晚於結束時間！");
-							return false;
-							}else{
-								//alert("行程已修改GG");
-						z = 1;
+						if (Date.parse($(edittraOn).val()).valueOf() > Date
+								.parse($(edittraBeg).val()).valueOf()) {
+							if (Date.parse($(edittraOn).val()).valueOf() > Date
+									.parse($(edittraEnd).val()).valueOf()) {
+								if (Date.parse($(edittraBeg).val()).valueOf() < Date
+										.parse($(edittraEnd).val()).valueOf()) {
+									z = 1; //完成登記時間驗證
+								} else {
+									alert("登記開始時間不能晚於結束時間！");
+									eval("document.formtable['edittraBeg'].focus()");
+									return false;
+								}
+							} else {
+								alert("登記結束時間不能晚於活動開始時間！");
+								eval("document.formtable['edittraEnd'].focus()");
+								return false;
 							}
+						} else {
+							alert("登記開始時間不能晚於活動開始時間！");
+							eval("document.formtable['edittraBeg'].focus()");
+							return false;
+						}
 					} else {
 						alert("登記結束日期格式錯誤");
 						eval("document.formtable['edittraEnd'].focus()");
 						return false;
 					}
+<<<<<<< HEAD
+
+				}
+
+			} else {
+=======
 				} 
 			}else {
+>>>>>>> branch 'master' of https://github.com/freelife1018/GSSTravel.git
 				alert("登記開始日期格式錯誤");
 				eval("document.formtable['edittraBeg'].focus()");
 				return false;
 			}
 		}
-		 
+
 		if (edittraTotal.value != "") {
 			if (edittraPerson.test($(edittraTotal).val())) {
 				if (edittraMax.value != "") {
 					if (edittraPerson.test($(edittraMax).val())) {
-						m = edittraMax.value;	
+						m = edittraMax.value;
 						t = edittraTotal.value;
-						if(Number(edittraMax.value) > Number(edittraTotal.value)){	//方法1
-// 							if(m.IsGreatThan(t)){	//方法2
+						if (Number(edittraMax.value) > Number(edittraTotal.value)) { //方法1
+							// 							if(m.IsGreatThan(t)){	//方法2
 							alert("本團人數不能多於活動總人數！");
 							return false;
-							}else{
-								//alert("行程已修改GXX");
-						p = 1;
-							}
+						} else {
+							//alert("行程已修改GXX");
+							p = 1;
+						}
 					} else {
 						alert("本團人數格式錯誤");
 						eval("document.formtable['edittraMax'].focus()");
 						return false;
 					}
+<<<<<<< HEAD
+				}
+
+			} else {
+=======
 				} 
 			}else {
+>>>>>>> branch 'master' of https://github.com/freelife1018/GSSTravel.git
 				alert("活動總人數格式錯誤");
 				eval("document.formtable['edittraTotal'].focus()");
 				return false;
 			}
-		}	
-		
-		if(x==1&&y==1&&z==1&&p==1){
-			
-					 alert("行程已修改");
-					 return true;
-			
+		}
+
+		if (x == 1 && y == 1 && z == 1 && p == 1) {
+
+			alert("行程已修改");
+			return true;
+
 		}
 	}
 </script>
@@ -209,19 +251,22 @@
 table {
 	font-size: 15px;
 }
-body{
-margin-top: 2%;
-margin-bottom: 4%;
+
+body {
+	margin-top: 2%;
+	margin-bottom: 4%;
 }
-label{
-color:#33CCFF;
-font-weight: lighter;
+
+label {
+	color: #33CCFF;
+	font-weight: lighter;
 }
-h2{
-color:	#00AAAA;
-font-weight:bold;
-border-left:6px solid gray;
-padding-left:10px;
+
+h2 {
+	color: #00AAAA;
+	font-weight: bold;
+	border-left: 6px solid gray;
+	padding-left: 10px;
 }
 </style>
 <title>行程編輯</title>
@@ -234,11 +279,12 @@ padding-left:10px;
 				<h2>行程修改</h2>
 			</div>
 		</div>
-		<br>
-		<br>
+		<br> <br>
 		<div class='row'>
 			<div class='col-md-6 col-md-offset-3'>
-				<form name="formtable" id="formtable"action="<c:url value='/Travel_Edit'/>" method="GET" form onsubmit="return formtable_b()">
+				<form name="formtable" id="formtable"
+					action="<c:url value='/Travel_Edit'/>" method="GET" form
+					onsubmit="return formtable_b()">
 					<table class="t table">
 
 						<tr>
@@ -287,8 +333,8 @@ padding-left:10px;
 												id="edittraOn" class='form-control' style='width: 150px;'
 												value="${params.tra_On}">
 											<div id=edittraOnerror></div>
-											
-											
+
+
 										</div>
 									</div>
 									<!-- col-xs-4 -->
@@ -312,9 +358,11 @@ padding-left:10px;
 								<div class="row">
 									<div class="col-xs-4">
 										<div class="Input-group">
-									<fmt:parseDate value="${params.tra_Beg}" pattern="yyyy-MM-dd HH:mm:ss" var="myDate" />
-    								<fmt:formatDate value="${myDate}" pattern="yyyy-MM-dd HH:mm:ss"  var="ttt"/>
-  
+											<fmt:parseDate value="${params.tra_Beg}"
+												pattern="yyyy-MM-dd HH:mm:ss" var="myDate" />
+											<fmt:formatDate value="${myDate}"
+												pattern="yyyy-MM-dd HH:mm:ss" var="ttt" />
+
 											<label>開始時間</label> <input type="text" name="edittraBeg"
 												id="edittraBeg" class='form-control' style='width: 200px;'
 												value="${ttt}">
@@ -325,8 +373,10 @@ padding-left:10px;
 
 									<div class="col-xs-4">
 										<div class="Input-group">
-										<fmt:parseDate value="${params.tra_End}" pattern="yyyy-MM-dd HH:mm:ss" var="myDateEnd" />
-    								<fmt:formatDate value="${myDateEnd}" pattern="yyyy-MM-dd HH:mm:ss"  var="ddd"/>
+											<fmt:parseDate value="${params.tra_End}"
+												pattern="yyyy-MM-dd HH:mm:ss" var="myDateEnd" />
+											<fmt:formatDate value="${myDateEnd}"
+												pattern="yyyy-MM-dd HH:mm:ss" var="ddd" />
 											<label>結束時間</label> <input type="text" class='form-control'
 												style='width: 200px;' name="edittraEnd" id="edittraEnd"
 												value="${ddd}">
@@ -344,7 +394,7 @@ padding-left:10px;
 							<td><input type="text" name="edittraTotal" id="edittraTotal"
 								class='form-control' style='width: 80px;'
 								value="${params.tra_Total}">
-							<div id=edittraTotalerror></div></td>
+								<div id=edittraTotalerror></div></td>
 							<td></td>
 
 						</tr>
@@ -354,12 +404,12 @@ padding-left:10px;
 							<td><input type="text" name="edittraMax" id="edittraMax"
 								class='form-control' style='width: 80px;'
 								value="${params.tra_Max}">
-							<div id=edittraMaxerror></div></td>
+								<div id=edittraMaxerror></div></td>
 							<td></td>
 
 						</tr>
 						<tr>
-							<td><em style="color: red">*</em>活動說明</td>
+							<td><em style="color: red"></em>活動說明</td>
 							<td><textarea cols="50" rows="8" name="edittraIntr"
 									id="edittraIntr" class='form-control'>${params.tra_Intr}</textarea>
 								<div id=edittraIntrerror></div></td>
@@ -375,7 +425,7 @@ padding-left:10px;
 
 						</tr>
 						<tr>
-							<td><em style="color: red">*</em>注意事項</td>
+							<td><em style="color: red"></em>注意事項</td>
 
 							<td><textarea cols="50" rows="5" name="edittraAtter"
 									id="edittraAtter" class='form-control'>${params.tra_Atter}</textarea>
@@ -408,85 +458,81 @@ padding-left:10px;
 							<td class="t">金額</td>
 
 						</tr>
-						
-						
+
+
 						<c:forEach var="row" items="${paramsi}">
-						<c:if test="${row.item_Name == '團費' || row.item_Name == '保險費'}">
-							<tr>
+							<c:if test="${row.item_Name == '團費' || row.item_Name == '保險費'}">
+								<tr>
 
-								<td><SELECT name="edititemName" id="edititemName"
-									class='form-control' style='width:150px;'>
-										
-										<option value="團費" ${row.item_Name == '團費' ? 'selected' : ''}>團費</option>
-										<option value="保險費"
-											${row.item_Name == '保險費' ? 'selected' : ''}>保險費</option>
-								
-<!-- 										<option value="住宿費(兩人房)" -->
-<%-- 											${row.item_Name == '住宿費(兩人房)' ? 'selected' : ''}>住宿費(兩人房)</option> --%>
-<!-- 										<option value="住宿費(通鋪8人)" -->
-<%-- 											${row.item_Name == '住宿費(通鋪8人)' ? 'selected' : ''}>住宿費(通鋪8人)</option> --%>
-<!-- 										<option value="住宿費(加床)" -->
-<%-- 											${row.item_Name == '住宿費(加床)' ? 'selected' : ''}>住宿費(加床)</option> --%>
-									
-				
-							</SELECT><div id=edititemNameerror></div></td>
-							
-							
-								
-						<td><input type="text" name="edititemMoney" style='width:100px; text-align: right;'
-							id="edititemMoney" class='form-control' value="${row.item_Money}">
-							<div id=edititemMoneyerror></div></td>
-						<c:if test="${row.item_Name != '團費' && row.item_Name != '保險費'}">
-						<td>
-						<input type="submit" name="delete" id="delete" class='btn btn-danger' value="刪除">
-						</td>
-						</c:if>
-						</c:if>
-						<c:if test="${row.item_Name != '團費' && row.item_Name != '保險費'}">
-							<tr>
+									<td><SELECT name="edititemName" id="edititemName"
+										class='form-control' style='width: 150px;'
+										onfocus="defaultIndex=this.selectedIndex"
+										onchange="this.selectedIndex=defaultIndex">
 
-								<td><SELECT name="edititemName" id="edititemName" style='width:150px;'
-									class='form-control'>
+											<option value="團費" ${row.item_Name == '團費' ? 'selected' : ''}>團費</option>
+											<option value="保險費"
+												${row.item_Name == '保險費' ? 'selected' : ''}>保險費</option>
+									</SELECT>
+										<div id=edititemNameerror></div></td>
+
+
+
+									<td>
+									<fmt:formatNumber value="${row.item_Money}" pattern="#" type="number" var="mmm"/>
+									<input type="text" name="edititemMoney" 
+										style='width: 100px; text-align: right;' id="edititemMoney"
+										class='form-control' value="${mmm}">
+										<div class="edititemMoneyerror2"></div></td>
+
+									<c:if test="${row.item_Name != '團費' && row.item_Name != '保險費'}">
+										<td><input type="submit" name="delete" id="delete"
+											class='btn btn-danger' value="刪除"></td>
+									</c:if>
+							</c:if>
+							<c:if test="${row.item_Name != '團費' && row.item_Name != '保險費'}">
+								<tr>
+
+									<td><SELECT name="edititemName" id="edititemName"
+										style='width: 150px;' class='form-control'>
+											<option value="住宿費(兩人房)"
+												${row.item_Name == '住宿費(兩人房)' ? 'selected' : ''}>住宿費(兩人房)</option>
+											<option value="住宿費(通鋪8人)"
+												${row.item_Name == '住宿費(通鋪8人)' ? 'selected' : ''}>住宿費(通鋪8人)</option>
+											<option value="住宿費(加床)"
+												${row.item_Name == '住宿費(加床)' ? 'selected' : ''}>住宿費(加床)</option>
+
+
+									</SELECT>
+										<div id=edititemNameerror></div></td>
+
+
+
+									<td>
+									<fmt:formatNumber value="${row.item_Money}" pattern="#" type="number" var="mmm2"/>
+									<input type="text" name="edititemMoney"
+										style='width: 100px; text-align: right;' id="edititemMoney"
+										class='form-control' value="${mmm2}">
+										<div class="edititemMoneyerror2"></div></td>
 										
-<%-- 										<option value="團費" ${row.item_Name == '團費' ? 'selected' : ''}>團費</option> --%>
-<!-- 										<option value="保險費" -->
-<%-- 											${row.item_Name == '保險費' ? 'selected' : ''}>保險費</option> --%>
-								
-										<option value="住宿費(兩人房)"
-											${row.item_Name == '住宿費(兩人房)' ? 'selected' : ''}>住宿費(兩人房)</option>
-										<option value="住宿費(通鋪8人)"
-											${row.item_Name == '住宿費(通鋪8人)' ? 'selected' : ''}>住宿費(通鋪8人)</option>
-										<option value="住宿費(加床)"
-											${row.item_Name == '住宿費(加床)' ? 'selected' : ''}>住宿費(加床)</option>
-									
-				
-							</SELECT><div id=edititemNameerror></div></td>
-							
-							
-								
-						<td><input type="text" name="edititemMoney"  style='width:100px; text-align: right;'
-							id="edititemMoney" class='form-control' value="${row.item_Money}">
-							<div id=edititemMoneyerror></div></td>
-						<c:if test="${row.item_Name != '團費' && row.item_Name != '保險費'}">
-						<td>
-						<input type="submit" name="delete" id="delete" class='btn btn-danger' value="刪除">
-						</td>
-						</c:if>
-						</c:if>
+									<c:if test="${row.item_Name != '團費' && row.item_Name != '保險費'}">
+										<td><input type="submit" name="delete" id="delete"
+											class='btn btn-danger' value="刪除"></td>
+									</c:if>
+							</c:if>
 						</c:forEach>
 					</table>
 
 					<a><input type="submit" id="inputdate" name="inputerrors"
 						value="更新" class='btn btn-primary'> <input type="button"
 						onclick="show_confirm()" value="取消更新" class='btn btn-primary'>
-<!-- 						<input type="submit" name="inputerrors" value="刪除行程"class='btn btn-primary'>  -->
-						</a>
+						<!-- 						<input type="submit" name="inputerrors" value="刪除行程"class='btn btn-primary'>  -->
+					</a>
 				</form>
 				<table>
-
+					<!-- 動態新增用 -->
 					<tr name="newtable">
-						<td><SELECT name="edititemName" id="edititemName" style='width:150px;'
-							class='form-control'>
+						<td><SELECT name="edititemName" id="edititemName"
+							style='width: 150px;' class='form-control'>
 								<option selected="selected" disabled="disabled">請選擇</option>
 								<option value="住宿費(兩人房)"
 									${row.item_Name == '住宿費(兩人房)' ? 'selected' : ''}>住宿費(兩人房)</option>
@@ -497,13 +543,16 @@ padding-left:10px;
 
 
 						</SELECT>
-							<div id=edititemNameerror></div></td>
-						<td><input type="text" name="edititemMoney" style='width:100px; text-align: right;'
-							id="edititemMoney" class='form-control' value="${row.item_Money}">
-							<div id=edititemMoneyerror></div></td>
+							<div class="edititemNameerror2"></div></td>
+						<td><input type="text" name="edititemMoney"
+							style='width: 100px; text-align: right;' id="edititemMoney"
+							class='form-control' value="${row.item_Money}">
+							<div class="edititemMoneyerror2"></div></td>
 						<td><input type="submit" name="delete" id="delete"
 							class='btn btn-danger' value="刪除"></td>
 					</tr>
+
+
 				</table>
 
 				<script>
@@ -511,13 +560,41 @@ padding-left:10px;
 					$(function() {
 						$("tr[name='newtable']").hide();
 						//動態新增tr
-						$("#insert").click(
-								function(event) {
-									$("#Itemtable").append(
-											'<tr class=newtable>'
-													+ $("tr[name='newtable']")
-															.html() + '</tr>');
-								})
+
+						$("#insert")
+								.click(
+										function(event) {$("#Itemtable").append('<tr class=newtable>'+ $("tr[name='newtable']").html()
+																	+ '</tr>');
+
+										var edititemMoney = /^\d*$/;
+											$(".newtable td").on("blur","input[name='edititemMoney']",
+															function() {if (this.value != "") {
+			
+															
+															if (edititemMoney.test($(this).val())) {
+																//直接在正規上面判斷空值? 錯誤訊息 空值+格式錯誤 +檔掉不能用變換save type
+																//跟servlet一樣 有錯誤集中在一起 有錯 就做動作 沒錯就讓他過
+																//怕的就是程式一行行判斷 這行如果有錯 做動作後 下一行程式沒錯 會蓋掉他
+																$(this).css("border-color","green");
+																$(this).next(".edititemMoneyerror2").text("");
+																setTimeout(function() {$(".newtable td input[name='edititemMoney']")
+																					.css('border-color',"");},2000);
+															} else {$(this).css("border-color","red");
+																$(this).next('.edititemMoneyerror2').text("只能輸入數字");
+																setTimeout(function() {$(".newtable td input[name='edititemMoney']")
+																					.css('border-color',"");},2000);
+																};
+														} else {$(this).css("border-color","red");
+															$(this).next('.edititemMoneyerror2').text("請輸入金額");
+															setTimeout(function() {$(".newtable td input[name='edititemMoney']").css(
+																						'border-color',"");},2000);
+														}
+											
+											});
+															
+
+										})
+
 						//刪除動態tr		
 						$("#Itemtable").on("click", "input[name='delete']",
 								function() {
@@ -556,7 +633,6 @@ padding-left:10px;
 								$(this).css("border-color", "red")
 							}
 						} else {
-							//alert('開始日期格式錯誤');
 							$('#edittraOnerror').text('請輸入開始日期')
 							$(this).css("border-color", "red")
 						}
@@ -576,10 +652,10 @@ padding-left:10px;
 							$('#edittraOfferror').text('請輸入結束日期')
 							$(this).css("border-color", "red")
 						}
-					
+
 					});
-					
-					var edittraBeg =/20\d{2}(-|\/)((0[1-9])|(1[0-2]))(-|\/)((0[1-9])|([1-2][0-9])|(3[0-1]))(T|\s)(([0-1][0-9])|(2[0-3])):([0-5][0-9]):([0-5][0-9])/;
+
+					var edittraBeg = /20\d{2}(-|\/)((0[1-9])|(1[0-2]))(-|\/)((0[1-9])|([1-2][0-9])|(3[0-1]))(T|\s)(([0-1][0-9])|(2[0-3])):([0-5][0-9]):([0-5][0-9])/;
 					$("#edittraBeg").blur(function() {
 						if (this.value != "") {
 							if (edittraBeg.test($(this).val())) {
@@ -594,10 +670,10 @@ padding-left:10px;
 							$('#edittraBegerror').text('請輸入開始日期')
 							$(this).css("border-color", "red")
 						}
-					
+
 					});
-					
-					var edittraEnd =/20\d{2}(-|\/)((0[1-9])|(1[0-2]))(-|\/)((0[1-9])|([1-2][0-9])|(3[0-1]))(T|\s)(([0-1][0-9])|(2[0-3])):([0-5][0-9]):([0-5][0-9])/;
+
+					var edittraEnd = /20\d{2}(-|\/)((0[1-9])|(1[0-2]))(-|\/)((0[1-9])|([1-2][0-9])|(3[0-1]))(T|\s)(([0-1][0-9])|(2[0-3])):([0-5][0-9]):([0-5][0-9])/;
 					$("#edittraEnd").blur(function() {
 						if (this.value != "") {
 							if (edittraEnd.test($(this).val())) {
@@ -612,9 +688,9 @@ padding-left:10px;
 							$('#edittraEnderror').text('請輸入開始日期')
 							$(this).css("border-color", "red")
 						}
-					
+
 					});
-					
+
 					var edittraTotal = /^\d*$/;
 					$("#edittraTotal").blur(function() {
 						if (this.value != "") {
@@ -630,9 +706,9 @@ padding-left:10px;
 							$('#edittraTotalerror').text('請輸入總人數')
 							$(this).css("border-color", "red")
 						}
-					
+
 					});
-					
+
 					var edittraMax = /^\d*$/;
 					$("#edittraMax").blur(function() {
 						if (this.value != "") {
@@ -648,23 +724,12 @@ padding-left:10px;
 							$('#edittraMaxerror').text('請輸入本團人數')
 							$(this).css("border-color", "red")
 						}
-					
+
 					});
-					
-// 					var edittraIntr = /./;
-// 					$("#edittraIntr").blur(function() {
-// 						if (edittraIntr.test($(this).val())) {
-// 							$('#edittraIntrerror').text('')
-// 							$(this).css("border-color", "green")
-// 						} else {
-// 							$('#edittraIntrerror').text('活動說明不可為空白')
-// 							$(this).css("border-color", "red")
-// 						}
-// 					})
-					
+
 					var edittraCon = /./;
 					$("#edittraCon").blur(function() {
-						if (edittraIntr.test($(this).val())) {
+						if (edittraCon.test($(this).val())) {
 							$('#edittraConerror').text('')
 							$(this).css("border-color", "green")
 						} else {
@@ -672,17 +737,44 @@ padding-left:10px;
 							$(this).css("border-color", "red")
 						}
 					})
-					
-// 					var edittraAtter = /./;
-// 					$("#edittraAtter").blur(function() {
-// 						if (edittraAtter.test($(this).val())) {
-// 							$('#edittraAttererror').text('')
-// 							$(this).css("border-color", "green")
-// 						} else {
-// 							$('#edittraAttererror').text('注意事項不可為空白')
-// 							$(this).css("border-color", "red")
-// 						}
-// 					})
+
+					var edititemMoney = /^\d*$/;
+					$("input[name*='edititemMoney']").on("blur",function() {
+
+								if (this.value != "") {
+									if (edititemMoney.test($(this).val())) {
+										//直接在正規上面判斷空值? 錯誤訊息 空值+格式錯誤 +檔掉不能用變換save type
+										//跟servlet一樣 有錯誤集中在一起 有錯 就做動作 沒錯就讓他過
+										//怕的就是程式一行行判斷 這行如果有錯 做動作後 下一行程式沒錯 會蓋掉他
+										$(this).css("border-color", "green");
+										$(this).next(".edititemMoneyerror2")
+												.text("");
+										setTimeout(function() {
+											$("input[name*='edititemMoney']")
+													.css('border-color', "");
+										}, 2000);
+									} else {
+										$(this).css("border-color", "red");
+
+										$(this).next('.edititemMoneyerror2')
+												.text("只能輸入數字");
+										setTimeout(function() {
+											$("input[name*='edititemMoney']")
+													.css('border-color', "");
+										}, 2000);
+									}
+									;
+								} else {
+									$(this).css("border-color", "red");
+
+									$(this).next('.edititemMoneyerror2').text(
+											"請輸入金額");
+									setTimeout(function() {
+										$("input[name*='edititemMoney']").css(
+												'border-color', "");
+									}, 2000);
+								}
+							});
 				</script>
 			</div>
 		</div>

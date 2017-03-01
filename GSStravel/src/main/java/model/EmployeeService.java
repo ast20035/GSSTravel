@@ -35,6 +35,7 @@ public class EmployeeService {
 		return employeeDAO.select(Integer.parseInt(emp_NO));
 	}
 	
+	//員工更新資料
 	public void update(EmployeeVO empVoUpdate){
 		employeeDAO.update(empVoUpdate);
 	}
