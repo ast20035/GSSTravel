@@ -80,8 +80,8 @@ tbody a:visited:after {
 </style>
 <style>
 .topBar {
-	 background: linear-gradient(to bottom, rgba(40,52,59,1) 0%,rgba(40,52,59,1) 6%,rgba(130,140,149,1) 74%); 
-	
+	background: linear-gradient(to bottom, rgba(40, 52, 59, 1) 0%,
+		rgba(40, 52, 59, 1) 6%, rgba(130, 140, 149, 1) 74%);
 }
 
 .container-fluid {
@@ -93,18 +93,11 @@ tbody a:visited:after {
 	color: white;
 	font-weight: normal;
 }
-
-.title {
-	text-align: left;
-	font-style: italic;
-	color: #000088;
-	padding-bottom: 1px;
-	padding-top: 5px;
-}
-
 h1, h2 {
 	color: #7744FF;
 	font-weight: bolder;
+	border-left:6px solid gray;
+padding-left:10px;
 }
 
 .input-group-addon.info {
@@ -155,13 +148,13 @@ h1, h2 {
 	border: 0;
 }
 
-#close5 {
+#close7 {
 	margin-left: 5px;
 }
 
 .Mnow {
-	border-left: 2px solid blue;
-	border-right: 2px solid blue;
+	border-left: 3px solid blue;
+	border-right: 3px solid blue;
 }
 </style>
 <nav class="navbar navbar-fixed-top topBar navbar">
@@ -183,19 +176,13 @@ h1, h2 {
 				<c:if test='${emp_Role eq true}'>
 					<li><a href="<c:url value='/search2.jsp'/>" id="close2">行程維護</a></li>
 					<li><a href="<c:url value='/search.jsp'/>" id="close3">報名維護</a></li>
-					<li class='dropdown'><a class='dropdown-toggle' role="button"
-						aria-haspopup="true" aria-expanded="false" data-toggle="dropdown"
-						href="<c:url value='/FineSetting.jsp'/>">罰則維護<span
-							class="caret"></span></a>
-						<ul class='dropdown-menu' id="down2">
-							<li><a href="<c:url value='/FineSetting.jsp'/>">罰則設定</a></li>
-							<li><a href="<c:url value='/FineShowServlet'/>">罰則明細</a></li>
-						</ul></li>
-					<li><a href="<c:url value='/search1.jsp'/>" id="close4">旅費統計</a></li>
+					<li><a class='dropdown-toggle' role="button"
+						href="<c:url value='/FineSetting.jsp'/>" id="close4">罰則維護</a>
+					<li><a href="<c:url value='/search1.jsp'/>" id="close5">旅費統計</a></li>
 					<li><a href="<c:url value='/BoardMaintain.jsp'/>" id="close6">公告維護</a></li>
 				</c:if>
 				<li><input type="button" value='登出'
-					class="btn btn-warning navbar-btn" id="close5"
+					class="btn btn-warning navbar-btn" id="close7"
 					onclick="window.location.href=resultjs+'/LogOut.do';"></li>
 			</ul>
 		</div>

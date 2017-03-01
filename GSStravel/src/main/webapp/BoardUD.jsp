@@ -21,13 +21,49 @@
 <link rel="stylesheet" type="text/css" href="" />
 <title>公告編輯</title>
 <style type="text/css">
-.container-fluid{
-margin-top: 5%;
-font-size: 20px;
+.container-fluid {
+	margin-top: 2%;
+	font-size: 20px;
 }
-input,textarea{
-margin-top:  10px;
-margin-bottom: 10px;
+
+input, textarea {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border: 0px;
+	border-top: 1px solid #DDDDDD;
+	border-bottom: 1px solid #DDDDDD;
+	border: 0px;
+}
+
+h2 {
+	color: #00AAAA;
+	font-weight: bold;
+	border-left: 6px solid gray;
+	padding-left: 10px;
+}
+
+.dclass {
+	border: 0px;
+	border-top: 1px solid #DDDDDD;
+	border-bottom: 1px solid #DDDDDD;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+.dclassfirst {
+	border: 0px;
+	border-bottom: 1px solid #DDDDDD;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+.dclasslast {
+	border: 0px;
+	border-top: 1px solid #DDDDDD;
+	padding-bottom: 10px;
+	padding-top: 10px;
 }
 </style>
 <script>
@@ -64,8 +100,8 @@ margin-bottom: 10px;
 				for (var i = 0; i < board.length; i++) {
 					var div1 = document.createElement("div");
 					var div2 = document.createElement("div");
-
 					div2.appendChild(document.createTextNode("公告時間"));
+					div2.setAttribute("class", "dclassfirst");
 					div1.appendChild(div2);
 
 					var time = document.createElement("input");
@@ -79,6 +115,7 @@ margin-bottom: 10px;
 
 					div2 = document.createElement("div");
 					div2.appendChild(document.createTextNode("公告標題"));
+					div2.setAttribute("class", "dclass");
 					div1.appendChild(div2);
 
 					var title = document.createElement("input");
@@ -92,6 +129,7 @@ margin-bottom: 10px;
 
 					div2 = document.createElement("div");
 					div2.appendChild(document.createTextNode("公告內容"));
+					div2.setAttribute("class", "dclass");
 					div1.appendChild(div2);
 
 					var textarea = document.createElement("textarea");
@@ -100,7 +138,8 @@ margin-bottom: 10px;
 					textarea.setAttribute("id", "content");
 					textarea.setAttribute("name", "content");
 					textarea.setAttribute("class", "form-control");
-					textarea.setAttribute("style", "font-size:17px; resize:none;");
+					textarea.setAttribute("style",
+							"font-size:17px; resize:none;");
 					textarea.appendChild(document
 							.createTextNode(board[i].content));
 					div1.appendChild(textarea);
@@ -116,15 +155,23 @@ margin-bottom: 10px;
 </head>
 <body>
 	<div class='container-fluid'>
+		<div class="row">
+			<div class='col-md-offset-3 col-md-2'>
+				<h2>修改公告</h2>
+			</div>
+		</div>
+		<br> <br>
 		<div class='row'>
 			<div class='col-md-offset-4 col-md-4'>
 				<form action="<c:url value="/AnnouncementUDServlet" />" method="GET">
 					<div id="boardDiv"></div>
-					<input type="submit" value="儲存" name="update"
-						class='btn btn-success' /> <input type="submit" value="刪除"
-						name="delete" class='btn btn-danger' />
-					<input type="button" class='btn btn-primary' value='回上一頁' onclick='window.location.href="BoardMaintain.jsp"'>
-					
+					<div class='dclasslast'>
+						<input type="submit" value="儲存" name="update"
+							class='btn btn-success' /> <input type="submit" value="刪除"
+							name="delete" class='btn btn-danger' /> <input type="button"
+							class='btn btn-primary' value='回上一頁'
+							onclick='window.location.href="BoardMaintain.jsp"'>
+					</div>
 				</form>
 			</div>
 		</div>

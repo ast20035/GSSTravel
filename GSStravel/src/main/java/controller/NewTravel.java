@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.TravelService;
+
 @WebServlet("/NewTravel")
 public class NewTravel extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -20,7 +22,7 @@ public class NewTravel extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		String tra_No = new SimpleDateFormat("yyyy-MM-dd").format(new Date()).replaceAll("-", "");// 現在系統時間
+		String tra_No = new TravelService().getTra_No();		
 		request.setAttribute("tra_No",tra_No);
 		request.getRequestDispatcher("/Travel_New.jsp").forward(request, response);
 	}

@@ -85,8 +85,8 @@ tbody a:visited:after {
 
 .nav>li>a {
 	font-size: 15px;
-	color: #00FA9A;
-	font-weight: normal;
+	color: 	#220088;
+	font-weight: bolder;
 }
 
 .now {
@@ -94,22 +94,11 @@ tbody a:visited:after {
 	background-color: white;
 }
 
-.now>a {
-	font-weight: bolder;
-	color: #00BFFF;
-}
-
-.title {
-	text-align: left;
-	font-style: italic;
-	color: #000088;
-	padding-bottom: 1px;
-	padding-top: 5px;
-}
-
 h1, h2 {
 	color: #7744FF;
 	font-weight: bolder;
+	border-left: 6px solid gray;
+	padding-left: 10px;
 }
 
 .input-group-addon.info {
@@ -132,9 +121,10 @@ h1, h2 {
 }
 
 .navbar {
-	background: linear-gradient(to bottom, rgba(30, 87, 153, 1) 0%,
-		rgba(82, 141, 196, 1) 55%, rgba(107, 166, 217, 0.7) 81%,
-		rgba(125, 185, 232, 0) 100%);
+/* 	background: linear-gradient(to bottom, rgba(30, 87, 153, 1) 0%, */
+/* 		rgba(82, 141, 196, 1) 55%, rgba(107, 166, 217, 0.7) 81%, */
+/* 		rgba(125, 185, 232, 0) 100%); */
+background:linear-gradient(to bottom, #539fe1 0%,#0a77d5 3%,#87bcea 75%);
 	z-index: 15;
 	padding-top: 5px;
 	border: 0;
@@ -154,16 +144,19 @@ h1, h2 {
 
 .thWH {
 	background-color: white;
-	color:black;
+	color: black;
 	border: 2px solid black;
 }
+
 .tdbtn {
 	padding: 5px;
 	border: 0;
 }
-#close5{
-margin-left: 5px;
+
+#close5 {
+	margin-left: 5px;
 }
+
 .Mnow {
 	border: 3px solid blue;
 }
@@ -182,16 +175,17 @@ margin-left: 5px;
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-			<li><a href="<c:url value='/Board.jsp'/>" id="close7">公告</a></li>
-				<li class='dropdown'><a class='dropdown-toggle'
-					role="button" aria-haspopup="true" aria-expanded="false"
-					data-toggle="dropdown">旅遊報名<span class="caret"></span></a>
+				<li><a href="<c:url value='/Board.jsp'/>" id="close7">公告</a></li>
+				<li class='dropdown'><a class='dropdown-toggle' role="button"
+					aria-haspopup="true" aria-expanded="false" data-toggle="dropdown">旅遊報名<span
+						class="caret"></span></a>
 					<ul class='dropdown-menu' id="down1">
 						<li><a href="<c:url value='/AllTravel'/>">報名/查詢</a></li>
 						<li><a href="<c:url value='/Record'/>">報名記錄</a></li>
 					</ul></li>
 
-				<li role="presentation"><a href="<c:url value='/Register'/>" id="close1">資料輸入</a></li>				
+				<li role="presentation"><a href="<c:url value='/Register'/>"
+					id="close1">資料輸入</a></li>
 				<c:if test='${emp_Role eq true}'>
 					<li><a href="<c:url value='/search2.jsp'/>" id="close2">管理介面</a></li>
 				</c:if>

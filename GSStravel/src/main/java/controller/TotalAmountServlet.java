@@ -36,10 +36,6 @@ public class TotalAmountServlet extends HttpServlet {
 		String[] temp3 = request.getParameterValues("det_noteMoney");
 		String[] temp4 = request.getParameterValues("empfam");
 
-		// 柯(請勿刪除)
-		String excel = request.getParameter("excel");
-		// 柯(請勿刪除)
-
 		// 轉換資料
 		HttpSession session = request.getSession();
 		session.removeAttribute("Msg");
@@ -132,13 +128,15 @@ public class TotalAmountServlet extends HttpServlet {
 			request.getRequestDispatcher("/TravelDetail?tra_no=" + tra_No).forward(request, response);
 			return;
 		}
+		
+		// 匯出Excel
 		if ("Excel".equals(prodaction)) {
 			tra_No = request.getParameter("tra_No");
 			String tra_Name = request.getParameter("tra_Name");
 			String[] dept_No = request.getParameterValues("dept_No[]");
 			String[] No = request.getParameterValues("No[]");
 			String[] Name = request.getParameterValues("Name[]");
-			String[] years_Money = request.getParameterValues("Name[]");
+			String[] years_Money = request.getParameterValues("years_Money[]");
 			String[] person_Money = request.getParameterValues("person_Money[]");
 			String[] Money = request.getParameterValues("Money[]");
 			String[] det_Note = request.getParameterValues("det_Note[]");

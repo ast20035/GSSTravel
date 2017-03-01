@@ -22,46 +22,39 @@
 <link rel="stylesheet" type="text/css" href="" />
 <title>罰則設定</title>
 <style>
-input {
-	text-align: center;
-}
-
-.error {
-	color: red;
-}
-
-td {
-	border: 2px outset black;
-	text-align: center;
-	/* 	padding: 0px 0px 0px 0px; */
-	font-size: 15px;
-}
-
-table {
-	margin-top: 2%;
-}
-
-input[type=text] {
-	border: 0px;
-}
+	input {
+		text-align: center;
+	}
+	
+	.error {
+		color: red;
+	}
+	
+	td {
+		border: 2px outset black;
+		text-align: center;
+		/* 	padding: 0px 0px 0px 0px; */
+		font-size: 15px;
+	}
+	
+	table {
+		margin-top: 2%;
+	}
+	
+	input[type=text] {
+		border: 0px;
+	}
 </style>
-
 <script>
-	$(document)
-			.ready(
-					function() {
-						$("#add")
-								.click(
-										function() {
-											$("#fineTable")
-													.append(
-															"<tr><td class='tdbtn'><input type='button' class='remove btn btn-info ' value='－'/></td><td><input name='day' type='text' autofocus value='${row.fine_Dates}' autocomplete='off' /></td><td><input name='percent' type='text' value='${row.fine_Per}' autocomplete='off' /></td></tr>");
-										});
-
-						$(document).on("click", ".remove", function() {
-							$(this).parents("tr").remove();
-						});
-					});
+	$(document).ready(function() {
+		$("#add").click(function() {
+			$("#fineTable").append("<tr><td class='tdbtn'><input type='button' class='remove btn btn-info ' value='－'/></td><td><input name='day' type='text' autofocus value='${row.fine_Dates}' autocomplete='off' onblur='checkDay(this)' /></td><td><input name='percent' type='text' value='${row.fine_Per}' autocomplete='off' onblur='checkPercent(this)' /></td></tr>");
+		});
+	
+		$(document).on("click", ".remove", function() {
+			$(this).parents("tr").remove();
+		});
+	});
 </script>
 <script>
 	window.onload = function() {
@@ -77,7 +70,7 @@ input[type=text] {
 	}
 
 	var xh = new XMLHttpRequest();
-
+	
 	function setFine() {
 		if (xh != null) {
 			xh.addEventListener("readystatechange", setFineData, false);
@@ -116,6 +109,7 @@ input[type=text] {
 					buttonDay.setAttribute("name", "day");
 					buttonDay.setAttribute("value", fine[i].day);
 					buttonDay.setAttribute("autocomplete", "off");
+					buttonDay.setAttribute("onblur", "checkDay(this)");
 					td.appendChild(buttonDay);
 					tr.appendChild(td);
 
@@ -125,6 +119,7 @@ input[type=text] {
 					buttonPercent.setAttribute("name", "percent");
 					buttonPercent.setAttribute("value", fine[i].percent);
 					buttonPercent.setAttribute("autocomplete", "off");
+					buttonPercent.setAttribute("onblur", "checkPercent(this)");
 					td.appendChild(buttonPercent);
 					tr.appendChild(td);
 
@@ -133,6 +128,34 @@ input[type=text] {
 			} else {
 				alert(xh.status + ":" + xh.statusText);
 			}
+		}
+	}
+	
+	
+	function checkDay(day) {
+		var regDay = new RegExp("^[0-9]{1,}$");
+		if (day.value == "") {
+			day.style.border = "1px solid red";
+		} else if (day.value <= 0 || !regDay.test(day.value)) {
+			day.style.border = "1px solid red";
+		} else {
+			day.style.border = "1px solid green";
+		}
+	}
+
+	function checkPercent(percent) {
+		var regDay = new RegExp("^[0-9]{1,}$");
+		var regPercent = new RegExp("^([0-9]{1,2})([.]{1})([0-9]{1,})$");
+		if (percent.value == "") {
+			percent.style.border = "1px solid red";
+		} else if (percent.value <= 0 || !regDay.test(percent.value) || percent.value >= 100) {
+			if (percent.value <= 0 || !regPercent.test(percent.value) || percent.value >= 100) {
+				percent.style.border = "1px solid red";
+			}else if (percent.value > 0 && regPercent.test(percent.value) && percent.value < 100) {
+				percent.style.border = "1px solid green";
+			}
+		} else {
+			percent.style.border = "1px solid green";
 		}
 	}
 
@@ -168,11 +191,11 @@ input[type=text] {
 			} else if (i == step && pk == 1) {
 				alert("取消日已存在！");
 				break;
-			} else if (percent[i].value <= 0 || !regDay.test(percent[i].value)) {
-				if (percent[i].value <= 0 || !regPercent.test(percent[i].value)) {
+			} else if (percent[i].value <= 0 || !regDay.test(percent[i].value) || percent[i].value >= 100) {
+				if (percent[i].value <= 0 || !regPercent.test(percent[i].value) || percent[i].value >= 100) {
 					alert("扣款比例必須為小於100的正數！");
 					break;
-				} else if (regPercent.test(percent[i].value)
+				} else if (percent[i].value > 0 && regPercent.test(percent[i].value) && percent[i].value < 100
 						&& i == day.length - 1) {
 					$("#FineSave").val("儲存罰則");
 					$("#DataForm").submit();
