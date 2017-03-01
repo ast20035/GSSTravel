@@ -1,4 +1,3 @@
-<%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -455,14 +454,15 @@ text-align: center;
 // 			var result = pathName.substr(0, index + 1);
 // 			var url = result + "/FamilyServlet";
 			
+<<<<<<< HEAD
 // 			var multiselect=null;
 // 			if($("#familytable select[name*='famspa']").length > 0){
 // 				$("#familytable select[name*='famspa']").on("blur",function(){
 // 					 multiselect  = $(this).val();
 // 					 var selectjson = JSON.stringify(multiselect);
 // 					 var famnameajax = $(this).closest("tr").find("input[name='famname']").val();				 
-// 					$.post(url,{"multiselect":selectjson,"famnameajax":famnameajax},function(){
-						
+// 					$.post(url,{"multiselect":selectjson,"famnameajax":famnameajax},function(data){
+	
 // 					});		
 // 				})
 // 			}

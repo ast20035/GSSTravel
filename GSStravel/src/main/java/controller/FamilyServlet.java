@@ -83,7 +83,8 @@ public class FamilyServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		Integer emp_No = (Integer) session.getAttribute("emp_No");
 		List<String> id = familyservice.selectid(emp_No);
-
+		Map<Integer ,List<Boolean>> mp=new HashMap<>();
+		List<Boolean> bl=new ArrayList<>();
 		//用ajax找出原本帶出親屬的多選值 更新資料庫
 		if(ajaxmultiselect != null){
 			 int fam_Nos= familyservice.selectfam_No(ajaxfamname);//4567
@@ -104,27 +105,36 @@ public class FamilyServlet extends HttpServlet {
 					 familyservice.updatefammom(fam_Nos, false);
 				 }else{
 					 if(ssss.contains("bab")){
+						 bl.add(true);
 						 familyservice.updatefambab(fam_Nos,true);
 					 }else{
+						 bl.add(false);
 						 familyservice.updatefambab(fam_Nos,false);
 					 }
 					 if(ssss.contains("kid")){
+						 bl.add(true);
 						 familyservice.updatefamkid(fam_Nos, true);
 					 }else{
+						 bl.add(false);
 						 familyservice.updatefamkid(fam_Nos, false);
 					 }
 					 if(ssss.contains("dis")){
+						 bl.add(true);
 						 familyservice.updatefamdis(fam_Nos, true);
 					 }else{
+						 bl.add(false);
 						 familyservice.updatefamdis(fam_Nos, false);
 					 }
 					 if(ssss.contains("mom")){
+						 bl.add(true);
 						 familyservice.updatefammom(fam_Nos, true);
 					 }else{
+						 bl.add(false);
 						 familyservice.updatefammom(fam_Nos, false);
 					 }
-					 
+					 mp.put(fam_Nos, bl);
 				 }
+				 out.print(mp);
 		}
 
 		//判斷身分證id是否重複輸入
@@ -412,6 +422,10 @@ public class FamilyServlet extends HttpServlet {
 						System.out.println("update " + famid[i] + " famno=" + famno);
 
 					} else {
+
+						familyservice.insert(familyvo);
+						System.out.println("insert " + famid[i]);
+
 							//i   j  0123 4567
 //						Integer j=i;
 //							if(yyyy.size()>0){
@@ -442,9 +456,7 @@ public class FamilyServlet extends HttpServlet {
 //						}
 						
 						
-						familyservice.insert(familyvo);
-						System.out.println("insert " + famid[i]);
-
+						
 					}
 
 				} // 回圈結束

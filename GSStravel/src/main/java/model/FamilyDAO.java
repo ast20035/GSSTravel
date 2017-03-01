@@ -44,6 +44,45 @@ public class FamilyDAO implements IFamilyDAO {
 	private static final String updatefamdis="update Family set fam_Dis=? where fam_No=?";
 	private static final String updatefammom="update Family set fam_Mom=? where fam_No=?";
 	
+	@Override
+	public List<FamilyVO> selectFam(String emp_No){	
+		List<FamilyVO> familyVOs=new ArrayList<>();
+		IDetailDAO detailDAO=new DetailDAO();
+		try( Connection conn=ds.getConnection();
+			 PreparedStatement stem=conn.prepareStatement(selectFam);
+			 	){
+			stem.setString(1,emp_No);
+			ResultSet rset = stem.executeQuery();
+			while(rset.next()){
+				FamilyVO familyVO=new FamilyVO();
+				familyVO.setFam_Rel(rset.getString("fam_Rel"));
+				familyVO.setFam_Name(rset.getString("fam_Name"));
+				familyVO.setFam_No(rset.getInt("fam_No"));
+				familyVO.setFam_Bdate(rset.getDate("fam_Bdate"));
+				familyVO.setFam_Sex(rset.getString("fam_Sex"));
+				familyVO.setFam_Eat(rset.getString("fam_Eat"));
+				familyVO.setFam_Id(rset.getString("fam_Id"));
+				familyVO.setFam_Phone(rset.getString("fam_Phone"));//
+				familyVO.setFam_Note(rset.getString("fam_Note"));
+				familyVO.setFam_Ben(rset.getString("fam_Ben"));
+				familyVO.setFam_BenRel(rset.getString("fam_BenRel"));
+				familyVO.setFam_Car(rset.getBoolean("fam_Car"));
+				familyVO.setFam_Emg(rset.getString("fam_Emg"));
+				familyVO.setFam_EmgPhone(rset.getString("fam_EmgPhone"));
+				familyVO.setFam_EmgRel(rset.getString("fam_EmgRel"));//
+				familyVO.setFam_Bady(rset.getBoolean("fam_Bady"));
+				familyVO.setFam_kid(rset.getBoolean("fam_kid"));
+				familyVO.setFam_Dis(rset.getBoolean("fam_Dis"));
+				familyVO.setFam_Mom(rset.getBoolean("fam_Mom"));
+				familyVOs.add(familyVO);
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return familyVOs;
+	}
+	
+	
 	
 	public String selectfam_Rel(String emp_No,String fam_Name){	
 		String fam_Rel = null;
