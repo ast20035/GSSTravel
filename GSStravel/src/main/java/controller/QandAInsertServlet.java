@@ -23,14 +23,15 @@ public class QandAInsertServlet extends HttpServlet {
 		QandAService QAService =new QandAService();
 		Map<String,String> Msg = new HashMap<String, String>();
 		request.setAttribute("Msg", Msg);
-		
 		String prodaction =request.getParameter("prodaction");
 		boolean b;
 		
 		if("insertQuestion".equals(prodaction)){
 			QandAVO bean = new QandAVO();
 			String temp= request.getParameter("Question_No");
-			String tra_No=request.getParameter("tra_No");
+			String tra_No=request.getParameter("Select");
+			
+			System.out.println("tra_No="+tra_No);
 			String Qestion_Title = request.getParameter("Qestion_Title");
 			String Qestion_Text = request.getParameter("Qestion_Text");
 			int Question_No = Integer.parseInt(temp);
@@ -66,7 +67,7 @@ public class QandAInsertServlet extends HttpServlet {
 				Msg.put("message", "回應失敗");
 			}
 		}
-		response.sendRedirect("/GSStravel/QandAServlet");
+		request.getRequestDispatcher("/QandAServlet").forward(request, response);
 		return;
 	}
 
