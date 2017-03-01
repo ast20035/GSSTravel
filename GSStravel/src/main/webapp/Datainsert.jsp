@@ -82,43 +82,48 @@ text-align: center;
 							<td><span class="input-group-addon info">手機</span></td>
 							<td><input type="text" name="empphone" id="empphone"
 								class='form-control' autofocus value="${empphone}">
-
-								<div id=empphoneerror>${error.empphone}</div></td>
+<%-- 								<div id=empphoneerror>${error.empphone}</div> --%>
+								</td>
 						</tr>
 						<tr>
 							<td><span class="input-group-addon info">保險受益人</span></td>
 							<td><input type="text" name="empben" id="empben"
 								class='form-control' value="${empben}">
 
-								<div id=empbenerror>${error.empben}</div></td>
+<%-- 								<div id=empbenerror>${error.empben}</div> --%>
+								</td>
 						</tr>
 						<tr>
 							<td><span class="input-group-addon info">與受益人關係</span></td>
 							<td><input type="text" name="empbenrel" id="empbenrel"
 								class='form-control' value="${empbenrel}">
 
-								<div id=empbenrelerror>${error.empbenrel}</div></td>
+<%-- 								<div id=empbenrelerror>${error.empbenrel}</div> --%>
+								</td>
 						</tr>
 						<tr>
 							<td><span class="input-group-addon info">緊急聯絡人</span></td>
 							<td><input type="text" name="empemg" id="empemg"
 								class='form-control' value="${empemg}">
 
-								<div id=empemgerror>${error.empemg}</div></td>
+<%-- 								<div id=empemgerror>${error.empemg}</div> --%>
+								</td>
 						</tr>
 						<tr>
 							<td><span class="input-group-addon info">緊急聯絡人電話</span></td>
 							<td><input type="text" name="empemgphone" id="empemgphone"
 								class='form-control' value="${empemgphone}">
 
-								<div id=empemgphoneerror>${error.empemgphone}</div></td>
+<%-- 								<div id=empemgphoneerror>${error.empemgphone}</div> --%>
+								</td>
 						</tr>
 						<tr>
 							<td><span class="input-group-addon info">信箱</span></td>
 							<td><input type="text" name="empemail" id="empemail"
 								class='form-control' value="${empemail}">
 
-								<div id=empemailerror>${error.empemailerror}</div></td>
+<%-- 								<div id=empemailerror>${error.empemailerror}</div> --%>
+								</td>
 						</tr>
 						<tr>
 							<td><span class="input-group-addon info">用餐</span></td>
@@ -146,7 +151,7 @@ text-align: center;
 						*親友為旁系三等親以上及朋友，不納入補助計算<br> <br>
 						<!--新增、儲存 -->
 
-					<input type="button" value="新增欄位" id="insert" name="button" class='btn btn-primary'> <span>${error.famblock}</span> 
+					<input type="button" value="新增親友/眷屬" id="insert" name="button" class='btn btn-primary'> <span>${error.famblock}</span> 
 					<input type="button" value="儲存" class='btn btn-primary' id="save" name="button">
 					<input type="hidden"  id="checkbox" name="checkbox">
 					<input type="hidden"  id="multiselect" name="multiselect">
@@ -200,7 +205,8 @@ text-align: center;
 									<td><input type="text" name="famname" id="famname"
 										style='width: 90px;' class='form-control'
 										value="${start.fam_Name}">
-										<div class="famnameerror" name="famnameerror">${error.famneme}</div></td>
+<%-- 										<div class="famnameerror" name="famnameerror">${error.famneme}</div> --%>
+										</td>
 									<td><select name="famsex" class='form-control'
 										style='width: 70px;'>
 											<!--  servlet抓name db抓值會抓進value值進去-->
@@ -216,15 +222,18 @@ text-align: center;
 
 									<td><input type="text" name="famid" style='width: 110px;'
 										class="famid form-control" value="${start.fam_Id}">
-										<div class="famiderror" name="famiderror">${error.famid}</div></td>
+<%-- 										<div class="famiderror" name="famiderror">${error.famid}</div> --%>
+										</td>
 									<td><input type="date" id="fambdate" name="fambdate"
 										style='width: 170px;' class="fambdate form-control"
 										value="${start.fam_Bdate}" />
-										<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div></td>
+<%-- 										<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div> --%>
+										</td>
 									<td><input type="text" name="famphone" id="famphone"
 										style='width: 90px;' class='form-control'
 										value="${start.fam_Phone}">
-										<div class=famphoneerror>${error.famphone}</div></td>
+<%-- 										<div class=famphoneerror>${error.famphone}</div> --%>
+										</td>
 									<td><select name="fameat" style='width: 100px;'
 										class='form-control'>
 											<!-- 今天的日期 減去 他的生日 < 三歲  (剩幾天?) (看年底還是年初)  看年?  -->
@@ -288,24 +297,28 @@ text-align: center;
 
 									<td><input type="text" name="famben" id="famben" style='width:90px;'
 										class='form-control' value="${start.fam_Ben}">
-
-										<div class="fambenerror">${error.famben}</div></td>
+<%-- 										<div class="fambenerror">${error.famben}</div> --%>
+										</td>
 									<td><input type="text" name="fambenrel" id="fambenrel"
 										style='width: 90px;' class='form-control'
 										value="${start.fam_BenRel}">
-										<div class="fambenrelerror">${error.fambenrel}</div></td>
+<%-- 										<div class="fambenrelerror">${error.fambenrel}</div> --%>
+										</td>
 									<td><input type="text" name="famemg" id="famemg"
 										style='width: 90px;' class='form-control'
 										value="${start.fam_Emg}">
-										<div class="famemgerror">${error.famemg}</div></td>
+<%-- 										<div class="famemgerror">${error.famemg}</div> --%>
+										</td>
 									<td><input type="text" name="famemgphpone"
 										style='width: 90px;' class='form-control' id="famemgphone"
 										value="${start.fam_EmgPhone}">
-										<div class="famemgphoneerror">${error.famemgphone}</div></td>
+<%-- 										<div class="famemgphoneerror">${error.famemgphone}</div> --%>
+										</td>
 									<td><input type="text" name="famemgrel" id="famemgrel"
 										style='width: 90px;' class='form-control'
 										value="${start.fam_EmgRel}">
-										<div class="famemgrelerror">${error.famemgrel}</div></td>
+<%-- 										<div class="famemgrelerror">${error.famemgrel}</div> --%>
+										</td>
 									<td><input type="text" name="famnote" id="famnote"
 										style='width: 200px;' class='form-control'
 										value="${start.fam_Note}">
@@ -333,20 +346,24 @@ text-align: center;
 			</select></td>
 			<td><input type="text" name="famname" id="famname"
 				class='form-control'>
-				<div class="famnameerror" name="famnameerror">${error.famneme}</div></td>
+<%-- 				<div class="famnameerror" name="famnameerror">${error.famneme}</div> --%>
+				</td>
 			<td><select name="famsex" class='form-control'>
 					<!--  servlet抓name db抓值會抓進value值進去-->
 					<option value="女">女</option>
 					<option value="男">男</option>
 			</select></td>
 			<td><input type="text" name="famid" class="famid form-control">
-				<div class="famiderror" name="famiderror">${error.famid}</div></td>
+<%-- 				<div class="famiderror" name="famiderror">${error.famid}</div> --%>
+				</td>
 			<td><input type="date" id="fambdate" name="fambdate"
 				class="fambdate form-control" />
-				<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div></td>
+<%-- 				<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div> --%>
+				</td>
 			<td><input type="text" name="famphone" id="famphone"
 				class='form-control'>
-				<div class=famphoneerror>${error.famphone}</div></td>
+<%-- 				<div class=famphoneerror>${error.famphone}</div> --%>
+				</td>
 			<td><select name="fameat" style='width: 100px;'
 				class='form-control'>
 					<option value="葷">葷</option>
@@ -364,24 +381,30 @@ text-align: center;
 					</select>
 					<input type ="hidden" name="selectvalue" class="selectvalue">
 				</div></td>
-			<td><input type="text" name="famben" id="famben"
+			<td><input type="text" name="famben" id="famben" 
 				class='form-control'>
-				<div class="fambenerror">${error.famben}</div></td>
+<%-- 				<div class="fambenerror">${error.famben}</div> --%>
+				</td>
 			<td><input type="text" name="fambenrel" id="fambenrel"
 				class='form-control'>
-				<div class="fambenrelerror">${error.fambenrel}</div></td>
+<%-- 				<div class="fambenrelerror">${error.fambenrel}</div> --%>
+				</td>
 			<td><input type="text" name="famemg" id="famemg"
 				class='form-control'>
-				<div class="famemgerror">${error.famemg}</div></td>
+<%-- 				<div class="famemgerror">${error.famemg}</div> --%>
+				</td>
 			<td><input type="text" name="famemgphpone" id="famemgphone"
 				class='form-control'>
-				<div class="famemgphoneerror">${error.famemgphone}</div></td>
+<%-- 				<div class="famemgphoneerror">${error.famemgphone}</div> --%>
+				</td>
 			<td><input type="text" name="famemgrel" id="famemgrel"
 				class='form-control'>
-				<div class="famemgrelerror">${error.famemgrel}</div></td>
+<%-- 				<div class="famemgrelerror">${error.famemgrel}</div> --%>
+				</td>
 			<td><input type="text" name="famnote" id="famnote"
 				class='form-control'>
-				<div class="famnoteerror"></div></td>
+<!-- 				<div class="famnoteerror"></div> -->
+				</td>
 		</tr>
 	</table>
 	<script>
@@ -404,7 +427,7 @@ text-align: center;
 								}else{
 									
 										$("#familytable").on("mouseup", "input[name='delete']",function xx(){
-											if(window.confirm("確定取消嗎")){
+											if(window.confirm("確定取消嗎?")){
 												$(this).parents("tr").remove();
 											}
 										});
@@ -455,12 +478,12 @@ text-align: center;
 					  var between = today.getTime() - bdate.getTime();//時間差的毫秒数 
 					  var between2 = Math.floor(between/(24*3600*1000));
 					  if(between2<365*3){
-						  $(this).closest("tr").find(".select .multiselect option:selected").val("bab");
+						  $(this).closest("tr").find(".select select[name*='famspa'] ").val("bab");
 						  console.log("xxxxx");
 					  }
 					  if(between2<365*11){
 						  if(between2>365*3){
-							 $(this).closest("tr").find(".select .multiselect option:selected").val("kid");
+							 $(this).closest("tr").find(".select select[name*='famspa'] ").val("kid");
 							 console.log("yyyyyyy");
 						  }
 					  }
@@ -471,19 +494,12 @@ text-align: center;
 				$("#save").click(function(){
 // 					$("#save").attr("type","submit");
 
-// 					if($("input[name*='famname']").val()==""){
-// 						alert("親屬姓名不能為空白");
-// // 						$("#save").attr("type","button");
-// 						$("#errorcount").val(1);
-// 					}else if($("input[name*='famid']").val()==""){
-// 						alert("親屬身分證不能為空白");
-// 						$("#errorcount").val(1);
-// 					}
-					
 // 					判斷資料有沒有輸入正確 
 					if($("#errorcount").val()=="1"){
 					$("#save").attr("type","button");
 					alert("親屬資料未輸入完全");
+					
+					
 					}
 					
 					if($("#errorcount").val()=="0"){
@@ -936,8 +952,35 @@ text-align: center;
 					//??無親屬抓進去
 				}
 			
-				
-				$("#save").attr("type","submit"); //暗下新增鍵後再執行submit動作
+				if($(".repeat input[name*='famname']").val()==""){
+					alert("親屬姓名不能為空白");
+					$("#errorcount").val(1);
+				}else if($(".repeat input[name*='famid']").val()==""){
+					alert("親屬身分證不能為空白");
+					$("#errorcount").val(1);
+				}else if($(".repeat input[name*='fambdate']").val()==""){
+					alert("親屬生日不能為空白");
+					$("#errorcount").val(1);
+				}else if($(".repeat input[name*='famphone']").val()==""){
+					alert("親屬手機不能為空白");
+					$("#errorcount").val(1);
+				}else if($(".repeat input[name*='famben']").val()==""){
+					alert("親屬保險受益人不能為空白");
+					$("#errorcount").val(1);
+				}else if($(".repeat input[name*='fambenrel']").val()==""){
+					alert("親屬保險受益人關係不能為空白");
+					$("#errorcount").val(1);
+				}else if($(".repeat input[name*='famemg']").val()==""){
+					alert("親屬緊急聯絡人不能為空白");
+					$("#errorcount").val(1);
+				}else if($(".repeat input[name*='famemgrel']").val()==""){
+					alert("親屬緊急聯絡人關係不能為空白");
+					$("#errorcount").val(1);
+				}else if($(".repeat input[name*='famemgphone']").val()==""){
+					alert("親屬緊急聯絡人電話不能為空白");
+					$("#errorcount").val(1);
+				}
+// 				$("#save").attr("type","submit"); //暗下新增鍵後再執行submit動作
 			})
 				
 				
