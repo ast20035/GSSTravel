@@ -35,7 +35,9 @@ public class QandAServlet extends HttpServlet {
 		}
 		QandAService QAService =new QandAService();
 		List<QandAVO> list = new ArrayList<QandAVO>();
-		list=QAService.selectALL();
+		list=QAService.selectALL(prodaction);
+		int count =list.size();
+		request.setAttribute("count", count);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("/QandA.jsp").forward(request, response);
 	}

@@ -48,7 +48,7 @@ public class QandAInsertServlet extends HttpServlet {
 				Msg.put("message", "詢問失敗");
 			}
 		}
-		if("insertAnswer".equals(prodaction)){
+		if("insertAnswer".equals(prodaction)||"updateAnswer".equals(prodaction)){
 			QandAVO bean = new QandAVO();
 			String temp = request.getParameter("qa_No");
 			String temp2= request.getParameter("answer_No");
@@ -60,11 +60,38 @@ public class QandAInsertServlet extends HttpServlet {
 			bean.setAnswer_No(answer_No);
 			bean.setAnswer_Text(answer_Text);
 			b=QAService.insertAnswer(bean);
-			if(b){
-				Msg.put("message", "回應成功");
+			if("insertAnswer".equals(prodaction)){
+				if(b){
+					Msg.put("message", "回應成功");
+				}
+				else{
+					Msg.put("message", "回應失敗");
+				}
+			}else{
+				if(b){
+					Msg.put("message", "修改成功");
+				}
+				else{
+					Msg.put("message", "修改失敗");
+				}
 			}
-			else{
-				Msg.put("message", "回應失敗");
+		}
+		if("deleteOne".equals(prodaction)){
+			String temp = request.getParameter("qa_No");
+			int qa_No=Integer.parseInt(temp);
+			b=QAService.deleteOne(qa_No);
+			if(b){
+				Msg.put("message", "刪除成功");
+			}else{
+				Msg.put("message", "刪除失敗");
+			}
+		}
+		if("Years".equals(prodaction)||"9month".equals(prodaction)||"6month".equals(prodaction)||"3month".equals(prodaction)){
+			b=QAService.delete(prodaction);
+			if(b){
+				Msg.put("message", "刪除成功");
+			}else{
+				Msg.put("message", "刪除失敗");
 			}
 		}
 		request.getRequestDispatcher("/QandAServlet").forward(request, response);
