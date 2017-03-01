@@ -40,8 +40,8 @@ public class FineShowOneServlet extends HttpServlet {
 		String tra_No = request.getParameter("tra_No");
 		List<TravelVO> tOneResult = travelService.selectOne(tra_No);
 		List<FineVO> fResult = fineService.select();
-		List<ItemVO> iResult = itemService.selectOne(tra_No);
-		countI = fResult.size() - 1;
+		List<ItemVO> iResult = itemService.selectOne(tra_No);// 單筆行程
+		countI = fResult.size() - 1;// 記錄罰則筆數方便jsp輸出用
 		countJ = tOneResult.size() - 1;
 		request.setAttribute("countI", countI);
 		request.setAttribute("countJ", countJ);
@@ -60,7 +60,7 @@ public class FineShowOneServlet extends HttpServlet {
 		long date = tOneResult.get(0).getTra_On().getTime() / 1000;
 		startDay = tOneResult.get(0).getTra_On().toString();
 		days.add(startDay);
-		for (int j = fResult.size() - 1; j >= 0; j--) {
+		for (int j = fResult.size() - 1; j >= 0; j--) {// 計算出依據罰則取消日天數而得的日期
 			long beforeDay = date - 60 * 60 * 24 * fResult.get(j).getFine_Dates();
 			tOneResult.get(0).getTra_On().setTime(beforeDay * 1000);
 			formatDay = formatter.format(tOneResult.get(0).getTra_On());

@@ -11,6 +11,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONObject;
 
 import model.AnnouncementService;
 import model.AnnouncementVO;
@@ -27,20 +30,20 @@ public class AnnouncementShowServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		
+
 		String day = request.getParameter("day");
 		int count = Integer.parseInt(day);
-		
+
 		SimpleDateFormat formatYMD = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
-		long beforeNow = (date.getTime() / 1000) - 60 * 60 * 24 * count;
+		long beforeNow = (date.getTime() / 1000) - 60 * 60 * 24 * count;// 所選擇的期間
 		date.setTime(beforeNow * 1000);
 		String beforeDate = formatYMD.format(date);
-		
+
 		PrintWriter out = response.getWriter();
 		List<AnnouncementVO> result = announcementService.select();
-		result = announcementService.AfterOn(result, beforeDate);
-		out.print(announcementService.to_Json(result));
+		result = announcementService.AfterOn(result, beforeDate);// 期間之後的公告都顯示
+		out.println(announcementService.to_Json(result));
 		return;
 	}
 

@@ -21,13 +21,23 @@
 <link rel="stylesheet" type="text/css" href="" />
 <title>公告內容</title>
 <style>
-.container-fluid{
-margin-top: 5%;
-font-size: 20px;
+.container-fluid {
+	margin-top: 2%;
+	font-size: 20px;
 }
-input,textarea{
-margin-top:  10px;
-margin-bottom: 10px;
+
+input, textarea {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	border: 0px;
+	border-top: 1px solid #DDDDDD;
+	border-bottom: 1px solid #DDDDDD;
+}
+h2{
+color:	#00AAAA;
+font-weight:bold;
+border-left:6px solid gray;
+padding-left:10px;
 }
 </style>
 <script>
@@ -73,8 +83,8 @@ margin-bottom: 10px;
 					time.setAttribute("id", "time");
 					time.setAttribute("name", "time");
 					time.setAttribute("readonly", "");
-					time.setAttribute("class","form-control");
-					time.setAttribute("style","font-size:17px");
+
+					time.setAttribute("style", "font-size:17px");
 					time.setAttribute("value", board[i].time);
 					div1.appendChild(time);
 
@@ -87,8 +97,8 @@ margin-bottom: 10px;
 					title.setAttribute("id", "title");
 					title.setAttribute("name", "title");
 					title.setAttribute("readonly", "");
-					title.setAttribute("class","form-control");
-					title.setAttribute("style","font-size:17px");
+
+					title.setAttribute("style", "font-size:17px");
 					title.setAttribute("value", board[i].title);
 					div1.appendChild(title);
 
@@ -101,9 +111,8 @@ margin-bottom: 10px;
 					textarea.setAttribute("rows", "12");
 					textarea.setAttribute("id", "content");
 					textarea.setAttribute("name", "content");
-					textarea.setAttribute("style", "resize: none");
-					textarea.setAttribute("class","form-control");
-					textarea.setAttribute("style","font-size:17px; resize:none;");
+					textarea.setAttribute("style",
+							"font-size:17px; resize:none;");
 					textarea.setAttribute("readonly", "");
 					textarea.appendChild(document
 							.createTextNode(board[i].content));
@@ -121,11 +130,17 @@ margin-bottom: 10px;
 <body>
 	<div class='container-fluid'>
 		<div class='row'>
+			<div class='col-md-offset-3 col-md-2'>
+				<h2>公告</h2>
+			</div>
+		</div>
+		<br>
+		<br>
+		<div class='row'>
 			<div class='col-md-offset-4 col-md-4'>
-				<div id="boardDiv"></div><br>
-				<button class='btn btn-primary'>
-					<a style='color:white;' href="Board.jsp">回上頁</a>
-				</button>
+				<div id="boardDiv"></div>
+				<br> <input type="button" class='btn btn-primary' value='回上一頁'
+					onclick='window.location.href="Board.jsp"'>
 			</div>
 		</div>
 	</div>
