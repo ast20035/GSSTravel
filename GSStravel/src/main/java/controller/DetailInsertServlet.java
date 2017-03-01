@@ -21,6 +21,8 @@ public class DetailInsertServlet extends HttpServlet {
 	private DetailService detailService = new DetailService();
 	private FamilyService familyService = new FamilyService();
 
+	
+	//Detail 報名 ((福委會報名
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html; charset=UTF-8");

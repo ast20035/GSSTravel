@@ -46,7 +46,12 @@ td {
 table {
 	font-size: 15px;
 }
-
+.color-red{
+	border-color:red
+}
+.color-green{
+	border-color:green
+}
 </style>
 
 <body>
@@ -142,7 +147,7 @@ table {
 									class="det_note det_Note form-control" value="${list.det_note}"></td>
 								<td><input type="text" name="det_noteMoney"
 									class="det_noteMoney det_NoteMoney form-control"
-									value="${list.det_noteMoney}" onkeyup="changeNotemoney()"></td>
+									value="${list.det_noteMoney}" onkeyup="changeNotemoney()" onblur="checkmoney(this)"></td>
 								<td><c:if test="${list.fam_No==0}">
 										<input type="text" name="TA_money" class="TA_money ta_Money"
 											value="" style="border-width: 0" readonly>
@@ -156,12 +161,10 @@ table {
 					<div id='mydiv'>
 						<ul id="myul" class="pagination">
 							<li><a role='button' onclick="before()">&laquo;</a></li>
-							<li class="page active" onclick="page(this)" value="0"><a
-								role='button'>1</a></li>
+							<li class="page active" onclick="page(this)" value="0"><a role='button'>1</a></li>
 							<c:if test="${Math.ceil(count/10)!=0}">
 								<c:forEach var="i" begin="1" end="${Math.ceil(count/10)-1}">
-									<li class="page" onclick="page(this)" value="${i}"><a
-										role='button'>${i+1}</a></li>
+									<li class="page" onclick="page(this)" value="${i}"><a role='button'>${i+1}</a></li>
 								</c:forEach>
 							</c:if>
 							<li><a role='button' onclick="next()">&raquo;</a></li>
@@ -305,7 +308,9 @@ table {
 				det_NoteMoney : det_NoteMoney,
 				ta_Money : ta_Money
 			},
-
+			success:function(){
+				window.location = "/GSStravel/File_Detail_Money.jsp?tra_No="+tra_No+"&tra_Name="+tra_Name;
+			},
 		})
 	}
 	
@@ -364,6 +369,17 @@ table {
 		i = $(".active");
 		$page = $(".page");
 		light(i[0].value,i[1].value);
+	}
+	function checkmoney(obj){
+		if(isNaN(obj.value)){
+			$(obj).addClass("color-red");
+			$(obj).removeClass("color-green");
+		}
+		else{
+			$(obj).addClass("color-green");	
+			$(obj).removeClass("color-red");
+		}
+		
 	}
 </script>
 </html>

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.junit.runner.Request;
+
 import model.DetailBean;
 import model.DetailService;
 import model.EmployeeVO;
@@ -123,6 +125,11 @@ public class DetailServlet extends HttpServlet {
 			ex.detailExcel(count, exDetNo, bean.getTra_NO(), exEmpNo, exFamNo, exRel, exName, exSex, exID, exBDate,
 					exPhone, exEat, exCar, exFamBaby, exFamKid, exFamDis, exFamMom, exBen, exBenRel, exEmg, exEmgPhone,
 					exDetDate, exDetCanDate, exNote, exDetCanNote);
+			
+			req.getRequestDispatcher("/File_Detail.jsp").forward(req, resp);
+			return;
+			
+			
 		} // 柯(請勿刪除)
 
 		List<ItemVO> itemVO = null;

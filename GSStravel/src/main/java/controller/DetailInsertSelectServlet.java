@@ -32,6 +32,8 @@ public class DetailInsertSelectServlet extends HttpServlet {
 	private TravelVO travelVO;
 	private DetailService detailService;
 
+	
+	// (AJAX) 搜尋欲報名人員
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

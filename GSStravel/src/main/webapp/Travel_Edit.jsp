@@ -78,13 +78,13 @@ table {
 							<tr>
 						<td>*活動日期</td>
 
-						<td><input type="text" name="edittraOn" class='form-control' style='width:150px;'
+						<td><input type="date" name="edittraOn" class='form-control' style='width:150px;'
 								value="${params.tra_On}"><a> ~</a> <input type="text" class='form-control' style='width:150px;'
 								name="edittraOff" value="${params.tra_Off}"></td>
 					</tr>
 					<tr>
 						<td>*登記時間</td> 
-						<td><input type="text" name="edittraBeg" class='form-control' style='width:200px;'
+						<td><input type="" name="edittraBeg" class='form-control' style='width:200px;'
 								value="${params.tra_Beg}"><a> ~</a> <input type="text" class='form-control' style='width:200px;'
 								name="edittraEnd" value="${params.tra_End}"></td>
 
