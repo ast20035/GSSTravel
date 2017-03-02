@@ -56,6 +56,8 @@ public class DetailInsertSelectServlet extends HttpServlet {
 						bean = dISS.selectDetailEmp(emp_No, tra_No);
 						if (bean == null) { // 判斷這員工是否有報名此行程
 							JSONArray jsonArrayNames = new JSONArray();
+							JSONArray jsonArrayNos = new JSONArray();
+							
 							fam_bean = new ArrayList<DetailInsertBean>();
 							fam_bean = dISS.selecDetailFam(emp_No, tra_No);
 							travelService = new TravelService();
@@ -69,13 +71,17 @@ public class DetailInsertSelectServlet extends HttpServlet {
 							}
 							if (fam_bean.size() != 0) { // 判斷此員工的家屬是否已報名
 								String[] name = new String[fam_bean.size()];
+								int[] no = new int[fam_bean.size()];
 								int i = 0;
 								for (DetailInsertBean b : fam_bean) {
 									name[i] = b.getName();
+									no[i] = b.getNo();
 									jsonArrayNames.add(name[i]);
+									jsonArrayNos.add(no[i]);
 									i++;
 								}
 								DetData.put("fam_Name", jsonArrayNames.toString());
+								DetData.put("fam_Nos", jsonArrayNos.toString());
 							} else {
 								DetData.put("fam_No", "此員工之親屬皆已全數報名，是否欲報名新親屬?");
 							}
