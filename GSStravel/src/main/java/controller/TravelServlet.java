@@ -346,7 +346,7 @@ public class TravelServlet extends HttpServlet {
 		/*----Update----*/
 		// else
 
-		if ("確認".equals(inputerrors)) {	//Travel_Edit修改確認
+		if ("確定".equals(inputerrors)) {	//Travel_Edit修改確認
 			
 			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:24小時制
 			Date date = new Date();
