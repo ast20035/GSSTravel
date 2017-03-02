@@ -444,9 +444,9 @@ $(function(){
 				});
 				
 				//姓名、保險受益人、保險受益人關係、緊急聯絡人、緊急聯絡人關係驗證(不能為空值)
-				var thisName=/^.*\s*[^\s]/;
+				var thisName=/[^\s/]/;
 				thisTr.find(".name").blur(function(){
-					if(thisName.test($(this).val())){
+					if(thisName.test($(this).val()) && $(this).val().indexOf("/")==-1){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
@@ -485,7 +485,10 @@ $(function(){
 				//生日驗證(yyyy-MM-dd)
 				var fambdate=/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
 				thisTr.find(".Bdate").on("blur",function(){
-					if(fambdate.test($(this).val())){
+					var today = new Date();
+					var bdate = $(this).val();
+					var mydate = new Date(bdate.replace("-", "/").replace("-", "/"));
+					if(fambdate.test(bdate) && mydate<= today){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
