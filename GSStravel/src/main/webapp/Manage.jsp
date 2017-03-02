@@ -192,7 +192,7 @@ color:	#FFAA33;
 					role="button" data-toggle="dropdown">首頁管理<span class="caret"></span></a>
 					<ul class='dropdown-menu' >
 						<li><a href="<c:url value='/BoardMaintain.jsp'/>" id="close6">公告維護</a></li>
-						<li><a href="<c:url value='/TaCo_Q&A_EightLegs'/>" id="close7">Q&A維護</a></li>
+						<li><a href="<c:url value='/QandAServlet'/>" id="close7">Q&A維護</a></li>
 					</ul></li>
 				</c:if>
 				<li><input type="button" value='登出'

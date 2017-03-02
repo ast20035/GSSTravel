@@ -63,8 +63,8 @@ margin-right: 3%;
 					<table id="deailtable">
 					<thead>
 						<tr>
-							<th></th>
-							<th ><label style='width:80px;'>員工編號</label></th>
+							<th><label style='width:120px;'></label></th>
+							<th><label style='width:80px;'>員工編號</label></th>
 							<th><label style='width:50px;'>身份</label></th>
 							<th>姓名</th>
 							<th>性別</th>

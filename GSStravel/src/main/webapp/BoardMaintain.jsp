@@ -21,15 +21,8 @@
 <link rel="stylesheet" type="text/css" href="" />
 <title>公告維護</title>
 <style>
-table, tr, td {
-	border: 1px solid black;
-}
-
-.clock {
-	border: 1px solid black;
-	width: 200px;
-	height: 70px;
-	text-align: center;
+table {
+	border-bottom: 1px solid #DDDDDD;
 }
 </style>
 <script>
@@ -41,14 +34,14 @@ table, tr, td {
 		setBoard();
 	}
 
-	var day=null;
+	var day = null;
 	function optionTime() {
 		day = document.getElementById("day");
 		setBoard();
 	}
 
 	var xh = new XMLHttpRequest();
-	
+
 	function setBoard() {
 		if (xh != null) {
 			var pathName = document.location.pathname;
@@ -92,10 +85,12 @@ table, tr, td {
 					var tr = document.createElement("tr");
 					var td = document.createElement("td");
 					var a = document.createElement("a");
-					
+
 					td = document.createElement("td");
-					td.appendChild(document.createTextNode(board[i].time+" "));
-					if("${beforeDateNew}"<=board[i].time){
+					td
+							.appendChild(document.createTextNode(board[i].time
+									+ " "));
+					if ("${beforeDateNew}" <= board[i].time) {
 						var img = document.createElement("img");
 						img.setAttribute("src", "images/new.gif");
 						td.appendChild(img);
@@ -103,12 +98,14 @@ table, tr, td {
 					tr.appendChild(td);
 
 					td = document.createElement("td");
-					a.setAttribute("href", result + "/BoardUD.jsp?anno_Time=" + board[i].time + "&anno_Important=" + board[i].important);
+					a.setAttribute("href", result + "/BoardUD.jsp?anno_Time="
+							+ board[i].time + "&anno_Important="
+							+ board[i].important);
 					a.appendChild(document.createTextNode(board[i].title));
-					if(board[i].important==1){
+					if (board[i].important == 1) {
 						a.setAttribute("style", "color:red");
 					}
-					if(board[i].important==2){
+					if (board[i].important == 2) {
 						a.setAttribute("style", "color:black");
 					}
 					td.appendChild(a);
@@ -116,18 +113,28 @@ table, tr, td {
 
 					body.appendChild(tr);
 				}
-				var count=board.length;
+				var count = board.length;
 				$("#myul").find("li").remove();
-				$("#myul").append('<li><a role="button" onclick="before()">&laquo;</a></li>');
-				var sum=Math.ceil(count/10);
-				for(var a=0;a<sum;a++){
-					if(a==0){
-						$("#myul").append('<li class="page active" onclick="page(this)" value="'+a+'"><a role="button">'+(a+1)+'</a></li>');	
-					}else{
-						$("#myul").append('<li class="page" onclick="page(this)" value="'+a+'"><a  role="button">'+(a+1)+'</a></li>');
+				$("#myul")
+						.append(
+								'<li><a role="button" onclick="before()">&laquo;</a></li>');
+				var sum = Math.ceil(count / 10);
+				for (var a = 0; a < sum; a++) {
+					if (a == 0) {
+						$("#myul").append(
+								'<li class="page active" onclick="page(this)" value="'
+										+ a + '"><a role="button">' + (a + 1)
+										+ '</a></li>');
+					} else {
+						$("#myul").append(
+								'<li class="page" onclick="page(this)" value="'
+										+ a + '"><a  role="button">' + (a + 1)
+										+ '</a></li>');
 					}
 				}
-				$("#myul").append('<li><a role="button" onclick="next()">&raquo;</a></li>');
+				$("#myul")
+						.append(
+								'<li><a role="button" onclick="next()">&raquo;</a></li>');
 				i = $(".active");
 				$page = $(".page");
 				light(i.val());
@@ -151,6 +158,7 @@ table, tr, td {
 				<h2>公告維護</h2>
 			</div>
 		</div>
+		<br>
 		<div class='row'>
 			<div class='col-md-offset-1 col-md-2'>
 				<form action="<c:url value="/BoardInsert.jsp" />" method="GET">
@@ -178,16 +186,23 @@ table, tr, td {
 						class='btn btn-success' />
 				</form>
 				<br>
-				<form action="<c:url value="/AnnouncementServlet" />" method="GET">
-					<select id="day" name="day" onchange="optionTime()" class='form-control' style='width: 170px;'>
-						<option value="365">刪除1年前的公告</option>
-						<option value="183">刪除半年前的公告</option>
-						<option value="91">刪除3個月前的公告</option>
-						<option value="31">刪除1個月前的公告</option>
-					</select>
-					<br>
-					<input type="submit" value="刪除" name="delete" class='btn btn-danger ' />
-				</form>
+				<div class='row'>
+					<form action="<c:url value="/AnnouncementServlet" />" method="GET">
+						<div class='col-md-1'>
+							<select id="day" name="day" onchange="optionTime()"
+								class='form-control' style='width: 170px;'>
+								<option value="365">刪除1年前的公告</option>
+								<option value="183">刪除半年前的公告</option>
+								<option value="91">刪除3個月前的公告</option>
+								<option value="31">刪除1個月前的公告</option>
+							</select>
+						</div>
+						<div class='col-md-offset-6 col-md-1'>	
+							<input type="submit" value="刪除" name="delete"
+								class='btn btn-danger ' />
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 		<br>
@@ -196,8 +211,8 @@ table, tr, td {
 				<table id="boardTable" class='table'>
 					<thead>
 						<tr>
-							<th>公告時間</th>
-							<th>公告標題</th>
+							<th><label style='width: 200px;'>公告時間</label></th>
+							<th><label style='width: 500px;'>公告標題</label></th>
 						</tr>
 					</thead>
 					<tbody>
