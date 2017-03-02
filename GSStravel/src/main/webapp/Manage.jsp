@@ -193,7 +193,7 @@ h1, h2 {
 						<ul class='dropdown-menu'>
 							<li><a href="<c:url value='/BoardMaintain.jsp'/>"
 								id="close6">公告維護</a></li>
-							<li><a href="<c:url value='/QandAServlet'/>" id="close7">Q&A維護</a></li>
+							<li><a href="<c:url value='/QandAServlet?role=true'/>" id="close7">Q&A維護</a></li>
 						</ul></li>
 					<li><a href="<c:url value='/search2.jsp'/>" id="close2">行程維護</a></li>
 					<li><a href="<c:url value='/search.jsp'/>" id="close3">報名維護</a></li>

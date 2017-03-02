@@ -37,9 +37,13 @@ table, th, td {
 			<div class='col-lg-11'>
 				<h2>歷史紀錄</h2>
 			</div>
-		</div>
+		</div><br><br>
 		<div class='row'>
-			<div class='col-md-offset-2 col-md-8'>
+		<div class='col-md-offset-1 col-md-1'>
+		<input type="button" class='btn btn-primary' onclick='window.location.href=resultjs+"/AllTravel";' value='報名/查詢'>
+		</div>
+			<div class='col-md-offset-0 col-md-8'>
+				<br>
 				<c:if test="${counts!=0}">
 					<table class='table'>
 						<thead>

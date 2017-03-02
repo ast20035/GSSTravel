@@ -171,8 +171,8 @@ table {
 			</div>
 			<div class='col-md-offset-1 col-md-5'>
 				<h4 style='color: #FF5511;'>Q&A</h4>
-<%-- 				<iframe src="<c:url value='/QandAServlet' />" frameborder="0" width="800px" --%>
-<%-- 					marginwidth="2px" height="600px"></iframe> --%>
+				<iframe src="<c:url value='/QandAServlet?role=false' />" frameborder="0" width="800px"
+					marginwidth="2px" height="600px"></iframe>
 			</div>
 		</div>
 	</div>
