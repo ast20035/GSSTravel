@@ -148,7 +148,6 @@ table, tr, td {
 				<option value="91">過去3個月的公告</option>
 				<option value="31">過去1個月的公告</option>
 				<option value="7">過去1週的公告</option>
-				<option value="1">過去1天的公告</option>
 			</select>
 			<br><br>
 			<table id="boardTable" class='table'>
