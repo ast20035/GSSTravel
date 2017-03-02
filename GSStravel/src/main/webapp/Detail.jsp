@@ -39,14 +39,15 @@ margin-right: 3%;
 	<div class='container-fluid'>
 		<div class='row'>
 			<div class='col-md-2 col-md-offset-1'>
-				<h2>報名明細</h2>
+				<h2>報名明細</h2><br>
+				<h4>活動代碼：${param.tra_no}</h4>
 			</div>
 		</div>
 		<div class='row'>
 		<div class='col-md-1'></div>
 			<div class='col-md-11'>
 				<form id="myForm" action=<c:url value="/detail"/> method="post">
-					<p>活動代碼：${param.tra_no}</p>
+					
 					<input type="hidden" name="tra_no" id="tra_no" value="${param.tra_no}">
 						<select name="selectTable" id="selectTable" onchange="dataSelect()" class='form-control' style='width:150px;'>
 								<option>顯示全部</option>

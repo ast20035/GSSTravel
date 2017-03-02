@@ -22,7 +22,6 @@
 <title>公告維護</title>
 <style type="text/css">
 .container-fluid {
-	margin-top: 5%;
 	font-size: 20px;
 }
 
@@ -56,12 +55,12 @@ input, textarea {
 	</script>
 	<div class='container-fluid'>
 		<div class="row">
-			<div class='col-md-offset-5'>
+			<div class='col-md-offset-1'>
 				<h2>新增公告</h2>
 			</div>
 		</div><br>
 		<div class='row'>
-			<div class='col-md-offset-4 col-md-4'>
+			<div class='col-md-offset-3 col-md-4'>
 				<form action="<c:url value="/AnnouncementUDServlet" />" method="GET">
 					<div id="boardDiv">
 						<select id="day" name="day" onchange="optionTime()" class='form-control' style='width:150px;'>
