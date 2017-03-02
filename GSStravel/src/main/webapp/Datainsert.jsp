@@ -424,10 +424,13 @@ text-align: center;
 									console.log(r);
 									alert("此筆親屬人已經報名行程，不可刪除");
 								}else{
-									
 										$("#familytable").on("mouseup", "input[name='delete']",function xx(){
 											if(window.confirm("確定取消嗎?")){
-												$(this).parents("tr").remove();
+												if( $("#errorcount").val(1)){
+													$(this).parents("tr").remove();
+													$("#errorcount").val(0);
+													
+												}
 											}
 										});
 								}
