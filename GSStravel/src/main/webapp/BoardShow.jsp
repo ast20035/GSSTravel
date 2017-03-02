@@ -22,7 +22,6 @@
 <title>公告內容</title>
 <style>
 .container-fluid {
-	margin-top: 2%;
 	font-size: 20px;
 }
 
@@ -136,13 +135,13 @@ h2 {
 	</script>
 	<div class='container-fluid'>
 		<div class='row'>
-			<div class='col-md-offset-3 col-md-2'>
+			<div class='col-md-offset-1 col-md-2'>
 				<h2>公告</h2>
 			</div>
 		</div>
 		<br> <br>
 		<div class='row'>
-			<div class='col-md-offset-4 col-md-4'>
+			<div class='col-md-offset-3 col-md-4'>
 				<div id="boardDiv"></div>
 				<br> <input type="button" class='btn btn-primary' value='回上一頁'
 					onclick='window.location.href="Board.jsp"'>

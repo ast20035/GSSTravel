@@ -22,7 +22,6 @@
 <title>公告編輯</title>
 <style type="text/css">
 .container-fluid {
-	margin-top: 2%;
 	font-size: 20px;
 }
 
@@ -180,13 +179,13 @@ h2 {
 	</script>
 	<div class='container-fluid'>
 		<div class="row">
-			<div class='col-md-offset-3 col-md-2'>
+			<div class='col-md-offset-1 col-md-2'>
 				<h2>修改公告</h2>
 			</div>
 		</div>
 		<br> <br>
 		<div class='row'>
-			<div class='col-md-offset-4 col-md-4'>
+			<div class='col-md-offset-3 col-md-4'>
 				<form action="<c:url value="/AnnouncementUDServlet" />" method="GET">
 					<c:if test="${important==1}">
 						<select id="day" name="day" onchange="optionTime()"
