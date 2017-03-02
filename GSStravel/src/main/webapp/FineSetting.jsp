@@ -108,6 +108,7 @@
 					buttonDay.setAttribute("type", "text");
 					buttonDay.setAttribute("name", "day");
 					buttonDay.setAttribute("value", fine[i].day);
+					buttonDay.setAttribute("style", "border: 2px solid white");
 					buttonDay.setAttribute("autocomplete", "off");
 					buttonDay.setAttribute("onfocus", "focusDay(this)");
 					buttonDay.setAttribute("onblur", "checkDay(this)");
@@ -119,6 +120,7 @@
 					buttonPercent.setAttribute("type", "text");
 					buttonPercent.setAttribute("name", "percent");
 					buttonPercent.setAttribute("value", fine[i].percent);
+					buttonPercent.setAttribute("style", "border: 2px solid white");
 					buttonPercent.setAttribute("autocomplete", "off");
 					buttonPercent.setAttribute("onfocus", "focusPercent(this)");
 					buttonPercent.setAttribute("onblur", "checkPercent(this)");
