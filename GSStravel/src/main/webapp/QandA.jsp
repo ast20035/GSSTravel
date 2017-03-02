@@ -22,62 +22,74 @@
 	<title>Q&A</title>
 </head>
 <body>
-	<select class="prodaction">
-		<option value="Years" selected>刪除前一年</option>
-		<option value="9month">刪除9個月前</option>
-		<option value="6month">刪除6個月前</option>
-		<option value="3month">刪除3個月前</option>
-	</select>
-	<button type="button" onclick="checkdelete()">刪除</button>
-	<% String prodaction = request.getParameter("prodaction");%>
-	<select onchange="window.location = '/GSStravel/QandAServlet?prodaction='+this.value;">
-		<option value="all"<%if ("all".equals(prodaction)) {out.print("selected");}%>>顯示全部</option>
-		<option value="yes"<%if ("yes".equals(prodaction)) {out.print("selected");}%>>顯示已回應</option>
-		<option value="no"<%if ("no".equals(prodaction)) {out.print("selected");}%>>顯示未回應</option>
-	</select>
-	<br />
-	<table border="1">
-		<thead>
-			<tr>
-				<th>編號</th>
-				<th>行程編號</th>
-				<th>標題</th>
-				<th>詢問人員</th>
-				<th>詢問時間</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="list" items="${list}">
+	<c:if test="${list.size()!=0}">
+		<c:if test="${emp_Role eq true}">
+			<select class="prodaction">
+				<option value="Years" selected>刪除前一年</option>
+				<option value="9month">刪除9個月前</option>
+				<option value="6month">刪除6個月前</option>
+				<option value="3month">刪除3個月前</option>
+			</select>
+			<button type="button" onclick="checkdelete()">刪除</button>
+		</c:if>
+		<%String prodaction = request.getParameter("prodaction");%>
+		<select
+			onchange="window.location = '/GSStravel/QandAServlet?prodaction='+this.value;">
+			<option value="all"
+				<%if ("all".equals(prodaction)) {out.print("selected");}%>>顯示全部</option>
+			<option value="yes"
+				<%if ("yes".equals(prodaction)) {out.print("selected");}%>>顯示已回應</option>
+			<option value="no" <%if ("no".equals(prodaction)) {out.print("selected");}%>>顯示未回應</option>
+		</select>
+		<br />
+		<table border="1">
+			<thead>
 				<tr>
-					<td><input type="text" name="qa_No"value="${list.qa_No}"></td>
-					<td><input type="text" value="${list.tra_No}"></td>
-					<td><a href="/GSStravel/QandASelectServlet?qa_No=${list.qa_No}"><c:if test="${list.answer_No!=0}"><span>[已回應]</span></c:if>
-							${list.question_Title}
-						</a>
-					</td>
-					<td><input type="text" value="${list.question_No}"></td>
-					<td><input type="text" value="${list.question_Time}"></td>
+					<th>編號</th>
+					<th>行程編號</th>
+					<th>標題</th>
+					<th>詢問人員</th>
+					<th>詢問時間</th>
 				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				<c:forEach var="list" items="${list}">
+					<tr>
+						<td><input type="text" name="qa_No" value="${list.qa_No}"></td>
+						<td><input type="text" value="${list.tra_No}"></td>
+						<td><a
+							href="/GSStravel/QandASelectServlet?qa_No=${list.qa_No}"><c:if
+									test="${list.answer_No!=0}">
+									<span>[已回應]</span>
+								</c:if> ${list.question_Title} </a></td>
+						<td><input type="text" value="${list.question_No}"></td>
+						<td><input type="text" value="${list.question_Time}"></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
 	共${count}筆
 	<br />
-	<ul class="pagination">
-		<li><a onclick="before()">&laquo;</a></li>
-		<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
-		<c:if test="${Math.ceil(count/2)!=0}">
-			<c:forEach var="i" begin="1" end="${Math.ceil(count/10)-1}">
-				<li class="page" onclick="page(this)" value="${i}"><a>${i+1}</a></li>
-			</c:forEach>
-		</c:if>
-		<li><a onclick="next()">&raquo;</a></li>
-	</ul>
+		<ul class="pagination">
+			<li><a onclick="before()">&laquo;</a></li>
+			<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
+			<c:if test="${Math.ceil(count/2)!=0}">
+				<c:forEach var="i" begin="1" end="${Math.ceil(count/10)-1}">
+					<li class="page" onclick="page(this)" value="${i}"><a>${i+1}</a></li>
+				</c:forEach>
+			</c:if>
+			<li><a onclick="next()">&raquo;</a></li>
+		</ul>
+	</c:if>
+	<c:if test="${list.size()==0}">
+		<h2>目前尚無留言~</h2>
+	</c:if>
 	<br />
 	<c:if test="${emp_Role eq false}">
-		<button onclick="window.location = '/GSStravel/QandAServlet?prodaction=question';">我要詢問問題</button>
+		<button
+			onclick="window.location = '/GSStravel/QandAServlet?prodaction=question';">我要詢問問題</button>
 	</c:if>
-<script>
+	<script>
 if(${Msg!=null}){
 	alert("${Msg.message}");
 }

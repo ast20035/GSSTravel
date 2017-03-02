@@ -378,7 +378,7 @@ text-align: center;
 						<option value="dis">持身心障礙手冊</option>
 						<option value="mom">孕婦(媽媽手冊)</option>
 					</select>
-					<input type ="hidden" name="repeatselectvalue" class="repeatselectvalue">
+					<input type ="hidden" name="selectvalue" class="selectvalue">
 				</div></td>
 			<td><input type="text" name="famben" id="famben" 
 				class='form-control'>
@@ -424,38 +424,19 @@ text-align: center;
 									console.log(r);
 									alert("此筆親屬人已經報名行程，不可刪除");
 								}else{
-									
 										$("#familytable").on("mouseup", "input[name='delete']",function xx(){
 											if(window.confirm("確定取消嗎?")){
-												$(this).parents("tr").remove();
+												if( $("#errorcount").val(1)){
+													$(this).parents("tr").remove();
+													$("#errorcount").val(0);
+													
+												}
 											}
 										});
 								}
 						}
 				})
 			})
-			
-
-			
-// 			//判斷親屬的特殊身分
-// 			var pathName = document.location.pathname;
-// 			var index = pathName.substr(1).indexOf("/");
-// 			var result = pathName.substr(0, index + 1);
-// 			var url = result + "/FamilyServlet";
-			
-
-// 			var multiselect=null;
-// 			if($("#familytable select[name*='famspa']").length > 0){
-// 				$("#familytable select[name*='famspa']").on("blur",function(){
-// 					 multiselect  = $(this).val();
-// 					 var selectjson = JSON.stringify(multiselect);
-// 					 var famnameajax = $(this).closest("tr").find("input[name='famname']").val();				 
-// 					$.post(url,{"multiselect":selectjson,"famnameajax":famnameajax},function(data){
-	
-// 					});		
-// 				})
-// 			}
-			
 			
 			
 // 			生日直接判斷特殊身分
@@ -486,9 +467,7 @@ text-align: center;
 // 					判斷資料有沒有輸入正確 
 					if($("#errorcount").val()=="1"){
 					$("#save").attr("type","button");
-					alert("親屬資料未輸入完全");
-					
-					
+					alert("親屬資料未輸入完全")
 					}
 					
 					if($("#errorcount").val()=="0"){
@@ -923,28 +902,25 @@ text-align: center;
 			}
 			
 			
-			
-
 			//抓新增親屬欄位的多選職
 			$("#save").click(function(){
-				console.log("save click");
-				console.log($(".repeat select[name='famspa']").length);//抓到的select總共有幾筆  抓到
+// 				console.log("save click");
+// 				console.log($(".repeat select[name='famspa']").length);//抓到的select總共有幾筆  抓到
 				
-				if($(".repeat select[name='famspa']").length > 0){
-					$(".repeat select[name='famspa']").each(function(){
-						var spa =$(this).val();
-						console.log(spa);//抓到
-						var spajson =JSON.stringify(spa);
-						console.log(spajson);//抓到json字串
-// 						$(this).next("input[name='selectvalue']").val(spajson);
-						$(this).closest("tr").find("input[name='repeatselectvalue']").val(spajson);
-						console.log($(this).closest("tr").find("input[name='repeatselectvalue']").val());//抓到
+// 				if($(".repeat select[name='famspa']").length > 0){
+// 					$(".repeat select[name='famspa']").each(function(){
+// 						var spa =$(this).val();
+// 						console.log(spa);//抓到
+// 						var spajson =JSON.stringify(spa);
+// 						console.log(spajson);//抓到json字串
+// // 						$(this).next("input[name='selectvalue']").val(spajson);
+// 						$(this).closest("tr").find("input[name='selectvalue']").val(spajson);
+// 						console.log($(this).closest("tr").find("input[name='selectvalue']").val());//抓到
 
-
-					});
-				}else{
-					//??無親屬抓進去
-				}
+// 					});
+// 				}else{
+// 					//??無親屬抓進去
+// 				}
 			
 				if($(".repeat input[name*='famname']").val()==""){
 					alert("親屬姓名不能為空白");
