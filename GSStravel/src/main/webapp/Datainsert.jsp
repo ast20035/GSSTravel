@@ -416,18 +416,7 @@ text-align: center;
 				var url = result + "/FamilyServlet";
 				var ajaxfamid ={"ajaxfamid":$(this).closest("tr").find("input[name='famid']").val()};
 				console.log(ajaxfamid);
-				var famid = $(this).closest("tr").find("input[name='famid']").val()
-				
-				
-// 				if($(this).closest("tr").find("input[name='famid']").val() == null){
-// 					console.log("xxxxxxxxxxxxx");
-// 					if(window.confirm("確定取消嗎?")){
-// 						if( $("#errorcount").val(1)){
-// 							$(this).parents("tr").remove();
-// 							$("#errorcount").val(0);
-// 						}
-// 					}
-// 				}else{
+				var xxxxx = $(this)
 					$.ajax({
 						type:"POST",url:url,data:ajaxfamid,dataType:"text",
 							success:function(r){
@@ -437,21 +426,34 @@ text-align: center;
 										return false;
 									}
 									else{
-										$("#familytable input[name='delete']").click(function(){
+// 										$("#familytable input[name='delete']").click(function(){
 	// 										$("#familytable input[name='delete']").mouseup(function(){
 											if(window.confirm("確定取消嗎?")){
 												if( $("#errorcount").val(1)){
-													$(this).parents("tr").remove();
+// 													$(this).parents("tr").remove();
+													xxxxx.parents("tr").remove();
 													$("#errorcount").val(0);
 												}
 											}
-										})
+// 										})
+
+// 										var famname = $(".repeat input[name='famname']");
+// 										var famid = $(".repeat input[name='famid']");
+										
+// 										if(famname.val() !=null || famid.val() != null  ){
+// 											famname.
+// 										}else{
+// 											if(window.confirm("確定取消嗎?")){
+// 												if( $("#errorcount").val(1)){
+// 													$(".repeat input[name='delete']").parents("tr").remove();
+// 													$("#errorcount").val(0);
+// 												}
+// 											}
+// 										}
+										
 									}
-									
 							}
 					})
-// 				}
-				
 				
 			})
 			
