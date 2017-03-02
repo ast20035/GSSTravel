@@ -5,4 +5,10 @@
                username="sa" password="P@ssw0rd"
                driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
                url="jdbc:sqlserver://localhost:1433;database=GSSTravel"/>
+               
+<!-- 	<Resource name="jdbc/testDB" auth="Container" type="javax.sql.DataSource" -->
+<!--                maxTotal="100" maxIdle="30" maxWaitMillis="10000" -->
+<!--                username="gsstraveluser" password="bjo4u;6vu/4zj6fu4u,4" -->
+<!--                driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" -->
+<!--                url="jdbc:sqlserver://gsstraveldb.database.windows.net:1433;database=GSSTravel"/> -->
 </Context>
