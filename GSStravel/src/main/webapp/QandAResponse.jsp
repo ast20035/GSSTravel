@@ -22,7 +22,7 @@
 			<td colspan="2"><textarea readonly>${list.question_Text}</textarea></td>
 		</tr>
 	</table>
-	<form action='<c:url value="/QandAInsertServlet"/>'>
+	<form action='<c:url value="/QandAInsertServlet"/>' method="POST">
 	<input type="hidden" name="qa_No" value="${list.qa_No}">
 	<input type="hidden" name="answer_No" value="<%=session.getAttribute("emp_No")%>">	
 	<c:if test="${list.answer_No!=0}">
