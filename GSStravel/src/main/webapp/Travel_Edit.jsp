@@ -6,9 +6,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
+<style type="text/css">
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px;}
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+.ui_tpicker_hour_label,.ui_tpicker_minute_label,.ui_tpicker_second_label,.ui_tpicker_millisec_label,.ui_tpicker_time_label{padding-left:20px}
+</style>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- <script src='js/jquery.simple-dtpicker.js'></script> -->
 <script src='js/jquery-3.1.1.min.js'></script>
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
@@ -24,9 +35,54 @@
 <link href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"
 	rel="stylesheet" />
 
-
-<script src='js/jquery-3.1.1.min.js'></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<script type="text/javascript" src="js/jquery-ui-slide.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
+<!-- <script src='js/jquery-3.1.1.min.js'></script> -->
 <script type="text/javascript">
+function show_confirm() {
+	var r = confirm("確定取消?");
+	if (r == true) {
+		//window.history.back()
+		window.location.href = 'search2.jsp';
+	}
+}
+String.prototype.IsGreatThan = function(mvarCompareTo) {
+	if (isNaN(parseFloat(this)) || isNaN(parseFloat(mvarCompareTo)))
+		return this > mvarCompareTo;
+	else
+		return parseFloat(this) > parseFloat(mvarCompareTo);
+}
+
+
+$(function(){
+	
+	$('#edittraOn').datepicker({
+
+	});
+	
+	$('#edittraOff').datepicker({
+
+	});
+
+	$('#edittraEnd').datetimepicker({
+	    showSecond: true,
+	    showMillisec: false,
+	    timeFormat: 'hh:mm:ss'
+    });
+
+	
+	$('#edittraBeg').datetimepicker({
+	    showSecond: true,
+	    showMillisec: false,
+	    timeFormat: 'hh:mm:ss'
+    });
+
+});
+
+
+
 	function show_confirm() {
 		var r = confirm("確定取消?");
 		if (r == true) {
@@ -304,7 +360,7 @@ h2 {
 		<div class='row'>
 			<div class='col-md-6 col-md-offset-3'>
 				<form name="formtable" id="formtable"
-					action="<c:url value='/Travel_Edit'/>" method="GET" form
+					action="<c:url value='/Travel_Edit'/>" method="Post" form
 					onsubmit="return formtable_b()">
 					<table class="t table">
 
@@ -350,7 +406,7 @@ h2 {
 								<div class="row">
 									<div class="col-xs-4">
 										<div class="Input-group">
-											<label>開始日期</label> <input type="date" name="edittraOn"
+											<label>開始日期</label> <input type="" name="edittraOn"
 												id="edittraOn" class='form-control' style='width: 150px;'
 												value="${params.tra_On}">
 											<div id=edittraOnerror></div>
@@ -362,7 +418,7 @@ h2 {
 
 									<div class="col-xs-4">
 										<div class="Input-group">
-											<label>結束日期</label> <input type="date" class='form-control'
+											<label>結束日期</label> <input type="" class='form-control'
 												style='width: 150px;' name="edittraOff" id="edittraOff"
 												value="${params.tra_Off}">
 											<div id=edittraOfferror></div>
@@ -384,13 +440,14 @@ h2 {
 											<fmt:formatDate value="${myDate}"
 												pattern="yyyy-MM-dd HH:mm:ss" var="ttt" />
 
-											<label>開始時間</label> <input type="text" name="edittraBeg"
+											<label>開始時間</label> 
+											<input type="text" id="edittraBeg" name="edittraBeg"
 												id="edittraBeg" class='form-control' style='width: 200px;'
 												value="${ttt}">
 											<div id=edittraBegerror></div>
 										</div>
 									</div>
-									<!-- col-xs-4 -->
+				
 
 									<div class="col-xs-4">
 										<div class="Input-group">
@@ -555,41 +612,24 @@ h2 {
 					<a><input type="submit" id="inputdate" name="inputerrors"
 						value="更新" class='btn btn-primary' onclick="getElements()">
 						<input type="button" onclick="show_confirm()" value="取消更新"
-						class='btn btn-primary'>
+						class='btn btn-primary'> 
 						<input
 						type="button" value='刪除' class='btn btn-primary'
 						onclick="return confirmComplete();" />
-						 <!-- 						<input type="submit" name="inputerrors" value="刪除行程"class='btn btn-primary'>  -->
 					</a>
 				</form>
 				<table>
 					<!-- 動態新增用 -->
 					<tr name="newtable">
-<!-- 						<td><SELECT name="edititemName" id="edititemName" -->
-<!-- 							style='width: 150px;' class='form-control'> -->
-<!-- 								<option selected="selected" disabled="disabled">請選擇</option> -->
-<!-- 								<option value="住宿費(兩人房)" -->
-<%-- 									${row.item_Name == '住宿費(兩人房)' ? 'selected' : ''}>住宿費(兩人房)</option> --%>
-<!-- 								<option value="住宿費(通鋪8人)" -->
-<%-- 									${row.item_Name == '住宿費(通鋪8人)' ? 'selected' : ''}>住宿費(通鋪8人)</option> --%>
-<!-- 								<option value="住宿費(加床)" -->
-<%-- 									${row.item_Name == '住宿費(加床)' ? 'selected' : ''}>住宿費(加床)</option> --%>
 
-
-<!-- 						</SELECT> -->
-<!-- 							<div class="edititemNameerror2"></div></td> -->
-<!-- 						<td><input type="text" name="edititemMoney" -->
-<!-- 							style='width: 100px; text-align: right;' id="edititemMoney" -->
-<%-- 							class='form-control' value="${row.item_Money}"> --%>
-<!-- 							<div class="edititemMoneyerror2"></div></td> -->
-<!-- 						<td><input type="submit" name="delete" id="delete" -->
-<!-- 							class='btn btn-danger' value="刪除"></td> -->
 					</tr>
 
 
 				</table>
 
 				<script>
+				
+
 					/*按扭動作*/
 
 					$(function() {
@@ -612,17 +652,17 @@ h2 {
 																//怕的就是程式一行行判斷 這行如果有錯 做動作後 下一行程式沒錯 會蓋掉他
 																$(this).css("border-color","green");
 																$(this).next(".edititemMoneyerror2").text("");
-																setTimeout(function() {$(".newtable td input[name='edititemMoney']")
-																					.css('border-color',"");},2000);
+// 																setTimeout(function() {$(".newtable td input[name='edititemMoney']")
+// 																					.css('border-color',"");},2000);
 															} else {$(this).css("border-color","red");
 																$(this).next('.edititemMoneyerror2').text("只能輸入數字");
-																setTimeout(function() {$(".newtable td input[name='edititemMoney']")
-																					.css('border-color',"");},2000);
+// 																setTimeout(function() {$(".newtable td input[name='edititemMoney']")
+// 																					.css('border-color',"");},2000);
 																};
 														} else {$(this).css("border-color","red");
 															$(this).next('.edititemMoneyerror2').text("請輸入金額");
-															setTimeout(function() {$(".newtable td input[name='edititemMoney']").css(
-																						'border-color',"");},2000);
+// 															setTimeout(function() {$(".newtable td input[name='edititemMoney']").css(
+// 																						'border-color',"");},2000);
 														}
 											
 											});
@@ -645,7 +685,8 @@ h2 {
 							$(this).css("border-color", "green")
 						} else {
 							$('#edittraNameerror').text('活動名稱不可為空白')
-							$(this).css("border-color", "red")
+							//$(this).css("border-color", "red")
+							
 						}
 					})
 
@@ -797,19 +838,19 @@ h2 {
 										$(this).css("border-color", "green");
 										$(this).next(".edititemMoneyerror2")
 												.text("");
-										setTimeout(function() {
-											$("input[name*='edititemMoney']")
-													.css('border-color', "");
-										}, 2000);
+// 										setTimeout(function() {
+// 											$("input[name*='edititemMoney']")
+// 													.css('border-color', "");
+// 										}, 2000);
 									} else {
 										$(this).css("border-color", "red");
 
 										$(this).next('.edititemMoneyerror2')
 												.text("只能輸入數字");
-										setTimeout(function() {
-											$("input[name*='edititemMoney']")
-													.css('border-color', "");
-										}, 2000);
+// 										setTimeout(function() {
+// 											$("input[name*='edititemMoney']")
+// 													.css('border-color', "");
+// 										}, 2000);
 									}
 									;
 								} else {
@@ -817,10 +858,10 @@ h2 {
 
 									$(this).next('.edititemMoneyerror2').text(
 											"請輸入金額");
-									setTimeout(function() {
-										$("input[name*='edititemMoney']").css(
-												'border-color', "");
-									}, 2000);
+// 									setTimeout(function() {
+// 										$("input[name*='edititemMoney']").css(
+// 												'border-color', "");
+// 									}, 2000);
 								}
 							});
 				</script>
