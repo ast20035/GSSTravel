@@ -23,22 +23,10 @@
 </head>
 <body>
 	<c:if test="${list.size()!=0}">
-		<c:if test="${emp_Role eq true}">
-			<select class="prodaction">
-				<option value="Years" selected>刪除前一年</option>
-				<option value="9month">刪除9個月前</option>
-				<option value="6month">刪除6個月前</option>
-				<option value="3month">刪除3個月前</option>
-			</select>
-			<button type="button" onclick="checkdelete()">刪除</button>
-		</c:if>
 		<%String prodaction = request.getParameter("prodaction");%>
-		<select
-			onchange="window.location = '/GSStravel/QandAServlet?prodaction='+this.value;">
-			<option value="all"
-				<%if ("all".equals(prodaction)) {out.print("selected");}%>>顯示全部</option>
-			<option value="yes"
-				<%if ("yes".equals(prodaction)) {out.print("selected");}%>>顯示已回應</option>
+		<select onchange="window.location = '/GSStravel/QandAServlet?role=false&prodaction='+this.value;">
+			<option value="all" <%if ("all".equals(prodaction)) {out.print("selected");}%>>顯示全部</option>
+			<option value="yes" <%if ("yes".equals(prodaction)) {out.print("selected");}%>>顯示已回應</option>
 			<option value="no" <%if ("no".equals(prodaction)) {out.print("selected");}%>>顯示未回應</option>
 		</select>
 		<br />
@@ -57,11 +45,8 @@
 					<tr>
 						<td><input type="text" name="qa_No" value="${list.qa_No}"></td>
 						<td><input type="text" value="${list.tra_No}"></td>
-						<td><a
-							href="/GSStravel/QandAServlet?prodaction=select&qa_No=${list.qa_No}"><c:if
-									test="${list.answer_No!=0}">
-									<span>[已回應]</span>
-								</c:if> ${list.question_Title} </a></td>
+						<td><a href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}"><c:if test="${list.answer_No!=0}">
+							<span>[已回應]</span></c:if>${list.question_Title}</a></td>
 						<td><input type="text" value="${list.question_No}"></td>
 						<td><input type="text" value="${list.question_Time}"></td>
 					</tr>
@@ -86,55 +71,52 @@
 	</c:if>
 	<br />
 	<c:if test="${emp_Role eq false}">
-		<button
-			onclick="window.location = '/GSStravel/QandAServlet?prodaction=question';">我要詢問問題</button>
+		<button onclick="window.location = '/GSStravel/QandAServlet?prodaction=question&role=false';">我要詢問問題</button>
 	</c:if>
+	</body>
 	<script>
-if(${Msg!=null}){
-	alert("${Msg.message}");
-}
-var i;
-var $page = $(".page");
-$("tr:gt(10)").css("display", "none");
-function next() {
-	i = $(".active");
-	$page.removeClass("active");
-	if (i.val() < $page.length - 1) {
-		$page[i.val() + 1].className = "active";
-		light(i.val() + 1);
-	} else {
-		$page[0].className = "active";
-		light(0);
+	if(${Msg!=null}){
+		alert("${Msg.message}");
 	}
-}
-function before() {
-	i = $(".active");
-	$page.removeClass("active");
-	if (i.val() < $page.length && i.val() > 0) {
-		$page[i.val() - 1].className = "active";
-		light(i.val() - 1);
-	} else {
-		$page[$page.length - 1].className = "active";
-		light($page.length - 1);
+	var i;
+	var $page = $(".page");
+	$("tr:gt(10)").css("display", "none");
+	function next() {
+		i = $(".active");
+		$page.removeClass("active");
+		if (i.val() < $page.length - 1) {
+			$page[i.val() + 1].className = "active";
+			light(i.val() + 1);
+		} else {
+			$page[0].className = "active";
+			light(0);
+		}
 	}
-}
-function page(obj) {
-	$page.removeClass("active");
-	$(obj).prop("class", "active");
-	i = $(".active");
-	light(i.val());
-}
-function light(i) {
-	$("tr:gt(0)").css("display", "none");
-	$("tr:gt(" + i * 10 + "):lt(" + 10 + ")").css("display", "");
-}
-function checkdelete() {
-	if (confirm("確定要刪除?")){
-// 		console.log($(".prodaction").val());
-		window.location = '/GSStravel/QandAInsertServlet?prodaction='+$(".prodaction").val();
+	function before() {
+		i = $(".active");
+		$page.removeClass("active");
+		if (i.val() < $page.length && i.val() > 0) {
+			$page[i.val() - 1].className = "active";
+			light(i.val() - 1);
+		} else {
+			$page[$page.length - 1].className = "active";
+			light($page.length - 1);
+		}
 	}
-}
-</script>
-
-</body>
+	function page(obj) {
+		$page.removeClass("active");
+		$(obj).prop("class", "active");
+		i = $(".active");
+		light(i.val());
+	}
+	function light(i) {
+		$("tr:gt(0)").css("display", "none");
+		$("tr:gt(" + i * 10 + "):lt(" + 10 + ")").css("display", "");
+	}
+	function checkdelete() {
+		if (confirm("確定要刪除?")){
+			window.location = '/GSStravel/QandAInsertServlet?prodaction='+$(".prodaction").val();
+		}
+	}
+	</script>
 </html>

@@ -34,19 +34,20 @@ margin-right: 3%;
 	<%@include file="Manage.jsp"%>
 	<script>
 			$('.navbar-nav>li').removeClass('Mnow');
-			$('.navbar-nav>li:eq(2)').addClass('Mnow');
+			$('.navbar-nav>li:eq(3)').addClass('Mnow');
 		</script>
 	<div class='container-fluid'>
 		<div class='row'>
 			<div class='col-md-2 col-md-offset-1'>
-				<h2>報名明細</h2>
+				<h2>報名明細</h2><br>
+				<h4>活動代碼：${param.tra_no}</h4>
 			</div>
 		</div>
 		<div class='row'>
 		<div class='col-md-1'></div>
 			<div class='col-md-11'>
 				<form id="myForm" action=<c:url value="/detail"/> method="post">
-					<p>活動代碼：${param.tra_no}</p>
+					
 					<input type="hidden" name="tra_no" id="tra_no" value="${param.tra_no}">
 						<select name="selectTable" id="selectTable" onchange="dataSelect()" class='form-control' style='width:150px;'>
 								<option>顯示全部</option>
@@ -63,8 +64,8 @@ margin-right: 3%;
 					<table id="deailtable">
 					<thead>
 						<tr>
-							<th></th>
-							<th ><label style='width:80px;'>員工編號</label></th>
+							<th><label style='width:120px;'></label></th>
+							<th><label style='width:80px;'>員工編號</label></th>
 							<th><label style='width:50px;'>身份</label></th>
 							<th>姓名</th>
 							<th>性別</th>
@@ -444,9 +445,9 @@ $(function(){
 				});
 				
 				//姓名、保險受益人、保險受益人關係、緊急聯絡人、緊急聯絡人關係驗證(不能為空值)
-				var thisName=/^.*\s*[^\s]/;
+				var thisName=/[^\s/]/;
 				thisTr.find(".name").blur(function(){
-					if(thisName.test($(this).val())){
+					if(thisName.test($(this).val()) && $(this).val().indexOf("/")==-1){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
@@ -485,7 +486,10 @@ $(function(){
 				//生日驗證(yyyy-MM-dd)
 				var fambdate=/^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
 				thisTr.find(".Bdate").on("blur",function(){
-					if(fambdate.test($(this).val())){
+					var today = new Date();
+					var bdate = $(this).val();
+					var mydate = new Date(bdate.replace("-", "/").replace("-", "/"));
+					if(fambdate.test(bdate) && mydate<= today){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
@@ -496,7 +500,7 @@ $(function(){
 				
 				$(this).parents("tr").find("p").hide();
 				 $(this).hide();
-				 $(".cancel").hide();
+				 $(".cancel").css("visibility", "hidden");
 				 $(".detEdit").prop("disabled",true);
 			     });  
 			})

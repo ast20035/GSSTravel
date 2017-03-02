@@ -23,8 +23,9 @@ public class QandAServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String prodaction=request.getParameter("prodaction");
-		//進入我要詢問.JSP
-		if("question".equals(prodaction)){
+		String role =request.getParameter("role");
+		//role=false身分才可進入我要詢問.JSP
+		if("question".equals(prodaction)&&"false".equals(role)){
 			try {
 				TravelService traService =new TravelService();
 				List<TravelVO> list=traService.select_forSearch();
@@ -43,6 +44,7 @@ public class QandAServlet extends HttpServlet {
 			QandAVO bean = new QandAVO();
 			bean = qaService.getALL(qa_No);
 			request.setAttribute("list", bean);
+			request.setAttribute("role", role);
 			request.getRequestDispatcher("/QandAResponse.jsp").forward(request, response);
 			return;
 		}
@@ -52,7 +54,12 @@ public class QandAServlet extends HttpServlet {
 		int count =list.size();
 		request.setAttribute("count", count);
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("/QandA.jsp").forward(request, response);
+		request.setAttribute("role", role);
+		if("false".equals(role)){
+			request.getRequestDispatcher("/QandAGuest.jsp").forward(request, response);
+			return;
+		}
+		request.getRequestDispatcher("/QandAManager.jsp").forward(request, response);
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

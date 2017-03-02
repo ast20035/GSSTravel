@@ -168,14 +168,14 @@ text-align: center;
 						<thead>
 							<tr id='sss'>
 								<th></th>
-								<th><label><em style="color: red">*</em>眷屬/親友</label></th>
+								<th><label style="width:90px;"><em style="color: red">*</em>眷屬/親友</label></th>
 								<th><label><em style="color: red">*</em>姓名</label></th>
-								<th><label><em style="color: red">*</em>性別</label></th>
+								<th><label style="width:60px;"><em style="color: red">*</em>性別</label></th>
 								<th><label><em style="color: red">*</em>身份證字號</label></th>
 								<th><label><em style="color: red">*</em>生日</label></th>
 								<th><label><em style="color: red">*</em>手機</label></th>
 								<th><label>用餐/車位</label></th>
-								<th><label>特殊身份</label></th>
+								<th><label style="width:350px;">特殊身份</label></th>
 								<th><label><em style="color: red">*</em>保險受益人</label></th>
 								<th><label style="width:120px;"><em style="color: red">*</em>保險受益人關係</label></th>
 								<th><label><em style="color: red">*</em>緊急聯絡人</label></th>

@@ -139,7 +139,7 @@
 	<%@include file="Manage.jsp"%>
 	<script>
 		$('.navbar-nav>li').removeClass('Mnow');
-		$('.navbar-nav>li:eq(1)').addClass('Mnow');
+		$('.navbar-nav>li:eq(2)').addClass('Mnow');
 	</script>
 	<div class='container-fluid'>
 		<link rel="stylesheet"

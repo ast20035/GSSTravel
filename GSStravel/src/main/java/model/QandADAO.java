@@ -153,6 +153,5 @@ public class QandADAO implements IQandADAO{
 				e.printStackTrace();
 			}
 		return b;
-		
 	}
 }

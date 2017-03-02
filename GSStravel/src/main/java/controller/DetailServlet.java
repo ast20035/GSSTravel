@@ -327,7 +327,7 @@ public class DetailServlet extends HttpServlet {
 					String car = req.getParameter("car");
 					String spe = req.getParameter("text_multiselect");
 					int fam_No = Integer.parseInt(temp_FamNo);
-					if (name.trim().length() == 0 || name == null) {
+					if (name.contains("/") || name.trim().length() == 0 || name == null) {
 						session.setAttribute("CanError", "儲存失敗！");
 					} else if (ben.trim().length() == 0 || ben == null) {
 						session.setAttribute("CanError", "儲存失敗！");
@@ -343,7 +343,7 @@ public class DetailServlet extends HttpServlet {
 						session.setAttribute("CanError", "儲存失敗！");
 					} else if (sex.equals("女") && !ID.substring(1, 2).equals("2")) {
 						session.setAttribute("CanError", "儲存失敗！");
-					} else if (detailService.selectSameId2(ID, fam_No) != null) {
+					} else if (detailService.selectSameId2(ID, fam_No, emp_No) != null) {
 						session.setAttribute("CanError", "身份證字號重複！");
 					}else {
 						FamilyVO Fbean = new FamilyVO();
@@ -399,7 +399,7 @@ public class DetailServlet extends HttpServlet {
 				//儲存員工資料，無親屬編號、特殊身分、車位欄位
 			} else {
 				try {
-					if (name.trim().length() == 0 || name == null) {
+					if (name.contains("/") || name.trim().length() == 0 || name == null) {
 						session.setAttribute("CanError", "儲存失敗！");
 					} else if (ben.trim().length() == 0 || ben == null) {
 						session.setAttribute("CanError", "儲存失敗！");

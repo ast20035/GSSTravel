@@ -269,9 +269,8 @@ table {
 								$(this).css("border-color", "red");
 								$(".insertSave").attr("type", "button");
 							} else {
-								$(this).css({
-									'border-width' : '0'
-								});
+								$(this).css("border-width", "1px");
+								$(this).css("border-color", "green");
 								a1 = true;
 								if (!(a1 && a2 && a3 && a4 && a5 && a6 && a7 && a8
 										& a9)) {
@@ -287,9 +286,8 @@ table {
 		var cellPhone = /^09\d{2}-?\d{3}-?\d{3}$/;
 		$(".fam_Phone").on("blur", function() {
 			if (cellPhone.test($(this).val())) {
-				$(this).css({
-					'border-width' : '0'
-				});
+				$(this).css("border-width", "1px");
+				$(this).css("border-color", "green");
 				a2 = true;
 				if (!(a1 && a2 && a3 && a4 && a5 && a6 && a7 && a8 & a9)) {
 					$(".insertSave").attr("type", "button");
@@ -304,9 +302,8 @@ table {
 		});
 		$(".fam_EmgPhone").on("blur", function() {
 			if (cellPhone.test($(this).val())) {
-				$(this).css({
-					'border-width' : '0'
-				});
+				$(this).css("border-width", "1px");
+				$(this).css("border-color", "green");
 				a3 = true;
 				if (!(a1 && a2 && a3 && a4 && a5 && a6 && a7 && a8 & a9)) {
 					$(".insertSave").attr("type", "button");
@@ -320,12 +317,11 @@ table {
 			}
 		});
 		//姓名、保險受益人、保險受益人關係、緊急聯絡人、緊急聯絡人關係驗證(不能為空值)
-		var thisName = /^.*\s*[^\s]/;
+		var thisName = /[^\s/]/;
 		$(".fam_Name").blur(function() {
-			if (thisName.test($(this).val())) {
-				$(this).css({
-					'border-width' : '0'
-				});
+			if (thisName.test($(this).val()) && $(this).val().indexOf("/")==-1) {
+				$(this).css("border-width", "1px");
+				$(this).css("border-color", "green");
 				a4 = true;
 				if (!(a1 && a2 && a3 && a4 && a5 && a6 && a7 && a8 & a9)) {
 					$(".insertSave").attr("type", "button");
@@ -341,9 +337,8 @@ table {
 		});
 		$(".fam_Ben").blur(function() {
 			if (thisName.test($(this).val())) {
-				$(this).css({
-					'border-width' : '0'
-				});
+				$(this).css("border-width", "1px");
+				$(this).css("border-color", "green");
 				a5 = true;
 				if (!(a1 && a2 && a3 && a4 && a5 && a6 && a7 && a8 & a9)) {
 					$(".insertSave").attr("type", "button");
@@ -358,9 +353,8 @@ table {
 		});
 		$(".fam_BenRel").blur(function() {
 			if (thisName.test($(this).val())) {
-				$(this).css({
-					'border-width' : '0'
-				});
+				$(this).css("border-width", "1px");
+				$(this).css("border-color", "green");
 				a6 = true;
 				if (!(a1 && a2 && a3 && a4 && a5 && a6 && a7 && a8 & a9)) {
 					$(".insertSave").attr("type", "button");
@@ -375,9 +369,8 @@ table {
 		});
 		$(".fam_Emg").blur(function() {
 			if (thisName.test($(this).val())) {
-				$(this).css({
-					'border-width' : '0'
-				});
+				$(this).css("border-width", "1px");
+				$(this).css("border-color", "green");
 				a7 = true;
 				if (!(a1 && a2 && a3 && a4 && a5 && a6 && a7 && a8 & a9)) {
 					$(".insertSave").attr("type", "button");
@@ -392,9 +385,8 @@ table {
 		});
 		$(".fam_EmgRel").blur(function() {
 			if (thisName.test($(this).val())) {
-				$(this).css({
-					'border-width' : '0'
-				});
+				$(this).css("border-width", "1px");
+				$(this).css("border-color", "green");
 				a8 = true;
 				if (!(a1 && a2 && a3 && a4 && a5 && a6 && a7 && a8 & a9)) {
 					$(".insertSave").attr("type", "button");
@@ -410,11 +402,14 @@ table {
 		//生日驗證(yyyy-MM-dd)
 		var fambdate = /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
 		$(".fam_Bdate").on("blur", function() {
-			if (fambdate.test($(this).val())) {
+			var today = new Date();
+			var bdate = $(this).val();
+			var mydate = new Date(bdate.replace("-", "/").replace("-", "/"));
+			if (fambdate.test(bdate) && mydate<= today) {
 				a9 = true;
-				$(this).css({
-					'border-width' : '0'
-				});
+				$(this).css("border-width", "1px");
+				$(this).css("border-color", "green");
+				$(".insertSave").attr("type", "button");
 				if (!(a1 && a2 && a3 && a4 && a5 && a6 && a7 && a8 & a9)) {
 					$(".insertSave").attr("type", "button");
 
