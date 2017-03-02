@@ -544,7 +544,7 @@ h2 {
 						function confirmComplete() {
 							var answer = confirm("是否確定要取消???");
 							if (answer == true) {
-								window.location.href='<c:url value="/deleteTravel?tra_No=${params.tra_NO}" />';
+								window.location.href='<c:url value="/deleteTravel?tra_No=${params.tra_NO}&tra_Name=${params.tra_Name}" />';
 								return true;
 							}else{
 								return false;
