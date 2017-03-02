@@ -30,7 +30,7 @@ $.extend($.ui, { timepicker: { version: "0.9.9" } });
 function Timepicker() {
 	this.regional = []; // Available regional settings, indexed by language code
 	this.regional[''] = { // Default regional settings
-		currentText: '當前时间',
+		currentText: '當前時間',
 		closeText: '確定',
 		ampm: false,
 		amNames: ['AM', 'A'],
