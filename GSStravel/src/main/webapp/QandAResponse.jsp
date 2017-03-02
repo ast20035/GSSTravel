@@ -19,7 +19,7 @@
 			<td colspan="2">${list.question_Time}</td>
 		</tr>
 		<tr>
-			<td colspan="2"><textarea>${list.question_Text}</textarea></td>
+			<td colspan="2"><textarea readonly>${list.question_Text}</textarea></td>
 		</tr>
 	</table>
 	<form action='<c:url value="/QandAInsertServlet"/>'>
