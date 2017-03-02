@@ -25,12 +25,16 @@
 .color-green{
 	border-color:green
 }
-</style>
-<title>回應</title>
-<style>
 textarea {
 	resize: none;
 }
+td{
+border : 1px solid gray;
+padding: 10px;
+}
+</style>
+<title>回應</title>
+<style>
 </style>
 </head>
 <body>
@@ -44,7 +48,7 @@ textarea {
 		<div class='row'>
 			<div class='col-md-offset-3 col-md-2'>
 				<h3>${list.question_Title}</h3>
-				<table border="1" class='table'>
+				<table class='table'>
 					<tr>
 						<td>${list.question_No}</td>
 						<td>${list.tra_No}</td>
@@ -60,7 +64,7 @@ textarea {
 					<input type="hidden" name="qa_No" value="${list.qa_No}">
 					<input type="hidden" name="answer_No" value="<%=session.getAttribute("emp_No")%>">
 					<c:if test="${list.answer_No!=0}">
-						<table>
+						<table class='table'>
 							<h2>回應</h2>
 							<tr>
 								<td><textarea name="answer_Text" class="Ans_textarea" readonly="readonly">${list.answer_Text}</textarea></td>
@@ -78,25 +82,25 @@ textarea {
 									</tr>
 								</table>
 							</div>
-							<button type="button" class="notdisplayclass" onclick="Respose()">我要回應</button>
-							<button type="submit" name="prodaction" value="insertAnswer" class="displayclass displaybb">回應</button>
-							<button type="button" class="displayclass" onclick="cancelrespose()">取消</button>
-							<button type="button" class="notdisplayclass" onclick="window.location = '/GSStravel/QandAServlet?role=true';">回上一頁</button>
+							<button type="button" class="notdisplayclass btn btn-primary" onclick="Respose()">我要回應</button>
+							<button type="submit" name="prodaction" value="insertAnswer" class="displayclass displaybb btn btn-primary">回應</button>
+							<button type="button" class="displayclass btn btn-primary" onclick="cancelrespose()">取消</button>
+							<button type="button" class="notdisplayclass btn btn-primary" onclick="window.location = '/GSStravel/QandAServlet?role=true';">回上一頁</button>
 						</c:if>
 					</c:if>
 					<c:if test="${(emp_Role eq true)&&(list.answer_No!=0)&&role}">
-						<button type="button" class="notdisplaybutton" onclick="updateData()">修改</button>
-						<button type="submit" class="displaybutton displayaa" name="prodaction" value="updateAnswer">確認修改</button>
-						<button type="button" class="displaybutton" onclick="cancel()">取消修改</button>
-						<button type="button" class="notdisplaybutton" onclick="checkdelete()">刪除</button>
-						<button type="button" class="notdisplaybutton" onclick="window.location = '/GSStravel/QandAServlet?role=true';">回上一頁</button>
+						<button type="button" class="notdisplaybutton btn btn-primary" onclick="updateData()">修改</button>
+						<button type="submit" class="displaybutton displayaa btn btn-primary" name="prodaction" value="updateAnswer">確認修改</button>
+						<button type="button" class="displaybutton btn btn-primary" onclick="cancel()">取消修改</button>
+						<button type="button" class="notdisplaybutton btn btn-danger" onclick="checkdelete()">刪除</button>
+						<button type="button" class="notdisplaybutton btn btn-primary" onclick="window.location = '/GSStravel/QandAServlet?role=true';">回上一頁</button>
 					</c:if>
 				</form>
 				<c:if test="${!role}">
 					<c:if test="${list.question_No==emp_No}">
-						<button type="button" class="notdisplaybutton" onclick="checkdelete()">刪除</button>
+						<button type="button" class="notdisplaybutton btn btn-danger" onclick="checkdelete()">刪除</button>
 					</c:if>
-					<button type="button" onclick="window.location = '/GSStravel/QandAServlet?role=false';">回上一頁</button>
+					<button type="button" class='btn btn-primary' onclick="window.location = '/GSStravel/QandAServlet?role=false';">回上一頁</button>
 				</c:if>
 			</div>
 		</div>
