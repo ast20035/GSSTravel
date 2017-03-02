@@ -161,7 +161,7 @@ td>strong {
 					<br>
 					<input class='btn btn-primary' type="button"
 						id="FineEmail" name="FineEmail" value="寄送罰則異動通知" onclick="load()" disabled="disabled"/> 
-					<img src="images/ajax-loader.gif" id="img1" style="display: none" />
+					<img src="images/loading.gif" id="img1" style="display: none" />
 				</div>
 				<div class='col-md-7'>
 
