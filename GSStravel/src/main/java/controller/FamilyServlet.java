@@ -66,7 +66,7 @@ public class FamilyServlet extends HttpServlet {
 		String[] selectvalue =req.getParameterValues("selectvalue");
 		String[] repeatselectvalue = req.getParameterValues("repeatselectvalue");
 		
-//		String buttondelete = req.getParameter("delete");
+		
 		String buttonsave = req.getParameter("button");
 		String ajaxid = req.getParameter("id");//判斷前端寫親屬身分證有無重複
 		String ajaxfamid = req.getParameter("ajaxfamid");//用前端的親屬身分證去刪親屬
@@ -80,58 +80,7 @@ public class FamilyServlet extends HttpServlet {
 		List<String> id = familyservice.selectid(emp_No);
 		Map<Integer ,List<Boolean>> mp=new HashMap<>();
 		List<Boolean> bl=new ArrayList<>();
-		//用ajax找出原本帶出親屬的多選值 更新資料庫
-		if(ajaxmultiselect != null){
-			 int fam_Nos= familyservice.selectfam_No(ajaxfamname);//4567
-			 System.out.println(ajaxmultiselect);
-			 System.out.println(ajaxfamname);
-			 System.out.println(fam_Nos);
-				 String xxx=ajaxmultiselect.replace("[", "").replace("]", "").replace(",","").replace("\"", "");					 			 
-				 List<String>ssss=new ArrayList<>();
-				 for(int x=0;x<xxx.length();){
-					 String y=xxx.substring(x, x+3);//mom
-					 x=x+3;
-					 ssss.add(y);
-				 }
-				 if(ssss.isEmpty()){
-					 familyservice.updatefambab(fam_Nos,false);
-					 familyservice.updatefamkid(fam_Nos, false);
-					 familyservice.updatefamdis(fam_Nos, false);
-					 familyservice.updatefammom(fam_Nos, false);
-				 }else{
-					 if(ssss.contains("bab")){
-						 bl.add(true);
-						 familyservice.updatefambab(fam_Nos,true);
-					 }else{
-						 bl.add(false);
-						 familyservice.updatefambab(fam_Nos,false);
-					 }
-					 if(ssss.contains("kid")){
-						 bl.add(true);
-						 familyservice.updatefamkid(fam_Nos, true);
-					 }else{
-						 bl.add(false);
-						 familyservice.updatefamkid(fam_Nos, false);
-					 }
-					 if(ssss.contains("dis")){
-						 bl.add(true);
-						 familyservice.updatefamdis(fam_Nos, true);
-					 }else{
-						 bl.add(false);
-						 familyservice.updatefamdis(fam_Nos, false);
-					 }
-					 if(ssss.contains("mom")){
-						 bl.add(true);
-						 familyservice.updatefammom(fam_Nos, true);
-					 }else{
-						 bl.add(false);
-						 familyservice.updatefammom(fam_Nos, false);
-					 }
-					 mp.put(fam_Nos, bl);
-				 }
-				 out.print(mp);
-		}
-
+		
 		//判斷身分證id是否重複輸入
 		if(ajaxid != null) {
 			String[] items = ajaxid.replaceAll("\\[", "").replaceAll("\"", "").replaceAll("\\]", "").split(",");
@@ -311,53 +260,7 @@ public class FamilyServlet extends HttpServlet {
 					 }
 				 }
 				 
-//				//親屬抓insert 多選
-//				List<String>ssss=new ArrayList<>();
-//				List<Boolean>yyyy = new ArrayList<>();
-//				if(repeatselectvalue!= null){
-//					System.out.println(repeatselectvalue);
-//					 
-//						for(String xxx:repeatselectvalue){
-//							System.out.println(xxx);//抓得到
-//							 String value=xxx.replace("[", "").replace("]", "").replace(",","").replace("\"", "");
-//							 System.out.println(value);
-//							 for(int x=0;x<value.length();){
-//								 String y =value.substring(x, x+3);
-//								 x=x+3;
-//								 ssss.add(y);
-//								if(ssss.isEmpty()){
-//									yyyy.add(false);
-//									yyyy.add(false);
-//									yyyy.add(false);
-//									yyyy.add(false);
-//								 }else{
-//									 if(ssss.contains("bab")){
-//										 yyyy.add(true);
-//									 }else{
-//										 yyyy.add(false);
-//									 }
-//									 if(ssss.contains("kid")){
-//										 yyyy.add(true);
-//									 }else{
-//										 yyyy.add(false);
-//									 }
-//									 if(ssss.contains("dis")){
-//										 yyyy.add(true);
-//									 }else{
-//										 yyyy.add(false);
-//									 }
-//									 if(ssss.contains("mom")){
-//										 yyyy.add(true);
-//									 }else{
-//										 yyyy.add(false);
-//									 }
-//									 
-//								 }
-//								 
-//							 }
-//						}
-//					}
-//				 
+
 				 
 				idlength = famid.length;
 				for (int i = 0; i < idlength; i++) {// 0 1 2 3
@@ -405,61 +308,84 @@ public class FamilyServlet extends HttpServlet {
 
 					
 					
-					if(selectvalue!= null){
-						for(String yyy : selectvalue){
-							System.out.println(yyy);
-						}
-					}
-					
-//					if(repeatselectvalue!= null){
-//					System.out.println(repeatselectvalue);
-//						for(String xxx:repeatselectvalue){
-//							System.out.println(xxx);
-//						}
-//					}
-					
-					
-					
 					if (id.contains(famid[i]) == true) {//資料庫找身分證是否重複 有重複用update 沒有重複用insert
+						
+						String value = selectvalue[i].replace("[", "").replace("]", "").replace(",","").replace("\"", "");
+//						System.out.println(selectvalue[i]);
+//						System.out.println(value);
+						if(value!=""){
+							if(value.contains("bab")){
+								familyvo.setFam_Bady(true);
+							}else{
+								familyvo.setFam_Bady(false);
+							}
+							
+							if(value.contains("kid")){
+								familyvo.setFam_kid(true);
+							}else{
+								familyvo.setFam_kid(false);
+							}
+							
+							if(value.contains("dis")){
+								familyvo.setFam_Dis(true);
+							}else{
+								familyvo.setFam_Dis(false);
+							}
+							
+							if(value.contains("mom")){
+								familyvo.setFam_Mom(true);
+							}else{
+								familyvo.setFam_Mom(false);
+							}
+						}else{
+							familyvo.setFam_Bady(false);
+							familyvo.setFam_kid(false);
+							familyvo.setFam_Dis(false);
+							familyvo.setFam_Mom(false);
+						}
 						familyservice.update(familyvo);
 						System.out.println("update " + famid[i] + " famno=" + famno);
 
 					} else {
-
+						
+						String value = selectvalue[i].replace("[", "").replace("]", "").replace(",","").replace("\"", "");
+//						System.out.println(selectvalue[i]);
+//						System.out.println(value);
+						if(value!=""){
+							if(value.contains("bab")){
+								familyvo.setFam_Bady(true);
+							}else{
+								familyvo.setFam_Bady(false);
+							}
+							
+							if(value.contains("kid")){
+								familyvo.setFam_kid(true);
+							}else{
+								familyvo.setFam_kid(false);
+							}
+							
+							if(value.contains("dis")){
+								familyvo.setFam_Dis(true);
+							}else{
+								familyvo.setFam_Dis(false);
+							}
+							
+							if(value.contains("mom")){
+								familyvo.setFam_Mom(true);
+							}else{
+								familyvo.setFam_Mom(false);
+							}
+						}else{
+							familyvo.setFam_Bady(false);
+							familyvo.setFam_kid(false);
+							familyvo.setFam_Dis(false);
+							familyvo.setFam_Mom(false);
+						}
+						
 						familyservice.insert(familyvo);
 						System.out.println("insert " + famid[i]);
 
-							//i   j  0123 4567
-//						Integer j=i;
-//							if(yyyy.size()>0){
-//								if(i==0){
-//									familyvo.setFam_Bady(yyyy.get(0));
-//									familyvo.setFam_kid(yyyy.get(1));
-//									familyvo.setFam_Dis(yyyy.get(2));
-//									familyvo.setFam_Mom(yyyy.get(3));
-//								}else{
-////									Integer j=3*i;
-//									familyvo.setFam_Bady(yyyy.get(i+j));
-//									familyvo.setFam_kid(yyyy.get(i+j+1));
-//									familyvo.setFam_Dis(yyyy.get(i+j+2));
-//									familyvo.setFam_Mom(yyyy.get(i+j+3));
-//								}
-//								
-//							}else{
-//								familyvo.setFam_Bady(false);
-//								familyvo.setFam_kid(false);
-//								familyvo.setFam_Dis(false);
-//								familyvo.setFam_Mom(false);
-//							}
-//						for(int k=0;k<=ssss.size();){
-//							if(k==0){
-//								if()
-//								return false
-//							}
-//						}
-						
-						
-						
+							
 					}
 
 				} // 回圈結束

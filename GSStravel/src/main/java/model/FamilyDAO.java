@@ -36,7 +36,7 @@ public class FamilyDAO implements IFamilyDAO {
 //	private static final String on = "SET IDENTITY_INSERT Family ON;";
 //	private static final String off = "SET IDENTITY_INSERT Family OFF;";
 	private static final String insert = "insert into Family (emp_No,fam_Name,fam_Rel,fam_Bdate,fam_Sex,fam_Eat,fam_Id,fam_Phone,fam_Note,fam_Ben,fam_BenRel,fam_Car,fam_Emg,fam_EmgPhone,fam_EmgRel,fam_Bady,fam_kid,fam_Dis,fam_Mom) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
-	private static final String update = "update Family set fam_Name=?,fam_Rel=?,fam_Bdate=?,fam_Sex=?,fam_Eat=?,fam_Id=?,fam_Phone=?,fam_Note=?,fam_Ben=?,fam_BenRel=?,fam_Car=?,fam_Emg=?,fam_EmgPhone=?,fam_EmgRel=? where fam_No=?";
+	private static final String update = "update Family set fam_Name=?,fam_Rel=?,fam_Bdate=?,fam_Sex=?,fam_Eat=?,fam_Id=?,fam_Phone=?,fam_Note=?,fam_Ben=?,fam_BenRel=?,fam_Car=?,fam_Emg=?,fam_EmgPhone=?,fam_EmgRel=?,fam_Bady=?,fam_kid=?,fam_Dis=?,fam_Mom=? where fam_No=?";
 	private static final String delete = "delete from Family where fam_Id=?";
 	private static final String selectfam_Nodelete="select tra_On from Detail FULL JOIN Travel on Detail.tra_No = Travel.tra_No  where fam_No=?";
 	private static final String updatefambab="update Family set fam_Bady=? where fam_No=?";
@@ -217,11 +217,11 @@ public class FamilyDAO implements IFamilyDAO {
 			state.setString(12, famvo.getFam_Emg());
 			state.setString(13, famvo.getFam_EmgPhone());
 			state.setString(14, famvo.getFam_EmgRel());
-//			state.setBoolean(15, famvo.isFam_Bady());
-//			state.setBoolean(16, famvo.isFam_kid());
-//			state.setBoolean(17, famvo.isFam_Dis());
-//			state.setBoolean(18, famvo.isFam_Mom());
-			state.setInt(15, famvo.getFam_No());
+			state.setBoolean(15, famvo.isFam_Bady());
+			state.setBoolean(16, famvo.isFam_kid());
+			state.setBoolean(17, famvo.isFam_Dis());
+			state.setBoolean(18, famvo.isFam_Mom());
+			state.setInt(19, famvo.getFam_No());
 			state.executeUpdate();			
 		}catch(SQLException e){
 			e.printStackTrace();
