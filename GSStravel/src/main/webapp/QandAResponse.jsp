@@ -55,9 +55,15 @@
 			<button type="submit" class="displaybutton" name="prodaction" value="updateAnswer">確認修改</button>
 			<button type="button" class="displaybutton" onclick="cancel()">取消修改</button>
 			<button type="button" class="notdisplaybutton" onclick="checkdelete()">刪除</button>
+			<button type="button" onclick="window.location = '/GSStravel/QandAServlet?role=true';">回上一頁</button>
+	</c:if>
+	<c:if test="${emp_Role eq false}">
+		<c:if test="${list.question_No==emp_No}">
+			<button type="button" class="notdisplaybutton" onclick="checkdelete()">刪除</button>
+		</c:if>
+		<button type="button" onclick="window.location = '/GSStravel/QandAServlet?role=false';">回上一頁</button>
 	</c:if>
 	</form>
-	<button type="button" onclick="window.location = '/GSStravel/QandAServlet';">回上一頁</button>
 </body>
 <script type="text/javascript">
 	$(".displayclass").hide();

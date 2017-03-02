@@ -28,7 +28,7 @@
 			</tr>
 		</table>		
 			<button type="submit" name="prodaction" value="insertQuestion">提問</button>
-			<button type="button" onclick="window.location = '/GSStravel/QandAServlet';">回上一頁</button>
+			<button type="button" onclick="window.location = '/GSStravel/QandAServlet?role=false';">回上一頁</button>
 	</form>
 </body>
 </html>

@@ -47,6 +47,8 @@ public class QandAInsertServlet extends HttpServlet {
 			else{
 				Msg.put("message", "詢問失敗");
 			}
+			request.getRequestDispatcher("/QandAServlet?role=false").forward(request, response);
+			return;
 		}
 		//新增回應、修改回應
 		if("insertAnswer".equals(prodaction)||"updateAnswer".equals(prodaction)){
