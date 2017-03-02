@@ -20,18 +20,18 @@ public class QandAInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		QandAService QAService =new QandAService();
 		Map<String,String> Msg = new HashMap<String, String>();
 		request.setAttribute("Msg", Msg);
 		String prodaction =request.getParameter("prodaction");
 		boolean b;
-		
+		//新增詢問
 		if("insertQuestion".equals(prodaction)){
 			QandAVO bean = new QandAVO();
 			String temp= request.getParameter("Question_No");
 			String tra_No=request.getParameter("Select");
 			
-			System.out.println("tra_No="+tra_No);
 			String Qestion_Title = request.getParameter("Qestion_Title");
 			String Qestion_Text = request.getParameter("Qestion_Text");
 			int Question_No = Integer.parseInt(temp);
@@ -48,6 +48,7 @@ public class QandAInsertServlet extends HttpServlet {
 				Msg.put("message", "詢問失敗");
 			}
 		}
+		//新增回應、修改回應
 		if("insertAnswer".equals(prodaction)||"updateAnswer".equals(prodaction)){
 			QandAVO bean = new QandAVO();
 			String temp = request.getParameter("qa_No");
@@ -76,6 +77,7 @@ public class QandAInsertServlet extends HttpServlet {
 				}
 			}
 		}
+		//刪除單筆
 		if("deleteOne".equals(prodaction)){
 			String temp = request.getParameter("qa_No");
 			int qa_No=Integer.parseInt(temp);
@@ -86,6 +88,7 @@ public class QandAInsertServlet extends HttpServlet {
 				Msg.put("message", "刪除失敗");
 			}
 		}
+		//刪除一定時間內的筆數
 		if("Years".equals(prodaction)||"9month".equals(prodaction)||"6month".equals(prodaction)||"3month".equals(prodaction)){
 			b=QAService.delete(prodaction);
 			if(b){

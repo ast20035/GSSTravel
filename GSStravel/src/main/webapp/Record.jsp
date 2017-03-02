@@ -67,6 +67,19 @@ table, th, td {
 							</tr>
 						</c:forEach>
 					</table>
+					共${counts}筆 
+				<br />
+				<ul class="pagination">
+					<li><a onclick="before()">&laquo;</a></li>
+					<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
+					<c:if test="${Math.ceil(counts/2)!=0}">
+						<c:forEach var="i" begin="1" end="${Math.ceil(counts/10)-1}">
+							<li class="page" onclick="page(this)" value="${i}"><a>${i+1}</a></li>
+						</c:forEach>
+					</c:if>
+					<li><a onclick="next()">&raquo;</a></li>
+				</ul>
+				<br />
 				</c:if>
 				<c:if test="${counts==0}">
 					<h1 style='font-size: 60px;'>目前沒有任何歷史訊息</h1>
@@ -75,4 +88,41 @@ table, th, td {
 		</div>
 	</div>
 </body>
+<script>
+	var i;
+	var $page = $(".page");
+	$("tr:gt(10)").css("display", "none");
+	function next() {
+		i = $(".active");
+		$page.removeClass("active");
+		if (i.val() < $page.length - 1) {
+			$page[i.val() + 1].className = "active";
+			light(i.val() + 1);
+		} else {
+			$page[0].className = "active";
+			light(0);
+		}
+	}
+	function before() {
+		i = $(".active");
+		$page.removeClass("active");
+		if (i.val() < $page.length && i.val() > 0) {
+			$page[i.val() - 1].className = "active";
+			light(i.val() - 1);
+		} else {
+			$page[$page.length - 1].className = "active";
+			light($page.length - 1);
+		}
+	}
+	function page(obj) {
+		$page.removeClass("active");
+		$(obj).prop("class", "active");
+		i = $(".active");
+		light(i.val());
+	}
+	function light(i) {
+		$("tr:gt(0)").css("display", "none");
+		$("tr:gt(" + i * 10 + "):lt(" + 10 + ")").css("display", "");
+	}
+	</script>
 </html>

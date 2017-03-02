@@ -38,14 +38,17 @@ public class DetailInsertServlet extends HttpServlet {
 		if ("儲存".equals(prodaction)) {
 			try {
 				String temp1 = req.getParameter("emp_No");
-				String name = req.getParameter("select");
+				String NameandNo = req.getParameter("select");
 				String temp2 = req.getParameter("money");
-
+				int fam_no = 0;
+				
 				float det_money = Float.parseFloat(temp2);
 				if (temp1 != "" && temp1.trim().length() != 0) {
 					int emp_no = Integer.parseInt(temp1);
-					if (!name.equals("其他")) {
-						int fam_no = familyService.select_byname(emp_no, name);
+					if (!NameandNo.equals("其他")) {
+						if(NameandNo.contains("/")){
+							fam_no = Integer.parseInt(NameandNo.split("/")[0]);
+						}
 						if (fam_no == 0) {
 							detailVO.setEmp_No(emp_no);
 							detailVO.setTra_No(tra_No);
@@ -95,6 +98,7 @@ public class DetailInsertServlet extends HttpServlet {
 							String fam_EmgPhone = req.getParameter("fam_EmgPhone"); // 緊急聯絡人電話
 							String fam_EmgRel = req.getParameter("fam_EmgRel"); // 緊急聯絡人關係
 							String fam_Note = req.getParameter("fam_note"); // 備註
+							System.out.println(fam_Name);
 							familyVO.setEmp_No(emp_no);
 							familyVO.setFam_Rel(fam_Rel);
 							familyVO.setFam_Name(fam_Name);
@@ -139,11 +143,11 @@ public class DetailInsertServlet extends HttpServlet {
 							if (sId == null) {
 								boolean a = familyService.insert_fam(familyVO);
 								if (a) {
-									int fam_no = familyService.select_byname(emp_no, fam_Name);
+									int newFam_no = familyService.select_byname(emp_no, fam_Name);
 									detailVO.setEmp_No(emp_no);
 									detailVO.setTra_No(tra_No);
 									detailVO.setDet_money(det_money);
-									detailVO.setFam_No(fam_no);
+									detailVO.setFam_No(newFam_no);
 									boolean b = detailService.insert(detailVO);
 									if (b) {
 										session.setAttribute("CanError", "家屬新增成功");
@@ -166,6 +170,7 @@ public class DetailInsertServlet extends HttpServlet {
 								return;
 							}
 						} catch (Exception e) {
+							e.printStackTrace();
 							session.setAttribute("DataError", "儲存失敗");
 							resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No + "&doInsert=1");
 							return;
@@ -176,6 +181,7 @@ public class DetailInsertServlet extends HttpServlet {
 					return;
 				}
 			} catch (Exception e) {
+				e.printStackTrace();
 				session.setAttribute("DataError", "儲存失敗");
 				resp.sendRedirect("/GSStravel/detail?tra_no=" + tra_No + "&doInsert=1");
 				return;

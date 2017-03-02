@@ -82,6 +82,11 @@ tbody a:visited:after {
 	content: "\00A0\221A"
 }
 </style>
+<style>
+input[type='text']{
+text-align: center;
+}
+</style>
 <body>
 	<%@include file="Manage.jsp"%>
 	<script>
@@ -97,9 +102,9 @@ tbody a:visited:after {
 		</div>
 		<br>
 		<div class='row'>
-			<div class='col-md-offset-1 col-md-10'>
+			<div class='col-md-offset-1 col-md-6'>
 				<div class='row'>
-					<div class='col-md-offset-0 col-md-1'>
+					<div class='col-md-offset-0 col-md-2'>
 						<select class="prodaction form-control" style='width: 130px;'>
 							<option value="Years" selected>刪除前一年</option>
 							<option value="9month">刪除9個月前</option>
@@ -107,7 +112,7 @@ tbody a:visited:after {
 							<option value="3month">刪除3個月前</option>
 						</select>
 					</div>
-					<div class=' col-md-1' style='margin-left: 3px;'>
+					<div class='col-md-offset-1 col-md-2' style='margin-left: 3px;'>
 						<button type="button" class='btn btn-danger'
 							onclick="checkdelete()">刪除</button>
 					</div>
@@ -137,8 +142,8 @@ tbody a:visited:after {
 						<tr>
 							<th>編號</th>
 							<th>行程編號</th>
-							<th>標題</th>
-							<th>詢問人員</th>
+							<th><label style='width:250px;'>標題</label></th>
+							<th><label style='width:80px;'>詢問人員</label></th>
 							<th>詢問時間</th>
 						</tr>
 					</thead>
@@ -148,7 +153,7 @@ tbody a:visited:after {
 								<td><input type="text" name="qa_No" value="${list.qa_No}"></td>
 								<td><input type="text" value="${list.tra_No}"></td>
 								<td><a
-									href="/GSStravel/QandASelectServlet?qa_No=${list.qa_No}"><c:if
+									href="/GSStravel/QandAServlet?prodaction=select&qa_No=${list.qa_No}"><c:if
 											test="${list.answer_No!=0}">
 											<span>[已回應]</span>
 										</c:if> ${list.question_Title} </a></td>
