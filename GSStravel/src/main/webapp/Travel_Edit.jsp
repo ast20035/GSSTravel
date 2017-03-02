@@ -594,10 +594,10 @@ h2 {
 							}
 						}
 					</script>
-					<span><input type="submit" id="inputdate" name="inputerrors" value="更新" class='btn btn-primary' onclick="getElements()">
-						<input type="button" onclick="show_confirm()" value="取消更新" class='btn btn-primary'> 
+					<span><input type="submit" id="inputdate" name="inputerrors" value="確定" class='btn btn-primary' onclick="getElements()">
+						<input type="button" onclick="show_confirm()" value="取消" class='btn btn-primary'> 
 						<input
-						type="button" value='刪除' class='btn btn-danger' onclick="return confirmComplete();" />
+						type="button" value='刪除行程' class='btn btn-danger' onclick="return confirmComplete();" />
 					</span>
 				</form>
 				<table>
