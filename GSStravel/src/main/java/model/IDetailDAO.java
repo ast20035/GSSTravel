@@ -22,7 +22,7 @@ public interface IDetailDAO {
 	public abstract String SELECT_top1_Tra_No(int Emp_No);//找到員工所報名的所有旅費中花費最高的Tra_No
 	public abstract String SELECT_top2_Tra_No(int Emp_No);//找到員工所報名的所有旅費中花費第二高的Tra_No
 	public abstract String selectSameId(String id, int emp_No);//insert時用，查詢身份證字號是否已使用
-	public abstract String Select_SamId2(String id, int fam_No);//update親屬資料時用，查詢身份證字號是否已使用
+	public abstract String Select_SamId2(String fam_id, int fam_No, int emp_No);//update親屬資料時用，查詢身份證字號是否已使用
 	public abstract int select_emp_No(int det_No);//取消員工的detail用，點選取消找到附屬的emp_No
 	public abstract String Select_Rel(int det_No);//查詢此det_No的人是員工or親屬
 	public abstract float select_TotalMoney(int emp_No, String Tra_No);//查詢員工在某一Tra_No花費的總金額

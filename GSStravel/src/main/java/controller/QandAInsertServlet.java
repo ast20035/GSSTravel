@@ -99,7 +99,7 @@ public class QandAInsertServlet extends HttpServlet {
 				Msg.put("message", "刪除失敗");
 			}
 		}
-		request.getRequestDispatcher("/QandAServlet").forward(request, response);
+		request.getRequestDispatcher("/QandAServlet?role="+request.getParameter("role")).forward(request, response);
 		return;
 	}
 

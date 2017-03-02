@@ -22,6 +22,12 @@
 	<title>Q&A</title>
 </head>
 <body>
+<%String prodaction = request.getParameter("prodaction");%>
+		<select onchange="window.location = '/GSStravel/QandAServlet?role=true&prodaction='+this.value;">
+			<option value="all" <%if ("all".equals(prodaction)) {out.print("selected");}%>>顯示全部</option>
+			<option value="yes" <%if ("yes".equals(prodaction)) {out.print("selected");}%>>顯示已回應</option>
+			<option value="no" <%if ("no".equals(prodaction)) {out.print("selected");}%>>顯示未回應</option>
+		</select>
 	<c:if test="${list.size()!=0}">
 		<c:if test="${emp_Role eq true}">
 			<select class="prodaction">
@@ -32,15 +38,7 @@
 			</select>
 			<button type="button" onclick="checkdelete()">刪除</button>
 		</c:if>
-		<%String prodaction = request.getParameter("prodaction");%>
-		<select
-			onchange="window.location = '/GSStravel/QandAServlet?prodaction='+this.value;">
-			<option value="all"
-				<%if ("all".equals(prodaction)) {out.print("selected");}%>>顯示全部</option>
-			<option value="yes"
-				<%if ("yes".equals(prodaction)) {out.print("selected");}%>>顯示已回應</option>
-			<option value="no" <%if ("no".equals(prodaction)) {out.print("selected");}%>>顯示未回應</option>
-		</select>
+		
 		<br />
 		<table border="1">
 			<thead>
@@ -58,7 +56,7 @@
 						<td><input type="text" name="qa_No" value="${list.qa_No}"></td>
 						<td><input type="text" value="${list.tra_No}"></td>
 						<td><a
-							href="/GSStravel/QandAServlet?prodaction=select&qa_No=${list.qa_No}"><c:if
+							href="/GSStravel/QandAServlet?prodaction=select&role=true&qa_No=${list.qa_No}"><c:if
 									test="${list.answer_No!=0}">
 									<span>[已回應]</span>
 								</c:if> ${list.question_Title} </a></td>
@@ -81,13 +79,14 @@
 			<li><a onclick="next()">&raquo;</a></li>
 		</ul>
 	</c:if>
-	<c:if test="${list.size()==0}">
-		<h2>目前尚無留言~</h2>
+	<c:if test="">
+		<c:if test="${list.size()==0}">
+			<h2>目前尚無留言~</h2>
+		</c:if>
 	</c:if>
 	<br />
 	<c:if test="${emp_Role eq false}">
-		<button
-			onclick="window.location = '/GSStravel/QandAServlet?prodaction=question';">我要詢問問題</button>
+		<button onclick="window.location = '/GSStravel/QandAServlet?prodaction=question';">我要詢問問題</button>
 	</c:if>
 	<script>
 if(${Msg!=null}){
@@ -130,8 +129,7 @@ function light(i) {
 }
 function checkdelete() {
 	if (confirm("確定要刪除?")){
-// 		console.log($(".prodaction").val());
-		window.location = '/GSStravel/QandAInsertServlet?prodaction='+$(".prodaction").val();
+		window.location = '/GSStravel/QandAInsertServlet?role=true&prodaction='+$(".prodaction").val();
 	}
 }
 </script>

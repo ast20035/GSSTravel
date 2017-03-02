@@ -93,11 +93,12 @@ tbody a:visited:after {
 	color: white;
 	font-weight: normal;
 }
+
 h1, h2 {
 	color: #7744FF;
 	font-weight: bolder;
-	border-left:6px solid gray;
-padding-left:10px;
+	border-left: 6px solid gray;
+	padding-left: 10px;
 }
 
 .input-group-addon.info {
@@ -156,12 +157,15 @@ padding-left:10px;
 	border-left: 3px solid blue;
 	border-right: 3px solid blue;
 }
-.navbar-brand{
-color:	#FFAA33;
+
+.navbar-brand {
+	color: #FFAA33;
 }
-.navbar-brand:HOVER{
-color:	#FFAA33;
+
+.navbar-brand:HOVER {
+	color: #FFAA33;
 }
+
 .nav>li>#aBar:focus {
 	color: black;
 }
@@ -183,18 +187,22 @@ color:	#FFAA33;
 				<li role="presentation"><a href="<c:url value='/Board.jsp'/>"
 					id="close1">回首頁</a></li>
 				<c:if test='${emp_Role eq true}'>
+					<li class='dropdown'><a class='dropdown-toggle' href='#'
+						id='aBar' role="button" data-toggle="dropdown">首頁管理<span
+							class="caret"></span></a>
+						<ul class='dropdown-menu'>
+							<li><a href="<c:url value='/BoardMaintain.jsp'/>"
+								id="close6">公告維護</a></li>
+							<li><a href="<c:url value='/QandAServlet?role=true'/>" id="close7">Q&A維護</a></li>
+						</ul></li>
 					<li><a href="<c:url value='/search2.jsp'/>" id="close2">行程維護</a></li>
 					<li><a href="<c:url value='/search.jsp'/>" id="close3">報名維護</a></li>
 					<li><a class='dropdown-toggle' role="button"
 						href="<c:url value='/FineSetting.jsp'/>" id="close4">罰則維護</a>
 					<li><a href="<c:url value='/search1.jsp'/>" id="close5">旅費統計</a></li>
-					<li class='dropdown'><a class='dropdown-toggle' href='#' id='aBar'
-					role="button" data-toggle="dropdown">首頁管理<span class="caret"></span></a>
-					<ul class='dropdown-menu' >
-						<li><a href="<c:url value='/BoardMaintain.jsp'/>" id="close6">公告維護</a></li>
-						<li><a href="<c:url value='/TaCo_Q&A_EightLegs'/>" id="close7">Q&A維護</a></li>
-					</ul></li>
 				</c:if>
+			</ul>
+			<ul class='nav navbar-nav navbar-right'>
 				<li><input type="button" value='登出'
 					class="btn btn-warning navbar-btn" id="close8"
 					onclick="window.location.href=resultjs+'/LogOut.do';"></li>

@@ -44,6 +44,7 @@ public class QandAServlet extends HttpServlet {
 			QandAVO bean = new QandAVO();
 			bean = qaService.getALL(qa_No);
 			request.setAttribute("list", bean);
+			request.setAttribute("role", role);
 			request.getRequestDispatcher("/QandAResponse.jsp").forward(request, response);
 			return;
 		}
@@ -53,6 +54,7 @@ public class QandAServlet extends HttpServlet {
 		int count =list.size();
 		request.setAttribute("count", count);
 		request.setAttribute("list", list);
+		request.setAttribute("role", role);
 		if("false".equals(role)){
 			request.getRequestDispatcher("/QandAGuest.jsp").forward(request, response);
 			return;

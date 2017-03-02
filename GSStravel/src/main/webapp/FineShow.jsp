@@ -140,7 +140,7 @@ td>strong {
 	<%@include file="Manage.jsp"%>
 	<script>
 		$('.navbar-nav>li').removeClass('Mnow');
-		$('.navbar-nav>li:eq(3)').addClass('Mnow');
+		$('.navbar-nav>li:eq(4)').addClass('Mnow');
 	</script>
 	<div class='container-fluid'>
 		<div class='row'>

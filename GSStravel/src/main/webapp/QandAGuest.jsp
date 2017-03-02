@@ -45,7 +45,7 @@
 					<tr>
 						<td><input type="text" name="qa_No" value="${list.qa_No}"></td>
 						<td><input type="text" value="${list.tra_No}"></td>
-						<td><a href="/GSStravel/QandAServlet?prodaction=select&qa_No=${list.qa_No}"><c:if test="${list.answer_No!=0}">
+						<td><a href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}"><c:if test="${list.answer_No!=0}">
 							<span>[已回應]</span></c:if>${list.question_Title}</a></td>
 						<td><input type="text" value="${list.question_No}"></td>
 						<td><input type="text" value="${list.question_Time}"></td>

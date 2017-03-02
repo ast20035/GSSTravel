@@ -22,7 +22,6 @@
 <title>公告內容</title>
 <style>
 .container-fluid {
-	margin-top: 2%;
 	font-size: 20px;
 }
 
@@ -33,11 +32,12 @@ input, textarea {
 	border-top: 1px solid #DDDDDD;
 	border-bottom: 1px solid #DDDDDD;
 }
-h2{
-color:	#00AAAA;
-font-weight:bold;
-border-left:6px solid gray;
-padding-left:10px;
+
+h2 {
+	color: #00AAAA;
+	font-weight: bold;
+	border-left: 6px solid gray;
+	padding-left: 10px;
 }
 </style>
 <script>
@@ -128,16 +128,20 @@ padding-left:10px;
 </script>
 </head>
 <body>
+	<%@include file="SelectBar.jsp"%>
+	<script>
+		$('.navbar-nav>li').removeClass('now');
+		$('.navbar-nav>li:eq(0)').addClass('now');
+	</script>
 	<div class='container-fluid'>
 		<div class='row'>
-			<div class='col-md-offset-3 col-md-2'>
+			<div class='col-md-offset-1 col-md-2'>
 				<h2>公告</h2>
 			</div>
 		</div>
-		<br>
-		<br>
+		<br> <br>
 		<div class='row'>
-			<div class='col-md-offset-4 col-md-4'>
+			<div class='col-md-offset-3 col-md-4'>
 				<div id="boardDiv"></div>
 				<br> <input type="button" class='btn btn-primary' value='回上一頁'
 					onclick='window.location.href="Board.jsp"'>
