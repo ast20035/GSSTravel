@@ -81,6 +81,7 @@ textarea {
 							<button type="button" class="notdisplayclass" onclick="Respose()">我要回應</button>
 							<button type="submit" name="prodaction" value="insertAnswer" class="displayclass displaybb">回應</button>
 							<button type="button" class="displayclass" onclick="cancelrespose()">取消</button>
+							<button type="button" class="notdisplayclass" onclick="window.location = '/GSStravel/QandAServlet?role=true';">回上一頁</button>
 						</c:if>
 					</c:if>
 					<c:if test="${(emp_Role eq true)&&(list.answer_No!=0)&&role}">
@@ -88,7 +89,7 @@ textarea {
 						<button type="submit" class="displaybutton displayaa" name="prodaction" value="updateAnswer">確認修改</button>
 						<button type="button" class="displaybutton" onclick="cancel()">取消修改</button>
 						<button type="button" class="notdisplaybutton" onclick="checkdelete()">刪除</button>
-						<button type="button" onclick="window.location = '/GSStravel/QandAServlet?role=true';">回上一頁</button>
+						<button type="button" class="notdisplaybutton" onclick="window.location = '/GSStravel/QandAServlet?role=true';">回上一頁</button>
 					</c:if>
 				</form>
 				<c:if test="${!role}">
