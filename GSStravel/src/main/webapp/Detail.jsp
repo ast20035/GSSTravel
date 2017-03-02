@@ -499,7 +499,7 @@ $(function(){
 				
 				$(this).parents("tr").find("p").hide();
 				 $(this).hide();
-				 $(".cancel").hide();
+				 $(".cancel").css("visibility", "hidden");
 				 $(".detEdit").prop("disabled",true);
 			     });  
 			})
