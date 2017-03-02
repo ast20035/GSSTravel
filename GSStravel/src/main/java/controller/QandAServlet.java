@@ -21,7 +21,9 @@ public class QandAServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		String prodaction=request.getParameter("prodaction");
+		//進入我要詢問.JSP
 		if("question".equals(prodaction)){
 			try {
 				TravelService traService =new TravelService();
@@ -32,6 +34,17 @@ public class QandAServlet extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+		}
+		//查看詳細詢問內容
+		if("select".equals(prodaction)){
+			String temp=request.getParameter("qa_No");
+			int qa_No = Integer.parseInt(temp);
+			QandAService qaService =new QandAService();
+			QandAVO bean = new QandAVO();
+			bean = qaService.getALL(qa_No);
+			request.setAttribute("list", bean);
+			request.getRequestDispatcher("/QandAResponse.jsp").forward(request, response);
+			return;
 		}
 		QandAService QAService =new QandAService();
 		List<QandAVO> list = new ArrayList<QandAVO>();
