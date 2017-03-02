@@ -41,6 +41,21 @@
 <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
 <!-- <script src='js/jquery-3.1.1.min.js'></script> -->
 <script type="text/javascript">
+function show_confirm() {
+	var r = confirm("確定取消?");
+	if (r == true) {
+		//window.history.back()
+		window.location.href = 'search2.jsp';
+	}
+}
+String.prototype.IsGreatThan = function(mvarCompareTo) {
+	if (isNaN(parseFloat(this)) || isNaN(parseFloat(mvarCompareTo)))
+		return this > mvarCompareTo;
+	else
+		return parseFloat(this) > parseFloat(mvarCompareTo);
+}
+
+
 $(function(){
 	
 	$('#edittraOn').datepicker({
@@ -582,6 +597,17 @@ h2 {
 							</c:if>
 						</c:forEach>
 					</table>
+					<script>
+						function confirmComplete() {
+							var answer = confirm("是否確定要取消???");
+							if (answer == true) {
+								window.location.href='<c:url value="/deleteTravel?tra_No=${params.tra_NO}&tra_Name=${params.tra_Name}" />';
+								return true;
+							}else{
+								return false;
+							}
+						}
+					</script>
 
 					<a><input type="submit" id="inputdate" name="inputerrors"
 						value="更新" class='btn btn-primary' onclick="getElements()">
