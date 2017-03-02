@@ -652,17 +652,17 @@ h2 {
 																//怕的就是程式一行行判斷 這行如果有錯 做動作後 下一行程式沒錯 會蓋掉他
 																$(this).css("border-color","green");
 																$(this).next(".edititemMoneyerror2").text("");
-																setTimeout(function() {$(".newtable td input[name='edititemMoney']")
-																					.css('border-color',"");},2000);
+// 																setTimeout(function() {$(".newtable td input[name='edititemMoney']")
+// 																					.css('border-color',"");},2000);
 															} else {$(this).css("border-color","red");
 																$(this).next('.edititemMoneyerror2').text("只能輸入數字");
-																setTimeout(function() {$(".newtable td input[name='edititemMoney']")
-																					.css('border-color',"");},2000);
+// 																setTimeout(function() {$(".newtable td input[name='edititemMoney']")
+// 																					.css('border-color',"");},2000);
 																};
 														} else {$(this).css("border-color","red");
 															$(this).next('.edititemMoneyerror2').text("請輸入金額");
-															setTimeout(function() {$(".newtable td input[name='edititemMoney']").css(
-																						'border-color',"");},2000);
+// 															setTimeout(function() {$(".newtable td input[name='edititemMoney']").css(
+// 																						'border-color',"");},2000);
 														}
 											
 											});
@@ -838,19 +838,19 @@ h2 {
 										$(this).css("border-color", "green");
 										$(this).next(".edititemMoneyerror2")
 												.text("");
-										setTimeout(function() {
-											$("input[name*='edititemMoney']")
-													.css('border-color', "");
-										}, 2000);
+// 										setTimeout(function() {
+// 											$("input[name*='edititemMoney']")
+// 													.css('border-color', "");
+// 										}, 2000);
 									} else {
 										$(this).css("border-color", "red");
 
 										$(this).next('.edititemMoneyerror2')
 												.text("只能輸入數字");
-										setTimeout(function() {
-											$("input[name*='edititemMoney']")
-													.css('border-color', "");
-										}, 2000);
+// 										setTimeout(function() {
+// 											$("input[name*='edititemMoney']")
+// 													.css('border-color', "");
+// 										}, 2000);
 									}
 									;
 								} else {
@@ -858,10 +858,10 @@ h2 {
 
 									$(this).next('.edititemMoneyerror2').text(
 											"請輸入金額");
-									setTimeout(function() {
-										$("input[name*='edititemMoney']").css(
-												'border-color', "");
-									}, 2000);
+// 									setTimeout(function() {
+// 										$("input[name*='edititemMoney']").css(
+// 												'border-color', "");
+// 									}, 2000);
 								}
 							});
 				</script>
