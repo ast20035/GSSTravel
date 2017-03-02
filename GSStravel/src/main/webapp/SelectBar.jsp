@@ -85,7 +85,7 @@ tbody a:visited:after {
 
 .nav>li>a {
 	font-size: 15px;
-	color: 	#220088;
+	color: #220088;
 	font-weight: bold;
 }
 
@@ -93,10 +93,10 @@ tbody a:visited:after {
 	border-radius: 7px\7px;
 	background-color: white;
 }
+
 .nav>.now>a {
 	font-weight: bolder;
-	color:#003377;
-	
+	color: #003377;
 }
 
 h1, h2 {
@@ -126,10 +126,10 @@ h1, h2 {
 }
 
 .navbar {
-/* 	background: linear-gradient(to bottom, rgba(30, 87, 153, 1) 0%, */
-/* 		rgba(82, 141, 196, 1) 55%, rgba(107, 166, 217, 0.7) 81%, */
-/* 		rgba(125, 185, 232, 0) 100%); */
-background:linear-gradient(to bottom, #539fe1 0%,#0a77d5 3%,#87bcea 75%);
+	/* 	background: linear-gradient(to bottom, rgba(30, 87, 153, 1) 0%, */
+	/* 		rgba(82, 141, 196, 1) 55%, rgba(107, 166, 217, 0.7) 81%, */
+	/* 		rgba(125, 185, 232, 0) 100%); */
+	background: linear-gradient(to bottom, #539fe1 0%, #0a77d5 3%, #87bcea 75%);
 	z-index: 15;
 	padding-top: 5px;
 	border: 0;
@@ -188,7 +188,8 @@ background:linear-gradient(to bottom, #539fe1 0%,#0a77d5 3%,#87bcea 75%);
 			</button>
 			<a class="navbar-brand" href="<c:url value='/Board.jsp'/>">GSS</a>
 		</div>
-		<div id="navbar" class="collapse navbar-collapse">
+		<div id="navbar"
+			class="collapse navbar-collapse navbar-responsive-collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="<c:url value='/Board.jsp'/>" id="close7">首頁</a></li>
 				<li class='dropdown'><a class='dropdown-toggle' href='#'
@@ -201,8 +202,10 @@ background:linear-gradient(to bottom, #539fe1 0%,#0a77d5 3%,#87bcea 75%);
 				<li role="presentation"><a href="<c:url value='/Register'/>"
 					id="close1">資料輸入</a></li>
 				<c:if test='${emp_Role eq true}'>
-					<li><a href="<c:url value='/search2.jsp'/>" id="close2">管理介面</a></li>
+					<li><a href="<c:url value='/BoardMaintain.jsp'/>" id="close2">管理介面</a></li>
 				</c:if>
+			</ul>
+			<ul class='nav navbar-nav navbar-right'>
 				<li><input type="button" value='登出'
 					class="btn btn-warning navbar-btn" id="close5"
 					onclick="window.location.href=resultjs+'/LogOut.do';"></li>

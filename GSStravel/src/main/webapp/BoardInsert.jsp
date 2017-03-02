@@ -49,6 +49,11 @@ input, textarea {
 </script>
 </head>
 <body>
+<%@include file="Manage.jsp"%>
+	<script>
+		$('.navbar-nav>li').removeClass('Mnow');
+		$('.navbar-nav>li:eq(1)').addClass('Mnow');
+	</script>
 	<div class='container-fluid'>
 		<div class="row">
 			<div class='col-md-offset-5'>
