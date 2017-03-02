@@ -186,17 +186,17 @@ color:	#FFAA33;
 					<li><a href="<c:url value='/search2.jsp'/>" id="close2">行程維護</a></li>
 					<li><a href="<c:url value='/search.jsp'/>" id="close3">報名維護</a></li>
 					<li><a class='dropdown-toggle' role="button"
-						href="<c:url value='/FineSetting.jsp'/>">罰則維護</a>
-					<li><a href="<c:url value='/search1.jsp'/>" id="close4">旅費統計</a></li>
+						href="<c:url value='/FineSetting.jsp'/>" id="close4">罰則維護</a>
+					<li><a href="<c:url value='/search1.jsp'/>" id="close5">旅費統計</a></li>
 					<li class='dropdown'><a class='dropdown-toggle' href='#' id='aBar'
 					role="button" data-toggle="dropdown">首頁管理<span class="caret"></span></a>
-					<ul class='dropdown-menu' id="close6">
-						<li><a href="<c:url value='/BoardMaintain.jsp'/>">公告維護</a></li>
-						<li><a href="<c:url value='/TaCo_Q&A_EightLegs'/>">Q&A維護</a></li>
+					<ul class='dropdown-menu' >
+						<li><a href="<c:url value='/BoardMaintain.jsp'/>" id="close6">公告維護</a></li>
+						<li><a href="<c:url value='/TaCo_Q&A_EightLegs'/>" id="close7">Q&A維護</a></li>
 					</ul></li>
 				</c:if>
 				<li><input type="button" value='登出'
-					class="btn btn-warning navbar-btn" id="close7"
+					class="btn btn-warning navbar-btn" id="close8"
 					onclick="window.location.href=resultjs+'/LogOut.do';"></li>
 			</ul>
 		</div>

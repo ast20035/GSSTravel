@@ -33,6 +33,7 @@ public class TotalAmountDAO implements ITotalAmountDAO {
 	private static final String selectTra_No="select tra_No from TotalAmount where emp_No=? and thisyear=(select * from year)";
 	private static final String updateYearSub="update TotalAmount set yearsub=? where emp_No=? and tra_No=?";
 	
+	
 	public void updateYearSub(boolean yearsub,Integer emp_No,String tra_No){		
 		try(Connection conn=dataSource.getConnection();
 		    PreparedStatement stmt=conn.prepareStatement(updateYearSub);

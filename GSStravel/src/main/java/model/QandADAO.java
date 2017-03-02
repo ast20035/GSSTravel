@@ -25,13 +25,22 @@ public class QandADAO implements IQandADAO{
 		}
 	}
 	
-	private final String selectALL="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No from QandA";
+	private final String selectALL="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No from QandA order by Question_Time desc";
+	private final String selectYes="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No from QandA where Answer_No is not null order by Question_Time desc";
+	private final String selectNo="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No from QandA where Answer_No is null order by Question_Time desc";
 	@Override
-	public List<QandAVO> selectALL(){
+	public List<QandAVO> selectALL(String prodaction){
 		List<QandAVO> result = null;
+		String select=selectALL;
+		if("yes".equals(prodaction)){
+			select=selectYes;
+		}else if("no".equals(prodaction)){
+			select=selectNo;		
+		}
 		try (Connection conn = ds.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(selectALL);
+			PreparedStatement stmt = conn.prepareStatement(select);
 			ResultSet rset = stmt.executeQuery();) {
+			
 			result = new ArrayList<QandAVO>();
 			while (rset.next()) {
 				QandAVO bean =new QandAVO();
@@ -90,5 +99,60 @@ public class QandADAO implements IQandADAO{
 			e.printStackTrace();
 		}
 		return bean;
+	}
+	private final String updateAnswer="update QandA set Answer_No=? , Answer_Text=? where QA_No=?";
+	@Override
+	public boolean insertAnswer(QandAVO bean){
+		boolean b=false;
+		try (Connection conn = ds.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(updateAnswer);) {
+			stmt.setInt(1, bean.getAnswer_No());
+			stmt.setString(2, bean.getAnswer_Text());
+			stmt.setInt(3, bean.getQa_No());
+			stmt.executeUpdate();
+			b=true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return b;
+	}
+	private final String deletOne="delete from QandA where QA_No=?";
+	@Override
+	public boolean deleteOne(int qa_No){
+		boolean b=false;
+		try (Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(deletOne);) {
+				stmt.setInt(1, qa_No);
+				stmt.executeUpdate();
+				b=true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return b;
+	}
+	private final String deletYears="delete from QandA where Question_Time<DATEADD(yyyy,-1,GETDATE())";
+	private final String deletthreeMonth="delete from QandA where Question_Time<DATEADD(mm,-3,GETDATE())";
+	private final String deletnightMonth="delete from QandA where Question_Time<DATEADD(mm,-9,GETDATE())";
+	private final String delethalfYears="delete from QandA where Question_Time<DATEADD(mm,-6,GETDATE())";
+	@Override
+	public boolean delete(String prodaction){
+		String delete=deletYears;
+		if("3month".equals(prodaction)){
+			delete=deletthreeMonth;
+		}else if("6month".equals(prodaction)){
+			delete=delethalfYears;
+		}else if("9month".equals(prodaction)){
+			delete=deletnightMonth;
+		}
+		boolean b=false;
+		try (Connection conn = ds.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(delete);) {
+				stmt.executeUpdate();
+				b=true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		return b;
+		
 	}
 }

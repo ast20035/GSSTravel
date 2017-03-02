@@ -540,11 +540,26 @@ h2 {
 							</c:if>
 						</c:forEach>
 					</table>
+					<script>
+						function confirmComplete() {
+							var answer = confirm("是否確定要取消???");
+							if (answer == true) {
+								window.location.href='<c:url value="/deleteTravel?tra_No=${params.tra_NO}" />';
+								return true;
+							}else{
+								return false;
+							}
+						}
+					</script>
 
 					<a><input type="submit" id="inputdate" name="inputerrors"
 						value="更新" class='btn btn-primary' onclick="getElements()">
 						<input type="button" onclick="show_confirm()" value="取消更新"
-						class='btn btn-primary'> <!-- 						<input type="submit" name="inputerrors" value="刪除行程"class='btn btn-primary'>  -->
+						class='btn btn-primary'>
+						<input
+						type="button" value='刪除' class='btn btn-primary'
+						onclick="return confirmComplete();" />
+						 <!-- 						<input type="submit" name="inputerrors" value="刪除行程"class='btn btn-primary'>  -->
 					</a>
 				</form>
 				<table>

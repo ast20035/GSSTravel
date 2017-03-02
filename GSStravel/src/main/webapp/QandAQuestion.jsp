@@ -12,8 +12,10 @@
 		<input type="hidden" name="Question_No" value="<%=session.getAttribute("emp_No") %>">
 		<table>
 			<tr>
-				<select name="tra_No">
-					<option>201608020001</option>
+				<select name="Select">
+					<c:forEach var="list" items="${list}">
+						<option>${list.tra_NO}</option>
+					</c:forEach>
 				</select>
 			</tr>
 			<tr>
@@ -24,8 +26,9 @@
 				<th>留言內容</th>
 				<td><textarea name="Qestion_Text"></textarea></td>
 			</tr>
-		</table>
-		<button type="submit" name="prodaction" value="insertQuestion">提問</button>
+		</table>		
+			<button type="submit" name="prodaction" value="insertQuestion">提問</button>
+			<button type="button" onclick="window.location = '/GSStravel/QandAServlet';">回上一頁</button>
 	</form>
 </body>
 </html>

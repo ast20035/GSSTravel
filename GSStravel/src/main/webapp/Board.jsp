@@ -82,18 +82,11 @@ table, tr, td {
 					var a = document.createElement("a");
 
 					td = document.createElement("td");
-					td.appendChild(document.createTextNode(board[i].time));
+					td.appendChild(document.createTextNode(board[i].time+" "));
 					if("${beforeDateNew}"<=board[i].time){
 						var img = document.createElement("img");
 						img.setAttribute("src", "images/new.gif");
 						td.appendChild(img);
-					}
-					
-					if(board[i].important==1){
-						td.setAttribute("style", "color:red");
-					}
-					if(board[i].important==2){
-						td.setAttribute("style", "color:black");
 					}
 					tr.appendChild(td);
 
@@ -155,7 +148,6 @@ table, tr, td {
 				<option value="91">過去3個月的公告</option>
 				<option value="31">過去1個月的公告</option>
 				<option value="7">過去1週的公告</option>
-				<option value="1">過去1天的公告</option>
 			</select>
 			<br><br>
 			<table id="boardTable" class='table'>
