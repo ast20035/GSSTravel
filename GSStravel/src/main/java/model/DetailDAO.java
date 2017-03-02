@@ -681,13 +681,14 @@ public class DetailDAO implements IDetailDAO {
 		}
 		
 		//update親屬資料時用，查詢身份證字號是否已使用
-		private static final String selectSameId2 = "SELECT 'ID已重複' as sameID FROM Family where fam_id=? and fam_no <> ?";
+		private static final String selectSameId2 = "SELECT 'ID已重複' as sameID FROM Family where fam_id=? and fam_no <> ? and emp_No=?";
 		@Override
-		public String Select_SamId2(String fam_id, int fam_No){
+		public String Select_SamId2(String fam_id, int fam_No, int emp_No){
 			String result=null;
 			try (Connection conn = ds.getConnection();PreparedStatement stmt = conn.prepareStatement(selectSameId2);) {
 				stmt.setString(1, fam_id);
 				stmt.setInt(2, fam_No);
+				stmt.setInt(3, emp_No);
 				ResultSet rset = stmt.executeQuery();
 				while(rset.next()){
 					result = rset.getString("sameID");

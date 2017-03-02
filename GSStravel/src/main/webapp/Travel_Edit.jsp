@@ -8,6 +8,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
 <style type="text/css">
+
 .ui-timepicker-div .ui-widget-header { margin-bottom: 8px;}
 .ui-timepicker-div dl { text-align: left; }
 .ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
@@ -41,21 +42,6 @@
 <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
 <!-- <script src='js/jquery-3.1.1.min.js'></script> -->
 <script type="text/javascript">
-function show_confirm() {
-	var r = confirm("確定取消?");
-	if (r == true) {
-		//window.history.back()
-		window.location.href = 'search2.jsp';
-	}
-}
-String.prototype.IsGreatThan = function(mvarCompareTo) {
-	if (isNaN(parseFloat(this)) || isNaN(parseFloat(mvarCompareTo)))
-		return this > mvarCompareTo;
-	else
-		return parseFloat(this) > parseFloat(mvarCompareTo);
-}
-
-
 $(function(){
 	
 	$('#edittraOn').datepicker({
@@ -360,7 +346,7 @@ h2 {
 		<div class='row'>
 			<div class='col-md-6 col-md-offset-3'>
 				<form name="formtable" id="formtable"
-					action="<c:url value='/Travel_Edit'/>" method="Post" form
+					action="<c:url value='/Travel_Edit'/>" method="GET" form
 					onsubmit="return formtable_b()">
 					<table class="t table">
 
@@ -511,14 +497,14 @@ h2 {
 							<td></td>
 
 						</tr>
-						<tr>
-							<td>附件</td>
+<!-- 						<tr> -->
+<!-- 							<td>附件</td> -->
 
-							<td><input type="text" name="edittraFile"
-								class='form-control' style='width: 300px;'
-								value="${params.tra_File}"></td>
-							<td></td>
-						</tr>
+<!-- 							<td><input type="text" name="edittraFile" -->
+<!-- 								class='form-control' style='width: 300px;' -->
+<%-- 								value="${params.tra_File}"></td> --%>
+<!-- 							<td></td> -->
+<!-- 						</tr> -->
 
 
 						<tr>
@@ -601,22 +587,18 @@ h2 {
 						function confirmComplete() {
 							var answer = confirm("是否確定要取消???");
 							if (answer == true) {
-								window.location.href='<c:url value="/deleteTravel?tra_No=${params.tra_NO}&tra_Name=${params.tra_Name}" />';
+								window.location.href='<c:url value="/deleteTravel?tra_No=${params.tra_NO}" />';
 								return true;
 							}else{
 								return false;
 							}
 						}
 					</script>
-
-					<a><input type="submit" id="inputdate" name="inputerrors"
-						value="更新" class='btn btn-primary' onclick="getElements()">
-						<input type="button" onclick="show_confirm()" value="取消更新"
-						class='btn btn-primary'> 
+					<span><input type="submit" id="inputdate" name="inputerrors" value="確定" class='btn btn-primary' onclick="getElements()">
+						<input type="button" onclick="show_confirm()" value="取消" class='btn btn-primary'> 
 						<input
-						type="button" value='刪除' class='btn btn-primary'
-						onclick="return confirmComplete();" />
-					</a>
+						type="button" value='刪除行程' class='btn btn-danger' onclick="return confirmComplete();" />
+					</span>
 				</form>
 				<table>
 					<!-- 動態新增用 -->
@@ -626,7 +608,7 @@ h2 {
 
 
 				</table>
-
+				
 				<script>
 				
 
@@ -652,17 +634,17 @@ h2 {
 																//怕的就是程式一行行判斷 這行如果有錯 做動作後 下一行程式沒錯 會蓋掉他
 																$(this).css("border-color","green");
 																$(this).next(".edititemMoneyerror2").text("");
-// 																setTimeout(function() {$(".newtable td input[name='edititemMoney']")
-// 																					.css('border-color',"");},2000);
+																setTimeout(function() {$(".newtable td input[name='edititemMoney']")
+																					.css('border-color',"");},2000);
 															} else {$(this).css("border-color","red");
 																$(this).next('.edititemMoneyerror2').text("只能輸入數字");
-// 																setTimeout(function() {$(".newtable td input[name='edititemMoney']")
-// 																					.css('border-color',"");},2000);
+																setTimeout(function() {$(".newtable td input[name='edititemMoney']")
+																					.css('border-color',"");},2000);
 																};
 														} else {$(this).css("border-color","red");
 															$(this).next('.edititemMoneyerror2').text("請輸入金額");
-// 															setTimeout(function() {$(".newtable td input[name='edititemMoney']").css(
-// 																						'border-color',"");},2000);
+															setTimeout(function() {$(".newtable td input[name='edititemMoney']").css(
+																						'border-color',"");},2000);
 														}
 											
 											});
@@ -685,8 +667,7 @@ h2 {
 							$(this).css("border-color", "green")
 						} else {
 							$('#edittraNameerror').text('活動名稱不可為空白')
-							//$(this).css("border-color", "red")
-							
+							$(this).css("border-color", "red")
 						}
 					})
 
@@ -838,19 +819,19 @@ h2 {
 										$(this).css("border-color", "green");
 										$(this).next(".edititemMoneyerror2")
 												.text("");
-// 										setTimeout(function() {
-// 											$("input[name*='edititemMoney']")
-// 													.css('border-color', "");
-// 										}, 2000);
+										setTimeout(function() {
+											$("input[name*='edititemMoney']")
+													.css('border-color', "");
+										}, 2000);
 									} else {
 										$(this).css("border-color", "red");
 
 										$(this).next('.edititemMoneyerror2')
 												.text("只能輸入數字");
-// 										setTimeout(function() {
-// 											$("input[name*='edititemMoney']")
-// 													.css('border-color', "");
-// 										}, 2000);
+										setTimeout(function() {
+											$("input[name*='edititemMoney']")
+													.css('border-color', "");
+										}, 2000);
 									}
 									;
 								} else {
@@ -858,10 +839,10 @@ h2 {
 
 									$(this).next('.edititemMoneyerror2').text(
 											"請輸入金額");
-// 									setTimeout(function() {
-// 										$("input[name*='edititemMoney']").css(
-// 												'border-color', "");
-// 									}, 2000);
+									setTimeout(function() {
+										$("input[name*='edititemMoney']").css(
+												'border-color', "");
+									}, 2000);
 								}
 							});
 				</script>

@@ -21,15 +21,8 @@
 <link rel="stylesheet" type="text/css" href="" />
 <title>公告</title>
 <style>
-table, tr, td {
-	border: 1px solid black;
-}
-
-.clock {
-	border: 1px solid black;
-	width: 200px;
-	height: 70px;
-	text-align: center;
+table {
+	border-bottom: 1px solid #DDDDDD;
 }
 </style>
 <script>
@@ -37,8 +30,8 @@ table, tr, td {
 		day = document.getElementById("day");
 		setBoard();
 	}
-	
-	var day=null;
+
+	var day = null;
 	function optionTime() {
 		day = document.getElementById("day");
 		setBoard();
@@ -82,8 +75,9 @@ table, tr, td {
 					var a = document.createElement("a");
 
 					td = document.createElement("td");
-					td.appendChild(document.createTextNode(board[i].time+" "));
-					if("${beforeDateNew}"<=board[i].time){
+					td.appendChild(document
+							.createTextNode(board[i].time + "  "));
+					if ("${beforeDateNew}" <= board[i].time) {
 						var img = document.createElement("img");
 						img.setAttribute("src", "images/new.gif");
 						td.appendChild(img);
@@ -93,11 +87,12 @@ table, tr, td {
 					td = document.createElement("td");
 					a.setAttribute("href", result + "/BoardShow.jsp?anno_Time="
 							+ board[i].time);
+					// 					a.setAttribute("style","width:500px;");
 					a.appendChild(document.createTextNode(board[i].title));
-					if(board[i].important==1){
+					if (board[i].important == 1) {
 						a.setAttribute("style", "color:red");
 					}
-					if(board[i].important==2){
+					if (board[i].important == 2) {
 						a.setAttribute("style", "color:black");
 					}
 					td.appendChild(a);
@@ -105,18 +100,28 @@ table, tr, td {
 
 					body.appendChild(tr);
 				}
-				var count=board.length;
+				var count = board.length;
 				$("#myul").find("li").remove();
-				$("#myul").append('<li><a role="button" onclick="before()">&laquo;</a></li>');
-				var sum=Math.ceil(count/10);
-				for(var a=0;a<sum;a++){
-					if(a==0){
-						$("#myul").append('<li class="page active" onclick="page(this)" value="'+a+'"><a role="button">'+(a+1)+'</a></li>');	
-					}else{
-						$("#myul").append('<li class="page" onclick="page(this)" value="'+a+'"><a  role="button">'+(a+1)+'</a></li>');
+				$("#myul")
+						.append(
+								'<li><a role="button" onclick="before()">&laquo;</a></li>');
+				var sum = Math.ceil(count / 10);
+				for (var a = 0; a < sum; a++) {
+					if (a == 0) {
+						$("#myul").append(
+								'<li class="page active" onclick="page(this)" value="'
+										+ a + '"><a role="button">' + (a + 1)
+										+ '</a></li>');
+					} else {
+						$("#myul").append(
+								'<li class="page" onclick="page(this)" value="'
+										+ a + '"><a  role="button">' + (a + 1)
+										+ '</a></li>');
 					}
 				}
-				$("#myul").append('<li><a role="button" onclick="next()">&raquo;</a></li>');
+				$("#myul")
+						.append(
+								'<li><a role="button" onclick="next()">&raquo;</a></li>');
 				i = $(".active");
 				$page = $(".page");
 				light(i.val());
@@ -137,33 +142,40 @@ table, tr, td {
 		<div class='row'>
 			<div class='col-md-1'></div>
 			<div class='col-md-11'>
-				<h2>公告</h2>
+				<h2>首頁</h2>
 			</div>
 		</div>
 		<br>
-		<div class='col-md-offset-3 col-md-5'>
-			<select id="day" name="day" onchange="optionTime()" class='form-control' style='width:150px;'>
-				<option value="365">過去1年的公告</option>
-				<option value="183">過去半年的公告</option>
-				<option value="91">過去3個月的公告</option>
-				<option value="31">過去1個月的公告</option>
-				<option value="7">過去1週的公告</option>
-			</select>
-			<br><br>
-			<table id="boardTable" class='table'>
-				<thead>
-					<tr>
-						<th>公告時間</th>
-						<th>公告標題</th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
-			<ul id="myul" class="pagination">
-			</ul>
+		<div class='row'>
+			<div class='col-md-offset-1 col-md-5'>
+				<h4 style='color: #FF5511; font-weight: bold;'>公告</h4>
+				<select id="day" name="day" onchange="optionTime()"
+					class='form-control' style='width: 150px;'>
+					<option value="365">過去1年的公告</option>
+					<option value="183">過去半年的公告</option>
+					<option value="91">過去3個月的公告</option>
+					<option value="31">過去1個月的公告</option>
+					<option value="7">過去1週的公告</option>
+				</select> <br>
+				<table id="boardTable" class='table'>
+					<thead>
+						<tr>
+							<th><label style='width: 200px;'>公告時間</label></th>
+							<th><label style='width: 300px;'>公告標題</label></th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+				<ul id="myul" class="pagination">
+				</ul>
+			</div>
+			<div class='col-md-offset-1 col-md-5'>
+				<h4 style='color: #FF5511;'>Q&A</h4>
+<%-- 				<iframe src="<c:url value='/QandAServlet' />" frameborder="0" width="800px" --%>
+<%-- 					marginwidth="2px" height="600px"></iframe> --%>
+			</div>
 		</div>
-		<iframe src="<c:url value='/QandAServlet' />" ></iframe>
 	</div>
 </body>
 <script>

@@ -58,22 +58,24 @@ table {
 	<%@include file="Manage.jsp"%>
 	<script>
 		$('.navbar-nav>li').removeClass('Mnow');
-		$('.navbar-nav>li:eq(4)').addClass('Mnow');
+		$('.navbar-nav>li:eq(5)').addClass('Mnow');
 	</script>
 	<div class='container-fluid'>
 		<div class='row'>
 			<div class='col-md-1'></div>
 			<div class='col-md-11'>
-				<h2>旅費統計</h2>
+				<h2>旅費統計</h2><br>
+				<h4>${tra_Name}</h4>
 			</div>
 		</div>
 		<div class='row'>
 			<div class='col-md-10 col-md-offset-1'>
 				<form action="<c:url value='/TotalAmountServlet' />" method="POST">
 					<div>
-						<textarea name="tra_Name" class="tra_Name" readonly>${tra_Name}</textarea>
+						
 					</div>
 					<input type="hidden" name="tra_No" class="tra_No" value="${tra_No}">
+					<input type="hidden" name="tra_Name" class="tra_Name" value="${tra_Name}">
 
 					<ul class="pagination">
 						<li class="active pagenumber" onclick="changepage(this)"
