@@ -416,26 +416,43 @@ text-align: center;
 				var url = result + "/FamilyServlet";
 				var ajaxfamid ={"ajaxfamid":$(this).closest("tr").find("input[name='famid']").val()};
 				console.log(ajaxfamid);
+				var famid = $(this).closest("tr").find("input[name='famid']").val()
 				
-				$.ajax({
-					type:"POST",url:url,data:ajaxfamid,dataType:"text",
-						success:function(r){
-								if(r.indexOf("not")!= -1 ){
-									console.log(r);
-									alert("此筆親屬人已經報名行程，不可刪除");
-								}else{
-										$("#familytable").on("mouseup", "input[name='delete']",function xx(){
+				
+// 				if($(this).closest("tr").find("input[name='famid']").val() == null){
+// 					console.log("xxxxxxxxxxxxx");
+// 					if(window.confirm("確定取消嗎?")){
+// 						if( $("#errorcount").val(1)){
+// 							$(this).parents("tr").remove();
+// 							$("#errorcount").val(0);
+// 						}
+// 					}
+// 				}else{
+					$.ajax({
+						type:"POST",url:url,data:ajaxfamid,dataType:"text",
+							success:function(r){
+									if(r.indexOf("not")!= -1 ){
+										console.log(r);
+										alert("此筆親屬人已經報名行程，不可刪除");
+										return false;
+									}
+									else{
+										$("#familytable input[name='delete']").click(function(){
+	// 										$("#familytable input[name='delete']").mouseup(function(){
 											if(window.confirm("確定取消嗎?")){
 												if( $("#errorcount").val(1)){
 													$(this).parents("tr").remove();
 													$("#errorcount").val(0);
-													
 												}
 											}
-										});
-								}
-						}
-				})
+										})
+									}
+									
+							}
+					})
+// 				}
+				
+				
 			})
 			
 			
@@ -463,6 +480,35 @@ text-align: center;
 			
 				$("#save").click(function(){
 // 					$("#save").attr("type","submit");
+
+					if($(".repeat input[name*='famname']").val()==""){
+						alert("親屬姓名不能為空白");
+						$("#errorcount").val(1);
+					}else if($(".repeat input[name*='famid']").val()==""){
+						alert("親屬身分證不能為空白");
+						$("#errorcount").val(1);
+					}else if($(".repeat input[name*='fambdate']").val()==""){
+						alert("親屬生日不能為空白");
+						$("#errorcount").val(1);
+					}else if($(".repeat input[name*='famphone']").val()==""){
+						alert("親屬手機不能為空白");
+						$("#errorcount").val(1);
+					}else if($(".repeat input[name*='famben']").val()==""){
+						alert("親屬保險受益人不能為空白");
+						$("#errorcount").val(1);
+					}else if($(".repeat input[name*='fambenrel']").val()==""){
+						alert("親屬保險受益人關係不能為空白");
+						$("#errorcount").val(1);
+					}else if($(".repeat input[name*='famemg']").val()==""){
+						alert("親屬緊急聯絡人不能為空白");
+						$("#errorcount").val(1);
+					}else if($(".repeat input[name*='famemgrel']").val()==""){
+						alert("親屬緊急聯絡人關係不能為空白");
+						$("#errorcount").val(1);
+					}else if($(".repeat input[name*='famemgphone']").val()==""){
+						alert("親屬緊急聯絡人電話不能為空白");
+						$("#errorcount").val(1);
+					}
 
 // 					判斷資料有沒有輸入正確 
 					if($("#errorcount").val()=="1"){
@@ -922,34 +968,34 @@ text-align: center;
 // 					//??無親屬抓進去
 // 				}
 			
-				if($(".repeat input[name*='famname']").val()==""){
-					alert("親屬姓名不能為空白");
-					$("#errorcount").val(1);
-				}else if($(".repeat input[name*='famid']").val()==""){
-					alert("親屬身分證不能為空白");
-					$("#errorcount").val(1);
-				}else if($(".repeat input[name*='fambdate']").val()==""){
-					alert("親屬生日不能為空白");
-					$("#errorcount").val(1);
-				}else if($(".repeat input[name*='famphone']").val()==""){
-					alert("親屬手機不能為空白");
-					$("#errorcount").val(1);
-				}else if($(".repeat input[name*='famben']").val()==""){
-					alert("親屬保險受益人不能為空白");
-					$("#errorcount").val(1);
-				}else if($(".repeat input[name*='fambenrel']").val()==""){
-					alert("親屬保險受益人關係不能為空白");
-					$("#errorcount").val(1);
-				}else if($(".repeat input[name*='famemg']").val()==""){
-					alert("親屬緊急聯絡人不能為空白");
-					$("#errorcount").val(1);
-				}else if($(".repeat input[name*='famemgrel']").val()==""){
-					alert("親屬緊急聯絡人關係不能為空白");
-					$("#errorcount").val(1);
-				}else if($(".repeat input[name*='famemgphone']").val()==""){
-					alert("親屬緊急聯絡人電話不能為空白");
-					$("#errorcount").val(1);
-				}
+// 				if($(".repeat input[name*='famname']").val()==""){
+// 					alert("親屬姓名不能為空白");
+// 					$("#errorcount").val(1);
+// 				}else if($(".repeat input[name*='famid']").val()==""){
+// 					alert("親屬身分證不能為空白");
+// 					$("#errorcount").val(1);
+// 				}else if($(".repeat input[name*='fambdate']").val()==""){
+// 					alert("親屬生日不能為空白");
+// 					$("#errorcount").val(1);
+// 				}else if($(".repeat input[name*='famphone']").val()==""){
+// 					alert("親屬手機不能為空白");
+// 					$("#errorcount").val(1);
+// 				}else if($(".repeat input[name*='famben']").val()==""){
+// 					alert("親屬保險受益人不能為空白");
+// 					$("#errorcount").val(1);
+// 				}else if($(".repeat input[name*='fambenrel']").val()==""){
+// 					alert("親屬保險受益人關係不能為空白");
+// 					$("#errorcount").val(1);
+// 				}else if($(".repeat input[name*='famemg']").val()==""){
+// 					alert("親屬緊急聯絡人不能為空白");
+// 					$("#errorcount").val(1);
+// 				}else if($(".repeat input[name*='famemgrel']").val()==""){
+// 					alert("親屬緊急聯絡人關係不能為空白");
+// 					$("#errorcount").val(1);
+// 				}else if($(".repeat input[name*='famemgphone']").val()==""){
+// 					alert("親屬緊急聯絡人電話不能為空白");
+// 					$("#errorcount").val(1);
+// 				}
 // 				$("#save").attr("type","submit"); //暗下新增鍵後再執行submit動作
 			})
 				
