@@ -87,7 +87,6 @@ table {
 					td = document.createElement("td");
 					a.setAttribute("href", result + "/BoardShow.jsp?anno_Time="
 							+ board[i].time);
-					// 					a.setAttribute("style","width:500px;");
 					a.appendChild(document.createTextNode(board[i].title));
 					if (board[i].important == 1) {
 						a.setAttribute("style", "color:red");

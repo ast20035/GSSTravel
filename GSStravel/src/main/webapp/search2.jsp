@@ -69,9 +69,11 @@
 			alert("Your browser doesn't support JSON!");
 		}
 	}
+	var excelData = null;
 	function ajaxReturn() {
 		if (xh.readyState == 4)
 			if (xh.status == 200) {
+				excelData = xh.responseText;
 				var travel = JSON.parse(xh.responseText);
 				var myBody = document.querySelector(".table>tbody");
 				while (myBody.hasChildNodes()) {
@@ -132,6 +134,11 @@
 
 			}
 	}
+
+	function excelFunction() {
+		$('#excel').val(excelData);
+		$('#printExcel').submit();
+	}
 </script>
 </head>
 
@@ -191,7 +198,6 @@
 								<option>西</option>
 								<option>南</option>
 								<option>北</option>
-
 							</select>
 						</div>
 						<br>
@@ -200,19 +206,24 @@
 				<div class='row'>
 					<div class='col-md-offset-1 col-md-2'>
 						<div class='btn-group'>
-							<input type="button" value="查詢" onclick="search()"
-								class='btn btn-primary' /> <input class='btn btn-primary'
-								type="reset"> <input type="submit"
-								class='btn btn-primary' name="excel" value="匯出Excel" />
+							<input type="button" value="查詢" onclick="search()" class='btn btn-primary' />
+							<input class='btn btn-primary' type="reset">
+							<input type="button" name="excel" onclick='excelFunction()' class='btn btn-primary' value="匯出Excel" />
 						</div>
 					</div>
 					<div class='col-md-offset-1 col-md-1'>
-					<input type="button" value="新增" onclick='window.location.href=resultjs+"/NewTravel";'
-								class='btn btn-success' /> 
+						<input type="button" value="新增"
+							onclick='window.location.href=resultjs+"/NewTravel";'
+							class='btn btn-success' />
 					</div>
 				</div>
 			</form>
+			<form id="printExcel" action=<c:url value="/TravelExcel"/> method="GET">
+				<input type="hidden" id="excel" name="excel" value="">
+			</form>
 		</fieldset>
+
+		<form action=<c:url value="/Travel_Edit"/> method="GET"></form>
 
 		<div class='row'>
 			<div class='col-md-1'></div>

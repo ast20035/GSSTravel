@@ -87,6 +87,7 @@ td>strong {
 				alert("很抱歉，您的瀏覽器不支援AJAX功能！");
 			}
 		}
+		
 		function callback() {
 			if (xhr.readyState == 1) {
 				close1.removeAttribute("href");
@@ -109,7 +110,7 @@ td>strong {
 				close4.setAttribute("href","<c:url value='/FineSetting.jsp'/>");
 				close5.setAttribute("href","<c:url value='/search1.jsp'/>");
 				close6.setAttribute("href","<c:url value='/BoardMaintain.jsp'/>");
-				close7.setAttribute("href","<c:url value='/TaCo_Q&A_EightLegs'/>");
+				close7.setAttribute("href","<c:url value='/QandAServlet'/>");
 				close8.disabled = false;
 				closeFine.disabled = false;
 				myImg.style.display = "none";
