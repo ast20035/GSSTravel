@@ -31,15 +31,26 @@ public class QandAInsertServlet extends HttpServlet {
 			QandAVO bean = new QandAVO();
 			String temp= request.getParameter("Question_No");
 			String tra_No=request.getParameter("Select");
-			
+			String temp2= request.getParameter("radio");
 			String Qestion_Title = request.getParameter("Qestion_Title");
 			String Qestion_Text = request.getParameter("Qestion_Text");
 			int Question_No = Integer.parseInt(temp);
-			
+			boolean question_secret=Boolean.parseBoolean(temp2);
+			if(Qestion_Title.trim().length()==0){
+				Msg.put("message", "詢問標題不可為空值");
+				request.getRequestDispatcher("/QandAServlet?prodaction=question&role=false").forward(request, response);
+				return;
+			}
+			if(Qestion_Text.trim().length()==0){
+				Msg.put("message", "詢問內容不可為空值");	
+				request.getRequestDispatcher("/QandAServlet?prodaction=question&role=false").forward(request, response);
+				return;
+			}
 			bean.setQuestion_No(Question_No);
 			bean.setTra_No(tra_No);
 			bean.setQuestion_Title(Qestion_Title);
 			bean.setQuestion_Text(Qestion_Text);
+			bean.setQuestion_secret(question_secret);
 			b=QAService.insertQuestion(bean);
 			if(b){
 				Msg.put("message", "詢問成功，請等候福委會通知");
@@ -58,7 +69,11 @@ public class QandAInsertServlet extends HttpServlet {
 			String answer_Text=request.getParameter("answer_Text");
 			int qa_No=Integer.parseInt(temp);
 			int answer_No=Integer.parseInt(temp2);
-			
+			if(answer_Text.trim().length()==0){
+				Msg.put("message", "回應欄不可為空值");
+				request.getRequestDispatcher("/QandAServlet?prodaction=select&role=true&qa_No="+qa_No).forward(request, response);
+				return;
+			}
 			bean.setQa_No(qa_No);
 			bean.setAnswer_No(answer_No);
 			bean.setAnswer_Text(answer_Text);

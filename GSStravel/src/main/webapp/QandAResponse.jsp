@@ -103,6 +103,11 @@ textarea {
 	</div>
 </body>
 <script type="text/javascript">
+
+	if(${Msg!=null}){
+		alert("${Msg.message}");
+	}
+	
 	$(".displayclass").hide();
 	$(".displaybutton").hide();
 	var Ans_textarea;

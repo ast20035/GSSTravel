@@ -32,6 +32,12 @@
 				<td><input type="text" class="Qestion_Title" name="Qestion_Title"></td>
 			</tr>
 			<tr>
+				<td colspan="2">
+					<input type="radio" name="radio" value="false" checked="checked">公開
+					<input type="radio" name="radio" value="true">私密
+				</td>
+			</tr>
+			<tr>
 				<th>留言內容</th>
 				<td><textarea class="Qestion_Text" name="Qestion_Text"></textarea></td>
 			</tr>
@@ -41,6 +47,9 @@
 	</form>
 </body>
 <script type="text/javascript">
+if(${Msg!=null}){
+	alert("${Msg.message}");
+}
 $(".Qestion_Title").blur(function(){
 	$(".Qestion_Title").removeClass("color-green");
 	$(".Qestion_Title").removeClass("color-red");
