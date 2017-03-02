@@ -33,14 +33,6 @@
 				</td>
 			</tr>
 		</table>
-		<c:if test="${emp_Role eq true}">
-			<button type="button" class="notdisplaybutton" onclick="updateData()">修改</button>
-			<button type="submit" class="displaybutton" name="prodaction" value="updateAnswer">確認修改</button>
-			<button type="button" class="displaybutton" onclick="cancel()">取消修改</button>
-		</c:if>
-				<button type="button" class="notdisplaybutton" onclick="checkdelete()">刪除</button>
-		<button type="button" onclick="window.location = '/GSStravel/QandAServlet';">回上一頁</button>
-
 	</c:if>
 	<br />
 	<c:if test="${emp_Role eq true}">
@@ -55,10 +47,17 @@
 			</div>
 			<button type="button" class="notdisplayclass" onclick="Resopse()">我要回應</button>
 			<button type="submit" name="prodaction" value="insertAnswer" class="displayclass">回應</button>
-			<button type="button" onclick="window.location = '/GSStravel/QandAServlet';">回上一頁</button>
-		</c:if>
+		</c:if>		
+	</c:if>
+	
+	<c:if test="${(emp_Role eq true)&&(list.answer_No!=0)}">
+			<button type="button" class="notdisplaybutton" onclick="updateData()">修改</button>
+			<button type="submit" class="displaybutton" name="prodaction" value="updateAnswer">確認修改</button>
+			<button type="button" class="displaybutton" onclick="cancel()">取消修改</button>
+			<button type="button" class="notdisplaybutton" onclick="checkdelete()">刪除</button>
 	</c:if>
 	</form>
+	<button type="button" onclick="window.location = '/GSStravel/QandAServlet';">回上一頁</button>
 </body>
 <script type="text/javascript">
 	$(".displayclass").hide();

@@ -462,8 +462,9 @@ table {
 					$(".name").val(Msg.emp_Name);
 					if (Msg.fam_Name != null) {
 						var fam_Name = jQuery.parseJSON(Msg.fam_Name);
+						var fam_No = jQuery.parseJSON(Msg.fam_Nos);
 						$.each(fam_Name, function(key, value) {
-							$("#select").append($("<option></option>").attr("class", 'fam_name').text(fam_Name[key]));
+							$("#select").append($("<option></option>").attr("class", 'fam_name').text(fam_No[key]+"/"+fam_Name[key]));	
 						});
 						$("#select").append($("<option></option>").attr("class", 'fam_name').text("其他"));
 					}
