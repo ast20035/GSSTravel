@@ -62,7 +62,8 @@ form {
 }
 </style>
 </head>
-<body style="background-color:transparent">
+<body>
+<img src="images/Travel.jpg" id="backPic">
 	<div class='container-fluid active'>
 		<div class='row' id='title'>
 		<div class='col-lg-4' ></div>
@@ -71,7 +72,6 @@ form {
 			</div>
 			<!-- 			<div class='col-lg-10'></div> -->
 		</div>
-
 		<form method="POST" action=<c:url value="/login.do" />
 			id="login.do" role='form' class='form-horizontal form-signin'>
 			<div class='form-group'>
@@ -97,6 +97,5 @@ form {
 			</div>
 		</form>
 	</div>
-	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>
