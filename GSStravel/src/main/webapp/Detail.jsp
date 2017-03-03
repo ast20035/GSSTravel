@@ -21,6 +21,14 @@
 	crossorigin="anonymous"></script>
 <title>報名明細</title>
 <style>
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 td,th{
 padding: 10px;
 border:1px solid #DDDDDD;
@@ -581,5 +589,6 @@ function dataSelect(){
 }
 		</script>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>

@@ -21,16 +21,27 @@
 <link rel="stylesheet" type="text/css" href="" />
 <title>公告</title>
 <style>
-table {
-	border-bottom: 1px solid #DDDDDD;
-}
-iframe{
-margin-left: -100px;
-z-index: 10;
-}
-#QA{
-margin-left: -100px;
-}
+	#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
+	body{
+		background: rgba(100%,100%,100%,0.6);
+	}
+	table {
+		border-bottom: 1px solid #DDDDDD;
+	}
+	iframe{
+		margin-left: -100px;
+		z-index: 10;
+	}
+	#QA{
+		margin-left: -100px;
+	}
 </style>
 <script>
 	window.onload = function() {
@@ -100,6 +111,7 @@ margin-left: -100px;
 						a.setAttribute("style", "color:red");
 						var img = document.createElement("img");
 						img.setAttribute("src", "images/important.gif");
+						img.setAttribute("style", "background-color:transparent");
 						td.appendChild(img);
 					}
 					if (board[i].important == 2) {
@@ -181,11 +193,12 @@ margin-left: -100px;
 			</div>
 			<div class='col-md-offset-1 col-md-5'>
 				<h4 style='color: #FF5511;' id='QA'>Q&A</h4>
-				<iframe src="<c:url value='/QandAServlet?role=false' />" frameborder="0" width="800px"
+				<iframe src="<c:url value='/QandAServlet?role=false' />" frameborder="0" width="800px" 
 					marginwidth="2px" height="600px"></iframe>
 			</div>
 		</div>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 <script>
 	var i;

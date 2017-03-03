@@ -19,6 +19,16 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <title>旅費統計</title>
+<style type="text/css">
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
+</style>
 <script>
 var Error="<%=session.getAttribute("nopeople")%>";
 <%session.removeAttribute("nopeople");%>
@@ -235,5 +245,6 @@ var Error="<%=session.getAttribute("nopeople")%>";
 			<div class='col-md-1'></div>
 		</div>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>

@@ -21,6 +21,14 @@
 <link rel="stylesheet" type="text/css" href="" />
 <title>公告維護</title>
 <style>
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 table {
 	border-bottom: 1px solid #DDDDDD;
 }
@@ -105,6 +113,7 @@ table {
 						a.setAttribute("style", "color:red");
 						var img = document.createElement("img");
 						img.setAttribute("src", "images/important.gif");
+						img.setAttribute("style", "background-color:transparent");
 						td.appendChild(img);
 					}
 					if (board[i].important == 2) {
@@ -224,6 +233,7 @@ table {
 			</div>
 		</div>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 <script>
 	var i;

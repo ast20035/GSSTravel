@@ -21,6 +21,14 @@
 <link rel="stylesheet" type="text/css" href="" />
 <title>公告維護</title>
 <style type="text/css">
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 .container-fluid {
 	font-size: 20px;
 }
@@ -99,5 +107,6 @@ input, textarea {
 			</div>
 		</div>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>

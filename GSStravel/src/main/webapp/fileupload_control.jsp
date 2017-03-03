@@ -6,6 +6,16 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
+</style>
 <script src='js/jquery-3.1.1.min.js'></script>
 </head>
 <script type="text/javascript">
@@ -28,6 +38,7 @@
 		</p>
 	</form>
 	<h3>資料大小不能超過100MB,檔案格式必須是".txt .pdf .doc .ppt .xls .csv .dbf .gif .jpg .jpeg .png .swf .htm .html .zip .rar"</h3>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 <script type="text/javascript">	
 	var search2 = "<c:url value='/CancelFile?tra_No=${tra_No}&tra_Name=${tra_Name}'/>"

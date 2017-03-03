@@ -23,6 +23,14 @@
 	
 </script>
 <style type="text/css">
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 .t {
 	border: 1px solid black;
 }
@@ -138,5 +146,6 @@ table {
 			<div class='col-lg-1'></div>
 		</div>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>
