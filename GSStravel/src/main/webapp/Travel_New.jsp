@@ -168,7 +168,7 @@ h2 {
 										<div class="Input-group">
 											<label>開始日期</label> <input type="" name="edittraOn"
 												id="edittraOn" class='form-control' style='width: 150px;'
-												value="2020-01-01" readonly>
+												readonly>
 											<div id = edittraOnerror></div>
 
 
@@ -180,7 +180,7 @@ h2 {
 										<div class="Input-group">
 											<label>結束日期</label> <input type="" class='form-control'
 												style='width: 150px;' name="edittraOff" id="edittraOff"
-												value="2020-01-01" readonly>
+												readonly>
 											<div id= edittraOfferror></div>
 										</div>
 									</div>
