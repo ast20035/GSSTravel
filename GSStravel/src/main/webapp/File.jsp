@@ -2,9 +2,9 @@
 <%@ page import="java.io.*,java.net.*"%>
 <%
 
-	String tra_Name=request.getParameter("tra_Name");
+	String tra_File=request.getParameter("tra_File");
     String path = "C:\\travel\\";                    //檔案主要放置目錄
-    String filename = tra_Name+".xls";                   //檔案名
+    String filename = tra_File;                   //檔案名
     filename = new String(filename.getBytes("UTF-8"),"UTF-8");
    
     File file = new File(path+filename);
