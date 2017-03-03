@@ -135,7 +135,7 @@ margin-left: -100px;
 				$page = $(".page");
 				light(i.val());
 			} else {
-				alert(xh.status + ":" + xh.statusText);
+				alert("伺服器忙線中！");
 			}
 		}
 	}
@@ -159,7 +159,7 @@ margin-left: -100px;
 			<div class='col-md-offset-1 col-md-5'>
 				<h4 style='color: #FF5511; font-weight: bold;'>公告</h4>
 				<select id="day" name="day" onchange="optionTime()"
-					class='form-control' style='width: 150px;'>
+					class='form-control' style='width: 160px;'>
 					<option value="365">過去1年的公告</option>
 					<option value="183">過去半年的公告</option>
 					<option value="91">過去3個月的公告</option>

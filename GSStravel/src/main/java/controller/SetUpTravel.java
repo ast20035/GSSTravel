@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.AnnouncementService;
 import model.ItemService;
@@ -32,6 +33,7 @@ public class SetUpTravel extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		String tra_File = request.getParameter("file");
 		String tra_No = request.getParameter("edittraNO");
 		String tra_Name = new String(request.getParameter("edittraName").getBytes("iso-8859-1"), "utf-8");
 		String tra_Loc = new String(request.getParameter("edittraLoc").getBytes("iso-8859-1"), "utf-8");
@@ -44,7 +46,6 @@ public class SetUpTravel extends HttpServlet {
 		String tra_Intr = new String(request.getParameter("edittraIntr").getBytes("iso-8859-1"), "utf-8");
 		String tra_Con = new String(request.getParameter("edittraCon").getBytes("iso-8859-1"), "utf-8");
 		String tra_Atter = new String(request.getParameter("edittraAtter").getBytes("iso-8859-1"), "utf-8");
-		String tra_File = new String(request.getParameter("edittraFile").getBytes("iso-8859-1"), "utf-8");
 		String[] rooms = request.getParameterValues("edititemName");
 		String[] roomsMoney = request.getParameterValues("edititemMoney");
 
@@ -74,6 +75,10 @@ public class SetUpTravel extends HttpServlet {
 		int ckItem2 = 0;
 		int ckRoom = 0;
 		List<String> error = new ArrayList<>();
+
+		if (tra_File.equals("")) {
+			tra_File = "無";
+		}
 
 		if (tra_Name.trim() == "" || tra_Name == null) {
 			error.add("旅遊名稱不能為空");
@@ -195,9 +200,9 @@ public class SetUpTravel extends HttpServlet {
 		if (tra_Atter.trim() == "" || tra_Atter == null) {
 			tra_Atter = "無";
 		}
-		if (tra_File.trim() == "" || tra_File == null) {
-			tra_File = "無";
-		}
+		// if (tra_File.trim() == "" || tra_File == null) {
+		// tra_File = "無";
+		// }
 		if (item1.trim() == "" || item1 == null) {
 			error.add("團費不能為空");
 		} else {
@@ -300,16 +305,24 @@ public class SetUpTravel extends HttpServlet {
 				item_No++;
 			}
 		}
-		request.setAttribute("tra_No", tra_No);
-		request.setAttribute("tra_Name", tra_Name);
 		
+		HttpSession session = request.getSession();
+		session.setAttribute("tra_No", tra_No);
+		session.setAttribute("tra_Name", tra_Name);
+
 		// 新增公告
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:24小時制
 		Date date = new Date();
 		String now = sdFormat.format(date);// 取得現在時間
-		announcementService.insert(now, "新增"+tra_Name+"行程", tra_Con, "2");
+		announcementService.insert(now, "新增" + tra_Name + "行程", tra_Con, "2");
+		if (tra_File.equals("無")) {
+			request.getRequestDispatcher("/SetUpTravel.jsp").forward(request, response);			
+			return;
+		}else{
+			request.getRequestDispatcher("/fileupload_control.jsp").forward(request, response);
+			return;
+		}
 		
-		request.getRequestDispatcher("/SetUpTravel.jsp").forward(request, response);
 
 	}
 
