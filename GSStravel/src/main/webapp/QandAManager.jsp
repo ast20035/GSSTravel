@@ -69,20 +69,10 @@ input[type='text'] {
 						</c:if>
 					</div>
 					<br>
-					<select class='form-control' style='width: 120px;'
-						onchange="window.location = '/GSStravel/QandAServlet?role=true&prodaction='+this.value;">
-						<option value="all"
-							<%if ("all".equals(prodaction)) {
-					out.print("selected");
-				}%>>顯示全部</option>
-						<option value="yes"
-							<%if ("yes".equals(prodaction)) {
-					out.print("selected");
-				}%>>顯示已回應</option>
-						<option value="no"
-							<%if ("no".equals(prodaction)) {
-					out.print("selected");
-				}%>>顯示未回應</option>
+					<select class='form-control' style='width: 120px;' onchange="window.location = '/GSStravel/QandAServlet?role=true&prodaction='+this.value;">
+						<option class="select" value="all" <%if ("all".equals(prodaction)) { out.print("selected"); }%>>顯示全部</option>
+						<option class="select" value="yes" <%if ("yes".equals(prodaction)) { out.print("selected"); }%>>顯示已回應</option>
+						<option class="select" value="no" <%if ("no".equals(prodaction)) { out.print("selected"); }%>>顯示未回應</option>
 					</select>
 					<br />
 					<c:if test="${list.size()!=0}">
@@ -141,7 +131,10 @@ input[type='text'] {
 					</ul>
 				</c:if>
 				<c:if test="${list.size()==0}">
-					<h2>目前尚無留言~</h2>
+					<%if ("all".equals(prodaction)) { out.print("<h2>現在尚無留言</h2>"); }%>
+					<%if ("yes".equals(prodaction)) { out.print("<h2>全部皆無回應</h2>"); }%>
+					<%if ("no".equals(prodaction)) { out.print("<h2>全部皆已回應</h2>"); }%>
+					
 				</c:if>
 				<br />
 				<c:if test="${emp_Role eq false}">
@@ -200,6 +193,5 @@ input[type='text'] {
 		}
 	}
 	</script>
-
 </body>
 </html>
