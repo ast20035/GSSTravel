@@ -19,7 +19,16 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <title>行程維護</title>
-
+<style type="text/css">
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
+</style>
 <script>
 	window.onload = function() {
 		var id = document.getElementById('id');
@@ -138,6 +147,7 @@
 	function excelFunction() {
 		$('#excel').val(excelData);
 		$('#printExcel').submit();
+		
 	}
 </script>
 </head>
@@ -171,13 +181,13 @@
 					<div class='col-md-1'></div>
 					<div class='col-md-2'>
 						<div class='input-group'>
-							<span class="input-group-addon info" id="sizing-addon1">活動代碼:</span><input
+							<span class="input-group-addon info" id="sizing-addon1">活動代碼</span><input
 								type='text' id='id' value='' aria-describedby="sizing-addon1"
 								class='form-control' />
 						</div>
 						<br>
 						<div class='input-group'>
-							<span class="input-group-addon info" id="sizing-addon2">活動名稱:</span>
+							<span class="input-group-addon info" id="sizing-addon2">活動名稱</span>
 							<input type='text' id='tra_name' value=''
 								aria-describedby="sizing-addon2" class='form-control' />
 						</div>
@@ -191,13 +201,14 @@
 						</div>
 						<br>
 						<div class='input-group select'>
-							<span class="input-group-addon info" id="sizing-addon3">活動地點:</span>
+							<span class="input-group-addon info" id="sizing-addon3">活動地點</span>
 							<select class="multiselect" name="loca" multiple="multiple"
 								data-placeholder="請選擇" style="width: 300px;">
-								<option>東</option>
-								<option>西</option>
-								<option>南</option>
 								<option>北</option>
+								<option>中</option>
+								<option>南</option>
+								<option>東</option>
+								<option>外島</option>
 							</select>
 						</div>
 						<br>
@@ -249,5 +260,6 @@
 			<div class='col-md-1'></div>
 		</div>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>

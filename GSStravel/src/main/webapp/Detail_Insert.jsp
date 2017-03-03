@@ -23,6 +23,14 @@
 <title>報名明細新增</title>
 
 <style>
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 input[type='text'] {
 	width: 150px;
 }
@@ -189,6 +197,7 @@ table {
 			</div>
 		</div>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 <link rel="stylesheet"
 	href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />

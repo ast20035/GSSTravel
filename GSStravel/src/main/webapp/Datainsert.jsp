@@ -7,6 +7,14 @@
 <html>
 <head>
 <style>
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 tr>td {
 	padding-top: 3px;
 	padding-bottom: 3px;
@@ -309,7 +317,7 @@ text-align: center;
 <%-- 										<div class="famemgerror">${error.famemg}</div> --%>
 										</td>
 									<td><input type="text" name="famemgphpone"
-										style='width: 90px;' class='form-control' id="famemgphone"
+										style='width: 110px;' class='form-control' id="famemgphone"
 										value="${start.fam_EmgPhone}">
 <%-- 										<div class="famemgphoneerror">${error.famemgphone}</div> --%>
 										</td>
@@ -1274,6 +1282,7 @@ text-align: center;
 		</script>
 
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 
 </html>

@@ -10,6 +10,14 @@ public class QandAVO {
 	private int answer_No;
 	private String answer_Text;
 	private String answer_Time;
+	private boolean question_secret;
+	
+	public boolean getQuestion_secret() {
+		return question_secret;
+	}
+	public void setQuestion_secret(boolean question_secret) {
+		this.question_secret = question_secret;
+	}
 	public String getTra_No() {
 		return tra_No;
 	}

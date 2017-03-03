@@ -21,4 +21,5 @@ public interface ITravelDAO {
 	public List<TravelVO> endTravel();
 	public List<TravelVO> entrtTravel(Integer emp_No);
 	public void deleteTravel(String tra_No) ;
+	public void updateraFile(String tra_File,String tra_No);
 }

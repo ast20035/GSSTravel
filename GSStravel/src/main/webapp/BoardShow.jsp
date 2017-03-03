@@ -21,6 +21,14 @@
 <link rel="stylesheet" type="text/css" href="" />
 <title>公告內容</title>
 <style>
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 .container-fluid {
 	font-size: 20px;
 }
@@ -84,7 +92,7 @@ h2 {
 					time.setAttribute("name", "time");
 					time.setAttribute("readonly", "");
 
-					time.setAttribute("style", "font-size:17px");
+					time.setAttribute("style", "font-size:17px;width:470px;");
 					time.setAttribute("value", board[i].time);
 					div1.appendChild(time);
 
@@ -98,7 +106,7 @@ h2 {
 					title.setAttribute("name", "title");
 					title.setAttribute("readonly", "");
 
-					title.setAttribute("style", "font-size:17px");
+					title.setAttribute("style", "font-size:17px;width:470px;");
 					title.setAttribute("value", board[i].title);
 					div1.appendChild(title);
 
@@ -121,7 +129,7 @@ h2 {
 					body.appendChild(div1);
 				}
 			} else {
-				alert(xh.status + ":" + xh.statusText);
+				alert("伺服器忙線中！");
 			}
 		}
 	}
@@ -148,5 +156,6 @@ h2 {
 			</div>
 		</div>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>

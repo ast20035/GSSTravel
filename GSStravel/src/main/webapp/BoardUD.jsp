@@ -21,6 +21,14 @@
 <link rel="stylesheet" type="text/css" href="" />
 <title>公告編輯</title>
 <style type="text/css">
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 .container-fluid {
 	font-size: 20px;
 }
@@ -101,18 +109,6 @@ h2 {
 				for (var i = 0; i < board.length; i++) {
 					var div1 = document.createElement("div");
 					var div2 = document.createElement("div");
-// 					div2.appendChild(document.createTextNode("公告時間"));
-// 					div2.setAttribute("class", "dclassfirst");
-// 					div1.appendChild(div2);
-
-// 					var time = document.createElement("input");
-// 					time.setAttribute("type", "text");
-// 					time.setAttribute("id", "time");
-// 					time.setAttribute("name", "time");
-// 					time.setAttribute("class", "form-control");
-// 					time.setAttribute("style", "font-size:17px");
-// 					time.setAttribute("value", board[i].time);
-// 					div1.appendChild(time);
 
 					div2 = document.createElement("div");
 					div2.appendChild(document.createTextNode("公告標題"));
@@ -125,6 +121,7 @@ h2 {
 					title.setAttribute("name", "title");
 					title.setAttribute("class", "form-control");
 					title.setAttribute("style", "font-size:17px");
+					title.setAttribute("autocomplete", "off");
 					title.setAttribute("value", board[i].title);
 
 					div1.appendChild(title);
@@ -142,6 +139,7 @@ h2 {
 					textarea.setAttribute("class", "form-control");
 					textarea.setAttribute("style",
 							"font-size:17px; resize:none;");
+					textarea.setAttribute("autocomplete", "off");
 					textarea.appendChild(document
 							.createTextNode(board[i].content));
 					div1.appendChild(textarea);
@@ -149,7 +147,7 @@ h2 {
 					body.appendChild(div1);
 				}
 			} else {
-				alert(xh.status + ":" + xh.statusText);
+				alert("伺服器忙線中！");
 			}
 		}
 	}
@@ -169,6 +167,19 @@ h2 {
 			important.style.color = "red";
 		}
 	}
+
+	function check() {
+		var title = document.getElementById("title");
+		var content = document.getElementById("content");
+		if (title.value == "") {
+			alert("請輸入公告標題！");
+		} else if (content.value == "") {
+			alert("請輸入公告內容！");
+		} else {
+			$("#update").val("儲存");
+			$("#updateData").submit();
+		}
+	}
 </script>
 </head>
 <body>
@@ -186,7 +197,7 @@ h2 {
 		<br> <br>
 		<div class='row'>
 			<div class='col-md-offset-3 col-md-4'>
-				<form action="<c:url value="/AnnouncementUDServlet" />" method="GET">
+				<form id="updateData" action="<c:url value="/AnnouncementUDServlet" />" method="GET">
 					<c:if test="${important==1}">
 						<select id="day" name="day" onchange="optionTime()"
 							class='form-control' style='width: 150px; color: red'>
@@ -203,15 +214,16 @@ h2 {
 					</c:if>
 					<div id="boardDiv"></div>
 					<div class='dclasslast'>
-						<input type="submit" value="儲存" name="update"
-							class='btn btn-success' /> <input type="submit" value="刪除"
-							name="delete" class='btn btn-danger' /> <input type="button"
-							class='btn btn-primary' value='回上一頁'
+						<input type="button" value="儲存" class='btn btn-success' onclick="check()" />
+						<input type="hidden" value="" id="update" name="update" />
+						<input type="submit" value="刪除" name="delete" class='btn btn-danger' />
+						<input type="button" class='btn btn-primary' value='回上一頁'
 							onclick='window.location.href="BoardMaintain.jsp"'>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>

@@ -21,6 +21,14 @@
 	crossorigin="anonymous"></script>
 <title>罰則一覽表</title>
 <style>
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 td, th {
 	border: 2px outset black;
 	text-align: center;
@@ -102,7 +110,6 @@ td>strong {
 				myImg.style.display = "inline";
 				fineEmail.setAttribute("disabled", "disabled");
 				wait();
-// 				fineEmail.value = "Email寄送中...";
 			} else if (xhr.readyState == 4) {
 				close1.setAttribute("href","<c:url value='/Board.jsp'/>");
 				close2.setAttribute("href","<c:url value='/search2.jsp'/>");
@@ -255,5 +262,6 @@ td>strong {
 			</div>
 		</form>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>

@@ -35,7 +35,6 @@ public class EmployeeDAO implements IEmployeeDAO {
 	private static final String years = "select * from Year";
 	private static final String updateYear = "update Year set year=?";
 	private static final String updateEmp = "update Employee set emp_Sub=? , emp_SubTra = ?";
-	private static final String Fine_Email = "SELECT emp_Mail FROM Employee";// 柯
 
 	public void updateEmp() {
 		try (Connection conn = ds.getConnection(); PreparedStatement stmt = conn.prepareStatement(updateEmp);) {
@@ -205,7 +204,7 @@ public class EmployeeDAO implements IEmployeeDAO {
 	public List<EmployeeVO> selectFineEmail() {
 		List<EmployeeVO> result = null;
 		try (Connection conn = ds.getConnection();
-				PreparedStatement stmt = conn.prepareStatement(Fine_Email);
+				PreparedStatement stmt = conn.prepareStatement(selectEmail);
 				ResultSet rset = stmt.executeQuery();) {
 			result = new ArrayList<EmployeeVO>();
 			while (rset.next()) {

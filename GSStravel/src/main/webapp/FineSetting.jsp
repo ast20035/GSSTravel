@@ -22,6 +22,14 @@
 <link rel="stylesheet" type="text/css" href="" />
 <title>罰則設定</title>
 <style>
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 	input {
 		text-align: center;
 	}
@@ -130,7 +138,7 @@
 					body.appendChild(tr);
 				}
 			} else {
-				alert(xh.status + ":" + xh.statusText);
+				alert("伺服器忙線中！");
 			}
 		}
 	}
@@ -271,5 +279,6 @@
 			</div>
 		</form>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>

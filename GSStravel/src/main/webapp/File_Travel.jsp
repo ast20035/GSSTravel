@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.io.*,java.net.*"%>
 <%
-
-	String tra_File=request.getParameter("tra_File");
     String path = "C:\\travel\\";                    //檔案主要放置目錄
-    String filename = tra_File;                   //檔案名
+    String filename = "旅遊行程.xls";                   //檔案名
     filename = new String(filename.getBytes("UTF-8"),"UTF-8");
    
     File file = new File(path+filename);
@@ -32,4 +30,5 @@
         out.println(filename+" : 此檔案不存在");
         out.println("<br/>");
     }
+    return;
 %>

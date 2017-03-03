@@ -19,6 +19,16 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <title>報名取消</title>
+<style type="text/css">
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
+</style>
 </head>
 <body onLoad="setTimeout(window.close, 1000)"  onunload=unLoad();>
 	<div class='container-fluid'>取消成功！</div>
@@ -31,5 +41,6 @@
 	    window.opener.location.href = result + "/detail?tra_no=" + ${det_canTraNo};
 	}
 	</script>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>

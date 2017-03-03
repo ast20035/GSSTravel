@@ -19,6 +19,14 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <style type="text/css">
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 table {
 	margin-top: 2%;
 	font-size: 15px
@@ -105,7 +113,12 @@ td, th {
 									document.write("</td>");
 								</script>
 								<td class="t">${row.tra_Total}</td>
-								<td class="t">${row.sign_InTotal}</td>
+								<c:if test="${row.tra_Total>row.sign_InTotal}">
+									<td class="t">${row.sign_InTotal}</td>
+								</c:if>
+								<c:if test="${row.tra_Total<row.sign_InTotal}">
+									<td class="t">額滿</td>
+								</c:if>							
 								<td class="t">${row.tra_Max}</td>
 								<c:set var="tra_no" value="${row.tra_NO}" />
 								<c:if test="${mp[tra_no]==0}">
@@ -187,6 +200,7 @@ td, th {
 		$("tr:gt(" + i * 10 + "):lt(" + 10 + ")").css("display", "");
 	}
 	</script>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>
 	

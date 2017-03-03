@@ -18,6 +18,7 @@
 	crossorigin="anonymous"></script>
 <head>
 <style type="text/css">
+
 .color-red {
 	border-color: red
 }
@@ -36,10 +37,9 @@ resize: none;
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>我要提問</title>
 </head>
-<body>
+<body style="background-color:transparent">
 	<form action="<c:url value='/QandAInsertServlet'/>" method="POST">
-		<input type="hidden" name="Question_No"
-			value="<%=session.getAttribute("emp_No")%>">
+		<input type="hidden" name="Question_No" value="<%=session.getAttribute("emp_No")%>">
 		<table>
 			<tr>
 				<th colspan="2"><select name='Select' class='form-control'
@@ -55,6 +55,12 @@ resize: none;
 					name="Qestion_Title"></th>
 			</tr>
 			<tr>
+				<td colspan="2">
+					<input type="radio" name="radio" value="false" checked="checked">公開
+					<input type="radio" name="radio" value="true">私密
+				</td>
+			</tr>
+			<tr>
 				<th>留言內容</th>
 				<th><textarea class="Qestion_Text form-control" cols="12" rows="6" name="Qestion_Text"></textarea></th>
 			</tr>
@@ -67,28 +73,32 @@ resize: none;
 	</form>
 </body>
 <script type="text/javascript">
-	$(".Qestion_Title").blur(function() {
-		$(".Qestion_Title").removeClass("color-green");
-		$(".Qestion_Title").removeClass("color-red");
-		if ($(".Qestion_Title").val() == '') {
-			console.log("aaa");
-			$(".Qestion_Title").addClass("color-red");
-			$(".insertQuestion").prop("disabled", true);
-		} else {
-			$(".Qestion_Title").addClass("color-green");
-			$(".insertQuestion").prop("disabled", false);
-		}
-	});
-	$(".Qestion_Text").blur(function() {
-		$(".Qestion_Text").removeClass("color-green");
-		$(".Qestion_Text").removeClass("color-red");
-		if ($(".Qestion_Text").val() == '') {
-			$(".Qestion_Text").addClass("color-red");
-			$(".insertQuestion").prop("disabled", true);
-		} else {
-			$(".Qestion_Text").addClass("color-green");
-			$(".insertQuestion").prop("disabled", false);
-		}
-	});
+if(${Msg!=null}){
+	alert("${Msg.message}");
+}
+$(".Qestion_Title").blur(function(){
+	$(".Qestion_Title").removeClass("color-green");
+	$(".Qestion_Title").removeClass("color-red");
+	if($(".Qestion_Title").val()==''){
+		$(".Qestion_Title").addClass("color-red");
+		$(".insertQuestion").prop("disabled", true);
+	}
+	else{
+		$(".Qestion_Title").addClass("color-green");
+		$(".insertQuestion").prop("disabled", false);
+	}			
+});
+$(".Qestion_Text").blur(function(){
+	$(".Qestion_Text").removeClass("color-green");
+	$(".Qestion_Text").removeClass("color-red");
+	if($(".Qestion_Text").val()==''){
+		$(".Qestion_Text").addClass("color-red");
+		$(".insertQuestion").prop("disabled", true);
+	}
+	else{
+		$(".Qestion_Text").addClass("color-green");	
+		$(".insertQuestion").prop("disabled", false);
+	}			
+});
 </script>
 </html>
