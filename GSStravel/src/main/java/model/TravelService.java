@@ -14,6 +14,10 @@ import org.json.simple.JSONObject;
 public class TravelService {
 	private ITravelDAO travelDAO = new TravelDAO();
 	private IDetailDAO detailDAO = new DetailDAO();
+	
+	public void updateraFile(String tra_File,String tra_No){
+		travelDAO.updateraFile(tra_File, tra_No);
+	}
 
 	public List<TravelVO> select(Integer emp_No) throws SQLException {
 		List<TravelVO> vos = travelDAO.endTravel();
