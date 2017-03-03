@@ -70,41 +70,55 @@ public class FamilyServlet extends HttpServlet {
 		
 		
 		String buttonsave = req.getParameter("button");
-		String ajaxid = req.getParameter("id");//判斷前端寫親屬身分證有無重複
+//		String ajaxid = req.getParameter("id");//判斷前端寫親屬身分證有無重複
 		String ajaxfamid = req.getParameter("ajaxfamid");//用前端的親屬身分證去刪親屬
 		String ajaxcheckbox =req.getParameter("checkbox");
 //		String ajaxmultiselect =req.getParameter("multiselect");
 //		String ajaxfamname=req.getParameter("famnameajax");
-//		String ajaxemail = req.getParameter("email");
+		String ajaxemail = req.getParameter("email");
+		String ajaxrepeatfamid=req.getParameter("repeatfamid");
 		PrintWriter out = res.getWriter();//ajax輸出???
 		
 		HttpSession session = req.getSession();
 		Integer emp_No = (Integer) session.getAttribute("emp_No");
 		List<String> id = familyservice.selectid();
 		List<String> email= employeedao.selectEmail();
+
 		
 		//判斷員工信箱是否重複
-//		if(ajaxemail != null){
+		if(ajaxemail != null){
 //			System.out.println(ajaxemail);
-//			if(email.contains(ajaxemail)){
-//				out.print("repeat");
-//			}else{
-//				out.print("");
-//			}
-//		}
-		
-		//判斷身分證id是否重複輸入
-		if(ajaxid != null) {
-			String[] items = ajaxid.replaceAll("\\[", "").replaceAll("\"", "").replaceAll("\\]", "").split(",");
-			for (String dataid : items) {
-				if (id.contains(dataid)) {
-					out.print("repeat");//用來傳出
-				}else{
+			for(String xxx:email){
+				if(ajaxemail.contains(xxx)){
+//					System.out.println(xxx);
 					out.print("");
+					break;
+				}else{
+					if(email.contains(ajaxemail)){
+						out.print("repeat");
+					}else{
+						out.print("");
+					}
 				}
 			}
-		}else{
-			out.print("");
+		}
+		
+		//判斷原來的親屬身分證有沒有重複
+		if(ajaxrepeatfamid != null) {
+			System.out.println(ajaxrepeatfamid);
+			for(String xxx:id){
+				if(ajaxrepeatfamid.contains(xxx)){
+					System.out.println(xxx);
+					out.print("");
+					break;
+				}else{
+					if(id.contains(ajaxrepeatfamid)){
+						out.print("repeat");
+					}else{
+						out.print("");
+					}
+				}
+			}
 		}
 		
 		//按下delete鍵的動作

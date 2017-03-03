@@ -494,7 +494,6 @@ text-align: center;
 // 					判斷資料有沒有輸入正確 
 					if($("#errorcount").val()=="1"){
 					$("#save").attr("type","button");
-// 					alert("親屬資料未輸入完全")
 					}
 					
 					if($("#errorcount").val()=="0"){
@@ -570,31 +569,21 @@ text-align: center;
 									$(".repeat:last #multiselect").kendoMultiSelect({autoClose : false});//多選的效果
 									
 									//新增的欄位作正規劃
-									var famname = /^.*\s*[^\s]/;
+									var famname = /^.*\s*[^\s]*[\u4e00-\u9fa5]*[\u4e00-\u9fa5a-zA-Z0-9-]$/;
 									$(".repeat td").on("blur","input[name='famname']",function() {
 										
 													if(this.value !=""){
 														if (famname.test($(this).val())) {
 															$(this).css("border-color","green");
-															$(this).next(".famnameerror").text("");
 															$("#errorcount").val(0);
-// 															console.log($("#errorcount").val());
-															//setTimeout(function() {$(".repeat td input[name='famname']")
-// 																				.css('border-color',"");}, 2000);
 														} else {
 															$(this).css("border-color","red");
 															$("#errorcount").val(1);
-// 															console.log($("#errorcount").val());
-															$(this).next(".famnameerror").text("姓名格式錯誤");
-															//setTimeout(function() {$(".repeat td input[name='famname']")
-// 																				.css('border-color',"");}, 2000);};
 														}
 													}else{
 														$(this).css("border-color","red");
 														$("#errorcount").val(1);
-// 														console.log($("#errorcount").val());
 														$(this).next(".famnameerror").text("姓名不可為空白");
-// 														  setTimeout(function() {$(".repeat td input[name='famname']").css('border-color',"");}, 2000);
 													}
 												});
 
@@ -672,6 +661,7 @@ text-align: center;
 																					if(r.indexOf("repeat")!= -1){
 																						alert("親屬身分證已存在");
 																						xxxxx.css("border-color","red");
+// 																						return false;
 																					}else{
 																						xxxxx.css("border-color","green");
 																					}
@@ -733,7 +723,7 @@ text-align: center;
 														$(this).next(".famphoneerror").text("手機不可為空白");
 													}
 												});
-									var famben = /^.*\s*[^\s]/;
+									var famben = /^.*\s*[^\s]*[\u4e00-\u9fa5]$/;
 									$(".repeat td").on("blur","input[name='famben']",function() {
 										
 										if(this.value !=""){
@@ -752,7 +742,7 @@ text-align: center;
 															$(this).next(".fambenerror").text("保險受益人不可為空白");
 													}
 												});
-									var fambenrel = /^.*\s*[^\s]/;
+									var fambenrel = /^.*\s*[^\s]*[\u4e00-\u9fa5]$/;
 									$(".repeat td").on("blur","input[name='fambenrel']",function() {
 										
 										if(this.value !=""){
@@ -771,7 +761,7 @@ text-align: center;
 														$("#errorcount").val(1);
 													}
 												});
-									var famemg = /^.*\s*[^\s]/;
+									var famemg = /^.*\s*[^\s]*[\u4e00-\u9fa5]$/;
 									$(".repeat td").on("blur","input[name='famemg']",
 													function() {
 													if(this.value !=""){
@@ -808,7 +798,7 @@ text-align: center;
 														$(this).next(".famemgphoneerror").text("緊急聯絡人電話不可為空白");
 													}
 												});
-									var famemgrel = /^.*\s*[^\s]/;
+									var famemgrel = /^.*\s*[^\s]*[\u4e00-\u9fa5]$/;
 									$(".repeat td").on("blur","input[name='famemgrel']",
 													function() {
 												if(this.value !=""){
@@ -866,7 +856,7 @@ text-align: center;
 					}
 				});
 
-				var empben = /^.*\s*[^\s]/;
+				var empben = /^.*\s*[^\s]*[\u4e00-\u9fa5]$/;
 				$("#empben").blur(function() {
 				if(this.value !=""){
 						if (empben.test($(this).val())) {
@@ -887,7 +877,7 @@ text-align: center;
 					}
 				});
 
-				var empbenrel = /^.*\s*[^\s]/;
+				var empbenrel = /^.*\s*[^\s]*[\u4e00-\u9fa5]$/;
 				$("#empbenrel").blur(function() {
 				if(this.value !=""){
 					if (empbenrel.test($(this).val())) {
@@ -908,7 +898,7 @@ text-align: center;
 				}
 			});
 
-				var empemg = /^.*\s*[^\s]/;
+				var empemg = /^.*\s*[^\s]*[\u4e00-\u9fa5]$/;
 				$("#empemg").blur(function() {
 					
 				if(this.value !=""){
@@ -955,24 +945,24 @@ text-align: center;
 							$(this).css("border-color", "green");
 							$("#errorcount").val(0);
 							
-// 							var pathName = document.location.pathname;
-// 							var index = pathName.substr(1).indexOf("/");
-// 							var result = pathName.substr(0, index + 1);
-// 							var url = result + "/FamilyServlet";
-// 							var famid ={"email":$(this).val()};
-// 							var xxxxx = $(this)
-// 								$.ajax({
-// 									type:"POST",url:url,data:famid,dataType:"text",
-// 										success:function(r){
-// 													if(r.indexOf("repeat")!= -1){
-// 														alert("員工信箱已存在");
-// 														xxxxx.css("border-color","red");
-// 														$("#errorcount").val(1);
-// 													}else{
-// 														xxxxx.css("border-color","green");
-// 													}
-// 												}
-// 								})
+							var pathName = document.location.pathname;
+							var index = pathName.substr(1).indexOf("/");
+							var result = pathName.substr(0, index + 1);
+							var url = result + "/FamilyServlet";
+							var famid ={"email":$(this).val()};
+							var xxxxx = $(this)
+								$.ajax({
+									type:"POST",url:url,data:famid,dataType:"text",
+										success:function(r){
+													if(r.indexOf("repeat")!= -1){
+														alert("員工信箱已存在");
+														xxxxx.css("border-color","red");
+														$("#errorcount").val(1);
+													}else{
+														xxxxx.css("border-color","green");
+													}
+												}
+								})
 
 						} else {
 							$(this).css("border-color", "red");
@@ -985,7 +975,7 @@ text-align: center;
 					}
 				})
 
-				var famname = /^.*\s*[^\s]/;
+				var famname =  /^.*\s*[^\s]*[\u4e00-\u9fa5]*[\u4e00-\u9fa5a-zA-Z0-9-]$/;
 				$("input[name*='famname']").on("blur",function() {
 					if(this.value !=""){
 							if (famname.test($(this).val())) {
@@ -1067,6 +1057,26 @@ text-align: center;
 									} else {
 										$(this).css("border-color", "green");
 										$("#errorcount").val(0);
+										
+										var pathName = document.location.pathname;
+										var index = pathName.substr(1).indexOf("/");
+										var result = pathName.substr(0, index + 1);
+										var url = result + "/FamilyServlet";
+										var famid ={"repeatfamid":$(this).val()};
+										var xxxxx = $(this)
+											$.ajax({
+												type:"POST",url:url,data:famid,dataType:"text",
+													success:function(r){
+														console.log(r);
+																if(r.indexOf("repeat")!= -1){
+																	alert("親屬身分證已存在");
+																	xxxxx.css("border-color","red");
+																}else{
+																	xxxxx.css("border-color","green");
+																}
+															}
+											})
+										
 									}
 								}else{
 									$(this).css("border-color", "red");
@@ -1127,7 +1137,7 @@ text-align: center;
 						}
 					});
 
-				var famben = /^.*\s*[^\s]/;
+				var famben = /^.*\s*[^\s]*[\u4e00-\u9fa5]$/;
 				$("input[name*='famben']").on("blur", function() {
 					if(this.value !=""){
 						if (famben.test($(this).val())) {
@@ -1147,7 +1157,7 @@ text-align: center;
 					}
 				});
 
-				var fambenrel = /^.*\s*[^\s]/;
+				var fambenrel = /^.*\s*[^\s]*[\u4e00-\u9fa5]$/;
 				$("input[name*='fambenrel']").on("blur",function() {
 					if(this.value !=""){
 								if (fambenrel.test($(this).val())) {
@@ -1167,7 +1177,7 @@ text-align: center;
 							}
 						});
 
-				var famemg = /^.*\s*[^\s]/;
+				var famemg = /^.*\s*[^\s]*[\u4e00-\u9fa5]$/;
 				$("input[name*='famemg']").on("blur", function() {
 					if(this.value !=""){
 						if (famemg.test($(this).val())) {
@@ -1206,7 +1216,7 @@ text-align: center;
 							}
 						});
 
-				var famemgrel = /^.*\s*[^\s]/;
+				var famemgrel =/^.*\s*[^\s]*[\u4e00-\u9fa5]$/;
 				$("input[name*='famemgrel']").on("blur",function() {
 					if(this.value !=""){
 								if (famemgrel.test($(this).val())) {
