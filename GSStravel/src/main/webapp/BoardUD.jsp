@@ -129,15 +129,17 @@ h2 {
 					textarea.setAttribute("id", "content");
 					textarea.setAttribute("name", "content");
 					textarea.setAttribute("class", "form-control");
-					textarea.setAttribute("style","font-size:17px; resize:none;");
+					textarea.setAttribute("style",
+							"font-size:17px; resize:none;");
 					textarea.setAttribute("autocomplete", "off");
-					textarea.appendChild(document.createTextNode(board[i].content));
+					textarea.appendChild(document
+							.createTextNode(board[i].content));
 					div1.appendChild(textarea);
 
 					body.appendChild(div1);
 				}
 			} else {
-				alert(xh.status + ":" + xh.statusText);
+				alert("伺服器忙線中！");
 			}
 		}
 	}
@@ -157,6 +159,19 @@ h2 {
 			important.style.color = "red";
 		}
 	}
+
+	function check() {
+		var title = document.getElementById("title");
+		var content = document.getElementById("content");
+		if (title.value == "") {
+			alert("請輸入公告標題！");
+		} else if (content.value == "") {
+			alert("請輸入公告內容！");
+		} else {
+			$("#update").val("儲存");
+			$("#updateData").submit();
+		}
+	}
 </script>
 </head>
 <body>
@@ -174,7 +189,7 @@ h2 {
 		<br> <br>
 		<div class='row'>
 			<div class='col-md-offset-3 col-md-4'>
-				<form action="<c:url value="/AnnouncementUDServlet" />" method="GET">
+				<form id="updateData" action="<c:url value="/AnnouncementUDServlet" />" method="GET">
 					<c:if test="${important==1}">
 						<select id="day" name="day" onchange="optionTime()"
 							class='form-control' style='width: 150px; color: red'>
@@ -191,10 +206,10 @@ h2 {
 					</c:if>
 					<div id="boardDiv"></div>
 					<div class='dclasslast'>
-						<input type="submit" value="儲存" name="update"
-							class='btn btn-success' /> <input type="submit" value="刪除"
-							name="delete" class='btn btn-danger' /> <input type="button"
-							class='btn btn-primary' value='回上一頁'
+						<input type="button" value="儲存" class='btn btn-success' onclick="check()" />
+						<input type="hidden" value="" id="update" name="update" />
+						<input type="submit" value="刪除" name="delete" class='btn btn-danger' />
+						<input type="button" class='btn btn-primary' value='回上一頁'
 							onclick='window.location.href="BoardMaintain.jsp"'>
 					</div>
 				</form>
