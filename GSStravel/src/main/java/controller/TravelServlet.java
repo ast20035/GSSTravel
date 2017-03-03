@@ -410,15 +410,14 @@ public class TravelServlet extends HttpServlet {
 			}
 			
 			String file = request.getParameter("file");
-			System.out.println(file);
+		
 			if("".equals(file) || file == ""){
 				 request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response);
 				 return;
 			}else{
 				String tra_No = request.getParameter("tra_no");
 				String tra_Name = request.getParameter("edittraName");		
-				System.out.println(tra_No);
-				System.out.println(tra_Name);
+
 				HttpSession son = request.getSession();
 				son.setAttribute("tra_No", tra_No);
 				son.setAttribute("tra_Name", tra_Name);		
