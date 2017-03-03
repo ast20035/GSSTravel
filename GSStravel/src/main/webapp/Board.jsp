@@ -36,11 +36,11 @@
 		border-bottom: 1px solid #DDDDDD;
 	}
 	iframe{
-		margin-left: -100px;
+ 		margin-left: 130px; 
 		z-index: 10;
 	}
 	#QA{
-		margin-left: -100px;
+		margin-left: 130px;
 	}
 </style>
 <script>
@@ -193,7 +193,7 @@
 				<ul id="myul" class="pagination">
 				</ul>
 			</div>
-			<div class='col-md-offset-1 col-md-5'>
+			<div class='col-md-5'>
 				<h4 style='color: #FF5511;' id='QA'>Q&A</h4>
 
 				<iframe src="<c:url value='/QandAServlet?role=false' />"
