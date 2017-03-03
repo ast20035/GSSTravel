@@ -43,8 +43,7 @@
 <link href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"
 	rel="stylesheet" />
 
-<script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui.js"></script>
 <script type="text/javascript" src="js/jquery-ui-slide.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
@@ -53,14 +52,14 @@
 $(function(){
 	
 	$('#edittraOn').datepicker({
-		changeMonth: true,
-        dateFormat: "yy-mm-dd"
+		
+       
        
 	});
 	
 	$('#edittraOff').datepicker({
-		changeMonth: true,
-        dateFormat: "yy-mm-dd"
+		
+        
 	});
 
 	$('#edittraEnd').datetimepicker({
@@ -78,8 +77,14 @@ $(function(){
 
 });
 
+</script>
 
-<title>新增行程</title>
+<script type="text/javascript">
+	if(${error!=null}){
+		alert("${error}");
+	}
+</script>
+
 
 <style type="text/css">
 table {
@@ -91,6 +96,11 @@ body {
 	margin-bottom: 4%;
 }
 
+label {
+	color: #33CCFF;
+	font-weight: lighter;
+}
+
 h2 {
 	color: #00AAAA;
 	font-weight: bold;
@@ -98,13 +108,10 @@ h2 {
 	padding-left: 10px;
 }
 </style>
-<title>行程編輯</title>
+<title>新增行程</title>
+
+
 </head>
-<script type="text/javascript">
-	if(${error!=null}){
-		alert("${error}");
-	}
-</script>
 <body>
 	<div class='container-fluid'>
 		<div class='row'>
@@ -161,7 +168,7 @@ h2 {
 										<div class="Input-group">
 											<label>開始日期</label> <input type="" name="edittraOn"
 												id="edittraOn" class='form-control' style='width: 150px;'
-												value="">
+												value="2020-01-01" readonly>
 											<div id = edittraOnerror></div>
 
 
@@ -173,7 +180,7 @@ h2 {
 										<div class="Input-group">
 											<label>結束日期</label> <input type="" class='form-control'
 												style='width: 150px;' name="edittraOff" id="edittraOff"
-												value="">
+												value="2020-01-01" readonly>
 											<div id= edittraOfferror></div>
 										</div>
 									</div>
@@ -189,7 +196,7 @@ h2 {
 										<div class="Input-group">
 											<label>開始時間</label> <input type="text" id="edittraBeg"
 												name="edittraBeg" id="edittraBeg" class='form-control'
-												style='width: 200px;' value="">
+												style='width: 200px;' value="" readonly>
 											<div id=edittraBegerror></div>
 										</div>
 									</div>
@@ -199,7 +206,7 @@ h2 {
 										<div class="Input-group">
 											<label>結束時間</label> <input type="text" class='form-control'
 												style='width: 200px;' name="edittraEnd" id="edittraEnd"
-												value="">
+												value="" readonly>
 
 											<div id=edittraEnderror></div>
 										</div>
@@ -315,7 +322,7 @@ h2 {
 								}
 							}
 					</script>
-					<input type="button" value="新增" class='btn btn-primary' onclick="ckFile()"> <input
+					<input type="button" value="儲存" class='btn btn-primary' onclick="ckFile()"> <input
 						type="button" value='回上一頁' class='btn btn-primary'
 						onclick="window.location.href=search2;" />
 				</form>
@@ -370,7 +377,7 @@ h2 {
 											});
 															
 
-										})
+										
 						//刪除動態tr		
 						$("#Itemtable").on("click", "input[name='delete']",
 								function() {
@@ -612,5 +619,6 @@ h2 {
 
 					});
 					});
+					})
 				</script>
 </html>

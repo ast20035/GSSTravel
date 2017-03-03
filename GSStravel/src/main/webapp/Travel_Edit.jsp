@@ -405,7 +405,7 @@ h2 {
 										<div class="Input-group">
 											<label>開始日期</label> <input type="" name="edittraOn"
 												id="edittraOn" class='form-control' style='width: 150px;'
-												value="${params.tra_On}">
+												value="${params.tra_On}" readonly>
 											<div id=edittraOnerror></div>
 
 
@@ -417,7 +417,7 @@ h2 {
 										<div class="Input-group">
 											<label>結束日期</label> <input type="" class='form-control'
 												style='width: 150px;' name="edittraOff" id="edittraOff"
-												value="${params.tra_Off}">
+												value="${params.tra_Off}" readonly>
 											<div id=edittraOfferror></div>
 										</div>
 									</div>
@@ -440,7 +440,7 @@ h2 {
 											<label>開始時間</label> 
 											<input type="text" id="edittraBeg" name="edittraBeg"
 												id="edittraBeg" class='form-control' style='width: 200px;'
-												value="${ttt}">
+												value="${ttt}" readonly>
 											<div id=edittraBegerror></div>
 										</div>
 									</div>
@@ -454,7 +454,7 @@ h2 {
 												pattern="yyyy-MM-dd HH:mm:ss" var="ddd" />
 											<label>結束時間</label> <input type="text" class='form-control'
 												style='width: 200px;' name="edittraEnd" id="edittraEnd"
-												value="${ddd}">
+												value="${ddd}" readonly>
 
 											<div id=edittraEnderror></div>
 										</div>
@@ -606,7 +606,7 @@ h2 {
 							}
 						}
 					</script>
-					<span><input type="submit" id="inputdate" name="inputerrors" value="確定" class='btn btn-primary' onclick="getElements()">
+					<span><input type="submit" id="inputdate" name="inputerrors" value="儲存" class='btn btn-primary' onclick="getElements()">
 						<input type="button" onclick="show_confirm()" value="取消" class='btn btn-primary'> 
 						<input
 						type="button" value='刪除行程' class='btn btn-danger' onclick="return confirmComplete();" />
