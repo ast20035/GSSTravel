@@ -330,10 +330,11 @@ public class TravelServlet extends HttpServlet {
 		// else
 
 		if ("確定".equals(inputerrors)) {	//Travel_Edit修改確認
+			
 			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:24小時制
 			Date date = new Date();
 			String now = sdFormat.format(date);// 取得現在時間
-			announcementService.insert(now, traName + "行程異動", traCon, "2");// 新增公告
+			announcementService.insert(now, traName + "行程異動", traCon, "1");// 新增公告
 
 			/*--Travel--*/
 			travelview.setTra_Name(edittraName);

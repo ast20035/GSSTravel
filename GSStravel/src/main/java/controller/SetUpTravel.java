@@ -303,11 +303,10 @@ public class SetUpTravel extends HttpServlet {
 		request.setAttribute("tra_No", tra_No);
 		request.setAttribute("tra_Name", tra_Name);
 		
-		// 新增公告
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:24小時制
 		Date date = new Date();
 		String now = sdFormat.format(date);// 取得現在時間
-		announcementService.insert(now, "新增"+tra_Name+"行程", tra_Con, "2");
+		announcementService.insert(now, "新增"+tra_Name+"行程", tra_Con, "2");// 新增公告
 		
 		request.getRequestDispatcher("/SetUpTravel.jsp").forward(request, response);
 
