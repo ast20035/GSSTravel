@@ -19,16 +19,6 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <title>GSS System</title>
-<style type="text/css">
-#backPic{
-		position:fixed;
-		top:0;
-		z-index: -1;
-		opacity: 0.2;
-		height:100%;
-		width: 100%;
-	}
-</style>
 <script>
 	window.onload = function() {
 		if ('${error.act ne true}' != null && '${error.act}' != '') {
@@ -55,6 +45,14 @@
 	}
 </script>
 <style>
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 #title {
 	margin-top: 15%;
 }
@@ -64,7 +62,7 @@ form {
 }
 </style>
 </head>
-<body>
+<body style="background-color:transparent">
 	<div class='container-fluid active'>
 		<div class='row' id='title'>
 		<div class='col-lg-4' ></div>
