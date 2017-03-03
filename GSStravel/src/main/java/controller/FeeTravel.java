@@ -34,22 +34,23 @@ public class FeeTravel extends HttpServlet {
 			itemResult = itemService.select(tra_NO);
 			traveResult = travelService.select(tra_NO);
 			String tra_File = traveResult.getTra_File();
-			StringBuffer sb = new StringBuffer(tra_File);
-			int pos = tra_File.lastIndexOf(".") + 1;
-			try {
-				for (int i = 0; i < 4; i++) {
-					sb.deleteCharAt(pos);
+			if(tra_File!=null){
+				StringBuffer sb = new StringBuffer(tra_File);
+				int pos = tra_File.lastIndexOf(".") + 1;
+				try {
+					for (int i = 0; i < 4; i++) {
+						sb.deleteCharAt(pos);
+					}
+					tra_File=sb.toString();
+					int lengths=tra_File.length();
+					tra_File=tra_File.substring(0, lengths-1);
+				} catch (Exception e) {
+					tra_File=sb.toString();
+					int lengths=tra_File.length();
+					tra_File=tra_File.substring(0, lengths-1);				
 				}
-				tra_File=sb.toString();
-				int lengths=tra_File.length();
-				tra_File=tra_File.substring(0, lengths-1);
-			} catch (Exception e) {
-				tra_File=sb.toString();
-				int lengths=tra_File.length();
-				tra_File=tra_File.substring(0, lengths-1);				
 			}
-				
-
+		
 			HttpSession session = request.getSession();
 			session.setAttribute("itemResult", itemResult);
 			session.setAttribute("traveResult", traveResult);
