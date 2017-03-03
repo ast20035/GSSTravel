@@ -112,7 +112,7 @@ table {
 					<tr>
 						<td class='little'>行程表</td>
 						<td colspan="2"><a
-							href="<c:url value="/File?tra_Name=${traveResult.tra_Name}"></c:url>">${traveResult.tra_Name}</a></td>
+							href="<c:url value="/File?tra_File=${traveResult.tra_File}"></c:url>">${tra_File}</a></td>
 					</tr>
 					<tr>
 						<td class='little'>費用</td>
