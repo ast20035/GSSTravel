@@ -15,8 +15,13 @@
 	</properties>
 
 	<dependencies>
-
-
+		<!-- json -->
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20160810</version>
+		</dependency>
+	
 		<!-- javamail -->
 		<dependency>
 			<groupId>javax.mail</groupId>
@@ -111,9 +116,7 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		
-	
-		
+
 	</dependencies>
 	<build>
 		<finalName>${project.artifactId}-${project.version}</finalName>

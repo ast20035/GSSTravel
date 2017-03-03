@@ -19,36 +19,128 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
-	<title>Q&A</title>
+<title>Q&A</title>
+<style>
+table {
+	color: #7F7F7F;
+	font: 0.8em/1.6em "Trebuchet MS", Verdana, sans-serif;
+	border-collapse: collapse;
+	font-size: 15px;
+}
+
+caption, thead th, tfoot th, tfoot td {
+	background-color: #1E90FF;
+	font-weight: bold;
+	text-transform: uppercase
+}
+
+thead th {
+	background-color: #1E90FF;
+	color: white;
+	text-align: center
+}
+
+tbody tr.odd {
+	background-color: #F7F7F7;
+	color: #666
+}
+
+tbody a {
+	padding: 1px 2px;
+	color: #333;
+	text-decoration: none;
+	border-bottom: 1px dotted #E63C1E
+}
+
+tbody a:active, tbody a:hover, tbody a:focus, tbody a:visited {
+	color: #666
+}
+
+tbody tr:hover {
+	background-color: #EEE;
+	color: #333
+}
+
+tbody tr:hover a {
+	background-color: #FFF
+}
+
+tbody td+td+td+td a {
+	color: #C30;
+	font-weight: bold;
+	border-bottom: 0
+}
+
+tbody td+td+td+td a:active, tbody td+td+td+td a:hover, tbody td+td+td+td a:focus,
+	tbody td+td+td+td a:visited {
+	color: #E63C1E
+}
+
+tbody a:visited:after {
+	font-family: Verdana, sans-serif;
+	content: "\00A0\221A"
+}
+</style>
+<style>
+td,tr {
+    padding:3px;
+	border: 1px solid gray;
+}
+
+input[type='text'] {
+	border: none;
+	text-align: center;
+	padding: 3px;
+}
+</style>
 </head>
 <body>
 	<c:if test="${list.size()!=0}">
-		<%String prodaction = request.getParameter("prodaction");%>
-		<select onchange="window.location = '/GSStravel/QandAServlet?role=false&prodaction='+this.value;">
-			<option value="all" <%if ("all".equals(prodaction)) {out.print("selected");}%>>顯示全部</option>
-			<option value="yes" <%if ("yes".equals(prodaction)) {out.print("selected");}%>>顯示已回應</option>
-			<option value="no" <%if ("no".equals(prodaction)) {out.print("selected");}%>>顯示未回應</option>
+		<%
+			String prodaction = request.getParameter("prodaction");
+		%>
+		<select
+			onchange="window.location = '/GSStravel/QandAServlet?role=false&prodaction='+this.value;" class='form-control' style='width:120px;'>
+			<option value="all"
+				<%if ("all".equals(prodaction)) {
+					out.print("selected");
+				}%>>顯示全部</option>
+			<option value="yes"
+				<%if ("yes".equals(prodaction)) {
+					out.print("selected");
+				}%>>顯示已回應</option>
+			<option value="no"
+				<%if ("no".equals(prodaction)) {
+					out.print("selected");
+				}%>>顯示未回應</option>
 		</select>
 		<br />
-		<table border="1">
+		<table>
 			<thead>
 				<tr>
-					<th>編號</th>
-					<th>行程編號</th>
-					<th>標題</th>
-					<th>詢問人員</th>
-					<th>詢問時間</th>
+					<th><label style='width: 40px;'>編號</label></th>
+					<th><label style='width: 100px;'>行程編號</label></th>
+					<th><label style='width: 250px;'>標題</label></th>
+					<th><label style='width: 100px;'>詢問人員</label></th>
+					<th><label style='width: 150px;'>詢問時間</label></th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="list" items="${list}">
 					<tr>
-						<td><input type="text" name="qa_No" value="${list.qa_No}"></td>
-						<td><input type="text" value="${list.tra_No}"></td>
-						<td><a href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}"><c:if test="${list.answer_No!=0}">
-							<span>[已回應]</span></c:if>${list.question_Title}</a></td>
-						<td><input type="text" value="${list.question_No}"></td>
-						<td><input type="text" value="${list.question_Time}"></td>
+						<td><input type="text" name="qa_No" value="${list.qa_No}" readonly
+							style='width: 40px;'></td>
+						<td><input type="text" value="${list.tra_No}" readonly
+							style='width: 130px;'></td>
+						<td><a
+							href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}"><c:if
+									test="${list.answer_No!=0}">
+									<span>[已回應]</span>
+								</c:if>${list.question_Title}</a></td>
+						<td><input type="text" value="${list.question_No}" readonly
+							style='width: 60px;'></td>
+						<td><input type="text" value="${list.question_Time}" readonly
+							style='width: 210px;'></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -71,10 +163,11 @@
 	</c:if>
 	<br />
 	<c:if test="${emp_Role eq false}">
-		<button onclick="window.location = '/GSStravel/QandAServlet?prodaction=question&role=false';">我要詢問問題</button>
+		<button class='btn btn-primary'
+			onclick="window.location = '/GSStravel/QandAServlet?prodaction=question&role=false';">我要詢問問題</button>
 	</c:if>
-	</body>
-	<script>
+</body>
+<script>
 	if(${Msg!=null}){
 		alert("${Msg.message}");
 	}

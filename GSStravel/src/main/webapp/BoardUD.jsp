@@ -101,18 +101,18 @@ h2 {
 				for (var i = 0; i < board.length; i++) {
 					var div1 = document.createElement("div");
 					var div2 = document.createElement("div");
-					div2.appendChild(document.createTextNode("公告時間"));
-					div2.setAttribute("class", "dclassfirst");
-					div1.appendChild(div2);
+// 					div2.appendChild(document.createTextNode("公告時間"));
+// 					div2.setAttribute("class", "dclassfirst");
+// 					div1.appendChild(div2);
 
-					var time = document.createElement("input");
-					time.setAttribute("type", "text");
-					time.setAttribute("id", "time");
-					time.setAttribute("name", "time");
-					time.setAttribute("class", "form-control");
-					time.setAttribute("style", "font-size:17px");
-					time.setAttribute("value", board[i].time);
-					div1.appendChild(time);
+// 					var time = document.createElement("input");
+// 					time.setAttribute("type", "text");
+// 					time.setAttribute("id", "time");
+// 					time.setAttribute("name", "time");
+// 					time.setAttribute("class", "form-control");
+// 					time.setAttribute("style", "font-size:17px");
+// 					time.setAttribute("value", board[i].time);
+// 					div1.appendChild(time);
 
 					div2 = document.createElement("div");
 					div2.appendChild(document.createTextNode("公告標題"));
