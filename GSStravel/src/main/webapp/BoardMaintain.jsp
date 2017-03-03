@@ -140,7 +140,7 @@ table {
 				$page = $(".page");
 				light(i.val());
 			} else {
-				alert(xh.status + ":" + xh.statusText);
+				alert("伺服器忙線中！");
 			}
 		}
 	}

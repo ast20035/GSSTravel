@@ -102,7 +102,6 @@ td>strong {
 				myImg.style.display = "inline";
 				fineEmail.setAttribute("disabled", "disabled");
 				wait();
-// 				fineEmail.value = "Email寄送中...";
 			} else if (xhr.readyState == 4) {
 				close1.setAttribute("href","<c:url value='/Board.jsp'/>");
 				close2.setAttribute("href","<c:url value='/search2.jsp'/>");
