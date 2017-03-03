@@ -96,64 +96,64 @@ input[type='text'] {
 </head>
 <body>
 	<% String prodaction = request.getParameter("prodaction");%>
-	<select onchange="window.location = '/GSStravel/QandAServlet?role=false&prodaction='+this.value;">
+	<select onchange="window.location = '/GSStravel/QandAServlet?role=false&prodaction='+this.value;" class='form-control' style='width:140px;'>
 		<option value="all" <%if ("all".equals(prodaction)) {out.print("selected");}%>>顯示全部</option>
 		<option value="yes" <%if ("yes".equals(prodaction)) { out.print("selected");}%>>顯示已回應</option>
 		<option value="no" <%if ("no".equals(prodaction)) { out.print("selected"); }%>>顯示未回應</option>
 	</select>
 	<br />
 	<c:if test="${list.size()!=0}">
-		<table>
+		<table class='table'>
 			<thead>
 				<tr>
-					<th><label style='width: 40px;'>編號</label></th>
+					<th><label style='width: 60px;'>編號</label></th>
 					<th><label style='width: 100px;'>行程編號</label></th>
 					<th><label style='width: 250px;'>標題</label></th>
 					<th><label style='width: 100px;'>詢問人員</label></th>
-					<th><label style='width: 150px;'>詢問時間</label></th>
+					<th><label style='width: 200px;'>詢問時間</label></th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="list" items="${list}">
 					<c:if test="${emp_Role eq false&&list.question_secret&&emp_No==list.question_No}">
 						<tr>
-							<td><input type="text" name="qa_No" value="${list.qa_No}"></td>
-							<td><input type="text" value="${list.tra_No}"></td>
+							<td><input type="text" name="qa_No" value="${list.qa_No}" readonly style='width: 100%;'></td>
+							<td><input type="text" value="${list.tra_No}" readonly style='width: 100%;'></td>
 							<td><a href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
-								<c:if test="${list.answer_No!=0}"><span>[已回應]</span></c:if><span style="color:red">[私密]${list.question_Title}</span></a></td>
-							<td><input type="text" value="${list.question_No}"></td>
-							<td><input type="text" value="${list.question_Time}"></td>
+								<c:if test="${list.answer_No!=0}"><span>[已回應]</span><br></c:if><span style="color:red">[私密]${list.question_Title}</span></a></td>
+							<td><input type="text" value="${list.question_No}" readonly style='width: 100%;'></td>
+							<td><input type="text" value="${list.question_Time}" readonly style='width: 100%;'></td>
 						</tr>
 					</c:if>
 					<c:if test="${emp_Role eq false&&!list.question_secret}">
 						<tr>
-							<td><input type="text" name="qa_No" value="${list.qa_No}"></td>
-							<td><input type="text" value="${list.tra_No}"></td>
+							<td><input type="text" name="qa_No" value="${list.qa_No}" readonly style='width: 100%;'></td>
+							<td><input type="text" value="${list.tra_No}" readonly style='width: 100%;'></td>
 							<td><a href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
 								<c:if test="${list.answer_No!=0}"><span>[已回應]</span></c:if>${list.question_Title}</a></td>
-							<td><input type="text" value="${list.question_No}"></td>
-							<td><input type="text" value="${list.question_Time}"></td>
+							<td><input type="text" value="${list.question_No}" readonly style='width: 100%;'></td>
+							<td><input type="text" value="${list.question_Time}" readonly style='width: 100%;'></td>
 						</tr>
 					</c:if>
 					<c:if test="${emp_Role eq true}">
 						<c:if test="${list.question_secret}">
 							<tr>
-								<td><input type="text" name="qa_No" value="${list.qa_No}"></td>
-								<td><input type="text" value="${list.tra_No}"></td>
+								<td><input type="text" name="qa_No" value="${list.qa_No}" readonly style='width: 100%;'></td>
+								<td><input type="text" value="${list.tra_No}" readonly style='width: 100%;'></td>
 								<td><a href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
-									<c:if test="${list.answer_No!=0}"><span>[已回應]</span></c:if><span style="color:red">[私密]${list.question_Title}</span></a></td>
-								<td><input type="text" value="${list.question_No}"></td>
-								<td><input type="text" value="${list.question_Time}"></td>
+									<c:if test="${list.answer_No!=0}"><span>[已回應]</span><br></c:if><span style="color:red">[私密]${list.question_Title}</span></a></td>
+								<td><input type="text" value="${list.question_No}" readonly style='width: 100%;'></td>
+								<td><input type="text" value="${list.question_Time}" readonly style='width: 100%;'></td>
 							</tr>
 						</c:if>
 						<c:if test="${!list.question_secret}">
 							<tr>
-								<td><input type="text" name="qa_No" value="${list.qa_No}"></td>
-								<td><input type="text" value="${list.tra_No}"></td>
+								<td><input type="text" name="qa_No" value="${list.qa_No}" readonly style='width: 100%;'></td>
+								<td><input type="text" value="${list.tra_No}" readonly style='width: 100%;'></td>
 								<td><a href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
 									<c:if test="${list.answer_No!=0}"><span>[已回應]</span></c:if>${list.question_Title}</a></td>
-								<td><input type="text" value="${list.question_No}"></td>
-								<td><input type="text" value="${list.question_Time}"></td>
+								<td><input type="text" value="${list.question_No}" readonly style='width: 100%;'></td>
+								<td><input type="text" value="${list.question_Time}" readonly style='width: 100%;'></td>
 							</tr>
 						</c:if>
 					</c:if>

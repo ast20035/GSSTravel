@@ -24,12 +24,14 @@
 table {
 	border-bottom: 1px solid #DDDDDD;
 }
-iframe{
-margin-left: -100px;
-z-index: 10;
+
+iframe {
+	margin-left: -100px;
+	z-index: 10;
 }
-#QA{
-margin-left: -100px;
+
+#QA {
+	margin-left: -100px;
 }
 </style>
 <script>
@@ -94,7 +96,9 @@ margin-left: -100px;
 					td = document.createElement("td");
 					a.setAttribute("href", result + "/BoardShow.jsp?anno_Time="
 							+ board[i].time);
-					a.appendChild(document.createTextNode(board[i].title + " "));
+					a
+							.appendChild(document.createTextNode(board[i].title
+									+ " "));
 					td.appendChild(a);
 					if (board[i].important == 1) {
 						a.setAttribute("style", "color:red");
@@ -181,8 +185,8 @@ margin-left: -100px;
 			</div>
 			<div class='col-md-offset-1 col-md-5'>
 				<h4 style='color: #FF5511;' id='QA'>Q&A</h4>
-				<iframe src="<c:url value='/QandAServlet?role=false' />" frameborder="0" width="800px"
-					marginwidth="2px" height="600px"></iframe>
+				<iframe src="<c:url value='/QandAServlet?role=false' />"
+					frameborder="0" width="105%" marginwidth="2px" height="1000px"></iframe>
 			</div>
 		</div>
 	</div>
