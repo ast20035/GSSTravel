@@ -79,18 +79,17 @@ input[type='text'] {
 					<table>
 						<thead>
 							<tr>
-								<th><label style='width:40px;'>編號</label></th>
+								<th><label style='width:300px;'>詢問時間</label></th>
 								<th><label style='width:150px;'>行程編號</label></th>
 								<th><label style='width:250px;'>標題</label></th>
 								<th><label style='width:100px;'>詢問人員</label></th>
-								<th><label style='width:300px;'>詢問時間</label></th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="list" items="${list}">
 								<c:if test="${list.question_secret}">
 									<tr>
-										<td><input type="text" name="qa_No" value="${list.qa_No}" style='width:100%;'></td>
+										<td><div class="centeraa">${list.question_Time}<c:if test="${list.newimg==true}"> <img src="images/new.gif"></c:if></div></td>
 										<td><input type="text" value="${list.tra_No}" style='width:100%;'></td>
 										<td><a
 											href="/GSStravel/QandAServlet?prodaction=select&role=true&qa_No=${list.qa_No}">
@@ -99,12 +98,11 @@ input[type='text'] {
 												</c:if><span style="color: red">[私密]${list.question_Title}</span>
 										</a></td>
 										<td><input type="text" value="${list.question_No}" style='width:100%;'></td>
-										<td><input type="text" value="${list.question_Time}" style='width:100%;'></td>
 									</tr>
 								</c:if>
 								<c:if test="${!list.question_secret}">
 									<tr>
-										<td><input type="text" name="qa_No" value="${list.qa_No}" style='width:100%;'></td>
+										<td><div class="centeraa">${list.question_Time}<c:if test="${list.newimg==true}"> <img src="images/new.gif"></c:if></div></td>
 										<td><input type="text" value="${list.tra_No}" style='width:100%;'></td>
 										<td><a
 											href="/GSStravel/QandAServlet?prodaction=select&role=true&qa_No=${list.qa_No}">
@@ -112,7 +110,6 @@ input[type='text'] {
 													<span>[已回應]</span>
 												</c:if>${list.question_Title}</a></td>
 										<td><input type="text" value="${list.question_No}" style='width:100%;'></td>
-										<td><input type="text" value="${list.question_Time}" style='width:100%;'></td>
 									</tr>
 								</c:if>
 							</c:forEach>

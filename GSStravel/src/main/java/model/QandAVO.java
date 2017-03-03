@@ -11,7 +11,14 @@ public class QandAVO {
 	private String answer_Text;
 	private String answer_Time;
 	private boolean question_secret;
+	private boolean newimg;
 	
+	public boolean getNewimg() {
+		return newimg;
+	}
+	public void setNewimg(boolean newimg) {
+		this.newimg = newimg;
+	}
 	public boolean getQuestion_secret() {
 		return question_secret;
 	}

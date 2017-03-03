@@ -2,7 +2,11 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -20,6 +24,7 @@ import model.TravelVO;
 public class QandAServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@SuppressWarnings("deprecation")
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String prodaction=request.getParameter("prodaction");
@@ -52,6 +57,7 @@ public class QandAServlet extends HttpServlet {
 		List<QandAVO> list = new ArrayList<QandAVO>();
 		list=QAService.selectALL(prodaction);
 		int count =list.size();
+
 		request.setAttribute("count", count);
 		request.setAttribute("list", list);
 		request.setAttribute("role", role);
