@@ -105,7 +105,12 @@ td, th {
 									document.write("</td>");
 								</script>
 								<td class="t">${row.tra_Total}</td>
-								<td class="t">${row.sign_InTotal}</td>
+								<c:if test="${row.tra_Total>row.sign_InTotal}">
+									<td class="t">${row.sign_InTotal}</td>
+								</c:if>
+								<c:if test="${row.tra_Total<row.sign_InTotal}">
+									<td class="t">額滿</td>
+								</c:if>							
 								<td class="t">${row.tra_Max}</td>
 								<c:set var="tra_no" value="${row.tra_NO}" />
 								<c:if test="${mp[tra_no]==0}">
