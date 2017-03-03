@@ -1,10 +1,8 @@
 package controller;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
+import model.EmployeeService;
+import model.EmployeeVO;
 import model.QandAService;
 import model.QandAVO;
 
@@ -80,19 +82,45 @@ public class QandAInsertServlet extends HttpServlet {
 			b=QAService.insertAnswer(bean);
 			if("insertAnswer".equals(prodaction)){
 				if(b){
-					Msg.put("message", "回應成功");
+					Msg.put("message", "回應成功,是否要寄Email");
 				}
 				else{
 					Msg.put("message", "回應失敗");
 				}
 			}else{
 				if(b){
-					Msg.put("message", "修改成功");
+					Msg.put("messageupdate", "修改成功");
 				}
 				else{
-					Msg.put("message", "修改失敗");
+					Msg.put("messageupdate", "修改失敗");
 				}
 			}
+			
+			
+			
+		}
+		//(Ajax)寄Email
+		if("Email".equals(prodaction)){
+			String temp= request.getParameter("qa_No");
+			QandAVO bean = new QandAVO();
+			int qa_No = Integer.parseInt(temp);
+			bean = QAService.getALL(qa_No);
+			
+			EmployeeService employeeService=new EmployeeService();
+			EmployeeVO empVO =new EmployeeVO();
+			empVO=employeeService.select(Integer.toString(bean.getQuestion_No()));
+			
+			String Question_Email=empVO.getEmp_Mail();
+			String Question_name=empVO.getEmp_Name();
+			String Question_Title =bean.getQuestion_Title();
+			
+			//內容為 
+			/*
+			 * Question_name 你好
+			 * 	你在Q&A所提出Question_Title問題福委會已回應你
+			 * 	如有問題....((後面交給你決定了~皓元老大!!
+			 * 
+			 * */
 		}
 		//刪除單筆
 		if("deleteOne".equals(prodaction)){

@@ -54,7 +54,7 @@
 				<c:forEach var="list" items="${list}">
 					<c:if test="${list.question_secret}">
 							<tr>
-								<td><input type="text" name="qa_No" value="${list.qa_No}"></td>
+								<td><input type="text" class="qa_No" name="qa_No" value="${list.qa_No}"></td>
 								<td><input type="text" value="${list.tra_No}"></td>
 								<td><a href="/GSStravel/QandAServlet?prodaction=select&role=true&qa_No=${list.qa_No}">
 									<c:if test="${list.answer_No!=0}"><span>[已回應]</span></c:if><span style="color:red">[私密]${list.question_Title}</span></a></td>
@@ -97,7 +97,11 @@
 	</c:if>
 	<script>
 	if(${Msg!=null}){
-		alert("${Msg.message}");
+		if(${Msg.message=='回應成功,是否要寄Email'}){
+			if (confirm("${Msg.message}")) {
+				window.location = '/GSStravel/QandAInsertServlet?role=true&prodaction=Email&qa_No='+$(".qa_No").val();
+			}
+		}
 	}
 	var i;
 	var $page = $(".page");

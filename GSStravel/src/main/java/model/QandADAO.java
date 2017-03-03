@@ -155,4 +155,7 @@ public class QandADAO implements IQandADAO{
 			}
 		return b;
 	}
+	
+	//寄Email
+	
 }
