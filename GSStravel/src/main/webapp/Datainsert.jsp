@@ -317,7 +317,7 @@ text-align: center;
 <%-- 										<div class="famemgerror">${error.famemg}</div> --%>
 										</td>
 									<td><input type="text" name="famemgphpone"
-										style='width: 90px;' class='form-control' id="famemgphone"
+										style='width: 110px;' class='form-control' id="famemgphone"
 										value="${start.fam_EmgPhone}">
 <%-- 										<div class="famemgphoneerror">${error.famemgphone}</div> --%>
 										</td>

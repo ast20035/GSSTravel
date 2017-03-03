@@ -306,10 +306,14 @@ $(function(){
 			
 
 		if (x == 1 && y == 1 && z == 1 && p == 1 && m==1) {
-
-			alert("行程已修改");
-			return true;
-
+			var answer = confirm("是否要增加附件???");
+			if (answer == true) {	
+				$("#file").val("file");
+				return true;
+			}else{
+				alert("行程已修改");
+				return true;
+			}
 		}
 	}
 </script>
@@ -590,6 +594,7 @@ h2 {
 							</c:if>
 						</c:forEach>
 					</table>
+					<input type='hidden' name='file' value='' id='file'/>
 					<script>
 						function confirmComplete() {
 							var answer = confirm("是否確定要取消???");

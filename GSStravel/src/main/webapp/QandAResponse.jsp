@@ -18,6 +18,67 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
+<style>
+table {
+	color: #7F7F7F;
+	font: 0.8em/1.6em "Trebuchet MS", Verdana, sans-serif;
+	border-collapse: collapse;
+	font-size: 15px;
+}
+
+caption, thead th, tfoot th, tfoot td {
+	background-color: #1E90FF;
+	font-weight: bold;
+	text-transform: uppercase
+}
+
+thead th {
+	background-color: #1E90FF;
+	color: white;
+	text-align: center
+}
+
+tbody tr.odd {
+	background-color: #F7F7F7;
+	color: #666
+}
+
+tbody a {
+	padding: 1px 2px;
+	color: #333;
+	text-decoration: none;
+	border-bottom: 1px dotted #E63C1E
+}
+
+tbody a:active, tbody a:hover, tbody a:focus, tbody a:visited {
+	color: #666
+}
+
+tbody tr:hover {
+	background-color: #EEE;
+	color: #333
+}
+
+tbody tr:hover a {
+	background-color: #FFF
+}
+
+tbody td+td+td+td a {
+	color: #C30;
+	font-weight: bold;
+	border-bottom: 0
+}
+
+tbody td+td+td+td a:active, tbody td+td+td+td a:hover, tbody td+td+td+td a:focus,
+	tbody td+td+td+td a:visited {
+	color: #E63C1E
+}
+
+tbody a:visited:after {
+	font-family: Verdana, sans-serif;
+	content: "\00A0\221A"
+}
+</style>
 <style type="text/css">
 #backPic{
 		position:fixed;
@@ -30,15 +91,24 @@
 .color-red{
 	border-color:red
 }
-.color-green{
-	border-color:green
+
+.color-green {
+	border-color: green
 }
+
 textarea {
 	resize: none;
 }
-td{
-border : 1px solid gray;
-padding: 10px;
+
+td {
+border:1px solid #AAAAAA;
+	padding: 10px;
+}
+h1, h2 {
+	color: #7744FF;
+	font-weight: bolder;
+	border-left: 6px solid gray;
+	padding-left: 10px;
 }
 </style>
 <title>回應</title>
@@ -54,28 +124,42 @@ padding: 10px;
 			</div>
 		</div>
 		<div class='row'>
-			<div class='col-md-offset-3 col-md-2'>
-				<h3>${list.question_Title}</h3>
+			<div class='col-md-offset-3 col-md-5'>
+				<h3></h3>
 				<table class='table'>
+
+					<thead>
+					<tr>
+					<th ><label style='text-align: center;'>標題</label></th>
+					<td colspan="2"><b style='font-size:20px; font-weight:900;'>${list.question_Title}</b></td>
+					</tr>
+						<tr>
+							<th>員工編號</th>
+							<th>旅遊編號</th>
+							<th>發問時間</th>
+						</tr>
+					</thead>
+
 					<tr>
 						<td>${list.question_No}</td>
 						<td>${list.tra_No}</td>
+						<td>${list.question_Time}</td>
 					</tr>
 					<tr>
-						<td colspan="2">${list.question_Time}</td>
-					</tr>
-					<tr>
-						<td colspan="2"><textarea readonly>${list.question_Text}</textarea></td>
+						<td colspan="3" style='text-align: center;'><textarea cols="70%" rows="8" readonly style='font-size: 20px;'>${list.question_Text}</textarea></td>
 					</tr>
 				</table>
-				<form action='<c:url value="/QandAInsertServlet?role=true"/>' method="POST">
-					<input type="hidden" name="qa_No" value="${list.qa_No}">
-					<input type="hidden" name="answer_No" value="<%=session.getAttribute("emp_No")%>">
+				<form action='<c:url value="/QandAInsertServlet?role=true"/>'
+					method="POST">
+					<input type="hidden" name="qa_No" value="${list.qa_No}"> <input
+						type="hidden" name="answer_No"
+						value="<%=session.getAttribute("emp_No")%>">
 					<c:if test="${list.answer_No!=0}">
 						<table class='table'>
 							<h2>回應</h2>
 							<tr>
-								<td><textarea name="answer_Text" class="Ans_textarea" readonly="readonly">${list.answer_Text}</textarea></td>
+								<td><textarea name="answer_Text" class="Ans_textarea" cols="70%" rows="8" style='font-size: 20px;'
+										readonly="readonly">${list.answer_Text}</textarea></td>
 							</tr>
 						</table>
 					</c:if>
@@ -90,28 +174,41 @@ padding: 10px;
 									</tr>
 								</table>
 							</div>
-							<br/>
-							<button type="button" class="notdisplayclass btn btn-primary" onclick="Respose()">我要回應</button>
-							<button type="button" class="notdisplayclass btn btn-danger" onclick="checkdelete()">刪除</button>
-							<button type="submit" name="prodaction" value="insertAnswer" class="displayclass displaybb btn btn-primary">回應</button>
-							<button type="button" class="displayclass btn btn-primary" onclick="cancelrespose()">取消</button>
-							<button type="button" class="notdisplayclass btn btn-primary" onclick="window.location = '/GSStravel/QandAServlet?role=true';">回上一頁</button>
+							<br />
+							<button type="button" class="notdisplayclass btn btn-primary"
+								onclick="Respose()">我要回應</button>
+							<button type="button" class="notdisplayclass btn btn-danger"
+								onclick="checkdelete()">刪除</button>
+							<button type="submit" name="prodaction" value="insertAnswer"
+								class="displayclass displaybb btn btn-primary">回應</button>
+							<button type="button" class="displayclass btn btn-primary"
+								onclick="cancelrespose()">取消</button>
+							<button type="button" class="notdisplayclass btn btn-primary"
+								onclick="window.location = '/GSStravel/QandAServlet?role=true';">回上一頁</button>
 						</c:if>
 					</c:if>
 					<br />
 					<c:if test="${(emp_Role eq true)&&(list.answer_No!=0)&&role}">
-						<button type="button" class="notdisplaybutton btn btn-primary" onclick="updateData()">修改</button>
-						<button type="submit" class="displaybutton displayaa btn btn-primary" name="prodaction" value="updateAnswer">確認修改</button>
-						<button type="button" class="displaybutton btn btn-primary" onclick="cancel()">取消修改</button>
-						<button type="button" class="notdisplaybutton btn btn-danger" onclick="checkdelete()">刪除</button>
-						<button type="button" class="notdisplaybutton btn btn-primary" onclick="window.location = '/GSStravel/QandAServlet?role=true';">回上一頁</button>
+						<button type="button" class="notdisplaybutton btn btn-primary"
+							onclick="updateData()">修改</button>
+						<button type="submit"
+							class="displaybutton displayaa btn btn-primary" name="prodaction"
+							value="updateAnswer">確認修改</button>
+						<button type="button" class="displaybutton btn btn-primary"
+							onclick="cancel()">取消修改</button>
+						<button type="button" class="notdisplaybutton btn btn-danger"
+							onclick="checkdelete()">刪除</button>
+						<button type="button" class="notdisplaybutton btn btn-primary"
+							onclick="window.location = '/GSStravel/QandAServlet?role=true';">回上一頁</button>
 					</c:if>
 				</form>
 				<c:if test="${!role}">
 					<c:if test="${list.question_No==emp_No}">
-						<button type="button" class="notdisplaybutton btn btn-danger" onclick="checkdelete()">刪除</button>
+						<button type="button" class="notdisplaybutton btn btn-danger"
+							onclick="checkdelete()">刪除</button>
 					</c:if>
-					<button type="button" class='btn btn-primary' onclick="window.location = '/GSStravel/QandAServlet?role=false';">回上一頁</button>
+					<button type="button" class='btn btn-primary'
+						onclick="window.location = '/GSStravel/QandAServlet?role=false';">回上一頁</button>
 				</c:if>
 			</div>
 		</div>

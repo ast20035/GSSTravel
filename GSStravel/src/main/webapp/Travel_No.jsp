@@ -118,7 +118,7 @@ table {
 						<td colspan="2">${traveResult.tra_Atter}</td>
 					</tr>
 					<tr>
-						<td class='little'>行程表</td>
+						<td class='little'>附件</td>
 						<td colspan="2"><a
 							href="<c:url value="/File?tra_File=${traveResult.tra_File}"></c:url>">${tra_File}</a></td>
 					</tr>

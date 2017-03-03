@@ -92,7 +92,7 @@ h2 {
 					time.setAttribute("name", "time");
 					time.setAttribute("readonly", "");
 
-					time.setAttribute("style", "font-size:17px");
+					time.setAttribute("style", "font-size:17px;width:470px;");
 					time.setAttribute("value", board[i].time);
 					div1.appendChild(time);
 
@@ -106,7 +106,7 @@ h2 {
 					title.setAttribute("name", "title");
 					title.setAttribute("readonly", "");
 
-					title.setAttribute("style", "font-size:17px");
+					title.setAttribute("style", "font-size:17px;width:470px;");
 					title.setAttribute("value", board[i].title);
 					div1.appendChild(title);
 

@@ -175,19 +175,19 @@
 				<fieldset>
 					<form>
 						<div class='input-group'>
-							<span class="input-group-addon info" id="sizing-addon1">活動代碼:</span><input
+							<span class="input-group-addon info" id="sizing-addon1">活動代碼</span><input
 								type='text' id='id' value='' aria-describedby="sizing-addon1"
 								class='form-control' />
 						</div>
 						<br>
 						<div class='input-group'>
-							<span class="input-group-addon info" id="sizing-addon2">活動名稱:</span> <input
+							<span class="input-group-addon info" id="sizing-addon2">活動名稱</span> <input
 								type='text' id='tra_name' value=''
 								aria-describedby="sizing-addon2" class='form-control' />
 						</div>
 						<br>
 						<div class='input-group'>
-							<span class="input-group-addon info" id="sizing-addon3"> 起迄日期:</span><input
+							<span class="input-group-addon info" id="sizing-addon3"> 起迄日期</span><input
 								type='date' id='Sdate' name='startDay' value=''
 								aria-describedby="sizing-addon3" class='form-control' /> <input
 								type='date' id='Edate' name='endDay' value=''
@@ -195,7 +195,7 @@
 						</div>
 						<br>
 						<div class='input-group select'>
-							<span class="input-group-addon info" id="sizing-addon3">活動地點:</span> <select
+							<span class="input-group-addon info" id="sizing-addon3">活動地點</span> <select
 								class="multiselect" name="loca" multiple="multiple"
 								data-placeholder="請選擇" style="width: 300px;">
 								<option>東</option>
