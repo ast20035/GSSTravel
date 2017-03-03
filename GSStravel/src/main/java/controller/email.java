@@ -34,6 +34,7 @@ public class email {
 			message.setFrom(new InternetAddress("fromn@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 			message.setSubject(title);
+			message.setContent(title, "text/html; charset=UTF-8");
 			message.setText(content);
 			message.setContent(content, "text/html; charset=UTF-8");
 			Transport transport = session.getTransport("smtp");
