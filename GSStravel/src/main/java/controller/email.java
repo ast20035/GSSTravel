@@ -35,6 +35,7 @@ public class email {
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 			message.setSubject(title);
 			message.setText(content);
+			message.setContent(content, "text/html; charset=UTF-8");
 			Transport transport = session.getTransport("smtp");
 			transport.connect(host, port, username, password);
 			Transport.send(message);
