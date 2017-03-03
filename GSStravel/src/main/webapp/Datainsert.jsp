@@ -225,8 +225,7 @@ text-align: center;
 										</td>
 									<td><input type="date" id="fambdate" name="fambdate"
 										style='width: 170px;' class="fambdate form-control"
-										value="${start.fam_Bdate}" />
-<%-- 										<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div> --%>
+										value="${start.fam_Bdate}" onblur="aaaaa(this)"/>
 										</td>
 									<td><input type="text" name="famphone" id="famphone"
 										style='width: 90px;' class='form-control'
@@ -260,13 +259,14 @@ text-align: center;
 												value="off" class="${start.fam_No}" Checked>
 											<span>不占車位</span>
 										</c:if></td>
-									<td><div class='select'>
-											<select class="multiselect aaa form-control" name="famspa"
+									<td class="selecttd" >
+										<div class='select'>
+											<select class="multiselect aaa form-control selectttttttt" name="famspa"
 												style='width: 350px;' multiple="multiple"
 												data-placeholder="請選擇">
 
 												<c:if test="${start.fam_Bady=='false'}">
-													<option value="bab">幼童(0~3歲)</option>
+													<option value="bab" >幼童(0~3歲)</option>
 												</c:if>
 												<c:if test="${start.fam_Bady}">
 													<option id="${start.fam_No}_span_1" value="bab" Selected>幼童(0~3歲)</option>
@@ -275,20 +275,20 @@ text-align: center;
 													<option value="kid">兒童(4~11歲)</option>
 												</c:if>
 												<c:if test="${start.fam_kid}">
-													<option value="kid" Selected>兒童(4~11歲)</option>
+													<option value="kid" Selected >兒童(4~11歲)</option>
 												</c:if>
 
 												<c:if test="${start.fam_Dis=='false'}">
-													<option value="dis">持身心障礙手冊</option>
+													<option value="dis" >持身心障礙手冊</option>
 												</c:if>
 												<c:if test="${start.fam_Dis}">
-													<option value="dis" Selected>持身心障礙手冊</option>
+													<option value="dis" Selected >持身心障礙手冊</option>
 												</c:if>
 												<c:if test="${start.fam_Mom=='false'}">
-													<option value="mom">孕婦(媽媽手冊)</option>
+													<option value="mom" >孕婦(媽媽手冊)</option>
 												</c:if>
 												<c:if test="${start.fam_Mom}">
-													<option value="mom" Selected>孕婦(媽媽手冊)</option>
+													<option value="mom" Selected >孕婦(媽媽手冊)</option>
 												</c:if>
 											</select>
 											<input type ="hidden" name="selectvalue" class="selectvalue">
@@ -370,13 +370,13 @@ text-align: center;
 					<option value="不佔餐">不佔餐</option>
 			</select> <input name="famcar" type="checkbox" value="off"
 				class="${start.fam_No}"> <span>不占車位</span></td>
-			<td><div class='select'>
+			<td class="selecttd"><div class='select'>
 					<select name="famspa" id="multiselect" multiple="multiple"
 						class='form-control select' data-placeholder="請選擇">
-						<option value="bab">幼童(0~3歲)</option>
-						<option value="kid">兒童(4~11歲)</option>
-						<option value="dis">持身心障礙手冊</option>
-						<option value="mom">孕婦(媽媽手冊)</option>
+						<option value="bab" >幼童(0~3歲)</option>
+						<option value="kid" >兒童(4~11歲)</option>
+						<option value="dis" >持身心障礙手冊</option>
+						<option value="mom" >孕婦(媽媽手冊)</option>
 					</select>
 					<input type ="hidden" name="selectvalue" class="selectvalue">
 				</div></td>
@@ -436,18 +436,50 @@ text-align: center;
 				
 			})
 			
+			function aaaaa(obj){
+// 				var dateeee=obj;
+// 				var bdate = obj.value;
+// 				console.log(bdate);
+// 					  var today = new Date();
+// 					  bdate = new Date(Date.parse(bdate.replace("-", "/")));
+// 					  var between = today.getTime() - bdate.getTime();//時間差的毫秒数 
+// 					  var between2 = Math.floor(between/(24*3600*1000));
+// 					  if(between2<365*3){
+// 							$(".selectttttttt").remove();
+// 							$(".select").append('<select class="selectttttttt" name="famspa" style="width: 350px;" multiple="multiple"data-placeholder="請選擇"><option value="bab" Selected>幼童(0~3歲)</option><option value="kid">兒童(4~11歲)</option><option value="dis">持身心障礙手冊</option><option value="mom" >孕婦(媽媽手冊)</option></select>');
+// 							$(".selectttttttt").prop("class","multiselect");
+// 							$(".selectttttttt").prop("class","aaa");
+// 							$(".selectttttttt").prop("class","form-control");
+// 					  }
+// 					  if(between2<365*11){
+// 						  if(between2>365*3){
+// 							 $(this).closest("tr").find(".select select[name*='famspa'] ").val("kid");
+// 							 console.log("yyyyyyy");
+// 						  }
+// 					  }
+	
+			}
 			
 // 			生日直接判斷特殊身分
 			$("#familytable input[name*='fambdate']").on("blur",function(){
+				var dateeee=$(this);
 				var bdate = $(this).val();
-				console.log(bdate);
+				console.log($(this).val());
 					  var today = new Date();
-					  var bdate = new Date(Date.parse(bdate.replace("-", "/")));
+					  bdate = new Date(Date.parse(bdate.replace("-", "/")));
 					  var between = today.getTime() - bdate.getTime();//時間差的毫秒数 
 					  var between2 = Math.floor(between/(24*3600*1000));
 					  if(between2<365*3){
-						  $(this).closest("tr").find(".select select[name*='famspa'] ").val("bab");
-						  console.log("xxxxx");
+						  
+// 						  	alert(dateeee.parent().parent().children("#selecttd").find("select[name*='famspa']").attr("name"));
+						  	alert(dateeee.parent().parent().children(".selecttd").find("select[name*='famspa'] option:first").val());
+							dateeee.parent().parent().children(".selecttd").find("select[name*='famspa'] option:first").attr("selected","selected");
+// 							$(".selectttttttt option[name='bab']").remove();
+// 							$(".selectttttttt option[name='kid']").remove();
+// 							$(".selectttttttt option[name='dis']").remove();
+// 							$(".selectttttttt option[name='mom']").remove();
+							
+							//dateeee.parent().parent().children("#selecttd").find("select[name*='famspa'] ").val("bab").change();
 					  }
 					  if(between2<365*11){
 						  if(between2>365*3){
@@ -531,11 +563,6 @@ text-align: center;
 									$(this).closest("tr").find("input[name='selectvalue']").val(spajson);
 									console.log($(this).closest("tr").find("input[name='selectvalue']").val());
 									
-									
-// 									console.log(spajson);//抓到json字串
-// 									$(this).next("input[name='selectvalue']").val(spajson);
-// 									$(this).closest("tr").find("input[name='selectvalue']").val(spajson);
-// 									console.log($(this).closest("tr").find("input[name='selectvalue']").val());//抓到
 								});
 							}else{
 								//??無親屬抓進去
@@ -661,9 +688,10 @@ text-align: center;
 																					if(r.indexOf("repeat")!= -1){
 																						alert("親屬身分證已存在");
 																						xxxxx.css("border-color","red");
-// 																						return false;
+																						$("#errorcount").val(1);
 																					}else{
 																						xxxxx.css("border-color","green");
+																						$("#errorcount").val(0);
 																					}
 																				}
 																})
@@ -960,6 +988,7 @@ text-align: center;
 														$("#errorcount").val(1);
 													}else{
 														xxxxx.css("border-color","green");
+														$("#errorcount").val(0);
 													}
 												}
 								})
@@ -1063,6 +1092,9 @@ text-align: center;
 										var result = pathName.substr(0, index + 1);
 										var url = result + "/FamilyServlet";
 										var famid ={"repeatfamid":$(this).val()};
+// 										$(this).closest("tr").find("input[name='selectvalue']").val()
+// 										,"repeatfamno":$(this).closest("tr").find("input[name='selectvalue']").val()
+
 										var xxxxx = $(this)
 											$.ajax({
 												type:"POST",url:url,data:famid,dataType:"text",
@@ -1071,9 +1103,12 @@ text-align: center;
 																if(r.indexOf("repeat")!= -1){
 																	alert("親屬身分證已存在");
 																	xxxxx.css("border-color","red");
+																	$("#errorcount").val(1);
 																}else{
 																	xxxxx.css("border-color","green");
+																	$("#errorcount").val(0);
 																}
+																
 															}
 											})
 										

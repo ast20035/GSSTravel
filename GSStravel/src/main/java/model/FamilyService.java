@@ -61,4 +61,8 @@ public class FamilyService {
 	public void updatefammom(Integer famno,Boolean fammom){
 		familyDAO.updatefammom(famno,fammom);
 	}
+	//搜尋除了自己的famid 
+	public List<String> selectid_not_myself(int famno){
+		return familyDAO.selectid_not_myself(famno);
+	}
 }

@@ -23,4 +23,5 @@ public interface IFamilyDAO {
 	public void updatefamdis(Integer famno,Boolean famdis);
 	public void updatefammom(Integer famno,Boolean fammom);
 	public List<FamilyVO> selectFam(String emp_No);
+	public List<String> selectid_not_myself(int famno);
 }
