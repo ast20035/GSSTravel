@@ -26,6 +26,7 @@
 		} else {
 			;
 		}
+		document.getElementById('backPic').removeAttribute('style');
 	}
 	function ke(event){
 		if(event.which==13){
@@ -63,7 +64,7 @@ form {
 </style>
 </head>
 <body>
-<img src="images/Travel.jpg" id="backPic">
+<img src="images/Travel.jpg" id="backPic" style='display: none;'>
 	<div class='container-fluid active'>
 		<div class='row' id='title'>
 		<div class='col-lg-4' ></div>
