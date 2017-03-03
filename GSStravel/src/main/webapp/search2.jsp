@@ -19,7 +19,16 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <title>行程維護</title>
-
+<style type="text/css">
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
+</style>
 <script>
 	window.onload = function() {
 		var id = document.getElementById('id');
@@ -251,5 +260,6 @@
 			<div class='col-md-1'></div>
 		</div>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>

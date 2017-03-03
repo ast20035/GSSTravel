@@ -21,6 +21,14 @@
 	crossorigin="anonymous"></script>
 <title>Q&A</title>
 <style>
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 table {
 	color: #7F7F7F;
 	font: 0.8em/1.6em "Trebuchet MS", Verdana, sans-serif;
@@ -94,7 +102,7 @@ input[type='text'] {
 }
 </style>
 </head>
-<body>
+<body style="background-color:transparent">
 	<% String prodaction = request.getParameter("prodaction");%>
 	<select onchange="window.location = '/GSStravel/QandAServlet?role=false&prodaction='+this.value;" class='form-control' style='width:140px;'>
 		<option value="all" <%if ("all".equals(prodaction)) {out.print("selected");}%>>顯示全部</option>

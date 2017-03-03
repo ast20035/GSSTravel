@@ -22,9 +22,20 @@
 	crossorigin="anonymous"></script>
 
 <title>報名</title>
+<style>
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
+</style>
 </head>
 <body>
 	<div class='container-fluid'></div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 
 <script type="text/javascript">

@@ -18,6 +18,16 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <title>登入</title>
+<style type="text/css">
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
+</style>
 </head>
 <body>
 	<div class='container-fluid'>
@@ -26,5 +36,6 @@
 			window.location.href = "login.jsp";
 		</script>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>

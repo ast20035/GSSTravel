@@ -8,7 +8,14 @@
 <head>
 <link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
 <style type="text/css">
-
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 .ui-timepicker-div .ui-widget-header { margin-bottom: 8px;}
 .ui-timepicker-div dl { text-align: left; }
 .ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
@@ -854,5 +861,6 @@ h2 {
 			</div>
 		</div>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>

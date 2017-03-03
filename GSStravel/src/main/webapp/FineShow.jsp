@@ -21,6 +21,14 @@
 	crossorigin="anonymous"></script>
 <title>罰則一覽表</title>
 <style>
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 td, th {
 	border: 2px outset black;
 	text-align: center;
@@ -254,5 +262,6 @@ td>strong {
 			</div>
 		</form>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>

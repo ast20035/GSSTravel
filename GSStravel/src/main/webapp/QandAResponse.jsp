@@ -80,8 +80,16 @@ tbody a:visited:after {
 }
 </style>
 <style type="text/css">
-.color-red {
-	border-color: red
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
+.color-red{
+	border-color:red
 }
 
 .color-green {
@@ -205,6 +213,7 @@ h1, h2 {
 			</div>
 		</div>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 <script type="text/javascript">
 

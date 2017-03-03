@@ -19,6 +19,14 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <style type="text/css">
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 table {
 	margin-top: 2%;
 	font-size: 15px
@@ -192,6 +200,7 @@ td, th {
 		$("tr:gt(" + i * 10 + "):lt(" + 10 + ")").css("display", "");
 	}
 	</script>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>
 	

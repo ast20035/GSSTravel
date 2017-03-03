@@ -6,6 +6,16 @@
 <meta http-equiv="refresh"
 	content="0;url=http://localhost:8080/GSStravel/search2.jsp" />
 <title>Insert title here</title>
+<style type="text/css">
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
+</style>
 </head>
 <body>
 <script type="text/javascript">
@@ -13,6 +23,6 @@
 		alert("旅遊編碼:${tra_No}"+"\n"+"旅遊名稱:${tra_Name}"+"\n"+"附件為${fileName}"+"\n"+"新增成功!!");
 	}
 </script>
-
+<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>
