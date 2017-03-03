@@ -47,8 +47,7 @@ public class TravelExcel extends HttpServlet {
 			location[i] = jsonObject.getString("location");
 		}
 		ex.travelExcel(count, id, name, onDate, offDate, bDate, eDate, people, peopleNow, location);
-		request.getRequestDispatcher("/search2.jsp").forward(request, response);
-		return;
+		request.getRequestDispatcher("/File_Travel.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

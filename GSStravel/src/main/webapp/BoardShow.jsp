@@ -121,7 +121,7 @@ h2 {
 					body.appendChild(div1);
 				}
 			} else {
-				alert(xh.status + ":" + xh.statusText);
+				alert("伺服器忙線中！");
 			}
 		}
 	}

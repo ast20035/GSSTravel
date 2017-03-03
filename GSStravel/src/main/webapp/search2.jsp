@@ -138,6 +138,7 @@
 	function excelFunction() {
 		$('#excel').val(excelData);
 		$('#printExcel').submit();
+		
 	}
 </script>
 </head>

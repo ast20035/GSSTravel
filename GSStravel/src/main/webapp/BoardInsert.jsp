@@ -45,10 +45,23 @@ input, textarea {
 			important.style.color = "red";
 		}
 	}
+
+	function check() {
+		var title = document.getElementById("title");
+		var content = document.getElementById("content");
+		if (title.value == "") {
+			alert("請輸入公告標題！");
+		} else if (content.value == "") {
+			alert("請輸入公告內容！");
+		} else {
+			$("#save").val("儲存");
+			$("#insertData").submit();
+		}
+	}
 </script>
 </head>
 <body>
-<%@include file="Manage.jsp"%>
+	<%@include file="Manage.jsp"%>
 	<script>
 		$('.navbar-nav>li').removeClass('Mnow');
 		$('.navbar-nav>li:eq(1)').addClass('Mnow');
@@ -58,26 +71,29 @@ input, textarea {
 			<div class='col-md-offset-1'>
 				<h2>新增公告</h2>
 			</div>
-		</div><br>
+		</div>
+		<br>
 		<div class='row'>
 			<div class='col-md-offset-3 col-md-4'>
-				<form action="<c:url value="/AnnouncementUDServlet" />" method="GET">
+				<form id="insertData"
+					action="<c:url value="/AnnouncementUDServlet" />" method="GET">
 					<div id="boardDiv">
-						<select id="day" name="day" onchange="optionTime()" class='form-control' style='width:150px;'>
+						<select id="day" name="day" onchange="optionTime()"
+							class='form-control' style='width: 150px;'>
 							<option id="normal" value="2">一般公告</option>
 							<option id="important" value="1" style="color: red">重要公告</option>
-						</select>
-						<br>
+						</select> <br>
 						<div>公告標題</div>
 						<input type="text" id="title" name="title" class="form-control"
-							style="font-size: 17px" />
+							style="font-size: 17px" autocomplete="off" ); />
 						<div>公告內容</div>
 						<textarea cols="50" rows="12" id="content" name="content"
-							style="font-size: 17px; resize: none" class="form-control"></textarea>
-						<br> <input type="submit" value="儲存" name="save"
-							class='btn btn-success' /> <input type="button"
-							class='btn btn-primary' value='回上一頁'
-							onclick='window.location.href="BoardMaintain.jsp"'>
+							style="font-size: 17px; resize: none" class="form-control"
+							autocomplete="off"></textarea>
+						<br> <input type="button" value="儲存" class='btn btn-success'
+							onclick="check()" /> <input type="hidden" value="" id="save"
+							name="save" /> <input type="button" class='btn btn-primary'
+							value='回上一頁' onclick='window.location.href="BoardMaintain.jsp"'>
 					</div>
 				</form>
 			</div>

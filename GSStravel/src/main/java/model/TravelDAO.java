@@ -46,7 +46,18 @@ public class TravelDAO implements ITravelDAO {
 	private static final String SELECT_EXCEL = "SELECT * FROM Travel";
 	private static final String SELECT_traNo = "SELECT tra_No FROM Travel WHERE tra_On > GetDate() and tra_No=?";
 	private static final String deleteTravel="delete from Travel where tra_No=?";
+	private static final String updateraFile = "update Travel set tra_File=? where tra_No=?";
 	
+	public void updateraFile(String tra_File,String tra_No) {
+		try (Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(updateraFile);) {
+			stmt.setString(1, tra_File);
+			stmt.setString(2, tra_No);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	public void deleteTravel(String tra_No) {
 		try(
 				Connection conn = ds.getConnection();	
