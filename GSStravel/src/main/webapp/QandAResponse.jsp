@@ -82,12 +82,15 @@ padding: 10px;
 									</tr>
 								</table>
 							</div>
+							<br/>
 							<button type="button" class="notdisplayclass btn btn-primary" onclick="Respose()">我要回應</button>
+							<button type="button" class="notdisplayclass btn btn-danger" onclick="checkdelete()">刪除</button>
 							<button type="submit" name="prodaction" value="insertAnswer" class="displayclass displaybb btn btn-primary">回應</button>
 							<button type="button" class="displayclass btn btn-primary" onclick="cancelrespose()">取消</button>
 							<button type="button" class="notdisplayclass btn btn-primary" onclick="window.location = '/GSStravel/QandAServlet?role=true';">回上一頁</button>
 						</c:if>
 					</c:if>
+					<br />
 					<c:if test="${(emp_Role eq true)&&(list.answer_No!=0)&&role}">
 						<button type="button" class="notdisplaybutton btn btn-primary" onclick="updateData()">修改</button>
 						<button type="submit" class="displaybutton displayaa btn btn-primary" name="prodaction" value="updateAnswer">確認修改</button>
@@ -107,6 +110,11 @@ padding: 10px;
 	</div>
 </body>
 <script type="text/javascript">
+
+	if(${Msg!=null}){
+		alert("${Msg.message}");
+	}
+	
 	$(".displayclass").hide();
 	$(".displaybutton").hide();
 	var Ans_textarea;

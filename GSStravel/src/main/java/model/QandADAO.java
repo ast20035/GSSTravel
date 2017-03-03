@@ -24,10 +24,9 @@ public class QandADAO implements IQandADAO{
 			e.printStackTrace();
 		}
 	}
-	
-	private final String selectALL="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No from QandA order by Question_Time desc";
-	private final String selectYes="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No from QandA where Answer_No is not null order by Question_Time desc";
-	private final String selectNo="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No from QandA where Answer_No is null order by Question_Time desc";
+	private final String selectALL="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret from QandA order by Question_Time desc";
+	private final String selectYes="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret from QandA where Answer_No is not null order by Question_Time desc";
+	private final String selectNo="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret from QandA where Answer_No is null order by Question_Time desc";
 	@Override
 	public List<QandAVO> selectALL(String prodaction){
 		List<QandAVO> result = null;
@@ -51,6 +50,7 @@ public class QandADAO implements IQandADAO{
 				bean.setQuestion_Text(rset.getString("Question_Text"));
 				bean.setQuestion_Time(rset.getString("Question_Time"));
 				bean.setAnswer_No(rset.getInt("Answer_No"));
+				bean.setQuestion_secret(rset.getBoolean("Question_secret"));
 				result.add(bean);
 			}
 		} catch (SQLException e) {
@@ -58,7 +58,7 @@ public class QandADAO implements IQandADAO{
 		}
 		return result;
 	}
-	private final String insertQuestion= "insert into QandA (tra_No,Question_No,Question_Title,Question_Text,Question_Time) values(?,?,?,?,getDate())";
+	private final String insertQuestion= "insert into QandA (tra_No,Question_No,Question_Title,Question_Text,Question_Time,Question_secret) values(?,?,?,?,getDate(),?)";
 	@Override
 	public boolean insertQuestion(QandAVO bean){
 		boolean b=false;
@@ -68,6 +68,7 @@ public class QandADAO implements IQandADAO{
 			stmt.setInt(2, bean.getQuestion_No());
 			stmt.setString(3, bean.getQuestion_Title());
 			stmt.setString(4, bean.getQuestion_Text());
+			stmt.setBoolean(5, bean.getQuestion_secret());
 			stmt.executeUpdate();
 			b=true;
 		} catch (SQLException e) {
