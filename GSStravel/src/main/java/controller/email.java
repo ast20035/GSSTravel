@@ -30,13 +30,11 @@ public class email {
 			}
 		});
 		try {
-			Message message = new MimeMessage(session);
+			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("fromn@gmail.com"));
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
-			message.setSubject(title);
-			message.setContent(title, "text/html; charset=UTF-8");
-			message.setText(content);
-			message.setContent(content, "text/html; charset=UTF-8");
+			message.setSubject(title, "UTF-8");
+			message.setText(content, "UTF-8");
 			Transport transport = session.getTransport("smtp");
 			transport.connect(host, port, username, password);
 			Transport.send(message);
