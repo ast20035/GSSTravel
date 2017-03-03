@@ -158,7 +158,7 @@ margin-left: -100px;
 		<div class='row'>
 			<div class='col-md-offset-1 col-md-5'>
 				<h4 style='color: #FF5511; font-weight: bold;'>公告</h4>
-				<select id="day" name="day" onchange="optionTime()"
+				<select id="day" name="day" onchange="optionTime()" class='form-control'
 					class='form-control' style='width: 150px;'>
 					<option value="365">過去1年的公告</option>
 					<option value="183">過去半年的公告</option>
@@ -181,8 +181,8 @@ margin-left: -100px;
 			</div>
 			<div class='col-md-offset-1 col-md-5'>
 				<h4 style='color: #FF5511;' id='QA'>Q&A</h4>
-				<iframe src="<c:url value='/QandAServlet?role=false' />" frameborder="0" width="800px"
-					marginwidth="2px" height="600px"></iframe>
+				<iframe src="<c:url value='/QandAServlet?role=false' />" frameborder="0" width="105%"
+					marginwidth="2px" height="1000px"></iframe>
 			</div>
 		</div>
 	</div>
