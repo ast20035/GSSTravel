@@ -48,7 +48,6 @@ public class TravelExcel extends HttpServlet {
 		}
 		ex.travelExcel(count, id, name, onDate, offDate, bDate, eDate, people, peopleNow, location);
 		request.getRequestDispatcher("/File_Travel.jsp").forward(request, response);
-		return;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
