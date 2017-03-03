@@ -329,7 +329,7 @@ public class TravelServlet extends HttpServlet {
 		/*----Update----*/
 		// else
 		
-		if ("確定".equals(inputerrors)) {	//Travel_Edit修改確認
+		if ("儲存".equals(inputerrors)) {	//Travel_Edit修改確認
 			
 			
 			
@@ -412,7 +412,8 @@ public class TravelServlet extends HttpServlet {
 			String file = request.getParameter("file");
 		
 			if("".equals(file) || file == ""){
-				 request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response);
+				response.sendRedirect(request.getContextPath()+"/search2.jsp");
+				 //request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response);
 				 return;
 			}else{
 				String tra_No = request.getParameter("tra_no");
@@ -427,7 +428,6 @@ public class TravelServlet extends HttpServlet {
 		}
 		request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response);
 		 return;
-		 // 測試用
 		// response.sendRedirect(request.getContextPath() + "/Travel_Edit.jsp");
 	}// doGet
 

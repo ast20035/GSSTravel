@@ -195,10 +195,11 @@ var Error="<%=session.getAttribute("nopeople")%>";
 							<span class="input-group-addon info" id="sizing-addon3">活動地點</span> <select
 								class="multiselect" name="loca" multiple="multiple"
 								data-placeholder="請選擇" style="width: 300px;">
-								<option>東</option>
-								<option>西</option>
-								<option>南</option>
 								<option>北</option>
+								<option>中</option>
+								<option>南</option>
+								<option>東</option>
+								<option>外島</option>
 
 							</select>
 						</div>
