@@ -6,8 +6,7 @@
 <head>
 <!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
 <meta http-equiv="refresh"
-	content="0;url=<c:url value='/search2.jsp'/>" />
-
+	content="0;url=<c:url value='/search2.jsp'/>"/>
 <script src='js/jquery-3.1.1.min.js'></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -23,23 +22,14 @@
 	crossorigin="anonymous"></script>
 
 <title>報名</title>
-<style>
-#backPic{
-		position:fixed;
-		top:0;
-		z-index: -1;
-		opacity: 0.2;
-		height:100%;
-		width: 100%;
-	}
-</style>
 </head>
 <body>
 	<div class='container-fluid'></div>
-	<img src="images/Travel.jpg" id="backPic">
 </body>
 
 <script type="text/javascript">
-	alert("旅遊名稱:${message[0]}"+"\n"+"旅遊編號:${message[1]}"+"\n"+"此旅遊已經刪除");
+	if (${tra_No!=null}) {
+		alert("旅遊編碼:${tra_No}"+"\n"+"旅遊名稱:${tra_Name}"+"\n"+"更新成功!!");
+	}
 </script>
 </html>

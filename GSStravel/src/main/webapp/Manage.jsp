@@ -18,6 +18,14 @@
 	});
 </script>
 <style>
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 table {
 	color: #7F7F7F;
 	font: 0.8em/1.6em "Trebuchet MS", Verdana, sans-serif;
@@ -212,4 +220,3 @@ h1, h2 {
 	</div>
 </nav>
 <span class='alert alert-danger' id='span' style="display: none;"><strong>右方還有內容</strong></span>
-

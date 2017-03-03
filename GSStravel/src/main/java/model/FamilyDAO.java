@@ -263,6 +263,31 @@ public class FamilyDAO implements IFamilyDAO {
 			}
 		return famid;
 	}
+
+	//搜尋除了自己的famid 
+	@Override
+	public List<String> selectid_not_myself(int famno) {
+		List<String> famid=new ArrayList<String>();
+		
+		try(Connection connection = ds.getConnection();
+				PreparedStatement state = connection.prepareStatement(selectfamid+ " where fam_No !=" + famno);)
+			{
+//			state.setInt(1,famno);
+			ResultSet resultset = state.executeQuery();
+			if(resultset!=null){
+				while(resultset.next()){
+					famid.add(resultset.getString("fam_Id"));
+					//迴圈 每抓一次會進去一次 在裡面設new會重新跑
+				}
+			}
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+		return famid;
+	}
+	
+	
+	
 	
 	private final String select_byname="select fam_No from family where fam_Name=? and emp_No=?";
 	public int select_byname(int emp_No ,String fam_Name){

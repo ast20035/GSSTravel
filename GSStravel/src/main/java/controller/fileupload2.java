@@ -23,8 +23,8 @@ import org.apache.commons.io.FilenameUtils;
 
 import model.TravelService;
 
-@WebServlet("/fileupload")
-public class fileupload extends HttpServlet {
+@WebServlet("/fileupload2")
+public class fileupload2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TravelService travelService =new TravelService();
 	
@@ -32,17 +32,11 @@ public class fileupload extends HttpServlet {
 	File yourTempDirectory = new File("/tmp");
 	int yourMaxRequestSize = 100 * 1024 * 1024;
 	String allowedFileTypes = ".txt .pdf .doc .ppt .xls .csv .dbf .gif .jpg .jpeg .png .swf .htm .html .zip .rar";
-    public fileupload() {
+    public fileupload2() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-		File saveFolder=new File("C:\\travel");
-		if (!saveFolder.exists()) {
-			saveFolder.mkdirs();
-		}
 		HttpSession session = request.getSession();
 		String tra_No=session.getAttribute("tra_No").toString();
 		String tra_Name=session.getAttribute("tra_Name").toString();
@@ -101,7 +95,7 @@ public class fileupload extends HttpServlet {
 		}	
 		if(error.size()!=0){
 			request.setAttribute("error", error);
-			request.getRequestDispatcher("/fileupload_control.jsp").forward(request, response);
+			request.getRequestDispatcher("/fileupload_control2.jsp").forward(request, response);
 			return;
 		}else{
 			session.removeAttribute("tra_No");
@@ -109,7 +103,7 @@ public class fileupload extends HttpServlet {
 			request.setAttribute("tra_No", tra_No);
 			request.setAttribute("tra_Name", tra_Name);
 			
-			request.getRequestDispatcher("/newTravelFile.jsp").forward(request, response);
+			request.getRequestDispatcher("/newTravelFile2.jsp").forward(request, response);
 			return;
 		}
 

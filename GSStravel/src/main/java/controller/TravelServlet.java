@@ -328,8 +328,10 @@ public class TravelServlet extends HttpServlet {
 
 		/*----Update----*/
 		// else
-
-		if ("確定".equals(inputerrors)) {	//Travel_Edit修改確認
+		
+		if ("儲存".equals(inputerrors)) {	//Travel_Edit修改確認
+			
+			
 			
 			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:24小時制
 			Date date = new Date();
@@ -406,18 +408,26 @@ public class TravelServlet extends HttpServlet {
 			} else {
 				session.setAttribute("update", resultEdit);
 			}
-			response.sendRedirect("Travel_Edit?tra_no=" + traNo);
-			return;
-			/*----Delete----*/
-		} else if ("Delete".equals(inputerrors)) {
-			boolean result = travelService.delete(travelview);
-			if (!result) {
-				session.setAttribute("delete", 0);
-			} else {
-				session.setAttribute("delete", 1);
+			
+			String file = request.getParameter("file");
+		
+			if("".equals(file) || file == ""){
+				response.sendRedirect(request.getContextPath()+"/search2.jsp");
+				 //request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response);
+				 return;
+			}else{
+				String tra_No = request.getParameter("tra_no");
+				String tra_Name = request.getParameter("edittraName");		
+
+				HttpSession son = request.getSession();
+				son.setAttribute("tra_No", tra_No);
+				son.setAttribute("tra_Name", tra_Name);		
+				request.getRequestDispatcher("/fileupload_control2.jsp").forward(request, response);
+				return;
 			}
 		}
-		 request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response); // 測試用
+		request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response);
+		 return;
 		// response.sendRedirect(request.getContextPath() + "/Travel_Edit.jsp");
 	}// doGet
 

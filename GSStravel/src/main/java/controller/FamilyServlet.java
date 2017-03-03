@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 
 //import org.apache.el.parser.BooleanNode;
 //import org.json.simple.JSONObject;
@@ -66,11 +67,11 @@ public class FamilyServlet extends HttpServlet {
 		String[] famemgrel = req.getParameterValues("famemgrel");
 		String[] famnote = req.getParameterValues("famnote");
 		String[] selectvalue =req.getParameterValues("selectvalue");
-		String[] repeatselectvalue = req.getParameterValues("repeatselectvalue");
+//		String[] repeatselectvalue = req.getParameterValues("repeatselectvalue");
 		
 		
 		String buttonsave = req.getParameter("button");
-//		String ajaxid = req.getParameter("id");//判斷前端寫親屬身分證有無重複
+		String ajaxid = req.getParameter("id");//判斷前端寫親屬身分證有無重複
 		String ajaxfamid = req.getParameter("ajaxfamid");//用前端的親屬身分證去刪親屬
 		String ajaxcheckbox =req.getParameter("checkbox");
 //		String ajaxmultiselect =req.getParameter("multiselect");
@@ -82,44 +83,50 @@ public class FamilyServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		Integer emp_No = (Integer) session.getAttribute("emp_No");
 		List<String> id = familyservice.selectid();
-		List<String> email= employeedao.selectEmail();
-
+		List<String> email = employeedao.selectEmail_Not_emp_No(emp_No);
+		
 		
 		//判斷員工信箱是否重複
 		if(ajaxemail != null){
-//			System.out.println(ajaxemail);
 			for(String xxx:email){
-				if(ajaxemail.contains(xxx)){
-//					System.out.println(xxx);
+				if(ajaxemail.equals(xxx)==false){
 					out.print("");
-					break;
 				}else{
-					if(email.contains(ajaxemail)){
-						out.print("repeat");
-					}else{
-						out.print("");
-					}
+					out.print("repeat");
 				}
 			}
 		}
 		
 		//判斷原來的親屬身分證有沒有重複
-		if(ajaxrepeatfamid != null) {
-			System.out.println(ajaxrepeatfamid);
-			for(String xxx:id){
-				if(ajaxrepeatfamid.contains(xxx)){
-					System.out.println(xxx);
-					out.print("");
-					break;
-				}else{
-					if(id.contains(ajaxrepeatfamid)){
-						out.print("repeat");
-					}else{
-						out.print("");
+				if(ajaxrepeatfamid != null) {
+					for(String xx: id){
+						
 					}
+//					System.out.println(ajaxrepeatfamid+"++++++");
+//					 int famno= familyservice.selectfam_byid(ajaxrepeatfamid);
+//					List<String> idnotmyself= familyservice.selectid_not_myself(famno);
+//					for(String xxx: idnotmyself){
+//						System.out.println(xxx);
+//						if(ajaxrepeatfamid.contains(xxx)){
+//							out.print("repeat");
+//						}else{
+//							out.print("");
+//						}
+//					}
+//					
 				}
+		
+				
+		//判斷新增的親屬身分證有沒有重複
+		if(ajaxid != null){
+			if(id.contains(ajaxid)){
+				System.out.println("repeat");
+				out.print("repeat");
+			}else{
+				out.print("");
 			}
 		}
+		
 		
 		//按下delete鍵的動作
 		if(ajaxfamid!=null){

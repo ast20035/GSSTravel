@@ -22,6 +22,14 @@
 	crossorigin="anonymous"></script>
 <title>Q&A</title>
 <style>
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 table {
 	color: #7F7F7F;
 	font: 0.8em/1.6em "Trebuchet MS", Verdana, sans-serif;
@@ -99,7 +107,7 @@ input[type='text'] {
 }
 </style>
 </head>
-<body>
+<body style="background-color:transparent">
 	<% String prodaction = request.getParameter("prodaction");%>
 	<select onchange="window.location = '/GSStravel/QandAServlet?role=false&prodaction='+this.value;" class='form-control' style='width:140px;'>
 		<option value="all" <%if ("all".equals(prodaction)) {out.print("selected");}%>>顯示全部</option>
@@ -176,7 +184,12 @@ input[type='text'] {
 		</ul>
 	</c:if>
 	<c:if test="${list.size()==0}">
-		<h2>目前尚無留言~</h2>
+	<%
+		if (prodaction==null) { out.print("<h2>現在尚無留言</h2>"); }
+		if ("all".equals(prodaction)) { out.print("<h2>現在尚無留言</h2>"); }
+		if ("yes".equals(prodaction)) { out.print("<h2>全部皆無回應</h2>");}
+		if ("no".equals(prodaction)) { out.print("<h2>全部皆已回應</h2>"); }
+	%>				 				
 	</c:if>
 	<br />
 	<c:if test="${emp_Role eq false}">

@@ -18,6 +18,7 @@
 	crossorigin="anonymous"></script>
 <head>
 <style type="text/css">
+
 .color-red {
 	border-color: red
 }
@@ -36,7 +37,7 @@ resize: none;
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>我要提問</title>
 </head>
-<body>
+<body style="background-color:transparent">
 	<form action="<c:url value='/QandAInsertServlet'/>" method="POST">
 		<input type="hidden" name="Question_No" value="<%=session.getAttribute("emp_No")%>">
 		<table>

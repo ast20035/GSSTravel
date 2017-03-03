@@ -23,6 +23,14 @@
 	
 </script>
 <style type="text/css">
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 .t {
 	border: 1px solid black;
 }
@@ -110,7 +118,7 @@ table {
 						<td colspan="2">${traveResult.tra_Atter}</td>
 					</tr>
 					<tr>
-						<td class='little'>行程表</td>
+						<td class='little'>附件</td>
 						<td colspan="2"><a
 							href="<c:url value="/File?tra_File=${traveResult.tra_File}"></c:url>">${tra_File}</a></td>
 					</tr>
@@ -138,5 +146,6 @@ table {
 			<div class='col-lg-1'></div>
 		</div>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>

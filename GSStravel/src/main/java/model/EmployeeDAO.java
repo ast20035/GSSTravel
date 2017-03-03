@@ -234,5 +234,23 @@ public class EmployeeDAO implements IEmployeeDAO {
 		}
 		return email;
 	}
-
+	
+	//搜尋EMAIL排出自己的EMAIL
+	@Override
+	public List<String> selectEmail_Not_emp_No(int emp_No) {
+		List<String> email=null;
+		try (Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(selectEmail+" where emp_No !="+emp_No);
+				ResultSet rset = stmt.executeQuery();) {
+			email =new ArrayList<String>();
+			while (rset.next()) {
+				email.add(rset.getString("emp_Mail"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return email;
+	}
+	
+	
 }
