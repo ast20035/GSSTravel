@@ -47,7 +47,9 @@ public class FeeTravel extends HttpServlet {
 				} catch (Exception e) {
 					tra_File=sb.toString();
 					int lengths=tra_File.length();
-					tra_File=tra_File.substring(0, lengths-1);				
+					if(lengths>0){
+					tra_File=tra_File.substring(0, lengths-1);		
+					}
 				}
 			}
 		
