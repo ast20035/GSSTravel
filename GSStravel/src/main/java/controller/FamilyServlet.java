@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 
 
 import ch.qos.logback.core.net.SyslogOutputStream;
+import model.EmployeeDAO;
 import model.EmployeeService;
 import model.EmployeeVO;
 import model.FamilyService;
@@ -35,6 +36,7 @@ public class FamilyServlet extends HttpServlet {
 
 	private static final ArrayList<Object> Integer = null;
 	private EmployeeService employeeservice = new EmployeeService();
+	private EmployeeDAO employeedao =new EmployeeDAO();
 	private FamilyService familyservice = new FamilyService();
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -71,21 +73,30 @@ public class FamilyServlet extends HttpServlet {
 		String ajaxid = req.getParameter("id");//判斷前端寫親屬身分證有無重複
 		String ajaxfamid = req.getParameter("ajaxfamid");//用前端的親屬身分證去刪親屬
 		String ajaxcheckbox =req.getParameter("checkbox");
-		String ajaxmultiselect =req.getParameter("multiselect");
-		String ajaxfamname=req.getParameter("famnameajax");
+//		String ajaxmultiselect =req.getParameter("multiselect");
+//		String ajaxfamname=req.getParameter("famnameajax");
+//		String ajaxemail = req.getParameter("email");
 		PrintWriter out = res.getWriter();//ajax輸出???
 		
 		HttpSession session = req.getSession();
 		Integer emp_No = (Integer) session.getAttribute("emp_No");
-		List<String> id = familyservice.selectid(emp_No);
-		Map<Integer ,List<Boolean>> mp=new HashMap<>();
-		List<Boolean> bl=new ArrayList<>();
+		List<String> id = familyservice.selectid();
+		List<String> email= employeedao.selectEmail();
+		
+		//判斷員工信箱是否重複
+//		if(ajaxemail != null){
+//			System.out.println(ajaxemail);
+//			if(email.contains(ajaxemail)){
+//				out.print("repeat");
+//			}else{
+//				out.print("");
+//			}
+//		}
 		
 		//判斷身分證id是否重複輸入
 		if(ajaxid != null) {
 			String[] items = ajaxid.replaceAll("\\[", "").replaceAll("\"", "").replaceAll("\\]", "").split(",");
 			for (String dataid : items) {
-				System.out.println(dataid);
 				if (id.contains(dataid)) {
 					out.print("repeat");//用來傳出
 				}else{
@@ -98,9 +109,7 @@ public class FamilyServlet extends HttpServlet {
 		
 		//按下delete鍵的動作
 		if(ajaxfamid!=null){
-			System.out.println(ajaxfamid);
 				 int famno = familyservice.selectfam_byid(ajaxfamid);//用id找famno
-				 System.out.println(famno);
 				 List<java.sql.Date> listdate= familyservice.selectfam_Nodelete(famno);//用famno去找有活動的親屬
 				 long betweenDate=0;
 				 if(famno!=0){
@@ -110,26 +119,25 @@ public class FamilyServlet extends HttpServlet {
 							 long nowDate = calendar.getTime().getTime(); //獲得毫秒型 現在日期
 							 long specialDate = date.getTime();//把要比較的值放這(親屬日期)
 							 betweenDate = (specialDate - nowDate) / (1000 * 60 * 60 * 24);
-							 System.out.println(betweenDate);
 							 if(betweenDate>0){//比對 能不能刪除
-								 System.out.println(betweenDate);
-								 System.out.println("not");
+//								 System.out.println(betweenDate);
+//								 System.out.println("not");
 								 out.println("not");
 							 }else{
 								//可以刪除  全部過期才會到此 才能刪除
 								familyservice.delete(ajaxfamid);
-								System.out.println("delete");
+//								System.out.println("delete1");
 								out.println("delete");
 							 }
 						 }//迴圈結束
 					 }else{//detail沒有相符
 						 familyservice.delete(ajaxfamid);
-						 System.out.println("delete2");
+//						 System.out.println("delete2");
 						 out.println("delete");
 					 }
 				 }else{//沒抓到親屬no 直接刪掉
 					 familyservice.delete(ajaxfamid);
-					 System.out.println("delete3");
+//					 System.out.println("delete3");
 					 out.println("delete");
 				 }
 			}
@@ -164,9 +172,9 @@ public class FamilyServlet extends HttpServlet {
 
 			// 判斷 假如只有一行空白刪除空白欄位 跟 兩行以上 一行有一行空白 把空白判斷掉
 			List<Date> fambdate = new ArrayList<Date>();
-			int idlength = 0;
-			if (famid != null) {
-				idlength = famid.length;
+			
+			if (famid!=null) {
+				int idlength = famid.length;
 				for (int i = 0; i < idlength; i++) {
 
 					if (!famid[i].equals("") || famid[i] != null || !famname[i].equals("") || famname[i] != null
@@ -242,9 +250,9 @@ public class FamilyServlet extends HttpServlet {
 			employeeservice.update(employeevo);
 			System.out.println("員工資料更改完畢");
 			
-			idlength = famid.length;
-			if (famid != null) {
-				
+			
+			if (famid!=null) {
+				int idlength = famid.length;
 				ArrayList<Boolean> carcheckbox =new ArrayList<Boolean>();
 				String[] items = ajaxcheckbox.replaceAll("\\[", "").replaceAll("\\]", "").split(",");
 				String[] results = new String[items.length];
@@ -259,8 +267,6 @@ public class FamilyServlet extends HttpServlet {
 						 carcheckbox.add(true);
 					 }
 				 }
-				 
-
 				 
 				idlength = famid.length;
 				for (int i = 0; i < idlength; i++) {// 0 1 2 3
@@ -389,6 +395,8 @@ public class FamilyServlet extends HttpServlet {
 					}
 
 				} // 回圈結束
+				req.getRequestDispatcher("Register").forward(req, res);
+			}else{
 				req.getRequestDispatcher("Register").forward(req, res);
 			}
 			

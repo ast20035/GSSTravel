@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import model.AnnouncementService;
 import model.IItemDAO;
@@ -32,7 +36,7 @@ public class TravelServlet extends HttpServlet {
 	private TravelService travelService = new TravelService();
 	private ItemService itemService = new ItemService();
 	private AnnouncementService announcementService = new AnnouncementService();
-		
+
 	/* 初始化 */
 
 	private SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd");
@@ -63,36 +67,15 @@ public class TravelServlet extends HttpServlet {
 		String traCon = request.getParameter("edittraCon");
 		String traAtter = request.getParameter("edittraAtter");
 		String traFile = request.getParameter("edittraFile");
-		String excel = request.getParameter("excel");
 
 		String[] itemNo = request.getParameterValues("edititemNo");
 		String[] itemName = request.getParameterValues("edititemName");
 		String[] itemMoney = request.getParameterValues("edititemMoney");
 		String inputerrors = request.getParameter("inputerrors");
-		
-		
-		// 驗證資料
+
 		Map<String, String> errors = new HashMap<String, String>();
 		request.setAttribute("errors", errors);
-		
-		// 匯出Excel
-		if ("匯出Excel".equals(excel)) {
-			TravelVO travelBean = new TravelVO();
-			List<TravelVO> tResult = travelService.selectExcel(travelBean);
-			File dir = new File("C:/travel");
-			Excel ex = new Excel(dir);
-			for (int i = 0; i < tResult.size(); i++) {
-				ex.travelExcel(tResult.get(i).getTra_NO(), tResult.get(i).getTra_Name(), tResult.get(i).getTra_Loc(),
-						tResult.get(i).getTra_On().toString(), tResult.get(i).getTra_Off().toString(),
-						tResult.get(i).getTra_Beg().toString(), tResult.get(i).getTra_End().toString(),
-						tResult.get(i).getTra_Total() + "", tResult.get(i).getTra_Max() + "",
-						tResult.get(i).getTra_Intr(), tResult.get(i).getTra_Con(), tResult.get(i).getTra_Atter(),
-						tResult.get(i).getTra_File());
-			}
-			request.getRequestDispatcher("/search2.jsp").forward(request, response);
-			return;
-		}
-		
+
 		/*
 		 * if("Insert".equals(inputerrors) || "Update".equals(prodaction) ||
 		 * "Delete".equals(prodaction)) { if(temp1==null || temp1.length()==0) {
@@ -136,10 +119,10 @@ public class TravelServlet extends HttpServlet {
 				e.printStackTrace();
 				errors.put("edittraName", "活動名稱必須輸入");
 			}
-			
+
 		}
 		// System.out.println(edittraName+","+request.getParameter("edittraName"));
-		
+
 		/* 活動起始日 */
 
 		java.util.Date edittraOn = null;
@@ -169,7 +152,7 @@ public class TravelServlet extends HttpServlet {
 		if (traBeg != null && traBeg.length() != 0) {
 			try {
 				edittraBeg = sDateTime.parse(traBeg);
-				//edittraBeg	 = Timestamp.valueOf(traBeg.replace("T"," "));
+				// edittraBeg = Timestamp.valueOf(traBeg.replace("T"," "));
 			} catch (ParseException e) {
 				e.printStackTrace();
 				errors.put("edittraBeg", "活動報名登記日必須是符合yyyy-Mm-dd HH:mm:ss格式的日期");
@@ -220,8 +203,8 @@ public class TravelServlet extends HttpServlet {
 			try {
 				edittraIntr = traIntr;
 			} catch (NumberFormatException e) {
-//				e.printStackTrace();
-//				errors.put("edittraIntr", "活動說明必須輸入");
+				// e.printStackTrace();
+				// errors.put("edittraIntr", "活動說明必須輸入");
 			}
 		}
 
@@ -261,7 +244,7 @@ public class TravelServlet extends HttpServlet {
 				}
 			}
 		}
-		
+
 		/*---費用項目---*/
 
 		List<String> edititemName = new ArrayList<String>();
@@ -298,7 +281,7 @@ public class TravelServlet extends HttpServlet {
 		}
 
 		// 4.呼叫Model
-		
+
 		/*---單頁測試用---*/
 		TravelVO travelview = travelService.select(traNo);
 		// System.out.println("travelService位置 : "+travelview);
@@ -346,13 +329,12 @@ public class TravelServlet extends HttpServlet {
 		/*----Update----*/
 		// else
 
-		if ("更新".equals(inputerrors)) {
-			
+		if ("確定".equals(inputerrors)) {	//Travel_Edit修改確認
 			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:24小時制
 			Date date = new Date();
 			String now = sdFormat.format(date);// 取得現在時間
-			announcementService.insert(now, traName+"行程異動", traCon, "2");// 新增公告
-			
+			announcementService.insert(now, traName + "行程異動", traCon, "2");// 新增公告
+
 			/*--Travel--*/
 			travelview.setTra_Name(edittraName);
 			travelview.setTra_Loc(edittraLoc);
@@ -371,51 +353,51 @@ public class TravelServlet extends HttpServlet {
 			List<ItemVO> itemfor = new ArrayList<ItemVO>();
 			ItemVO v = new ItemVO();
 			v.setTra_No(traNo);
-			IItemDAO itemDAO=new ItemDAO();			
+			IItemDAO itemDAO = new ItemDAO();
 			List<ItemVO> itemVOs = itemDAO.select(traNo);
-			int x=2;
-			for(ItemVO itemVO:itemVOs){			
-				if(itemVO.getItem_No()==1){
-					ItemVO Vo=new ItemVO();
+			int x = 2;
+			for (ItemVO itemVO : itemVOs) {
+				if (itemVO.getItem_No() == 1) {
+					ItemVO Vo = new ItemVO();
 					Vo.setItem_Name(itemName[0]);
 					Vo.setItem_Money(Float.parseFloat(itemMoney[0]));
 					Vo.setTra_No(traNo);
 					Vo.setItem_No(1);
 					itemDAO.update(Vo);
 				}
-				if(itemVO.getItem_No()==2){
-					ItemVO Vo=new ItemVO();
+				if (itemVO.getItem_No() == 2) {
+					ItemVO Vo = new ItemVO();
 					Vo.setItem_Name(itemName[1]);
 					Vo.setItem_Money(Float.parseFloat(itemMoney[1]));
 					Vo.setTra_No(traNo);
 					Vo.setItem_No(2);
 					itemDAO.update(Vo);
 				}
-				if(itemVO.getItem_No()!=1&&itemVO.getItem_No()!=2){
-					itemDAO.delete(itemVO.getItem_No(),traNo);
+				if (itemVO.getItem_No() != 1 && itemVO.getItem_No() != 2) {
+					itemDAO.delete(itemVO.getItem_No(), traNo);
 				}
 			}
-			for(int y=x;y<itemName.length;y++){
-				ItemVO Vo=new ItemVO();
+			for (int y = x; y < itemName.length; y++) {
+				ItemVO Vo = new ItemVO();
 				Vo.setItem_Name(itemName[y]);
 				Vo.setItem_Money(Float.parseFloat(itemMoney[y]));
 				Vo.setTra_No(traNo);
-				Vo.setItem_No(y+1);
+				Vo.setItem_No(y + 1);
 				itemDAO.insert(Vo);
 			}
-			
-//				System.out.println("edititemNo:" + edititemNo);
-//				for (int i = 0; i < itemNo.length; i++) {			
-////					System.out.println("itemNo.length:" + i);
-//					v.setItem_No(edititemNo.get(i));
-//					v.setItem_Name(edititemName.get(i));
-//					v.setItem_Money(edititemMoney.get(i));
-//					ItemVO result1 = itemService.update(v);
-//					itemfor.add(result1);
-//				}
+
+			// System.out.println("edititemNo:" + edititemNo);
+			// for (int i = 0; i < itemNo.length; i++) {
+			//// System.out.println("itemNo.length:" + i);
+			// v.setItem_No(edititemNo.get(i));
+			// v.setItem_Name(edititemName.get(i));
+			// v.setItem_Money(edititemMoney.get(i));
+			// ItemVO result1 = itemService.update(v);
+			// itemfor.add(result1);
+			// }
 
 			TravelVO resultEdit = travelService.update(travelview);
-			
+
 			// ItemVO bean = new ItemVO();
 			// List<ItemVO> result1 = (List<ItemVO>) itemService.update(bean);
 			if (resultEdit == null) { // & result1 == null
@@ -423,7 +405,7 @@ public class TravelServlet extends HttpServlet {
 			} else {
 				session.setAttribute("update", resultEdit);
 			}
-			response.sendRedirect("Travel_Edit?tra_no="+traNo);
+			response.sendRedirect("Travel_Edit?tra_no=" + traNo);
 			return;
 			/*----Delete----*/
 		} else if ("Delete".equals(inputerrors)) {
@@ -434,8 +416,8 @@ public class TravelServlet extends HttpServlet {
 				session.setAttribute("delete", 1);
 			}
 		}
-		request.getRequestDispatcher("/Travel_Edit.jsp").forward(request, response); // 測試用
-		//response.sendRedirect(request.getContextPath() + "/Travel_Edit.jsp");
+		 request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response); // 測試用
+		// response.sendRedirect(request.getContextPath() + "/Travel_Edit.jsp");
 	}// doGet
 
 	@Override

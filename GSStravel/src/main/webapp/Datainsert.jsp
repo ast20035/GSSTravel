@@ -422,35 +422,14 @@ text-align: center;
 							success:function(r){
 									if(r.indexOf("not")!= -1 ){
 										console.log(r);
-										alert("此筆親屬人已經報名行程，不可刪除");
-										return false;
-									}
-									else{
-// 										$("#familytable input[name='delete']").click(function(){
-	// 										$("#familytable input[name='delete']").mouseup(function(){
+										alert("親屬已經/曾經報名行程，不可刪除");
+									}else{
 											if(window.confirm("確定取消嗎?")){
 												if( $("#errorcount").val(1)){
-// 													$(this).parents("tr").remove();
 													xxxxx.parents("tr").remove();
 													$("#errorcount").val(0);
 												}
 											}
-// 										})
-
-// 										var famname = $(".repeat input[name='famname']");
-// 										var famid = $(".repeat input[name='famid']");
-										
-// 										if(famname.val() !=null || famid.val() != null  ){
-// 											famname.
-// 										}else{
-// 											if(window.confirm("確定取消嗎?")){
-// 												if( $("#errorcount").val(1)){
-// 													$(".repeat input[name='delete']").parents("tr").remove();
-// 													$("#errorcount").val(0);
-// 												}
-// 											}
-// 										}
-										
 									}
 							}
 					})
@@ -515,7 +494,7 @@ text-align: center;
 // 					判斷資料有沒有輸入正確 
 					if($("#errorcount").val()=="1"){
 					$("#save").attr("type","button");
-					alert("親屬資料未輸入完全")
+// 					alert("親屬資料未輸入完全")
 					}
 					
 					if($("#errorcount").val()=="0"){
@@ -622,7 +601,6 @@ text-align: center;
 									//id
 									$(".repeat td").on("blur","input[name='famid']",function() {
 												if(this.value !=""){
-													search();
 														// 依照字母的編號排列，存入陣列備用。
 														var letters = new Array(
 																'A', 'B', 'C',
@@ -643,32 +621,16 @@ text-align: center;
 														var firstNum;
 														var lastNum;
 														var total = 0;
-														// 撰寫「正規表達式」。第一個字為英文字母，
-														// 第二個字為1或2，後面跟著8個數字，不分大小寫。
-														// 			  var sex = thisTr.find(".sex").val();
-														// 			  if(sex == "男"){
-														// 			  var regExpID=/^[a-z](1)\d{8}$/i;
-														// 			  }else{
-														// 				  var regExpID=/^[a-z](2)\d{8}$/i;
-														// 			  }
-
-														// 			  var sex=$(".repeat select[name='famsex']").val();
-														// 			  console.log(sex);
-														// 			  if(sex =="男"){
-														// 				  var regExpID=/^[a-z](1)\d{8}$/i;
-														// 			  }else{
-														// 				  var regExpID=/^[a-z](2)\d{8}$/i;
-														// 			  }
 
 														var regExpID = /^[a-z](1|2)\d{8}$/i;
+														var textnumber=/^\d{9,}$/;
 														// 使用「正規表達式」檢驗格式
-														if (regExpID.test($("input[name*='famid']").val())) {
+														if (regExpID.test($(".repeat input[name*='famid']").val())) {
 															// 取出第一個字元和最後一個數字。
 															firstChar = $(this).val().charAt(0).toUpperCase();
 															lastNum = $(this).val().charAt(9);
 														} else {
 															$(this).css("border-color","red");
-															//  setTimeout(function() {$(".repeat td input[name='famid']").css('border-color',"");}, 2000);
 															$("#errorcount").val(1);
 															$(this).next(".famiderror").text("身分證格式錯誤");
 														}
@@ -688,30 +650,41 @@ text-align: center;
 																total += parseInt($(this).val().charAt(i - 1))* multiply[i];
 															}
 														}
-														
 														// 和最後一個數字比對
-															if ((10 - (total % 10))!= lastNum && ((10 - (total % 10))-10)!= lastNum  ) {
+														if ((10 - (total % 10))!= lastNum && ((10 - (total % 10))-10)!= lastNum  ) {
 																$(this).css("border-color","red");
-// 																setTimeout(function() {$(".repeat td input[name='famid']")
-// 																					.css('border-color',"");}, 2000);
 																$("#errorcount").val(1);
-																$(this).next(".famiderror").text("身分證格式錯誤");
 														} else {
 															$(this).css("border-color","green");
 															$("#errorcount").val(0);
-// 															setTimeout(function() {$(".repeat td input[name='famid']")
-// 																				.css('border-color',"");}, 2000);
-															$(this).next(".famiderror").text("");
+															console.log("zzzzzzzzzzzz");
+															//判斷有沒有重複
+															
+															var pathName = document.location.pathname;
+															var index = pathName.substr(1).indexOf("/");
+															var result = pathName.substr(0, index + 1);
+															var url = result + "/FamilyServlet";
+															var famid ={"id":$(this).val()};
+															var xxxxx = $(this)
+																$.ajax({
+																	type:"POST",url:url,data:famid,dataType:"text",
+																		success:function(r){
+																					if(r.indexOf("repeat")!= -1){
+																						alert("親屬身分證已存在");
+																						xxxxx.css("border-color","red");
+																					}else{
+																						xxxxx.css("border-color","green");
+																					}
+																				}
+																})
+															
 														}
-														
 												}else{//格是錯誤會瞬間消失?
 													$(this).css("border-color","red");
-// 													setTimeout(function() {$(".repeat td input[name='famid']")
-// 																		.css('border-color',"");}, 2000);
 													$("#errorcount").val(1);
-													$(this).next(".famiderror").text("身分證不可為空白");
 												}
 											})
+											
 									var fambdate = /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
 									$(".repeat td").on("blur","input[name='fambdate']",function() {
 													
@@ -724,23 +697,19 @@ text-align: center;
 																$(this).css("border-color","green");
 																$("#errorcount").val(0);
 																$(this).next(".fambdateerror").text("");
-// 																setTimeout(function() {$(".repeat td input[name='fambdate']").css('border-color',"");}, 2000);	
 															}else{
 																$(this).css("border-color","red");
-// 																setTimeout(function() {$(".repeat td input[name='fambdate']").css('border-color',"");}, 2000);
 																$("#errorcount").val(1);
 																$(this).next(".fambdateerror").text("生日錯誤，日期超過今天");
 															}
 														
 														} else {
 															$(this).css("border-color","red");
-// 															setTimeout(function() {$(".repeat td input[name='fambdate']").css('border-color',"");}, 2000);
 															$("#errorcount").val(1);
 															$(this).next(".fambdateerror").text("生日格式錯誤");
 														}
 													}else{
 														$(this).css("border-color","red");
-// 														setTimeout(function() {$(".repeat td input[name='fambdate']").css('border-color',"");}, 2000);
 														$("#errorcount").val(1);
 														$(this).next(".fambdateerror").text("生日不可為空白");
 													}
@@ -753,18 +722,13 @@ text-align: center;
 															$(this).css("border-color","green");
 															$("#errorcount").val(0);
 															$(this).next(".famphoneerror").text("");
-// 															setTimeout(function() {$(".repeat td input[name='famphone']").css('border-color',"");}, 2000);
 														} else {
 															$(this).css("border-color","red");
-// 															setTimeout(function() {$(".repeat td input[name='famphone']").css('border-color',"");
-// 																	}, 2000);
 															$("#errorcount").val(1);
 															$(this).next(".famphoneerror").text("手機格式錯誤");
 														}
 													}else{
 														$(this).css("border-color","red");
-// 														setTimeout(function() {$(".repeat td input[name='famphone']").css('border-color',"");
-// 																}, 2000);
 														$("#errorcount").val(1);
 														$(this).next(".famphoneerror").text("手機不可為空白");
 													}
@@ -777,16 +741,13 @@ text-align: center;
 															$(this).css("border-color","green");
 															$("#errorcount").val(0);
 															$(this).next(".fambenerror").text("");
-// 															setTimeout(function() {$(".repeat td input[name='famben']").css('border-color',"");}, 2000);
 														} else {
 															$(this).css("border-color","red");
-// 															setTimeout(function() {$(".repeat td input[name='famben']").css('border-color',"");}, 2000);
 															$("#errorcount").val(1);
 															$(this).next(".fambenerror").text("保險受益人格式錯誤");
 															}
 													}else{
 															$(this).css("border-color","red");
-// 															setTimeout(function() {$(".repeat td input[name='famben']").css('border-color',"");}, 2000);
 															$("#errorcount").val(1);
 															$(this).next(".fambenerror").text("保險受益人不可為空白");
 													}
@@ -799,16 +760,13 @@ text-align: center;
 															$(this).css("border-color","green");
 															$("#errorcount").val(0);
 															$(this).next(".fambenrelerror").text("");
-// 															setTimeout(function() {$(".repeat td input[name='fambenrel']").css('border-color',"");}, 2000);
 														} else {
 															$(this).css("border-color","red");
-// 															setTimeout(function() {$(".repeat td input[name='fambenrel']").css('border-color',"");}, 2000);
 															$(this).next(".fambenrelerror").text("保險受益人關係格式錯誤");
 															$("#errorcount").val(1);
 														}
 													}else{
 														$(this).css("border-color","red");
-// 														setTimeout(function() {$(".repeat td input[name='fambenrel']").css('border-color',"");}, 2000);
 														$(this).next(".fambenrelerror").text("保險受益人關係不可為空白");
 														$("#errorcount").val(1);
 													}
@@ -821,18 +779,13 @@ text-align: center;
 															$(this).css("border-color","green");
 															$("#errorcount").val(0);
 															$(this).next(".famemgerror").text("");
-// 															setTimeout(function() {$(".repeat td input[name='famemg']").css('border-color',"");}, 2000);
 														} else {
 															$(this).css("border-color","red");
-// 															setTimeout(function() {$(".repeat td input[name='famemg']").css('border-color',"");
-// 																	}, 2000);
 															$(this).next(".famemgerror").text("緊急聯絡人格式錯誤");
 															$("#errorcount").val(1);
 														}
 													}else{
 														$(this).css("border-color","red");
-// 														setTimeout(function() {$(".repeat td input[name='famemg']").css('border-color',"");
-// 																}, 2000);
 														$(this).next(".famemgerror").text("緊急聯絡人不可為空白");
 														$("#errorcount").val(1);
 													}
@@ -844,19 +797,13 @@ text-align: center;
 															$(this).css("border-color","green");
 															$("#errorcount").val(0);
 															$(this).next(".famemgphoneerror").text("");
-// 															setTimeout(function() {$(".repeat td input[name='famemgphpone']")
-// 																				.css('border-color',"");}, 2000);
 														} else {
 															$(this).css("border-color","red");
-// 															setTimeout(function() {$(".repeat td input[name='famemgphpone']")
-// 																				.css('border-color',"");}, 2000);
 															$("#errorcount").val(1);
 															$(this).next(".famemgphoneerror").text("緊急聯絡人電話格式錯誤");
 														}
 													}else{
 														$(this).css("border-color","red");
-// 														setTimeout(function() {$(".repeat td input[name='famemgphpone']")
-// 																			.css('border-color',"");}, 2000);
 														$("#errorcount").val(1);
 														$(this).next(".famemgphoneerror").text("緊急聯絡人電話不可為空白");
 													}
@@ -869,19 +816,13 @@ text-align: center;
 															$(this).css("border-color","green");
 															$("#errorcount").val(0);
 															$(this).next(".famemgrelerror").text("");
-// 															setTimeout(function() {$(".repeat td input[name='famemgrel']")
-// 																				.css('border-color',"");}, 2000);
 														} else {
 															$(this).css("border-color","red");
-// 															setTimeout(function() {$(".repeat td input[name='famemgrel']").css(
-// 																						'border-color',"");}, 2000);
 															$(this).next(".famemgrelerror").text("緊急聯絡人關係格式錯誤");
 															$("#errorcount").val(1);
 														}
 													}else{
 														$(this).css("border-color","red");
-// 														setTimeout(function() {$(".repeat td input[name='famemgrel']").css(
-// 																					'border-color',"");}, 2000);
 														$(this).next(".famemgrelerror").text("緊急聯絡人關係不可為空白");
 														$("#errorcount").val(1);
 													}
@@ -902,106 +843,6 @@ text-align: center;
 // 											 })
 // 									})
 									
-									//search方法 在動態新增紐的famid 檢驗法的最下方
-			function search() {
-				if (xh != null) {
-					var famidnew = $(".repeat .famid").map(function() {
-						return $(this).val();
-					}).get();
-					console.log(famidnew);//輸出陣列出來
-					
-					var pathName = document.location.pathname;
-					var index = pathName.substr(1).indexOf("/");
-					var result = pathName.substr(0, index + 1);
-					var url = result + "/FamilyServlet";//為servlet最上面的@WebServlet 路徑
-
-					if (typeof famidnew != "undefined") {
-						var id = JSON.stringify(famidnew);
-						console.log(id);//轉成json格式
-					}
-					//轉json 格式? 字串證列
-					xh.addEventListener("readystatechange", ajaxReturn);
-					xh.open("POST", url);
-					xh.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-					xh.send("id=" + id);
-
-				} else {
-					alert("Your browser doesn't support JSON!");
-				}
-			}
-			function ajaxReturn() {
-				if (xh.readyState == 4) {
-					if (xh.status == 200) {
-						if (xh.responseText != "") {
-							var ajaxreturn = xh.responseText;
-// 							alert(ajaxreturn);
-							if(ajaxreturn.match("repeat")!=null){
-								$("#errorcount").val(1);
-	 							$(".repeat td div[name='famiderror']:last").text(
-	 									"身分證字號重複");
-							}else{
-								$("#errorcount").val(0);
-	 							$(".repeat td div[name='famiderror']:last")
-	 									.text("");
-							}
-						}
-					}
-				}
-			}
-			
-			
-			//抓新增親屬欄位的多選職
-			$("#save").click(function(){
-// 				console.log("save click");
-// 				console.log($(".repeat select[name='famspa']").length);//抓到的select總共有幾筆  抓到
-				
-// 				if($(".repeat select[name='famspa']").length > 0){
-// 					$(".repeat select[name='famspa']").each(function(){
-// 						var spa =$(this).val();
-// 						console.log(spa);//抓到
-// 						var spajson =JSON.stringify(spa);
-// 						console.log(spajson);//抓到json字串
-// // 						$(this).next("input[name='selectvalue']").val(spajson);
-// 						$(this).closest("tr").find("input[name='selectvalue']").val(spajson);
-// 						console.log($(this).closest("tr").find("input[name='selectvalue']").val());//抓到
-
-// 					});
-// 				}else{
-// 					//??無親屬抓進去
-// 				}
-			
-// 				if($(".repeat input[name*='famname']").val()==""){
-// 					alert("親屬姓名不能為空白");
-// 					$("#errorcount").val(1);
-// 				}else if($(".repeat input[name*='famid']").val()==""){
-// 					alert("親屬身分證不能為空白");
-// 					$("#errorcount").val(1);
-// 				}else if($(".repeat input[name*='fambdate']").val()==""){
-// 					alert("親屬生日不能為空白");
-// 					$("#errorcount").val(1);
-// 				}else if($(".repeat input[name*='famphone']").val()==""){
-// 					alert("親屬手機不能為空白");
-// 					$("#errorcount").val(1);
-// 				}else if($(".repeat input[name*='famben']").val()==""){
-// 					alert("親屬保險受益人不能為空白");
-// 					$("#errorcount").val(1);
-// 				}else if($(".repeat input[name*='fambenrel']").val()==""){
-// 					alert("親屬保險受益人關係不能為空白");
-// 					$("#errorcount").val(1);
-// 				}else if($(".repeat input[name*='famemg']").val()==""){
-// 					alert("親屬緊急聯絡人不能為空白");
-// 					$("#errorcount").val(1);
-// 				}else if($(".repeat input[name*='famemgrel']").val()==""){
-// 					alert("親屬緊急聯絡人關係不能為空白");
-// 					$("#errorcount").val(1);
-// 				}else if($(".repeat input[name*='famemgphone']").val()==""){
-// 					alert("親屬緊急聯絡人電話不能為空白");
-// 					$("#errorcount").val(1);
-// 				}
-// 				$("#save").attr("type","submit"); //暗下新增鍵後再執行submit動作
-			})
-				
-				
 									
 								});//新增的最後誇號
 				
@@ -1012,21 +853,15 @@ text-align: center;
 							if (empphone.test($(this).val())) {
 									$(this).css("border-color", "green");
 									$("#errorcount").val(0);
-// 									setTimeout(function() {$("#empphone").css("border-color", "inherit");
-// 									}, 2000);
 									$("#empphoneerror").text("");
 							} else {
 								$("#empphoneerror").text("手機格式錯誤");
 								$(this).css("border-color", "red");
-// 								setTimeout(function() {
-// 									$("#empphone").css("border-color", "inherit");}, 2000);
 								$("#errorcount").val(1);
 							}
 					}else{
 						$("#empphoneerror").text("手機不可為空值");
 						$(this).css("border-color", "red");
-// 						setTimeout(function() {$("#empphone").css("border-color", "inherit");
-// 						}, 2000);
 						$("#errorcount").val(1);
 					}
 				});
@@ -1037,23 +872,17 @@ text-align: center;
 						if (empben.test($(this).val())) {
 							$(this).css("border-color", "green");
 							$("#errorcount").val(0);
-// 							setTimeout(function() {$("#empben").css("border-color", "inherit");
-// 							}, 2000);
 							$("#empbenerror").text("");
 							
 	
 						} else {
 							$("#empbenerror").text("保險受益人格式錯誤");
 							$(this).css("border-color", "red");
-// 							setTimeout(function() {$("#empben").css("border-color", "inherit");
-// 							}, 2000);
 							$("#errorcount").val(1);
 						}
 					}else{
 						$("#empbenerror").text("保險受益人不能為空值");
 						$(this).css("border-color", "red");
-// 						setTimeout(function() {$("#empben").css("border-color", "inherit");
-// 						}, 2000);
 						$("#errorcount").val(1);
 					}
 				});
@@ -1064,23 +893,17 @@ text-align: center;
 					if (empbenrel.test($(this).val())) {
 						$(this).css("border-color", "green");
 						$("#errorcount").val(0);
-// 						setTimeout(function() {$("#empbenrel").css("border-color", "inherit");
-// 						}, 2000);
 						$("#empbenrelerror").text("");
 					
 
 					} else {
 						$("#empbenrelerror").text("保險受益人關係格式錯誤");
 						$(this).css("border-color", "red");
-// 						setTimeout(function() {$("#empbenrel").css("border-color", "inherit");
-// 						}, 2000);
 						$("#errorcount").val(1);
 					}
 				}else{
 					$("#empbenrelerror").text("保險受益人不可為空白");
 					$(this).css("border-color", "red");
-// 					setTimeout(function() {$("#empbenrel").css("border-color", "inherit");
-// 					}, 2000);
 					$("#errorcount").val(1);
 				}
 			});
@@ -1092,26 +915,15 @@ text-align: center;
 						if (empemg.test($(this).val())) {
 							$(this).css("border-color", "green");
 							$("#errorcount").val(0);
-// 							setTimeout(function() {
-// 								$("#empemg").css("border-color", "inherit");
-// 							}, 2000);
 							$("#empemgerror").text("");
-							
-	
 						} else {
 							$("#empemgerror").text("緊急聯絡人格式錯誤");
 							$(this).css("border-color", "red");
-// 							setTimeout(function() {
-// 								$("#empemg").css("border-color", "inherit");
-// 							}, 2000);
 							$("#errorcount").val(1);
 						}
 					}else{
 						$("#empemgerror").text("緊急聯絡人不能為空值");
 						$(this).css("border-color", "red");
-// 						setTimeout(function() {
-// 							$("#empemg").css("border-color", "inherit");
-// 						}, 2000);
 						$("#errorcount").val(1);
 					}
 				});
@@ -1123,24 +935,15 @@ text-align: center;
 						if (empemgphone.test($(this).val())) {
 							$(this).css("border-color", "green");
 							$("#errorcount").val(0);
-// 							setTimeout(function() {
-// 								$("#empemgphone").css("border-color", "inherit");
-// 							}, 2000);
 							$("#empemgphoneerror").text("");
 						} else {
 							$("#empemgphoneerror").text("手機格式錯誤");
 							$(this).css("border-color", "red");
-// 							setTimeout(function() {
-// 								$("#empemgphone").css("border-color", "inherit");
-// 							}, 2000);
 							$("#errorcount").val(1);
 						}
 					}else{
 						$("#empemgphoneerror").text("手機不可為空白");
 						$(this).css("border-color", "red");
-// 						setTimeout(function() {
-// 							$("#empemgphone").css("border-color", "inherit");
-// 						}, 2000);
 						$("#errorcount").val(1);
 					}
 				});
@@ -1151,26 +954,33 @@ text-align: center;
 						if (empemail.test($(this).val())) {
 							$(this).css("border-color", "green");
 							$("#errorcount").val(0);
-// 							setTimeout(function() {
-// 								$("#empemail").css("border-color", "inherit");
-// 							}, 2000);
-							$("#empemailerror").text("");
 							
-	
+// 							var pathName = document.location.pathname;
+// 							var index = pathName.substr(1).indexOf("/");
+// 							var result = pathName.substr(0, index + 1);
+// 							var url = result + "/FamilyServlet";
+// 							var famid ={"email":$(this).val()};
+// 							var xxxxx = $(this)
+// 								$.ajax({
+// 									type:"POST",url:url,data:famid,dataType:"text",
+// 										success:function(r){
+// 													if(r.indexOf("repeat")!= -1){
+// 														alert("員工信箱已存在");
+// 														xxxxx.css("border-color","red");
+// 														$("#errorcount").val(1);
+// 													}else{
+// 														xxxxx.css("border-color","green");
+// 													}
+// 												}
+// 								})
+
 						} else {
-							$("#empemailerror").text("信箱格式錯誤");
 							$(this).css("border-color", "red");
-// 							setTimeout(function() {
-// 								$("#empemail").css("border-color", "inherit");
-// 							}, 2000);
 							$("#errorcount").val(1);
 						}
 					}else{
 						$("#empemailerror").text("信箱不可為空白");
 						$(this).css("border-color", "red");
-// 						setTimeout(function() {
-// 							$("#empemail").css("border-color", "inherit");
-// 						}, 2000);
 						$("#errorcount").val(1);
 					}
 				})
@@ -1181,26 +991,16 @@ text-align: center;
 							if (famname.test($(this).val())) {
 								$(this).css("border-color", "green");
 								$("#errorcount").val(0);
-// 								setTimeout(function() {
-// 									$("input[name*='famname']").css(
-// 											'border-color', "");
-// 								}, 2000);
 								$(this).next(".famnameerror").text("");
 								
 
 							} else {
 								$(this).css("border-color", "red");
-// 								setTimeout(function() {
-// 									$("input[name*='famname']").css('border-color', "");
-// 								}, 2000);
 								$("#errorcount").val(1);
 								$(this).next(".famnameerror").text("姓名格式錯誤");
 							}
 						}else{
 							$(this).css("border-color", "red");
-// 							setTimeout(function() {
-// 								$("input[name*='famname']").css('border-color', "");
-// 							}, 2000);
 							$("#errorcount").val(1);
 							$(this).next(".famnameerror").text("姓名不可為空白");
 						}
@@ -1226,10 +1026,7 @@ text-align: center;
 									// 撰寫「正規表達式」。第一個字為英文字母，
 									// 第二個字為1或2，後面跟著8個數字，不分大小寫。
 									var regExpID = /^[a-z](1|2)\d{8}$/i;
-									// 使用「正規表達式」檢驗格式
-									if (regExpID.test($("input[name*='famid']")
-											.val())) {
-
+									if (regExpID.test($("input[name*='famid']").val())) {
 										// 取出第一個字元和最後一個數字。
 										firstChar = $(this).val().charAt(0)
 												.toUpperCase();
@@ -1238,9 +1035,6 @@ text-align: center;
 									} else {
 
 										$(this).css("border-color", "red");
-// 										setTimeout(function() {
-// 											$("input[name*='famid']").css('border-color', "");
-// 										}, 2000);
 										$(this).next(".famiderror").text("身分證格式錯誤");
 										$("#errorcount").val(1);
 									}
@@ -1267,23 +1061,15 @@ text-align: center;
 									if ((10 - (total % 10))!= lastNum && ((10 - (total % 10))-10)!= lastNum  ) {
 // 										
 										$(this).css("border-color", "red");
-										setTimeout(function() {$("input[name*='famid']").css('border-color', "");
-										}, 2000);
 										$(this).next(".famiderror").text("身分證格式錯誤");
 										$("#errorcount").val(1);
 											
 									} else {
 										$(this).css("border-color", "green");
 										$("#errorcount").val(0);
-// 										setTimeout(function() {$("input[name*='famid']").css('border-color', "");
-// 										}, 2000);
-										$(this).next(".famiderror").text("");
 									}
 								}else{
 									$(this).css("border-color", "red");
-// 									setTimeout(function() {$("input[name*='famid']").css('border-color', "");
-// 									}, 2000);
-									$(this).next(".famiderror").text("身分證不可為空白");
 									$("#errorcount").val(1);
 								}
 							});
@@ -1300,27 +1086,20 @@ text-align: center;
 								if (mydate <= today) {
 									$(this).css("border-color", "green");
 									$("#errorcount").val(0);
-// 									setTimeout(function() {$("input[name*='fambdate']").css('border-color', "");}, 2000);
 									$(this).next(".fambdateerror").text("");
 									
 								} else {
 									$(this).css("border-color", "red");
-// 									setTimeout(function() {
-// 										$("input[name*='fambdate']").css('border-color', "");
-// 									}, 2000);
 									$("#errorcount").val(1);
 									$(this).next(".fambdateerror").text("生日錯誤，日期超過今天");
 								}
 							} else {
-								//$("#fambdateerror").text("需要為年-月-日的規格");
 								$(this).css("border-color", "red");
-// 								setTimeout(function() {$("input[name*='fambdate']").css('border-color',"");}, 2000);
 								$("#errorcount").val(1);
 								$(this).next(".fambdateerror").text("生日格式錯誤");
 							}
 						}else{
 							$(this).css("border-color", "red");
-// 							setTimeout(function() {$("input[name*='fambdate']").css('border-color',"");}, 2000);
 							$("#errorcount").val(1);
 							$(this).next(".fambdateerror").text("生日不可為空白");
 						}
@@ -1333,23 +1112,16 @@ text-align: center;
 							if (famphone.test($(this).val())) {
 								$(this).css("border-color", "green")
 								$("#errorcount").val(0);
-// 								setTimeout(function() {$("input[name*='famphone']").css('border-color', "");
-// 								}, 2000);
 								$(this).next(".famphoneerror").text("");
 								
 							} else {
-								// 			$("#famnameerror").text("不符和手機規則");
 								$(this).css("border-color", "red");
-// 								setTimeout(function() {$("input[name*='famphone']").css('border-color', "");
-// 								}, 2000);
 								$("#errorcount").val(1);
 								$(this).next(".famphoneerror").text("手機格式錯誤");
 								
 							}
 						}else{
 							$(this).css("border-color", "red");
-// 							setTimeout(function() {$("input[name*='famphone']").css('border-color', "");
-// 							}, 2000);
 							$("#errorcount").val(1);
 							$(this).next(".famphoneerror").text("手機不能為空白");
 						}
@@ -1361,22 +1133,15 @@ text-align: center;
 						if (famben.test($(this).val())) {
 							$(this).css("border-color", "green")
 							$("#errorcount").val(0);
-// 							setTimeout(function() {$("input[name*='famben']").css('border-color', "");
-// 							}, 2000);
 							$(this).next(".fambenerror").text("");
 							
 						} else {
-							// 			$("#fambenerror").text("需要為中文");
 							$(this).css("border-color", "red");
-// 							setTimeout(function() {$("input[name*='famben']").css('border-color', "");
-// 							}, 2000);
 							$("#errorcount").val(1);
 							$(this).next(".fambenerror").text("保險受益人格式錯誤");
 						}
 					}else{
 						$(this).css("border-color", "red");
-// 						setTimeout(function() {$("input[name*='famben']").css('border-color', "");
-// 						}, 2000);
 						$("#errorcount").val(1);
 						$(this).next(".fambenerror").text("保險受益人不能為空白");
 					}
@@ -1388,22 +1153,15 @@ text-align: center;
 								if (fambenrel.test($(this).val())) {
 									$(this).css("border-color", "green")
 									$("#errorcount").val(0);
-// 									setTimeout(function() {$("input[name*='fambenrel']").css('border-color', "");
-// 									}, 2000);
 									$(this).next(".fambenrelerror").text("");
 									
 								} else {
-									// 			$("#fambenrelerror").text("需要為中文");
 									$(this).css("border-color", "red");
-// 									setTimeout(function() {$("input[name*='fambenrel']").css('border-color', "");
-// 									}, 2000);
 									$("#errorcount").val(1);
 									$(this).next(".fambenrelerror").text("保險受益關係格式錯誤");
 								}
 							}else{
 								$(this).css("border-color", "red");
-// 								setTimeout(function() {$("input[name*='fambenrel']").css('border-color', "");
-// 								}, 2000);
 								$("#errorcount").val(1);
 								$(this).next(".fambenrelerror").text("保險受益關係不能為空白");
 							}
@@ -1415,21 +1173,15 @@ text-align: center;
 						if (famemg.test($(this).val())) {
 							$(this).css("border-color", "green")
 							$("#errorcount").val(0);
-// 							setTimeout(function() {$("input[name*='famemg']").css('border-color', "");
-// 							}, 2000);
 							$(this).next(".famemgerror").text("");
 							
 						} else {
 							$(this).css("border-color", "red");
-// 							setTimeout(function() {$("input[name*='famemg']").css('border-color', "");
-// 							}, 2000);
 							$(this).next(".famemgerror").text("緊急聯絡人格式錯誤");
 							$("#errorcount").val(1);
 						}
 					}else{
 						(this).css("border-color", "red");
-// 						setTimeout(function() {$("input[name*='famemg']").css('border-color', "");
-// 						}, 2000);
 						$(this).next(".famemgerror").text("緊急聯絡人不能為空白");
 						$("#errorcount").val(1);
 					}
@@ -1441,20 +1193,14 @@ text-align: center;
 								if (famemgphpone.test($(this).val())) {
 									$(this).css("border-color", "green")
 									$("#errorcount").val(0);
-// 									setTimeout(function() {$("input[name*='famemgphpone']").css('border-color', "");
-// 									}, 2000);
 									$("#famemgphoneerror").text("");
 								} else {
 									$(this).css("border-color", "red");
-// 									setTimeout(function() {$("input[name*='famemgphpone']").css('border-color', "");
-// 									}, 2000);
 									$("#errorcount").val(1);
 									$(this).next(".famemgerror").text("緊急聯絡人電話格式錯誤");
 								}
 							}else{
 								$(this).css("border-color", "red");
-// 								setTimeout(function() {$("input[name*='famemgphpone']").css('border-color', "");
-// 								}, 2000);
 								$("#errorcount").val(1);
 								$(this).next(".famemgerror").text("緊急聯絡人電話不能為空白");
 							}
@@ -1466,21 +1212,15 @@ text-align: center;
 								if (famemgrel.test($(this).val())) {
 									$(this).css("border-color", "green")
 									$("#errorcount").val(0);
-// 									setTimeout(function() {$("input[name*='famemgrel']").css('border-color', "");
-// 									}, 2000);
 									$(this).next(".famemgrelerror").text("");
 								
 								} else {
 									$(this).css("border-color", "red");
-// 									setTimeout(function() {$("input[name*='famemgrel']").css('border-color', "");
-// 									}, 2000);
 									$("#errorcount").val(1);
 									$(this).next("famemgrelerror").text("緊急聯絡人關係格式錯誤");
 								}
 							}else{
 								$(this).css("border-color", "red");
-// 								setTimeout(function() {$("input[name*='famemgrel']").css('border-color', "");
-// 								}, 2000);
 								$("#errorcount").val(1);
 								$(this).next(".famemgrelerror").text("緊急聯絡人不能為空白");
 							}

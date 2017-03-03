@@ -24,8 +24,8 @@ public class FamilyService {
 		familyDAO.delete(famid);
 	}
 	//使用親屬
-	public List<String> selectid(Integer empno){
-		return familyDAO.selectid(empno);
+	public List<String> selectid(){
+		return familyDAO.selectid();
 	} 
 	//使用 親屬編號來尋找親屬姓名
 	public int select_byname(int emp_No ,String fam_Name){

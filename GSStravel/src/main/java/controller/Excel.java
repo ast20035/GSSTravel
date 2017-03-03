@@ -27,11 +27,10 @@ public class Excel {
 		}
 	}
 
-	public void travelExcel(String traNo, String traName, String traLoc, String traOn, String traOff, String traBeg,
-			String traEnd, String traTotal, String traMax, String traIntr, String traCon, String traAttr,
-			String traFile) {
+	public void travelExcel(int count, String[] id, String[] name, String[] onDate, String[] offDate, String[] bDate,
+			String[] eDate, String[] people, String[] peopleNow, String[] location) {
 		try {
-			WritableWorkbook workbook = Workbook.createWorkbook(new File(saveFolder + "/" + traName + ".xls"));// 檔名
+			WritableWorkbook workbook = Workbook.createWorkbook(new File(saveFolder + "/旅遊行程.xls"));// 檔名
 			WritableSheet sheet = workbook.createSheet("MySheet", 0);
 
 			WritableFont myFont = new WritableFont(WritableFont.createFont("標楷體"), 12);
@@ -51,38 +50,44 @@ public class Excel {
 			cellFormat.setVerticalAlignment(VerticalAlignment.CENTRE); // 垂直對齊方式
 			cellFormat.setWrap(true); // 換行
 
-			String[] name = { "活動代碼", "活動名稱", "活動地點", "活動開始日", "活動結束日", "活動報名開始日", "活動報名結束日", "活動總人數", "活動報名上線人數(個人)",
-					"活動說明", "活動內容", "活動注意事項" };
-			String[] content = { traNo, traName, traLoc, traOn, traOff, traBeg, traEnd, traTotal, traMax, traIntr,
-					traCon, traAttr };
+			String[] travelName = { "活動代碼", "活動名稱", "活動開始日", "活動結束日", "活動報名開始日", "活動報名結束日", "活動報名上限人數", "活動已報名人數",
+					"活動地點" };
 
-			int rowSize = 500;
-			int rowSize11 = 3000;
-			int columnSizeA = 30;
-			int columnSizeB = 100;
+			int rowSize = 400;
+			int columnSize = 40;
 
-			for (int i = 0; i < content.length; i++) { // 0-11
-				for (int j = 0; j < 2; j++) { // 0,1
+			for (int i = 0; i < count; i++) {
+				for (int j = 0; j < travelName.length; j++) {
+					if (i == 0) {
+						sheet.setRowView(i, rowSize);
+						sheet.setColumnView(j, columnSize);
+						sheet.addCell(new Label(j, i, travelName[j], cellFormatTitle));
+					}
+				}
+			}
+
+			for (int i = 0; i < count; i++) {
+				for (int j = 0; j < travelName.length; j++) {
+					sheet.setRowView(i + 1, rowSize);
+					sheet.setColumnView(j, columnSize);
 					if (j == 0) {
-						if (i == 10) {
-							sheet.setRowView(i, rowSize11);// 列的寬度
-							sheet.setColumnView(j, columnSizeA);// 欄的寬度
-							sheet.addCell(new Label(j, i, name[i], cellFormatTitle));// 寫進EXCEL儲存格裡
-						} else {
-							sheet.setRowView(i, rowSize);
-							sheet.setColumnView(j, columnSizeA);
-							sheet.addCell(new Label(j, i, name[i], cellFormatTitle));
-						}
+						sheet.addCell(new Label(j, i + 1, id[i], cellFormat));
 					} else if (j == 1) {
-						if (i == 10) {
-							sheet.setRowView(i, rowSize11);
-							sheet.setColumnView(j, columnSizeB);
-							sheet.addCell(new Label(j, i, content[i], cellFormat));
-						} else {
-							sheet.setRowView(i, rowSize);
-							sheet.setColumnView(j, columnSizeB);
-							sheet.addCell(new Label(j, i, content[i], cellFormat));
-						}
+						sheet.addCell(new Label(j, i + 1, name[i], cellFormat));
+					} else if (j == 2) {
+						sheet.addCell(new Label(j, i + 1, onDate[i], cellFormat));
+					} else if (j == 3) {
+						sheet.addCell(new Label(j, i + 1, offDate[i], cellFormat));
+					} else if (j == 4) {
+						sheet.addCell(new Label(j, i + 1, bDate[i], cellFormat));
+					} else if (j == 5) {
+						sheet.addCell(new Label(j, i + 1, eDate[i], cellFormat));
+					} else if (j == 6) {
+						sheet.addCell(new Label(j, i + 1, people[i], cellFormat));
+					} else if (j == 7) {
+						sheet.addCell(new Label(j, i + 1, peopleNow[i], cellFormat));
+					} else if (j == 8) {
+						sheet.addCell(new Label(j, i + 1, location[i], cellFormat));
 					}
 				}
 			}
@@ -101,7 +106,8 @@ public class Excel {
 			String[] famBenRel, String[] famEmg, String[] famEmgPhone, String[] detDate, String[] detCanDate,
 			String[] famNote, String[] detCanNote, String ExcelData) {
 		try {
-			WritableWorkbook workbook = Workbook.createWorkbook(new File(saveFolder + "/報名明細-" + traNo +"-"+ExcelData+ ".xls"));
+			WritableWorkbook workbook = Workbook
+					.createWorkbook(new File(saveFolder + "/報名明細-" + traNo + "-" + ExcelData + ".xls"));
 			WritableSheet sheet = workbook.createSheet("MySheet", 0);
 
 			WritableFont myFont = new WritableFont(WritableFont.createFont("標楷體"), 12);
@@ -162,7 +168,7 @@ public class Excel {
 			int columnSize = 30;
 
 			for (int i = 0; i < count; i++) {
-				for (int j = 0; j < name.length; j++) { // 0-23
+				for (int j = 0; j < name.length; j++) {
 					if (i == 0) {
 						sheet.setRowView(i, rowSize);
 						sheet.setColumnView(j, columnSize);
@@ -172,7 +178,7 @@ public class Excel {
 			}
 
 			for (int i = 0; i < count; i++) {
-				for (int j = 0; j < name.length; j++) { // 0-23
+				for (int j = 0; j < name.length; j++) {
 					sheet.setRowView(i + 1, rowSize);
 					sheet.setColumnView(j, columnSize);
 					if (j == 0) {
@@ -268,7 +274,7 @@ public class Excel {
 					detNote[i] = "無";
 				}
 			}
-			
+
 			int rowSize = 500;
 			int columnSize = 30;
 
@@ -283,7 +289,7 @@ public class Excel {
 			}
 
 			for (int i = 0; i < count; i++) {
-				for (int j = 0; j < name.length; j++) { // 0-8
+				for (int j = 0; j < name.length; j++) {
 					sheet.setRowView(i + 1, rowSize);
 					sheet.setColumnView(j, columnSize);
 					if (j == 0) {

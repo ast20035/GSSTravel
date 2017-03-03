@@ -31,7 +31,7 @@ public class FamilyDAO implements IFamilyDAO {
 	private static final String selectfam_Rel="select fam_Rel from Family where emp_No=? and fam_Name=?";
 	
 //	private static final String selectall= "select * from Family where fam_No =?";
-	private static final String selectfamid="select fam_Id from Family where emp_No=?";
+	private static final String selectfamid="select fam_Id from Family";
 //	private static final String selectstart="select * from Family where emp_No=?";
 //	private static final String on = "SET IDENTITY_INSERT Family ON;";
 //	private static final String off = "SET IDENTITY_INSERT Family OFF;";
@@ -244,13 +244,13 @@ public class FamilyDAO implements IFamilyDAO {
 	}
 
 	@Override
-	public List<String> selectid(Integer empno) {
+	public List<String> selectid() {
 		List<String> famid=new ArrayList<String>();
 		
 		try(Connection connection = ds.getConnection();
 				PreparedStatement state = connection.prepareStatement(selectfamid);)
 			{
-			state.setInt(1,empno);
+//			state.setInt(1,empno);
 			ResultSet resultset = state.executeQuery();
 			if(resultset!=null){
 				while(resultset.next()){

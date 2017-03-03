@@ -101,14 +101,17 @@ table {
 					a.setAttribute("href", result + "/BoardUD.jsp?anno_Time="
 							+ board[i].time + "&anno_Important="
 							+ board[i].important);
-					a.appendChild(document.createTextNode(board[i].title));
+					a.appendChild(document.createTextNode(board[i].title + " "));
+					td.appendChild(a);
 					if (board[i].important == 1) {
 						a.setAttribute("style", "color:red");
+						var img = document.createElement("img");
+						img.setAttribute("src", "images/important.gif");
+						td.appendChild(img);
 					}
 					if (board[i].important == 2) {
 						a.setAttribute("style", "color:black");
 					}
-					td.appendChild(a);
 					tr.appendChild(td);
 
 					body.appendChild(tr);
