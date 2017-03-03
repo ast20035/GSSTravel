@@ -87,9 +87,7 @@ table {
 					var a = document.createElement("a");
 
 					td = document.createElement("td");
-					td
-							.appendChild(document.createTextNode(board[i].time
-									+ " "));
+					td.appendChild(document.createTextNode(board[i].time + " "));
 					if ("${beforeDateNew}" <= board[i].time) {
 						var img = document.createElement("img");
 						img.setAttribute("src", "images/new.gif");

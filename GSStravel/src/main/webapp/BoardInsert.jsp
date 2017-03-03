@@ -70,10 +70,10 @@ input, textarea {
 						<br>
 						<div>公告標題</div>
 						<input type="text" id="title" name="title" class="form-control"
-							style="font-size: 17px" />
+							style="font-size: 17px" autocomplete="off"); />
 						<div>公告內容</div>
 						<textarea cols="50" rows="12" id="content" name="content"
-							style="font-size: 17px; resize: none" class="form-control"></textarea>
+							style="font-size: 17px; resize: none" class="form-control" autocomplete="off"></textarea>
 						<br> <input type="submit" value="儲存" name="save"
 							class='btn btn-success' /> <input type="button"
 							class='btn btn-primary' value='回上一頁'
