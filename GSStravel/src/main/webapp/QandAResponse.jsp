@@ -170,7 +170,7 @@ h1, h2 {
 								<table>
 									<tr>
 										<td>回應內容</td>
-										<td><textarea class="answer_Text" name="answer_Text"></textarea></td>
+										<td><textarea class="answer_Text" name="answer_Text" cols="70%" rows="8"></textarea></td>
 									</tr>
 								</table>
 							</div>

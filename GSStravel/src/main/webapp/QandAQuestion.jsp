@@ -18,14 +18,7 @@
 	crossorigin="anonymous"></script>
 <head>
 <style type="text/css">
-#backPic{
-		position:fixed;
-		top:0;
-		z-index: -1;
-		opacity: 0.2;
-		height:100%;
-		width: 100%;
-	}
+
 .color-red {
 	border-color: red
 }
@@ -44,7 +37,7 @@ resize: none;
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>我要提問</title>
 </head>
-<body>
+<body style="background-color:transparent">
 	<form action="<c:url value='/QandAInsertServlet'/>" method="POST">
 		<input type="hidden" name="Question_No" value="<%=session.getAttribute("emp_No")%>">
 		<table>
@@ -78,7 +71,6 @@ resize: none;
 		<button class='btn btn-primary' type="button"
 			onclick="window.location = '/GSStravel/QandAServlet?role=false';">回上一頁</button>
 	</form>
-	<img src="images/Travel.jpg" id="backPic">
 </body>
 <script type="text/javascript">
 if(${Msg!=null}){
