@@ -39,6 +39,7 @@ input, textarea {
 	border: 0px;
 	border-top: 1px solid #DDDDDD;
 	border-bottom: 1px solid #DDDDDD;
+	background-color: transparent;
 }
 
 h2 {

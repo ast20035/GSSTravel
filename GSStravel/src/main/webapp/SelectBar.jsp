@@ -175,6 +175,10 @@ h1, h2 {
 .navbar-brand:HOVER {
 	color: #FFAA33;
 }
+
+input{
+	background-color: transparent;
+}
 </style>
 <nav class="navbar navbar-fixed-top topBar">
 	<div class="container">

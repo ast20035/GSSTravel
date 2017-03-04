@@ -86,8 +86,8 @@ margin-right: 3%;
 							<th><label style='width:100px;'>與受益人關係</label></th>
 							<th>緊急聯絡人</th>
 							<th><label style='width:120px;'>緊急聯絡人手機</label></th>
-							<th><label style='width:80px;'>報名時間</label></th>
-							<th><label style='width:80px;'>取消日期</label></th>
+							<th><label style='width:200px;'>報名時間</label></th>
+							<th><label style='width:200px;'>取消日期</label></th>
 							<th>備註</th>
 							<th><label style='width:80px;'>取消原因</label></th>
 						</tr>

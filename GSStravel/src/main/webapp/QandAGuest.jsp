@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <script src='js/jquery-3.1.1.min.js'></script>
-<link rel="stylesheet" 
+<link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
@@ -22,14 +22,15 @@
 	crossorigin="anonymous"></script>
 <title>Q&A</title>
 <style>
-#backPic{
-		position:fixed;
-		top:0;
-		z-index: -1;
-		opacity: 0.2;
-		height:100%;
-		width: 100%;
-	}
+#backPic {
+	position: fixed;
+	top: 0;
+	z-index: -1;
+	opacity: 0.2;
+	height: 100%;
+	width: 100%;
+}
+
 table {
 	color: #7F7F7F;
 	font: 0.8em/1.6em "Trebuchet MS", Verdana, sans-serif;
@@ -91,8 +92,8 @@ tbody a:visited:after {
 }
 </style>
 <style>
-td,tr {
-    padding:3px;
+td, tr {
+	padding: 3px;
 	border: 1px solid gray;
 }
 
@@ -101,18 +102,35 @@ input[type='text'] {
 	text-align: center;
 	padding: 3px;
 }
-.centeraa{
-	text-align: center;
 
+.centeraa {
+	text-align: center;
+}
+
+input{ 
+	background-color: transparent;
 }
 </style>
 </head>
-<body style="background-color:transparent">
-	<% String prodaction = request.getParameter("prodaction");%>
-	<select onchange="window.location = '/GSStravel/QandAServlet?role=false&prodaction='+this.value;" class='form-control' style='width:140px;'>
-		<option value="all" <%if ("all".equals(prodaction)) {out.print("selected");}%>>顯示全部</option>
-		<option value="yes" <%if ("yes".equals(prodaction)) { out.print("selected");}%>>顯示已回應</option>
-		<option value="no" <%if ("no".equals(prodaction)) { out.print("selected"); }%>>顯示未回應</option>
+<body style="background-color: transparent">
+	<%
+		String prodaction = request.getParameter("prodaction");
+	%>
+	<select
+		onchange="window.location = '/GSStravel/QandAServlet?role=false&prodaction='+this.value;"
+		class='form-control' style='width: 140px;'>
+		<option value="all"
+			<%if ("all".equals(prodaction)) {
+				out.print("selected");
+			}%>>顯示全部</option>
+		<option value="yes"
+			<%if ("yes".equals(prodaction)) {
+				out.print("selected");
+			}%>>顯示已回應</option>
+		<option value="no"
+			<%if ("no".equals(prodaction)) {
+				out.print("selected");
+			}%>>顯示未回應</option>
 	</select>
 	<br />
 	<c:if test="${list.size()!=0}">
@@ -127,43 +145,82 @@ input[type='text'] {
 			</thead>
 			<tbody>
 				<c:forEach var="list" items="${list}">
-					<c:if test="${emp_Role eq false&&list.question_secret&&emp_No==list.question_No}">
+					<c:if
+						test="${emp_Role eq false&&list.question_secret&&emp_No==list.question_No}">
 						<tr>
-							<td><div class="centeraa">${list.question_Time}<c:if test="${list.newimg==true}"> <img src="images/new.gif"></c:if></div></td>
-							<td><input type="text" value="${list.tra_No}" readonly style='width: 100%;'></td>
-							<td>
-							    <a href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
-								<c:if test="${list.answer_No!=0}"><span>[已回應]</span><br></c:if><span style="color:red">[私密]${list.question_Title}</span></a></td>
-							<td><input type="text" value="${list.question_No}" readonly style='width: 100%;'></td>
+							<td><div class="centeraa">${list.question_Time}<c:if
+										test="${list.newimg==true}">
+										<img src="images/new.gif">
+									</c:if>
+								</div></td>
+							<td><input type="text" value="${list.tra_No}" readonly
+								style='width: 100%;'></td>
+							<td><a
+								href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
+									<c:if test="${list.answer_No!=0}">
+										<span>[已回應]</span>
+										<br>
+									</c:if><span style="color: red">[私密]${list.question_Title}</span>
+							</a></td>
+							<td><input type="text" value="${list.question_No}" readonly
+								style='width: 100%;'></td>
 						</tr>
 					</c:if>
 					<c:if test="${emp_Role eq false&&!list.question_secret}">
 						<tr>
-							<td><div class="centeraa">${list.question_Time}<c:if test="${list.newimg==true}"> <img src="images/new.gif"></c:if></div></td>
-							<td><input type="text" value="${list.tra_No}" readonly style='width: 100%;'></td>
-							<td>
-								<a href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
-								<c:if test="${list.answer_No!=0}"><span>[已回應]</span></c:if>${list.question_Title}</a></td>
-							<td><input type="text" value="${list.question_No}" readonly style='width: 100%;'></td>
+							<td><div class="centeraa">${list.question_Time}<c:if
+										test="${list.newimg==true}">
+										<img src="images/new.gif">
+									</c:if>
+								</div></td>
+							<td><input type="text" value="${list.tra_No}" readonly
+								style='width: 100%;'></td>
+							<td><a
+								href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
+									<c:if test="${list.answer_No!=0}">
+										<span>[已回應]</span>
+									</c:if>${list.question_Title}</a></td>
+							<td><input type="text" value="${list.question_No}" readonly
+								style='width: 100%;'></td>
 						</tr>
 					</c:if>
 					<c:if test="${emp_Role eq true}">
 						<c:if test="${list.question_secret}">
 							<tr>
-								<td><div class="centeraa">${list.question_Time}<c:if test="${list.newimg==true}"> <img src="images/new.gif"></c:if></div></td>
-								<td><input type="text" value="${list.tra_No}" readonly style='width: 100%;'></td>
-								<td><a href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
-									<c:if test="${list.answer_No!=0}"><span>[已回應]</span><br></c:if><span style="color:red">[私密]${list.question_Title}</span></a></td>
-								<td><input type="text" value="${list.question_No}" readonly style='width: 100%;'></td>
+								<td><div class="centeraa">${list.question_Time}<c:if
+											test="${list.newimg==true}">
+											<img src="images/new.gif">
+										</c:if>
+									</div></td>
+								<td><input type="text" value="${list.tra_No}" readonly
+									style='width: 100%;'></td>
+								<td><a
+									href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
+										<c:if test="${list.answer_No!=0}">
+											<span>[已回應]</span>
+											<br>
+										</c:if><span style="color: red">[私密]${list.question_Title}</span>
+								</a></td>
+								<td><input type="text" value="${list.question_No}" readonly
+									style='width: 100%;'></td>
 							</tr>
 						</c:if>
 						<c:if test="${!list.question_secret}">
 							<tr>
-								<td><div class="centeraa">${list.question_Time}<c:if test="${list.newimg==true}"> <img src="images/new.gif"></c:if></div></td>
-								<td><input type="text" value="${list.tra_No}" readonly style='width: 100%;'></td>
-								<td><a href="<c:url value='/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}'/>">
-									<c:if test="${list.answer_No!=0}"><span>[已回應]</span></c:if>${list.question_Title}</a></td>
-								<td><input type="text" value="${list.question_No}" readonly style='width: 100%;'></td>
+								<td><div class="centeraa">${list.question_Time}<c:if
+											test="${list.newimg==true}">
+											<img src="images/new.gif">
+										</c:if>
+									</div></td>
+								<td><input type="text" value="${list.tra_No}" readonly
+									style='width: 100%;'></td>
+								<td><a
+									href="<c:url value='/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}'/>">
+										<c:if test="${list.answer_No!=0}">
+											<span>[已回應]</span>
+										</c:if>${list.question_Title}</a></td>
+								<td><input type="text" value="${list.question_No}" readonly
+									style='width: 100%;'></td>
 							</tr>
 						</c:if>
 					</c:if>
@@ -184,12 +241,20 @@ input[type='text'] {
 		</ul>
 	</c:if>
 	<c:if test="${list.size()==0}">
-	<%
-		if (prodaction==null) { out.print("<h2>現在尚無留言</h2>"); }
-		if ("all".equals(prodaction)) { out.print("<h2>現在尚無留言</h2>"); }
-		if ("yes".equals(prodaction)) { out.print("<h2>全部皆無回應</h2>");}
-		if ("no".equals(prodaction)) { out.print("<h2>全部皆已回應</h2>"); }
-	%>				 				
+		<%
+			if (prodaction == null) {
+					out.print("<h2>現在尚無留言</h2>");
+				}
+				if ("all".equals(prodaction)) {
+					out.print("<h2>現在尚無留言</h2>");
+				}
+				if ("yes".equals(prodaction)) {
+					out.print("<h2>全部皆無回應</h2>");
+				}
+				if ("no".equals(prodaction)) {
+					out.print("<h2>全部皆已回應</h2>");
+				}
+		%>
 	</c:if>
 	<br />
 	<c:if test="${emp_Role eq false}">
