@@ -127,7 +127,6 @@ h1, h2 {
 			<div class='col-md-offset-3 col-md-5'>
 				<h3></h3>
 				<table class='table'>
-
 					<thead>
 					<tr>
 					<th ><label style='text-align: center;'>標題</label></th>
@@ -151,14 +150,14 @@ h1, h2 {
 				</table>
 				<form action='<c:url value="/QandAInsertServlet?role=true"/>'
 					method="POST">
-					<input type="hidden" name="qa_No" value="${list.qa_No}"> <input
-						type="hidden" name="answer_No"
+					<input type="hidden" name="qa_No" class="qa_No" value="${list.qa_No}"> <input
+						type="hidden" name="answer_No" class="answer_No"
 						value="<%=session.getAttribute("emp_No")%>">
 					<c:if test="${list.answer_No!=0}">
 						<table class='table'>
 							<h2>回應</h2>
 							<tr>
-								<td><textarea name="answer_Text" class="Ans_textarea" cols="70%" rows="8" style='font-size: 20px;' readonly="readonly">${list.answer_Text}</textarea></td>
+								<td><textarea name="answer_Text" cols="70%" rows="8" style='font-size: 20px;' readonly="readonly">${list.answer_Text}</textarea></td>
 							</tr>
 						</table>
 					</c:if>
@@ -175,8 +174,9 @@ h1, h2 {
 							</div>
 							<br />
 							<button type="button" class="notdisplayclass btn btn-primary" onclick="Respose()">我要回應</button>
-							<button type="submit" name="prodaction" value="insertAnswer" class="displayclass displaybb btn btn-primary">回應</button>
-							<button type="button" class="displayclass btn btn-primary" onclick="cancelrespose()">取消</button>
+							<button type="button" id="response" class="displayclass displaybb btn btn-primary">回應</button>
+							<img src="images/loading.gif" id="img1" style="display: none ; background-color:transparent"/>
+							<button type="button" class="displayclass btn btn-primary notimgclass" onclick="cancelrespose()">取消</button>
 						</c:if>
 						<c:if test="${list.answer_No!=0}">
 							<button type="button" class="notdisplaybutton btn btn-primary" onclick="updateData()">修改</button>
@@ -200,7 +200,25 @@ h1, h2 {
 	if(${Msg!=null}){
 		alert("${Msg.message}");
 	}
-	
+	$("#response").click(function(){
+		$(".notimgclass").hide();
+		$("#img1").show();
+		$.ajax({
+			type:"POST",
+			url: "/GSStravel/QandAInsertServlet" ,
+			data:{
+				role:"true",
+				prodaction:"insertAnswer",
+				qa_No:$(".qa_No").val(),
+				answer_No :$(".answer_No").val(),
+				answer_Text:$(".answer_Text").val()
+			},
+			dataType:"text",
+			success : function(data){
+				alert(data);
+			}
+		});
+	});
 	$(".displayclass").hide();
 	$(".displaybutton").hide();
 	var Ans_textarea;

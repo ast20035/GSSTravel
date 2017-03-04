@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
 
 import model.EmployeeService;
 import model.EmployeeVO;
@@ -21,6 +25,8 @@ public class QandAInsertServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
 		QandAService QAService = new QandAService();
 		Map<String, String> Msg = new HashMap<String, String>();
 		request.setAttribute("Msg", Msg);
@@ -61,7 +67,49 @@ public class QandAInsertServlet extends HttpServlet {
 			return;
 		}
 		// 新增回應、修改回應
-		if ("insertAnswer".equals(prodaction) || "updateAnswer".equals(prodaction)) {
+		if ("insertAnswer".equals(prodaction)){
+			PrintWriter out = response.getWriter();
+			QandAVO bean = new QandAVO();
+			String temp = request.getParameter("qa_No");
+			String temp2 = request.getParameter("answer_No");
+			String answer_Text = request.getParameter("answer_Text");
+			int qa_No = Integer.parseInt(temp);
+			int answer_No = Integer.parseInt(temp2);
+			String message;
+			if (answer_Text.trim().length() == 0) {
+				message="回應欄不可為空值";
+				return;
+			}
+			bean.setQa_No(qa_No);
+			bean.setAnswer_No(answer_No);
+			bean.setAnswer_Text(answer_Text);
+			b = QAService.insertAnswer(bean);
+				if (b) {
+					message="回應成功";
+					bean = new QandAVO();
+					bean = QAService.getALL(qa_No);
+
+					EmployeeService employeeService = new EmployeeService();
+					EmployeeVO empVO = new EmployeeVO();
+					empVO = employeeService.select(Integer.toString(bean.getQuestion_No()));
+
+					String Question_Email = empVO.getEmp_Mail();
+					String Question_name = empVO.getEmp_Name();
+					String Question_Title = bean.getQuestion_Title();
+
+					email em = new email();
+					em.send(Question_Email, "您的" + Question_Title + "問題已回覆",
+							Question_name + "您好！\n您在Q&A所提出的" + Question_Title + "問題福委會已回應您\n如有問題，請在Q&A專區留言，將會有專人回答您！");
+				} else {
+					message="回應失敗";
+				}
+
+			
+			out.println(message);
+			return;
+
+		}
+		if("updateAnswer".equals(prodaction)) {
 			QandAVO bean = new QandAVO();
 			String temp = request.getParameter("qa_No");
 			String temp2 = request.getParameter("answer_No");
@@ -78,39 +126,14 @@ public class QandAInsertServlet extends HttpServlet {
 			bean.setAnswer_No(answer_No);
 			bean.setAnswer_Text(answer_Text);
 			b = QAService.insertAnswer(bean);
-			if ("insertAnswer".equals(prodaction)) {
+			if(b) {
 				if (b) {
-					Msg.put("message", "回應成功,是否要寄Email");
+					Msg.put("message", "修改成功");
 				} else {
-					Msg.put("message", "回應失敗");
-				}
-			} else {
-				if (b) {
-					Msg.put("messageupdate", "修改成功");
-				} else {
-					Msg.put("messageupdate", "修改失敗");
+					Msg.put("message", "修改失敗");
 				}
 			}
 
-		}
-		// (Ajax)寄Email
-		if ("Email".equals(prodaction)) {
-			String temp = request.getParameter("qa_No");
-			QandAVO bean = new QandAVO();
-			int qa_No = Integer.parseInt(temp);
-			bean = QAService.getALL(qa_No);
-
-			EmployeeService employeeService = new EmployeeService();
-			EmployeeVO empVO = new EmployeeVO();
-			empVO = employeeService.select(Integer.toString(bean.getQuestion_No()));
-
-			String Question_Email = empVO.getEmp_Mail();
-			String Question_name = empVO.getEmp_Name();
-			String Question_Title = bean.getQuestion_Title();
-
-			email em = new email();
-			em.send(Question_Email, "您的" + Question_Title + "問題已回覆",
-					Question_name + "您好！\n您在Q&A所提出的" + Question_Title + "問題福委會已回應您\n如有問題，請在Q&A專區留言，將會有專人回答您！");
 		}
 		// 刪除單筆
 		if ("deleteOne".equals(prodaction)) {
@@ -123,6 +146,7 @@ public class QandAInsertServlet extends HttpServlet {
 				Msg.put("message", "刪除失敗");
 			}
 		}
+		
 		// 刪除一定時間內的筆數
 		if ("Years".equals(prodaction) || "9month".equals(prodaction) || "6month".equals(prodaction)
 				|| "3month".equals(prodaction)) {

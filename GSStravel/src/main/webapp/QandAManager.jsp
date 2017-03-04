@@ -153,12 +153,7 @@
 	</div>
 	<script>
 	if(${Msg!=null}){
-		if(${Msg.message=='回應成功,是否要寄Email'}){
-			if (confirm("${Msg.message}")) {
-				<% String qa_No = request.getParameter("qa_No");%>
-				window.location = '/GSStravel/QandAInsertServlet?role=true&prodaction=Email&qa_No='+<%=qa_No%>;
-			}
-		}
+		alert("${Msg.message}") ;
 	}
 	var i;
 	var $page = $(".page");
