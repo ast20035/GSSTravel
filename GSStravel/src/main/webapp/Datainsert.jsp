@@ -1062,14 +1062,12 @@ text-align: center;
 										var url = result + "/FamilyServlet";
 										var webfamid=  JSON.stringify($("input[name='famid']").map(function(){return $(this).val();}).get());
 										var famid ={"repeatfamid":$(this).val(),"webfamid":webfamid};
-										
-										
-										
+// 										console.log(webfamid);
 										var xxxxx = $(this)
 											$.ajax({
 												type:"POST",url:url,data:famid,dataType:"text",
 													success:function(r){
-														console.log(r);
+// 														console.log(r);
 																if(r.indexOf("repeat")!= -1){
 																	alert("親屬身分證已存在");
 																	xxxxx.css("border-color","red");
