@@ -33,19 +33,22 @@ public class SetUpTravel extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
 		String tra_File = request.getParameter("file");
 		String tra_No = request.getParameter("edittraNO");
-		String tra_Name = new String(request.getParameter("edittraName").getBytes("iso-8859-1"), "utf-8");
-		String tra_Loc = new String(request.getParameter("edittraLoc").getBytes("iso-8859-1"), "utf-8");
+		String tra_Name = new String(request.getParameter("edittraName"));
+		String tra_Loc = new String(request.getParameter("edittraLoc"));
 		String On = request.getParameter("edittraOn");
 		String Off = request.getParameter("edittraOff");
 		String Beg = request.getParameter("edittraBeg");
 		String End = request.getParameter("edittraEnd");
 		String Total = request.getParameter("edittraTotal");
 		String Max = request.getParameter("edittraMax");
-		String tra_Intr = new String(request.getParameter("edittraIntr").getBytes("iso-8859-1"), "utf-8");
-		String tra_Con = new String(request.getParameter("edittraCon").getBytes("iso-8859-1"), "utf-8");
-		String tra_Atter = new String(request.getParameter("edittraAtter").getBytes("iso-8859-1"), "utf-8");
+		String tra_Intr = new String(request.getParameter("edittraIntr"));
+		String tra_Con = new String(request.getParameter("edittraCon"));
+		String tra_Atter = new String(request.getParameter("edittraAtter"));
 		String[] rooms = request.getParameterValues("edititemName");
 		String[] roomsMoney = request.getParameterValues("edititemMoney");
 
@@ -315,15 +318,8 @@ public class SetUpTravel extends HttpServlet {
 		Date date = new Date();
 		String now = sdFormat.format(date);// 取得現在時間
 		announcementService.insert(now, "新增" + tra_Name + "行程", tra_Con, "2");
-		if (tra_File.equals("無")) {
-			request.getRequestDispatcher("/SetUpTravel.jsp").forward(request, response);			
-			return;
-		}else{
-			request.getRequestDispatcher("/fileupload_control.jsp").forward(request, response);
-			return;
-		}
-		
-
+		request.getRequestDispatcher("/ckFile.jsp").forward(request, response);
+		return;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
