@@ -197,7 +197,7 @@
 				<h4 style='color: #FF5511;' id='QA'>Q&A</h4>
 
 				<iframe src="<c:url value='/QandAServlet?role=false' />"
-					frameborder="0" width="105%" marginwidth="2px" height="1000px"></iframe>
+				 frameborder="0" width="105%" marginwidth="2px" height="1000px"></iframe>
 
 			</div>
 		</div>

@@ -78,6 +78,7 @@ public class FamilyServlet extends HttpServlet {
 //		String ajaxfamname=req.getParameter("famnameajax");
 		String ajaxemail = req.getParameter("email");
 		String ajaxrepeatfamid=req.getParameter("repeatfamid");
+		String ajaxwebfamid= req.getParameter("webfamid");
 		PrintWriter out = res.getWriter();//ajax輸出???
 		
 		HttpSession session = req.getSession();
@@ -99,21 +100,45 @@ public class FamilyServlet extends HttpServlet {
 		
 		//判斷原來的親屬身分證有沒有重複
 				if(ajaxrepeatfamid != null) {
-					for(String xx: id){
+//					System.out.println(ajaxrepeatfamid+"++++++");
+					int yyy= familyservice.selectfam_byid(ajaxrepeatfamid);
+					List<String> idnotmyself= familyservice.selectid_not_myself(yyy);
+					
+					for(String xxx: idnotmyself){//A191101620
+//						System.out.println(xxx);
+						if(ajaxrepeatfamid.equals(xxx)){
+							out.print("repeat");
+						}else{
+							out.print("");
+						}
+					}
+					
+//					System.out.println(ajaxwebfamid);
+					List<String>webid=new ArrayList<String>();
+					String webfamid=ajaxwebfamid.replace("[", "").replace("]", "").replace("\"", "").replace(",", "");
+					System.out.println(webfamid);
+					for(int i=0;i<=webfamid.length();){
+						String xxxx = webfamid.substring(i,i+9);//F111111111
+						i=i+9;
+						webid.add(xxxx);
 						
 					}
-//					System.out.println(ajaxrepeatfamid+"++++++");
-//					 int famno= familyservice.selectfam_byid(ajaxrepeatfamid);
-//					List<String> idnotmyself= familyservice.selectid_not_myself(famno);
-//					for(String xxx: idnotmyself){
-//						System.out.println(xxx);
-//						if(ajaxrepeatfamid.contains(xxx)){
-//							out.print("repeat");
-//						}else{
-//							out.print("");
-//						}
+//					for(String xx:webid){
+//						System.out.println(xx);
 //					}
-//					
+//					for(int x=0;x<xxx.length();){
+//						 String y=xxx.substring(x, x+3);//mom
+//						 x=x+3;
+//						 ssss.add(y);
+//					 }
+//					System.out.println(webfamid);
+//					if(webfamid.equals(ajaxrepeatfamid)){
+//						
+//						out.print("repeat");
+//					}else{
+//						out.print("");
+//					}
+					
 				}
 		
 				

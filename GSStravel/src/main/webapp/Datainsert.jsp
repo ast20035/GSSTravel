@@ -193,10 +193,9 @@ text-align: center;
 							</tr>
 						</thead>
 						<c:if test="${famstartsize>0}">
-							<c:forEach var="start" items="${famstart}">
+							<c:forEach var="start" items="${famstart}" varStatus="aa">
 								<tr>
-									<td><input type="button" name="delete" id="delete"
-										value="delete" class="${start.fam_Id} btn btn-danger"></td>
+									<td><input type="button" name="delete" id="delete" value="delete" class="${start.fam_Id} btn btn-danger"></td>
 
 									<td><select name="famrel" class='form-control'
 										style="width: 80px;">
@@ -232,8 +231,8 @@ text-align: center;
 <%-- 										<div class="famiderror" name="famiderror">${error.famid}</div> --%>
 										</td>
 									<td><input type="date" id="fambdate" name="fambdate"
-										style='width: 170px;' class="fambdate form-control"
-										value="${start.fam_Bdate}" onblur="aaaaa(this)"/>
+										style='width: 170px;' class="fambdate form-control" spannumber="${aa.index}"
+										value="${start.fam_Bdate}" />
 										</td>
 									<td><input type="text" name="famphone" id="famphone"
 										style='width: 90px;' class='form-control'
@@ -269,15 +268,15 @@ text-align: center;
 										</c:if></td>
 									<td class="selecttd" >
 										<div class='select'>
-											<select class="multiselect aaa form-control selectttttttt" name="famspa"
+											<select class="multiselect aaa form-control selectspan" name="famspa"
 												style='width: 350px;' multiple="multiple"
 												data-placeholder="請選擇">
-
+												
 												<c:if test="${start.fam_Bady=='false'}">
 													<option value="bab" >幼童(0~3歲)</option>
 												</c:if>
 												<c:if test="${start.fam_Bady}">
-													<option id="${start.fam_No}_span_1" value="bab" Selected>幼童(0~3歲)</option>
+													<option value="bab" Selected>幼童(0~3歲)</option>
 												</c:if>
 												<c:if test="${start.fam_kid=='false'}">
 													<option value="kid">兒童(4~11歲)</option>
@@ -333,7 +332,6 @@ text-align: center;
 									
 								</tr>
 							</c:forEach>
-
 						</c:if>
 
 					</table>
@@ -444,57 +442,24 @@ text-align: center;
 				
 			})
 			
-			function aaaaa(obj){
-// 				var dateeee=obj;
-// 				var bdate = obj.value;
-// 				console.log(bdate);
-// 					  var today = new Date();
-// 					  bdate = new Date(Date.parse(bdate.replace("-", "/")));
-// 					  var between = today.getTime() - bdate.getTime();//時間差的毫秒数 
-// 					  var between2 = Math.floor(between/(24*3600*1000));
-// 					  if(between2<365*3){
-// 							$(".selectttttttt").remove();
-// 							$(".select").append('<select class="selectttttttt" name="famspa" style="width: 350px;" multiple="multiple"data-placeholder="請選擇"><option value="bab" Selected>幼童(0~3歲)</option><option value="kid">兒童(4~11歲)</option><option value="dis">持身心障礙手冊</option><option value="mom" >孕婦(媽媽手冊)</option></select>');
-// 							$(".selectttttttt").prop("class","multiselect");
-// 							$(".selectttttttt").prop("class","aaa");
-// 							$(".selectttttttt").prop("class","form-control");
-// 					  }
-// 					  if(between2<365*11){
-// 						  if(between2>365*3){
-// 							 $(this).closest("tr").find(".select select[name*='famspa'] ").val("kid");
-// 							 console.log("yyyyyyy");
-// 						  }
-// 					  }
-	
-			}
 			
 // 			生日直接判斷特殊身分
 			$("#familytable input[name*='fambdate']").on("blur",function(){
+// 				console.log($(".spannumber").val());
 				var dateeee=$(this);
 				var bdate = $(this).val();
-				console.log($(this).val());
-					  var today = new Date();
-					  bdate = new Date(Date.parse(bdate.replace("-", "/")));
-					  var between = today.getTime() - bdate.getTime();//時間差的毫秒数 
-					  var between2 = Math.floor(between/(24*3600*1000));
-					  if(between2<365*3){
-						  
-// 						  	alert(dateeee.parent().parent().children("#selecttd").find("select[name*='famspa']").attr("name"));
-						  	alert(dateeee.parent().parent().children(".selecttd").find("select[name*='famspa'] option:first").val());
-							dateeee.parent().parent().children(".selecttd").find("select[name*='famspa'] option:first").attr("selected","selected");
-// 							$(".selectttttttt option[name='bab']").remove();
-// 							$(".selectttttttt option[name='kid']").remove();
-// 							$(".selectttttttt option[name='dis']").remove();
-// 							$(".selectttttttt option[name='mom']").remove();
-							
-							//dateeee.parent().parent().children("#selecttd").find("select[name*='famspa'] ").val("bab").change();
-					  }
-					  if(between2<365*11){
-						  if(between2>365*3){
-							 $(this).closest("tr").find(".select select[name*='famspa'] ").val("kid");
-							 console.log("yyyyyyy");
-						  }
-					  }
+				var today = new Date();
+				bdate = new Date(Date.parse(bdate.replace("-", "/")));
+				var between = today.getTime() - bdate.getTime();//時間差的毫秒数 
+				var between2 = Math.floor(between/(24*3600*1000));
+				if(between2<365*3){
+					$('select.selectspan:eq('+$(this).attr("spannumber")+')').data("kendoMultiSelect").value('bab');
+				}
+				if(between2<365*11){
+					if(between2>365*3){
+						$('select.selectspan:eq('+$(this).attr("spannumber")+')').data("kendoMultiSelect").value('kid');
+					}
+			 	}
 			})
 			
 			
@@ -1033,8 +998,7 @@ text-align: center;
 						}
 					});
 
-				$("input[name*='famid']").on("blur",
-								function() {
+				$("input[name*='famid']").on("blur",function() {
 					if(this.value !=""){
 									// 依照字母的編號排列，存入陣列備用。
 									var letters = new Array('A', 'B', 'C', 'D',
@@ -1099,10 +1063,11 @@ text-align: center;
 										var index = pathName.substr(1).indexOf("/");
 										var result = pathName.substr(0, index + 1);
 										var url = result + "/FamilyServlet";
-										var famid ={"repeatfamid":$(this).val()};
-// 										$(this).closest("tr").find("input[name='selectvalue']").val()
-// 										,"repeatfamno":$(this).closest("tr").find("input[name='selectvalue']").val()
-
+										var webfamid=  JSON.stringify($("input[name='famid']").map(function(){return $(this).val();}).get());
+										var famid ={"repeatfamid":$(this).val(),"webfamid":webfamid};
+										
+										
+										
 										var xxxxx = $(this)
 											$.ajax({
 												type:"POST",url:url,data:famid,dataType:"text",
@@ -1284,5 +1249,4 @@ text-align: center;
 	</div>
 	<img src="images/Travel.jpg" id="backPic">
 </body>
-
 </html>
