@@ -20,14 +20,14 @@
 	crossorigin="anonymous"></script>
 <title>GSS System</title>
 <style type="text/css">
-#backPic{
-		position:fixed;
-		top:0;
-		z-index: -1;
-		opacity: 0.2;
-		height:100%;
-		width: 100%;
-	}
+#backPic {
+	position: fixed;
+	top: 0;
+	z-index: -1;
+	opacity: 0.2;
+	height: 100%;
+	width: 100%;
+}
 </style>
 <script>
 	window.onload = function() {
@@ -37,8 +37,8 @@
 			;
 		}
 	}
-	function ke(event){
-		if(event.which==13){
+	function ke(event) {
+		if (event.which == 13) {
 			document.getElementById('login.do').submit();
 		}
 	}
@@ -53,6 +53,10 @@
 			document.getElementById('login.do').submit();
 		}
 	}
+	function imgload(){
+		document.getElementById('backPic').removeAttribute('style');
+		
+	}
 </script>
 <style>
 #title {
@@ -65,28 +69,31 @@ form {
 </style>
 </head>
 <body>
+	<img src="images/Travel.jpg" id="backPic" style='display: none;' onload='imgload();'>
 	<div class='container-fluid active'>
 		<div class='row' id='title'>
-		<div class='col-lg-4' ></div>
-			<div class='col-lg-4' >
+			<div class='col-lg-4'></div>
+			<div class='col-lg-4'>
 				<h1>叡揚旅遊報名系統</h1>
 			</div>
 			<!-- 			<div class='col-lg-10'></div> -->
 		</div>
 
-		<form method="POST" action=<c:url value="/login.do" />
-			id="login.do" role='form' class='form-horizontal form-signin'>
+		<form method="POST" action=<c:url value="/login.do" /> id="login.do"
+			role='form' class='form-horizontal form-signin'>
 			<div class='form-group'>
 				<label for='account' class='control-label col-lg-4'>帳號:</label>
 				<div class='col-lg-3'>
 					<input type="text" name='account' id='account' value=""
-						class='form-control' required autofocus placeholder='請輸入帳號'/>
+						onkeydown="ke(event);" class='form-control' required autofocus
+						placeholder='請輸入帳號' />
 				</div>
 			</div>
 			<div class='form-group'>
 				<label for='pwd' class='control-label col-lg-4'>密碼:</label>
 				<div class='col-lg-3'>
-					<input type="password" name='pwd' id='pwd' class='form-control' required placeholder='請輸入密碼' onkeydown="ke(event);"/>
+					<input type="password" name='pwd' id='pwd' class='form-control'
+						required placeholder='請輸入密碼' onkeydown="ke(event);" />
 				</div>
 			</div>
 			<div class='form-group'>
@@ -99,6 +106,6 @@ form {
 			</div>
 		</form>
 	</div>
-	<img src="images/Travel.jpg" id="backPic">
+
 </body>
 </html>
