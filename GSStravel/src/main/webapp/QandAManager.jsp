@@ -88,7 +88,7 @@
 						<thead>
 							<tr>
 								<th><label style='width:300px;'>詢問時間</label></th>
-								<th><label style='width:150px;'>行程編號</label></th>
+								<th><label style='width:150px;'>提問類型</label></th>
 								<th><label style='width:250px;'>標題</label></th>
 								<th><label style='width:100px;'>詢問人員</label></th>
 							</tr>
@@ -98,7 +98,11 @@
 								<c:if test="${list.question_secret}">
 									<tr>
 										<td><div class="centeraa">${list.question_Time}<c:if test="${list.newimg==true}"> <img src="images/new.gif"></c:if></div></td>
-										<td><input type="text" value="${list.tra_No}" style='width:100%;'></td>
+										<td>
+											<c:if test="${list.question_Category==0}"><input type="text" value="行程" readonly style='width: 100%;'></c:if>
+											<c:if test="${list.question_Category==1}"><input type="text" value="費用" readonly style='width: 100%;'></c:if>
+											<c:if test="${list.question_Category==2}"><input type="text" value="其他" readonly style='width: 100%;'></c:if>	
+										</td>
 										<td><a
 											href="/GSStravel/QandAServlet?prodaction=select&role=true&qa_No=${list.qa_No}">
 												<c:if test="${list.answer_No!=0}">
@@ -111,7 +115,11 @@
 								<c:if test="${!list.question_secret}">
 									<tr>
 										<td><div class="centeraa">${list.question_Time}<c:if test="${list.newimg==true}"> <img src="images/new.gif"></c:if></div></td>
-										<td><input type="text" value="${list.tra_No}" style='width:100%;'></td>
+										<td>
+											<c:if test="${list.question_Category==0}"><input type="text" value="行程" readonly style='width: 100%;'></c:if>
+											<c:if test="${list.question_Category==1}"><input type="text" value="費用" readonly style='width: 100%;'></c:if>
+											<c:if test="${list.question_Category==2}"><input type="text" value="其他" readonly style='width: 100%;'></c:if>	
+										</td>
 										<td><a
 											href="/GSStravel/QandAServlet?prodaction=select&role=true&qa_No=${list.qa_No}">
 												<c:if test="${list.answer_No!=0}">

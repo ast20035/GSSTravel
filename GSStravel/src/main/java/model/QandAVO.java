@@ -1,7 +1,7 @@
 package model;
 
 public class QandAVO {
-	private String tra_No;
+	private int question_Category;
 	private int question_No;
 	private int qa_No;
 	private String question_Time;
@@ -25,11 +25,12 @@ public class QandAVO {
 	public void setQuestion_secret(boolean question_secret) {
 		this.question_secret = question_secret;
 	}
-	public String getTra_No() {
-		return tra_No;
+	
+	public int getQuestion_Category() {
+		return question_Category;
 	}
-	public void setTra_No(String tra_No) {
-		this.tra_No = tra_No;
+	public void setQuestion_Category(int question_Category) {
+		this.question_Category = question_Category;
 	}
 	public int getQuestion_No() {
 		return question_No;

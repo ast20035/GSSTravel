@@ -42,12 +42,13 @@ resize: none;
 		<input type="hidden" name="Question_No" value="<%=session.getAttribute("emp_No")%>">
 		<table>
 			<tr>
-				<th colspan="2"><select name='Select' class='form-control'
-					style='width: 160px;'>
-						<c:forEach var="list" items="${list}">
-							<option>${list.tra_NO}</option>
-						</c:forEach>
-				</select></th>
+				<th colspan="2">
+				<select name='Select' class='form-control' style='width: 160px;'>
+					<option value="0">行程</option>
+					<option value="1">費用</option>
+					<option value="2">其他</option>
+				</select>
+				</th>
 			</tr>
 			<tr>
 				<th>標題</th>

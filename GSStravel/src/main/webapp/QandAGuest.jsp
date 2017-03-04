@@ -116,21 +116,10 @@ input{
 	<%
 		String prodaction = request.getParameter("prodaction");
 	%>
-	<select
-		onchange="window.location = '/GSStravel/QandAServlet?role=false&prodaction='+this.value;"
-		class='form-control' style='width: 140px;'>
-		<option value="all"
-			<%if ("all".equals(prodaction)) {
-				out.print("selected");
-			}%>>顯示全部</option>
-		<option value="yes"
-			<%if ("yes".equals(prodaction)) {
-				out.print("selected");
-			}%>>顯示已回應</option>
-		<option value="no"
-			<%if ("no".equals(prodaction)) {
-				out.print("selected");
-			}%>>顯示未回應</option>
+	<select onchange="window.location = '/GSStravel/QandAServlet?role=false&prodaction='+this.value;" class='form-control' style='width: 140px;'>
+		<option value="all" <%if ("all".equals(prodaction)) { out.print("selected"); }%>>顯示全部</option>
+		<option value="yes" <%if ("yes".equals(prodaction)) { out.print("selected"); }%>>顯示已回應</option>
+		<option value="no" <%if ("no".equals(prodaction)) { out.print("selected"); }%>>顯示未回應</option>
 	</select>
 	<br />
 	<c:if test="${list.size()!=0}">
@@ -138,7 +127,7 @@ input{
 			<thead>
 				<tr>
 					<th><label style='width: 200px;'>詢問時間</label></th>
-					<th><label style='width: 100px;'>行程編號</label></th>
+					<th><label style='width: 100px;'>提問類型</label></th>
 					<th><label style='width: 250px;'>標題</label></th>
 					<th><label style='width: 100px;'>詢問人員</label></th>
 				</tr>
@@ -153,8 +142,11 @@ input{
 										<img src="images/new.gif">
 									</c:if>
 								</div></td>
-							<td><input type="text" value="${list.tra_No}" readonly
-								style='width: 100%;'></td>
+							<td>
+								<c:if test="${list.question_Category==0}"><input type="text" value="行程" readonly style='width: 100%;'></c:if>
+								<c:if test="${list.question_Category==1}"><input type="text" value="費用" readonly style='width: 100%;'></c:if>
+								<c:if test="${list.question_Category==2}"><input type="text" value="其他" readonly style='width: 100%;'></c:if>	
+							</td>
 							<td><a
 								href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
 									<c:if test="${list.answer_No!=0}">
@@ -173,8 +165,11 @@ input{
 										<img src="images/new.gif">
 									</c:if>
 								</div></td>
-							<td><input type="text" value="${list.tra_No}" readonly
-								style='width: 100%;'></td>
+							<td>
+								<c:if test="${list.question_Category==0}"><input type="text" value="行程" readonly style='width: 100%;'></c:if>
+								<c:if test="${list.question_Category==1}"><input type="text" value="費用" readonly style='width: 100%;'></c:if>
+								<c:if test="${list.question_Category==2}"><input type="text" value="其他" readonly style='width: 100%;'></c:if>	
+							</td>
 							<td><a
 								href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
 									<c:if test="${list.answer_No!=0}">
@@ -187,15 +182,18 @@ input{
 					<c:if test="${emp_Role eq true}">
 						<c:if test="${list.question_secret}">
 							<tr>
-								<td><div class="centeraa">${list.question_Time}<c:if
-											test="${list.newimg==true}">
+								<td><div class="centeraa">${list.question_Time}
+										<c:if test="${list.newimg==true}">
 											<img src="images/new.gif">
 										</c:if>
-									</div></td>
-								<td><input type="text" value="${list.tra_No}" readonly
-									style='width: 100%;'></td>
-								<td><a
-									href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
+									</div>
+								</td>
+								<td>
+									<c:if test="${list.question_Category==0}"><input type="text" value="行程" readonly style='width: 100%;'></c:if>
+									<c:if test="${list.question_Category==1}"><input type="text" value="費用" readonly style='width: 100%;'></c:if>
+									<c:if test="${list.question_Category==2}"><input type="text" value="其他" readonly style='width: 100%;'></c:if>	
+								</td>
+								<td><a href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
 										<c:if test="${list.answer_No!=0}">
 											<span>[已回應]</span>
 											<br>
@@ -211,11 +209,14 @@ input{
 											test="${list.newimg==true}">
 											<img src="images/new.gif">
 										</c:if>
-									</div></td>
-								<td><input type="text" value="${list.tra_No}" readonly
-									style='width: 100%;'></td>
-								<td><a
-									href="<c:url value='/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}'/>">
+									</div>
+								</td>
+								<td>
+									<c:if test="${list.question_Category==0}"><input type="text" value="行程" readonly style='width: 100%;'></c:if>
+									<c:if test="${list.question_Category==1}"><input type="text" value="費用" readonly style='width: 100%;'></c:if>
+									<c:if test="${list.question_Category==2}"><input type="text" value="其他" readonly style='width: 100%;'></c:if>	
+								</td>
+								<td><a href="<c:url value='/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}'/>">
 										<c:if test="${list.answer_No!=0}">
 											<span>[已回應]</span>
 										</c:if>${list.question_Title}</a></td>
@@ -241,19 +242,10 @@ input{
 		</ul>
 	</c:if>
 	<c:if test="${list.size()==0}">
-		<%
-			if (prodaction == null) {
-					out.print("<h2>現在尚無留言</h2>");
-				}
-				if ("all".equals(prodaction)) {
-					out.print("<h2>現在尚無留言</h2>");
-				}
-				if ("yes".equals(prodaction)) {
-					out.print("<h2>全部皆無回應</h2>");
-				}
-				if ("no".equals(prodaction)) {
-					out.print("<h2>全部皆已回應</h2>");
-				}
+		<%  if (prodaction == null) { out.print("<h2>現在尚無留言</h2>"); }
+			if ("all".equals(prodaction)) { out.print("<h2>現在尚無留言</h2>"); }
+			if ("yes".equals(prodaction)) { out.print("<h2>全部皆無回應</h2>"); }
+			if ("no".equals(prodaction)) { out.print("<h2>全部皆已回應</h2>"); }
 		%>
 	</c:if>
 	<br />
@@ -263,7 +255,7 @@ input{
 </body>
 <script>
 	$(".gotoQuestion").click(function(){
-		window.location = '<c:url value="/QandAServlet?prodaction=question&role=false" />';
+		window.location = '<c:url value="/QandAQuestion.jsp" />';
 	});
 
 	if(${Msg!=null}){

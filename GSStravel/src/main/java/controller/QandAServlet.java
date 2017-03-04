@@ -1,12 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -17,30 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.QandAService;
 import model.QandAVO;
-import model.TravelService;
-import model.TravelVO;
 
 @WebServlet("/QandAServlet")
 public class QandAServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	@SuppressWarnings("deprecation")
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String prodaction=request.getParameter("prodaction");
 		String role =request.getParameter("role");
-		//role=false身分才可進入我要詢問.JSP
-		if("question".equals(prodaction)&&"false".equals(role)){
-			try {
-				TravelService traService =new TravelService();
-				List<TravelVO> list=traService.select_forSearch();
-				request.setAttribute("list", list);
-				request.getRequestDispatcher("/QandAQuestion.jsp").forward(request, response);
-				return;
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
 		//查看詳細詢問內容
 		if("select".equals(prodaction)){
 			String temp=request.getParameter("qa_No");

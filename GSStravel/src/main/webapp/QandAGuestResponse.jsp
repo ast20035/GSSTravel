@@ -126,14 +126,18 @@ h1, h2 {
 					</tr>
 						<tr>
 							<th>員工編號</th>
-							<th>旅遊編號</th>
+							<th>提問類型</th>
 							<th>發問時間</th>
 						</tr>
 					</thead>
 
 					<tr>
 						<td>${list.question_No}</td>
-						<td>${list.tra_No}</td>
+						<td>
+							<c:if test="${list.question_Category==0}">行程</c:if>
+							<c:if test="${list.question_Category==1}">費用</c:if>
+							<c:if test="${list.question_Category==2}">其他</c:if>	
+						</td>
 						<td>${list.question_Time}</td>
 					</tr>
 					<tr>
