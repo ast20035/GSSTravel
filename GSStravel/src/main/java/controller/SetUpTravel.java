@@ -315,15 +315,8 @@ public class SetUpTravel extends HttpServlet {
 		Date date = new Date();
 		String now = sdFormat.format(date);// 取得現在時間
 		announcementService.insert(now, "新增" + tra_Name + "行程", tra_Con, "2");
-		if (tra_File.equals("無")) {
-			request.getRequestDispatcher("/SetUpTravel.jsp").forward(request, response);			
-			return;
-		}else{
-			request.getRequestDispatcher("/fileupload_control.jsp").forward(request, response);
-			return;
-		}
-		
-
+		request.getRequestDispatcher("/ckFile.jsp").forward(request, response);
+		return;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

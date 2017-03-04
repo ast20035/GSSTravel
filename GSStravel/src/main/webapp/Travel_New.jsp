@@ -113,6 +113,7 @@ h2 {
 
 
 </head>
+
 <body>
 	<div class='container-fluid'>
 		<div class='row'>
@@ -316,18 +317,9 @@ h2 {
 					</table>
 					<input type='hidden' name='file' value='' id='file'/>
 					<script>
-							var search2 = '<c:url value='/search2.jsp'/>'
-							function ckFile() {
-								var answer = confirm("是否要增加附件???");
-								if (answer == true) {	
-									$("#file").val("file");
-									$("#newTravel").submit();
-								}else{
-									$("#newTravel").submit();
-								}
-							}
+							var search2 = '<c:url value='/search2.jsp'/>'							
 					</script>
-					<input type="button" value="儲存" class='btn btn-primary' onclick="ckFile()"> <input
+					<input type="submit" value="儲存" class='btn btn-primary' /> <input
 						type="button" value='回上一頁' class='btn btn-primary'
 						onclick="window.location.href=search2;" />
 				</form>
