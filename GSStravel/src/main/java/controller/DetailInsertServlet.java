@@ -39,6 +39,7 @@ public class DetailInsertServlet extends HttpServlet {
 			try {
 				String temp1 = req.getParameter("emp_No");
 				String NameandNo = req.getParameter("select");
+				
 				String temp2 = req.getParameter("money");
 				int fam_no = 0;
 				
@@ -98,7 +99,7 @@ public class DetailInsertServlet extends HttpServlet {
 							String fam_EmgPhone = req.getParameter("fam_EmgPhone"); // 緊急聯絡人電話
 							String fam_EmgRel = req.getParameter("fam_EmgRel"); // 緊急聯絡人關係
 							String fam_Note = req.getParameter("fam_note"); // 備註
-							System.out.println(fam_Name);
+							System.out.println(fam_spa[0]);
 							familyVO.setEmp_No(emp_no);
 							familyVO.setFam_Rel(fam_Rel);
 							familyVO.setFam_Name(fam_Name);

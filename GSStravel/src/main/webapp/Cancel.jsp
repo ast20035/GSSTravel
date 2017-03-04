@@ -53,6 +53,7 @@ table {
 	function confirmComplete() {
 		var answer = confirm("是否確定要取消???");
 		if (answer == true) {
+			document.getElementById("img").style.display = 'inline';
 			document.getElementById("ckback").style.display = 'none';
 			document.getElementById("back").innerHTML = "<input type='button' class='btn btn-primary' value='回上一頁' onclick='return false;'/>";
  			document.getElementById("ckCancel").style.display = 'none';
@@ -214,7 +215,8 @@ table {
 									<td><br> <input type="submit" value="取消報名"
 										class='btn  btn-primary' id="ckCancel"
 										onclick="return confirmComplete();" /><span
-										id="ck"></span></td>
+										id="ck"></span>
+										<span><img src="images/loading.gif" id="img" style="display: none" /></span></td>
 								</tr>
 							</table>
 						</div>
