@@ -36,6 +36,7 @@
 		} else {
 			;
 		}
+		document.getElementById('backPic').removeAttribute('style');
 	}
 	function ke(event) {
 		if (event.which == 13) {
@@ -59,6 +60,14 @@
 	}
 </script>
 <style>
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 #title {
 	margin-top: 15%;
 }
@@ -78,7 +87,6 @@ form {
 			</div>
 			<!-- 			<div class='col-lg-10'></div> -->
 		</div>
-
 		<form method="POST" action=<c:url value="/login.do" /> id="login.do"
 			role='form' class='form-horizontal form-signin'>
 			<div class='form-group'>
@@ -106,6 +114,5 @@ form {
 			</div>
 		</form>
 	</div>
-
 </body>
 </html>

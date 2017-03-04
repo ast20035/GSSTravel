@@ -8,14 +8,7 @@
 <head>
 <link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
 <style type="text/css">
-#backPic{
-		position:fixed;
-		top:0;
-		z-index: -1;
-		opacity: 0.2;
-		height:100%;
-		width: 100%;
-	}
+
 .ui-timepicker-div .ui-widget-header { margin-bottom: 8px;}
 .ui-timepicker-div dl { text-align: left; }
 .ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
@@ -87,6 +80,14 @@ $(function(){
 
 
 <style type="text/css">
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 table {
 	font-size: 15px;
 }
@@ -166,9 +167,11 @@ h2 {
 								<div class="row">
 									<div class="col-xs-4">
 										<div class="Input-group">
-											<label>開始日期</label> <input type="" name="edittraOn"
+											<label>開始日期</label> <input type="text" name="edittraOn"
 												id="edittraOn" class='form-control' style='width: 150px;'
-												value="2020-01-01" readonly>
+
+												value="2013-01-01" readonly="readonly"/>
+
 											<div id = edittraOnerror></div>
 
 
@@ -178,9 +181,11 @@ h2 {
 
 									<div class="col-xs-4">
 										<div class="Input-group">
-											<label>結束日期</label> <input type="" class='form-control'
+											<label>結束日期</label> <input type="text" class='form-control'
 												style='width: 150px;' name="edittraOff" id="edittraOff"
-												value="2020-01-01" readonly>
+
+												value="2013-01-01" readonly="readonly"/>
+
 											<div id= edittraOfferror></div>
 										</div>
 									</div>
@@ -196,7 +201,7 @@ h2 {
 										<div class="Input-group">
 											<label>開始時間</label> <input type="text" id="edittraBeg"
 												name="edittraBeg" id="edittraBeg" class='form-control'
-												style='width: 200px;' value="" readonly>
+												style='width: 200px;' value="" readonly="readonly" >
 											<div id=edittraBegerror></div>
 										</div>
 									</div>
@@ -206,7 +211,7 @@ h2 {
 										<div class="Input-group">
 											<label>結束時間</label> <input type="text" class='form-control'
 												style='width: 200px;' name="edittraEnd" id="edittraEnd"
-												value="" readonly>
+												value="" readonly="readonly">
 
 											<div id=edittraEnderror></div>
 										</div>
@@ -377,7 +382,7 @@ h2 {
 											});
 															
 
-										
+										})
 						//刪除動態tr		
 						$("#Itemtable").on("click", "input[name='delete']",
 								function() {
@@ -413,15 +418,17 @@ h2 {
 
 					$("#edittraOn").blur(function() {
 						if (this.value != "") {
-							if (edittraOn.test($(this).val())) {
-								$('#edittraOnerror').text('')
+							$('#edittraOnerror').text('')
 								$(this).css("border-color", "green")
-// 								alert("活動日期開始成功");
-							} else {
-								$('#edittraOnerror').text('開始日期格式錯誤')
-								$(this).css("border-color", "red")
+// 							if (edittraOn.test($(this).val())) {
+// 								$('#edittraOnerror').text('')
+// 								$(this).css("border-color", "green")
+// // 								alert("活動日期開始成功");
+// 							} else {
+// 								$('#edittraOnerror').text('開始日期格式錯誤')
+// 								$(this).css("border-color", "red")
 								
-							}
+// 							}
 
 						} else {
 							$('#edittraOnerror').text('請輸入開始日期')
@@ -619,6 +626,5 @@ h2 {
 
 					});
 					});
-					})
 				</script>
 </html>

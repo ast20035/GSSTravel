@@ -11,4 +11,5 @@ public interface IEmployeeDAO {
 	public void update(EmployeeVO empVoUpdate);
 	public List<EmployeeVO> selectFineEmail();
 	public List<String> selectEmail();
+	public List<String> selectEmail_Not_emp_No(int emp_No);
 }
