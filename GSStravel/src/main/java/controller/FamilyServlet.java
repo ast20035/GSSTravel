@@ -100,45 +100,25 @@ public class FamilyServlet extends HttpServlet {
 		
 		//判斷原來的親屬身分證有沒有重複
 				if(ajaxrepeatfamid != null) {
-//					System.out.println(ajaxrepeatfamid+"++++++");
-					int yyy= familyservice.selectfam_byid(ajaxrepeatfamid);
-					List<String> idnotmyself= familyservice.selectid_not_myself(yyy);
-					
-					for(String xxx: idnotmyself){//A191101620
-//						System.out.println(xxx);
-						if(ajaxrepeatfamid.equals(xxx)){
-							out.print("repeat");
-						}else{
-							out.print("");
-						}
-					}
-					
-//					System.out.println(ajaxwebfamid);
 					List<String>webid=new ArrayList<String>();
 					String webfamid=ajaxwebfamid.replace("[", "").replace("]", "").replace("\"", "").replace(",", "");
-					System.out.println(webfamid);
-					for(int i=0;i<=webfamid.length();){
-						String xxxx = webfamid.substring(i,i+9);//F111111111
-						i=i+9;
-						webid.add(xxxx);
-						
+
+					for(int i=0;i<webfamid.length();){
+						String xxxx = webfamid.substring(i,i+10);
+						i=i+10;
+						webid.add(xxxx);	
 					}
-//					for(String xx:webid){
-//						System.out.println(xx);
-//					}
-//					for(int x=0;x<xxx.length();){
-//						 String y=xxx.substring(x, x+3);//mom
-//						 x=x+3;
-//						 ssss.add(y);
-//					 }
-//					System.out.println(webfamid);
-//					if(webfamid.equals(ajaxrepeatfamid)){
-//						
-//						out.print("repeat");
-//					}else{
-//						out.print("");
-//					}
-					
+					int k=0;
+					for(int j=0;j<webid.size();j++){
+						if(webid.get(j).equals(ajaxrepeatfamid)){
+							k++;
+						}
+					}
+					if(k>=2){
+						out.print("repeat");
+					}else{
+						out.print("");
+					}
 				}
 		
 				
@@ -360,7 +340,7 @@ public class FamilyServlet extends HttpServlet {
 
 					
 					
-					if (id.contains(famid[i]) == true) {//資料庫找身分證是否重複 有重複用update 沒有重複用insert
+					if (id.contains(famid[i]) == true ) {//資料庫找身分證是否重複 有重複用update 沒有重複用insert
 						
 						String value = selectvalue[i].replace("[", "").replace("]", "").replace(",","").replace("\"", "");
 //						System.out.println(selectvalue[i]);
