@@ -56,14 +56,14 @@ table, th, td {
 					<table class='table'>
 						<thead>
 							<tr>
-								<th>行程編號</th>
-								<th>行程名稱</th>
-								<th>行程開始日</th>
-								<th>行程結束日</th>
-								<th>登記日</th>
-								<th>取消日</th>
-								<th>狀態</th>
-								<th>費用</th>
+								<th><label style='width:100px;'>行程編號</label></th>
+								<th><label style='width:300px;'>行程名稱</label></th>
+								<th><label style='width:150px;'>行程開始日</label></th>
+								<th><label style='width:150px;'>行程結束日</label></th>
+								<th><label style='width:200px;'>登記日</label></th>
+								<th><label style='width:200px;'>取消日</label></th>
+								<th><label style='width:70px;'>狀態</label></th>
+								<th><label style='width:80px;'>費用</label></th>
 							</tr>
 						</thead>
 						<c:forEach var="row" items="${record}">
@@ -75,7 +75,7 @@ table, th, td {
 								<td>${row[4]}</td>
 								<td>${row[5]}</td>
 								<td>${row[6]}</td>
-								<td>${row[7]}</td>
+								<td style='text-align: right;'>${row[7]}</td>
 							</tr>
 						</c:forEach>
 					</table>

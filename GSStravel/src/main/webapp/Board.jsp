@@ -36,11 +36,11 @@
 		border-bottom: 1px solid #DDDDDD;
 	}
 	iframe{
- 		margin-left: 130px; 
+ 		margin-left: 90px; 
 		z-index: 10;
 	}
 	#QA{
-		margin-left: 130px;
+		margin-left: 90px;
 	}
 </style>
 <script>
@@ -180,11 +180,11 @@
 					<option value="31">過去1個月的公告</option>
 					<option value="7">過去1週的公告</option>
 				</select> <br>
-				<table id="boardTable" class='table'>
+				<table id="boardTable" class='table' style='width: 600px;'>
 					<thead>
 						<tr>
 							<th><label style='width: 200px;'>公告時間</label></th>
-							<th><label style='width: 300px;'>公告標題</label></th>
+							<th><label style='width: 270px;'>公告標題</label></th>
 						</tr>
 					</thead>
 					<tbody>
