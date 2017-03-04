@@ -113,6 +113,7 @@ h2 {
 
 
 </head>
+
 <body>
 	<div class='container-fluid'>
 		<div class='row'>
@@ -137,7 +138,7 @@ h2 {
 							<td><em style="color: red">*</em>活動名稱</td>
 
 							<td><input type="text" name="edittraName" id="edittraName"
-								class='form-control' value="" style="width: 300px">
+								class='form-control' value="" style="width: 300px" autocomplete="off">
 							<div id=edittraNameerror></div></td>
 
 							<td></td>
@@ -224,7 +225,7 @@ h2 {
 						<tr>
 							<td><em style="color: red">*</em>活動總人數上限</td>
 							<td><input type="text" name="edittraTotal" id="edittraTotal"
-								class='form-control' style='width: 80px;' value="">
+								class='form-control' style='width: 80px;' value="" autocomplete="off">
 								<div id=edittraTotalerror></div></td>
 
 							<td></td>
@@ -233,7 +234,7 @@ h2 {
 							<td><em style="color: red">*</em>本團人數上限</td>
 
 							<td><input type="text" name="edittraMax" id="edittraMax"
-								class='form-control' style='width: 80px;' value="">
+								class='form-control' style='width: 80px;' value="" autocomplete="off">
 								<div id=edittraMaxerror></div></td>
 							<td></td>
 						</tr>
@@ -265,7 +266,7 @@ h2 {
 						<tr>
 							<td>費用</td>
 							<td><input type="button" value="新增欄位" id="insert"
-								class='btn btn-success' name="button"></td>
+								class='btn btn-success' name="button" autocomplete="off"></td>
 						</tr>
 					</table>
 					
@@ -279,14 +280,14 @@ h2 {
 							<td class="t">團費</td>
 							<td class="t"><input type="text" name="item1"
 								id="edititemMoney01" class='form-control'
-								style='width: 100px; text-align: right;' />
+								style='width: 100px; text-align: right;' autocomplete="off"/>
 								<div id="edititemMoneyerror01"></div></td>
 						</tr>
 						<tr>
 							<td class="t">保險費</td>
 							<td class="t"><input type="text" name="item2"
 								id="edititemMoney02" class='form-control'
-								style='width: 100px; text-align: right;' />
+								style='width: 100px; text-align: right;' autocomplete="off" />
 							<div id="edititemMoneyerror02"></div></td>
 							<td></td>
 						</tr>
@@ -316,18 +317,9 @@ h2 {
 					</table>
 					<input type='hidden' name='file' value='' id='file'/>
 					<script>
-							var search2 = '<c:url value='/search2.jsp'/>'
-							function ckFile() {
-								var answer = confirm("是否要增加附件???");
-								if (answer == true) {	
-									$("#file").val("file");
-									$("#newTravel").submit();
-								}else{
-									$("#newTravel").submit();
-								}
-							}
+							var search2 = '<c:url value='/search2.jsp'/>'							
 					</script>
-					<input type="button" value="儲存" class='btn btn-primary' onclick="ckFile()"> <input
+					<input type="submit" value="儲存" class='btn btn-primary' /> <input
 						type="button" value='回上一頁' class='btn btn-primary'
 						onclick="window.location.href=search2;" />
 				</form>

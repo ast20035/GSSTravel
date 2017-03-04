@@ -37,14 +37,15 @@ public class loginCheck implements Filter {
 		String path = servletRequest.getRequestURI();
 		String pro = servletRequest.getContextPath();
 
-		if (path.indexOf("login") > -1 || path.length()<=12) {
+		if (path.indexOf("login") > -1 || path.length() <= 12 || path.indexOf("jquery") > -1
+				|| path.indexOf("images") > -1) {
 
-
+			;
 		} else if (session.getAttribute("emp_No") == null || "".equals(session.getAttribute("emp_No"))) {
 			servletResponse.sendRedirect(pro + "/notlogin.jsp");
 			return;
 		}
-		EmployeeDAO employeeDAO = new EmployeeDAO();//資料庫年度資訊
+		EmployeeDAO employeeDAO = new EmployeeDAO();// 資料庫年度資訊
 		String date = new SimpleDateFormat("yyyy").format(new Date());// 現在系統時
 		if (employeeDAO.year() != Integer.parseInt(date)) {
 			employeeDAO.updateYear(Integer.parseInt(date));
