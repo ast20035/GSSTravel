@@ -446,6 +446,10 @@ table {
 			var between = today.getTime() - bdate.getTime();//時間差的毫秒数 
 			var between2 = Math.floor(between/(24*3600*1000));
 			if(between2<365*3){
+// 				$('.multiselect').data("kendoMultiSelect").val('bab');
+// 				$('.multiselect').data("kendoMultiSelect").val('bab');
+// 				$('.multiselect').data("kendoMultiSelect").val('bab');
+// 				$('.multiselect').data("kendoMultiSelect").val('bab');
 				$('.multiselect').data("kendoMultiSelect").val('bab');
 			}
 			if(between2<365*11){
