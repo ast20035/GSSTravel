@@ -63,6 +63,7 @@ label {
 	var x = 1;
 	function wait() {
 		document.getElementById("ckback").style.display = 'none';
+		document.getElementById("img").style.display = 'inline';
 		document.getElementById("back").innerHTML = "<input type='button' class='btn btn-primary' value='回上一頁' onclick='return false;'/>";
 		if (x == 1) {
 			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-primary' value='確定報名中.'/>";
@@ -188,6 +189,7 @@ label {
 										<input type="submit" value="確定報名" class='btn btn-primary'
 										onclick="this.form.submit(); this.style.display = 'none';wait();" />
 										<span id="ck"></span>
+										<span><img src="images/loading.gif" id="img" style="display: none" /></span>
 									</td>
 								</tr>
 							</table>
