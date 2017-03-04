@@ -33,19 +33,22 @@ public class SetUpTravel extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
 		String tra_File = request.getParameter("file");
 		String tra_No = request.getParameter("edittraNO");
-		String tra_Name = new String(request.getParameter("edittraName").getBytes("iso-8859-1"), "utf-8");
-		String tra_Loc = new String(request.getParameter("edittraLoc").getBytes("iso-8859-1"), "utf-8");
+		String tra_Name = new String(request.getParameter("edittraName"));
+		String tra_Loc = new String(request.getParameter("edittraLoc"));
 		String On = request.getParameter("edittraOn");
 		String Off = request.getParameter("edittraOff");
 		String Beg = request.getParameter("edittraBeg");
 		String End = request.getParameter("edittraEnd");
 		String Total = request.getParameter("edittraTotal");
 		String Max = request.getParameter("edittraMax");
-		String tra_Intr = new String(request.getParameter("edittraIntr").getBytes("iso-8859-1"), "utf-8");
-		String tra_Con = new String(request.getParameter("edittraCon").getBytes("iso-8859-1"), "utf-8");
-		String tra_Atter = new String(request.getParameter("edittraAtter").getBytes("iso-8859-1"), "utf-8");
+		String tra_Intr = new String(request.getParameter("edittraIntr"));
+		String tra_Con = new String(request.getParameter("edittraCon"));
+		String tra_Atter = new String(request.getParameter("edittraAtter"));
 		String[] rooms = request.getParameterValues("edititemName");
 		String[] roomsMoney = request.getParameterValues("edititemMoney");
 
