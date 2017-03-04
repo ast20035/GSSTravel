@@ -211,11 +211,9 @@ text-align: center;
 									<td><input type="text" name="famname" id="famname"
 										style='width: 90px;' class='form-control'
 										value="${start.fam_Name}">
-<%-- 										<div class="famnameerror" name="famnameerror">${error.famneme}</div> --%>
 										</td>
 									<td><select name="famsex" class='form-control'
 										style='width: 70px;'>
-											<!--  servlet抓name db抓值會抓進value值進去-->
 											<c:if test="${start.fam_Sex=='男'}">
 												<option value="女">女</option>
 												<option value="男" selected>男</option>
@@ -228,7 +226,6 @@ text-align: center;
 
 									<td><input type="text" name="famid" style='width: 110px;'
 										class="famid form-control" value="${start.fam_Id}">
-<%-- 										<div class="famiderror" name="famiderror">${error.famid}</div> --%>
 										</td>
 									<td><input type="date" id="fambdate" name="fambdate"
 										style='width: 170px;' class="fambdate form-control" spannumber="${aa.index}"
@@ -237,11 +234,9 @@ text-align: center;
 									<td><input type="text" name="famphone" id="famphone"
 										style='width: 90px;' class='form-control'
 										value="${start.fam_Phone}">
-<%-- 										<div class=famphoneerror>${error.famphone}</div> --%>
 										</td>
 									<td><select name="fameat" style='width: 100px;'
 										class='form-control'>
-											<!-- 今天的日期 減去 他的生日 < 三歲  (剩幾天?) (看年底還是年初)  看年?  -->
 											<c:if test="${start.fam_Eat=='葷'}">
 												<option value="葷" selected>葷</option>
 												<option value="素">素</option>
@@ -303,27 +298,22 @@ text-align: center;
 
 									<td><input type="text" name="famben" id="famben" style='width:90px;'
 										class='form-control' value="${start.fam_Ben}">
-<%-- 										<div class="fambenerror">${error.famben}</div> --%>
 										</td>
 									<td><input type="text" name="fambenrel" id="fambenrel"
 										style='width: 90px;' class='form-control'
 										value="${start.fam_BenRel}">
-<%-- 										<div class="fambenrelerror">${error.fambenrel}</div> --%>
 										</td>
 									<td><input type="text" name="famemg" id="famemg"
 										style='width: 90px;' class='form-control'
 										value="${start.fam_Emg}">
-<%-- 										<div class="famemgerror">${error.famemg}</div> --%>
 										</td>
 									<td><input type="text" name="famemgphpone"
 										style='width: 110px;' class='form-control' id="famemgphone"
 										value="${start.fam_EmgPhone}">
-<%-- 										<div class="famemgphoneerror">${error.famemgphone}</div> --%>
 										</td>
 									<td><input type="text" name="famemgrel" id="famemgrel"
 										style='width: 90px;' class='form-control'
 										value="${start.fam_EmgRel}">
-<%-- 										<div class="famemgrelerror">${error.famemgrel}</div> --%>
 										</td>
 									<td><input type="text" name="famnote" id="famnote"
 										style='width: 200px;' class='form-control'
@@ -351,23 +341,18 @@ text-align: center;
 			</select></td>
 			<td><input type="text" name="famname" id="famname"
 				class='form-control'>
-<%-- 				<div class="famnameerror" name="famnameerror">${error.famneme}</div> --%>
 				</td>
 			<td><select name="famsex" class='form-control'>
-					<!--  servlet抓name db抓值會抓進value值進去-->
 					<option value="女">女</option>
 					<option value="男">男</option>
 			</select></td>
 			<td><input type="text" name="famid" class="famid form-control">
-<%-- 				<div class="famiderror" name="famiderror">${error.famid}</div> --%>
 				</td>
 			<td><input type="date" id="fambdate" name="fambdate"
-				class="fambdate form-control" />
-<%-- 				<div class="fambdateerror">${error.fambdate}${error.fambdatedate}</div> --%>
+				class="fambdate form-control" span="${aa.index}" />
 				</td>
 			<td><input type="text" name="famphone" id="famphone"
 				class='form-control'>
-<%-- 				<div class=famphoneerror>${error.famphone}</div> --%>
 				</td>
 			<td><select name="fameat" style='width: 100px;'
 				class='form-control'>
@@ -378,7 +363,7 @@ text-align: center;
 				class="${start.fam_No}"> <span>不占車位</span></td>
 			<td class="selecttd"><div class='select'>
 					<select name="famspa" id="multiselect" multiple="multiple"
-						class='form-control select' data-placeholder="請選擇">
+						class='form-control select selectspan' data-placeholder="請選擇">
 						<option value="bab" >幼童(0~3歲)</option>
 						<option value="kid" >兒童(4~11歲)</option>
 						<option value="dis" >持身心障礙手冊</option>
@@ -388,27 +373,21 @@ text-align: center;
 				</div></td>
 			<td><input type="text" name="famben" id="famben" 
 				class='form-control'>
-<%-- 				<div class="fambenerror">${error.famben}</div> --%>
 				</td>
 			<td><input type="text" name="fambenrel" id="fambenrel"
 				class='form-control'>
-<%-- 				<div class="fambenrelerror">${error.fambenrel}</div> --%>
 				</td>
 			<td><input type="text" name="famemg" id="famemg"
 				class='form-control'>
-<%-- 				<div class="famemgerror">${error.famemg}</div> --%>
 				</td>
 			<td><input type="text" name="famemgphpone" id="famemgphone"
 				class='form-control'>
-<%-- 				<div class="famemgphoneerror">${error.famemgphone}</div> --%>
 				</td>
 			<td><input type="text" name="famemgrel" id="famemgrel"
 				class='form-control'>
-<%-- 				<div class="famemgrelerror">${error.famemgrel}</div> --%>
 				</td>
 			<td><input type="text" name="famnote" id="famnote"
 				class='form-control'>
-<!-- 				<div class="famnoteerror"></div> -->
 				</td>
 		</tr>
 	</table>
@@ -443,7 +422,7 @@ text-align: center;
 			})
 			
 			
-// 			生日直接判斷特殊身分
+// 			生日直接判斷特殊身分(原本的親屬)
 			$("#familytable input[name*='fambdate']").on("blur",function(){
 // 				console.log($(".spannumber").val());
 				var dateeee=$(this);
@@ -687,7 +666,25 @@ text-align: center;
 															if(mydate<= today){
 																$(this).css("border-color","green");
 																$("#errorcount").val(0);
-																$(this).next(".fambdateerror").text("");
+																
+													 				//生日直接判斷特殊身分(新增的親屬)
+																	var bdate = $(this).val();
+																	var today = new Date();
+																	bdate = new Date(Date.parse(bdate.replace("-", "/")));
+																	var between = today.getTime() - bdate.getTime();//時間差的毫秒数 
+																	var between2 = Math.floor(between/(24*3600*1000));
+																	if(between2<365*3){
+																		$('.repeat select.selectspan:eq('+$(this).attr("span")+')').data("kendoMultiSelect").value('bab');
+																	}
+																	if(between2<365*11){
+																		if(between2>365*3){
+																			$('.repeat select.selectspan:eq('+$(this).attr("span")+')').data("kendoMultiSelect").value('kid');
+																		}
+																 	}
+																
+																
+																
+																
 															}else{
 																$(this).css("border-color","red");
 																$("#errorcount").val(1);
