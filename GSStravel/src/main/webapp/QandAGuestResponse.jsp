@@ -80,14 +80,6 @@ tbody a:visited:after {
 }
 </style>
 <style type="text/css">
-#backPic{
-		position:fixed;
-		top:0;
-		z-index: -1;
-		opacity: 0.2;
-		height:100%;
-		width: 100%;
-	}
 .color-red{
 	border-color:red
 }
@@ -115,7 +107,7 @@ h1, h2 {
 <style>
 </style>
 </head>
-<body>
+<body style="background-color:transparent">
 	<div class='container-fluid'>
 		<div class='row'>
 			<div class='col-md-1'></div>
@@ -127,7 +119,6 @@ h1, h2 {
 			<div class='col-md-offset-3 col-md-5'>
 				<h3></h3>
 				<table class='table'>
-
 					<thead>
 					<tr>
 					<th ><label style='text-align: center;'>標題</label></th>
@@ -158,8 +149,7 @@ h1, h2 {
 						<table class='table'>
 							<h2>回應</h2>
 							<tr>
-								<td><textarea name="answer_Text" class="Ans_textarea" cols="70%" rows="8" style='font-size: 20px;'
-										readonly="readonly">${list.answer_Text}</textarea></td>
+								<td><textarea name="answer_Text" class="Ans_textarea" cols="70%" rows="8" style='font-size: 20px;' readonly="readonly">${list.answer_Text}</textarea></td>
 							</tr>
 						</table>
 					</c:if>
@@ -175,48 +165,22 @@ h1, h2 {
 								</table>
 							</div>
 							<br />
-							<button type="button" class="notdisplayclass btn btn-primary"
-								onclick="Respose()">我要回應</button>
-							<button type="button" class="notdisplayclass btn btn-danger"
-								onclick="checkdelete()">刪除</button>
-							<button type="submit" name="prodaction" value="insertAnswer"
-								class="displayclass displaybb btn btn-primary">回應</button>
-							<button type="button" class="displayclass btn btn-primary"
-								onclick="cancelrespose()">取消</button>
-							<button type="button" class="notdisplayclass btn btn-primary"
-								onclick="window.location = '/GSStravel/QandAServlet?role=true';">回上一頁</button>
 						</c:if>
 					</c:if>
 					<br />
-					<c:if test="${(emp_Role eq true)&&(list.answer_No!=0)&&role}">
-						<button type="button" class="notdisplaybutton btn btn-primary"
-							onclick="updateData()">修改</button>
-						<button type="submit"
-							class="displaybutton displayaa btn btn-primary" name="prodaction"
-							value="updateAnswer">確認修改</button>
-						<button type="button" class="displaybutton btn btn-primary"
-							onclick="cancel()">取消修改</button>
-						<button type="button" class="notdisplaybutton btn btn-danger"
-							onclick="checkdelete()">刪除</button>
-						<button type="button" class="notdisplaybutton btn btn-primary"
-							onclick="window.location = '/GSStravel/QandAServlet?role=true';">回上一頁</button>
-					</c:if>
 				</form>
-				<c:if test="${!role}">
-					<c:if test="${list.question_No==emp_No}">
-						<button type="button" class="notdisplaybutton btn btn-danger"
-							onclick="checkdelete()">刪除</button>
+				<c:if test="${list.question_No==emp_No}">
+						<button type="button" class="notdisplaybutton btn btn-danger" onclick="checkdelete()">刪除</button>
 					</c:if>
-					<button type="button" class='btn btn-primary'
-						onclick="window.location = '/GSStravel/QandAServlet?role=false';">回上一頁</button>
-				</c:if>
+					<button type="button" class='btn btn-primary goback'>回上一頁</button>
 			</div>
 		</div>
 	</div>
-	<img src="images/Travel.jpg" id="backPic">
 </body>
 <script type="text/javascript">
-
+	$(".goback").click(function(){
+		window.location = '<c:url value="/QandAServlet?role=false" />';
+	});
 	if(${Msg!=null}){
 		alert("${Msg.message}");
 	}

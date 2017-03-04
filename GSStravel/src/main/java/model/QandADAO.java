@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.naming.Context;
@@ -24,9 +27,9 @@ public class QandADAO implements IQandADAO{
 			e.printStackTrace();
 		}
 	}
-	private final String selectALL="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret from QandA order by Question_Time desc";
-	private final String selectYes="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret from QandA where Answer_No is not null order by Question_Time desc";
-	private final String selectNo="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret from QandA where Answer_No is null order by Question_Time desc";
+	private final String selectALL="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret , DATEADD(dd,7,Question_Time) as newimg from QandA order by Question_Time desc";
+	private final String selectYes="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret , DATEADD(dd,7,Question_Time) as newimg from QandA where Answer_No is not null order by Question_Time desc";
+	private final String selectNo="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret , DATEADD(dd,7,Question_Time) as newimg from QandA where Answer_No is null order by Question_Time desc";
 	@Override
 	public List<QandAVO> selectALL(String prodaction){
 		List<QandAVO> result = null;
@@ -48,12 +51,20 @@ public class QandADAO implements IQandADAO{
 				bean.setQuestion_No(rset.getInt("Question_No"));
 				bean.setQuestion_Title(rset.getString("Question_Title"));
 				bean.setQuestion_Text(rset.getString("Question_Text"));
-				bean.setQuestion_Time(rset.getString("Question_Time"));
+				bean.setQuestion_Time(rset.getString("Question_Time").substring(0, 19));
 				bean.setAnswer_No(rset.getInt("Answer_No"));
 				bean.setQuestion_secret(rset.getBoolean("Question_secret"));
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				Date newimg = sdf.parse(rset.getString("newimg"));
+				Date date = new Date();
+				if(date.before(newimg)){
+					bean.setNewimg(true);
+				}else{
+					bean.setNewimg(false);
+				}
 				result.add(bean);
 			}
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
@@ -155,7 +166,4 @@ public class QandADAO implements IQandADAO{
 			}
 		return b;
 	}
-	
-	//寄Email
-	
 }

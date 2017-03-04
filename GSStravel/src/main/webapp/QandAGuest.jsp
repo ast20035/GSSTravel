@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -7,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <script src='js/jquery-3.1.1.min.js'></script>
-<link rel="stylesheet"
+<link rel="stylesheet" 
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
@@ -100,6 +101,10 @@ input[type='text'] {
 	text-align: center;
 	padding: 3px;
 }
+.centeraa{
+	text-align: center;
+
+}
 </style>
 </head>
 <body style="background-color:transparent">
@@ -114,54 +119,51 @@ input[type='text'] {
 		<table class='table'>
 			<thead>
 				<tr>
-					<th><label style='width: 60px;'>編號</label></th>
+					<th><label style='width: 200px;'>詢問時間</label></th>
 					<th><label style='width: 100px;'>行程編號</label></th>
 					<th><label style='width: 250px;'>標題</label></th>
 					<th><label style='width: 100px;'>詢問人員</label></th>
-					<th><label style='width: 200px;'>詢問時間</label></th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="list" items="${list}">
 					<c:if test="${emp_Role eq false&&list.question_secret&&emp_No==list.question_No}">
 						<tr>
-							<td><input type="text" name="qa_No" value="${list.qa_No}" readonly style='width: 100%;'></td>
+							<td><div class="centeraa">${list.question_Time}<c:if test="${list.newimg==true}"> <img src="images/new.gif"></c:if></div></td>
 							<td><input type="text" value="${list.tra_No}" readonly style='width: 100%;'></td>
-							<td><a href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
+							<td>
+							    <a href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
 								<c:if test="${list.answer_No!=0}"><span>[已回應]</span><br></c:if><span style="color:red">[私密]${list.question_Title}</span></a></td>
 							<td><input type="text" value="${list.question_No}" readonly style='width: 100%;'></td>
-							<td><input type="text" value="${list.question_Time}" readonly style='width: 100%;'></td>
 						</tr>
 					</c:if>
 					<c:if test="${emp_Role eq false&&!list.question_secret}">
 						<tr>
-							<td><input type="text" name="qa_No" value="${list.qa_No}" readonly style='width: 100%;'></td>
+							<td><div class="centeraa">${list.question_Time}<c:if test="${list.newimg==true}"> <img src="images/new.gif"></c:if></div></td>
 							<td><input type="text" value="${list.tra_No}" readonly style='width: 100%;'></td>
-							<td><a href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
+							<td>
+								<a href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
 								<c:if test="${list.answer_No!=0}"><span>[已回應]</span></c:if>${list.question_Title}</a></td>
 							<td><input type="text" value="${list.question_No}" readonly style='width: 100%;'></td>
-							<td><input type="text" value="${list.question_Time}" readonly style='width: 100%;'></td>
 						</tr>
 					</c:if>
 					<c:if test="${emp_Role eq true}">
 						<c:if test="${list.question_secret}">
 							<tr>
-								<td><input type="text" name="qa_No" value="${list.qa_No}" readonly style='width: 100%;'></td>
+								<td><div class="centeraa">${list.question_Time}<c:if test="${list.newimg==true}"> <img src="images/new.gif"></c:if></div></td>
 								<td><input type="text" value="${list.tra_No}" readonly style='width: 100%;'></td>
 								<td><a href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
 									<c:if test="${list.answer_No!=0}"><span>[已回應]</span><br></c:if><span style="color:red">[私密]${list.question_Title}</span></a></td>
 								<td><input type="text" value="${list.question_No}" readonly style='width: 100%;'></td>
-								<td><input type="text" value="${list.question_Time}" readonly style='width: 100%;'></td>
 							</tr>
 						</c:if>
 						<c:if test="${!list.question_secret}">
 							<tr>
-								<td><input type="text" name="qa_No" value="${list.qa_No}" readonly style='width: 100%;'></td>
+								<td><div class="centeraa">${list.question_Time}<c:if test="${list.newimg==true}"> <img src="images/new.gif"></c:if></div></td>
 								<td><input type="text" value="${list.tra_No}" readonly style='width: 100%;'></td>
-								<td><a href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
+								<td><a href="<c:url value='/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}'/>">
 									<c:if test="${list.answer_No!=0}"><span>[已回應]</span></c:if>${list.question_Title}</a></td>
 								<td><input type="text" value="${list.question_No}" readonly style='width: 100%;'></td>
-								<td><input type="text" value="${list.question_Time}" readonly style='width: 100%;'></td>
 							</tr>
 						</c:if>
 					</c:if>
@@ -191,11 +193,14 @@ input[type='text'] {
 	</c:if>
 	<br />
 	<c:if test="${emp_Role eq false}">
-		<button class='btn btn-primary'
-			onclick="window.location = '/GSStravel/QandAServlet?prodaction=question&role=false';">我要詢問問題</button>
+		<button class='btn btn-primary gotoQuestion'>我要詢問問題</button>
 	</c:if>
 </body>
 <script>
+	$(".gotoQuestion").click(function(){
+		window.location = '<c:url value="/QandAServlet?prodaction=question&role=false" />';
+	});
+
 	if(${Msg!=null}){
 		alert("${Msg.message}");
 	}
