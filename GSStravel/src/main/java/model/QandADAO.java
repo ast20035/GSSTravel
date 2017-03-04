@@ -28,8 +28,8 @@ public class QandADAO implements IQandADAO{
 		}
 	}
 	private final String selectALL="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret , DATEADD(dd,7,Question_Time) as newimg from QandA order by Question_Time desc";
-	private final String selectYes="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret from QandA where Answer_No is not null order by Question_Time desc";
-	private final String selectNo="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret from QandA where Answer_No is null order by Question_Time desc";
+	private final String selectYes="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret , DATEADD(dd,7,Question_Time) as newimg from QandA where Answer_No is not null order by Question_Time desc";
+	private final String selectNo="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret , DATEADD(dd,7,Question_Time) as newimg from QandA where Answer_No is null order by Question_Time desc";
 	@Override
 	public List<QandAVO> selectALL(String prodaction){
 		List<QandAVO> result = null;
@@ -64,10 +64,7 @@ public class QandADAO implements IQandADAO{
 				}
 				result.add(bean);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;
@@ -90,7 +87,6 @@ public class QandADAO implements IQandADAO{
 		}		
 		return b;
 	}
-	//private final String select_New="select QA_No from QandA where Question_Time>DATEADD(dd,-7,GETDATE())";
 	private final String getALL="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time,Answer_No,Answer_Text,Answer_time from QandA where qa_No=?";
 	@Override
 	public QandAVO getALL(int qa_No) {

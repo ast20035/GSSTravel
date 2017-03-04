@@ -161,7 +161,7 @@ input[type='text'] {
 							<tr>
 								<td><div class="centeraa">${list.question_Time}<c:if test="${list.newimg==true}"> <img src="images/new.gif"></c:if></div></td>
 								<td><input type="text" value="${list.tra_No}" readonly style='width: 100%;'></td>
-								<td><a href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
+								<td><a href="<c:url value='/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}'/>">
 									<c:if test="${list.answer_No!=0}"><span>[已回應]</span></c:if>${list.question_Title}</a></td>
 								<td><input type="text" value="${list.question_No}" readonly style='width: 100%;'></td>
 							</tr>
@@ -193,11 +193,14 @@ input[type='text'] {
 	</c:if>
 	<br />
 	<c:if test="${emp_Role eq false}">
-		<button class='btn btn-primary'
-			onclick="window.location = '/GSStravel/QandAServlet?prodaction=question&role=false';">我要詢問問題</button>
+		<button class='btn btn-primary gotoQuestion'>我要詢問問題</button>
 	</c:if>
 </body>
 <script>
+	$(".gotoQuestion").click(function(){
+		window.location = '<c:url value="/QandAServlet?prodaction=question&role=false" />';
+	});
+
 	if(${Msg!=null}){
 		alert("${Msg.message}");
 	}
