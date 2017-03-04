@@ -202,7 +202,10 @@ h1, h2 {
 	}
 	$("#response").click(function(){
 		$(".notimgclass").hide();
+		$(".goback").hide();
 		$("#img1").show();
+		$("#response").prop("disabled",true);
+		wait(1);
 		$.ajax({
 			type:"POST",
 			url: "/GSStravel/QandAInsertServlet" ,
@@ -215,10 +218,28 @@ h1, h2 {
 			},
 			dataType:"text",
 			success : function(data){
-				alert(data);
+				$("#img1").hide();
+				
+				alert("回應成功");
+				window.location = '<c:url value="/QandAServlet?role=true" />';
 			}
 		});
 	});
+	function wait(x) {	
+		x=Number(x);
+		console.log(x);
+		if (x == 1) {
+			$("#response").text("Email寄送中.");
+			x = 2;
+		} else if (x == 2) {
+			$("#response").text("Email寄送中..");
+			x = 3;
+		} else if (x == 3) {
+			$("#response").text("Email寄送中...");
+			x = 1;
+		}
+		setTimeout('wait('+x+')',1000);
+	}
 	$(".displayclass").hide();
 	$(".displaybutton").hide();
 	var Ans_textarea;
