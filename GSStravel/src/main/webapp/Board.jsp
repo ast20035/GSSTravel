@@ -121,10 +121,8 @@ table {
 				}
 				var count = board.length;
 				$("#myul").find("li").remove();
-				$("#myul")
-						.append(
-								'<li><a role="button" onclick="before()">&laquo;</a></li>');
-				var sum = Math.ceil(count / 10);
+				$("#myul").append('<li><a role="button" onclick="before()">&laquo;</a></li>');
+				var sum = Math.ceil(count / 15);
 				for (var a = 0; a < sum; a++) {
 					if (a == 0) {
 						$("#myul").append(
@@ -161,13 +159,13 @@ table {
 		<div class='row'>
 			<div class='col-md-1'></div>
 			<div class='col-md-11'>
-				<h2>首頁</h2>
+				<h2>公告</h2>
 			</div>
 		</div>
 		<br>
 		<div class='row'>
 			<div class='col-md-offset-1 col-md-7'>
-				<h4 style='color: #FF5511; font-weight: bold;'>公告</h4>
+<!-- 				<h4 style='color: #FF5511; font-weight: bold;'>公告</h4> -->
 				<select id="day" name="day" onchange="optionTime()"
 					class='form-control' style='width: 160px;'>
 					<option value="365">過去1年的公告</option>
@@ -204,7 +202,7 @@ table {
 <script>
 	var i;
 	var $page = $(".page");
-	$("tr:gt(10)").css("display", "none");
+	$("tr:gt(15)").css("display", "none");
 	function next() {
 		i = $(".active");
 		$page.removeClass("active");
@@ -235,7 +233,7 @@ table {
 	}
 	function light(i) {
 		$("tr:gt(0)").css("display", "none");
-		$("tr:gt(" + i * 10 + "):lt(" + 10 + ")").css("display", "");
+		$("tr:gt(" + i * 15 + "):lt(" + 15 + ")").css("display", "");
 	}
 </script>
 </html>
