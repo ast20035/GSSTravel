@@ -177,6 +177,9 @@ h1, h2 {
 .nav>li>#aBar:focus {
 	color: black;
 }
+input[readonly='readonly']{
+background-color: transparent;
+}
 </style>
 <nav class="navbar navbar-fixed-top topBar navbar">
 	<div class="container">
