@@ -21,27 +21,22 @@
 <link rel="stylesheet" type="text/css" href="" />
 <title>公告</title>
 <style>
-	#backPic{
-		position:fixed;
-		top:0;
-		z-index: -1;
-		opacity: 0.2;
-		height:100%;
-		width: 100%;
-	}
-	body{
-		background: rgba(100%,100%,100%,0.6);
-	}
-	table {
-		border-bottom: 1px solid #DDDDDD;
-	}
-	iframe{
- 		margin-left: 90px; 
-		z-index: 10;
-	}
-	#QA{
-		margin-left: 90px;
-	}
+#backPic {
+	position: fixed;
+	top: 0;
+	z-index: -1;
+	opacity: 0.2;
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	background: rgba(100%, 100%, 100%, 0.6);
+}
+
+table {
+	border-bottom: 1px solid #DDDDDD;
+}
 </style>
 <script>
 	window.onload = function() {
@@ -113,7 +108,8 @@
 						a.setAttribute("style", "color:red");
 						var img = document.createElement("img");
 						img.setAttribute("src", "images/important.gif");
-						img.setAttribute("style", "background-color:transparent");
+						img.setAttribute("style",
+								"background-color:transparent");
 						td.appendChild(img);
 					}
 					if (board[i].important == 2) {
@@ -170,7 +166,7 @@
 		</div>
 		<br>
 		<div class='row'>
-			<div class='col-md-offset-1 col-md-5'>
+			<div class='col-md-offset-1 col-md-7'>
 				<h4 style='color: #FF5511; font-weight: bold;'>公告</h4>
 				<select id="day" name="day" onchange="optionTime()"
 					class='form-control' style='width: 160px;'>
@@ -180,11 +176,11 @@
 					<option value="31">過去1個月的公告</option>
 					<option value="7">過去1週的公告</option>
 				</select> <br>
-				<table id="boardTable" class='table' style='width: 600px;'>
+				<table id="boardTable" class='table'>
 					<thead>
 						<tr>
-							<th><label style='width: 200px;'>公告時間</label></th>
-							<th><label style='width: 270px;'>公告標題</label></th>
+							<th><label >公告時間</label></th>
+							<th><label >公告標題</label></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -193,12 +189,13 @@
 				<ul id="myul" class="pagination">
 				</ul>
 			</div>
-			<div class='col-md-5'>
+		</div>
+		<div class='row'>
+			<div class='col-md-offset-1 col-md-6'>
 				<h4 style='color: #FF5511;' id='QA'>Q&A</h4>
 
-				<iframe src="<c:url value='/QandAServlet?role=false' />"
-				 frameborder="0" width="105%" marginwidth="2px" height="1000px"></iframe>
-
+				<iframe src="<c:url value='/QandAServlet?role=false' />" 
+					frameborder="0" width="1200px;" marginwidth="2px" height="600px"></iframe>
 			</div>
 		</div>
 	</div>
