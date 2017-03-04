@@ -1033,8 +1033,7 @@ text-align: center;
 						}
 					});
 
-				$("input[name*='famid']").on("blur",
-								function() {
+				$("input[name*='famid']").on("blur",function() {
 					if(this.value !=""){
 									// 依照字母的編號排列，存入陣列備用。
 									var letters = new Array('A', 'B', 'C', 'D',
@@ -1099,10 +1098,11 @@ text-align: center;
 										var index = pathName.substr(1).indexOf("/");
 										var result = pathName.substr(0, index + 1);
 										var url = result + "/FamilyServlet";
-										var famid ={"repeatfamid":$(this).val()};
-// 										$(this).closest("tr").find("input[name='selectvalue']").val()
-// 										,"repeatfamno":$(this).closest("tr").find("input[name='selectvalue']").val()
-
+										var webfamid=  JSON.stringify($("input[name='famid']").map(function(){return $(this).val();}).get());
+										var famid ={"repeatfamid":$(this).val(),"webfamid":webfamid};
+										
+										
+										
 										var xxxxx = $(this)
 											$.ajax({
 												type:"POST",url:url,data:famid,dataType:"text",
