@@ -140,8 +140,8 @@ table {
 									class="multiselect center_a form-control select "
 									name="fam_spa" id="multiselect" data-placeholder="請點擊"
 									multiple="multiple" style="width: 200px;">
-										<option value="bab">幼童(0~3歲)</option>
-										<option value="kid">兒童(4~11歲)</option>
+										<option>幼童(0~3歲)</option>
+										<option>兒童(4~11歲)</option>
 										<option>持身心障礙手冊</option>
 										<option>孕婦(媽媽手冊)</option>
 								</select></td>
@@ -413,6 +413,8 @@ table {
 		$(".fam_Bdate").on("blur", function() {
 			var today = new Date();
 			var bdate = $(this).val();
+// 			var spannew =$('#multiselect:eq(0)').data("kendoMultiSelect").value();
+// 			console.log(spannew);
 			var mydate = new Date(bdate.replace("-", "/").replace("-", "/"));
 			if (fambdate.test(bdate) && mydate<= today) {
 				a9 = true;
@@ -421,17 +423,6 @@ table {
 				$(".insertSave").attr("type", "button");
 				if (!(a1 && a2 && a3 && a4 && a5 && a6 && a7 && a8 & a9)) {
 					$(".insertSave").attr("type", "button");
-					var between = today.getTime() - mydate.getTime();//時間差的毫秒数 
-					var between2 = Math.floor(between/(24*3600*1000));
-					if(between2<365*3){
-						$('select.selectspan:eq('+$(this).attr("spannumber")+')').data("kendoMultiSelect").value('bab');
-					}
-					if(between2<365*11){
-						if(between2>365*3){
-							$('select.selectspan:eq('+$(this).attr("spannumber")+')').data("kendoMultiSelect").value('kid');
-						}
-				 	}
-
 				} else {
 					$(".insertSave").attr("type", "submit");
 				}
@@ -441,23 +432,6 @@ table {
 				$(".insertSave").attr("type", "button");
 			}
 		});
-		$("#familytable input[name*='fambdate']").on("blur",function(){
-			bdate = new Date(Date.parse(bdate.replace("-", "/")));
-			var between = today.getTime() - bdate.getTime();//時間差的毫秒数 
-			var between2 = Math.floor(between/(24*3600*1000));
-			if(between2<365*3){
-// 				$('.multiselect').data("kendoMultiSelect").val('bab');
-// 				$('.multiselect').data("kendoMultiSelect").val('bab');
-// 				$('.multiselect').data("kendoMultiSelect").val('bab');
-// 				$('.multiselect').data("kendoMultiSelect").val('bab');
-				$('.multiselect').data("kendoMultiSelect").val('bab');
-			}
-			if(between2<365*11){
-				if(between2>365*3){
-					$('.multiselect').data("kendoMultiSelect").val('kid');
-				}
-		 	}
-		})
 
 	});
 	//當儲存按鈕的type是button時無法儲存
