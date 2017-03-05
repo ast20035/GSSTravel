@@ -30,51 +30,62 @@
 	height: 100%;
 	width: 100%;
 }
+
 table {
 	color: #7F7F7F;
 	font: 0.8em/1.6em "Trebuchet MS", Verdana, sans-serif;
 	border-collapse: collapse;
 	font-size: 15px;
 }
+
 caption, thead th, tfoot th, tfoot td {
 	background-color: #1E90FF;
 	font-weight: bold;
 	text-transform: uppercase
 }
+
 thead th {
 	background-color: #1E90FF;
 	color: white;
 	text-align: center
 }
+
 tbody tr.odd {
 	background-color: #F7F7F7;
 	color: #666
 }
+
 tbody a {
 	padding: 1px 2px;
 	color: #333;
 	text-decoration: none;
 	border-bottom: 1px dotted #E63C1E
 }
+
 tbody a:active, tbody a:hover, tbody a:focus, tbody a:visited {
 	color: #666
 }
+
 tbody tr:hover {
 	background-color: #EEE;
 	color: #333
 }
+
 tbody tr:hover a {
 	background-color: #FFF
 }
+
 tbody td+td+td+td a {
 	color: #C30;
 	font-weight: bold;
 	border-bottom: 0
 }
+
 tbody td+td+td+td a:active, tbody td+td+td+td a:hover, tbody td+td+td+td a:focus,
 	tbody td+td+td+td a:visited {
 	color: #E63C1E
 }
+
 tbody a:visited:after {
 	font-family: Verdana, sans-serif;
 	content: "\00A0\221A"
@@ -85,14 +96,17 @@ td, tr {
 	padding: 3px;
 	border: 1px solid gray;
 }
+
 input[type='text'] {
 	border: none;
 	text-align: center;
 	padding: 3px;
 }
+
 .centeraa {
 	text-align: center;
 }
+
 input {
 	background-color: transparent;
 }
@@ -295,7 +309,7 @@ input {
 	
 	var i;
 	var $page = $(".page");
-	$("tr:gt(10)").css("display", "none");
+	$("tr:gt(15)").css("display", "none");
 	function next() {
 		i = $(".active");
 		$page.removeClass("active");
@@ -326,7 +340,7 @@ input {
 	}
 	function light(i) {
 		$("tr:gt(0)").css("display", "none");
-		$("tr:gt(" + i * 10 + "):lt(" + 10 + ")").css("display", "");
+		$("tr:gt(" + i * 15 + "):lt(" + 15 + ")").css("display", "");
 	}
 	function checkdelete() {
 		if (confirm("確定要刪除?")){
