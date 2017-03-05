@@ -19,7 +19,13 @@ public class QandAServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		int question_Category=-1;
+		String prodaction2=request.getParameter("prodaction2");
 		String prodaction=request.getParameter("prodaction");
+		
+		if(prodaction!=null){
+			question_Category=Integer.parseInt(prodaction);
+		}
 		String role =request.getParameter("role");
 		//查看詳細詢問內容
 		if("select".equals(prodaction)){
@@ -40,9 +46,10 @@ public class QandAServlet extends HttpServlet {
 		}
 		QandAService QAService =new QandAService();
 		List<QandAVO> list = new ArrayList<QandAVO>();
-		list=QAService.selectALL(prodaction);
+		list=QAService.selectALL(prodaction2, question_Category);
+		
 		int count =list.size();
-
+		System.out.println(count);
 		request.setAttribute("count", count);
 		request.setAttribute("list", list);
 		request.setAttribute("role", role);

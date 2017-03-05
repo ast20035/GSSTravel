@@ -27,18 +27,28 @@ public class QandADAO implements IQandADAO{
 			e.printStackTrace();
 		}
 	}
-	private final String selectALL="select QA_No , Question_Category , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret , DATEADD(dd,7,Question_Time) as newimg from QandA order by Question_Time desc";
-	private final String selectYes="select QA_No , Question_Category , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret , DATEADD(dd,7,Question_Time) as newimg from QandA where Answer_No is not null order by Question_Time desc";
-	private final String selectNo="select QA_No , Question_Category , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret , DATEADD(dd,7,Question_Time) as newimg from QandA where Answer_No is null order by Question_Time desc";
 	@Override
-	public List<QandAVO> selectALL(String prodaction){
+	public List<QandAVO> selectALL(String prodaction , int question_Category){
 		List<QandAVO> result = null;
+		System.out.println("question_Category="+question_Category);
+		String where="";
+		String where1="";
+		
+		if(question_Category != -1){
+			where = "where question_Category="+question_Category;
+			where1 = "and question_Category="+question_Category;
+		}
+		String selectALL="select QA_No , Question_Category , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret , DATEADD(dd,7,Question_Time) as newimg from QandA "+where+" order by Question_Time desc";
+		String selectYes="select QA_No , Question_Category , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret , DATEADD(dd,7,Question_Time) as newimg from QandA where Answer_No is not null "+where1+" order by Question_Time desc";
+		String selectNo="select QA_No , Question_Category , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret , DATEADD(dd,7,Question_Time) as newimg from QandA where Answer_No is null "+where1+" order by Question_Time desc";
+		
 		String select=selectALL;
 		if("yes".equals(prodaction)){
 			select=selectYes;
 		}else if("no".equals(prodaction)){
 			select=selectNo;		
 		}
+		System.out.println(select);
 		try (Connection conn = ds.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(select);
 			ResultSet rset = stmt.executeQuery();) {
