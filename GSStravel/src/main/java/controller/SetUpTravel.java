@@ -39,6 +39,9 @@ public class SetUpTravel extends HttpServlet {
 		String tra_File = request.getParameter("file");
 		String tra_No = request.getParameter("edittraNO");
 		String tra_Name = new String(request.getParameter("edittraName"));
+		
+		
+		
 		String tra_Loc = new String(request.getParameter("edittraLoc"));
 		String On = request.getParameter("edittraOn");
 		String Off = request.getParameter("edittraOff");
@@ -79,11 +82,13 @@ public class SetUpTravel extends HttpServlet {
 		int ckRoom = 0;
 		List<String> error = new ArrayList<>();
 
+	
+		
 		if (tra_File.equals("")) {
 			tra_File = "無";
 		}
 
-		if (tra_Name.trim() == "" || tra_Name == null) {
+		if (tra_Name.trim().length() == 0 || tra_Name == null) {
 			error.add("旅遊名稱不能為空");
 		}
 		if (tra_Loc.trim() == "" || tra_Loc == null) {
@@ -194,13 +199,13 @@ public class SetUpTravel extends HttpServlet {
 			}
 		}
 
-		if (tra_Intr.trim() == "" || tra_Intr == null) {
+		if (tra_Intr.trim().length() == 0 || tra_Intr == null) {
 			tra_Intr = "無";
 		}
-		if (tra_Con.trim() == "" || tra_Con == null) {
+		if (tra_Con.trim().length() == 0 || tra_Con == null) {
 			error.add("活動內容不能為空");
 		}
-		if (tra_Atter.trim() == "" || tra_Atter == null) {
+		if (tra_Atter.trim().length() == 0 || tra_Atter == null) {
 			tra_Atter = "無";
 		}
 		// if (tra_File.trim() == "" || tra_File == null) {
