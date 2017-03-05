@@ -81,8 +81,7 @@ textarea {
 						</tr>
 						<tr>
 							<th>標題</th>
-							<th><input type="text" class="Qestion_Title form-control"
-								style='width: 200px;' name="Qestion_Title"></th>
+							<th><input type="text" class="Qestion_Title form-control" style='width: 200px;' name="Qestion_Title"></th>
 						</tr>
 						<tr>
 							<td colspan="2"><input type="radio" name="radio"
@@ -91,16 +90,13 @@ textarea {
 						</tr>
 						<tr>
 							<th>留言內容</th>
-							<th><textarea class="Qestion_Text form-control" cols="15"
-									rows="8" name="Qestion_Text"></textarea></th>
+							<th><textarea class="Qestion_Text form-control" cols="15" rows="8" name="Qestion_Text"></textarea></th>
 						</tr>
 
 						<tr>
 							<th colspan="2">
-								<button class='btn btn-primary' type="submit"
-									class="insertQuestion" name="prodaction" value="insertQuestion">提問</button>
-								<button class='btn btn-primary' type="button"
-									onclick="window.location = '/GSStravel/QandAServlet?role=false';">回上一頁</button>
+								<button class='btn btn-primary' type="submit" class="insertQuestion" name="prodaction" value="insertQuestion">提問</button>
+								<button class='btn btn-primary' type="button" onclick="window.location = '/GSStravel/QandAServlet?role=false';">回上一頁</button>
 							</th>
 						</tr>
 					</table>

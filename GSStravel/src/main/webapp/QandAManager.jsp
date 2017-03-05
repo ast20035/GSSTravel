@@ -50,6 +50,11 @@
 	</script>
 	<%
 		String prodaction = request.getParameter("prodaction");
+		String prodaction2 = request.getParameter("prodaction2");
+		int question_Category=-1;
+		if(prodaction2!=null){
+			question_Category=Integer.parseInt(prodaction2);
+		}
 	%>
 	<div class='container-fluid'>
 		<div class='row'>
@@ -78,11 +83,18 @@
 						</c:if>
 					</div>
 					<br>
-					<select class='form-control' style='width: 120px;' onchange="window.location = '/GSStravel/QandAServlet?role=true&prodaction='+this.value;">
-						<option class="select" value="all" <%if ("all".equals(prodaction)) { out.print("selected"); }%>>顯示全部</option>
-						<option class="select" value="yes" <%if ("yes".equals(prodaction)) { out.print("selected"); }%>>顯示已回應</option>
-						<option class="select" value="no" <%if ("no".equals(prodaction)) { out.print("selected"); }%>>顯示未回應</option>
-					</select>
+						<select id="selecta" onchange="window.location = '/GSStravel/QandAServlet?role=true&prodaction2='+this.value+'&prodaction='+$('#selectb').val();" class='form-control' style='width: 140px;'>
+							<option value="-1" <%if ("-1".equals(prodaction2)) { out.print("selected"); }%>>全部</option>
+							<option value="0" <%if ("0".equals(prodaction2)) { out.print("selected"); }%>>行程</option>
+							<option value="1" <%if ("1".equals(prodaction2)) { out.print("selected"); }%>>費用</option>
+							<option value="2" <%if ("2".equals(prodaction2)) { out.print("selected"); }%>>其他</option>
+						</select>
+						<br />
+						<select id="selectb" onchange="window.location = '/GSStravel/QandAServlet?role=true&prodaction='+this.value+'&prodaction2='+$('#selecta').val();" class='form-control' style='width: 140px;'>
+							<option value="all" <%if ("all".equals(prodaction)) { out.print("selected"); }%>>顯示全部</option>
+							<option value="yes" <%if ("yes".equals(prodaction)) { out.print("selected"); }%>>顯示已回應</option>
+							<option value="no" <%if ("no".equals(prodaction)) { out.print("selected");  }%>>顯示未回應</option>
+						</select>
 					<br />
 					<c:if test="${list.size()!=0}">
 					<table>
@@ -145,12 +157,47 @@
 					</ul>
 				</c:if>
 				<c:if test="${list.size()==0}">
-				<%
-					if (prodaction==null) { out.print("<h2>現在尚無留言</h2>"); }
-					if ("all".equals(prodaction)) { out.print("<h2>現在尚無留言</h2>"); }
-					if ("yes".equals(prodaction)) { out.print("<h2>全部皆無回應</h2>");}
-					if ("no".equals(prodaction)) { out.print("<h2>全部皆已回應</h2>"); }
-				%>				 				
+					<%
+						if (prodaction == null || prodaction2==null||question_Category==-1) {
+								out.print("<h2>現在尚無留言</h2>");
+						}else{
+							switch (question_Category){
+							case 0:
+								if ("all".equals(prodaction)) {
+									out.print("<h2>現在尚無留言</h2>");
+								}
+								if ("yes".equals(prodaction)) {
+									out.print("<h2>全部皆無回應</h2>");
+								}
+								if ("no".equals(prodaction)) {
+									out.print("<h2>全部皆已回應</h2>");
+								}
+								break;
+							case 1:
+								if ("all".equals(prodaction)) {
+									out.print("<h2>現在尚無留言</h2>");
+								}
+								if ("yes".equals(prodaction)) {
+									out.print("<h2>全部皆無回應</h2>");
+								}
+								if ("no".equals(prodaction)) {
+									out.print("<h2>全部皆已回應</h2>");
+								}
+								break;
+							case 2:
+								if ("all".equals(prodaction)) {
+									out.print("<h2>現在尚無留言</h2>");
+								}
+								if ("yes".equals(prodaction)) {
+									out.print("<h2>全部皆無回應</h2>");
+								}
+								if ("no".equals(prodaction)) {
+									out.print("<h2>全部皆已回應</h2>");
+								}
+								break;
+							}
+						}
+					%>			 				
 				</c:if>
 				<br />
 				<c:if test="${emp_Role eq false}">
