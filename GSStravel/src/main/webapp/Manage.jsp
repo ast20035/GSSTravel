@@ -163,8 +163,8 @@ h1, h2 {
 }
 
 .Mnow {
-	border-left: 3px solid blue;
-	border-right: 3px solid blue;
+	border-left: 5px solid blue;
+	border-right: 5px solid blue;
 }
 
 .navbar-brand {

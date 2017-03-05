@@ -80,6 +80,14 @@ tbody a:visited:after {
 }
 </style>
 <style type="text/css">
+#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
 .color-red{
 	border-color:red
 }
@@ -107,7 +115,12 @@ h1, h2 {
 <style>
 </style>
 </head>
-<body style="background-color:transparent">
+<body >
+<%@include file="SelectBar.jsp"%>
+	<script>
+		$('.navbar-nav>li').removeClass('now');
+		$('.navbar-nav>li:eq(1)').addClass('now');
+	</script>
 	<div class='container-fluid'>
 		<div class='row'>
 			<div class='col-md-1'></div>
@@ -180,6 +193,7 @@ h1, h2 {
 			</div>
 		</div>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 <script type="text/javascript">
 	$(".goback").click(function(){
