@@ -100,7 +100,7 @@ body {
 						<td colspan="2">${traveResult.tra_Total}人</td>
 					</tr>
 					<tr>
-						<td class='little'>個人可報名上限</td>
+						<td class='little'>個人可報名人數</td>
 						<td colspan="2">${traveResult.tra_Max}人</td>
 					</tr>
 					<tr>
