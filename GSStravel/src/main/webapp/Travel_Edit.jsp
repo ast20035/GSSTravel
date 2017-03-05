@@ -474,7 +474,7 @@ h2 {
 
 						</tr>
 						<tr>
-							<td><em style="color: red">*</em>個人可報名人數上限</td>
+							<td><em style="color: red">*</em>個人可報名人數</td>
 
 							<td><input type="text" name="edittraMax" id="edittraMax"
 								class='form-control' style='width: 80px;'

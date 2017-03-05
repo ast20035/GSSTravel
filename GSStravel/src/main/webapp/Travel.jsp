@@ -84,9 +84,9 @@ td, th {
 							<th class="t">活動結束</th>
 							<th class="t">登記開始</th>
 							<th class="t">登記結束</th>
-							<th class="t">登記活動人數限制</th>
+							<th class="t">活動總人數上限</th>
 							<th class="t">目前已報名人數</th>
-							<th class="t">員工可報名總人數</th>
+							<th class="t">個人可報名人數</th>
 							<th class="t">報名</th>
 						</tr>
 					</thead>
