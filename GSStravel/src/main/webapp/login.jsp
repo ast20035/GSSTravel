@@ -49,21 +49,22 @@
 
 <title>GSS System</title>
 <style>
+
+
 .use-flexbox {
-	width: 1600px;
-	height: 500px;
-	display: table-cell;
+ 	width: 1500px; 
+	height: 800px;
 }
 
 .login {
-	position: relative;
-	width: 800px;
-	height: 460px;
+ 	position: relative; 
+	width: 750px;
+	height: 400px;
 	border: 1px solid #ccc;
 	border-radius: 18px;
 	background: rgba(100%, 100%, 100%, 0.8);
-	top: 50%;
-	left: 35%;
+ 	top:25%;
+	transform:translateX(50%);
 }
 
 #backPic {
@@ -104,7 +105,7 @@ form {
 					<div class='col-lg-4'>
 
 						<img src="images/titel.png"
-							style="display: inline-block; margin: auto auto 50px 90px;" />
+							style="display: inline-block; margin: auto auto 50px 60px;" />
 						<!-- 				<h1>叡揚旅遊報名系統</h1> -->
 					</div>
 					<!-- 			<div class='col-lg-10'></div> -->
