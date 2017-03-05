@@ -231,7 +231,7 @@ h2 {
 							<td></td>
 						</tr>
 						<tr>
-							<td><em style="color: red">*</em>本團人數上限</td>
+							<td><em style="color: red">*</em>個人可報名人數上限</td>
 
 							<td><input type="text" name="edittraMax" id="edittraMax"
 								class='form-control' style='width: 80px;' value="" autocomplete="off">
@@ -319,6 +319,7 @@ h2 {
 					<script>
 							var search2 = '<c:url value='/search2.jsp'/>'							
 					</script>
+					儲存後選擇是否上傳附件<br>
 					<input type="submit" value="儲存" class='btn btn-primary' /> <input
 						type="button" value='回上一頁' class='btn btn-primary'
 						onclick="window.location.href=search2;" />
@@ -330,7 +331,6 @@ h2 {
 
 					</tr>
 				</table>
-
 			</div>
 		</div>
 	</div>

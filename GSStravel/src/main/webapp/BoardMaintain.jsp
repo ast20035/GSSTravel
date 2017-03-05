@@ -217,7 +217,7 @@ table {
 		</div>
 		<br>
 		<div class='row'>
-			<div class='col-md-offset-1 col-md-5'>
+			<div class='col-md-offset-1 col-md-7'>
 				<table id="boardTable" class='table'>
 					<thead>
 						<tr>
