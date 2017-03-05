@@ -192,19 +192,17 @@ input{
 			</button>
 			<a class="navbar-brand" href="<c:url value='/Board.jsp'/>">GSS</a>
 		</div>
-		<div id="navbar"
-			class="collapse navbar-collapse navbar-responsive-collapse">
+		<div id="navbar" class="collapse navbar-collapse navbar-responsive-collapse">
 			<ul class="nav navbar-nav">
 				<li><a href="<c:url value='/Board.jsp'/>" id="close7">首頁</a></li>
-				<li class='dropdown'><a class='dropdown-toggle' href='#'
-					role="button" data-toggle="dropdown">旅遊報名<span class="caret"></span></a>
+				<li role="presentation"><a href="<c:url value='/QandAServlet?role=false'/>" id="close3">Q&A</a></li>
+				<li class='dropdown'><a class='dropdown-toggle' href='#' role="button" data-toggle="dropdown">旅遊報名<span class="caret"></span></a>
 					<ul class='dropdown-menu' id="down1">
 						<li><a href="<c:url value='/AllTravel'/>">報名/查詢</a></li>
 						<li><a href="<c:url value='/Record'/>">報名記錄</a></li>
 					</ul></li>
 
-				<li role="presentation"><a href="<c:url value='/Register'/>"
-					id="close1">資料輸入</a></li>
+				<li role="presentation"><a href="<c:url value='/Register'/>" id="close1">資料輸入</a></li>
 				<c:if test='${emp_Role eq true}'>
 					<li><a href="<c:url value='/BoardMaintain.jsp'/>" id="close2">管理介面</a></li>
 				</c:if>
