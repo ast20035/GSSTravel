@@ -111,8 +111,13 @@ input{
 	background-color: transparent;
 }
 </style>
+<!-- <img src="images/Travel.jpg" id="backPic"> -->
+
+
 </head>
+
 <body style="background-color: transparent">
+<ul id="myul" class="pagination">
 	<%
 		String prodaction = request.getParameter("prodaction");
 	%>
@@ -252,6 +257,7 @@ input{
 	<c:if test="${emp_Role eq false}">
 		<button class='btn btn-primary gotoQuestion'>我要詢問問題</button>
 	</c:if>
+</ul>
 </body>
 <script>
 	$(".gotoQuestion").click(function(){
