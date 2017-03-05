@@ -222,7 +222,7 @@ table {
 					<thead>
 						<tr>
 							<th><label style='width: 200px;'>公告時間</label></th>
-							<th><label style='width: 500px;'>公告標題</label></th>
+							<th><label style='width: 400px;'>公告標題</label></th>
 						</tr>
 					</thead>
 					<tbody>
