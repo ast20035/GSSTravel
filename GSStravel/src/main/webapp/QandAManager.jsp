@@ -38,6 +38,7 @@
 		border: none;
 		text-align: center;
 		padding: 3px;
+		background-color: transparent;
 	}
 </style>
 </head>
@@ -109,7 +110,7 @@
 													<span>[已回應]</span><br />
 												</c:if><span style="color: red">[私密]${list.question_Title}</span>
 										</a></td>
-										<td><input type="text" value="${list.question_No}" style='width:100%;'></td>
+										<td><input type="text" value="${list.question_No}" style='width:100%;' readonly></td>
 									</tr>
 								</c:if>
 								<c:if test="${!list.question_secret}">
@@ -125,7 +126,7 @@
 												<c:if test="${list.answer_No!=0}">
 													<span>[已回應]</span>
 												</c:if>${list.question_Title}</a></td>
-										<td><input type="text" value="${list.question_No}" style='width:100%;'></td>
+										<td><input type="text" value="${list.question_No}" style='width:100%;' readonly></td>
 									</tr>
 								</c:if>
 							</c:forEach>

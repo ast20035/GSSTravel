@@ -201,7 +201,7 @@ input{
 					role="button" data-toggle="dropdown">旅遊報名<span class="caret"></span></a>
 					<ul class='dropdown-menu' id="down1">
 						<li><a href="<c:url value='/AllTravel'/>">報名/查詢</a></li>
-						<li><a href="<c:url value='/Record'/>">報名記錄</a></li>
+						<li><a href="<c:url value='/Record'/>">個人歷史記錄</a></li>
 					</ul></li>
 
 				<li role="presentation"><a href="<c:url value='/Register'/>"
