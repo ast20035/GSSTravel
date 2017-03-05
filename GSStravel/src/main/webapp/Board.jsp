@@ -188,14 +188,14 @@ table {
 				</ul>
 			</div>
 		</div>
-		<div class='row'>
-			<div class='col-md-offset-1 col-md-6'>
-				<h4 style='color: #FF5511;' id='QA'>Q&A</h4>
+<!-- 		<div class='row'> -->
+<!-- 			<div class='col-md-offset-1 col-md-6'> -->
+<!-- 				<h4 style='color: #FF5511;' id='QA'>Q&A</h4> -->
 
-				<iframe src="<c:url value='/QandAServlet?role=false' />" 
-					frameborder="0" width="1200px;" marginwidth="2px" height="600px"></iframe>
-			</div>
-		</div>
+<%-- 				<iframe src="<c:url value='/QandAServlet?role=false' />"  --%>
+<!-- 					frameborder="0" width="1200px;" marginwidth="2px" height="600px"></iframe> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
 	</div>
 	<img src="images/Travel.jpg" id="backPic">
 </body>

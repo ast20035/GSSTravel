@@ -23,14 +23,15 @@
 	
 </script>
 <style type="text/css">
-#backPic{
-		position:fixed;
-		top:0;
-		z-index: -1;
-		opacity: 0.2;
-		height:100%;
-		width: 100%;
-	}
+#backPic {
+	position: fixed;
+	top: 0;
+	z-index: -1;
+	opacity: 0.2;
+	height: 100%;
+	width: 100%;
+}
+
 .t {
 	border: 1px solid black;
 }
@@ -41,12 +42,16 @@
 }
 
 table {
-	padding-right: 20%;
+	padding-right: 10px;
 	font-size: 15px;
 }
 
 .little {
 	width: 1px;
+}
+
+body {
+	margin-bottom: 5%;
 }
 </style>
 <title>行程內容</title>
@@ -91,11 +96,11 @@ table {
 						<td colspan="2">${traveResult.tra_Beg}~${traveResult.tra_End}</td>
 					</tr>
 					<tr>
-						<td class='little'>每人報名上限</td>
+						<td class='little'><label style='width:130px;font-weight: lighter;'>活動總人數上限</label></td>
 						<td colspan="2">${traveResult.tra_Total}人</td>
 					</tr>
 					<tr>
-						<td class='little'>本團人數上限</td>
+						<td class='little'>個人可報名上限</td>
 						<td colspan="2">${traveResult.tra_Max}人</td>
 					</tr>
 					<tr>
@@ -111,7 +116,7 @@ table {
 					<tr>
 						<td class='little'>活動內容</td>
 						<td colspan="2"
-							style="word-break: break-all; width: 500px; LINE-HEIGHT: 30px;">${traveResult.tra_Con}</td>
+							style="word-break: break-all; width: 800px; LINE-HEIGHT: 30px;">${traveResult.tra_Con}</td>
 					</tr>
 					<tr>
 						<td class='little'>注意事項</td>
@@ -137,11 +142,10 @@ table {
 				</table>
 				<br>
 				<script>
-						var GSS = '<c:url value="/AllTravel" />'
+					var GSS = '<c:url value="/AllTravel" />'
 				</script>
-				<input
-						type="button" value='回上一頁' class='btn btn-primary'
-						onclick="window.location.href=GSS;" />
+				<input type="button" value='回上一頁' class='btn btn-primary'
+					onclick="window.location.href=GSS;" />
 			</div>
 			<div class='col-lg-1'></div>
 		</div>

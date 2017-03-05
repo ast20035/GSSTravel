@@ -107,151 +107,197 @@ input[type='text'] {
 	text-align: center;
 }
 
-input{ 
+input {
 	background-color: transparent;
 }
 </style>
 </head>
-<body style="background-color: transparent">
+<body>
+	<%@include file="SelectBar.jsp"%>
+	<script>
+		$('.navbar-nav>li').removeClass('now');
+		$('.navbar-nav>li:eq(1)').addClass('now');
+	</script>
 	<%
 		String prodaction = request.getParameter("prodaction");
 	%>
-	<select onchange="window.location = '/GSStravel/QandAServlet?role=false&prodaction='+this.value;" class='form-control' style='width: 140px;'>
-		<option value="all" <%if ("all".equals(prodaction)) { out.print("selected"); }%>>顯示全部</option>
-		<option value="yes" <%if ("yes".equals(prodaction)) { out.print("selected"); }%>>顯示已回應</option>
-		<option value="no" <%if ("no".equals(prodaction)) { out.print("selected"); }%>>顯示未回應</option>
-	</select>
-	<br />
-	<c:if test="${list.size()!=0}">
-		<table class='table'>
-			<thead>
-				<tr>
-					<th><label style='width: 200px;'>詢問時間</label></th>
-					<th><label style='width: 100px;'>提問類型</label></th>
-					<th><label style='width: 250px;'>標題</label></th>
-					<th><label style='width: 100px;'>詢問人員</label></th>
-				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="list" items="${list}">
-					<c:if
-						test="${emp_Role eq false&&list.question_secret&&emp_No==list.question_No}">
-						<tr>
-							<td><div class="centeraa">${list.question_Time}<c:if
-										test="${list.newimg==true}">
-										<img src="images/new.gif">
-									</c:if>
-								</div></td>
-							<td>
-								<c:if test="${list.question_Category==0}"><input type="text" value="行程" readonly style='width: 100%;'></c:if>
-								<c:if test="${list.question_Category==1}"><input type="text" value="費用" readonly style='width: 100%;'></c:if>
-								<c:if test="${list.question_Category==2}"><input type="text" value="其他" readonly style='width: 100%;'></c:if>	
-							</td>
-							<td><a
-								href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
-									<c:if test="${list.answer_No!=0}">
-										<span>[已回應]</span>
-										<br>
-									</c:if><span style="color: red">[私密]${list.question_Title}</span>
-							</a></td>
-							<td><input type="text" value="${list.question_No}" readonly
-								style='width: 100%;'></td>
-						</tr>
-					</c:if>
-					<c:if test="${emp_Role eq false&&!list.question_secret}">
-						<tr>
-							<td><div class="centeraa">${list.question_Time}<c:if
-										test="${list.newimg==true}">
-										<img src="images/new.gif">
-									</c:if>
-								</div></td>
-							<td>
-								<c:if test="${list.question_Category==0}"><input type="text" value="行程" readonly style='width: 100%;'></c:if>
-								<c:if test="${list.question_Category==1}"><input type="text" value="費用" readonly style='width: 100%;'></c:if>
-								<c:if test="${list.question_Category==2}"><input type="text" value="其他" readonly style='width: 100%;'></c:if>	
-							</td>
-							<td><a
-								href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
-									<c:if test="${list.answer_No!=0}">
-										<span>[已回應]</span>
-									</c:if>${list.question_Title}</a></td>
-							<td><input type="text" value="${list.question_No}" readonly
-								style='width: 100%;'></td>
-						</tr>
-					</c:if>
-					<c:if test="${emp_Role eq true}">
-						<c:if test="${list.question_secret}">
+	<div class='container-fluid'>
+		<div class='row'>
+			<div class='col-md-1'></div>
+			<div class='col-md-11'>
+				<h2>Q&A</h2>
+			</div>
+		</div>
+		<br>
+		<div class='row'>
+			<div class='col-md-offset-1 col-md-7'>
+				<select
+					onchange="window.location = '/GSStravel/QandAServlet?role=false&prodaction='+this.value;"
+					class='form-control' style='width: 140px;'>
+					<option value="all"
+						<%if ("all".equals(prodaction)) {
+				out.print("selected");
+			}%>>顯示全部</option>
+					<option value="yes"
+						<%if ("yes".equals(prodaction)) {
+				out.print("selected");
+			}%>>顯示已回應</option>
+					<option value="no"
+						<%if ("no".equals(prodaction)) {
+				out.print("selected");
+			}%>>顯示未回應</option>
+				</select> <br />
+				<c:if test="${list.size()!=0}">
+					<table class='table'>
+						<thead>
 							<tr>
-								<td><div class="centeraa">${list.question_Time}
-										<c:if test="${list.newimg==true}">
-											<img src="images/new.gif">
-										</c:if>
-									</div>
-								</td>
-								<td>
-									<c:if test="${list.question_Category==0}"><input type="text" value="行程" readonly style='width: 100%;'></c:if>
-									<c:if test="${list.question_Category==1}"><input type="text" value="費用" readonly style='width: 100%;'></c:if>
-									<c:if test="${list.question_Category==2}"><input type="text" value="其他" readonly style='width: 100%;'></c:if>	
-								</td>
-								<td><a href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
-										<c:if test="${list.answer_No!=0}">
-											<span>[已回應]</span>
-											<br>
-										</c:if><span style="color: red">[私密]${list.question_Title}</span>
-								</a></td>
-								<td><input type="text" value="${list.question_No}" readonly
-									style='width: 100%;'></td>
+								<th><label style='width: 200px;'>詢問時間</label></th>
+								<th><label style='width: 100px;'>提問類型</label></th>
+								<th><label style='width: 250px;'>標題</label></th>
+								<th><label style='width: 100px;'>詢問人員</label></th>
 							</tr>
-						</c:if>
-						<c:if test="${!list.question_secret}">
-							<tr>
-								<td><div class="centeraa">${list.question_Time}<c:if
-											test="${list.newimg==true}">
-											<img src="images/new.gif">
-										</c:if>
-									</div>
-								</td>
-								<td>
-									<c:if test="${list.question_Category==0}"><input type="text" value="行程" readonly style='width: 100%;'></c:if>
-									<c:if test="${list.question_Category==1}"><input type="text" value="費用" readonly style='width: 100%;'></c:if>
-									<c:if test="${list.question_Category==2}"><input type="text" value="其他" readonly style='width: 100%;'></c:if>	
-								</td>
-								<td><a href="<c:url value='/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}'/>">
-										<c:if test="${list.answer_No!=0}">
-											<span>[已回應]</span>
-										</c:if>${list.question_Title}</a></td>
-								<td><input type="text" value="${list.question_No}" readonly
-									style='width: 100%;'></td>
-							</tr>
-						</c:if>
-					</c:if>
-				</c:forEach>
-			</tbody>
-		</table>
+						</thead>
+						<tbody>
+							<c:forEach var="list" items="${list}">
+								<c:if
+									test="${emp_Role eq false&&list.question_secret&&emp_No==list.question_No}">
+									<tr>
+										<td><div class="centeraa">${list.question_Time}<c:if
+													test="${list.newimg==true}">
+													<img src="images/new.gif">
+												</c:if>
+											</div></td>
+										<td><c:if test="${list.question_Category==0}">
+												<input type="text" value="行程" readonly style='width: 100%;'>
+											</c:if> <c:if test="${list.question_Category==1}">
+												<input type="text" value="費用" readonly style='width: 100%;'>
+											</c:if> <c:if test="${list.question_Category==2}">
+												<input type="text" value="其他" readonly style='width: 100%;'>
+											</c:if></td>
+										<td><a
+											href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
+												<c:if test="${list.answer_No!=0}">
+													<span>[已回應]</span>
+													<br>
+												</c:if><span style="color: red">[私密]${list.question_Title}</span>
+										</a></td>
+										<td><input type="text" value="${list.question_No}"
+											readonly style='width: 100%;'></td>
+									</tr>
+								</c:if>
+								<c:if test="${emp_Role eq false&&!list.question_secret}">
+									<tr>
+										<td><div class="centeraa">${list.question_Time}<c:if
+													test="${list.newimg==true}">
+													<img src="images/new.gif">
+												</c:if>
+											</div></td>
+										<td><c:if test="${list.question_Category==0}">
+												<input type="text" value="行程" readonly style='width: 100%;'>
+											</c:if> <c:if test="${list.question_Category==1}">
+												<input type="text" value="費用" readonly style='width: 100%;'>
+											</c:if> <c:if test="${list.question_Category==2}">
+												<input type="text" value="其他" readonly style='width: 100%;'>
+											</c:if></td>
+										<td><a
+											href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
+												<c:if test="${list.answer_No!=0}">
+													<span>[已回應]</span>
+												</c:if>${list.question_Title}</a></td>
+										<td><input type="text" value="${list.question_No}"
+											readonly style='width: 100%;'></td>
+									</tr>
+								</c:if>
+								<c:if test="${emp_Role eq true}">
+									<c:if test="${list.question_secret}">
+										<tr>
+											<td><div class="centeraa">${list.question_Time}
+													<c:if test="${list.newimg==true}">
+														<img src="images/new.gif">
+													</c:if>
+												</div></td>
+											<td><c:if test="${list.question_Category==0}">
+													<input type="text" value="行程" readonly style='width: 100%;'>
+												</c:if> <c:if test="${list.question_Category==1}">
+													<input type="text" value="費用" readonly style='width: 100%;'>
+												</c:if> <c:if test="${list.question_Category==2}">
+													<input type="text" value="其他" readonly style='width: 100%;'>
+												</c:if></td>
+											<td><a
+												href="/GSStravel/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}">
+													<c:if test="${list.answer_No!=0}">
+														<span>[已回應]</span>
+														<br>
+													</c:if><span style="color: red">[私密]${list.question_Title}</span>
+											</a></td>
+											<td><input type="text" value="${list.question_No}"
+												readonly style='width: 100%;'></td>
+										</tr>
+									</c:if>
+									<c:if test="${!list.question_secret}">
+										<tr>
+											<td><div class="centeraa">${list.question_Time}<c:if
+														test="${list.newimg==true}">
+														<img src="images/new.gif">
+													</c:if>
+												</div></td>
+											<td><c:if test="${list.question_Category==0}">
+													<input type="text" value="行程" readonly style='width: 100%;'>
+												</c:if> <c:if test="${list.question_Category==1}">
+													<input type="text" value="費用" readonly style='width: 100%;'>
+												</c:if> <c:if test="${list.question_Category==2}">
+													<input type="text" value="其他" readonly style='width: 100%;'>
+												</c:if></td>
+											<td><a
+												href="<c:url value='/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}'/>">
+													<c:if test="${list.answer_No!=0}">
+														<span>[已回應]</span>
+													</c:if>${list.question_Title}</a></td>
+											<td><input type="text" value="${list.question_No}"
+												readonly style='width: 100%;'></td>
+										</tr>
+									</c:if>
+								</c:if>
+							</c:forEach>
+						</tbody>
+					</table>
 	共${count}筆
 	<br />
-		<ul class="pagination">
-			<li><a onclick="before()">&laquo;</a></li>
-			<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
-			<c:if test="${Math.ceil(count/2)!=0}">
-				<c:forEach var="i" begin="1" end="${Math.ceil(count/10)-1}">
-					<li class="page" onclick="page(this)" value="${i}"><a>${i+1}</a></li>
-				</c:forEach>
-			</c:if>
-			<li><a onclick="next()">&raquo;</a></li>
-		</ul>
-	</c:if>
-	<c:if test="${list.size()==0}">
-		<%  if (prodaction == null) { out.print("<h2>現在尚無留言</h2>"); }
-			if ("all".equals(prodaction)) { out.print("<h2>現在尚無留言</h2>"); }
-			if ("yes".equals(prodaction)) { out.print("<h2>全部皆無回應</h2>"); }
-			if ("no".equals(prodaction)) { out.print("<h2>全部皆已回應</h2>"); }
-		%>
-	</c:if>
-	<br />
-	<c:if test="${emp_Role eq false}">
-		<button class='btn btn-primary gotoQuestion'>我要詢問問題</button>
-	</c:if>
+					<ul class="pagination">
+						<li><a onclick="before()">&laquo;</a></li>
+						<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
+						<c:if test="${Math.ceil(count/2)!=0}">
+							<c:forEach var="i" begin="1" end="${Math.ceil(count/10)-1}">
+								<li class="page" onclick="page(this)" value="${i}"><a>${i+1}</a></li>
+							</c:forEach>
+						</c:if>
+						<li><a onclick="next()">&raquo;</a></li>
+					</ul>
+				</c:if>
+				<c:if test="${list.size()==0}">
+					<%
+						if (prodaction == null) {
+								out.print("<h2>現在尚無留言</h2>");
+							}
+							if ("all".equals(prodaction)) {
+								out.print("<h2>現在尚無留言</h2>");
+							}
+							if ("yes".equals(prodaction)) {
+								out.print("<h2>全部皆無回應</h2>");
+							}
+							if ("no".equals(prodaction)) {
+								out.print("<h2>全部皆已回應</h2>");
+							}
+					%>
+				</c:if>
+				<br />
+				<c:if test="${emp_Role eq false}">
+					<button class='btn btn-primary gotoQuestion'>我要詢問問題</button>
+				</c:if>
+			</div>
+		</div>
+	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 <script>
 	$(".gotoQuestion").click(function(){

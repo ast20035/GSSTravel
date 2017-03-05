@@ -84,7 +84,7 @@ tbody a:visited:after {
 }
 
 .nav>li>a {
-	font-size: 15px;
+	font-size: 14px;
 	color: #220088;
 	font-weight: bold;
 }
@@ -195,7 +195,8 @@ input{
 		<div id="navbar"
 			class="collapse navbar-collapse navbar-responsive-collapse">
 			<ul class="nav navbar-nav">
-				<li><a href="<c:url value='/Board.jsp'/>" id="close7">首頁</a></li>
+				<li><a href="<c:url value='/Board.jsp'/>" id="close7">公告</a></li>
+				<li><a href="<c:url value='/QandAServlet?role=false'/>" id="close8">Q&A</a></li>
 				<li class='dropdown'><a class='dropdown-toggle' href='#'
 					role="button" data-toggle="dropdown">旅遊報名<span class="caret"></span></a>
 					<ul class='dropdown-menu' id="down1">
