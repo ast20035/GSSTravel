@@ -331,7 +331,6 @@ h2 {
 
 					</tr>
 				</table>
-
 			</div>
 		</div>
 	</div>
