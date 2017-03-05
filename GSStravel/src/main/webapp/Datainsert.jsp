@@ -232,7 +232,7 @@ text-align: center;
 										value="${start.fam_Bdate}" />
 										</td>
 									<td><input type="text" name="famphone" id="famphone"
-										style='width: 90px;' class='form-control'
+										style='width: 110px;' class='form-control'
 										value="${start.fam_Phone}">
 										</td>
 									<td><select name="fameat" style='width: 100px;'
