@@ -279,7 +279,7 @@ input {
 				</c:if>
 				<c:if test="${list.size()==0}">
  					<%
-						if (prodaction2 == null || prodaction==null) {
+						if (prodaction2 == null || prodaction==null||question_Category==-1) {
 								out.print("<h2>現在尚無留言</h2>");
 						}else{
 							switch (question_Category){
