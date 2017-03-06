@@ -409,7 +409,7 @@ text-align: center;
 										console.log(r);
 										alert("親屬已經/曾經報名行程，不可刪除");
 									}else{
-											if(window.confirm("確定取消嗎?")){
+											if(window.confirm("確定刪除嗎?")){
 												if( $("#errorcount").val(1)){
 													xxxxx.parents("tr").remove();
 													$("#errorcount").val(0);
