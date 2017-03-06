@@ -158,10 +158,21 @@
 				</c:if>
 				<c:if test="${list.size()==0}">
 					<%
-						if (prodaction == null || prodaction2==null||question_Category==-1) {
+						if (prodaction == null || prodaction2==null) {
 								out.print("<h2>現在尚無留言</h2>");
 						}else{
 							switch (question_Category){
+							case -1:
+								if ("all".equals(prodaction)) {
+									out.print("<h2>現在尚無留言</h2>");
+								}
+								if ("yes".equals(prodaction)) {
+									out.print("<h2>全部皆無回應</h2>");
+								}
+								if ("no".equals(prodaction)) {
+									out.print("<h2>全部皆已回應</h2>");
+								}
+								break;
 							case 0:
 								if ("all".equals(prodaction)) {
 									out.print("<h2>現在尚無留言</h2>");
