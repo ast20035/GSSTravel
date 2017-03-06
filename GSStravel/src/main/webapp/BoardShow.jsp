@@ -152,8 +152,10 @@ h2 {
 		<div class='row'>
 			<div class='col-md-offset-3 col-md-4'>
 				<div id="boardDiv"></div>
-				<br> <input type="button" class='btn btn-primary' value='Q&A'
-					onclick='window.location.href="QandAGuest.jsp"'>
+				<br>
+				<c:if test="${emp_Role eq false}">
+					<input type="button" class='btn btn-primary' value='我要詢問' onclick='window.location.href="QandAQuestion.jsp"'>
+				</c:if>
 				<input type="button" class='btn btn-primary' value='回上一頁'
 					onclick='window.location.href="Board.jsp"'>
 			</div>
