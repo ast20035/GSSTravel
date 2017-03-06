@@ -84,7 +84,7 @@ tbody a:visited:after {
 	position: fixed;
 	top: 0;
 	z-index: -1;
-	opacity: 0.2;
+	opacity: 0.4;
 	height: 100%;
 	width: 100%;
 }
