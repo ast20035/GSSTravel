@@ -159,8 +159,7 @@ h1, h2 {
 								cols="70%" rows="8" readonly style='font-size: 20px;'>${list.question_Text}</textarea></td>
 					</tr>
 				</table>
-				<form action='<c:url value="/QandAInsertServlet?role=true"/>'
-					method="POST">
+				<form action='<c:url value="/QandAInsertServlet?role=true"/>' method="POST">
 					<input type="hidden" name="qa_No" class="qa_No"
 						value="${list.qa_No}"> <input type="hidden"
 						name="answer_No" class="answer_No"
@@ -169,7 +168,7 @@ h1, h2 {
 						<table class='table'>
 							<h2>回應</h2>
 							<tr>
-								<td><textarea name="answer_Text" cols="70%" rows="8"
+								<td><textarea class="Ans_textarea" name="answer_Text" cols="70%" rows="8"
 										style='font-size: 20px;' readonly="readonly">${list.answer_Text}</textarea></td>
 							</tr>
 						</table>
@@ -227,6 +226,7 @@ h1, h2 {
 		alert("${Msg.message}");
 	}
 	$("#response").click(function(){
+		$(".answer_Text").prop("readonly", "readonly");
 		$(".notimgclass").hide();
 		$(".goback").hide();
 		$("#img1").show();
@@ -252,7 +252,6 @@ h1, h2 {
 	});
 	function wait(x) {	
 		x=Number(x);
-		console.log(x);
 		if (x == 1) {
 			$("#response").text("Email寄送中.");
 			x = 2;
@@ -283,7 +282,7 @@ h1, h2 {
 		Ans_textarea = $(".Ans_textarea").val();
 		$(".displaybutton").show();
 		$(".notdisplaybutton").hide();
-		$(".Ans_textarea").prop("readonly", false);
+		$(".Ans_textarea").prop("readonly",false);
 	}
 	function cancel() {
 		$(".Ans_textarea").val(Ans_textarea);
@@ -292,7 +291,6 @@ h1, h2 {
 		$(".Ans_textarea").prop("readonly", "readonly");
 		$(".Ans_textarea").removeClass("color-green");
 		$(".Ans_textarea").removeClass("color-red");
-		
 	}
 	function checkdelete() {
 		if (confirm("確定要刪除?")) {
