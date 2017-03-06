@@ -55,10 +55,11 @@ body {
             background-attachment: fixed;
             background-position: center;
             background-size: cover;
-            
+           
         }
 
 .use-flexbox {
+	margin: 0 auto;
  	width: 1500px; 
 	height: 800px;
 }
