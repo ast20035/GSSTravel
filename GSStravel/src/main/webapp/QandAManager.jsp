@@ -40,6 +40,9 @@
 		padding: 3px;
 		background-color: transparent;
 	}
+	.delBtn{
+	margin-left: 20px;
+	}
 </style>
 </head>
 <body>
@@ -76,7 +79,7 @@
 									<option value="3month">刪除3個月前</option>
 								</select>
 							</div>
-							<div class='col-md-offset-0 col-md-1'>
+							<div class='col-md-offset-0 col-md-1 delBtn'>
 								<button class='btn btn-danger' type="button"
 									onclick="checkdelete()">刪除</button>
 							</div>
