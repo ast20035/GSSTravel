@@ -38,7 +38,7 @@ table, th, td {
 	<%@include file="SelectBar.jsp"%>
 	<script>
 		$('.navbar-nav>li').removeClass('now');
-		$('.navbar-nav>li:eq(1)').addClass('now');
+		$('.navbar-nav>li:eq(2)').addClass('now');
 	</script>
 	<div class='container-fluid'>
 		<div class='row'>
@@ -63,7 +63,7 @@ table, th, td {
 						<thead>
 							<tr>
 								<th><label style='width: 100px;'>行程編號</label></th>
-								<th><label style='width: 300px;'>行程名稱</label></th>
+								<th><label style='width: 270px;'>行程名稱</label></th>
 								<th><label style='width: 150px;'>行程開始日</label></th>
 								<th><label style='width: 150px;'>行程結束日</label></th>
 								<th><label style='width: 200px;'>登記日</label></th>
