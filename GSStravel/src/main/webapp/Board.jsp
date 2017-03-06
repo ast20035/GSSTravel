@@ -21,21 +21,27 @@
 <link rel="stylesheet" type="text/css" href="" />
 <title>公告</title>
 <style>
-#backPic {
-	position: fixed;
-	top: 0;
-	z-index: -1;
-	opacity: 0.2;
-	height: 100%;
-	width: 100%;
-}
-
-body {
-	background: rgba(100%, 100%, 100%, 0.6);
-}
-
-table {
-	border-bottom: 1px solid #DDDDDD;
+	#backPic{
+		position:fixed;
+		top:0;
+		z-index: -1;
+		opacity: 0.2;
+		height:100%;
+		width: 100%;
+	}
+	body{
+		background: rgba(100%,100%,100%,0.6);
+	}
+	table {
+		border-bottom: 1px solid #DDDDDD;
+	}
+	iframe{
+ 		margin-left: 90px; 
+		z-index: -1;
+	}
+	#QA{
+		margin-left: 90px;
+	}
 }
 </style>
 <script>

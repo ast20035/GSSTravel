@@ -75,15 +75,26 @@
 form {
 	margin-top: 2%;
 }
+.login {
+ 	position: relative; 
+	width: 750px;
+	height: 400px;
+	border: 1px solid #ccc;
+	border-radius: 18px;
+	background: rgba(100%, 100%, 100%, 0.8);
+ 	top:25%; 
+ 	transform:translateX(50%); 
+}
 </style>
 </head>
 <body>
 	<img src="images/Travel.jpg" id="backPic" style='display: none;' onload='imgload();'>
 	<div class='container-fluid active'>
+	<div class="login">
 		<div class='row' id='title'>
 			<div class='col-lg-4'></div>
 			<div class='col-lg-4'>
-				<h1>叡揚旅遊報名系統</h1>
+				<img src="images/titel.png" style="display: inline-block; margin: auto auto 50px 0px;" />
 			</div>
 			<!-- 			<div class='col-lg-10'></div> -->
 		</div>
@@ -113,6 +124,7 @@ form {
 				</div>
 			</div>
 		</form>
+	</div>
 	</div>
 </body>
 </html>

@@ -30,7 +30,6 @@ public class QandADAO implements IQandADAO{
 	@Override
 	public List<QandAVO> selectALL(String prodaction , int question_Category){
 		List<QandAVO> result = null;
-		System.out.println("question_Category="+question_Category);
 		String where="";
 		String where1="";
 		
@@ -48,7 +47,6 @@ public class QandADAO implements IQandADAO{
 		}else if("no".equals(prodaction)){
 			select=selectNo;		
 		}
-		System.out.println(select);
 		try (Connection conn = ds.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(select);
 			ResultSet rset = stmt.executeQuery();) {

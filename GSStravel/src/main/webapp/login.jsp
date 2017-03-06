@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <script type="text/javascript" src="js/jquery-1.5.1.js"></script>
-<script type="text/javascript" src="js/jquery.videoBG.js"></script>
+<!-- <script type="text/javascript" src="js/jquery.videoBG.js"></script> -->
 <script type="text/javascript" src="js/script.js"></script>
 
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
@@ -49,9 +49,17 @@
 
 <title>GSS System</title>
 <style>
-
+body {
+            background-image: url(images/Travel_O.jpg);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-size: cover;
+           
+        }
 
 .use-flexbox {
+	margin: 0 auto;
  	width: 1500px; 
 	height: 800px;
 }
@@ -62,7 +70,7 @@
 	height: 400px;
 	border: 1px solid #ccc;
 	border-radius: 18px;
-	background: rgba(100%, 100%, 100%, 0.8);
+	background: rgba(100%, 100%, 100%, 0.6);
  	top:25%;
 	transform:translateX(50%);
 }
@@ -86,11 +94,6 @@ form {
 </style>
 </head>
 <body>
-
-	<div class="wrapper">
-		<!-- video -->
-	</div>
-	<!-- video -->
 
 	<div class="use-flexbox">
 
@@ -141,6 +144,8 @@ form {
 
 
 		</div>
+		
+		
 		<!-- login -->
 	</div>
 	<!-- use-flexbox -->

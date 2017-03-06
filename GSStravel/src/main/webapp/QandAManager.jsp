@@ -40,6 +40,9 @@
 		padding: 3px;
 		background-color: transparent;
 	}
+	.delBtn{
+	margin-left: 20px;
+	}
 </style>
 </head>
 <body>
@@ -76,7 +79,7 @@
 									<option value="3month">刪除3個月前</option>
 								</select>
 							</div>
-							<div class='col-md-offset-0 col-md-1'>
+							<div class='col-md-offset-0 col-md-1 delBtn'>
 								<button class='btn btn-danger' type="button"
 									onclick="checkdelete()">刪除</button>
 							</div>
@@ -158,10 +161,21 @@
 				</c:if>
 				<c:if test="${list.size()==0}">
 					<%
-						if (prodaction == null || prodaction2==null||question_Category==-1) {
+						if (prodaction == null || prodaction2==null) {
 								out.print("<h2>現在尚無留言</h2>");
 						}else{
 							switch (question_Category){
+							case -1:
+								if ("all".equals(prodaction)) {
+									out.print("<h2>現在尚無留言</h2>");
+								}
+								if ("yes".equals(prodaction)) {
+									out.print("<h2>全部皆無回應</h2>");
+								}
+								if ("no".equals(prodaction)) {
+									out.print("<h2>全部皆已回應</h2>");
+								}
+								break;
 							case 0:
 								if ("all".equals(prodaction)) {
 									out.print("<h2>現在尚無留言</h2>");
