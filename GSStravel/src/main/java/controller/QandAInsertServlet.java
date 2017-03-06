@@ -38,7 +38,6 @@ public class QandAInsertServlet extends HttpServlet {
 			String temp2 = request.getParameter("radio");
 			String Qestion_Title = request.getParameter("Qestion_Title");
 			String Qestion_Text = request.getParameter("Qestion_Text");
-			System.out.println("temp3="+temp3);
 			int Question_No = Integer.parseInt(temp);
 			int question_Category=Integer.parseInt(temp3);
 			boolean question_secret = Boolean.parseBoolean(temp2);

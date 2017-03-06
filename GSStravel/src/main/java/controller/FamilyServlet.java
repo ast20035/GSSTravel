@@ -125,7 +125,6 @@ public class FamilyServlet extends HttpServlet {
 		//判斷新增的親屬身分證有沒有重複
 		if(ajaxid != null){
 			if(id.contains(ajaxid)){
-				System.out.println("repeat");
 				out.print("repeat");
 			}else{
 				out.print("");
@@ -216,7 +215,6 @@ public class FamilyServlet extends HttpServlet {
 								fambdate.add(sdf.parse(bdate));
 							} catch (ParseException e) {
 								errormsg.put("fambdate", "日期錯誤必須符合 年-月-日格式");
-								System.out.println("使用者輸入日期錯誤");
 							}
 						}
 					}
@@ -250,11 +248,9 @@ public class FamilyServlet extends HttpServlet {
 			}
 			
 			if (errormsg != null && !errormsg.isEmpty()) {
-				System.out.println("親屬員工檢查錯誤");
 				req.getRequestDispatcher("Register").forward(req, res);
 				return;
 			} else {
-				System.out.println("親屬員工檢查完畢");
 			}
 
 			
@@ -274,7 +270,6 @@ public class FamilyServlet extends HttpServlet {
 				employeevo.setEmp_Note(null);
 			}
 			employeeservice.update(employeevo);
-			System.out.println("員工資料更改完畢");
 			
 			
 			if (famid!=null) {
@@ -376,7 +371,6 @@ public class FamilyServlet extends HttpServlet {
 							familyvo.setFam_Mom(false);
 						}
 						familyservice.update(familyvo);
-						System.out.println("update " + famid[i] + " famno=" + famno);
 
 					} else {
 						
@@ -415,7 +409,6 @@ public class FamilyServlet extends HttpServlet {
 						}
 						
 						familyservice.insert(familyvo);
-						System.out.println("insert " + famid[i]);
 
 							
 					}

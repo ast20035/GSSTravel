@@ -22,7 +22,7 @@
 	position: fixed;
 	top: 0;
 	z-index: -1;
-	opacity: 0.2;
+	opacity: 0.4;
 	height: 100%;
 	width: 100%;
 }
@@ -95,7 +95,7 @@ textarea {
 
 						<tr>
 							<th colspan="2">
-								<button class='btn btn-primary' type="submit" class="insertQuestion" name="prodaction" value="insertQuestion">提問</button>
+								<button class='btn btn-success' type="submit" class="insertQuestion" name="prodaction" value="insertQuestion">提問</button>
 								<button class='btn btn-primary' type="button" onclick="window.location = '/GSStravel/QandAServlet?role=false';">回上一頁</button>
 							</th>
 						</tr>

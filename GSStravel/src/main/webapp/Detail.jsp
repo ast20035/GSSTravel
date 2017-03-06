@@ -25,7 +25,7 @@
 		position:fixed;
 		top:0;
 		z-index: -1;
-		opacity: 0.2;
+		opacity: 0.4;
 		height:100%;
 		width: 100%;
 	}
@@ -225,7 +225,7 @@ margin-right: 3%;
 					<br />
 					<input type="hidden" name="detailPage" class="detailPage">
 					<input type="hidden" name="detailTag" class="detailTag" value="${tag}">
-					<button type="submit" name="prodaction" value="insert" class='btn btn-primary'>新增</button>
+					<button type="submit" name="prodaction" value="insert" class='btn btn-success'>新增</button>
 					
 					<button type="submit" name="excel" value="全部資料" class='excel1 btn btn-primary' style='display: none;'>匯出Excel</button>
 					<button type="submit" name="excel" value="已報名" class='excel2 btn btn-primary' style='display: none;'>匯出Excel</button>

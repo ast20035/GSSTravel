@@ -22,8 +22,6 @@ public class QandAServlet extends HttpServlet {
 		int question_Category=-1;
 		String prodaction2=request.getParameter("prodaction2");
 		String prodaction=request.getParameter("prodaction");
-		System.out.println(prodaction);
-		System.out.println(prodaction2);
 		
 		if(prodaction2!=null){
 			question_Category=Integer.parseInt(prodaction2);
@@ -51,7 +49,6 @@ public class QandAServlet extends HttpServlet {
 		list=QAService.selectALL(prodaction, question_Category);
 		
 		int count =list.size();
-		System.out.println(count);
 		request.setAttribute("count", count);
 		request.setAttribute("list", list);
 		request.setAttribute("role", role);

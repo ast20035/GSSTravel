@@ -11,7 +11,7 @@
 		position:fixed;
 		top:0;
 		z-index: -1;
-		opacity: 0.2;
+		opacity: 0.4;
 		height:100%;
 		width: 100%;
 	}
@@ -158,8 +158,8 @@ text-align: center;
 						*親友為旁系三等親以上及朋友，不納入補助計算<br> <br>
 						<!--新增、儲存 -->
 
-					<input type="button" value="新增親友/眷屬" id="insert" name="button" class='btn btn-primary'> <span>${error.famblock}</span> 
-					<input type="button" value="儲存" class='btn btn-primary' id="save" name="button">
+					<input type="button" value="新增親友/眷屬" id="insert" name="button" class='btn btn-success'> <span>${error.famblock}</span> 
+					<input type="button" value="儲存" class='btn btn-success' id="save" name="button">
 					<input type="hidden"  id="checkbox" name="checkbox">
 					<input type="hidden"  id="multiselect" name="multiselect">
 					<input type="hidden"  id="errorcount" name="errorcount">
@@ -195,7 +195,7 @@ text-align: center;
 						<c:if test="${famstartsize>0}">
 							<c:forEach var="start" items="${famstart}" varStatus="aa">
 								<tr>
-									<td><input type="button" name="delete" id="delete" value="delete" class="${start.fam_Id} btn btn-danger"></td>
+									<td><input type="button" name="delete" id="delete" value="Delete" class="${start.fam_Id} btn btn-danger"></td>
 
 									<td><select name="famrel" class='form-control'
 										style="width: 80px;">
@@ -334,7 +334,7 @@ text-align: center;
 		<!-- 空白欄位  平常隱藏 按下新增時帶出空白欄位 -->
 		<tr name="repeat">
 			<td><input type="button" name="delete" id="delete"
-				class='btn btn-danger' value="delete" class="block"></td>
+				class='btn btn-danger' value="Delete" class="block"></td>
 			<td><select name="famrel" class='form-control'>
 					<option value="眷屬">眷屬</option>
 					<option value="親友">親友</option>
