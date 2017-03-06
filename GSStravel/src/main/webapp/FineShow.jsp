@@ -49,6 +49,7 @@ td>strong {
 <script>
 		var fineEmail=null;
 		var myImg=null;
+		var gss=null;
 		var close1=null;
 		var close2=null;
 		var close3=null;
@@ -62,6 +63,7 @@ td>strong {
 		window.onload = function() {
 			fineEmail = document.getElementById("FineEmail");
 			myImg = document.getElementById("img1"), xhr = null;
+			gss = document.getElementById("gss");
 			close1 = document.getElementById("close1");
 			close2 = document.getElementById("close2");
 			close3 = document.getElementById("close3");
@@ -98,6 +100,7 @@ td>strong {
 		
 		function callback() {
 			if (xhr.readyState == 1) {
+				gss.removeAttribute("href");
 				close1.removeAttribute("href");
 				close2.removeAttribute("href");
 				close3.removeAttribute("href");
@@ -111,6 +114,7 @@ td>strong {
 				fineEmail.setAttribute("disabled", "disabled");
 				wait();
 			} else if (xhr.readyState == 4) {
+				gss.setAttribute("href","<c:url value='/Board.jsp'/>");
 				close1.setAttribute("href","<c:url value='/Board.jsp'/>");
 				close2.setAttribute("href","<c:url value='/BoardMaintain.jsp'/>");
 				close3.setAttribute("href","<c:url value='/QandAServlet?role=true.jsp'/>");
@@ -168,7 +172,7 @@ td>strong {
 					<br>
 					<input class='btn btn-primary' type="button"
 						id="FineEmail" name="FineEmail" value="寄送罰則異動通知" onclick="load()" disabled="disabled"/> 
-					<img src="images/loading.gif" id="img1" style="display: none ; background-color:transparent" />
+					<img src="images/blueLoading.gif" id="img1" style="display: none ; background-color:transparent" />
 				</div>
 				<div class='col-md-7'>
 

@@ -194,7 +194,7 @@
 			}
 		}
 		if (day.length == 0) {
-			$("#FineSave").val("儲存罰則");
+			$("#FineSave").val("儲存");
 			$("#DataForm").submit();
 		}
 		for (var i = 0; i < day.length; i++) {
@@ -216,11 +216,11 @@
 					break;
 				} else if (percent[i].value > 0 && regPercent.test(percent[i].value) && percent[i].value < 100
 						&& i == day.length - 1) {
-					$("#FineSave").val("儲存罰則");
+					$("#FineSave").val("儲存");
 					$("#DataForm").submit();
 				}
 			} else if (i == day.length - 1) {
-				$("#FineSave").val("儲存罰則");
+				$("#FineSave").val("儲存");
 				$("#DataForm").submit();
 			}
 		}
@@ -251,9 +251,9 @@
 				</div>
 				<div class='col-md-5'>
 					<div class='btn-group'>
-						<input type="button" value="重新設定" name="FineReset"
+						<input type="button" value="重設" name="FineReset"
 							onclick="window.location.href=resultjs+'/FineSetting.jsp'"
-							class='btn btn-success' /> <input type="button" value="儲存罰則"
+							class='btn btn-success' /> <input type="button" value="儲存"
 							onclick="check()" class='btn btn-success' />
 					</div>
 					<input type="hidden" id="FineSave" name="FineSave" value="" />

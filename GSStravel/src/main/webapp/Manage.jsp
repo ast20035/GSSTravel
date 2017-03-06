@@ -193,7 +193,7 @@ input[readonly='readonly'] {
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="<c:url value='/Board.jsp'/>">GSS</a>
+			<a class="navbar-brand" href="<c:url value='/Board.jsp'/>" id="gss">GSS</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">

@@ -320,7 +320,7 @@ h2 {
 							var search2 = '<c:url value='/search2.jsp'/>'							
 					</script>
 					儲存後選擇是否上傳附件<br>
-					<input type="submit" value="儲存" class='btn btn-primary' /> <input
+					<input type="submit" value="儲存" class='btn btn-success' /> <input
 						type="button" value='回上一頁' class='btn btn-primary'
 						onclick="window.location.href=search2;" />
 				</form>

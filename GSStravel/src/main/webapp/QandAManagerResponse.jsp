@@ -187,19 +187,19 @@ h1, h2 {
 								</table>
 							</div>
 							<br />
-							<button type="button" class="notdisplayclass btn btn-primary"
+							<button type="button" class="notdisplayclass btn btn-success"
 								onclick="Respose()">我要回應</button>
 							<button type="button" id="response"
-								class="displayclass displaybb btn btn-primary">回應</button>
-							<img src="images/loading.gif" id="img1"
+								class="displayclass displaybb btn btn-success">回應</button>
+							<img src="images/greenLoading.gif" id="img1"
 								style="display: none; background-color: transparent" />
 							<button type="button"
-								class="displayclass btn btn-primary notimgclass"
+								class="displayclass btn btn-danger notimgclass"
 								onclick="cancelrespose()">取消</button>
 						</c:if>
 						<c:if test="${list.answer_No!=0}">
 							<button type="button" class="notdisplaybutton btn btn-success"
-								onclick="updateData()">修改</button>
+								onclick="updateData()">儲存</button>
 							<button type="submit"
 								class="displaybutton displayaa btn btn-success"
 								name="prodaction" value="updateAnswer">儲存</button>

@@ -78,13 +78,13 @@ label {
 	var x = 1;
 	function wait() {
 		if (x == 1) {
-			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-primary' value='取消報名中.'/>";
+			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-danger' value='取消報名中.'/>";
 			x++;
 		} else if (x == 2) {
-			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-primary' value='取消報名中..'/>";
+			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-danger' value='取消報名中..'/>";
 			x++;
 		} else if (x == 3) {
-			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-primary' value='取消報名中...'/>";
+			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-danger' value='取消報名中...'/>";
 			x = 1;
 		}
 		setTimeout('wait()', 1000);
@@ -225,10 +225,10 @@ label {
 										class='btn  btn-primary' onclick="window.location.href=GSS;" id="ckback" />
 										<span id="back"></span></td>
 									<td><br> <input type="submit" value="取消報名"
-										class='btn  btn-primary' id="ckCancel"
+										class='btn  btn-danger' id="ckCancel"
 										onclick="return confirmComplete();" /><span
 										id="ck"></span>
-										<span><img src="images/loading.gif" id="img" style="display: none" /></span></td>
+										<span><img src="images/redLoading.gif" id="img" style="display: none" /></span></td>
 								</tr>
 							</table>
 						</div>

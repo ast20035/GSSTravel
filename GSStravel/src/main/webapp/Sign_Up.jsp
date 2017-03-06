@@ -66,13 +66,13 @@ label {
 		document.getElementById("img").style.display = 'inline';
 		document.getElementById("back").innerHTML = "<input type='button' class='btn btn-primary' value='回上一頁' onclick='return false;'/>";
 		if (x == 1) {
-			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-primary' value='確定報名中.'/>";
+			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-success' value='確定報名中.'/>";
 			x++;
 		} else if (x == 2) {
-			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-primary' value='確定報名中..'/>";
+			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-success' value='確定報名中..'/>";
 			x++;
 		} else if (x == 3) {
-			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-primary' value='確定報名中...'/>";
+			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-success' value='確定報名中...'/>";
 			x = 1;
 		}
 		setTimeout('wait()',1000);
@@ -186,10 +186,10 @@ label {
 										class='btn btn-primary' onclick="window.location.href=GSS;" id="ckback"/>
 										<span id="back"></span></td>
 									<td>
-										<input type="submit" value="確定報名" class='btn btn-primary'
+										<input type="submit" value="確定報名" class='btn btn-success'
 										onclick="this.form.submit(); this.style.display = 'none';wait();" />
 										<span id="ck"></span>
-										<span><img src="images/loading.gif" id="img" style="display: none" /></span>
+										<span><img src="images/greenLoading.gif" id="img" style="display: none" /></span>
 									</td>
 								</tr>
 							</table>
