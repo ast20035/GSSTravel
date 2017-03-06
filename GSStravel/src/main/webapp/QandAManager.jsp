@@ -41,7 +41,7 @@
 		background-color: transparent;
 	}
 	.delBtn{
-	margin-left: 20px;
+	margin-left: 30px;
 	}
 </style>
 </head>
@@ -86,14 +86,14 @@
 						</c:if>
 					</div>
 					<br>
-						<select id="selecta" onchange="window.location = '/GSStravel/QandAServlet?role=true&prodaction2='+this.value+'&prodaction='+$('#selectb').val();" class='form-control' style='width: 140px;'>
+						<select id="selecta" onchange="window.location = '/GSStravel/QandAServlet?role=true&prodaction2='+this.value+'&prodaction='+$('#selectb').val();" class='form-control' style='width: 150px;'>
 							<option value="-1" <%if ("-1".equals(prodaction2)) { out.print("selected"); }%>>全部</option>
 							<option value="0" <%if ("0".equals(prodaction2)) { out.print("selected"); }%>>行程</option>
 							<option value="1" <%if ("1".equals(prodaction2)) { out.print("selected"); }%>>費用</option>
 							<option value="2" <%if ("2".equals(prodaction2)) { out.print("selected"); }%>>其他</option>
 						</select>
 						<br />
-						<select id="selectb" onchange="window.location = '/GSStravel/QandAServlet?role=true&prodaction='+this.value+'&prodaction2='+$('#selecta').val();" class='form-control' style='width: 140px;'>
+						<select id="selectb" onchange="window.location = '/GSStravel/QandAServlet?role=true&prodaction='+this.value+'&prodaction2='+$('#selecta').val();" class='form-control' style='width: 150px;'>
 							<option value="all" <%if ("all".equals(prodaction)) { out.print("selected"); }%>>顯示全部</option>
 							<option value="yes" <%if ("yes".equals(prodaction)) { out.print("selected"); }%>>顯示已回應</option>
 							<option value="no" <%if ("no".equals(prodaction)) { out.print("selected");  }%>>顯示未回應</option>

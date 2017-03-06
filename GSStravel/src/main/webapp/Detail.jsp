@@ -210,7 +210,7 @@ margin-right: 3%;
 									<td ><em style='width:110px;'>${row.det_CanDate}</em></td>
 									<td><input type="text" name="note" value="${row.note}" style='width:150px;'
 										class='form-control' disabled></td>
-									<td><p style='width:200px;overflow: auto;' class='form-control'>${row.det_canNote}</p></td>
+									<td><p style='width:200px;' class=''>${row.det_canNote}</p></td>
 								</tr>
 								<input type="hidden" class="detailRow" style='width:90px;' value="${row.row}">
 							</c:forEach>
