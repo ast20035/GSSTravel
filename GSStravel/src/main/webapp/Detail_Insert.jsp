@@ -79,7 +79,7 @@ table {
 							<td><input type="text" id="emp_No" name="emp_No"
 								style='width: 65px;' class='form-control'
 								onblur="select_emp_No()" onfocus="clearName()"></td>
-							<td><select id="select" name="select" onchange="checkbox()"
+							<td><select id="select" name="select" onchange="checkbox()" style='width:150px;'
 								class='form-control select'></select></td>
 							<td><input type="text" id="money" name="money"
 								class="money form-control" value="${money}" readonly></td>
