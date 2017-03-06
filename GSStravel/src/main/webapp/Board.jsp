@@ -37,7 +37,7 @@
 	}
 	iframe{
  		margin-left: 90px; 
-		z-index: 10;
+		z-index: -1;
 	}
 	#QA{
 		margin-left: 90px;
@@ -170,7 +170,7 @@
 		</div>
 		<br>
 		<div class='row'>
-			<div class='col-md-offset-1 col-md-5'>
+			<div class='col-md-offset-1 col-md-5 col-sm-12'>
 				<h4 style='color: #FF5511; font-weight: bold;'>公告</h4>
 				<select id="day" name="day" onchange="optionTime()"
 					class='form-control' style='width: 160px;'>
