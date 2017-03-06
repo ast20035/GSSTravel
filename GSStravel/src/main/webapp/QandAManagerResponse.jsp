@@ -137,8 +137,7 @@ h1, h2 {
 					<thead>
 						<tr>
 							<th><label style='text-align: center;'>標題</label></th>
-							<td colspan="2"><b
-								style='font-size: 20px; font-weight: 900;'>${list.question_Title}</b></td>
+							<td colspan="2"><b style='font-size: 20px; font-weight: 900;'>${list.question_Title}</b></td>
 						</tr>
 						<tr>
 							<th>員工編號</th>
@@ -149,27 +148,24 @@ h1, h2 {
 
 					<tr>
 						<td>${list.question_No}</td>
-						<td><c:if test="${list.question_Category==0}">行程</c:if> <c:if
-								test="${list.question_Category==1}">費用</c:if> <c:if
-								test="${list.question_Category==2}">其他</c:if></td>
+						<td><c:if test="${list.question_Category==0}">行程</c:if>
+							<c:if test="${list.question_Category==1}">費用</c:if>
+							<c:if test="${list.question_Category==2}">其他</c:if>
+						</td>
 						<td>${list.question_Time}</td>
 					</tr>
 					<tr>
-						<td colspan="3" style='text-align: center;'><textarea
-								cols="70%" rows="8" readonly style='font-size: 20px;'>${list.question_Text}</textarea></td>
+						<td colspan="3" style='text-align: center;'><textarea cols="70%" rows="8" readonly style='font-size: 20px;'>${list.question_Text}</textarea></td>
 					</tr>
 				</table>
 				<form action='<c:url value="/QandAInsertServlet?role=true"/>' method="POST">
-					<input type="hidden" name="qa_No" class="qa_No"
-						value="${list.qa_No}"> <input type="hidden"
-						name="answer_No" class="answer_No"
-						value="<%=session.getAttribute("emp_No")%>">
+					<input type="hidden" name="qa_No" class="qa_No" value="${list.qa_No}">
+					<input type="hidden" name="answer_No" class="answer_No" value="<%=session.getAttribute("emp_No")%>">
 					<c:if test="${list.answer_No!=0}">
 						<table class='table'>
 							<h2>回應</h2>
 							<tr>
-								<td><textarea class="Ans_textarea" name="answer_Text" cols="70%" rows="8"
-										style='font-size: 20px;' readonly="readonly">${list.answer_Text}</textarea></td>
+								<td><textarea class="Ans_textarea" name="answer_Text" cols="70%" rows="8" style='font-size: 20px;' readonly="readonly">${list.answer_Text}</textarea></td>
 							</tr>
 						</table>
 					</c:if>
@@ -180,36 +176,23 @@ h1, h2 {
 								<table>
 									<tr>
 										<td>回應內容</td>
-										<td><textarea class="answer_Text" name="answer_Text"
-												cols="70%" rows="8"></textarea></td>
+										<td><textarea class="answer_Text" name="answer_Text" cols="70%" rows="8"></textarea></td>
 									</tr>
 								</table>
 							</div>
 							<br />
-							<button type="button" class="notdisplayclass btn btn-success"
-								onclick="Respose()">我要回應</button>
-							<button type="button" id="response"
-								class="displayclass displaybb btn btn-success">回應</button>
-							<img src="images/greenLoading.gif" id="img1"
-								style="display: none; background-color: transparent" />
-							<button type="button"
-								class="displayclass btn btn-danger notimgclass"
-								onclick="cancelrespose()">取消</button>
+							<button type="button" class="notdisplayclass btn btn-success" onclick="Respose()">我要回應</button>
+							<button type="button" id="response" class="displayclass displaybb btn btn-success">回應</button>
+							<img src="images/greenLoading.gif" id="img1" style="display: none; background-color: transparent" />
+							<button type="button" class="displayclass btn btn-danger notimgclass" onclick="cancelrespose()">取消</button>
 						</c:if>
 						<c:if test="${list.answer_No!=0}">
-							<button type="button" class="notdisplaybutton btn btn-success"
-								onclick="updateData()">儲存</button>
-							<button type="submit"
-								class="displaybutton displayaa btn btn-success"
-								name="prodaction" value="updateAnswer">儲存</button>
-							<button type="button" class="displaybutton btn btn-primary"
-								onclick="cancel()">取消</button>
+							<button type="button" class="notdisplaybutton btn btn-success" onclick="updateData()">儲存</button>
+							<button type="submit" class="displaybutton displayaa btn btn-success" name="prodaction" value="updateAnswer">儲存</button>
+							<button type="button" class="displaybutton btn btn-primary" onclick="cancel()">取消</button>
 						</c:if>
-						<button type="button"
-							class="notdisplayclass notdisplaybutton btn btn-danger"
-							onclick="checkdelete()">刪除</button>
-						<button type="button"
-							class="notdisplaybutton btn btn-primary goback">回上一頁</button>
+						<button type="button" class="notdisplayclass notdisplaybutton btn btn-danger" onclick="checkdelete()">刪除</button>
+						<button type="button" class="notdisplaybutton btn btn-primary goback">回上一頁</button>
 					</c:if>
 					<br />
 				</form>
