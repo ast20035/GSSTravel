@@ -75,20 +75,20 @@ margin-right: 3%;
 							<th><label style='width:120px;'></label></th>
 							<th><label style='width:80px;'>員工編號</label></th>
 							<th><label style='width:50px;'>身份</label></th>
-							<th>姓名</th>
-							<th>性別</th>
-							<th>身份證字號</th>
-							<th>生日</th>
-							<th>手機</th>
-							<th>用餐/車位</th>
+							<th><label style='width:50px;'>姓名</label></th>
+							<th><label style='width:50px;'>性別</label></th>
+							<th><label style='width:100px;'>身份證字號</label></th>
+							<th><label style='width:70px;'>生日</label></th>
+							<th><label style='width:70px;'>手機</label></th>
+							<th><label style='width:100px;'>用餐/車位</label></th>
 							<th><label style='width:80px;'>特殊身份</label></th>
-							<th>保險受益人</th>
+							<th><label style='width:110px;'>保險受益人</label></th>
 							<th><label style='width:100px;'>與受益人關係</label></th>
-							<th>緊急聯絡人</th>
+							<th><label style='width:110px;'>緊急聯絡人</label></th>
 							<th><label style='width:120px;'>緊急聯絡人手機</label></th>
 							<th><label style='width:200px;'>報名時間</label></th>
 							<th><label style='width:200px;'>取消日期</label></th>
-							<th>備註</th>
+							<th><label style='width:60px;'>備註</label></th>
 							<th><label style='width:80px;'>取消原因</label></th>
 						</tr>
 					</thead>
