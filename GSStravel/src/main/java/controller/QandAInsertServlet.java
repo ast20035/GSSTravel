@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
 
 import model.EmployeeService;
 import model.EmployeeVO;
@@ -36,11 +34,13 @@ public class QandAInsertServlet extends HttpServlet {
 		if ("insertQuestion".equals(prodaction)) {
 			QandAVO bean = new QandAVO();
 			String temp = request.getParameter("Question_No");
-			String tra_No = request.getParameter("Select");
+			String temp3 = request.getParameter("Select");
 			String temp2 = request.getParameter("radio");
 			String Qestion_Title = request.getParameter("Qestion_Title");
 			String Qestion_Text = request.getParameter("Qestion_Text");
+			System.out.println("temp3="+temp3);
 			int Question_No = Integer.parseInt(temp);
+			int question_Category=Integer.parseInt(temp3);
 			boolean question_secret = Boolean.parseBoolean(temp2);
 			if (Qestion_Title.trim().length() == 0) {
 				Msg.put("message", "詢問標題不可為空值");
@@ -53,7 +53,7 @@ public class QandAInsertServlet extends HttpServlet {
 				return;
 			}
 			bean.setQuestion_No(Question_No);
-			bean.setTra_No(tra_No);
+			bean.setQuestion_Category(question_Category);
 			bean.setQuestion_Title(Qestion_Title);
 			bean.setQuestion_Text(Qestion_Text);
 			bean.setQuestion_secret(question_secret);
@@ -148,8 +148,7 @@ public class QandAInsertServlet extends HttpServlet {
 		}
 		
 		// 刪除一定時間內的筆數
-		if ("Years".equals(prodaction) || "9month".equals(prodaction) || "6month".equals(prodaction)
-				|| "3month".equals(prodaction)) {
+		if ("Years".equals(prodaction) || "9month".equals(prodaction) || "6month".equals(prodaction) || "3month".equals(prodaction)) {
 			b = QAService.delete(prodaction);
 			if (b) {
 				Msg.put("message", "刪除成功");

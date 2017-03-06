@@ -42,6 +42,7 @@
 	#QA{
 		margin-left: 90px;
 	}
+}
 </style>
 <script>
 	window.onload = function() {
@@ -113,7 +114,8 @@
 						a.setAttribute("style", "color:red");
 						var img = document.createElement("img");
 						img.setAttribute("src", "images/important.gif");
-						img.setAttribute("style", "background-color:transparent");
+						img.setAttribute("style",
+								"background-color:transparent");
 						td.appendChild(img);
 					}
 					if (board[i].important == 2) {
@@ -125,10 +127,8 @@
 				}
 				var count = board.length;
 				$("#myul").find("li").remove();
-				$("#myul")
-						.append(
-								'<li><a role="button" onclick="before()">&laquo;</a></li>');
-				var sum = Math.ceil(count / 10);
+				$("#myul").append('<li><a role="button" onclick="before()">&laquo;</a></li>');
+				var sum = Math.ceil(count / 15);
 				for (var a = 0; a < sum; a++) {
 					if (a == 0) {
 						$("#myul").append(
@@ -165,13 +165,13 @@
 		<div class='row'>
 			<div class='col-md-1'></div>
 			<div class='col-md-11'>
-				<h2>首頁</h2>
+				<h2>公告</h2>
 			</div>
 		</div>
 		<br>
 		<div class='row'>
-			<div class='col-md-offset-1 col-md-5 col-sm-12'>
-				<h4 style='color: #FF5511; font-weight: bold;'>公告</h4>
+			<div class='col-md-offset-1 col-md-7'>
+<!-- 				<h4 style='color: #FF5511; font-weight: bold;'>公告</h4> -->
 				<select id="day" name="day" onchange="optionTime()"
 					class='form-control' style='width: 160px;'>
 					<option value="365">過去1年的公告</option>
@@ -180,11 +180,11 @@
 					<option value="31">過去1個月的公告</option>
 					<option value="7">過去1週的公告</option>
 				</select> <br>
-				<table id="boardTable" class='table' style='width: 600px;'>
+				<table id="boardTable" class='table'>
 					<thead>
 						<tr>
-							<th><label style='width: 200px;'>公告時間</label></th>
-							<th><label style='width: 270px;'>公告標題</label></th>
+							<th><label style='width:200px;'>公告時間</label></th>
+							<th><label style='width:400px;'>公告標題</label></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -193,21 +193,22 @@
 				<ul id="myul" class="pagination">
 				</ul>
 			</div>
-			<div class='col-md-5'>
-				<h4 style='color: #FF5511;' id='QA'>Q&A</h4>
-
-				<iframe src="<c:url value='/QandAServlet?role=false' />"
-				 frameborder="0" width="105%" marginwidth="2px" height="1000px"></iframe>
-
-			</div>
 		</div>
+<!-- 		<div class='row'> -->
+<!-- 			<div class='col-md-offset-1 col-md-6'> -->
+<!-- 				<h4 style='color: #FF5511;' id='QA'>Q&A</h4> -->
+
+<%-- 				<iframe src="<c:url value='/QandAServlet?role=false' />"  --%>
+<!-- 					frameborder="0" width="1200px;" marginwidth="2px" height="600px"></iframe> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
 	</div>
 	<img src="images/Travel.jpg" id="backPic">
 </body>
 <script>
 	var i;
 	var $page = $(".page");
-	$("tr:gt(10)").css("display", "none");
+	$("tr:gt(15)").css("display", "none");
 	function next() {
 		i = $(".active");
 		$page.removeClass("active");
@@ -238,7 +239,7 @@
 	}
 	function light(i) {
 		$("tr:gt(0)").css("display", "none");
-		$("tr:gt(" + i * 10 + "):lt(" + 10 + ")").css("display", "");
+		$("tr:gt(" + i * 15 + "):lt(" + 15 + ")").css("display", "");
 	}
 </script>
 </html>

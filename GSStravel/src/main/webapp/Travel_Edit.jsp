@@ -474,7 +474,7 @@ h2 {
 
 						</tr>
 						<tr>
-							<td><em style="color: red">*</em>本團人數上限</td>
+							<td><em style="color: red">*</em>個人可報名人數</td>
 
 							<td><input type="text" name="edittraMax" id="edittraMax"
 								class='form-control' style='width: 80px;'
@@ -606,7 +606,8 @@ h2 {
 							}
 						}
 					</script>
-					<span><input type="submit" id="inputdate" name="inputerrors" value="儲存" class='btn btn-primary' onclick="getElements()">
+					<span>儲存後選擇是否上傳附件<br>
+					<input type="submit" id="inputdate" name="inputerrors" value="儲存" class='btn btn-primary' onclick="getElements()">
 						<input type="button" onclick="show_confirm()" value="取消" class='btn btn-primary'> 
 						<input
 						type="button" value='刪除行程' class='btn btn-danger' onclick="return confirmComplete();" />

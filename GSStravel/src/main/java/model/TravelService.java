@@ -20,24 +20,36 @@ public class TravelService {
 	}
 
 	public List<TravelVO> select(Integer emp_No) throws SQLException {
-		List<TravelVO> vos = travelDAO.endTravel();
-		List<TravelVO> AllVOs = travelDAO.getAll();
-		List<TravelVO> TravelVOs = travelDAO.entrtTravel(emp_No);
+		List<TravelVO> vos = travelDAO.endTravel();//活動已結束行程
+		List<TravelVO> AllVOs = travelDAO.getAll();//所有行程
+		List<TravelVO> TravelVOs = travelDAO.entrtTravel(emp_No);//員工有報名的行程
+		List<TravelVO> VOs = travelDAO.overTravel();//登記已結束行程(包含活動已結束)
 		if(TravelVOs.size()==0){
-			if (vos != null) {
-				for(int i=0;i<AllVOs.size();i++){
-					for(int j=0;j<vos.size();j++){
-						if(AllVOs.get(i).getTra_NO().equals(vos.get(j).getTra_NO())){
-							AllVOs.remove(i);
+			if (VOs != null) {
+				for(int i=0;i<VOs.size();i++){
+					for(int j=0;j<AllVOs.size();j++){
+						if(AllVOs.get(j).getTra_NO().equals(VOs.get(i).getTra_NO())){
+							AllVOs.remove(j);
 						}
 					}
 				}
 				for (TravelVO vo : AllVOs) {
 					TravelVOs.add(vo);
 				}
+				for(int i=0;i<vos.size();i++){
+					for(int j=0;j<VOs.size();j++){
+						if(VOs.get(j).getTra_NO().equals(vos.get(i).getTra_NO())){
+							VOs.remove(j);
+						}
+					}
+				}
+				for (TravelVO vo : VOs) {
+					TravelVOs.add(vo);
+				}
 				for (TravelVO vo : vos) {
 					TravelVOs.add(vo);
 				}
+				
 			}
 		}else{
 			if(AllVOs != null){
@@ -47,25 +59,37 @@ public class TravelService {
 							AllVOs.remove(j);
 						}
 					}
-				}
-				
-				if (vos != null) {
-					for(int i=0;i<AllVOs.size();i++){
-						for(int j=0;j<vos.size();j++){
-							if(AllVOs.get(i).getTra_NO().equals(vos.get(j).getTra_NO())){
-								AllVOs.remove(i);
+				}			
+				if (VOs != null) {
+					for(int i=0;i<VOs.size();i++){
+						for(int j=0;j<AllVOs.size();j++){
+							if(AllVOs.get(j).getTra_NO().equals(VOs.get(i).getTra_NO())){
+								AllVOs.remove(j);
 							}
 						}
 					}
 				}
+				
 				for (TravelVO vo : AllVOs) {
 					TravelVOs.add(vo);
 				}
+				for(int i=0;i<vos.size();i++){
+					for(int j=0;j<VOs.size();j++){
+						if(VOs.get(j).getTra_NO().equals(vos.get(i).getTra_NO())){
+							VOs.remove(j);
+						}
+					}
+				}
+				for (TravelVO vo : VOs) {
+					TravelVOs.add(vo);
+				}	
 				for (TravelVO vo : vos) {
 					TravelVOs.add(vo);
-				}			
+				}
+				
 			}
 		}	
+		
 		return TravelVOs;
 	}
 	
