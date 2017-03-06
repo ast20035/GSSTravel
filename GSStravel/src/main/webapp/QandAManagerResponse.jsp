@@ -198,10 +198,10 @@ h1, h2 {
 								onclick="cancelrespose()">取消</button>
 						</c:if>
 						<c:if test="${list.answer_No!=0}">
-							<button type="button" class="notdisplaybutton btn btn-primary"
+							<button type="button" class="notdisplaybutton btn btn-success"
 								onclick="updateData()">修改</button>
 							<button type="submit"
-								class="displaybutton displayaa btn btn-primary"
+								class="displaybutton displayaa btn btn-success"
 								name="prodaction" value="updateAnswer">儲存</button>
 							<button type="button" class="displaybutton btn btn-primary"
 								onclick="cancel()">取消</button>

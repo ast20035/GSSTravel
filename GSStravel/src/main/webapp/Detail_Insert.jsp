@@ -189,7 +189,7 @@ table {
 						</div>
 					</c:if>
 					<p class="nofam"></p>
-					<br /> <input type="submit" class="insertSave btn btn-primary"
+					<br /> <input type="submit" class="insertSave btn btn-success"
 						id="insertSave" name="prodaction" value="儲存" onclick="saveData()">
 					<input type="submit" name="prodaction" value="回前頁"
 						class='btn btn-primary'>

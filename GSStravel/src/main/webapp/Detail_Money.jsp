@@ -182,7 +182,7 @@ table {
 						<br />
 						<c:if test="${travelVO!=null}">
 							<button type="submit" name="prodaction" value="save"
-								class='btn btn-primary'>Àx¦s</button>
+								class='btn btn-success'>Àx¦s</button>
 						</c:if>
 						<input type="button" onclick="excel()" value="¶×¥XExcel"
 							class='btn btn-primary'>
