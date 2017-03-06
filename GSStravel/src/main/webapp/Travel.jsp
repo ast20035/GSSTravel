@@ -116,7 +116,7 @@ td, th {
 								<c:if test="${row.tra_Total>row.sign_InTotal}">
 									<td class="t">${row.sign_InTotal}</td>
 								</c:if>
-								<c:if test="${row.tra_Total<row.sign_InTotal}">
+								<c:if test="${row.tra_Total<=row.sign_InTotal}">
 									<td class="t">額滿</td>
 								</c:if>							
 								<td class="t">${row.tra_Max}</td>

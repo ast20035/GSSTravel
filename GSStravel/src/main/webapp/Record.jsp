@@ -19,14 +19,15 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <style type="text/css">
-#backPic{
-		position:fixed;
-		top:0;
-		z-index: -1;
-		opacity: 0.2;
-		height:100%;
-		width: 100%;
-	}
+#backPic {
+	position: fixed;
+	top: 0;
+	z-index: -1;
+	opacity: 0.2;
+	height: 100%;
+	width: 100%;
+}
+
 table, th, td {
 	border: 1px solid black;
 }
@@ -45,25 +46,30 @@ table, th, td {
 			<div class='col-lg-11'>
 				<h2>個人歷史紀錄</h2>
 			</div>
-		</div><br><br>
-		<div class='row'>
-		<div class='col-md-offset-1 col-md-1'>
-		<input type="button" class='btn btn-primary' onclick='window.location.href=resultjs+"/AllTravel";' value='報名/查詢'>
 		</div>
-			<div class='col-md-offset-0 col-md-8'>
+		<br>
+		<br>
+		<div class='row'>
+			<div class='col-md-offset-1 col-md-1'>
+				<input type="button" class='btn btn-primary'
+					onclick='window.location.href=resultjs+"/AllTravel";' value='報名/查詢'>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-md-offset-1 col-md-8'>
 				<br>
 				<c:if test="${counts!=0}">
 					<table class='table'>
 						<thead>
 							<tr>
-								<th><label style='width:100px;'>行程編號</label></th>
-								<th><label style='width:300px;'>行程名稱</label></th>
-								<th><label style='width:150px;'>行程開始日</label></th>
-								<th><label style='width:150px;'>行程結束日</label></th>
-								<th><label style='width:200px;'>登記日</label></th>
-								<th><label style='width:200px;'>取消日</label></th>
-								<th><label style='width:70px;'>狀態</label></th>
-								<th><label style='width:80px;'>費用</label></th>
+								<th><label style='width: 100px;'>行程編號</label></th>
+								<th><label style='width: 300px;'>行程名稱</label></th>
+								<th><label style='width: 150px;'>行程開始日</label></th>
+								<th><label style='width: 150px;'>行程結束日</label></th>
+								<th><label style='width: 200px;'>登記日</label></th>
+								<th><label style='width: 200px;'>取消日</label></th>
+								<th><label style='width: 70px;'>狀態</label></th>
+								<th><label style='width: 80px;'>費用</label></th>
 							</tr>
 						</thead>
 						<c:forEach var="row" items="${record}">
@@ -81,17 +87,17 @@ table, th, td {
 					</table>
 					共${counts}筆 
 				<br />
-				<ul class="pagination">
-					<li><a onclick="before()">&laquo;</a></li>
-					<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
-					<c:if test="${Math.ceil(counts/2)!=0}">
-						<c:forEach var="i" begin="1" end="${Math.ceil(counts/10)-1}">
-							<li class="page" onclick="page(this)" value="${i}"><a>${i+1}</a></li>
-						</c:forEach>
-					</c:if>
-					<li><a onclick="next()">&raquo;</a></li>
-				</ul>
-				<br />
+					<ul class="pagination">
+						<li><a onclick="before()">&laquo;</a></li>
+						<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
+						<c:if test="${Math.ceil(counts/2)!=0}">
+							<c:forEach var="i" begin="1" end="${Math.ceil(counts/10)-1}">
+								<li class="page" onclick="page(this)" value="${i}"><a>${i+1}</a></li>
+							</c:forEach>
+						</c:if>
+						<li><a onclick="next()">&raquo;</a></li>
+					</ul>
+					<br />
 				</c:if>
 				<c:if test="${counts==0}">
 					<h1 style='font-size: 60px;'>目前沒有任何歷史訊息</h1>
@@ -137,5 +143,5 @@ table, th, td {
 		$("tr:gt(0)").css("display", "none");
 		$("tr:gt(" + i * 10 + "):lt(" + 10 + ")").css("display", "");
 	}
-	</script>
+</script>
 </html>
