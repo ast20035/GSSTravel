@@ -57,7 +57,7 @@ td, th {
 	<%@include file="SelectBar.jsp"%>
 	<script>
 		$('.navbar-nav>li').removeClass('now');
-		$('.navbar-nav>li:eq(1)').addClass('now');
+		$('.navbar-nav>li:eq(2)').addClass('now');
 	</script>
 	<div class='container-fluid'>
 
@@ -67,7 +67,7 @@ td, th {
 				<h2>報名／查詢</h2>
 				<br>
 				<h4 style="color: red">說明:當取消報名時，將該員工的所有名額一起取消，再重新報名，以避免排名不公</h4>
-				<br> <input type="button" value='歷史紀錄'
+				<br> <input type="button" value='個人歷史紀錄'
 					onclick='window.location.href=resultjs+"/Record"'
 					class='btn btn-primary' />
 			</div>
@@ -84,9 +84,9 @@ td, th {
 							<th class="t">活動結束</th>
 							<th class="t">登記開始</th>
 							<th class="t">登記結束</th>
-							<th class="t">登記活動人數限制</th>
+							<th class="t">活動總人數上限</th>
 							<th class="t">目前已報名人數</th>
-							<th class="t">員工可報名總人數</th>
+							<th class="t">個人可報名人數</th>
 							<th class="t">報名</th>
 						</tr>
 					</thead>

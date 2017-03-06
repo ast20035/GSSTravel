@@ -59,7 +59,7 @@ text-align: center;
 	<%@include file="SelectBar.jsp"%>
 	<script>
 		$('.navbar-nav>li').removeClass('now');
-		$('.navbar-nav>li:eq(2)').addClass('now');
+		$('.navbar-nav>li:eq(3)').addClass('now');
 	</script>
 
 	<div class='container-fluid'>
@@ -177,19 +177,19 @@ text-align: center;
 							<tr id='sss'>
 								<th></th>
 								<th><label style="width:90px;"><em style="color: red">*</em>眷屬/親友</label></th>
-								<th><label><em style="color: red">*</em>姓名</label></th>
+								<th><label style="width:60px;"><em style="color: red">*</em>姓名</label></th>
 								<th><label style="width:60px;"><em style="color: red">*</em>性別</label></th>
-								<th><label><em style="color: red">*</em>身份證字號</label></th>
-								<th><label><em style="color: red">*</em>生日</label></th>
-								<th><label><em style="color: red">*</em>手機</label></th>
-								<th><label>用餐/車位</label></th>
+								<th><label style="width:150px;"><em style="color: red">*</em>身份證字號</label></th>
+								<th><label style="width:90px;"><em style="color: red">*</em>生日</label></th>
+								<th><label style="width:70px;"><em style="color: red">*</em>手機</label></th>
+								<th><label style="width:150px;">用餐/車位</label></th>
 								<th><label style="width:350px;">特殊身份</label></th>
-								<th><label><em style="color: red">*</em>保險受益人</label></th>
+								<th><label style="width:150px;"><em style="color: red">*</em>保險受益人</label></th>
 								<th><label style="width:120px;"><em style="color: red">*</em>保險受益人關係</label></th>
-								<th><label><em style="color: red">*</em>緊急聯絡人</label></th>
+								<th><label style="width:120px;"><em style="color: red">*</em>緊急聯絡人</label></th>
 								<th><label style="width:120px;"><em style="color: red">*</em>緊急聯絡人電話</label></th>
 								<th><label style="width:120px;"><em style="color: red">*</em>緊急聯絡人關係</label></th>
-								<th><label>備註</label></th>
+								<th><label style="width:90px;">備註</label></th>
 							</tr>
 						</thead>
 						<c:if test="${famstartsize>0}">
@@ -232,7 +232,7 @@ text-align: center;
 										value="${start.fam_Bdate}" />
 										</td>
 									<td><input type="text" name="famphone" id="famphone"
-										style='width: 90px;' class='form-control'
+										style='width: 110px;' class='form-control'
 										value="${start.fam_Phone}">
 										</td>
 									<td><select name="fameat" style='width: 100px;'

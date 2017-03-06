@@ -31,7 +31,7 @@ table, th, td {
 	border: 1px solid black;
 }
 </style>
-<title>歷史紀錄</title>
+<title>個人歷史紀錄</title>
 </head>
 <body>
 	<%@include file="SelectBar.jsp"%>
@@ -43,7 +43,7 @@ table, th, td {
 		<div class='row'>
 			<div class='col-lg-1'></div>
 			<div class='col-lg-11'>
-				<h2>歷史紀錄</h2>
+				<h2>個人歷史紀錄</h2>
 			</div>
 		</div><br><br>
 		<div class='row'>
