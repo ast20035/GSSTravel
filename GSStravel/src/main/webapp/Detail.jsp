@@ -524,7 +524,6 @@ function open_Can(obj) {
     var CanUrl = '/GSStravel/Detail_Cancel.jsp?can_detNo=' + obj.value + "&can_traNo=" + document.getElementById("tra_no").value;
     window.open(CanUrl, '_bank', 'width=300,height=250,top=100,left=400');
 };
-
 //警告視窗
 var CanError="<%=session.getAttribute("CanError")%>";
 <%session.removeAttribute("CanError");%>
