@@ -26,6 +26,7 @@ public class FamilyDAO implements IFamilyDAO {
 		}		
 	}
 	private static final String selectFam="select * from Family where emp_No=?";
+//	private static final String select="select * from Family";
 	private static final String selectfam_No="select fam_No from Family where fam_Name=?";
 	private static final String selectfam_byid="select fam_NO from Family where fam_ID=?";
 	private static final String selectfam_Rel="select fam_Rel from Family where emp_No=? and fam_Name=?";

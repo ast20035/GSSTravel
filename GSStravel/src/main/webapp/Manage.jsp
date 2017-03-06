@@ -18,14 +18,15 @@
 	});
 </script>
 <style>
-#backPic{
-		position:fixed;
-		top:0;
-		z-index: -1;
-		opacity: 0.2;
-		height:100%;
-		width: 100%;
-	}
+#backPic {
+	position: fixed;
+	top: 0;
+	z-index: -1;
+	opacity: 0.2;
+	height: 100%;
+	width: 100%;
+}
+
 table {
 	color: #7F7F7F;
 	font: 0.8em/1.6em "Trebuchet MS", Verdana, sans-serif;
@@ -97,7 +98,7 @@ tbody a:visited:after {
 }
 
 .nav>li>a {
-	font-size: 15px;
+	font-size: 14px;
 	color: white;
 	font-weight: normal;
 }
@@ -162,8 +163,8 @@ h1, h2 {
 }
 
 .Mnow {
-	border-left: 3px solid blue;
-	border-right: 3px solid blue;
+	border-left: 5px solid blue;
+	border-right: 5px solid blue;
 }
 
 .navbar-brand {
@@ -176,6 +177,10 @@ h1, h2 {
 
 .nav>li>#aBar:focus {
 	color: black;
+}
+
+input[readonly='readonly'] {
+	background-color: transparent;
 }
 </style>
 <nav class="navbar navbar-fixed-top topBar navbar">
@@ -193,16 +198,12 @@ h1, h2 {
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<li role="presentation"><a href="<c:url value='/Board.jsp'/>"
-					id="close1">回首頁</a></li>
+					id="close1">回公告</a></li>
 				<c:if test='${emp_Role eq true}'>
-					<li class='dropdown'><a class='dropdown-toggle' href='#'
-						id='aBar' role="button" data-toggle="dropdown">首頁管理<span
-							class="caret"></span></a>
-						<ul class='dropdown-menu'>
-							<li><a href="<c:url value='/BoardMaintain.jsp'/>"
-								id="close6">公告維護</a></li>
-							<li><a href="<c:url value='/QandAServlet?role=true'/>" id="close7">Q&A維護</a></li>
-						</ul></li>
+					<li><a href="<c:url value='/BoardMaintain.jsp'/>"
+						id="close8">公告維護</a></li>
+					<li><a href="<c:url value='/QandAServlet?role=true'/>"
+						id="close7">Q&A維護</a></li>
 					<li><a href="<c:url value='/search2.jsp'/>" id="close2">行程維護</a></li>
 					<li><a href="<c:url value='/search.jsp'/>" id="close3">報名維護</a></li>
 					<li><a class='dropdown-toggle' role="button"

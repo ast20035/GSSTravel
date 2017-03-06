@@ -78,6 +78,7 @@ public class FamilyServlet extends HttpServlet {
 //		String ajaxfamname=req.getParameter("famnameajax");
 		String ajaxemail = req.getParameter("email");
 		String ajaxrepeatfamid=req.getParameter("repeatfamid");
+		String ajaxwebfamid= req.getParameter("webfamid");
 		PrintWriter out = res.getWriter();//ajax輸出???
 		
 		HttpSession session = req.getSession();
@@ -99,21 +100,25 @@ public class FamilyServlet extends HttpServlet {
 		
 		//判斷原來的親屬身分證有沒有重複
 				if(ajaxrepeatfamid != null) {
-					for(String xx: id){
-						
+					List<String>webid=new ArrayList<String>();
+					String webfamid=ajaxwebfamid.replace("[", "").replace("]", "").replace("\"", "").replace(",", "");
+
+					for(int i=0;i<webfamid.length();){
+						String xxxx = webfamid.substring(i,i+10);
+						i=i+10;
+						webid.add(xxxx);	
 					}
-//					System.out.println(ajaxrepeatfamid+"++++++");
-//					 int famno= familyservice.selectfam_byid(ajaxrepeatfamid);
-//					List<String> idnotmyself= familyservice.selectid_not_myself(famno);
-//					for(String xxx: idnotmyself){
-//						System.out.println(xxx);
-//						if(ajaxrepeatfamid.contains(xxx)){
-//							out.print("repeat");
-//						}else{
-//							out.print("");
-//						}
-//					}
-//					
+					int k=0;
+					for(int j=0;j<webid.size();j++){
+						if(webid.get(j).equals(ajaxrepeatfamid)){
+							k++;
+						}
+					}
+					if(k>=2){
+						out.print("repeat");
+					}else{
+						out.print("");
+					}
 				}
 		
 				
@@ -335,7 +340,7 @@ public class FamilyServlet extends HttpServlet {
 
 					
 					
-					if (id.contains(famid[i]) == true) {//資料庫找身分證是否重複 有重複用update 沒有重複用insert
+					if (id.contains(famid[i]) == true ) {//資料庫找身分證是否重複 有重複用update 沒有重複用insert
 						
 						String value = selectvalue[i].replace("[", "").replace("]", "").replace(",","").replace("\"", "");
 //						System.out.println(selectvalue[i]);

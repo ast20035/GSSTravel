@@ -4,8 +4,8 @@ import java.util.List;
 
 public class QandAService {
 	IQandADAO qaDAO=new QandADAO();
-	public List<QandAVO> selectALL(String prodaction){
-		return qaDAO.selectALL(prodaction);
+	public List<QandAVO> selectALL(String prodaction , int question_Category){
+		return qaDAO.selectALL(prodaction,question_Category);
 	}
 	public boolean insertQuestion(QandAVO bean){
 		return qaDAO.insertQuestion(bean);

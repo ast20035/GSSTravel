@@ -37,8 +37,8 @@ public class loginCheck implements Filter {
 		String path = servletRequest.getRequestURI();
 		String pro = servletRequest.getContextPath();
 
-		if (path.indexOf("login") > -1 || path.length() <= 12 || path.indexOf("jquery") > -1
-				|| path.indexOf("images") > -1) {
+		if (path.indexOf("login") > -1 || path.length() <= 12 || path.indexOf("jquery") > -1 || path.indexOf("Summer") > -1
+				|| path.indexOf("images") > -1 || path.indexOf("css") > -1 || path.indexOf("script") > -1) {
 
 			;
 		} else if (session.getAttribute("emp_No") == null || "".equals(session.getAttribute("emp_No"))) {

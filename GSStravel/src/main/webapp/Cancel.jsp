@@ -29,14 +29,10 @@
 	}
 .a {
 	text-decoration: none;
-	color: black;
+	color: white;
 }
 
-table {
-	font-size: 15px;
-}
-
-.table1 {
+.col-lg-2 {
 	text-align: center;
 }
 
@@ -44,6 +40,22 @@ table {
 	margin-top: 2%;
 }
 
+.table1, .table2 {
+	font-size: 17px;
+}
+
+.table-bordered {
+	text-align: center;
+}
+
+.form-control {
+	font-size: 15px;
+	background-color: white;
+}
+
+label {
+	text-align: left;
+}
 .iii {
 	text-align: left;
 }
@@ -53,6 +65,7 @@ table {
 	function confirmComplete() {
 		var answer = confirm("是否確定要取消???");
 		if (answer == true) {
+			document.getElementById("img").style.display = 'inline';
 			document.getElementById("ckback").style.display = 'none';
 			document.getElementById("back").innerHTML = "<input type='button' class='btn btn-primary' value='回上一頁' onclick='return false;'/>";
  			document.getElementById("ckCancel").style.display = 'none';
@@ -89,7 +102,7 @@ table {
 							<h1>-本團報名資訊-</h1>
 						</div>
 						<div class='panel-body'>
-							<table class='table table-condensed'>
+							<table class='table table-condensed table1'>
 								<tr>
 									<td>活動名稱:</td>
 									<td><input type="hidden" value="${tra_Vo.tra_Name}"
@@ -123,12 +136,12 @@ table {
 							<h1>-報名人員-</h1>
 						</div>
 						<div class='panel-body'>
-							<table class='table table-condensed'>
+							<table class='table table-condensed table2'>
 								<tr>
 									<td>員編:</td>
 									<td><input type="hidden" value="${emp_No}" name="emp_No"
 										readonly><label
-										style="border-style: none; color: #7700BB; width: 300px;">${emp_No}</label>
+										style="border-style: none; color: #7700BB; width:150px;">${emp_No}</label>
 									</td>
 								</tr>
 								<tr>
@@ -146,7 +159,7 @@ table {
 								</tr>
 								<tr>
 									<td colspan="2"><c:if test="${familySize>0}">
-											<table class='table table-bordered table1'>
+											<table class='table table-bordered'>
 												<tr>
 													<th></th>
 													<th>眷屬/親友</th>
@@ -163,7 +176,7 @@ table {
 											</table>
 										</c:if> <br> <c:if test="${tra_Vo.tra_On!=tra_Vo.tra_Off}">
 
-											<table class='table table-bordered table1'>
+											<table class='table table-bordered'>
 												<tr>
 													<th></th>
 													<th>房型</th>
@@ -214,7 +227,8 @@ table {
 									<td><br> <input type="submit" value="取消報名"
 										class='btn  btn-primary' id="ckCancel"
 										onclick="return confirmComplete();" /><span
-										id="ck"></span></td>
+										id="ck"></span>
+										<span><img src="images/loading.gif" id="img" style="display: none" /></span></td>
 								</tr>
 							</table>
 						</div>

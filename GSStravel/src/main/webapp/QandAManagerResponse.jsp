@@ -80,16 +80,17 @@ tbody a:visited:after {
 }
 </style>
 <style type="text/css">
-#backPic{
-		position:fixed;
-		top:0;
-		z-index: -1;
-		opacity: 0.2;
-		height:100%;
-		width: 100%;
-	}
-.color-red{
-	border-color:red
+#backPic {
+	position: fixed;
+	top: 0;
+	z-index: -1;
+	opacity: 0.2;
+	height: 100%;
+	width: 100%;
+}
+
+.color-red {
+	border-color: red
 }
 
 .color-green {
@@ -101,9 +102,10 @@ textarea {
 }
 
 td {
-border:1px solid #AAAAAA;
+	border: 1px solid #AAAAAA;
 	padding: 10px;
 }
+
 h1, h2 {
 	color: #7744FF;
 	font-weight: bolder;
@@ -116,6 +118,11 @@ h1, h2 {
 </style>
 </head>
 <body>
+	<%@include file="Manage.jsp"%>
+	<script>
+		$('.navbar-nav>li').removeClass('Mnow');
+		$('.navbar-nav>li:eq(2)').addClass('Mnow');
+	</script>
 	<div class='container-fluid'>
 		<div class='row'>
 			<div class='col-md-1'></div>
@@ -127,38 +134,43 @@ h1, h2 {
 			<div class='col-md-offset-3 col-md-5'>
 				<h3></h3>
 				<table class='table'>
-
 					<thead>
-					<tr>
-					<th ><label style='text-align: center;'>標題</label></th>
-					<td colspan="2"><b style='font-size:20px; font-weight:900;'>${list.question_Title}</b></td>
-					</tr>
+						<tr>
+							<th><label style='text-align: center;'>標題</label></th>
+							<td colspan="2"><b
+								style='font-size: 20px; font-weight: 900;'>${list.question_Title}</b></td>
+						</tr>
 						<tr>
 							<th>員工編號</th>
-							<th>旅遊編號</th>
+							<th>提問類型</th>
 							<th>發問時間</th>
 						</tr>
 					</thead>
 
 					<tr>
 						<td>${list.question_No}</td>
-						<td>${list.tra_No}</td>
+						<td><c:if test="${list.question_Category==0}">行程</c:if> <c:if
+								test="${list.question_Category==1}">費用</c:if> <c:if
+								test="${list.question_Category==2}">其他</c:if></td>
 						<td>${list.question_Time}</td>
 					</tr>
 					<tr>
-						<td colspan="3" style='text-align: center;'><textarea cols="70%" rows="8" readonly style='font-size: 20px;'>${list.question_Text}</textarea></td>
+						<td colspan="3" style='text-align: center;'><textarea
+								cols="70%" rows="8" readonly style='font-size: 20px;'>${list.question_Text}</textarea></td>
 					</tr>
 				</table>
 				<form action='<c:url value="/QandAInsertServlet?role=true"/>'
 					method="POST">
-					<input type="hidden" name="qa_No" value="${list.qa_No}"> <input
-						type="hidden" name="answer_No"
+					<input type="hidden" name="qa_No" class="qa_No"
+						value="${list.qa_No}"> <input type="hidden"
+						name="answer_No" class="answer_No"
 						value="<%=session.getAttribute("emp_No")%>">
 					<c:if test="${list.answer_No!=0}">
 						<table class='table'>
 							<h2>回應</h2>
 							<tr>
-								<td><textarea name="answer_Text" class="Ans_textarea" cols="70%" rows="8" style='font-size: 20px;' readonly="readonly">${list.answer_Text}</textarea></td>
+								<td><textarea name="answer_Text" cols="70%" rows="8"
+										style='font-size: 20px;' readonly="readonly">${list.answer_Text}</textarea></td>
 							</tr>
 						</table>
 					</c:if>
@@ -169,22 +181,36 @@ h1, h2 {
 								<table>
 									<tr>
 										<td>回應內容</td>
-										<td><textarea class="answer_Text" name="answer_Text" cols="70%" rows="8"></textarea></td>
+										<td><textarea class="answer_Text" name="answer_Text"
+												cols="70%" rows="8"></textarea></td>
 									</tr>
 								</table>
 							</div>
 							<br />
-							<button type="button" class="notdisplayclass btn btn-primary" onclick="Respose()">我要回應</button>
-							<button type="submit" name="prodaction" value="insertAnswer" class="displayclass displaybb btn btn-primary">回應</button>
-							<button type="button" class="displayclass btn btn-primary" onclick="cancelrespose()">取消</button>
+							<button type="button" class="notdisplayclass btn btn-primary"
+								onclick="Respose()">我要回應</button>
+							<button type="button" id="response"
+								class="displayclass displaybb btn btn-primary">回應</button>
+							<img src="images/loading.gif" id="img1"
+								style="display: none; background-color: transparent" />
+							<button type="button"
+								class="displayclass btn btn-primary notimgclass"
+								onclick="cancelrespose()">取消</button>
 						</c:if>
 						<c:if test="${list.answer_No!=0}">
-							<button type="button" class="notdisplaybutton btn btn-primary" onclick="updateData()">修改</button>
-							<button type="submit" class="displaybutton displayaa btn btn-primary" name="prodaction" value="updateAnswer">儲存</button>
-							<button type="button" class="displaybutton btn btn-primary" onclick="cancel()">取消</button>
+							<button type="button" class="notdisplaybutton btn btn-primary"
+								onclick="updateData()">修改</button>
+							<button type="submit"
+								class="displaybutton displayaa btn btn-primary"
+								name="prodaction" value="updateAnswer">儲存</button>
+							<button type="button" class="displaybutton btn btn-primary"
+								onclick="cancel()">取消</button>
 						</c:if>
-						<button type="button" class="notdisplayclass notdisplaybutton btn btn-danger" onclick="checkdelete()">刪除</button>
-						<button type="button" class="notdisplaybutton btn btn-primary goback">回上一頁</button>
+						<button type="button"
+							class="notdisplayclass notdisplaybutton btn btn-danger"
+							onclick="checkdelete()">刪除</button>
+						<button type="button"
+							class="notdisplaybutton btn btn-primary goback">回上一頁</button>
 					</c:if>
 					<br />
 				</form>
@@ -200,7 +226,45 @@ h1, h2 {
 	if(${Msg!=null}){
 		alert("${Msg.message}");
 	}
-	
+	$("#response").click(function(){
+		$(".notimgclass").hide();
+		$(".goback").hide();
+		$("#img1").show();
+		$("#response").prop("disabled",true);
+		wait(1);
+		$.ajax({
+			type:"POST",
+			url: "/GSStravel/QandAInsertServlet" ,
+			data:{
+				role:"true",
+				prodaction:"insertAnswer",
+				qa_No:$(".qa_No").val(),
+				answer_No :$(".answer_No").val(),
+				answer_Text:$(".answer_Text").val()
+			},
+			dataType:"text",
+			success : function(data){
+				$("#img1").hide();
+				alert("回應成功");
+				window.location = '<c:url value="/QandAServlet?role=true" />';
+			}
+		});
+	});
+	function wait(x) {	
+		x=Number(x);
+		console.log(x);
+		if (x == 1) {
+			$("#response").text("Email寄送中.");
+			x = 2;
+		} else if (x == 2) {
+			$("#response").text("Email寄送中..");
+			x = 3;
+		} else if (x == 3) {
+			$("#response").text("Email寄送中...");
+			x = 1;
+		}
+		setTimeout('wait('+x+')',1000);
+	}
 	$(".displayclass").hide();
 	$(".displaybutton").hide();
 	var Ans_textarea;

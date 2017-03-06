@@ -27,18 +27,28 @@ public class QandADAO implements IQandADAO{
 			e.printStackTrace();
 		}
 	}
-	private final String selectALL="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret , DATEADD(dd,7,Question_Time) as newimg from QandA order by Question_Time desc";
-	private final String selectYes="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret , DATEADD(dd,7,Question_Time) as newimg from QandA where Answer_No is not null order by Question_Time desc";
-	private final String selectNo="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret , DATEADD(dd,7,Question_Time) as newimg from QandA where Answer_No is null order by Question_Time desc";
 	@Override
-	public List<QandAVO> selectALL(String prodaction){
+	public List<QandAVO> selectALL(String prodaction , int question_Category){
 		List<QandAVO> result = null;
+		System.out.println("question_Category="+question_Category);
+		String where="";
+		String where1="";
+		
+		if(question_Category != -1){
+			where = "where question_Category="+question_Category;
+			where1 = "and question_Category="+question_Category;
+		}
+		String selectALL="select QA_No , Question_Category , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret , DATEADD(dd,7,Question_Time) as newimg from QandA "+where+" order by Question_Time desc";
+		String selectYes="select QA_No , Question_Category , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret , DATEADD(dd,7,Question_Time) as newimg from QandA where Answer_No is not null "+where1+" order by Question_Time desc";
+		String selectNo="select QA_No , Question_Category , Question_No ,Question_Title,Question_text,Question_Time ,Answer_No ,Question_secret , DATEADD(dd,7,Question_Time) as newimg from QandA where Answer_No is null "+where1+" order by Question_Time desc";
+		
 		String select=selectALL;
 		if("yes".equals(prodaction)){
 			select=selectYes;
 		}else if("no".equals(prodaction)){
 			select=selectNo;		
 		}
+		System.out.println(select);
 		try (Connection conn = ds.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(select);
 			ResultSet rset = stmt.executeQuery();) {
@@ -47,7 +57,7 @@ public class QandADAO implements IQandADAO{
 			while (rset.next()) {
 				QandAVO bean =new QandAVO();
 				bean.setQa_No(rset.getInt("QA_No"));
-				bean.setTra_No(rset.getString("tra_No"));
+				bean.setQuestion_Category(rset.getInt("Question_Category"));
 				bean.setQuestion_No(rset.getInt("Question_No"));
 				bean.setQuestion_Title(rset.getString("Question_Title"));
 				bean.setQuestion_Text(rset.getString("Question_Text"));
@@ -69,13 +79,13 @@ public class QandADAO implements IQandADAO{
 		}
 		return result;
 	}
-	private final String insertQuestion= "insert into QandA (tra_No,Question_No,Question_Title,Question_Text,Question_Time,Question_secret) values(?,?,?,?,getDate(),?)";
+	private final String insertQuestion= "insert into QandA (Question_Category,Question_No,Question_Title,Question_Text,Question_Time,Question_secret) values(?,?,?,?,getDate(),?)";
 	@Override
 	public boolean insertQuestion(QandAVO bean){
 		boolean b=false;
 		try(Connection conn = ds.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(insertQuestion);) {
-			stmt.setString(1, bean.getTra_No());
+			stmt.setInt(1, bean.getQuestion_Category());
 			stmt.setInt(2, bean.getQuestion_No());
 			stmt.setString(3, bean.getQuestion_Title());
 			stmt.setString(4, bean.getQuestion_Text());
@@ -87,7 +97,7 @@ public class QandADAO implements IQandADAO{
 		}		
 		return b;
 	}
-	private final String getALL="select QA_No , tra_No , Question_No ,Question_Title,Question_text,Question_Time,Answer_No,Answer_Text,Answer_time from QandA where qa_No=?";
+	private final String getALL="select QA_No , Question_Category , Question_No ,Question_Title,Question_text,Question_Time,Answer_No,Answer_Text,Answer_time from QandA where qa_No=?";
 	@Override
 	public QandAVO getALL(int qa_No) {
 		QandAVO bean = null;
@@ -98,7 +108,7 @@ public class QandADAO implements IQandADAO{
 			bean = new QandAVO();
 			while (rset.next()) {
 				bean.setQa_No(rset.getInt("QA_No"));
-				bean.setTra_No(rset.getString("tra_No"));
+				bean.setQuestion_Category(rset.getInt("question_Category"));
 				bean.setQuestion_No(rset.getInt("Question_No"));
 				bean.setQuestion_Title(rset.getString("Question_Title"));
 				bean.setQuestion_Text(rset.getString("Question_Text"));

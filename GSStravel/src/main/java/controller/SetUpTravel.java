@@ -33,19 +33,25 @@ public class SetUpTravel extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
 		String tra_File = request.getParameter("file");
 		String tra_No = request.getParameter("edittraNO");
-		String tra_Name = new String(request.getParameter("edittraName").getBytes("iso-8859-1"), "utf-8");
-		String tra_Loc = new String(request.getParameter("edittraLoc").getBytes("iso-8859-1"), "utf-8");
+		String tra_Name = new String(request.getParameter("edittraName"));
+		
+		
+		
+		String tra_Loc = new String(request.getParameter("edittraLoc"));
 		String On = request.getParameter("edittraOn");
 		String Off = request.getParameter("edittraOff");
 		String Beg = request.getParameter("edittraBeg");
 		String End = request.getParameter("edittraEnd");
 		String Total = request.getParameter("edittraTotal");
 		String Max = request.getParameter("edittraMax");
-		String tra_Intr = new String(request.getParameter("edittraIntr").getBytes("iso-8859-1"), "utf-8");
-		String tra_Con = new String(request.getParameter("edittraCon").getBytes("iso-8859-1"), "utf-8");
-		String tra_Atter = new String(request.getParameter("edittraAtter").getBytes("iso-8859-1"), "utf-8");
+		String tra_Intr = new String(request.getParameter("edittraIntr"));
+		String tra_Con = new String(request.getParameter("edittraCon"));
+		String tra_Atter = new String(request.getParameter("edittraAtter"));
 		String[] rooms = request.getParameterValues("edititemName");
 		String[] roomsMoney = request.getParameterValues("edititemMoney");
 
@@ -76,11 +82,13 @@ public class SetUpTravel extends HttpServlet {
 		int ckRoom = 0;
 		List<String> error = new ArrayList<>();
 
+	
+		
 		if (tra_File.equals("")) {
 			tra_File = "無";
 		}
 
-		if (tra_Name.trim() == "" || tra_Name == null) {
+		if (tra_Name.trim().length() == 0 || tra_Name == null) {
 			error.add("旅遊名稱不能為空");
 		}
 		if (tra_Loc.trim() == "" || tra_Loc == null) {
@@ -191,13 +199,13 @@ public class SetUpTravel extends HttpServlet {
 			}
 		}
 
-		if (tra_Intr.trim() == "" || tra_Intr == null) {
+		if (tra_Intr.trim().length() == 0 || tra_Intr == null) {
 			tra_Intr = "無";
 		}
-		if (tra_Con.trim() == "" || tra_Con == null) {
+		if (tra_Con.trim().length() == 0 || tra_Con == null) {
 			error.add("活動內容不能為空");
 		}
-		if (tra_Atter.trim() == "" || tra_Atter == null) {
+		if (tra_Atter.trim().length() == 0 || tra_Atter == null) {
 			tra_Atter = "無";
 		}
 		// if (tra_File.trim() == "" || tra_File == null) {
@@ -315,15 +323,8 @@ public class SetUpTravel extends HttpServlet {
 		Date date = new Date();
 		String now = sdFormat.format(date);// 取得現在時間
 		announcementService.insert(now, "新增" + tra_Name + "行程", tra_Con, "2");
-		if (tra_File.equals("無")) {
-			request.getRequestDispatcher("/SetUpTravel.jsp").forward(request, response);			
-			return;
-		}else{
-			request.getRequestDispatcher("/fileupload_control.jsp").forward(request, response);
-			return;
-		}
-		
-
+		request.getRequestDispatcher("/ckFile.jsp").forward(request, response);
+		return;
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

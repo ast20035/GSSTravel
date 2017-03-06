@@ -18,6 +18,14 @@
 	crossorigin="anonymous"></script>
 <head>
 <style type="text/css">
+#backPic {
+	position: fixed;
+	top: 0;
+	z-index: -1;
+	opacity: 0.2;
+	height: 100%;
+	width: 100%;
+}
 
 .color-red {
 	border-color: red
@@ -26,51 +34,77 @@
 .color-green {
 	border-color: green
 }
-th{
-padding: 2px;
-vertical-align: top;
+
+th {
+	vertical-align: top;
+	padding: 10px;
+	font-size: 17px;
 }
-textarea{
-resize: none;
+
+textarea {
+	resize: none;
+	font-size: 17px;
 }
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>我要提問</title>
+<title>問題發表</title>
 </head>
-<body style="background-color:transparent">
-	<form action="<c:url value='/QandAInsertServlet'/>" method="POST">
-		<input type="hidden" name="Question_No" value="<%=session.getAttribute("emp_No")%>">
-		<table>
-			<tr>
-				<th colspan="2"><select name='Select' class='form-control'
-					style='width: 160px;'>
-						<c:forEach var="list" items="${list}">
-							<option>${list.tra_NO}</option>
-						</c:forEach>
-				</select></th>
-			</tr>
-			<tr>
-				<th>標題</th>
-				<th><input type="text" class="Qestion_Title form-control" style='width:200px;'
-					name="Qestion_Title"></th>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="radio" name="radio" value="false" checked="checked">公開
-					<input type="radio" name="radio" value="true">私密
-				</td>
-			</tr>
-			<tr>
-				<th>留言內容</th>
-				<th><textarea class="Qestion_Text form-control" cols="12" rows="6" name="Qestion_Text"></textarea></th>
-			</tr>
-		</table>
+<body>
+	<%@include file="SelectBar.jsp"%>
+	<script>
+		$('.navbar-nav>li').removeClass('now');
+		$('.navbar-nav>li:eq(1)').addClass('now');
+	</script>
+	<div class='container-fluid'>
+		<div class='row'>
+			<div class='col-md-1'></div>
+			<div class='col-md-11'>
+				<h2>我的問題</h2>
+			</div>
+		</div>
 		<br>
-		<button class='btn btn-primary' type="submit" class="insertQuestion"
-			name="prodaction" value="insertQuestion">提問</button>
-		<button class='btn btn-primary' type="button"
-			onclick="window.location = '/GSStravel/QandAServlet?role=false';">回上一頁</button>
-	</form>
+		<br>
+		<div class='row'>
+			<div class='col-md-offset-3 col-md-3'>
+				<form action="<c:url value='/QandAInsertServlet'/>" method="POST">
+					<input type="hidden" name="Question_No"
+						value="<%=session.getAttribute("emp_No")%>">
+					<table class='table'>
+						<tr>
+							<th>種類</th>
+							<th><select name='Select' class='form-control'
+								style='width: 160px;'>
+									<option value="0">行程</option>
+									<option value="1">費用</option>
+									<option value="2">其他</option>
+							</select></th>
+						</tr>
+						<tr>
+							<th>標題</th>
+							<th><input type="text" class="Qestion_Title form-control" style='width: 200px;' name="Qestion_Title"></th>
+						</tr>
+						<tr>
+							<td colspan="2"><input type="radio" name="radio"
+								value="false" checked="checked">公開 <input type="radio"
+								name="radio" value="true">私密</td>
+						</tr>
+						<tr>
+							<th>留言內容</th>
+							<th><textarea class="Qestion_Text form-control" cols="15" rows="8" name="Qestion_Text"></textarea></th>
+						</tr>
+
+						<tr>
+							<th colspan="2">
+								<button class='btn btn-primary' type="submit" class="insertQuestion" name="prodaction" value="insertQuestion">提問</button>
+								<button class='btn btn-primary' type="button" onclick="window.location = '/GSStravel/QandAServlet?role=false';">回上一頁</button>
+							</th>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 <script type="text/javascript">
 if(${Msg!=null}){
