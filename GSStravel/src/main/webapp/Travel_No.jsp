@@ -55,6 +55,16 @@ body {
 }
 </style>
 <title>行程內容</title>
+<script type="text/javascript">
+window.onload=function(){
+	var txtarea=document.getElementsByTagName('textarea');
+	for(var area=0;area<txtarea.length;area++){
+		txtarea[area].style.height = txtarea[area].scrollHeight + 'px';
+// 		console.log(area+txtarea[area].value);
+	};
+	
+};
+</script>
 </head>
 <body>
 	<div class='container-fluid'>
@@ -96,7 +106,8 @@ body {
 						<td colspan="2">${traveResult.tra_Beg}~${traveResult.tra_End}</td>
 					</tr>
 					<tr>
-						<td class='little'><label style='width:130px;font-weight: lighter;'>活動總人數上限</label></td>
+						<td class='little'><label
+							style='width: 130px; font-weight: lighter;'>活動總人數上限</label></td>
 						<td colspan="2">${traveResult.tra_Total}人</td>
 					</tr>
 					<tr>
@@ -111,16 +122,15 @@ body {
 					</tr>
 					<tr>
 						<td class='little'>活動說明</td>
-						<td colspan="2">${traveResult.tra_Intr}</td>
+						<td colspan="2"><textarea style='border:0px;resize:none;width:100%;background-color: transparent;'>${traveResult.tra_Intr}</textarea></td>
 					</tr>
 					<tr>
 						<td class='little'>活動內容</td>
-						<td colspan="2"
-							style="word-break: break-all; width: 800px; LINE-HEIGHT: 30px;">${traveResult.tra_Con}</td>
+						<td colspan="2"><textarea style='border:0px;resize:none;width:100%;background-color: transparent;'>${traveResult.tra_Con}</textarea></td>
 					</tr>
 					<tr>
 						<td class='little'>注意事項</td>
-						<td colspan="2">${traveResult.tra_Atter}</td>
+						<td colspan="2"><textarea style='border:0px;resize:none;width:100%;background-color: transparent;'>${traveResult.tra_Atter}</textarea></td>
 					</tr>
 					<tr>
 						<td class='little'>附件</td>

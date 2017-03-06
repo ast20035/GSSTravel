@@ -19,14 +19,15 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <style type="text/css">
-#backPic{
-		position:fixed;
-		top:0;
-		z-index: -1;
-		opacity: 0.4;
-		height:100%;
-		width: 100%;
-	}
+#backPic {
+	position: fixed;
+	top: 0;
+	z-index: -1;
+	opacity: 0.4;
+	height: 100%;
+	width: 100%;
+}
+
 .a {
 	text-decoration: none;
 	color: white;
@@ -75,7 +76,17 @@ label {
 			document.getElementById("ck").innerHTML = "<input type='button' class='btn btn-success' value='確定報名中...'/>";
 			x = 1;
 		}
-		setTimeout('wait()',1000);
+		setTimeout('wait()', 1000);
+	}
+
+	function multiCheck(obj) {
+		if ($(obj).prop('checked')) {
+			$(obj).parent().parent().parent().find(
+					'input[type="checkbox"]:gt(0)').prop('checked', true);
+		} else {
+			$(obj).parent().parent().parent().find(
+					'input[type="checkbox"]:gt(0)').prop('checked', false);
+		}
 	}
 </script>
 <body>
@@ -127,7 +138,8 @@ label {
 							<table class='table table-condensed table2'>
 								<tr>
 									<td>員編:</td>
-									<td><label style="border-style: none; color: #7700BB; width:150px;">${emp_No}</label><input
+									<td><label
+										style="border-style: none; color: #7700BB; width: 150px;">${emp_No}</label><input
 										type="hidden" value="${emp_No}" name="emp_No" readonly>
 									</td>
 								</tr>
@@ -141,7 +153,7 @@ label {
 									<td colspan="2"><br> <c:if test="${familySize>0}">
 											<table class='table table-bordered'>
 												<tr>
-													<th></th>
+													<th><input type=checkbox onclick="multiCheck(this);">全選</th>
 													<th>眷屬/親友</th>
 													<th>姓名</th>
 												</tr>
@@ -158,7 +170,7 @@ label {
 
 											<table class='table table-bordered'>
 												<tr>
-													<th></th>
+													<th><input type=checkbox onclick="multiCheck(this);">全選</th>
 													<th>房型</th>
 													<th>費用</th>
 												</tr>
@@ -183,13 +195,13 @@ label {
 								</script>
 								<tr>
 									<td><input type="button" value='回上一頁'
-										class='btn btn-primary' onclick="window.location.href=GSS;" id="ckback"/>
-										<span id="back"></span></td>
-									<td>
-										<input type="submit" value="確定報名" class='btn btn-success'
+										class='btn btn-primary' onclick="window.location.href=GSS;"
+										id="ckback" /> <span id="back"></span></td>
+									<td><input type="submit" value="確定報名"
+										class='btn btn-success'
 										onclick="this.form.submit(); this.style.display = 'none';wait();" />
-										<span id="ck"></span>
-										<span><img src="images/greenLoading.gif" id="img" style="display: none" /></span>
+										<span id="ck"></span> <span><img
+											src="images/greenLoading.gif" id="img" style="display: none" /></span>
 									</td>
 								</tr>
 							</table>
