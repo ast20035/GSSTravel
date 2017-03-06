@@ -250,12 +250,10 @@
 						class='btn btn-primary' />
 				</div>
 				<div class='col-md-5'>
-					<div class='btn-group'>
 						<input type="button" value="重設" name="FineReset"
 							onclick="window.location.href=resultjs+'/FineSetting.jsp'"
-							class='btn btn-success' /> <input type="button" value="儲存"
+							class='btn btn-primary' /> <input type="button" value="儲存"
 							onclick="check()" class='btn btn-success' />
-					</div>
 					<input type="hidden" id="FineSave" name="FineSave" value="" />
 					<table id="fineTable" class='table-responsive'>
 						<thead>
