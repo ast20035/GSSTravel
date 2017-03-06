@@ -21,14 +21,15 @@
 <link rel="stylesheet" type="text/css" href="" />
 <title>公告維護</title>
 <style type="text/css">
-#backPic{
-		position:fixed;
-		top:0;
-		z-index: -1;
-		opacity: 0.4;
-		height:100%;
-		width: 100%;
-	}
+#backPic {
+	position: fixed;
+	top: 0;
+	z-index: -1;
+	opacity: 0.4;
+	height: 100%;
+	width: 100%;
+}
+
 .container-fluid {
 	font-size: 20px;
 }
@@ -61,6 +62,10 @@ input, textarea {
 			alert("請輸入公告標題！");
 		} else if (content.value == "") {
 			alert("請輸入公告內容！");
+		} else if (title.value.length >= 25) {
+			alert("公告標題過長！");
+		} else if (content.value.length >= 500) {
+			alert("公告內容過長！");
 		} else {
 			$("#save").val("儲存");
 			$("#insertData").submit();

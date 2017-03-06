@@ -152,7 +152,9 @@ h2 {
 		<div class='row'>
 			<div class='col-md-offset-3 col-md-4'>
 				<div id="boardDiv"></div>
-				<br> <input type="button" class='btn btn-primary' value='回上一頁'
+				<br> <input type="button" class='btn btn-primary' value='Q&A'
+					onclick='window.location.href="QandAGuest.jsp"'>
+				<input type="button" class='btn btn-primary' value='回上一頁'
 					onclick='window.location.href="Board.jsp"'>
 			</div>
 		</div>

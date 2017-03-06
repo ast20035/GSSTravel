@@ -21,14 +21,15 @@
 <link rel="stylesheet" type="text/css" href="" />
 <title>公告編輯</title>
 <style type="text/css">
-#backPic{
-		position:fixed;
-		top:0;
-		z-index: -1;
-		opacity: 0.4;
-		height:100%;
-		width: 100%;
-	}
+#backPic {
+	position: fixed;
+	top: 0;
+	z-index: -1;
+	opacity: 0.4;
+	height: 100%;
+	width: 100%;
+}
+
 .container-fluid {
 	font-size: 20px;
 }
@@ -175,6 +176,10 @@ h2 {
 			alert("請輸入公告標題！");
 		} else if (content.value == "") {
 			alert("請輸入公告內容！");
+		} else if (title.value.length >= 25) {
+			alert("公告標題過長！");
+		} else if (content.value.length >= 500) {
+			alert("公告內容過長！");
 		} else {
 			$("#update").val("儲存");
 			$("#updateData").submit();
@@ -197,7 +202,8 @@ h2 {
 		<br> <br>
 		<div class='row'>
 			<div class='col-md-offset-3 col-md-4'>
-				<form id="updateData" action="<c:url value="/AnnouncementUDServlet" />" method="GET">
+				<form id="updateData"
+					action="<c:url value="/AnnouncementUDServlet" />" method="GET">
 					<c:if test="${important==1}">
 						<select id="day" name="day" onchange="optionTime()"
 							class='form-control' style='width: 150px; color: red'>
@@ -214,10 +220,11 @@ h2 {
 					</c:if>
 					<div id="boardDiv"></div>
 					<div class='dclasslast'>
-						<input type="button" value="儲存" class='btn btn-success' onclick="check()" />
-						<input type="hidden" value="" id="update" name="update" />
-						<input type="submit" value="刪除" name="delete" class='btn btn-danger' />
-						<input type="button" class='btn btn-primary' value='回上一頁'
+						<input type="button" value="儲存" class='btn btn-success'
+							onclick="check()" /> <input type="hidden" value="" id="update"
+							name="update" /> <input type="submit" value="刪除" name="delete"
+							class='btn btn-danger' /> <input type="button"
+							class='btn btn-primary' value='回上一頁'
 							onclick='window.location.href="BoardMaintain.jsp"'>
 					</div>
 				</form>
