@@ -112,12 +112,12 @@ td>strong {
 				wait();
 			} else if (xhr.readyState == 4) {
 				close1.setAttribute("href","<c:url value='/Board.jsp'/>");
-				close2.setAttribute("href","<c:url value='/search2.jsp'/>");
-				close3.setAttribute("href","<c:url value='/search.jsp'/>");
-				close4.setAttribute("href","<c:url value='/FineSetting.jsp'/>");
-				close5.setAttribute("href","<c:url value='/search1.jsp'/>");
-				close6.setAttribute("href","<c:url value='/BoardMaintain.jsp'/>");
-				close7.setAttribute("href","<c:url value='/QandAServlet'/>");
+				close2.setAttribute("href","<c:url value='/BoardMaintain.jsp'/>");
+				close3.setAttribute("href","<c:url value='/QandAServlet?role=true.jsp'/>");
+				close4.setAttribute("href","<c:url value='/search2.jsp'/>");
+				close5.setAttribute("href","<c:url value='/search.jsp'/>");
+				close6.setAttribute("href","<c:url value='/FineSetting.jsp'/>");
+				close7.setAttribute("href","<c:url value='/search1'/>");
 				close8.disabled = false;
 				closeFine.disabled = false;
 				myImg.style.display = "none";

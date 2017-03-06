@@ -198,17 +198,17 @@ input[readonly='readonly'] {
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 				<li role="presentation"><a href="<c:url value='/Board.jsp'/>"
-					id="close1">回公告</a></li>
+					id="close1">前台</a></li>
 				<c:if test='${emp_Role eq true}'>
 					<li><a href="<c:url value='/BoardMaintain.jsp'/>"
-						id="close8">公告維護</a></li>
+						id="close2">公告維護</a></li>
 					<li><a href="<c:url value='/QandAServlet?role=true'/>"
-						id="close7">Q&A維護</a></li>
-					<li><a href="<c:url value='/search2.jsp'/>" id="close2">行程維護</a></li>
-					<li><a href="<c:url value='/search.jsp'/>" id="close3">報名維護</a></li>
+						id="close3">Q&A維護</a></li>
+					<li><a href="<c:url value='/search2.jsp'/>" id="close4">行程維護</a></li>
+					<li><a href="<c:url value='/search.jsp'/>" id="close5">報名維護</a></li>
 					<li><a class='dropdown-toggle' role="button"
-						href="<c:url value='/FineSetting.jsp'/>" id="close4">罰則維護</a>
-					<li><a href="<c:url value='/search1.jsp'/>" id="close5">旅費統計</a></li>
+						href="<c:url value='/FineSetting.jsp'/>" id="close6">罰則維護</a>
+					<li><a href="<c:url value='/search1.jsp'/>" id="close7">旅費統計</a></li>
 				</c:if>
 			</ul>
 			<ul class='nav navbar-nav navbar-right'>
