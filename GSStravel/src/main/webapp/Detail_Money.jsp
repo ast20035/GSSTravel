@@ -85,7 +85,7 @@ input[name="det_note"],input[name="det_noteMoney"] {
 			<div class='col-md-11'>
 				<h2>旅費統計</h2>
 				<br>
-				<h4>${tra_Name}</h4>
+				<h4>活動代碼：${tra_No}</h4>
 			</div>
 		</div>
 		<div class='row'>
@@ -110,16 +110,16 @@ input[name="det_note"],input[name="det_noteMoney"] {
 					<table border="1" class="table table-bordereds" id="table">
 						<thead>
 							<tr>
-								<th>部門代碼</th>
-								<th>員工(/眷屬親友)編號</th>
-								<th>姓名(/隸屬於哪位員工)</th>
-								<th><label style='width:270px;vertical-align: bottom;'>年度可補助金額<br /> <span
+								<th><label style='width:80px;'>部門代碼</label></th>
+								<th><label style='width:120px;'>員工<br>(/眷屬親友)編號</label></th>
+								<th><label style='width:130px;'>姓名<br>(/隸屬於哪位員工)</label></th>
+								<th><label style='width:250px;vertical-align: bottom;'>年度可補助金額<br /> <span
 									style="color: #FFC0CB; font-size: 10px">未到職一年者按比例給予計算</span></label></th>
-								<th>個人可補助金額</th>
-								<th>個人團費</th>
-								<th>其他增減費用明細說明</th>
-								<th>其他增減費用總額</th>
-								<th>應補團費</th>
+								<th><label style='width:130px;'>個人可補助金額</label></th>
+								<th><label style='width:80px;'>個人團費</label></th>
+								<th><label style='width:120px;'>其他增減費用<br>明細說明</label></th>
+								<th><label style='width:100px;'>其他增減費用<br>總額</label></th>
+								<th><label style='width:80px;'>應補團費</label></th>
 							</tr>
 						</thead>
 						<c:forEach var="list" items="${list}">
@@ -146,14 +146,14 @@ input[name="det_note"],input[name="det_noteMoney"] {
 								<c:if test="${list.fam_Name==NULL}">
 									<td><input type="text" class="years_money years_Money"
 										value="${list.years_money}"
-										style="border-width: 0; text-align: right;" readonly></td>
+										style="border-width: 0; text-align: right;width:220px;" readonly></td>
 									<td><input type="text" class="person_money person_Money"
 										value="" style="border-width: 0; text-align: right;" readonly>
 										<input type="hidden" class="person" value="${list.emp_No}"></td>
 								</c:if>
 								<c:if test="${list.fam_Name!=NULL}">
 									<td><input type="text" class="years_Money" value="0.0"
-										style="border-width: 0; text-align: right;" readonly></td>
+										style="border-width: 0; text-align: right;width:220px;" readonly></td>
 									<td><c:if test="${list.fam_sub}">
 											<input type="text" class="personfam_money person_Money"
 												style="border-width: 0; text-align: right;" value="0.0"
@@ -170,7 +170,7 @@ input[name="det_note"],input[name="det_noteMoney"] {
 								<td><input type="text" name="det_note"
 									class="det_note det_Note form-control" value="${list.det_note}"></td>
 								<td><input type="text" name="det_noteMoney"
-									style='text-align: right; width: 180px'
+									style='text-align: right; width: 150px'
 									class="det_noteMoney det_NoteMoney form-control"
 									value="${list.det_noteMoney}" onkeyup="changeNotemoney()"
 									onblur="checkmoney(this)"></td>
