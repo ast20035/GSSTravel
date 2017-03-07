@@ -5,7 +5,7 @@
 <html>
 <head>
 <!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
-<meta http-equiv="refresh" content="0;url=<c:url value='AllTravel'/>" />
+<meta http-equiv="refresh" content="0.4;url=<c:url value='AllTravel'/>" />
 
 <script src='js/jquery-3.1.1.min.js'></script>
 <link rel="stylesheet"
@@ -39,13 +39,13 @@
 </body>
 
 <script type="text/javascript">
-if(${bl}){
+if('${bl}'){
  		alert("報名失敗!!報名人數超過可參加人數!!");  
 }else{		
-		if(${bl1}){
+		if('${bl1}'){
 			var money;
 			var subMoney=4500;
-			if(${drtail[1]*drtail[2]} < subMoney){
+			if('${drtail[1]*drtail[2]}' < subMoney){
 				money=0;
 			}else{
 				money=${drtail[1]*drtail[2]}-subMoney;
