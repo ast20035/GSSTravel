@@ -127,14 +127,10 @@ public class FamilyServlet extends HttpServlet {
 				out.print("");
 			}
 		}
-		
-		
 		//按下delete鍵的動作
 		if(ajaxfamid!=null){
 				 int famno = familyservice.selectfam_byid(ajaxfamid);//用id找famno
-				 System.out.println(famno);
 				 List<java.sql.Date> listdate= familyservice.selectfam_Nodelete(famno);//用famno去找有活動的親屬
-				 System.out.println(listdate);
 				 long betweenDate=0;
 				 if(famno!=0){
 					 if(listdate.size()!=0){
@@ -148,7 +144,6 @@ public class FamilyServlet extends HttpServlet {
 							 }else{
 								//可以刪除  全部過期才會到此 才能刪除
 								familyservice.delete(ajaxfamid);
-//								System.out.println("delete1");
 								out.println("delete");
 							 }
 						 }//迴圈結束
@@ -192,7 +187,6 @@ public class FamilyServlet extends HttpServlet {
 
 			// 判斷 假如只有一行空白刪除空白欄位 跟 兩行以上 一行有一行空白 把空白判斷掉
 			List<Date> fambdate = new ArrayList<Date>();
-			
 			if (famid!=null) {
 				int idlength = famid.length;
 				for (int i = 0; i < idlength; i++) {
@@ -241,7 +235,6 @@ public class FamilyServlet extends HttpServlet {
 				}
 
 			}
-			
 			if (errormsg != null && !errormsg.isEmpty()) {
 				req.getRequestDispatcher("Register").forward(req, res);
 				return;
@@ -333,8 +326,6 @@ public class FamilyServlet extends HttpServlet {
 					if (id.contains(famid[i]) == true ) {//資料庫找身分證是否重複 有重複用update 沒有重複用insert
 						
 						String value = selectvalue[i].replace("[", "").replace("]", "").replace(",","").replace("\"", "");
-//						System.out.println(selectvalue[i]);
-//						System.out.println(value);
 						if(value!=""){
 							if(value.contains("bab")){
 								familyvo.setFam_Bady(true);
@@ -370,8 +361,6 @@ public class FamilyServlet extends HttpServlet {
 					} else {
 						
 						String value = selectvalue[i].replace("[", "").replace("]", "").replace(",","").replace("\"", "");
-//						System.out.println(selectvalue[i]);
-//						System.out.println(value);
 						if(value!=""){
 							if(value.contains("bab")){
 								familyvo.setFam_Bady(true);
