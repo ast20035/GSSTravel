@@ -67,15 +67,12 @@ public class FamilyServlet extends HttpServlet {
 		String[] famemgrel = req.getParameterValues("famemgrel");
 		String[] famnote = req.getParameterValues("famnote");
 		String[] selectvalue =req.getParameterValues("selectvalue");
-//		String[] repeatselectvalue = req.getParameterValues("repeatselectvalue");
 		
 		
 		String buttonsave = req.getParameter("button");
 		String ajaxid = req.getParameter("id");//判斷前端寫親屬身分證有無重複
 		String ajaxfamid = req.getParameter("ajaxfamid");//用前端的親屬身分證去刪親屬
 		String ajaxcheckbox =req.getParameter("checkbox");
-//		String ajaxmultiselect =req.getParameter("multiselect");
-//		String ajaxfamname=req.getParameter("famnameajax");
 		String ajaxemail = req.getParameter("email");
 		String ajaxrepeatfamid=req.getParameter("repeatfamid");
 		String ajaxwebfamid= req.getParameter("webfamid");
@@ -135,7 +132,9 @@ public class FamilyServlet extends HttpServlet {
 		//按下delete鍵的動作
 		if(ajaxfamid!=null){
 				 int famno = familyservice.selectfam_byid(ajaxfamid);//用id找famno
+				 System.out.println(famno);
 				 List<java.sql.Date> listdate= familyservice.selectfam_Nodelete(famno);//用famno去找有活動的親屬
+				 System.out.println(listdate);
 				 long betweenDate=0;
 				 if(famno!=0){
 					 if(listdate.size()!=0){
@@ -145,8 +144,6 @@ public class FamilyServlet extends HttpServlet {
 							 long specialDate = date.getTime();//把要比較的值放這(親屬日期)
 							 betweenDate = (specialDate - nowDate) / (1000 * 60 * 60 * 24);
 							 if(betweenDate>0){//比對 能不能刪除
-//								 System.out.println(betweenDate);
-//								 System.out.println("not");
 								 out.println("not");
 							 }else{
 								//可以刪除  全部過期才會到此 才能刪除
@@ -157,12 +154,10 @@ public class FamilyServlet extends HttpServlet {
 						 }//迴圈結束
 					 }else{//detail沒有相符
 						 familyservice.delete(ajaxfamid);
-//						 System.out.println("delete2");
 						 out.println("delete");
 					 }
 				 }else{//沒抓到親屬no 直接刪掉
 					 familyservice.delete(ajaxfamid);
-//					 System.out.println("delete3");
 					 out.println("delete");
 				 }
 			}

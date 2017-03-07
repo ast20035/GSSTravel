@@ -342,7 +342,7 @@ text-align: center;
 			<td><input type="text" name="famname" id="famname"
 				class='form-control'>
 				</td>
-			<td><select name="famsex" class='form-control'>
+			<td><select name="famsex" class='form-control famsex'>
 					<option value="女">女</option>
 					<option value="男">男</option>
 			</select></td>
@@ -499,10 +499,7 @@ text-align: center;
 							var checkboxjson=JSON.stringify(checkbox);
 							$("#checkbox").val(checkboxjson);//放一個隱藏的text傳值進去 按save時一次送出
 							
-							//抓多選(新增的值)要用save按下後才能判斷   除非全部都用前端blur抓要新增的值在全部傳進去??
-							//下面都要改成去抓新增的值進去  新增的不能指部分新增 一定要全部一起進去才行 
-							//想一下進去抓到值之後要怎麼拆開 放進去familyvo?
-									//或是看能不能拆開成不同部分在放進去vo裡面?
+							
 							
 							console.log($("#familytable select[name='famspa']").length);//抓到的select總共有幾筆
 							var xxx=[];
@@ -589,19 +586,34 @@ text-align: center;
 														var firstNum;
 														var lastNum;
 														var total = 0;
-
-														var regExpID = /^[a-z](1|2)\d{8}$/i;
-														var textnumber=/^\d{9,}$/;
-														// 使用「正規表達式」檢驗格式
-														if (regExpID.test($(".repeat input[name*='famid']").val())) {
-															// 取出第一個字元和最後一個數字。
-															firstChar = $(this).val().charAt(0).toUpperCase();
-															lastNum = $(this).val().charAt(9);
-														} else {
-															$(this).css("border-color","red");
-															$("#errorcount").val(1);
-															$(this).next(".famiderror").text("身分證格式錯誤");
+// 														
+														var xxxx=$(".repeat td .famsex").val();
+														console.log(xxxx);
+														if($(".repeat td .famsex").val()=="男"){
+															var regExpID = /^[a-z](1)\d{8}$/i;
+															// 使用「正規表達式」檢驗格式
+															if (regExpID.test($(".repeat input[name*='famid']").val())) {
+																// 取出第一個字元和最後一個數字。
+																firstChar = $(this).val().charAt(0).toUpperCase();
+																lastNum = $(this).val().charAt(9);
+															} else {
+																$(this).css("border-color","red");
+																$("#errorcount").val(1);
+// 																break;
+															}
+														}else{
+															var regExpID = /^[a-z](2)\d{8}$/i;
+															if (regExpID.test($(".repeat input[name*='famid']").val())) {
+																// 取出第一個字元和最後一個數字。
+																firstChar = $(this).val().charAt(0).toUpperCase();
+																lastNum = $(this).val().charAt(9);
+															} else {
+																$(this).css("border-color","red");
+																$("#errorcount").val(1);
+// 																break;
+															}
 														}
+														
 														// 找出第一個字母對應的數字，並轉換成兩位數數字。
 														for (var i = 0; i < 26; i++) {
 															if (firstChar == letters[i]) {firstNum = i + 10;
@@ -622,10 +634,10 @@ text-align: center;
 														if ((10 - (total % 10))!= lastNum && ((10 - (total % 10))-10)!= lastNum  ) {
 																$(this).css("border-color","red");
 																$("#errorcount").val(1);
+// 																break;
 														} else {
 															$(this).css("border-color","green");
 															$("#errorcount").val(0);
-															console.log("zzzzzzzzzzzz");
 															//判斷有沒有重複
 															
 															var pathName = document.location.pathname;
@@ -817,19 +829,6 @@ text-align: center;
 												});
 									//focus在新增欄位
 									$('#familytable input[name*="famname"]:last').focus();
-									
-									//用生日判斷特殊身分
-// 									$(" .repeat input[name*='fambdate']").on("blur",function(){
-// 										var pathName = document.location.pathname;
-// 										var index = pathName.substr(1).indexOf("/");
-// 										var result = pathName.substr(0, index + 1);
-// 										var url = result + "/FamilyServlet";
-// 											var bdaterepeat = $(this).val();
-// 											console.log(bdaterepeat);
-// 											 $.post(url,{"bdaterepeat":bdaterepeat},function(){
-// 												 alert("bdaterepeat return susses");
-// 											 })
-// 									})
 									
 									
 								});//新增的最後誇號
