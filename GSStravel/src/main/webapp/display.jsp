@@ -40,13 +40,13 @@
 
 <script type="text/javascript">
 window.onload=function(){
-	if('${bl}'){
+	if(${bl==true}){
  		alert("報名失敗!!報名人數超過可參加人數!!");  
 }else{		
-		if('${bl1}'){
+		if(${bl1==true}){
 			var money;
 			var subMoney=4500;
-			if('${drtail[1]*drtail[2]}' < subMoney){
+			if(${drtail[1]*drtail[2]} < subMoney){
 				money=0;
 			}else{
 				money=${drtail[1]*drtail[2]}-subMoney;
