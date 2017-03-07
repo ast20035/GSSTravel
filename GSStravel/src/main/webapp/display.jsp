@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
-<meta http-equiv="refresh" content="0;url=<c:url value='AllTravel'/>" />
+<meta http-equiv="refresh" content="0.4;url=<c:url value='AllTravel'/>" />
 
 <script src='js/jquery-3.1.1.min.js'></script>
 <link rel="stylesheet"
@@ -23,14 +23,14 @@
 
 <title>報名</title>
 <style type="text/css">
-#backPic{
-		position:fixed;
-		top:0;
-		z-index: -1;
-		opacity: 0.4;
-		height:100%;
-		width: 100%;
-	}
+#backPic {
+	position: fixed;
+	top: 0;
+	z-index: -1;
+	opacity: 0.4;
+	height: 100%;
+	width: 100%;
+}
 </style>
 </head>
 <body>
@@ -39,10 +39,11 @@
 </body>
 
 <script type="text/javascript">
-if(${bl}){
+window.onload=function(){
+	if(${bl==true}){
  		alert("報名失敗!!報名人數超過可參加人數!!");  
 }else{		
-		if(${bl1}){
+		if(${bl1==true}){
 			var money;
 			var subMoney=4500;
 			if(${drtail[1]*drtail[2]} < subMoney){
@@ -57,6 +58,8 @@ if(${bl}){
 		}else{
 		        alert("報名成功!!"+"\n"+"團費試算  年度可使用補助金額:${drtail[0]};個人團費:${drtail[1]}*${drtail[2]}=${drtail[1]*drtail[2]}"+"\n"+"個人補助金:${drtail[0]};應補團費:${drtail[3]}"+"\n"+"PS:團費試算僅供參考，需繳納費用以福委會通知為主");  					
 		}
-}
+	}
+};
+
 </script>
 </html>

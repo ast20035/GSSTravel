@@ -6,7 +6,7 @@
 <head>
 <!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
 <meta http-equiv="refresh"
-	content="0;url=<c:url value='/search2.jsp'/>"/>
+	content="0.4;url=<c:url value='/search2.jsp'/>"/>
 <script src='js/jquery-3.1.1.min.js'></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"

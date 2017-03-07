@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="BIG5"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -19,7 +19,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
-<title>®È¶O²Î­p</title>
+<title>æ—…è²»çµ±è¨ˆ</title>
 </head>
 
 <style>
@@ -83,9 +83,9 @@ input[name="det_note"],input[name="det_noteMoney"] {
 		<div class='row'>
 			<div class='col-md-1'></div>
 			<div class='col-md-11'>
-				<h2>®È¶O²Î­p</h2>
+				<h2>æ—…è²»çµ±è¨ˆ</h2>
 				<br>
-				<h4>${tra_Name}</h4>
+				<h4>æ´»å‹•ä»£ç¢¼ï¼š${tra_No}</h4>
 			</div>
 		</div>
 		<div class='row'>
@@ -98,28 +98,28 @@ input[name="det_note"],input[name="det_noteMoney"] {
 
 					<ul class="pagination">
 						<li class="active pagenumber" onclick="changepage(this)"
-							value="10"><a role='button'>¨C­¶10µ§</a></li>
+							value="10"><a role='button'>æ¯é 10ç­†</a></li>
 						<li class="pagenumber" onclick="changepage(this)" value="20"><a
-							role='button'>¨C­¶20µ§</a></li>
+							role='button'>æ¯é 20ç­†</a></li>
 						<li class="pagenumber" onclick="changepage(this)" value="50"><a
-							role='button'>¨C­¶50µ§</a></li>
+							role='button'>æ¯é 50ç­†</a></li>
 						<li class="pagenumber" onclick="changepage(this)" value="100"><a
-							role='button'>¨C­¶100µ§</a></li>
+							role='button'>æ¯é 100ç­†</a></li>
 					</ul>
 
 					<table border="1" class="table table-bordereds" id="table">
 						<thead>
 							<tr>
-								<th>³¡ªù¥N½X</th>
-								<th>­û¤u(/²²Äİ¿Ë¤Í)½s¸¹</th>
-								<th>©m¦W(/ÁõÄİ©ó­ş¦ì­û¤u)</th>
-								<th><label style='width:270px;vertical-align: bottom;'>¦~«×¥i¸É§Uª÷ÃB<br /> <span
-									style="color: #FFC0CB; font-size: 10px">¥¼¨ìÂ¾¤@¦~ªÌ«ö¤ñ¨Òµ¹¤©­pºâ</span></label></th>
-								<th>­Ó¤H¥i¸É§Uª÷ÃB</th>
-								<th>­Ó¤H¹Î¶O</th>
-								<th>¨ä¥L¼W´î¶O¥Î©ú²Ó»¡©ú</th>
-								<th>¨ä¥L¼W´î¶O¥ÎÁ`ÃB</th>
-								<th>À³¸É¹Î¶O</th>
+								<th><label style='width:80px;'>éƒ¨é–€ä»£ç¢¼</label></th>
+								<th><label style='width:120px;'>å“¡å·¥<br>(/çœ·å±¬è¦ªå‹)ç·¨è™Ÿ</label></th>
+								<th><label style='width:130px;'>å§“å<br>(/éš¸å±¬æ–¼å“ªä½å“¡å·¥)</label></th>
+								<th><label style='width:250px;vertical-align: bottom;'>å¹´åº¦å¯è£œåŠ©é‡‘é¡<br /> <span
+									style="color: #FFC0CB; font-size: 10px">æœªåˆ°è·ä¸€å¹´è€…æŒ‰æ¯”ä¾‹çµ¦äºˆè¨ˆç®—</span></label></th>
+								<th><label style='width:130px;'>å€‹äººå¯è£œåŠ©é‡‘é¡</label></th>
+								<th><label style='width:80px;'>å€‹äººåœ˜è²»</label></th>
+								<th><label style='width:120px;'>å…¶ä»–å¢æ¸›è²»ç”¨<br>æ˜ç´°èªªæ˜</label></th>
+								<th><label style='width:100px;'>å…¶ä»–å¢æ¸›è²»ç”¨<br>ç¸½é¡</label></th>
+								<th><label style='width:80px;'>æ‡‰è£œåœ˜è²»</label></th>
 							</tr>
 						</thead>
 						<c:forEach var="list" items="${list}">
@@ -146,14 +146,14 @@ input[name="det_note"],input[name="det_noteMoney"] {
 								<c:if test="${list.fam_Name==NULL}">
 									<td><input type="text" class="years_money years_Money"
 										value="${list.years_money}"
-										style="border-width: 0; text-align: right;" readonly></td>
+										style="border-width: 0; text-align: right;width:220px;" readonly></td>
 									<td><input type="text" class="person_money person_Money"
 										value="" style="border-width: 0; text-align: right;" readonly>
 										<input type="hidden" class="person" value="${list.emp_No}"></td>
 								</c:if>
 								<c:if test="${list.fam_Name!=NULL}">
 									<td><input type="text" class="years_Money" value="0.0"
-										style="border-width: 0; text-align: right;" readonly></td>
+										style="border-width: 0; text-align: right;width:220px;" readonly></td>
 									<td><c:if test="${list.fam_sub}">
 											<input type="text" class="personfam_money person_Money"
 												style="border-width: 0; text-align: right;" value="0.0"
@@ -170,7 +170,7 @@ input[name="det_note"],input[name="det_noteMoney"] {
 								<td><input type="text" name="det_note"
 									class="det_note det_Note form-control" value="${list.det_note}"></td>
 								<td><input type="text" name="det_noteMoney"
-									style='text-align: right; width: 180px'
+									style='text-align: right; width: 150px'
 									class="det_noteMoney det_NoteMoney form-control"
 									value="${list.det_noteMoney}" onkeyup="changeNotemoney()"
 									onblur="checkmoney(this)"></td>
@@ -183,7 +183,7 @@ input[name="det_note"],input[name="det_noteMoney"] {
 							</tr>
 						</c:forEach>
 					</table>
-					¦@${count}µ§ <br />
+					å…±${count}ç­† <br />
 					<div id='mydiv'>
 						<ul id="myul" class="pagination">
 							<li><a role='button' onclick="before()">&laquo;</a></li>
@@ -200,9 +200,9 @@ input[name="det_note"],input[name="det_noteMoney"] {
 						<br />
 						<c:if test="${travelVO!=null}">
 							<button type="submit" name="prodaction" value="save"
-								class='btn btn-success'>Àx¦s</button>
+								class='btn btn-success'>å„²å­˜</button>
 						</c:if>
-						<input type="button" onclick="excel()" value="¶×¥XExcel"
+						<input type="button" onclick="excel()" value="åŒ¯å‡ºExcel"
 							class='btn btn-primary'>
 					</div>
 				</form>
@@ -217,14 +217,14 @@ input[name="det_note"],input[name="det_noteMoney"] {
 	<img src="images/Travel.jpg" id="backPic">
 </body>
 <script>
-	var $money = $(".money"); //­Ó¤H¹Î¶O
+	var $money = $(".money"); //å€‹äººåœ˜è²»
 	var $emp = $(".emp"); //emp
 	var $fam = $(".fam"); //fam
-	var $TAmoney = $(".TA_money"); //À³¸É¹Î¶O
-	var $noteMoney = $(".det_noteMoney"); //´î§K¶O¥Î
+	var $TAmoney = $(".TA_money"); //æ‡‰è£œåœ˜è²»
+	var $noteMoney = $(".det_noteMoney"); //æ¸›å…è²»ç”¨
 	var $yearsmoney = $(".years_money");
 	var $personemp = $(".person");
-	var $personmoney = $(".person_money"); //·|­û­Ó¤H¥i¸É§Uª÷ÃB	
+	var $personmoney = $(".person_money"); //æœƒå“¡å€‹äººå¯è£œåŠ©é‡‘é¡	
 	var a = 0;
 	var b = 0;
 	$().ready(function() {

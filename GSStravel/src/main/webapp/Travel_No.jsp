@@ -122,15 +122,15 @@ window.onload=function(){
 					</tr>
 					<tr>
 						<td class='little'>活動說明</td>
-						<td colspan="2"><textarea style='border:0px;resize:none;width:100%;background-color: transparent;'>${traveResult.tra_Intr}</textarea></td>
+						<td colspan="2"><textarea style='border:0px;resize:none;width:100%;background-color: transparent;' readonly="readonly">${traveResult.tra_Intr}</textarea></td>
 					</tr>
 					<tr>
 						<td class='little'>活動內容</td>
-						<td colspan="2"><textarea style='border:0px;resize:none;width:100%;background-color: transparent;'>${traveResult.tra_Con}</textarea></td>
+						<td colspan="2"><textarea style='border:0px;resize:none;width:100%;background-color: transparent;' readonly="readonly">${traveResult.tra_Con}</textarea></td>
 					</tr>
 					<tr>
 						<td class='little'>注意事項</td>
-						<td colspan="2"><textarea style='border:0px;resize:none;width:100%;background-color: transparent;'>${traveResult.tra_Atter}</textarea></td>
+						<td colspan="2"><textarea style='border:0px;resize:none;width:100%;background-color: transparent;' readonly="readonly">${traveResult.tra_Atter}</textarea></td>
 					</tr>
 					<tr>
 						<td class='little'>附件</td>

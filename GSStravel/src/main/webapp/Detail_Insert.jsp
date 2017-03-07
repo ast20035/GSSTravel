@@ -81,8 +81,8 @@ table {
 								onblur="select_emp_No()" onfocus="clearName()"></td>
 							<td><select id="select" name="select" onchange="checkbox()" style='width:150px;'
 								class='form-control select'></select></td>
-							<td><input type="text" id="money" name="money"
-								class="money form-control" value="${money}" readonly></td>
+							<td><input type="text" id="money" name="money" style="text-align: right;"
+								class="money form-control" value="${money}" readonly="readonly"></td>
 						</tr>
 					</table>
 					<p class="p"></p>
@@ -176,12 +176,12 @@ table {
 								</tr>
 								<c:forEach var="list" items="${room}">
 									<tr>
-										<td><input type="checkbox" class="checkbox"
+										<td style="vertical-align:middle;text-align: center;"><input style='margin: auto;' type="checkbox" class="checkbox"  
 											value="${list.item_No}" onclick="checkedA()"></td>
 										<td><input type="text" class="line form-control"
 											value="${list.item_Name}" readonly></td>
 										<td><input type="text"
-											class="line ${list.item_No} form-control"
+											class="line ${list.item_No} form-control"  style="text-align: right;"
 											value="${list.item_Money}" readonly></td>
 									</tr>
 								</c:forEach>
@@ -420,7 +420,17 @@ table {
 				a9 = true;
 				$(this).css("border-width", "1px");
 				$(this).css("border-color", "green");
-				$(".insertSave").attr("type", "button");
+				//生日直接判斷特殊身分(新增的親屬)
+				var between = today.getTime() - mydate.getTime();//時間差的毫秒数 
+				var between2 = Math.floor(between/(24*3600*1000));
+				if(between2<365*3){
+					$('select.multiselect').data("kendoMultiSelect").value('幼童(0~3歲)');
+				}
+				if(between2<365*11){
+					if(between2>365*3){
+						$('select.multiselect').data("kendoMultiSelect").value('兒童(4~11歲)');
+					}
+			 	}
 				if (!(a1 && a2 && a3 && a4 && a5 && a6 && a7 && a8 & a9)) {
 					$(".insertSave").attr("type", "button");
 				} else {
