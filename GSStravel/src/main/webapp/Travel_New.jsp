@@ -317,10 +317,24 @@ h2 {
 					</table>
 					<input type='hidden' name='file' value='' id='file'/>
 					<script>
-							var search2 = '<c:url value='/search2.jsp'/>'							
+							var search2 = '<c:url value='/search2.jsp'/>'	
+							function check() {
+								var edittraCon = document.getElementById("edittraCon");
+								var edittraIntr = document.getElementById("edittraIntr");
+								var edittraAtter = document.getElementById("edittraAtter");
+								if (edittraCon.value.length >= 2000) {
+									alert("活動內容過長！");
+								}else if(edittraIntr.value.length >= 2000){
+									alert("活動說明過長！");
+								}else if(edittraAtter.value.length >= 2000){
+									alert("注意事項過長！");
+								} else {
+									$("#newTravel").submit();
+								}
+							}
 					</script>
 					儲存後選擇是否上傳附件<br>
-					<input type="submit" value="儲存" class='btn btn-success' /> <input
+					<input type="button" value="儲存" class='btn btn-success' onclick="check();"/> <input
 						type="button" value='回上一頁' class='btn btn-primary'
 						onclick="window.location.href=search2;" />
 				</form>
@@ -618,5 +632,6 @@ h2 {
 
 					});
 					});
+					
 				</script>
 </html>
