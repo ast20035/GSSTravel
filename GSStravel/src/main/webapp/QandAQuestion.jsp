@@ -125,7 +125,7 @@ $(".Qestion_Title").blur(function(){
 $(".Qestion_Text").blur(function(){
 	$(".Qestion_Text").removeClass("color-green");
 	$(".Qestion_Text").removeClass("color-red");
-	if($(".Qestion_Text").val()==''){
+	if($(".Qestion_Text").val()=='' || $(".Qestion_Text").val().length>500){
 		$(".Qestion_Text").addClass("color-red");
 		$(".insertQuestion").prop("disabled", true);
 	}

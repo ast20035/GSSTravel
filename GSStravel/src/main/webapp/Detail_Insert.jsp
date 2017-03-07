@@ -176,39 +176,30 @@ table {
 								</tr>
 								<c:forEach var="list" items="${room}">
 									<tr>
-										<td style="vertical-align:middle;text-align: center;"><input style='margin: auto;' type="checkbox" class="checkbox"  
-											value="${list.item_No}" onclick="checkedA()"></td>
-										<td><input type="text" class="line form-control"
-											value="${list.item_Name}" readonly></td>
-										<td><input type="text"
-											class="line ${list.item_No} form-control"  style="text-align: right;"
-											value="${list.item_Money}" readonly></td>
+										<td style="vertical-align:middle;text-align: center;">
+											<input style='margin: auto;' type="checkbox" class="checkbox" value="${list.item_No}" onclick="checkedA()"></td>
+										<td><input type="text" class="line form-control" value="${list.item_Name}" readonly></td>
+										<td><input type="text" class="line ${list.item_No} form-control"  style="text-align: right;" value="${list.item_Money}" readonly></td>
 									</tr>
 								</c:forEach>
 							</table>
 						</div>
 					</c:if>
 					<p class="nofam"></p>
-					<br /> <input type="submit" class="insertSave btn btn-success"
-						id="insertSave" name="prodaction" value="儲存" onclick="saveData()">
-					<input type="submit" name="prodaction" value="回前頁"
-						class='btn btn-primary'>
+					<br />
+					<input type="submit" class="insertSave btn btn-success" id="insertSave" name="prodaction" value="儲存" onclick="saveData()">
+					<input type="submit" name="prodaction" value="回前頁" class='btn btn-primary'>
 				</form>
 			</div>
 		</div>
 	</div>
 	<img src="images/Travel.jpg" id="backPic">
 </body>
-<link rel="stylesheet"
-	href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
-<link rel="stylesheet"
-	href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
-<link rel="stylesheet"
-	href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
 
-<script
-	src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
-
+<script src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
 <script>
 	
 	$(".multiselect").kendoMultiSelect({
