@@ -44,11 +44,11 @@ fieldset {
 			enctype="multipart/form-data">
 			<fieldset>
 				請輸入取消原因： <br />
-				<textarea style="width: 250px; height: 100px; resize: none" class='form-control'
+				<textarea style="width: 250px; height: 100px; resize: none" class='det_CanNote form-control'
 					name="det_CanNote"></textarea>
 				<br /> <input type="text" id="can_detNo" name="can_detNo" class='btn btn-primary'
 					style="display: none"> <input type="text" id="can_traNo" class='btn btn-primary'
-					name="can_traNo" style="display: none"> <br /> <input class='btn btn-primary'
+					name="can_traNo" style="display: none"> <br /> <input class='btn_Can btn btn-primary'
 					name="prodaction" type="submit" value="送出">
 				<button name="canClose" type="button" onclick="window.close()" class='btn btn-primary'>關閉</button>
 
@@ -80,6 +80,23 @@ $(function () {
 	}else{
 		$("#can_traNo").attr("value",tra_No);
 	}
+
+	//字數判斷，不能為空、不超過50字
+	$(".det_CanNote").blur(function(){
+		if($(this).val().length>0 && $(this).val().length<=50){
+			$(this).css("border-color","green")
+			$(".btn_Can").attr("type","submit");
+		}else{
+			$(this).css("border-color","red");
+			$(".btn_Can").attr("type","button");
+		}
+	});
+
+	 $(".btn_Can").click(function () {
+		 if(this.type=='button'){
+			 alert("取消失敗！");
+		 }
+	 });
 	
 });
 
