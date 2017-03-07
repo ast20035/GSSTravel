@@ -5,7 +5,7 @@
 <html>
 <head>
 <!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> -->
-<meta http-equiv="refresh" content="0.4;url=<c:url value='AllTravel'/>" />
+<%-- <meta http-equiv="refresh" content="0.4;url=<c:url value='AllTravel'/>" /> --%>
 
 <script src='js/jquery-3.1.1.min.js'></script>
 <link rel="stylesheet"
@@ -37,12 +37,12 @@
 	<div class='container-fluid'></div>
 	<img src="images/Travel.jpg" id="backPic">
 </body>
-
 <script type="text/javascript">
 window.onload=function(){
 	if(${bl==true}){
- 		alert("報名失敗!!報名人數超過可參加人數!!");  
-}else{		
+ 		alert("報名失敗!!報名人數超過可參加人數!!"); 
+		window.location.href='<c:url value="/AllTravel"/>';
+	}else{		
 		if(${bl1==true}){
 			var money;
 			var subMoney=4500;
@@ -56,8 +56,9 @@ window.onload=function(){
 			}
 			alert("報名成功!!"+"\n"+"團費試算  年度可使用補助金額:"+subMoney+";個人團費:${drtail[1]}*${drtail[2]}=${drtail[1]*drtail[2]}"+"\n"+"個人補助金:"+subMoney+";應補團費:"+money+"\n"+"PS:團費試算僅供參考，需繳納費用以福委會通知為主"+"\n"+"補助金轉移!!!!!"+"\n"+"從原本旅遊編碼:${decide[0]};旅遊名稱:${decide[1]}"+"\n"+"轉移至"+"\n"+"旅遊編碼:${decide[2]};旅遊名稱:${decide[3]}");
 		}else{
-		        alert("報名成功!!"+"\n"+"團費試算  年度可使用補助金額:${drtail[0]};個人團費:${drtail[1]}*${drtail[2]}=${drtail[1]*drtail[2]}"+"\n"+"個人補助金:${drtail[0]};應補團費:${drtail[3]}"+"\n"+"PS:團費試算僅供參考，需繳納費用以福委會通知為主");  					
+		     alert("報名成功!!"+"\n"+"團費試算  年度可使用補助金額:${drtail[0]};個人團費:${drtail[1]}*${drtail[2]}=${drtail[1]*drtail[2]}"+"\n"+"個人補助金:${drtail[0]};應補團費:${drtail[3]}"+"\n"+"PS:團費試算僅供參考，需繳納費用以福委會通知為主");  					
 		}
+		window.location.href='<c:url value="/AllTravel"/>';
 	}
 };
 

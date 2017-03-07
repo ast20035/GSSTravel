@@ -96,7 +96,7 @@ textarea {
 						<tr>
 							<th colspan="2">
 								<button class='btn btn-success' type="submit" class="insertQuestion" name="prodaction" value="insertQuestion">提問</button>
-								<button class='btn btn-primary' type="button" onclick="window.location = '/GSStravel/QandAServlet?role=false';">回上一頁</button>
+								<button class='btn btn-primary' type="button" onclick="window.location = '/GSStravel/QandAServlet?role=false';">回QandA</button>
 							</th>
 						</tr>
 					</table>
@@ -113,7 +113,7 @@ if(${Msg!=null}){
 $(".Qestion_Title").blur(function(){
 	$(".Qestion_Title").removeClass("color-green");
 	$(".Qestion_Title").removeClass("color-red");
-	if($(".Qestion_Title").val()==''){
+	if($(".Qestion_Title").val()==''||$(".Qestion_Title").val().length>100){
 		$(".Qestion_Title").addClass("color-red");
 		$(".insertQuestion").prop("disabled", true);
 	}
@@ -125,7 +125,7 @@ $(".Qestion_Title").blur(function(){
 $(".Qestion_Text").blur(function(){
 	$(".Qestion_Text").removeClass("color-green");
 	$(".Qestion_Text").removeClass("color-red");
-	if($(".Qestion_Text").val()==''){
+	if($(".Qestion_Text").val()=='' || $(".Qestion_Text").val().length>500){
 		$(".Qestion_Text").addClass("color-red");
 		$(".insertQuestion").prop("disabled", true);
 	}

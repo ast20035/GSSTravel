@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script src='js/jquery-3.1.1.min.js'></script>
-<link rel="stylesheet"
+<link rel="stylesheet" 
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous">
@@ -14,7 +13,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
 	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
 	crossorigin="anonymous">
-<script
+<script 
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
@@ -154,42 +153,26 @@ h1, h2 {
 						<td>${list.question_Time}</td>
 					</tr>
 					<tr>
-						<td colspan="3" style='text-align: center;'><textarea cols="70%" rows="8" readonly style='font-size: 20px;'>${list.question_Text}</textarea></td>
+						<td colspan="3" style='text-align: center;'><textarea cols="70%" rows="8" readonly style='font-size: 20px;background-color: transparent;'>${list.question_Text}</textarea></td>
 					</tr>
 				</table>
-				<form action='<c:url value="/QandAInsertServlet?role=true"/>'
-					method="POST">
-					<input type="hidden" name="qa_No" value="${list.qa_No}"> <input
-						type="hidden" name="answer_No"
-						value="<%=session.getAttribute("emp_No")%>">
+				<form action='<c:url value="/QandAInsertServlet?role=true"/>' method="POST">
+					<input type="hidden" name="qa_No" value="${list.qa_No}">
+					<input type="hidden" name="answer_No" value="<%=session.getAttribute("emp_No")%>">
 					<c:if test="${list.answer_No!=0}">
 						<table class='table'>
 							<h2>回應</h2>
 							<tr>
-								<td><textarea name="answer_Text" class="Ans_textarea" cols="70%" rows="8" style='font-size: 20px;' readonly="readonly">${list.answer_Text}</textarea></td>
+								<td><textarea name="answer_Text" class="Ans_textarea" cols="70%" rows="8" style='font-size: 20px;background-color: transparent;' readonly="readonly">${list.answer_Text}</textarea></td>
 							</tr>
 						</table>
 					</c:if>
 					<br />
-					<c:if test="${role}">
-						<c:if test="${list.answer_No==0}">
-							<div class="displayclass">
-								<table>
-									<tr>
-										<td>回應內容</td>
-										<td><textarea class="answer_Text" name="answer_Text" cols="70%" rows="8"></textarea></td>
-									</tr>
-								</table>
-							</div>
-							<br />
-						</c:if>
-					</c:if>
-					<br />
 				</form>
 				<c:if test="${list.question_No==emp_No}">
-						<button type="button" class="notdisplaybutton btn btn-danger" onclick="checkdelete()">刪除</button>
-					</c:if>
-					<button type="button" class='btn btn-primary goback'>回上一頁</button>
+					<button type="button" class="notdisplaybutton btn btn-danger" onclick="checkdelete()">刪除</button>
+				</c:if>
+				<button type="button" class='btn btn-primary goback'>回上一頁</button>
 			</div>
 		</div>
 	</div>

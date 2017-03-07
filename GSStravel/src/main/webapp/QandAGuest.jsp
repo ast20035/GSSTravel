@@ -143,12 +143,13 @@ input {
 				<option value="2" <%if ("2".equals(prodaction2)) { out.print("selected"); }%>>其他</option>
 			</select>
 			<br />
-				<select id="selectb" onchange="window.location = '/GSStravel/QandAServlet?role=false&prodaction='+this.value+'&prodaction2='+$('#selecta').val();" class='form-control' style='width: 140px;'>
-					<option value="all" <%if ("all".equals(prodaction)) { out.print("selected"); }%>>顯示全部</option>
-					<option value="yes" <%if ("yes".equals(prodaction)) { out.print("selected"); }%>>顯示已回應</option>
-					<option value="no" <%if ("no".equals(prodaction)) { out.print("selected");  }%>>顯示未回應</option>
-				</select>
-				<br />
+			<select id="selectb" onchange="window.location = '/GSStravel/QandAServlet?role=false&prodaction='+this.value+'&prodaction2='+$('#selecta').val();" class='form-control' style='width: 140px;'>
+				<option value="all" <%if ("all".equals(prodaction)) { out.print("selected"); }%>>顯示全部</option>
+				<option value="yes" <%if ("yes".equals(prodaction)) { out.print("selected"); }%>>顯示已回應</option>
+				<option value="no" <%if ("no".equals(prodaction)) { out.print("selected");  }%>>顯示未回應</option>
+			</select>
+			</span>
+			<br />
 				<c:if test="${list.size()!=0}">
 					<table class='table'>
 						<thead>
@@ -264,8 +265,8 @@ input {
 					<ul class="pagination">
 						<li><a onclick="before()">&laquo;</a></li>
 						<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
-						<c:if test="${Math.ceil(count/2)!=0}">
-							<c:forEach var="i" begin="1" end="${Math.ceil(count/10)-1}">
+						<c:if test="${Math.ceil(count)!=0}">
+							<c:forEach var="i" begin="1" end="${Math.ceil(count/7)-1}">
 								<li class="page" onclick="page(this)" value="${i}"><a>${i+1}</a></li>
 							</c:forEach>
 						</c:if>
@@ -376,7 +377,7 @@ input {
 	}
 	function light(i) {
 		$("tr:gt(0)").css("display", "none");
-		$("tr:gt(" + i * 15 + "):lt(" + 15 + ")").css("display", "");
+		$("tr:gt(" + i * 7 + "):lt(" + 7 + ")").css("display", "");
 	}
 	function checkdelete() {
 		if (confirm("確定要刪除?")){

@@ -176,39 +176,30 @@ table {
 								</tr>
 								<c:forEach var="list" items="${room}">
 									<tr>
-										<td style="vertical-align:middle;text-align: center;"><input style='margin: auto;' type="checkbox" class="checkbox"  
-											value="${list.item_No}" onclick="checkedA()"></td>
-										<td><input type="text" class="line form-control"
-											value="${list.item_Name}" readonly></td>
-										<td><input type="text"
-											class="line ${list.item_No} form-control"  style="text-align: right;"
-											value="${list.item_Money}" readonly></td>
+										<td style="vertical-align:middle;text-align: center;">
+											<input style='margin: auto;' type="checkbox" class="checkbox" value="${list.item_No}" onclick="checkedA()"></td>
+										<td><input type="text" class="line form-control" value="${list.item_Name}" readonly></td>
+										<td><input type="text" class="line ${list.item_No} form-control"  style="text-align: right;" value="${list.item_Money}" readonly></td>
 									</tr>
 								</c:forEach>
 							</table>
 						</div>
 					</c:if>
 					<p class="nofam"></p>
-					<br /> <input type="submit" class="insertSave btn btn-success"
-						id="insertSave" name="prodaction" value="儲存" onclick="saveData()">
-					<input type="submit" name="prodaction" value="回前頁"
-						class='btn btn-primary'>
+					<br />
+					<input type="submit" class="insertSave btn btn-success" id="insertSave" name="prodaction" value="儲存" onclick="saveData()">
+					<input type="submit" name="prodaction" value="回前頁" class='btn btn-primary'>
 				</form>
 			</div>
 		</div>
 	</div>
 	<img src="images/Travel.jpg" id="backPic">
 </body>
-<link rel="stylesheet"
-	href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
-<link rel="stylesheet"
-	href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
-<link rel="stylesheet"
-	href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.common-material.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.min.css" />
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.1.118/styles/kendo.material.mobile.min.css" />
 
-<script
-	src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
-
+<script src="https://kendo.cdn.telerik.com/2017.1.118/js/kendo.all.min.js"></script>
 <script>
 	
 	$(".multiselect").kendoMultiSelect({
@@ -325,10 +316,10 @@ table {
 				$(".insertSave").attr("type", "button");
 			}
 		});
-		//姓名、保險受益人、保險受益人關係、緊急聯絡人、緊急聯絡人關係驗證(不能為空值)
+		//姓名、保險受益人、保險受益人關係、緊急聯絡人、緊急聯絡人關係驗證(不能為空值、不能超過字數)
 		var thisName = /[^\s/]/;
 		$(".fam_Name").blur(function() {
-			if (thisName.test($(this).val()) && $(this).val().indexOf("/")==-1) {
+			if (thisName.test($(this).val()) && $(this).val().indexOf("/")==-1 && $(this).val().length<50) {
 				$(this).css("border-width", "1px");
 				$(this).css("border-color", "green");
 				a4 = true;
@@ -345,7 +336,7 @@ table {
 
 		});
 		$(".fam_Ben").blur(function() {
-			if (thisName.test($(this).val())) {
+			if (thisName.test($(this).val()) && $(this).val().length<50) {
 				$(this).css("border-width", "1px");
 				$(this).css("border-color", "green");
 				a5 = true;
@@ -361,7 +352,7 @@ table {
 			}
 		});
 		$(".fam_BenRel").blur(function() {
-			if (thisName.test($(this).val())) {
+			if (thisName.test($(this).val()) && $(this).val().length<10) {
 				$(this).css("border-width", "1px");
 				$(this).css("border-color", "green");
 				a6 = true;
@@ -377,7 +368,7 @@ table {
 			}
 		});
 		$(".fam_Emg").blur(function() {
-			if (thisName.test($(this).val())) {
+			if (thisName.test($(this).val()) && $(this).val().length<50) {
 				$(this).css("border-width", "1px");
 				$(this).css("border-color", "green");
 				a7 = true;
@@ -393,7 +384,7 @@ table {
 			}
 		});
 		$(".fam_EmgRel").blur(function() {
-			if (thisName.test($(this).val())) {
+			if (thisName.test($(this).val()) && $(this).val().length<10) {
 				$(this).css("border-width", "1px");
 				$(this).css("border-color", "green");
 				a8 = true;

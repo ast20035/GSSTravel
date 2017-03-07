@@ -283,7 +283,7 @@ h1, h2 {
 	$(".answer_Text").blur(function(){
 		$(".answer_Text").removeClass("color-green");
 		$(".answer_Text").removeClass("color-red");
-		if($(".answer_Text").val()==''){
+		if($(".answer_Text").val()=='' || $(".answer_Text").val().length>500){
 			$(".answer_Text").addClass("color-red");
 			$(".displaybb").prop("disabled", true);
 		}
@@ -295,7 +295,7 @@ h1, h2 {
 	$(".Ans_textarea").blur(function(){
 		$(".Ans_textarea").removeClass("color-green");
 		$(".Ans_textarea").removeClass("color-red");
-		if($(".Ans_textarea").val()==''){
+		if($(".Ans_textarea").val()=='' || $(".Ans_textarea	").val().length>500){
 			$(".Ans_textarea").addClass("color-red");
 			$(".displayaa").prop("disabled", true);
 		}

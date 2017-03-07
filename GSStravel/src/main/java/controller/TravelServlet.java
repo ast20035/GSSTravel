@@ -43,11 +43,28 @@ public class TravelServlet extends HttpServlet {
 	private SimpleDateFormat sDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	/* 初始化END */
-
+	
+	//get取值
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)	
+			throws ServletException, IOException {
+		
+		String traNo = request.getParameter("tra_no"); 
+		TravelVO travelview = travelService.select(traNo);
+		List<ItemVO> itemview = itemService.select(traNo); 
+		request.setAttribute("params", travelview);
+		request.setAttribute("paramsi", itemview);
+		System.out.println("testsfasfasf");
+		request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response);
+	}
+	
+	//post送值
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
+		response.setContentType("text/htm; charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		// 1.接收資料
 		String inputdate = "";
 		if (request.getParameter("inputdate") != "" && request.getParameter("inputdate") != null)
@@ -76,15 +93,9 @@ public class TravelServlet extends HttpServlet {
 		Map<String, String> errors = new HashMap<String, String>();
 		request.setAttribute("errors", errors);
 
-		/*
-		 * if("Insert".equals(inputerrors) || "Update".equals(prodaction) ||
-		 * "Delete".equals(prodaction)) { if(temp1==null || temp1.length()==0) {
-		 * errors.put("id", "請輸入Id以便執行"+inputerrors); } }
-		 */
-
 		// 3.轉換資料
 
-		/* 活動代碼 */
+		
 		// 單筆測試用
 
 		String edittraNO = "";
@@ -278,8 +289,9 @@ public class TravelServlet extends HttpServlet {
 		if (errors != null && !errors.isEmpty()) {
 			request.getRequestDispatcher("Travel_Edit.jsp").forward(request, response);
 			return;
+			
+			
 		}
-
 		// 4.呼叫Model
 
 		/*---單頁測試用---*/
@@ -289,48 +301,14 @@ public class TravelServlet extends HttpServlet {
 		// System.out.println("itemService位置 : "+itemview);
 		request.setAttribute("params", travelview);
 		request.setAttribute("paramsi", itemview);
-		// System.out.println("itemService資料數 : "+itemview.size());
+		
 
 		// 5.根據Model執行結果，決定需要顯示的View元件
 
-		/*----Insert----*/
-		// if("Insert".equals(inputerrors)) {
-		// /*--Travel--*/
-		// System.out.println("test insert !!");
-		// TravelVO travelview1 =new TravelVO();
-		// travelview1.setTra_Name(edittraNO);
-		// travelview1.setTra_Name(edittraName);
-		// travelview1.setTra_Loc(edittraLoc);
-		// travelview1.setTra_On(new java.sql.Date(edittraOn.getTime()));
-		// travelview1.setTra_Off(new java.sql.Date(edittraOff.getTime()));
-		// travelview1.setTra_Beg(new java.sql.Timestamp(edittraBeg.getTime()));
-		// travelview1.setTra_End(new java.sql.Timestamp(edittraEnd.getTime()));
-		// travelview1.setTra_Total(edittraTotal);;
-		// travelview1.setTra_Max(edittraMax);;
-		// travelview1.setTra_Intr(traIntr);;
-		// travelview1.setTra_Con(traCon);
-		// travelview1.setTra_Atter(traAtter);
-		// travelview1.setTra_File(traFile);
-		// System.out.println(travelview1);
-		// TravelVO resultnew = travelService.insert(travelview1);
-		// System.out.println("travelService資料 : "+travelview1.getTra_On());
-		//
-		// /*--item--*/
-		//
-		// if(resultnew==null) {
-		// errors.put("action", "Insert fail");
-		// } else {
-		// session.setAttribute("insert", resultnew);
-		// }
-		// request.getRequestDispatcher("/Travel_New.jsp").forward(request,
-		// response);
-		// }
 
 		/*----Update----*/
-		// else
 		
 		if ("儲存".equals(inputerrors)) {	//Travel_Edit修改確認
-			
 			
 			
 			SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:24小時制
@@ -389,21 +367,11 @@ public class TravelServlet extends HttpServlet {
 				itemDAO.insert(Vo);
 			}
 
-			// System.out.println("edititemNo:" + edititemNo);
-			// for (int i = 0; i < itemNo.length; i++) {
-			//// System.out.println("itemNo.length:" + i);
-			// v.setItem_No(edititemNo.get(i));
-			// v.setItem_Name(edititemName.get(i));
-			// v.setItem_Money(edititemMoney.get(i));
-			// ItemVO result1 = itemService.update(v);
-			// itemfor.add(result1);
-			// }
 
 			TravelVO resultEdit = travelService.update(travelview);
 
-			// ItemVO bean = new ItemVO();
-			// List<ItemVO> result1 = (List<ItemVO>) itemService.update(bean);
-			if (resultEdit == null) { // & result1 == null
+
+			if (resultEdit == null) { 
 				errors.put("action", "Update fail");
 			} else {
 				session.setAttribute("update", resultEdit);
@@ -426,14 +394,10 @@ public class TravelServlet extends HttpServlet {
 				return;
 			}
 		}
-		request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response);
+		request.getRequestDispatcher("/search2.jsp").forward(request, response);
 		 return;
 		// response.sendRedirect(request.getContextPath() + "/Travel_Edit.jsp");
-	}// doGet
+	}// doPost
 
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		this.doGet(request, response);
-	}
+
 }// END

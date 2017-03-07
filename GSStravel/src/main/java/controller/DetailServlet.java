@@ -327,13 +327,13 @@ public class DetailServlet extends HttpServlet {
 					String car = req.getParameter("car");
 					String spe = req.getParameter("text_multiselect");
 					int fam_No = Integer.parseInt(temp_FamNo);
-					if (name.contains("/") || name.trim().length() == 0 || name == null) {
+					if (name.contains("/") || name.trim().length() == 0 || name == null || name.length() > 50) {
 						session.setAttribute("CanError", "儲存失敗！");
-					} else if (ben.trim().length() == 0 || ben == null) {
+					} else if (ben.trim().length() == 0 || ben == null || ben.length() > 50) {
 						session.setAttribute("CanError", "儲存失敗！");
-					} else if (ben_Rel.trim().length() == 0 || ben_Rel == null) {
+					} else if (ben_Rel.trim().length() == 0 || ben_Rel == null || ben_Rel.length() > 10) {
 						session.setAttribute("CanError", "儲存失敗！");
-					} else if (emg.trim().length() == 0 || emg == null) {
+					} else if (emg.trim().length() == 0 || emg == null || emg.length() > 50) {
 						session.setAttribute("CanError", "儲存失敗！");
 					} else if (!Phone.matches("^[09][0-9]{9}")) {
 						session.setAttribute("CanError", "儲存失敗！");
@@ -399,13 +399,13 @@ public class DetailServlet extends HttpServlet {
 				//儲存員工資料，無親屬編號、特殊身分、車位欄位
 			} else {
 				try {
-					if (name.contains("/") || name.trim().length() == 0 || name == null) {
+					if (name.contains("/") || name.trim().length() == 0 || name == null || name.length() > 50) {
 						session.setAttribute("CanError", "儲存失敗！");
-					} else if (ben.trim().length() == 0 || ben == null) {
+					} else if (ben.trim().length() == 0 || ben == null || ben.length() > 50) {
 						session.setAttribute("CanError", "儲存失敗！");
-					} else if (ben_Rel.trim().length() == 0 || ben_Rel == null) {
+					} else if (ben_Rel.trim().length() == 0 || ben_Rel == null || ben_Rel.length() > 50) {
 						session.setAttribute("CanError", "儲存失敗！");
-					} else if (emg.trim().length() == 0 || emg == null) {
+					} else if (emg.trim().length() == 0 || emg == null || emg.length() > 50) {
 						session.setAttribute("CanError", "儲存失敗！");
 					} else if (!Phone.matches("^[09][0-9]{9}")) {
 						session.setAttribute("CanError", "儲存失敗！");

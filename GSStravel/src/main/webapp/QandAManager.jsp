@@ -151,8 +151,8 @@
 					<ul class="pagination">
 						<li><a onclick="before()">&laquo;</a></li>
 						<li class="page active" onclick="page(this)" value="0"><a>1</a></li>
-						<c:if test="${Math.ceil(count/2)!=0}">
-							<c:forEach var="i" begin="1" end="${Math.ceil(count/10)-1}">
+						<c:if test="${Math.ceil(count)!=0}">
+							<c:forEach var="i" begin="1" end="${Math.ceil(count/7)-1}">
 								<li class="page" onclick="page(this)" value="${i}"><a>${i+1}</a></li>
 							</c:forEach>
 						</c:if>
@@ -258,7 +258,7 @@
 	}
 	function light(i) {
 		$("tr:gt(0)").css("display", "none");
-		$("tr:gt(" + i * 10 + "):lt(" + 10 + ")").css("display", "");
+		$("tr:gt(" + i * 7 + "):lt(" + 7 + ")").css("display", "");
 	}
 	function checkdelete() {
 		if (confirm("確定要刪除?")){

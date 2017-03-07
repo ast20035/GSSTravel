@@ -75,8 +75,8 @@ window.onload=function(){
 			</div>
 		</div>
 		<div class='row'>
-			<div class='col-lg-1'></div>
-			<div class='col-lg-10'>
+			<div class='col-md-1'></div>
+			<div class='col-md-10'>
 				<ul class="nav nav-tabs">
 					<li role="presentation" class="active"><a
 						href="<c:url value="/FeeTravel?tra_No=${traveResult.tra_NO}"/>"><strong>行程</strong></a></li>
@@ -86,8 +86,8 @@ window.onload=function(){
 			</div>
 		</div>
 		<div class='row'>
-			<div class='col-lg-1'></div>
-			<div class='col-lg-10'>
+			<div class='col-md-1'></div>
+			<div class='col-md-10'>
 				<table class="table table-responsive">
 					<tr>
 						<td class='little'>活動代碼</td>
