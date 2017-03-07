@@ -67,15 +67,12 @@ public class FamilyServlet extends HttpServlet {
 		String[] famemgrel = req.getParameterValues("famemgrel");
 		String[] famnote = req.getParameterValues("famnote");
 		String[] selectvalue =req.getParameterValues("selectvalue");
-//		String[] repeatselectvalue = req.getParameterValues("repeatselectvalue");
 		
 		
 		String buttonsave = req.getParameter("button");
 		String ajaxid = req.getParameter("id");//判斷前端寫親屬身分證有無重複
 		String ajaxfamid = req.getParameter("ajaxfamid");//用前端的親屬身分證去刪親屬
 		String ajaxcheckbox =req.getParameter("checkbox");
-//		String ajaxmultiselect =req.getParameter("multiselect");
-//		String ajaxfamname=req.getParameter("famnameajax");
 		String ajaxemail = req.getParameter("email");
 		String ajaxrepeatfamid=req.getParameter("repeatfamid");
 		String ajaxwebfamid= req.getParameter("webfamid");
@@ -130,8 +127,6 @@ public class FamilyServlet extends HttpServlet {
 				out.print("");
 			}
 		}
-		
-		
 		//按下delete鍵的動作
 		if(ajaxfamid!=null){
 				 int famno = familyservice.selectfam_byid(ajaxfamid);//用id找famno
@@ -145,24 +140,19 @@ public class FamilyServlet extends HttpServlet {
 							 long specialDate = date.getTime();//把要比較的值放這(親屬日期)
 							 betweenDate = (specialDate - nowDate) / (1000 * 60 * 60 * 24);
 							 if(betweenDate>0){//比對 能不能刪除
-//								 System.out.println(betweenDate);
-//								 System.out.println("not");
 								 out.println("not");
 							 }else{
 								//可以刪除  全部過期才會到此 才能刪除
 								familyservice.delete(ajaxfamid);
-//								System.out.println("delete1");
 								out.println("delete");
 							 }
 						 }//迴圈結束
 					 }else{//detail沒有相符
 						 familyservice.delete(ajaxfamid);
-//						 System.out.println("delete2");
 						 out.println("delete");
 					 }
 				 }else{//沒抓到親屬no 直接刪掉
 					 familyservice.delete(ajaxfamid);
-//					 System.out.println("delete3");
 					 out.println("delete");
 				 }
 			}
@@ -197,7 +187,6 @@ public class FamilyServlet extends HttpServlet {
 
 			// 判斷 假如只有一行空白刪除空白欄位 跟 兩行以上 一行有一行空白 把空白判斷掉
 			List<Date> fambdate = new ArrayList<Date>();
-			
 			if (famid!=null) {
 				int idlength = famid.length;
 				for (int i = 0; i < idlength; i++) {
@@ -246,7 +235,6 @@ public class FamilyServlet extends HttpServlet {
 				}
 
 			}
-			
 			if (errormsg != null && !errormsg.isEmpty()) {
 				req.getRequestDispatcher("Register").forward(req, res);
 				return;
@@ -338,8 +326,6 @@ public class FamilyServlet extends HttpServlet {
 					if (id.contains(famid[i]) == true ) {//資料庫找身分證是否重複 有重複用update 沒有重複用insert
 						
 						String value = selectvalue[i].replace("[", "").replace("]", "").replace(",","").replace("\"", "");
-//						System.out.println(selectvalue[i]);
-//						System.out.println(value);
 						if(value!=""){
 							if(value.contains("bab")){
 								familyvo.setFam_Bady(true);
@@ -375,8 +361,6 @@ public class FamilyServlet extends HttpServlet {
 					} else {
 						
 						String value = selectvalue[i].replace("[", "").replace("]", "").replace(",","").replace("\"", "");
-//						System.out.println(selectvalue[i]);
-//						System.out.println(value);
 						if(value!=""){
 							if(value.contains("bab")){
 								familyvo.setFam_Bady(true);

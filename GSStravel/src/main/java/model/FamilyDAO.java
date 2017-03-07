@@ -31,11 +31,8 @@ public class FamilyDAO implements IFamilyDAO {
 	private static final String selectfam_byid="select fam_NO from Family where fam_ID=?";
 	private static final String selectfam_Rel="select fam_Rel from Family where emp_No=? and fam_Name=?";
 	
-//	private static final String selectall= "select * from Family where fam_No =?";
 	private static final String selectfamid="select fam_Id from Family";
 //	private static final String selectstart="select * from Family where emp_No=?";
-//	private static final String on = "SET IDENTITY_INSERT Family ON;";
-//	private static final String off = "SET IDENTITY_INSERT Family OFF;";
 	private static final String insert = "insert into Family (emp_No,fam_Name,fam_Rel,fam_Bdate,fam_Sex,fam_Eat,fam_Id,fam_Phone,fam_Note,fam_Ben,fam_BenRel,fam_Car,fam_Emg,fam_EmgPhone,fam_EmgRel,fam_Bady,fam_kid,fam_Dis,fam_Mom) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
 	private static final String update = "update Family set fam_Name=?,fam_Rel=?,fam_Bdate=?,fam_Sex=?,fam_Eat=?,fam_Id=?,fam_Phone=?,fam_Note=?,fam_Ben=?,fam_BenRel=?,fam_Car=?,fam_Emg=?,fam_EmgPhone=?,fam_EmgRel=?,fam_Bady=?,fam_kid=?,fam_Dis=?,fam_Mom=? where fam_No=?";
 	private static final String delete = "delete from Family where fam_Id=?";
@@ -82,8 +79,6 @@ public class FamilyDAO implements IFamilyDAO {
 		}
 		return familyVOs;
 	}
-	
-	
 	
 	public String selectfam_Rel(String emp_No,String fam_Name){	
 		String fam_Rel = null;
@@ -170,7 +165,6 @@ public class FamilyDAO implements IFamilyDAO {
 				PreparedStatement state = connection.prepareStatement(insert);)
 		{
 			state.setInt(1, famvo.getEmp_No());
-//			state.setInt(2, famvo.getFamno());  famno 流水號新增時會直接帶進去
 			state.setString(2, famvo.getFam_Name());
 			state.setString(3, famvo.getFam_Rel());
 			Long Fambdate = famvo.getFam_Bdate().getTime();		
@@ -204,8 +198,6 @@ public class FamilyDAO implements IFamilyDAO {
 			
 			state.setString(1, famvo.getFam_Name());
 			state.setString(2, famvo.getFam_Rel());
-//			state.setDate(3, famvo.getFambdate());
-//			Long Fambdate = famvo.getFam_Bdate().getTime();		
 			state.setDate(3, new java.sql.Date(famvo.getFam_Bdate().getTime()));
 			state.setString(4, famvo.getFam_Sex());	
 			state.setString(5, famvo.getFam_Eat());
@@ -251,7 +243,6 @@ public class FamilyDAO implements IFamilyDAO {
 		try(Connection connection = ds.getConnection();
 				PreparedStatement state = connection.prepareStatement(selectfamid);)
 			{
-//			state.setInt(1,empno);
 			ResultSet resultset = state.executeQuery();
 			if(resultset!=null){
 				while(resultset.next()){
@@ -273,7 +264,6 @@ public class FamilyDAO implements IFamilyDAO {
 		try(Connection connection = ds.getConnection();
 				PreparedStatement state = connection.prepareStatement(selectfamid+ " where fam_No !=" + famno);)
 			{
-//			state.setInt(1,famno);
 			ResultSet resultset = state.executeQuery();
 			if(resultset!=null){
 				while(resultset.next()){

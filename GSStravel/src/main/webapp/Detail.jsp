@@ -452,10 +452,10 @@ $(function(){
 					}
 				});
 				
-				//姓名、保險受益人、保險受益人關係、緊急聯絡人、緊急聯絡人關係驗證(不能為空值)
+				//姓名、保險受益人、保險受益人關係、緊急聯絡人、緊急聯絡人關係驗證(不能為空值、不能超過字數)
 				var thisName=/[^\s/]/;
 				thisTr.find(".name").blur(function(){
-					if(thisName.test($(this).val()) && $(this).val().indexOf("/")==-1){
+					if(thisName.test($(this).val()) && $(this).val().indexOf("/")==-1 && $(this).val().length<50){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
@@ -464,7 +464,7 @@ $(function(){
 					}
 				});
 				thisTr.find(".ben").blur(function(){
-					if(thisName.test($(this).val())){
+					if(thisName.test($(this).val()) && $(this).val().length<50){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
@@ -473,7 +473,7 @@ $(function(){
 					}
 				});
 				thisTr.find(".ben_Rel").blur(function(){
-					if(thisName.test($(this).val())){
+					if(thisName.test($(this).val()) && $(this).val().length<10){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
@@ -482,7 +482,7 @@ $(function(){
 					}
 				});
 				thisTr.find(".emg").blur(function(){
-					if(thisName.test($(this).val())){
+					if(thisName.test($(this).val()) && $(this).val().length<50){
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{

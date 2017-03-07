@@ -316,10 +316,10 @@ table {
 				$(".insertSave").attr("type", "button");
 			}
 		});
-		//姓名、保險受益人、保險受益人關係、緊急聯絡人、緊急聯絡人關係驗證(不能為空值)
+		//姓名、保險受益人、保險受益人關係、緊急聯絡人、緊急聯絡人關係驗證(不能為空值、不能超過字數)
 		var thisName = /[^\s/]/;
 		$(".fam_Name").blur(function() {
-			if (thisName.test($(this).val()) && $(this).val().indexOf("/")==-1) {
+			if (thisName.test($(this).val()) && $(this).val().indexOf("/")==-1 && $(this).val().length<50) {
 				$(this).css("border-width", "1px");
 				$(this).css("border-color", "green");
 				a4 = true;
@@ -336,7 +336,7 @@ table {
 
 		});
 		$(".fam_Ben").blur(function() {
-			if (thisName.test($(this).val())) {
+			if (thisName.test($(this).val()) && $(this).val().length<50) {
 				$(this).css("border-width", "1px");
 				$(this).css("border-color", "green");
 				a5 = true;
@@ -352,7 +352,7 @@ table {
 			}
 		});
 		$(".fam_BenRel").blur(function() {
-			if (thisName.test($(this).val())) {
+			if (thisName.test($(this).val()) && $(this).val().length<10) {
 				$(this).css("border-width", "1px");
 				$(this).css("border-color", "green");
 				a6 = true;
@@ -368,7 +368,7 @@ table {
 			}
 		});
 		$(".fam_Emg").blur(function() {
-			if (thisName.test($(this).val())) {
+			if (thisName.test($(this).val()) && $(this).val().length<50) {
 				$(this).css("border-width", "1px");
 				$(this).css("border-color", "green");
 				a7 = true;
@@ -384,7 +384,7 @@ table {
 			}
 		});
 		$(".fam_EmgRel").blur(function() {
-			if (thisName.test($(this).val())) {
+			if (thisName.test($(this).val()) && $(this).val().length<10) {
 				$(this).css("border-width", "1px");
 				$(this).css("border-color", "green");
 				a8 = true;

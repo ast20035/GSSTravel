@@ -116,7 +116,8 @@ $(function(){
 		var edittraAtter = document.getElementById("edittraAtter");
 		var edittraTotal = document.getElementById("edittraTotal");
 		var edittraMax = document.getElementById("edittraMax");
-
+		
+		var edititemName = document.getElementsByName("edititemName");
  		var edititemMoney = document.getElementsByName("edititemMoney");
 
 		var editdate = /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/;
@@ -127,6 +128,7 @@ $(function(){
 		var z = 0;
 		var p = 0;
 		var m = 0;
+		var e = 0;
 		if (edittraName.value == "") {
 			alert("活動名稱為空值");
 			eval("document.formtable['edittraName'].focus()");
@@ -300,12 +302,35 @@ $(function(){
 		    }
 		    
 		}
-		
-		
-		
 			
-
-		if (x == 1 && y == 1 && z == 1 && p == 1 && m==1) {
+		var ea = 0;
+		var eb = 0;
+		var ec = 0;
+		for(var name=0;name<edititemName.length;name++){		
+		    if(edititemName[name].value == "住宿費(兩人房)"){
+		    	ea++;
+		    }
+		    
+		    if(edititemName[name].value == "住宿費(通鋪8人)"){
+		    	eb++;
+		    }
+		    
+		    if (edititemName[name].value == "住宿費(加床)"){
+		    	ec++;
+		    }
+		}
+		    
+			
+		if(ea>1 || eb>1 || ec>1){
+			alert("費用項目重複");
+			return false;	
+			
+		}else{
+			e=1;
+			
+		}
+		
+		if (x == 1 && y == 1 && z == 1 && p == 1 && m==1 && e==1) {
 			var answer = confirm("是否要增加附件???");
 			if (answer == true) {	
 				$("#file").val("file");
@@ -607,7 +632,7 @@ h2 {
 						}
 					</script>
 					<span>儲存後選擇是否上傳附件<br>
-					<input type="submit" id="inputdate" name="inputerrors" value="儲存" class='btn btn-success' onclick="getElements()">
+					<input type="submit" id="inputdate" name="inputerrors" value="儲存" class='btn btn-success' onclick=""/>
 						<input type="button" onclick="show_confirm()" value="取消" class='btn btn-primary'> 
 						<input
 						type="button" value='刪除行程' class='btn btn-danger' onclick="return confirmComplete();" />
