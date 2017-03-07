@@ -81,8 +81,8 @@ table {
 								onblur="select_emp_No()" onfocus="clearName()"></td>
 							<td><select id="select" name="select" onchange="checkbox()" style='width:150px;'
 								class='form-control select'></select></td>
-							<td><input type="text" id="money" name="money"
-								class="money form-control" value="${money}" readonly></td>
+							<td><input type="text" id="money" name="money" style="text-align: right;"
+								class="money form-control" value="${money}" readonly="readonly"></td>
 						</tr>
 					</table>
 					<p class="p"></p>
@@ -176,12 +176,12 @@ table {
 								</tr>
 								<c:forEach var="list" items="${room}">
 									<tr>
-										<td><input type="checkbox" class="checkbox"
+										<td style="vertical-align:middle;text-align: center;"><input style='margin: auto;' type="checkbox" class="checkbox"  
 											value="${list.item_No}" onclick="checkedA()"></td>
 										<td><input type="text" class="line form-control"
 											value="${list.item_Name}" readonly></td>
 										<td><input type="text"
-											class="line ${list.item_No} form-control"
+											class="line ${list.item_No} form-control"  style="text-align: right;"
 											value="${list.item_Money}" readonly></td>
 									</tr>
 								</c:forEach>
