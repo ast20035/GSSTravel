@@ -382,7 +382,7 @@ h2 {
 		<div class='row'>
 			<div class='col-md-6 col-md-offset-3'>
 				<form name="formtable" id="formtable"
-					action="<c:url value='/Travel_Edit'/>" method="GET" form
+					action="<c:url value='/Travel_Edit'/>" method="post" form
 					onsubmit="return formtable_b()">
 					<table class="t table">
 
