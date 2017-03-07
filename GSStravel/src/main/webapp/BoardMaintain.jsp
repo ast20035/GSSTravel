@@ -21,16 +21,21 @@
 <link rel="stylesheet" type="text/css" href="" />
 <title>公告維護</title>
 <style>
-#backPic{
-		position:fixed;
-		top:0;
-		z-index: -1;
-		opacity: 0.4;
-		height:100%;
-		width: 100%;
-	}
+#backPic {
+	position: fixed;
+	top: 0;
+	z-index: -1;
+	opacity: 0.4;
+	height: 100%;
+	width: 100%;
+}
+
 table {
 	border-bottom: 1px solid #DDDDDD;
+}
+
+#delbtn {
+	margin-left: 30px;
 }
 </style>
 <script>
@@ -95,7 +100,9 @@ table {
 					var a = document.createElement("a");
 
 					td = document.createElement("td");
-					td.appendChild(document.createTextNode(board[i].time + " "));
+					td
+							.appendChild(document.createTextNode(board[i].time
+									+ " "));
 					if ("${beforeDateNew}" <= board[i].time) {
 						var img = document.createElement("img");
 						img.setAttribute("src", "images/new.gif");
@@ -107,13 +114,16 @@ table {
 					a.setAttribute("href", result + "/BoardUD.jsp?anno_Time="
 							+ board[i].time + "&anno_Important="
 							+ board[i].important);
-					a.appendChild(document.createTextNode(board[i].title + " "));
+					a
+							.appendChild(document.createTextNode(board[i].title
+									+ " "));
 					td.appendChild(a);
 					if (board[i].important == 1) {
 						a.setAttribute("style", "color:red");
 						var img = document.createElement("img");
 						img.setAttribute("src", "images/important.gif");
-						img.setAttribute("style", "background-color:transparent");
+						img.setAttribute("style",
+								"background-color:transparent");
 						td.appendChild(img);
 					}
 					if (board[i].important == 2) {
@@ -207,8 +217,8 @@ table {
 								<option value="31">刪除1個月前的公告</option>
 							</select>
 						</div>
-						<div class='col-md-offset-6 col-md-1'>	
-							<input type="submit" value="刪除" name="delete"
+						<div class='col-md-offset-6 col-md-1'>
+							<input type="submit" value="刪除" name="delete" id='delbtn'
 								class='btn btn-danger ' />
 						</div>
 					</form>

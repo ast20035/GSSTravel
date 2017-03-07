@@ -295,7 +295,7 @@ h1, h2 {
 	$(".Ans_textarea").blur(function(){
 		$(".Ans_textarea").removeClass("color-green");
 		$(".Ans_textarea").removeClass("color-red");
-		if($(".Ans_textarea").val()=='' || $(".Ans_textarea").val().length>500){
+		if($(".Ans_textarea").val()=='' || $(".Ans_textarea	").val().length>500){
 			$(".Ans_textarea").addClass("color-red");
 			$(".displayaa").prop("disabled", true);
 		}
