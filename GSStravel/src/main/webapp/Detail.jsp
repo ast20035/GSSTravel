@@ -498,6 +498,21 @@ $(function(){
 					var bdate = $(this).val();
 					var mydate = new Date(bdate.replace("-", "/").replace("-", "/"));
 					if(fambdate.test(bdate) && mydate<= today){
+						//生日直接判斷特殊身分(新增的親屬)
+						var between = today.getTime() - mydate.getTime();//時間差的毫秒数 
+						var between2 = Math.floor(between/(24*3600*1000));
+						if(thisTr.find(".fam_Rel").val()!="員工"){
+							if(between2<365*3){
+								thisTr.find('select.multiselect').data("kendoMultiSelect").value('幼童(0~3歲)');
+								thisTr.find(".text_multiselect").val("幼童(0~3歲) "+$("this").text());
+							}
+							if(between2<365*11){
+								if(between2>365*3){
+									thisTr.find('select.multiselect').data("kendoMultiSelect").value('兒童(4~11歲)');
+									thisTr.find(".text_multiselect").val("兒童(4~11歲) "+$("this").text());
+								}
+						 	}
+						}
 						$(this).css("border-color","green")
 						thisTr.find(".save").attr("type","submit");
 					}else{
@@ -524,7 +539,6 @@ function open_Can(obj) {
     var CanUrl = '/GSStravel/Detail_Cancel.jsp?can_detNo=' + obj.value + "&can_traNo=" + document.getElementById("tra_no").value;
     window.open(CanUrl, '_bank', 'width=300,height=250,top=100,left=400');
 };
-
 //警告視窗
 var CanError="<%=session.getAttribute("CanError")%>";
 <%session.removeAttribute("CanError");%>
