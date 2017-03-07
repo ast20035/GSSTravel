@@ -84,7 +84,7 @@ $(function(){
 		position:fixed;
 		top:0;
 		z-index: -1;
-		opacity: 0.2;
+		opacity: 0.4;
 		height:100%;
 		width: 100%;
 	}
@@ -320,7 +320,7 @@ h2 {
 							var search2 = '<c:url value='/search2.jsp'/>'							
 					</script>
 					儲存後選擇是否上傳附件<br>
-					<input type="submit" value="儲存" class='btn btn-primary' /> <input
+					<input type="submit" value="儲存" class='btn btn-success' /> <input
 						type="button" value='回上一頁' class='btn btn-primary'
 						onclick="window.location.href=search2;" />
 				</form>

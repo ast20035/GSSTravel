@@ -25,7 +25,7 @@
 		position:fixed;
 		top:0;
 		z-index: -1;
-		opacity: 0.2;
+		opacity: 0.4;
 		height:100%;
 		width: 100%;
 	}
@@ -152,7 +152,11 @@ h2 {
 		<div class='row'>
 			<div class='col-md-offset-3 col-md-4'>
 				<div id="boardDiv"></div>
-				<br> <input type="button" class='btn btn-primary' value='回上一頁'
+				<br>
+				<c:if test="${emp_Role eq false}">
+					<input type="button" class='btn btn-primary' value='我要詢問' onclick='window.location.href="QandAQuestion.jsp"'>
+				</c:if>
+				<input type="button" class='btn btn-primary' value='回上一頁'
 					onclick='window.location.href="Board.jsp"'>
 			</div>
 		</div>

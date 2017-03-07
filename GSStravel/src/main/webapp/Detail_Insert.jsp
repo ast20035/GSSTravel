@@ -27,7 +27,7 @@
 		position:fixed;
 		top:0;
 		z-index: -1;
-		opacity: 0.2;
+		opacity: 0.4;
 		height:100%;
 		width: 100%;
 	}
@@ -79,7 +79,7 @@ table {
 							<td><input type="text" id="emp_No" name="emp_No"
 								style='width: 65px;' class='form-control'
 								onblur="select_emp_No()" onfocus="clearName()"></td>
-							<td><select id="select" name="select" onchange="checkbox()"
+							<td><select id="select" name="select" onchange="checkbox()" style='width:150px;'
 								class='form-control select'></select></td>
 							<td><input type="text" id="money" name="money"
 								class="money form-control" value="${money}" readonly></td>
@@ -189,7 +189,7 @@ table {
 						</div>
 					</c:if>
 					<p class="nofam"></p>
-					<br /> <input type="submit" class="insertSave btn btn-primary"
+					<br /> <input type="submit" class="insertSave btn btn-success"
 						id="insertSave" name="prodaction" value="儲存" onclick="saveData()">
 					<input type="submit" name="prodaction" value="回前頁"
 						class='btn btn-primary'>

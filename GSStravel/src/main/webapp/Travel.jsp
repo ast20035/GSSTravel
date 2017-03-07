@@ -23,7 +23,7 @@
 		position:fixed;
 		top:0;
 		z-index: -1;
-		opacity: 0.2;
+		opacity: 0.4;
 		height:100%;
 		width: 100%;
 	}
@@ -116,7 +116,7 @@ td, th {
 								<c:if test="${row.tra_Total>row.sign_InTotal}">
 									<td class="t">${row.sign_InTotal}</td>
 								</c:if>
-								<c:if test="${row.tra_Total<row.sign_InTotal}">
+								<c:if test="${row.tra_Total<=row.sign_InTotal}">
 									<td class="t">額滿</td>
 								</c:if>							
 								<td class="t">${row.tra_Max}</td>
@@ -135,7 +135,7 @@ td, th {
 								<c:if test="${mp[tra_no]==3}">
 									<td class="t"><a
 										href="<c:url value="/CancelServlet?tra_No=${row.tra_NO}&emp_No=${emp_No}"></c:url>"><button
-												class='btn btn-success'>取消報名</button></a></td>
+												class='btn btn-danger'>取消報名</button></a></td>
 								</c:if>
 								<c:if test="${mp[tra_no]==4}">
 									<td class="t">活動已結束</td>

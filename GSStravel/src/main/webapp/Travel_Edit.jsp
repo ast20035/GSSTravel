@@ -12,7 +12,7 @@
 		position:fixed;
 		top:0;
 		z-index: -1;
-		opacity: 0.2;
+		opacity: 0.4;
 		height:100%;
 		width: 100%;
 	}
@@ -607,7 +607,7 @@ h2 {
 						}
 					</script>
 					<span>儲存後選擇是否上傳附件<br>
-					<input type="submit" id="inputdate" name="inputerrors" value="儲存" class='btn btn-primary' onclick="getElements()">
+					<input type="submit" id="inputdate" name="inputerrors" value="儲存" class='btn btn-success' onclick="getElements()">
 						<input type="button" onclick="show_confirm()" value="取消" class='btn btn-primary'> 
 						<input
 						type="button" value='刪除行程' class='btn btn-danger' onclick="return confirmComplete();" />

@@ -26,7 +26,7 @@
 	position: fixed;
 	top: 0;
 	z-index: -1;
-	opacity: 0.2;
+	opacity: 0.4;
 	height: 100%;
 	width: 100%;
 }
@@ -249,20 +249,17 @@ input {
 												</c:if> <c:if test="${list.question_Category==2}">
 													<input type="text" value="其他" readonly style='width: 100%;'>
 												</c:if></td>
-											<td><a
-												href="<c:url value='/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}'/>">
+											<td><a href="<c:url value='/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}'/>">
 													<c:if test="${list.answer_No!=0}">
 														<span>[已回應]</span>
 													</c:if>${list.question_Title}</a></td>
-											<td><input type="text" value="${list.question_No}"
-												readonly style='width: 100%;'></td>
+											<td><input type="text" value="${list.question_No}" readonly style='width: 100%;'></td>
 										</tr>
 									</c:if>
 								</c:if>
 							</c:forEach>
 						</tbody>
 					</table>
-					共${count}筆
 					<br />
 					<ul class="pagination">
 						<li><a onclick="before()">&laquo;</a></li>

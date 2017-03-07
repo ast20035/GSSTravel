@@ -68,7 +68,7 @@ public class FineServlet extends HttpServlet {
 		String now = sdFormat.format(nowDate);
 
 		boolean power = true;
-		if ("儲存罰則".equals(save)) {
+		if ("儲存".equals(save)) {
 			power = false;
 			String[] temp1 = request.getParameterValues("day");
 			String[] temp2 = request.getParameterValues("percent");
@@ -89,7 +89,7 @@ public class FineServlet extends HttpServlet {
 			} else {
 				int count1 = 0;
 				int count2 = 0;
-				if ("儲存罰則".equals(save)) {// 後端擋住尚未輸入罰則天數
+				if ("儲存".equals(save)) {// 後端擋住尚未輸入罰則天數
 					for (int i = 0; i < temp1.length; i++) {
 						if (temp1[i] == "") {
 							count1 = 1;
@@ -99,7 +99,7 @@ public class FineServlet extends HttpServlet {
 						error.put("day", "請輸入取消日！");
 					}
 				}
-				if ("儲存罰則".equals(save)) {// 後端擋住尚未輸入罰則扣款比例
+				if ("儲存".equals(save)) {// 後端擋住尚未輸入罰則扣款比例
 					for (int i = 0; i < temp1.length; i++) {
 						if (temp2[i] == "") {
 							count2 = 1;
@@ -133,10 +133,10 @@ public class FineServlet extends HttpServlet {
 								}
 							}
 						}
-						if ("儲存罰則".equals(save) && plus == 1) {
+						if ("儲存".equals(save) && plus == 1) {
 							error.put("day", "取消日必須為正整數！");
 						}
-						if ("儲存罰則".equals(save) && check == 1) {
+						if ("儲存".equals(save) && check == 1) {
 							error.put("pk", "取消日已存在！");
 						}
 					} catch (NumberFormatException e) {
@@ -145,7 +145,7 @@ public class FineServlet extends HttpServlet {
 								count3 = 1;
 							}
 						}
-						if ("儲存罰則".equals(save) && count3 == 1) {
+						if ("儲存".equals(save) && count3 == 1) {
 							error.put("day", "取消日必須為正整數！");
 						}
 					}
@@ -161,7 +161,7 @@ public class FineServlet extends HttpServlet {
 								hundred = 1;
 							}
 						}
-						if ("儲存罰則".equals(save) && hundred == 1) {
+						if ("儲存".equals(save) && hundred == 1) {
 							error.put("percent", "扣款比例必須為小於100的正數！");
 						}
 					} catch (NumberFormatException e) {
@@ -170,13 +170,13 @@ public class FineServlet extends HttpServlet {
 								count4 = 1;
 							}
 						}
-						if ("儲存罰則".equals(save) && count4 == 1) {
+						if ("儲存".equals(save) && count4 == 1) {
 							error.put("percent", "扣款比例必須為小於100的正數！");
 						}
 					}
 				}
 
-				if ("儲存罰則".equals(save)) {
+				if ("儲存".equals(save)) {
 					if (error != null && !error.isEmpty()) {// 如果以上有錯誤則無法成功顯示罰則
 						List<FineVO> result = fineService.select();
 						request.setAttribute("select", result);
@@ -186,7 +186,7 @@ public class FineServlet extends HttpServlet {
 					}
 				}
 
-				if ("儲存罰則".equals(save)) {
+				if ("儲存".equals(save)) {
 					List<FineVO> fResult1 = fineService.select();
 					fineService.delete(fineBean);// 每次儲存時刪除全部罰則
 					for (int i = 0; i < temp1.length; i++) {
