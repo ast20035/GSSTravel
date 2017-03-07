@@ -212,7 +212,7 @@ text-align: center;
 										style='width: 90px;' class='form-control'
 										value="${start.fam_Name}">
 										</td>
-									<td><select name="famsex" class='form-control'
+									<td><select name="famsex" class='form-control famsex'
 										style='width: 70px;'>
 											<c:if test="${start.fam_Sex=='男'}">
 												<option value="女">女</option>
@@ -952,17 +952,42 @@ text-align: center;
 									var total = 0;
 									// 撰寫「正規表達式」。第一個字為英文字母，
 									// 第二個字為1或2，後面跟著8個數字，不分大小寫。
-									var regExpID = /^[a-z](1|2)\d{8}$/i;
-									if (regExpID.test($("input[name*='famid']").val())) {
-										// 取出第一個字元和最後一個數字。
-										firstChar = $(this).val().charAt(0)
-												.toUpperCase();
-										lastNum = $(this).val().charAt(9);
+// 									var regExpID = /^[a-z](1|2)\d{8}$/i;
+// 									if (regExpID.test($("input[name*='famid']").val())) {
+// 										// 取出第一個字元和最後一個數字。
+// 										firstChar = $(this).val().charAt(0)
+// 												.toUpperCase();
+// 										lastNum = $(this).val().charAt(9);
 
-									} else {
-										$(this).css("border-color", "red");
-										$("#errorcount").val(1);
+// 									} else {
+// 										$(this).css("border-color", "red");
+// 										$("#errorcount").val(1);
+// 									}
+									
+									console.log($(this).closest("tr").find(".famsex").val())
+									if($(this).closest("tr").find(".famsex").val()=='男'){
+										var regExpID = /^[a-z](1)\d{8}$/i;
+										// 使用「正規表達式」檢驗格式
+										if (regExpID.test($(this).val())) {
+											// 取出第一個字元和最後一個數字。
+											firstChar = $(this).val().charAt(0).toUpperCase();
+											lastNum = $(this).val().charAt(9);
+										} else {
+											$(this).css("border-color","red");
+											$("#errorcount").val(1);
+										}
+									}else{
+										var regExpID = /^[a-z](2)\d{8}$/i;
+										if (regExpID.test($(this).val())) {
+											// 取出第一個字元和最後一個數字。
+											firstChar = $(this).val().charAt(0).toUpperCase();
+											lastNum = $(this).val().charAt(9);
+										} else {
+											$(this).css("border-color","red");
+											$("#errorcount").val(1);
+										}
 									}
+									
 									// 找出第一個字母對應的數字，並轉換成兩位數數字。
 									for (var i = 0; i < 26; i++) {
 										if (firstChar == letters[i]) {
