@@ -420,7 +420,17 @@ table {
 				a9 = true;
 				$(this).css("border-width", "1px");
 				$(this).css("border-color", "green");
-				$(".insertSave").attr("type", "button");
+				//生日直接判斷特殊身分(新增的親屬)
+				var between = today.getTime() - mydate.getTime();//時間差的毫秒数 
+				var between2 = Math.floor(between/(24*3600*1000));
+				if(between2<365*3){
+					$('select.multiselect').data("kendoMultiSelect").value('幼童(0~3歲)');
+				}
+				if(between2<365*11){
+					if(between2>365*3){
+						$('select.multiselect').data("kendoMultiSelect").value('兒童(4~11歲)');
+					}
+			 	}
 				if (!(a1 && a2 && a3 && a4 && a5 && a6 && a7 && a8 & a9)) {
 					$(".insertSave").attr("type", "button");
 				} else {
