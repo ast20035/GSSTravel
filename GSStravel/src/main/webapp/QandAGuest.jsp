@@ -110,6 +110,10 @@ input[type='text'] {
 input {
 	background-color: transparent;
 }
+
+#selectb {
+	margin-left: 30px;
+}
 </style>
 </head>
 <body>
@@ -121,9 +125,9 @@ input {
 	<%
 		String prodaction = request.getParameter("prodaction");
 		String prodaction2 = request.getParameter("prodaction2");
-		int question_Category=-1;
-		if(prodaction2!=null){
-			question_Category=Integer.parseInt(prodaction2);
+		int question_Category = -1;
+		if (prodaction2 != null) {
+			question_Category = Integer.parseInt(prodaction2);
 		}
 	%>
 	<div class='container-fluid'>
@@ -136,20 +140,51 @@ input {
 		<br>
 		<div class='row'>
 			<div class='col-md-offset-1 col-md-7'>
-			<select id="selecta" onchange="window.location = '/GSStravel/QandAServlet?role=false&prodaction2='+this.value+'&prodaction='+$('#selectb').val();" class='form-control' style='width: 140px;'>
-				<option value="-1" <%if ("-1".equals(prodaction2)) { out.print("selected"); }%>>全部</option>
-				<option value="0" <%if ("0".equals(prodaction2)) { out.print("selected"); }%>>行程</option>
-				<option value="1" <%if ("1".equals(prodaction2)) { out.print("selected"); }%>>費用</option>
-				<option value="2" <%if ("2".equals(prodaction2)) { out.print("selected"); }%>>其他</option>
-			</select>
-			<br />
-			<select id="selectb" onchange="window.location = '/GSStravel/QandAServlet?role=false&prodaction='+this.value+'&prodaction2='+$('#selecta').val();" class='form-control' style='width: 140px;'>
-				<option value="all" <%if ("all".equals(prodaction)) { out.print("selected"); }%>>顯示全部</option>
-				<option value="yes" <%if ("yes".equals(prodaction)) { out.print("selected"); }%>>顯示已回應</option>
-				<option value="no" <%if ("no".equals(prodaction)) { out.print("selected");  }%>>顯示未回應</option>
-			</select>
-			</span>
-			<br />
+				<div class='col-md-offset-0 col-md-2'>
+					<select id="selecta"
+						onchange="window.location = '/GSStravel/QandAServlet?role=false&prodaction2='+this.value+'&prodaction='+$('#selectb').val();"
+						class='form-control' style='width: 150px;'>
+						<option value="-1"
+							<%if ("-1".equals(prodaction2)) {
+				out.print("selected");
+			}%>>全部</option>
+						<option value="0"
+							<%if ("0".equals(prodaction2)) {
+				out.print("selected");
+			}%>>行程</option>
+						<option value="1"
+							<%if ("1".equals(prodaction2)) {
+				out.print("selected");
+			}%>>費用</option>
+						<option value="2"
+							<%if ("2".equals(prodaction2)) {
+				out.print("selected");
+			}%>>其他</option>
+					</select>
+				</div>
+				<div class='col-md-2'>
+					<select id="selectb"
+						onchange="window.location = '/GSStravel/QandAServlet?role=false&prodaction='+this.value+'&prodaction2='+$('#selecta').val();"
+						class='form-control' style='width: 150px;'>
+						<option value="all"
+							<%if ("all".equals(prodaction)) {
+				out.print("selected");
+			}%>>顯示全部</option>
+						<option value="yes"
+							<%if ("yes".equals(prodaction)) {
+				out.print("selected");
+			}%>>顯示已回應</option>
+						<option value="no"
+							<%if ("no".equals(prodaction)) {
+				out.print("selected");
+			}%>>顯示未回應</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<br />
+		<div class='row'>
+			<div class='col-md-offset-1 col-md-6'>
 				<c:if test="${list.size()!=0}">
 					<table class='table'>
 						<thead>
@@ -184,7 +219,8 @@ input {
 													<br>
 												</c:if><span style="color: red">[私密]${list.question_Title}</span>
 										</a></td>
-										<td><input type="text" value="${list.question_No}" readonly style='width: 100%;'></td>
+										<td><input type="text" value="${list.question_No}"
+											readonly style='width: 100%;'></td>
 									</tr>
 								</c:if>
 								<c:if test="${emp_Role eq false&&!list.question_secret}">
@@ -250,11 +286,13 @@ input {
 												</c:if> <c:if test="${list.question_Category==2}">
 													<input type="text" value="其他" readonly style='width: 100%;'>
 												</c:if></td>
-											<td><a href="<c:url value='/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}'/>">
+											<td><a
+												href="<c:url value='/QandAServlet?prodaction=select&role=false&qa_No=${list.qa_No}'/>">
 													<c:if test="${list.answer_No!=0}">
 														<span>[已回應]</span>
 													</c:if>${list.question_Title}</a></td>
-											<td><input type="text" value="${list.question_No}" readonly style='width: 100%;'></td>
+											<td><input type="text" value="${list.question_No}"
+												readonly style='width: 100%;'></td>
 										</tr>
 									</c:if>
 								</c:if>
@@ -274,57 +312,57 @@ input {
 					</ul>
 				</c:if>
 				<c:if test="${list.size()==0}">
- 					<%
-						if (prodaction == null || prodaction2==null) {
+					<%
+						if (prodaction == null || prodaction2 == null) {
 								out.print("<h2>現在尚無留言</h2>");
-						}else{
-							switch (question_Category){
-							case -1:
-								if ("all".equals(prodaction)) {
-									out.print("<h2>現在尚無留言</h2>");
+							} else {
+								switch (question_Category) {
+									case -1 :
+										if ("all".equals(prodaction)) {
+											out.print("<h2>現在尚無留言</h2>");
+										}
+										if ("yes".equals(prodaction)) {
+											out.print("<h2>全部皆無回應</h2>");
+										}
+										if ("no".equals(prodaction)) {
+											out.print("<h2>全部皆已回應</h2>");
+										}
+										break;
+									case 0 :
+										if ("all".equals(prodaction)) {
+											out.print("<h2>現在尚無留言</h2>");
+										}
+										if ("yes".equals(prodaction)) {
+											out.print("<h2>全部皆無回應</h2>");
+										}
+										if ("no".equals(prodaction)) {
+											out.print("<h2>全部皆已回應</h2>");
+										}
+										break;
+									case 1 :
+										if ("all".equals(prodaction)) {
+											out.print("<h2>現在尚無留言</h2>");
+										}
+										if ("yes".equals(prodaction)) {
+											out.print("<h2>全部皆無回應</h2>");
+										}
+										if ("no".equals(prodaction)) {
+											out.print("<h2>全部皆已回應</h2>");
+										}
+										break;
+									case 2 :
+										if ("all".equals(prodaction)) {
+											out.print("<h2>現在尚無留言</h2>");
+										}
+										if ("yes".equals(prodaction)) {
+											out.print("<h2>全部皆無回應</h2>");
+										}
+										if ("no".equals(prodaction)) {
+											out.print("<h2>全部皆已回應</h2>");
+										}
+										break;
 								}
-								if ("yes".equals(prodaction)) {
-									out.print("<h2>全部皆無回應</h2>");
-								}
-								if ("no".equals(prodaction)) {
-									out.print("<h2>全部皆已回應</h2>");
-								}
-								break;
-							case 0:
-								if ("all".equals(prodaction)) {
-									out.print("<h2>現在尚無留言</h2>");
-								}
-								if ("yes".equals(prodaction)) {
-									out.print("<h2>全部皆無回應</h2>");
-								}
-								if ("no".equals(prodaction)) {
-									out.print("<h2>全部皆已回應</h2>");
-								}
-								break;
-							case 1:
-								if ("all".equals(prodaction)) {
-									out.print("<h2>現在尚無留言</h2>");
-								}
-								if ("yes".equals(prodaction)) {
-									out.print("<h2>全部皆無回應</h2>");
-								}
-								if ("no".equals(prodaction)) {
-									out.print("<h2>全部皆已回應</h2>");
-								}
-								break;
-							case 2:
-								if ("all".equals(prodaction)) {
-									out.print("<h2>現在尚無留言</h2>");
-								}
-								if ("yes".equals(prodaction)) {
-									out.print("<h2>全部皆無回應</h2>");
-								}
-								if ("no".equals(prodaction)) {
-									out.print("<h2>全部皆已回應</h2>");
-								}
-								break;
 							}
-						}
 					%>
 				</c:if>
 				<br />

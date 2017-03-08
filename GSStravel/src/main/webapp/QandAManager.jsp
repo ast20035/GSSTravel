@@ -48,7 +48,6 @@ input[type='text'] {
 
 #selectb {
 	margin-left: 30px;
-	]
 }
 </style>
 </head>
