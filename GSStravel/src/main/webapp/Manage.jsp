@@ -31,7 +31,7 @@ table {
 	color: #7F7F7F;
 	font: 0.8em/1.6em "Trebuchet MS", Verdana, sans-serif;
 	border-collapse: collapse;
-	font-size: 20px;
+	font-size: 15px;
 }
 
 caption, thead th, tfoot th, tfoot td {
