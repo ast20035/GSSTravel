@@ -163,8 +163,10 @@ h1, h2 {
 }
 
 .Mnow {
-	border-left: 5px solid blue;
-	border-right: 5px solid blue;
+background-color: #ffaa38;
+
+/* 	border-left: 5px solid blue; */
+/* 	border-right: 5px solid blue; */
 }
 
 .navbar-brand {
@@ -193,7 +195,7 @@ input[readonly='readonly'] {
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="<c:url value='/Board.jsp'/>" id="gss">GSS</a>
+			<a class="navbar-brand" href="<c:url value='/Board.jsp'/>" id="gss"><img src="images/gss_logo.png"></a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">

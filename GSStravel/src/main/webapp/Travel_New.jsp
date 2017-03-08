@@ -89,7 +89,43 @@ $(function(){
 	    timeFormat: 'hh:mm:ss'
     });
 
+	
+
+
 });
+
+function formtable_b(form) {
+	
+	var edititemName = document.getElementsByName("edititemName");
+	
+	var e = 0;
+	var ea = 0;
+	var eb = 0;
+	var ec = 0;
+	for(var name=0;name<edititemName.length;name++){		
+	    if(edititemName[name].value == "住宿費(兩人房)"){
+	    	ea++;
+	    }
+	    
+	    if(edititemName[name].value == "住宿費(通鋪8人)"){
+	    	eb++;
+	    }
+	    
+	    if (edititemName[name].value == "住宿費(加床)"){
+	    	ec++;
+	    }
+	}
+	
+	if(ea>1 || eb>1 || ec>1){
+		alert("費用項目重複");
+		return false;	
+		
+	}else{
+		e=1;
+		return true;
+	}
+
+}
 
 </script>
 
@@ -145,7 +181,8 @@ h2 {
 		<br> <br>
 		<div class='row'>
 			<div class='col-md-6 col-md-offset-3'>
-				<form action="<c:url value='/SetUpTravel'/>" method="POST" id="newTravel">
+				<form action="<c:url value='/SetUpTravel'/>" method="POST" id="newTravel" form
+					onsubmit="return formtable_b()">
 					<table class="t table">
 
 						<tr>
