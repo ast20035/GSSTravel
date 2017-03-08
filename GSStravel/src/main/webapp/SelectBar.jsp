@@ -161,7 +161,7 @@ input{
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="<c:url value='/Board.jsp'/>">GSS</a>
+			<a class="navbar-brand" href="<c:url value='/Board.jsp'/>"><img src="images/gss_logo.png"></a>
 		</div>
 		<div id="navbar"
 			class="collapse navbar-collapse navbar-responsive-collapse">
