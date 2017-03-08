@@ -202,7 +202,7 @@ h2 {
 									<!-- col-xs-4 -->
 
 									<div class="col-xs-4">
-										<div class="Input-group">
+										<div class="Input-group" style="margin-left:-25px;">
 											<label>結束日期</label> <input type="text" class='form-control'
 												style='width: 150px;' name="edittraOff" id="edittraOff"
 
@@ -228,9 +228,9 @@ h2 {
 										</div>
 									</div>
 
-
+									
 									<div class="col-xs-4">
-										<div class="Input-group">
+										<div class="Input-group" style="margin-left:25px;">
 											<label>結束時間</label> <input type="text" class='form-control'
 												style='width: 200px;' name="edittraEnd" id="edittraEnd"
 												value="" readonly="readonly">
