@@ -42,7 +42,28 @@
 <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
 <!-- <script src='js/jquery-3.1.1.min.js'></script> -->
 <script type="text/javascript">
+
+
+
 $(function(){
+	
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+
+	var yyyy = today.getFullYear();
+	if(dd<10){
+	    dd='0'+dd;
+	} 
+	if(mm<10){
+	    mm='0'+mm;
+	} 
+	var today = yyyy+'-'+mm+'-'+dd;
+	var today1 = yyyy+'-'+mm+'-'+dd;
+	document.getElementById("edittraOn").value = today;
+	document.getElementById("edittraOff").value = today1;
+	
+
 	
 	$('#edittraOn').datepicker({
 		
@@ -171,7 +192,7 @@ h2 {
 											<label>開始日期</label> <input type="text" name="edittraOn"
 												id="edittraOn" class='form-control' style='width: 150px;'
 
-												value="2013-01-01" readonly="readonly"/>
+												value="" readonly="readonly"/>
 
 											<div id = edittraOnerror></div>
 
@@ -185,7 +206,7 @@ h2 {
 											<label>結束日期</label> <input type="text" class='form-control'
 												style='width: 150px;' name="edittraOff" id="edittraOff"
 
-												value="2013-01-01" readonly="readonly"/>
+												value="" readonly="readonly"/>
 
 											<div id= edittraOfferror></div>
 										</div>
