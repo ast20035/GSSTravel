@@ -48,8 +48,10 @@ textarea {
 }
 
 td {
-	padding: 0px;
+	padding: 5px;
 	text-align: center;
+	vertical-align: middle;
+	
 }
 
 table {
@@ -66,6 +68,7 @@ table {
 
 input[type='text'] {
 	background-color: transparent;
+	margin: auto;
 }
 
 input[name="det_note"],input[name="det_noteMoney"] {
@@ -107,7 +110,7 @@ input[name="det_note"],input[name="det_noteMoney"] {
 							role='button'>每頁100筆</a></li>
 					</ul>
 
-					<table border="1" class="table table-bordereds" id="table">
+					<table border="1" class="table-bordereds" id="table">
 						<thead>
 							<tr>
 								<th><label style='width:80px;'>部門代碼</label></th>
@@ -139,9 +142,10 @@ input[name="det_note"],input[name="det_noteMoney"] {
 										<input type="text" class="Name" value="${list.emp_Name}"
 											style="border-width: 0" readonly>
 									</c:if> <c:if test="${list.fam_Name!=NULL}">
-										<input type="text" class="Name"
+										<input type="hidden" class="Name"
 											value="${list.fam_Name}/${list.emp_Name}"
 											style="border-width: 0" readonly>
+											<p>${list.fam_Name}<br>(${list.emp_Name})</p>
 									</c:if></td>
 								<c:if test="${list.fam_Name==NULL}">
 									<td><input type="text" class="years_money years_Money"

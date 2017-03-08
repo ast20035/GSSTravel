@@ -21,28 +21,35 @@
 	crossorigin="anonymous"></script>
 <title>Q&A</title>
 <style type="text/css">
-	#backPic{
-		position:fixed;
-		top:0;
-		z-index: -1;
-		opacity: 0.4;
-		height:100%;
-		width: 100%;
-	}
-	td, tr {
-		padding: 3px;
-		border: 1px solid gray;
-	}
-	
-	input[type='text'] {
-		border: none;
-		text-align: center;
-		padding: 3px;
-		background-color: transparent;
-	}
-	.delBtn{
+#backPic {
+	position: fixed;
+	top: 0;
+	z-index: -1;
+	opacity: 0.4;
+	height: 100%;
+	width: 100%;
+}
+
+td, tr {
+	padding: 3px;
+	border: 1px solid gray;
+}
+
+input[type='text'] {
+	border: none;
+	text-align: center;
+	padding: 3px;
+	background-color: transparent;
+}
+
+.delBtn {
 	margin-left: 30px;
-	}
+}
+
+#selectb {
+	margin-left: 30px;
+	]
+}
 </style>
 </head>
 <body>
@@ -54,9 +61,9 @@
 	<%
 		String prodaction = request.getParameter("prodaction");
 		String prodaction2 = request.getParameter("prodaction2");
-		int question_Category=-1;
-		if(prodaction2!=null){
-			question_Category=Integer.parseInt(prodaction2);
+		int question_Category = -1;
+		if (prodaction2 != null) {
+			question_Category = Integer.parseInt(prodaction2);
 		}
 	%>
 	<div class='container-fluid'>
@@ -69,79 +76,124 @@
 		<br>
 		<div class='row'>
 			<div class='col-md-offset-1 col-md-6'>
-					<div class='row'>
-						<c:if test="${emp_Role eq true}">
-							<div class='col-md-2'>
-								<select class="prodaction form-control" style='width: 150px;'>
-									<option value="Years" selected>刪除前一年</option>
-									<option value="9month">刪除9個月前</option>
-									<option value="6month">刪除6個月前</option>
-									<option value="3month">刪除3個月前</option>
-								</select>
-							</div>
-							<div class='col-md-offset-0 col-md-1 delBtn'>
-								<button class='btn btn-danger' type="button"
-									onclick="checkdelete()">刪除</button>
-							</div>
-						</c:if>
+				<div class='row'>
+					<c:if test="${emp_Role eq true}">
+						<div class='col-md-2'>
+							<select class="prodaction form-control" style='width: 150px;'>
+								<option value="Years" selected>刪除前一年</option>
+								<option value="9month">刪除9個月前</option>
+								<option value="6month">刪除6個月前</option>
+								<option value="3month">刪除3個月前</option>
+							</select>
+						</div>
+						<div class='col-md-offset-0 col-md-1 delBtn'>
+							<button class='btn btn-danger' type="button"
+								onclick="checkdelete()">刪除</button>
+						</div>
+					</c:if>
+				</div>
+				<br>
+				<div class='row'>
+					<div class='col-md-offset-0 col-md-2'>
+						<select id="selecta"
+							onchange="window.location = '/GSStravel/QandAServlet?role=true&prodaction2='+this.value+'&prodaction='+$('#selectb').val();"
+							class='form-control' style='width: 150px;'>
+							<option value="-1"
+								<%if ("-1".equals(prodaction2)) {
+				out.print("selected");
+			}%>>全部</option>
+							<option value="0"
+								<%if ("0".equals(prodaction2)) {
+				out.print("selected");
+			}%>>行程</option>
+							<option value="1"
+								<%if ("1".equals(prodaction2)) {
+				out.print("selected");
+			}%>>費用</option>
+							<option value="2"
+								<%if ("2".equals(prodaction2)) {
+				out.print("selected");
+			}%>>其他</option>
+						</select>
 					</div>
-					<br>
-						<select id="selecta" onchange="window.location = '/GSStravel/QandAServlet?role=true&prodaction2='+this.value+'&prodaction='+$('#selectb').val();" class='form-control' style='width: 150px;'>
-							<option value="-1" <%if ("-1".equals(prodaction2)) { out.print("selected"); }%>>全部</option>
-							<option value="0" <%if ("0".equals(prodaction2)) { out.print("selected"); }%>>行程</option>
-							<option value="1" <%if ("1".equals(prodaction2)) { out.print("selected"); }%>>費用</option>
-							<option value="2" <%if ("2".equals(prodaction2)) { out.print("selected"); }%>>其他</option>
+					<div class='col-md-2'>
+						<select id="selectb"
+							onchange="window.location = '/GSStravel/QandAServlet?role=true&prodaction='+this.value+'&prodaction2='+$('#selecta').val();"
+							class='form-control' style='width: 150px;'>
+							<option value="all"
+								<%if ("all".equals(prodaction)) {
+				out.print("selected");
+			}%>>顯示全部</option>
+							<option value="yes"
+								<%if ("yes".equals(prodaction)) {
+				out.print("selected");
+			}%>>顯示已回應</option>
+							<option value="no"
+								<%if ("no".equals(prodaction)) {
+				out.print("selected");
+			}%>>顯示未回應</option>
 						</select>
-						<br />
-						<select id="selectb" onchange="window.location = '/GSStravel/QandAServlet?role=true&prodaction='+this.value+'&prodaction2='+$('#selecta').val();" class='form-control' style='width: 150px;'>
-							<option value="all" <%if ("all".equals(prodaction)) { out.print("selected"); }%>>顯示全部</option>
-							<option value="yes" <%if ("yes".equals(prodaction)) { out.print("selected"); }%>>顯示已回應</option>
-							<option value="no" <%if ("no".equals(prodaction)) { out.print("selected");  }%>>顯示未回應</option>
-						</select>
-					<br />
-					<c:if test="${list.size()!=0}">
+					</div>
+				</div>
+				<br />
+				<c:if test="${list.size()!=0}">
 					<table>
 						<thead>
 							<tr>
-								<th><label style='width:300px;'>詢問時間</label></th>
-								<th><label style='width:150px;'>提問類型</label></th>
-								<th><label style='width:250px;'>標題</label></th>
-								<th><label style='width:100px;'>詢問人員</label></th>
+								<th><label style='width: 300px;'>詢問時間</label></th>
+								<th><label style='width: 150px;'>提問類型</label></th>
+								<th><label style='width: 250px;'>標題</label></th>
+								<th><label style='width: 100px;'>詢問人員</label></th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="list" items="${list}">
 								<c:if test="${list.question_secret}">
 									<tr>
-										<td><div class="centeraa">${list.question_Time}<c:if test="${list.newimg==true}"> <img src="images/new.gif"></c:if></div></td>
-										<td>
-											<c:if test="${list.question_Category==0}"><input type="text" value="行程" readonly style='width: 100%;'></c:if>
-											<c:if test="${list.question_Category==1}"><input type="text" value="費用" readonly style='width: 100%;'></c:if>
-											<c:if test="${list.question_Category==2}"><input type="text" value="其他" readonly style='width: 100%;'></c:if>	
-										</td>
+										<td><div class="centeraa">${list.question_Time}<c:if
+													test="${list.newimg==true}">
+													<img src="images/new.gif">
+												</c:if>
+											</div></td>
+										<td><c:if test="${list.question_Category==0}">
+												<input type="text" value="行程" readonly style='width: 100%;'>
+											</c:if> <c:if test="${list.question_Category==1}">
+												<input type="text" value="費用" readonly style='width: 100%;'>
+											</c:if> <c:if test="${list.question_Category==2}">
+												<input type="text" value="其他" readonly style='width: 100%;'>
+											</c:if></td>
 										<td><a
 											href="/GSStravel/QandAServlet?prodaction=select&role=true&qa_No=${list.qa_No}">
 												<c:if test="${list.answer_No!=0}">
-													<span>[已回應]</span><br />
+													<span>[已回應]</span>
+													<br />
 												</c:if><span style="color: red">[私密]${list.question_Title}</span>
 										</a></td>
-										<td><input type="text" value="${list.question_No}" style='width:100%;' readonly></td>
+										<td><input type="text" value="${list.question_No}"
+											style='width: 100%;' readonly></td>
 									</tr>
 								</c:if>
 								<c:if test="${!list.question_secret}">
 									<tr>
-										<td><div class="centeraa">${list.question_Time}<c:if test="${list.newimg==true}"> <img src="images/new.gif"></c:if></div></td>
-										<td>
-											<c:if test="${list.question_Category==0}"><input type="text" value="行程" readonly style='width: 100%;'></c:if>
-											<c:if test="${list.question_Category==1}"><input type="text" value="費用" readonly style='width: 100%;'></c:if>
-											<c:if test="${list.question_Category==2}"><input type="text" value="其他" readonly style='width: 100%;'></c:if>	
-										</td>
+										<td><div class="centeraa">${list.question_Time}<c:if
+													test="${list.newimg==true}">
+													<img src="images/new.gif">
+												</c:if>
+											</div></td>
+										<td><c:if test="${list.question_Category==0}">
+												<input type="text" value="行程" readonly style='width: 100%;'>
+											</c:if> <c:if test="${list.question_Category==1}">
+												<input type="text" value="費用" readonly style='width: 100%;'>
+											</c:if> <c:if test="${list.question_Category==2}">
+												<input type="text" value="其他" readonly style='width: 100%;'>
+											</c:if></td>
 										<td><a
 											href="/GSStravel/QandAServlet?prodaction=select&role=true&qa_No=${list.qa_No}">
 												<c:if test="${list.answer_No!=0}">
 													<span>[已回應]</span>
 												</c:if>${list.question_Title}</a></td>
-										<td><input type="text" value="${list.question_No}" style='width:100%;' readonly></td>
+										<td><input type="text" value="${list.question_No}"
+											style='width: 100%;' readonly></td>
 									</tr>
 								</c:if>
 							</c:forEach>
@@ -161,57 +213,57 @@
 				</c:if>
 				<c:if test="${list.size()==0}">
 					<%
-						if (prodaction == null || prodaction2==null) {
+						if (prodaction == null || prodaction2 == null) {
 								out.print("<h2>現在尚無留言</h2>");
-						}else{
-							switch (question_Category){
-							case -1:
-								if ("all".equals(prodaction)) {
-									out.print("<h2>現在尚無留言</h2>");
+							} else {
+								switch (question_Category) {
+									case -1 :
+										if ("all".equals(prodaction)) {
+											out.print("<h2>現在尚無留言</h2>");
+										}
+										if ("yes".equals(prodaction)) {
+											out.print("<h2>全部皆無回應</h2>");
+										}
+										if ("no".equals(prodaction)) {
+											out.print("<h2>全部皆已回應</h2>");
+										}
+										break;
+									case 0 :
+										if ("all".equals(prodaction)) {
+											out.print("<h2>現在尚無留言</h2>");
+										}
+										if ("yes".equals(prodaction)) {
+											out.print("<h2>全部皆無回應</h2>");
+										}
+										if ("no".equals(prodaction)) {
+											out.print("<h2>全部皆已回應</h2>");
+										}
+										break;
+									case 1 :
+										if ("all".equals(prodaction)) {
+											out.print("<h2>現在尚無留言</h2>");
+										}
+										if ("yes".equals(prodaction)) {
+											out.print("<h2>全部皆無回應</h2>");
+										}
+										if ("no".equals(prodaction)) {
+											out.print("<h2>全部皆已回應</h2>");
+										}
+										break;
+									case 2 :
+										if ("all".equals(prodaction)) {
+											out.print("<h2>現在尚無留言</h2>");
+										}
+										if ("yes".equals(prodaction)) {
+											out.print("<h2>全部皆無回應</h2>");
+										}
+										if ("no".equals(prodaction)) {
+											out.print("<h2>全部皆已回應</h2>");
+										}
+										break;
 								}
-								if ("yes".equals(prodaction)) {
-									out.print("<h2>全部皆無回應</h2>");
-								}
-								if ("no".equals(prodaction)) {
-									out.print("<h2>全部皆已回應</h2>");
-								}
-								break;
-							case 0:
-								if ("all".equals(prodaction)) {
-									out.print("<h2>現在尚無留言</h2>");
-								}
-								if ("yes".equals(prodaction)) {
-									out.print("<h2>全部皆無回應</h2>");
-								}
-								if ("no".equals(prodaction)) {
-									out.print("<h2>全部皆已回應</h2>");
-								}
-								break;
-							case 1:
-								if ("all".equals(prodaction)) {
-									out.print("<h2>現在尚無留言</h2>");
-								}
-								if ("yes".equals(prodaction)) {
-									out.print("<h2>全部皆無回應</h2>");
-								}
-								if ("no".equals(prodaction)) {
-									out.print("<h2>全部皆已回應</h2>");
-								}
-								break;
-							case 2:
-								if ("all".equals(prodaction)) {
-									out.print("<h2>現在尚無留言</h2>");
-								}
-								if ("yes".equals(prodaction)) {
-									out.print("<h2>全部皆無回應</h2>");
-								}
-								if ("no".equals(prodaction)) {
-									out.print("<h2>全部皆已回應</h2>");
-								}
-								break;
 							}
-						}
-					%>			 				
+					%>
 				</c:if>
 				<br />
 				<c:if test="${emp_Role eq false}">
@@ -266,6 +318,6 @@
 		}
 	}
 	</script>
-<img src="images/Travel.jpg" id="backPic">
+	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>
