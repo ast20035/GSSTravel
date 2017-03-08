@@ -31,7 +31,7 @@ table {
 	color: #7F7F7F;
 	font: 0.8em/1.6em "Trebuchet MS", Verdana, sans-serif;
 	border-collapse: collapse;
-	font-size: 15px;
+	font-size: 20px;
 }
 
 caption, thead th, tfoot th, tfoot td {
@@ -163,8 +163,10 @@ h1, h2 {
 }
 
 .Mnow {
-	border-left: 5px solid blue;
-	border-right: 5px solid blue;
+background-color: #ffaa38;
+
+/* 	border-left: 5px solid blue; */
+/* 	border-right: 5px solid blue; */
 }
 
 .navbar-brand {
