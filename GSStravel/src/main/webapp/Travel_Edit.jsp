@@ -439,7 +439,7 @@ h2 {
 									<!-- col-xs-4 -->
 
 									<div class="col-xs-4">
-										<div class="Input-group">
+										<div class="Input-group" style="margin-left:-25px;">
 											<label>結束日期</label> <input type="" class='form-control'
 												style='width: 150px;' name="edittraOff" id="edittraOff"
 												value="${params.tra_Off}" readonly>
@@ -469,10 +469,10 @@ h2 {
 											<div id=edittraBegerror></div>
 										</div>
 									</div>
-				
-
+									
+									
 									<div class="col-xs-4">
-										<div class="Input-group">
+										<div class="Input-group" style="margin-left:25px;">
 											<fmt:parseDate value="${params.tra_End}"
 												pattern="yyyy-MM-dd HH:mm:ss" var="myDateEnd" />
 											<fmt:formatDate value="${myDateEnd}"
