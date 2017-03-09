@@ -572,7 +572,7 @@ public class DetailDAO implements IDetailDAO {
 	}
 
 	// 找到員工所報名的所有旅費中花費最高的Tra_No
-	private static final String SELECT_top1_Tra_No = "SELECT  TOP 1 Tra_No FROM (SELECT TOP 1  Detail.Tra_No, Detail.emp_No,SUM(det_money) as totalMoney FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No full outer join Travel on Detail.tra_No = Travel.tra_No WHERE Detail.emp_No=? and ISNULL(fam_Rel,'員工') <> '親友' and det_CanDate is null and tra_End>GETDATE() GROUP BY  Detail.emp_No,Detail.Tra_No ORDER BY totalMoney DESC )temp1";
+	private static final String SELECT_top1_Tra_No = "SELECT  TOP 1 Tra_No FROM (SELECT TOP 1  Detail.Tra_No, Detail.emp_No,SUM(det_money) as totalMoney FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No full outer join Travel on Detail.tra_No = Travel.tra_No WHERE Detail.emp_No=? and ISNULL(fam_Rel,'員工') <> '親友' and det_CanDate is null and tra_On>GETDATE() GROUP BY  Detail.emp_No,Detail.Tra_No ORDER BY totalMoney DESC )temp1";
 
 	@Override
 	public String SELECT_top1_Tra_No(int Emp_No) {
@@ -591,7 +591,7 @@ public class DetailDAO implements IDetailDAO {
 	}
 
 	// 找到員工所報名的所有旅費中花費第二高的Tra_No
-	private static final String SELECT_top2_Tra_No = "SELECT  TOP 1 Tra_No FROM (SELECT TOP 2 Detail.Tra_No, Detail.emp_No,SUM(det_money) as totalMoney FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No full outer join Travel on Detail.tra_No = Travel.tra_No WHERE Detail.emp_No=? and ISNULL(fam_Rel,'員工') <> '親友' and det_CanDate is null and tra_End>GETDATE() GROUP BY  Detail.emp_No,Detail.Tra_No order by totalMoney DESC)temp1 ORDER BY totalMoney ";
+	private static final String SELECT_top2_Tra_No = "SELECT  TOP 1 Tra_No FROM (SELECT TOP 2 Detail.Tra_No, Detail.emp_No,SUM(det_money) as totalMoney FROM Detail full outer join family on  Detail.fam_No = family.fam_No full outer join Employee on Detail.emp_No = Employee.emp_No full outer join Travel on Detail.tra_No = Travel.tra_No WHERE Detail.emp_No=? and ISNULL(fam_Rel,'員工') <> '親友' and det_CanDate is null and tra_On>GETDATE() GROUP BY  Detail.emp_No,Detail.Tra_No order by totalMoney DESC)temp1 ORDER BY totalMoney ";
 
 	@Override
 	public String SELECT_top2_Tra_No(int Emp_No) {
