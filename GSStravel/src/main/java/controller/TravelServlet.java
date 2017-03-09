@@ -54,7 +54,6 @@ public class TravelServlet extends HttpServlet {
 		List<ItemVO> itemview = itemService.select(traNo); 
 		request.setAttribute("params", travelview);
 		request.setAttribute("paramsi", itemview);
-		System.out.println("testsfasfasf");
 		request.getRequestDispatcher("/Travel_Edit.jsp").forward(request,response);
 	}
 	
