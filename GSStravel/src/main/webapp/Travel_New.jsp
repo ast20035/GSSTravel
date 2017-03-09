@@ -202,7 +202,7 @@ h2 {
 							<td></td>
 						</tr>
 						<tr>
-							<td>*活動地點</td>
+							<td><em style="color: red">*</em>活動地點</td>
 							<td><select name="edittraLoc" class='form-control'
 								id="edittraLoc" style='width: 80px;'>
 
@@ -220,7 +220,7 @@ h2 {
 						</tr>
 						<tr>
 						<tr>
-							<td>*活動日期</td>
+							<td><em style="color: red">*</em>活動日期</td>
 
 							<td>
 								<div class="row">
@@ -253,7 +253,7 @@ h2 {
 							</td>
 						</tr>
 						<tr>
-							<td>*登記時間</td>
+							<td><em style="color: red">*</em>登記時間</td>
 							<td>
 								<div class="row">
 									<div class="col-xs-4">
