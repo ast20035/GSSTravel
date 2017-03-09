@@ -218,7 +218,7 @@ input {
 												<c:if test="${list.answer_No!=0}">
 													<span>[已回應]</span>
 													<br>
-												</c:if><span style="color: red">[私密]${list.question_Title}</span>
+												</c:if><span style="color: red">[私密] ${list.question_Title}</span>
 										</a></td>
 										<td><input type="text" value="${list.question_No}"
 											readonly style='width: 100%;'></td>
@@ -267,7 +267,7 @@ input {
 													<c:if test="${list.answer_No!=0}">
 														<span>[已回應]</span>
 														<br>
-													</c:if><span style="color: red">[私密]${list.question_Title}</span>
+													</c:if><span style="color: red">[私密] ${list.question_Title}</span>
 											</a></td>
 											<td><input type="text" value="${list.question_No}"
 												readonly style='width: 100%;'></td>
