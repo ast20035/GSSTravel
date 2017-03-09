@@ -163,6 +163,7 @@ td, th {
 			</div>
 		</div>
 	</div>
+	<img src="images/Travel.jpg" id="backPic">
 	<script>
 	var i;
 	var $page = $(".page");
@@ -200,7 +201,6 @@ td, th {
 		$("tr:gt(" + i * 10 + "):lt(" + 10 + ")").css("display", "");
 	}
 	</script>
-	<img src="images/Travel.jpg" id="backPic">
 </body>
 </html>
 	

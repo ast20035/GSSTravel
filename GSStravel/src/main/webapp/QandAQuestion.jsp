@@ -87,7 +87,7 @@ textarea {
 						<tr>
 							<td colspan="2"><input type="radio" name="radio"
 								value="false" checked="checked">公開 <input type="radio"
-								name="radio" value="true">私密</td>
+								name="radio" value="true" style="color: red">私密</td>
 						</tr>
 						<tr>
 							<th>留言內容</th>
