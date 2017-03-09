@@ -193,7 +193,7 @@ h2 {
 							<div id=tra_noerror></div>
 						</tr>
 						<tr>
-							<td><em style="color: red">*</em>活動名稱</td>
+							<td><em style="color: red">* </em>活動名稱</td>
 
 							<td><input type="text" name="edittraName" id="edittraName"
 								class='form-control' value="" style="width: 300px" autocomplete="off">
@@ -202,7 +202,7 @@ h2 {
 							<td></td>
 						</tr>
 						<tr>
-							<td><em style="color: red">*</em>活動地點</td>
+							<td><em style="color: red">* </em>活動地點</td>
 							<td><select name="edittraLoc" class='form-control'
 								id="edittraLoc" style='width: 80px;'>
 
@@ -220,7 +220,7 @@ h2 {
 						</tr>
 						<tr>
 						<tr>
-							<td><em style="color: red">*</em>活動日期</td>
+							<td><em style="color: red">* </em>活動日期</td>
 
 							<td>
 								<div class="row">
@@ -253,7 +253,7 @@ h2 {
 							</td>
 						</tr>
 						<tr>
-							<td><em style="color: red">*</em>登記時間</td>
+							<td><em style="color: red">* </em>登記時間</td>
 							<td>
 								<div class="row">
 									<div class="col-xs-4">
@@ -281,7 +281,7 @@ h2 {
 							</td>
 						</tr>
 						<tr>
-							<td><em style="color: red">*</em>活動總人數上限</td>
+							<td><em style="color: red">* </em>活動總人數上限</td>
 							<td><input type="text" name="edittraTotal" id="edittraTotal"
 								class='form-control' style='width: 80px;' value="" autocomplete="off">
 								<div id=edittraTotalerror></div></td>
@@ -289,7 +289,7 @@ h2 {
 							<td></td>
 						</tr>
 						<tr>
-							<td><em style="color: red">*</em>個人可報名人數</td>
+							<td><em style="color: red">* </em>個人可報名人數</td>
 
 							<td><input type="text" name="edittraMax" id="edittraMax"
 								class='form-control' style='width: 80px;' value="" autocomplete="off">
@@ -298,7 +298,7 @@ h2 {
 						</tr>
 						<tr>
 
-							<td><em style="color: red"></em>活動說明</td>
+							<td>活動說明</td>
 							<td><textarea cols="50" rows="8" name="edittraIntr"
 									id="edittraIntr" class='form-control'></textarea>
 								<div id=edittraIntrerror></div></td>
@@ -307,14 +307,14 @@ h2 {
 						</tr>
 						<tr>
 
-							<td><em style="color: red">*</em>活動內容</td>
+							<td><em style="color: red">* </em>活動內容</td>
 							<td><textarea cols="50" rows="12" class='form-control'
 									name="edittraCon" id="edittraCon"></textarea>
 								<div id=edittraConerror></div></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td><em style="color: red"></em>注意事項</td>
+							<td>注意事項</td>
 
 							<td><textarea cols="50" rows="5" name="edittraAtter"
 									id="edittraAtter" class='form-control'></textarea>
@@ -335,14 +335,14 @@ h2 {
 							<td class="t">金額</td>
 						</tr>
 						<tr>
-							<td class="t">團費</td>
+							<td class="t"><em style="color: red">* </em>團費</td>
 							<td class="t"><input type="text" name="item1"
 								id="edititemMoney01" class='form-control'
 								style='width: 100px; text-align: right;' autocomplete="off"/>
 								<div id="edititemMoneyerror01"></div></td>
 						</tr>
 						<tr>
-							<td class="t">保險費</td>
+							<td class="t"><em style="color: red">* </em>保險費</td>
 							<td class="t"><input type="text" name="item2"
 								id="edititemMoney02" class='form-control'
 								style='width: 100px; text-align: right;' autocomplete="off" />

@@ -394,7 +394,7 @@ h2 {
 							<div id=tra_noerror></div>
 						</tr>
 						<tr>
-							<td><em style="color: red">*</em>活動名稱</td>
+							<td><em style="color: red">* </em>活動名稱</td>
 
 							<td><input type="text" name="edittraName" id="edittraName"
 								class='form-control' value="${params.tra_Name}"
@@ -404,7 +404,7 @@ h2 {
 
 						</tr>
 						<tr>
-							<td>*活動地點</td>
+							<td><em style="color: red">* </em>活動地點</td>
 							<td><select name="edittraLoc" id="edittraLoc"
 								class='form-control' style='width: 80px;'>
 
@@ -422,7 +422,7 @@ h2 {
 						</tr>
 						<tr>
 						<tr>
-							<td>*活動日期</td>
+							<td><em style="color: red">* </em>活動日期</td>
 
 							<td>
 								<div class="row">
@@ -452,7 +452,7 @@ h2 {
 
 						</tr>
 						<tr>
-							<td>*登記時間</td>
+							<td><em style="color: red">* </em>登記時間</td>
 							<td>
 								<div class="row">
 									<div class="col-xs-4">
@@ -489,7 +489,7 @@ h2 {
 							</td>
 						</tr>
 						<tr>
-							<td><em style="color: red">*</em>活動總人數上限</td>
+							<td><em style="color: red">* </em>活動總人數上限</td>
 
 							<td><input type="text" name="edittraTotal" id="edittraTotal"
 								class='form-control' style='width: 80px;'
@@ -499,7 +499,7 @@ h2 {
 
 						</tr>
 						<tr>
-							<td><em style="color: red">*</em>個人可報名人數</td>
+							<td><em style="color: red">* </em>個人可報名人數</td>
 
 							<td><input type="text" name="edittraMax" id="edittraMax"
 								class='form-control' style='width: 80px;'
@@ -509,7 +509,7 @@ h2 {
 
 						</tr>
 						<tr>
-							<td><em style="color: red"></em>活動說明</td>
+							<td>活動說明</td>
 							<td><textarea cols="50" rows="8" name="edittraIntr"
 									id="edittraIntr" class='form-control'>${params.tra_Intr}</textarea>
 								<div id=edittraIntrerror></div></td>
@@ -517,7 +517,7 @@ h2 {
 
 						</tr>
 						<tr>
-							<td><em style="color: red">*</em>活動內容</td>
+							<td><em style="color: red">* </em>活動內容</td>
 							<td><textarea cols="50" rows="12" class='form-control'
 									name="edittraCon" id="edittraCon">${params.tra_Con}</textarea>
 								<div id=edittraConerror></div></td>
@@ -525,7 +525,7 @@ h2 {
 
 						</tr>
 						<tr>
-							<td><em style="color: red"></em>注意事項</td>
+							<td>注意事項</td>
 
 							<td><textarea cols="50" rows="5" name="edittraAtter"
 									id="edittraAtter" class='form-control'>${params.tra_Atter}</textarea>
