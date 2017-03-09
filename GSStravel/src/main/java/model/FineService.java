@@ -25,6 +25,11 @@ public class FineService {
 		return result;
 	}
 
+	public float selectPercent(int fineDate) {
+		float finePer = ifineDao.selectPercent(fineDate);
+		return finePer;
+	}
+
 	public void insert(FineVO bean) {
 		ifineDao.insert(bean);
 	}

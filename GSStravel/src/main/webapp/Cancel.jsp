@@ -162,8 +162,8 @@ label {
 											<table class='table table-bordered'>
 												<tr>
 													<th></th>
-													<th>眷屬/親友</th>
-													<th>姓名</th>
+													<th style="text-align: center;">眷屬/親友</th>
+													<th style="text-align: center;">姓名</th>
 												</tr>
 												<c:forEach var="row" items="${familyVO}">
 													<tr>

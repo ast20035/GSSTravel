@@ -153,9 +153,9 @@ label {
 									<td colspan="2"><br> <c:if test="${familySize>0}">
 											<table class='table table-bordered'>
 												<tr>
-													<th><input type=checkbox onclick="multiCheck(this);">全選</th>
-													<th>眷屬/親友</th>
-													<th>姓名</th>
+													<th style="text-align: center;">全選 <input type=checkbox onclick="multiCheck(this);"></th>
+													<th style="text-align: center;">眷屬/親友</th>
+													<th style="text-align: center;">姓名</th>
 												</tr>
 												<c:forEach var="row" items="${familyVO}">
 													<tr class="t">
@@ -170,9 +170,9 @@ label {
 
 											<table class='table table-bordered'>
 												<tr>
-													<th><input type=checkbox onclick="multiCheck(this);">全選</th>
-													<th>房型</th>
-													<th>費用</th>
+													<th style="text-align: center;">全選 <input type=checkbox onclick="multiCheck(this);"></th>
+													<th style="text-align: center;">房型</th>
+													<th style="text-align: center;">費用</th>
 												</tr>
 												<c:forEach var="room" items="${itemVo}">
 													<tr>
