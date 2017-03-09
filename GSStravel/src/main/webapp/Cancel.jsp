@@ -224,11 +224,13 @@ label {
 									<td><br> <input type="button" value='回上一頁'
 										class='btn  btn-primary' onclick="window.location.href=GSS;" id="ckback" />
 										<span id="back"></span></td>
+									<c:if test="${a==1}">
 									<td><br> <input type="submit" value="取消報名"
 										class='btn  btn-danger' id="ckCancel"
 										onclick="return confirmComplete();" /><span
-										id="ck"></span>
-										<span><img src="images/redLoading.gif" id="img" style="display: none" /></span></td>
+										id="ck"></span><span>
+									</c:if>
+										<img src="images/redLoading.gif" id="img" style="display: none" /></span></td>
 								</tr>
 							</table>
 						</div>

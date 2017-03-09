@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.crypto.Data;
 
 import model.Cancelservice;
 import model.DetailService;
@@ -45,7 +48,10 @@ public class CancelServlet extends HttpServlet {
 		TravelVO tra_Vo = travelService.select(tra_No);
 		List<ItemVO> itemVo = itemService.getRoomMoney(tra_No);
 		List<Long> detail = cancelservice.detail(emp_No, tra_No);
-
+		String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+		int a = (tra_Vo.getTra_End()).compareTo(java.sql.Timestamp.valueOf(date));
+		// a 回傳-1 登記已截止
+		request.setAttribute("a", a);
 		request.setAttribute("detail", detail);
 		request.setAttribute("itemVo", itemVo);
 		request.setAttribute("tra_Vo", tra_Vo);
