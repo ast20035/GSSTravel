@@ -123,7 +123,7 @@ margin-right: 3%;
 												<option>親友</option>
 											</select>
 										</c:if></td>
-									<td><input type="text" class="name form-control"  style="width:90px;"
+									<td><input type="text" class="name form-control"  style="width:120px;"
 										name="name" value="${row.name}" disabled></td>
 									<td><input type="text" name="tsex" value="${row.sex}" 
 										class='form-control' style="display:none;width:70px;">

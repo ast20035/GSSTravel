@@ -121,6 +121,7 @@ td, th {
 								</c:if>							
 								<td class="t">${row.tra_Max}</td>
 								<c:set var="tra_no" value="${row.tra_NO}" />
+		
 								<c:if test="${mp[tra_no]==0}">
 									<td class="t"><a
 										href="<c:url value="/Login_Information?tra_No=${row.tra_NO}&emp_No=${emp_No}"></c:url>"><button
@@ -133,8 +134,7 @@ td, th {
 									<td class="t">人數已額滿</td>
 								</c:if>
 								<c:if test="${mp[tra_no]==3}">
-									<td class="t"><a
-										href="<c:url value="/CancelServlet?tra_No=${row.tra_NO}&emp_No=${emp_No}"></c:url>"><button
+									<td class="t"><a href="<c:url value="/CancelServlet?tra_No=${row.tra_NO}&emp_No=${emp_No}"></c:url>"><button
 												class='btn btn-primary'>報名資訊</button></a></td>
 								</c:if>
 								<c:if test="${mp[tra_no]==4}">
