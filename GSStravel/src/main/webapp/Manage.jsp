@@ -159,7 +159,7 @@ h1, h2 {
 }
 
 #close7 {
-	margin-left: 5px;
+/* 	margin-left: 5px; */
 }
 
 .Mnow {
@@ -195,7 +195,9 @@ input[readonly='readonly'] {
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="<c:url value='/Board.jsp'/>" id="gss"><img src="images/gss_logo.png"></a>
+			<a class="navbar-brand" href="<c:url value='/Board.jsp'/>" id="gss">
+			<img src="images/gss_logo.png" width="100%" />
+			</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">

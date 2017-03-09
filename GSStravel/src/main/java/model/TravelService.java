@@ -196,7 +196,12 @@ public class TravelService {
 				String tra_Off = travelVo.getTra_Off().toString();
 				int b = java.sql.Date.valueOf(tra_Off).compareTo(java.sql.Date.valueOf(date2));
 				if (b == 1) {
-					mp.put(selectTra_No.get(i), "1");
+					int c = detailDAO.detail_Enter(emp_No, selectTra_No.get(i));
+					if (c == 1) {
+						mp.put(selectTra_No.get(i), "3");
+					}else{
+						mp.put(selectTra_No.get(i), "1");
+					}					
 				} else if (b == -1) {
 					mp.put(selectTra_No.get(i), "4");
 				}
