@@ -39,28 +39,7 @@ public class Recordservice {
 			} else {
 				det_CanDate = vo.getDet_CanDate().toString();
 				cancel = "已取消";
-//				System.out.println("tra_No:"+tra_No);
-//				System.out.println("tra_On:"+travelDAO.getAll(Long.parseLong(vo.getTra_No())).getTra_On());
-				long day = (travelDAO.getAll(Long.parseLong(vo.getTra_No())).getTra_On().getTime()
-						- vo.getDet_CanDate().getTime()) / 1000 / 60 / 60 / 24;
-				List<ItemVO> money = itemDAO.selectOne(tra_No);
-				for (int i = 0; i < fineService.select().size(); i++) {
-					int fineDate = fineService.select().get(i).getFine_Dates();
-//					System.out.println("fineDate:"+fineDate);
-//					System.out.println("day:"+day);
-					if (day == 0) {
-						Ta_Money = "罰NT$" + Math.round(money.get(0).getItem_Money());
-//						System.out.println("Ta_Money==0:"+Ta_Money);
-						break;
-					} else if (fineDate <= day) {
-						float finePer = fineService.selectPercent(fineDate);
-						Ta_Money = "罰NT$" + Math.round(money.get(0).getItem_Money() * finePer / 100);
-//						System.out.println("finePer!=0:"+finePer);
-//						System.out.println("Ta_Money!=0:"+Ta_Money);
-						break;
-					}
-				}
-//				System.out.println();
+				Ta_Money="0";
 			}
 			if (cancel == null) {
 				if (signUp == null) {

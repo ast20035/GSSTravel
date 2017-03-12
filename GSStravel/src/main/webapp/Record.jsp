@@ -69,7 +69,7 @@ table, th, td {
 								<th><label style='width: 200px;'>登記日</label></th>
 								<th><label style='width: 200px;'>取消日</label></th>
 								<th><label style='width: 70px;'>狀態</label></th>
-								<th><label style='width: 150px;'>費用</label></th>
+								<th><label style='width: 120px;'>費用</label></th>
 							</tr>
 						</thead>
 						<c:forEach var="row" items="${record}">
